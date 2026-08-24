@@ -64,13 +64,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>Java-Syntax auf einen Blick · Java SE (ATVANTAGE Academy)</title>
 <meta name="description" content="Kompakte Übersicht der Java-Grundsyntax: Einstieg über main, primitive Datentypen, Variablen, Strings und Arrays, Typumwandlung, Methoden und Kontrollstrukturen."><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787553441"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787553441">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787553441">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787553441">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787553441"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787553441">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787553441" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1787553441" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787553441">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787582552"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787582552">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787582552">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787582552">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787582552"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787582552">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787582552" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1787582552" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787582552">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   Promise.all([import(_hlbase + "core.min.js"), import(_hlbase + "java.min.js")])
@@ -84,8 +84,8 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1787553441">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787553441"></head><body class="avd-academy-guide avd-academy-guide--viz">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1787582552">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787582552"></head><body class="avd-academy-guide avd-academy-guide--viz">
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a>
   <section class="avd-academy-guide-hero avd-academy-guide-hero--slim"><div class="avd-academy-guide-hero__meta">
       <div class="avd-academy-guide-hero__tags">
@@ -121,6 +121,10 @@
 .jsg-table td:first-child{white-space:nowrap;font-weight:700;color:var(--color-orange,#FF5401);}
 .jsg-table code{white-space:nowrap;}
 .jsg-num-col{white-space:nowrap;}
+/* Gruppen der primitiven Typen: je ein tbody mit einer leisen Beschriftungszeile.
+   Sie trennt Ganzzahlen, Gleitkommazahlen und char, ohne eine Spalte zu kosten. */
+.jsg-table__group th{padding-top:1.15rem;border-bottom:none;}
+.jsg-table tbody:first-of-type .jsg-table__group th{padding-top:.5rem;}
 
 .jsg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(24rem,1fr));gap:1.1rem;}
 .jsg-card{background:var(--avd-academy-color-bg-subtle,var(--color-surface-card,#EDEDED));border:1px solid var(--avd-academy-color-border,#e2e2e2);border-radius:var(--radius,5px);padding:1rem 1.15rem;}
@@ -140,6 +144,7 @@
   .jsg-num{width:auto;height:auto;background:transparent !important;color:#000 !important;font-size:14pt;}
   .jsg-table{font-size:8.5pt;}
   .jsg-table th,.jsg-table td{padding:2pt 4pt;}
+  .jsg-table__group th{padding-top:6pt;}
   .jsg-table td:first-child{color:#000 !important;}
   .jsg-grid{display:block;}
   .jsg-card{break-inside:avoid;background:transparent !important;border:none !important;padding:0 !important;margin:0 0 9pt;}
@@ -191,14 +196,24 @@
 <tr><th>Typ</th><th class="jsg-num-col">Größe</th><th>Wertebereich</th><th>Beispiele</th></tr>
 </thead>
 <tbody>
+<tr class="jsg-table__group"><th colspan="4" scope="colgroup">Wahrheitswert</th></tr>
 <tr><td>boolean</td><td class="jsg-num-col">nicht festgelegt</td><td><code>true</code> oder <code>false</code></td><td><code>boolean ok = true;</code></td></tr>
+</tbody>
+<tbody>
+<tr class="jsg-table__group"><th colspan="4" scope="colgroup">Ganzzahlen</th></tr>
 <tr><td>byte</td><td class="jsg-num-col">8 Bit</td><td>−128 … 127</td><td><code>byte b = -128;</code></td></tr>
 <tr><td>short</td><td class="jsg-num-col">16 Bit</td><td>−32.768 … 32.767</td><td><code>short s = 30_000;</code></td></tr>
-<tr><td>char</td><td class="jsg-num-col">16 Bit</td><td>0 … 65.535 (eine Unicode-Codeeinheit, vorzeichenlos)</td><td><code>'A'</code> · <code>'ä'</code> · <code>'\u00e4'</code> · <code>'\n'</code></td></tr>
 <tr><td>int</td><td class="jsg-num-col">32 Bit</td><td>−2.147.483.648 … 2.147.483.647</td><td><code>42</code> · <code>0x2A</code> · <code>0b101010</code> · <code>052</code></td></tr>
 <tr><td>long</td><td class="jsg-num-col">64 Bit</td><td>−9.223.372.036.854.775.808 … 9.223.372.036.854.775.807</td><td><code>9_000_000_000L</code></td></tr>
+</tbody>
+<tbody>
+<tr class="jsg-table__group"><th colspan="4" scope="colgroup">Gleitkommazahlen</th></tr>
 <tr><td>float</td><td class="jsg-num-col">32 Bit</td><td>ca. ±3,4·10<sup>38</sup>, ca. 7 signifikante Stellen</td><td><code>3.14f</code> · <code>1.5e3f</code></td></tr>
 <tr><td>double</td><td class="jsg-num-col">64 Bit</td><td>ca. ±1,8·10<sup>308</sup>, ca. 15 signifikante Stellen</td><td><code>3.14</code> · <code>1e-9</code></td></tr>
+</tbody>
+<tbody>
+<tr class="jsg-table__group"><th colspan="4" scope="colgroup">Zeichen</th></tr>
+<tr><td>char</td><td class="jsg-num-col">16 Bit</td><td>0 … 65.535 (eine Unicode-Codeeinheit, vorzeichenlos)</td><td><code>'A'</code> · <code>'ä'</code> · <code>'\u00e4'</code> · <code>'\n'</code></td></tr>
 </tbody>
 </table>
 </div>
