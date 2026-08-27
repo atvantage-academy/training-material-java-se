@@ -15,6 +15,85 @@ Abschnitt „Theme-Version“.
 
 ---
 
+## 2.4.1
+
+**Das Tempo-Menü der Simulation ging nicht mehr auf.**
+
+Der Umzug auf englische Namen (2.0, #136) hat das Markup umbenannt – aus
+`data-avd-academy-sim-tempo`, `…-tempo-label` und `…-tempo-menu` wurden `…-speed*` –,
+die drei zugehörigen Suchen in `simulation.js` aber nicht. Sie fragten weiter nach
+`…-tempo*`, fanden nichts, und `menuVerdrahten()` stieg an den `null`-Elementen sofort
+wieder aus. Betroffen war beides: der Klick auf den Tempo-Knopf **und** die Taste `T`.
+
+Nachgemessen im gebauten Beispiel: `[data-avd-academy-sim-tempo-menu]` gibt es im HTML
+nicht mehr.
+
+**Warum der Knopf jetzt `…-speed-toggle` heißt.** Er trug denselben Namen wie der
+Wurzelknoten, auf dem die Startvorgabe aus `page.simulation.speed` steht. `q()` arbeitet
+mit `document.querySelector` – bei gleichem Namen findet die Suche den Wurzelknoten, weil
+er im Dokument vorher steht. Die Suche auf den Knopf einzugrenzen hätte den Klick
+reparieren können, aber nicht die Ursache: **ein Name, der zwei Dinge bezeichnet.** Der
+Knopf heißt daher eindeutig, und die Startvorgabe behält `…-speed`.
+
+Das Attribut ist Layout-intern (der Steuerungsbalken wird vom Layout gerendert, nicht von
+Autoren geschrieben) und steht nicht im Markup-Vertrag – für Projekte ändert sich nichts.
+
+## 2.4.0
+
+**Eine Visualisierung darf eine Dauer nennen – und zeigt sie jetzt auch.**
+
+`layout: visualization` setzte `duration_tag: false`. Eine Seite mit `duration` im Front
+Matter bekam also **kein Zeit-Tag**, ohne Hinweis: Das Feld war erlaubt, wurde geprüft
+und dann verschluckt. Begründet war das mit „kein zeitgebundener Inhalt“ – das trifft auf
+ein projiziertes Schaubild zu, nicht auf Selbstlernmaterial, das jemand in einer
+Viertelstunde durcharbeitet.
+
+Neu gilt für alle Layouts mit Hero dasselbe: **`duration` gesetzt → Tag da, sonst nicht.**
+Auf Visualisierungen bleibt die Angabe unüblich, aber sie ist erlaubt, und wer sie macht,
+sieht sie. Nachgezogen in der Layout-Eigenschaftstabelle, im Schema (`GILT IN`) und in der
+Doku.
+
+Für bestehende Seiten ändert sich nichts: Im ganzen Bestand setzt keine Visualisierung
+eine `duration`. Sichtbar wird die Korrektur erst bei der ersten, die es tut.
+
+## 2.3.0
+
+**Die Seitenwerkzeuge sind eine Komponente – und der Farbschema-Umschalter fehlt
+nicht mehr in der Visualisierung.**
+
+QR-Code, Farbschema-Umschalter, Drucken und Vollbild standen viermal im Markup: in
+`_includes/header.html`, im Hero von `_layouts/default.html` und in den Kopfleisten
+von `presentation` und `simulation`. Der QR-Block war wortgleich kopiert, der
+Umschalter dreimal mit drei verschiedenen Klassen – und an der vierten Stelle, dem
+Hero der Visualisierung, war er darum **vergessen** worden. Eine `visualization` hatte
+als einziges Layout keine Möglichkeit, zwischen hell und dunkel zu wechseln.
+
+Neu rendert **`_includes/tools.html`** alle Werkzeuge, und die Aufrufstelle sagt nur
+noch, welche sie führt und wie sie verdrahtet sind:
+
+| Layout | Wo | Werkzeuge |
+| ------ | -- | --------- |
+| `page`, `guide` | Kopfzeile | QR, Farbschema |
+| `visualization` | Hero rechts | QR, Farbschema (**neu**), Drucken |
+| `presentation` | Kopfleiste | QR, Farbschema, Drucken, Vollbild |
+| `simulation` | Kopfleiste | QR, Farbschema, Vollbild |
+
+**Aussehen kommt vom Container, nicht vom Knopf.** Alle Knöpfe tragen
+`avd-academy-tool` und lesen Kantenlänge, Zeichengröße und Farbe aus vier Variablen,
+die die umgebende Gruppe setzt: `--avd-academy-tool-size`, `-glyph`, `-ink`,
+`-ink-hover`. Deshalb sieht derselbe Knopf auf der weißen Kopfzeile richtig aus wie
+auf der dunklen Kopfleiste der Präsentation. `avd-academy-present__tool` und
+`avd-academy-sim__tool` entfallen – beide waren zeichengleiche Kopien und standen
+nicht im Markup-Vertrag.
+
+**Für Projekte ändert sich nichts.** `avd-academy-theme-toggle` und
+`avd-academy-print-btn` sind öffentliche Namen und bleiben auf den Knöpfen (siehe
+Register unten). Der Drucken-Knopf der Präsentation zeigt statt des Zeichens `⎙` jetzt
+dasselbe Masken-Icon wie im Hero – eine Vereinheitlichung, kein Verhaltenswechsel.
+
+Nebenbei: Der Tooltip des Umschalters ist über `toolbar.theme.title` konfigurierbar
+geworden, weil die Komponente ihn wie jeden anderen Text über `avd-text.html` auflöst.
+
 ## 2.2.1
 
 **Warnung ergänzt: die Info-Schaltfläche trägt in einem Markdown-Listenpunkt nicht.**
@@ -484,6 +563,7 @@ Major-Sprung wird die Liste durchgegangen und geleert.
 | Seit | Kompatibilitätsschicht | Entfällt mit |
 | ---- | ---------------------- | ------------ |
 | 2.1.0 | `brand.website` wird gelesen, wenn `contact.website` fehlt | **3.0** |
+| 2.3.0 | `avd-academy-theme-toggle` und `avd-academy-print-btn` bleiben neben `avd-academy-tool` auf den Knöpfen | **3.0** |
 
 **Eintrag 2.1.0 im Klartext.** Die Academy-Website heißt seit 2.1.0 `contact.website`. Der
 alte Schlüssel `brand.website` bleibt als Rückfall lesbar, damit der Umzug keine
@@ -504,6 +584,22 @@ Konfiguration bricht. **Beim Sprung auf 3.0 ist zu tun:**
 **Projekte müssen danach:** `brand.website` in ihrer `_config.yml` auf `contact.website`
 umbenennen (falls überhaupt gesetzt – in den Pipelines schreibt die Vorlage den neuen
 Schlüssel bereits seit Vorlagenversion 9).
+
+**Eintrag 2.3.0 im Klartext.** Die Seitenwerkzeuge sind seit 2.3.0 eine Komponente und
+tragen `avd-academy-tool`. Die beiden alten Namen stehen im Markup-Vertrag – fremde
+Repos selektieren sie in ihrer `assets/custom.css` – und bleiben deshalb als zweite
+Klasse auf denselben Knöpfen. **Beim Sprung auf 3.0 ist zu tun:**
+
+1. `avd-academy-theme-toggle` und `avd-academy-print-btn` aus dem Selektor in
+   `theme/academy/components.css` und aus der Ausblendliste in
+   `theme/academy/print.css` entfernen.
+2. Beide Klassen aus den Knöpfen in `theme/jekyll/_includes/tools.html` streichen.
+3. `bin/markup-contract.sh > theme/markup-contract.txt` neu erzeugen.
+
+**Projekte müssen danach:** In ihrer `assets/custom.css` `.avd-academy-theme-toggle`
+bzw. `.avd-academy-print-btn` auf `.avd-academy-tool--theme` bzw.
+`.avd-academy-tool--print` umschreiben. Wer die Werkzeuge nur über die Variablen
+`--avd-academy-tool-*` anpasst, ist nicht betroffen.
 
 **Für 2.0 durchgegangen und geleert.** Der Durchgang hat eine Schicht gefunden, die nie hier
 stand: `simulation.js` las jeden Autorenschlüssel deutsch **und** englisch. Sie ist mit 2.0

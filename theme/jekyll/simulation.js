@@ -783,9 +783,9 @@
       playIcon: q("play-icon"),
       playText: q("play-text"),
       playGroup: document.querySelector(".avd-academy-sim__play-group"),
-      tempo: q("tempo"),
-      tempoLabel: q("tempo-label"),
-      tempoMenu: q("tempo-menu"),
+      tempo: q("speed-toggle"),
+      tempoLabel: q("speed-label"),
+      tempoMenu: q("speed-menu"),
       full: q("full"),
       tabs: q("tabs"),
       intro: q("intro"),
@@ -795,9 +795,14 @@
       captureHint: q("capture-hint")
     };
 
-    /* Bewusst NICHT `…-tempo`/`…-dauer`: Der Tempo-Knopf trägt
-       `data-avd-academy-sim-speed`, und der <body> steht im Dokument vor ihm –
-       ein `querySelector` fände dann den Body statt des Knopfes. */
+    /* Die Startvorgabe steht am WURZELKNOTEN (`data-avd-academy-sim-speed`, gesetzt aus
+       `page.simulation.speed`) – nicht am Tempo-Knopf. Der heißt bewusst anders
+       (`…-speed-toggle`), weil `q()` mit `document.querySelector` arbeitet: Trügen beide
+       denselben Namen, fände die Suche den Wurzelknoten, der im Dokument vorher steht.
+       Ein Name, der zwei Dinge bezeichnet, ist genau der Fehler, der das Tempo-Menü
+       einmal stillgelegt hat (der Umzug auf englische Namen in #136 benannte das Markup
+       um, die drei q()-Aufrufe aber nicht – sie suchten weiter `…-tempo*`, das es nicht
+       mehr gab, und `menuZeigen()` brach an den null-Elementen ab). */
     grunddauer = parseInt(root.getAttribute("data-avd-academy-sim-step-interval"), 10) || 2500;
     tempo(root.getAttribute("data-avd-academy-sim-speed") || 1);
 

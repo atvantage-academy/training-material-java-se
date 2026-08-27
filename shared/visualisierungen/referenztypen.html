@@ -62,13 +62,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>Referenztypen · Java SE (ATVANTAGE Academy)</title>
 <meta name="description" content="Vier Szenarien durch den Speicher: Was bei jeder Codezeile im Thread Stack und im Heap passiert – Abgrenzung zu primitiven Typen, Objektgeflecht, Identität gegen Inhalt, this und static."><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787584990"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787584990">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787584990">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787584990">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787584990"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787584990">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787584990" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1787584990" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787584990">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787838460"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787838460">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787838460">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787838460">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787838460"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787838460">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787838460" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1787838460" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787838460">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   Promise.all([import(_hlbase + "core.min.js"), import(_hlbase + "java.min.js")])
@@ -81,8 +81,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/simulation.css?v=1787584990"><script src="/training-material-java-se/theme/jekyll/simulation.js?v=1787584990"></script>
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787584990"></head>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/simulation.css?v=1787838460"><script src="/training-material-java-se/theme/jekyll/simulation.js?v=1787838460"></script>
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787838460"></head>
 <body class="avd-academy-sim" data-avd-academy-sim data-avd-academy-sim-title="Referenztypen"
       data-avd-academy-sim-speed="1"
       data-avd-academy-sim-step-interval="3200">
@@ -93,12 +93,12 @@
     <span class="avd-academy-sim__counter" data-avd-academy-sim-counter aria-live="off"></span>
     <div class="avd-academy-sim__tools"><button type="button" class="avd-academy-sim__back" data-avd-academy-back hidden
               title="Zurück" aria-label="Zurück">← Zurück</button><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-              title="Diese Seite auf Deinem Smartphone öffnen"
-              aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-sim__tool" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)" aria-label="Farbschema umschalten">◐</button>
-      <button type="button" class="avd-academy-sim__tool" data-avd-academy-sim-full
-              title="Vollbild (Taste F)" aria-label="Vollbild">⛶</button>
-    </div>
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme avd-academy-theme-toggle" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Farbschema umschalten">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--full"
+              data-avd-academy-sim-full
+              title="Vollbild (Taste F)" aria-label="Vollbild">⛶</button></div>
   </header><nav class="avd-academy-sim__tabs" data-avd-academy-sim-tabs hidden aria-label="Szenarien"></nav>
 
   <main class="avd-academy-sim__main"><div class="avd-academy-sim__stage" id="avd-academy-sim-stage" data-avd-academy-sim-stage>
@@ -1740,7 +1740,7 @@ int größer = Math.max(3, 7);</code></pre>
         <span class="avd-academy-sim__btn-icon" data-avd-academy-sim-play-icon>▶</span>
         <span class="avd-academy-sim__btn-text" data-avd-academy-sim-play-text>Abspielen</span>
       </button>
-      <button type="button" class="avd-academy-sim__btn avd-academy-sim__btn--speed" data-avd-academy-sim-speed
+      <button type="button" class="avd-academy-sim__btn avd-academy-sim__btn--speed" data-avd-academy-sim-speed-toggle
               title="Tempo wählen (Taste T)" aria-label="Tempo wählen"
               aria-haspopup="true" aria-expanded="false">
         <span data-avd-academy-sim-speed-label>1×</span>

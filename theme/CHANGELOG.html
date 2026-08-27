@@ -23,8 +23,8 @@
     description: "…"                → Meta-Description
     duration:    8                  → Zahl in Minuten → Hero-Tag „ca. 8 Minuten“
                                        (ungefähre LESEDAUER; bei Guides/Übungen die
-                                       Dauer der Übung). Entfällt bei
-                                       `layout: visualization`.
+                                       Dauer der Übung, bei Visualisierungen die
+                                       Bearbeitungszeit – dort unüblich, aber erlaubt).
     topics:      ["Cloud & DevOps"] → weitere Hero-Tags
     resources:   [{title, url, icon}, …] → Sidebar-Karte „Weiterführende Informationen“.
                                        title und/oder icon (Bildpfad); icon erscheint
@@ -37,40 +37,38 @@
                                        Seite (diese wird automatisch angehängt); in
                                        der `index.md` gesetzt wird sie vererbt.
 
-  „Markdown kopieren“ (Button im Hero) erscheint NUR auf Guides (Übungen,
-  Anleitungen) – dort ist das Übernehmen des Quelltexts der Zweck. Bedingungen:
-  Markdown-Seite (`.md`, nicht reines HTML) UND als Guide erkennbar UND keine
-  Visualisierung. Guide ist eine Seite mit `layout: guide` ODER gesetztem
-  `duration` – letzteres ist der etablierte Marker, und die Guide-Vorlage des
-  Themes wie auch die von didaktikon erzeugten Übungen nutzen `layout: page`
-  plus `duration`. Nur auf `layout: guide` zu prüfen würde den Button dort
-  entfernen. Doku-Seiten haben kein `duration`; Visualisierungen sind
-  ausgeschlossen, weil ihr Inhalt nicht sinnvoll als Markdown kopierbar ist.
+  „Markdown kopieren“ (Button im Hero) erscheint NUR auf Guides – dort ist das
+  Übernehmen des Quelltexts der Zweck. Bedingungen: Markdown-Seite (`.md`, nicht
+  reines HTML) UND der Schalter `toolbar.copy` (Vorgabe: nur `layout: guide`, siehe
+  `_includes/avd-switch.html`). Doku-Seiten und Visualisierungen haben ihn nicht –
+  bei letzteren, weil ihr Inhalt nicht sinnvoll als Markdown kopierbar ist.
 
-  QR-CODE der Seitenadresse + DRUCKEN-KNOPF: In dieser Ansicht (`visualization`)
-  stehen beide rechts im Hero – QR links, Drucken rechts. Sie hat weder Kopfzeile
-  noch Sidebar, in der sie sonst Platz hätten.
+  DIE SEITENWERKZEUGE – QR-Code, Farbschema-Umschalter, Drucken – sind EINE
+  Komponente (`_includes/tools.html`) an zwei Standorten in diesem Rahmen:
 
-  Auf `default`/`guide` steht im Hero KEINES von beiden: Der QR-Code sitzt in der
-  Kopfzeile neben dem Farbschema-Umschalter (siehe `_includes/header.html`), und zum
-  Drucken bleibt es beim Browser-Befehl (Strg/Cmd+P). Tooltip des QR-Codes überall:
-  „Diese Seite auf Deinem Smartphone öffnen“. Er wird erst im Browser erzeugt (theme/academy/atvantage.js), weil die
+    Kopfzeile   `chrome: true`  (page, guide)      QR + Farbschema
+    Hero rechts `hero_tools`    (visualization)    QR + Farbschema + Drucken
+
+  Die Regel dahinter ist die Kopfzeile: Wo es sie gibt, tragen die Werkzeuge sie;
+  wo nicht, tritt der Hero an ihre Stelle. Drucken gibt es nur dort, weil auf einer
+  gewöhnlichen Seite der Browser-Befehl (Strg/Cmd+P) genügt, die rahmenlose
+  Ansicht aber keinen anderen Weg aufs Papier hat.
+
+  Der QR-Code wird erst im Browser erzeugt (theme/academy/atvantage.js), weil die
   Adresse zur Build-Zeit nicht feststeht; ohne JavaScript erscheint er nicht.
-  Kein Front-Matter-Schalter: Es gibt keine Seite, auf der der Weg aufs eigene
-  Smartphone schaden würde.
 --><html lang="de">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>Änderungen am ATVANTAGE Academy Theme · Java SE (ATVANTAGE Academy)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787584990"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787584990">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787584990">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787584990">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787584990"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787584990">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787584990" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1787584990" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787584990">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787838460"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787838460">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787838460">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787838460">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787838460"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787838460">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787838460" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1787838460" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787838460">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   Promise.all([import(_hlbase + "core.min.js"), import(_hlbase + "java.min.js")])
@@ -84,8 +82,8 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1787584990">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787584990"></head><body class="avd-academy-guide">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1787838460">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787838460"></head><body class="avd-academy-guide">
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav">
     <span>ATVANTAGE Academy</span>
   </div>
@@ -104,13 +102,10 @@
         </div>
       </div><a href="/training-material-java-se/shared/visualisierungen/">Visualisierungen</a>
   </nav><div class="avd-academy-header__tools"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-            title="Diese Seite auf Deinem Smartphone öffnen"
-            aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
-    <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-theme-toggle"
-            data-avd-academy-theme-toggle
-            title="Farbschema umschalten (hell/dunkel)"
-            aria-label="Farbschema umschalten">◐</button>
-  </div>
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme avd-academy-theme-toggle" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Farbschema umschalten">◐</button></div>
 </header>
 
   <section class="avd-academy-guide-hero"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/">Home</a><span>/</span><a href="/training-material-java-se/theme/">Theme</a><span>/</span><span aria-current="page">Änderungen am ATVANTAGE Academy Theme</span></nav><div class="avd-academy-guide-hero__meta">
@@ -158,6 +153,110 @@ inkompatibel gilt und wie eingestuft wird, steht in
 Abschnitt „Theme-Version“.</p>
 
 <hr />
+
+<h2 id="241">2.4.1</h2>
+
+<p><strong>Das Tempo-Menü der Simulation ging nicht mehr auf.</strong></p>
+
+<p>Der Umzug auf englische Namen (2.0, #136) hat das Markup umbenannt – aus
+<code>data-avd-academy-sim-tempo</code>, <code>…-tempo-label</code> und <code>…-tempo-menu</code> wurden <code>…-speed*</code> –,
+die drei zugehörigen Suchen in <code>simulation.js</code> aber nicht. Sie fragten weiter nach
+<code>…-tempo*</code>, fanden nichts, und <code>menuVerdrahten()</code> stieg an den <code>null</code>-Elementen sofort
+wieder aus. Betroffen war beides: der Klick auf den Tempo-Knopf <strong>und</strong> die Taste <code>T</code>.</p>
+
+<p>Nachgemessen im gebauten Beispiel: <code>[data-avd-academy-sim-tempo-menu]</code> gibt es im HTML
+nicht mehr.</p>
+
+<p><strong>Warum der Knopf jetzt <code>…-speed-toggle</code> heißt.</strong> Er trug denselben Namen wie der
+Wurzelknoten, auf dem die Startvorgabe aus <code>page.simulation.speed</code> steht. <code>q()</code> arbeitet
+mit <code>document.querySelector</code> – bei gleichem Namen findet die Suche den Wurzelknoten, weil
+er im Dokument vorher steht. Die Suche auf den Knopf einzugrenzen hätte den Klick
+reparieren können, aber nicht die Ursache: <strong>ein Name, der zwei Dinge bezeichnet.</strong> Der
+Knopf heißt daher eindeutig, und die Startvorgabe behält <code>…-speed</code>.</p>
+
+<p>Das Attribut ist Layout-intern (der Steuerungsbalken wird vom Layout gerendert, nicht von
+Autoren geschrieben) und steht nicht im Markup-Vertrag – für Projekte ändert sich nichts.</p>
+
+<h2 id="240">2.4.0</h2>
+
+<p><strong>Eine Visualisierung darf eine Dauer nennen – und zeigt sie jetzt auch.</strong></p>
+
+<p><code>layout: visualization</code> setzte <code>duration_tag: false</code>. Eine Seite mit <code>duration</code> im Front
+Matter bekam also <strong>kein Zeit-Tag</strong>, ohne Hinweis: Das Feld war erlaubt, wurde geprüft
+und dann verschluckt. Begründet war das mit „kein zeitgebundener Inhalt“ – das trifft auf
+ein projiziertes Schaubild zu, nicht auf Selbstlernmaterial, das jemand in einer
+Viertelstunde durcharbeitet.</p>
+
+<p>Neu gilt für alle Layouts mit Hero dasselbe: <strong><code>duration</code> gesetzt → Tag da, sonst nicht.</strong>
+Auf Visualisierungen bleibt die Angabe unüblich, aber sie ist erlaubt, und wer sie macht,
+sieht sie. Nachgezogen in der Layout-Eigenschaftstabelle, im Schema (<code>GILT IN</code>) und in der
+Doku.</p>
+
+<p>Für bestehende Seiten ändert sich nichts: Im ganzen Bestand setzt keine Visualisierung
+eine <code>duration</code>. Sichtbar wird die Korrektur erst bei der ersten, die es tut.</p>
+
+<h2 id="230">2.3.0</h2>
+
+<p><strong>Die Seitenwerkzeuge sind eine Komponente – und der Farbschema-Umschalter fehlt
+nicht mehr in der Visualisierung.</strong></p>
+
+<p>QR-Code, Farbschema-Umschalter, Drucken und Vollbild standen viermal im Markup: in
+<code>_includes/header.html</code>, im Hero von <code>_layouts/default.html</code> und in den Kopfleisten
+von <code>presentation</code> und <code>simulation</code>. Der QR-Block war wortgleich kopiert, der
+Umschalter dreimal mit drei verschiedenen Klassen – und an der vierten Stelle, dem
+Hero der Visualisierung, war er darum <strong>vergessen</strong> worden. Eine <code>visualization</code> hatte
+als einziges Layout keine Möglichkeit, zwischen hell und dunkel zu wechseln.</p>
+
+<p>Neu rendert <strong><code>_includes/tools.html</code></strong> alle Werkzeuge, und die Aufrufstelle sagt nur
+noch, welche sie führt und wie sie verdrahtet sind:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layout</th>
+      <th>Wo</th>
+      <th>Werkzeuge</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>page</code>, <code>guide</code></td>
+      <td>Kopfzeile</td>
+      <td>QR, Farbschema</td>
+    </tr>
+    <tr>
+      <td><code>visualization</code></td>
+      <td>Hero rechts</td>
+      <td>QR, Farbschema (<strong>neu</strong>), Drucken</td>
+    </tr>
+    <tr>
+      <td><code>presentation</code></td>
+      <td>Kopfleiste</td>
+      <td>QR, Farbschema, Drucken, Vollbild</td>
+    </tr>
+    <tr>
+      <td><code>simulation</code></td>
+      <td>Kopfleiste</td>
+      <td>QR, Farbschema, Vollbild</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Aussehen kommt vom Container, nicht vom Knopf.</strong> Alle Knöpfe tragen
+<code>avd-academy-tool</code> und lesen Kantenlänge, Zeichengröße und Farbe aus vier Variablen,
+die die umgebende Gruppe setzt: <code>--avd-academy-tool-size</code>, <code>-glyph</code>, <code>-ink</code>,
+<code>-ink-hover</code>. Deshalb sieht derselbe Knopf auf der weißen Kopfzeile richtig aus wie
+auf der dunklen Kopfleiste der Präsentation. <code>avd-academy-present__tool</code> und
+<code>avd-academy-sim__tool</code> entfallen – beide waren zeichengleiche Kopien und standen
+nicht im Markup-Vertrag.</p>
+
+<p><strong>Für Projekte ändert sich nichts.</strong> <code>avd-academy-theme-toggle</code> und
+<code>avd-academy-print-btn</code> sind öffentliche Namen und bleiben auf den Knöpfen (siehe
+Register unten). Der Drucken-Knopf der Präsentation zeigt statt des Zeichens <code>⎙</code> jetzt
+dasselbe Masken-Icon wie im Hero – eine Vereinheitlichung, kein Verhaltenswechsel.</p>
+
+<p>Nebenbei: Der Tooltip des Umschalters ist über <code>toolbar.theme.title</code> konfigurierbar
+geworden, weil die Komponente ihn wie jeden anderen Text über <code>avd-text.html</code> auflöst.</p>
 
 <h2 id="221">2.2.1</h2>
 
@@ -734,6 +833,11 @@ Major-Sprung wird die Liste durchgegangen und geleert.</p>
       <td><code>brand.website</code> wird gelesen, wenn <code>contact.website</code> fehlt</td>
       <td><strong>3.0</strong></td>
     </tr>
+    <tr>
+      <td>2.3.0</td>
+      <td><code>avd-academy-theme-toggle</code> und <code>avd-academy-print-btn</code> bleiben neben <code>avd-academy-tool</code> auf den Knöpfen</td>
+      <td><strong>3.0</strong></td>
+    </tr>
   </tbody>
 </table>
 
@@ -758,6 +862,24 @@ den Repos um.</li>
 <p><strong>Projekte müssen danach:</strong> <code>brand.website</code> in ihrer <code>_config.yml</code> auf <code>contact.website</code>
 umbenennen (falls überhaupt gesetzt – in den Pipelines schreibt die Vorlage den neuen
 Schlüssel bereits seit Vorlagenversion 9).</p>
+
+<p><strong>Eintrag 2.3.0 im Klartext.</strong> Die Seitenwerkzeuge sind seit 2.3.0 eine Komponente und
+tragen <code>avd-academy-tool</code>. Die beiden alten Namen stehen im Markup-Vertrag – fremde
+Repos selektieren sie in ihrer <code>assets/custom.css</code> – und bleiben deshalb als zweite
+Klasse auf denselben Knöpfen. <strong>Beim Sprung auf 3.0 ist zu tun:</strong></p>
+
+<ol>
+  <li><code>avd-academy-theme-toggle</code> und <code>avd-academy-print-btn</code> aus dem Selektor in
+<code>theme/academy/components.css</code> und aus der Ausblendliste in
+<code>theme/academy/print.css</code> entfernen.</li>
+  <li>Beide Klassen aus den Knöpfen in <code>theme/jekyll/_includes/tools.html</code> streichen.</li>
+  <li><code>bin/markup-contract.sh &gt; theme/markup-contract.txt</code> neu erzeugen.</li>
+</ol>
+
+<p><strong>Projekte müssen danach:</strong> In ihrer <code>assets/custom.css</code> <code>.avd-academy-theme-toggle</code>
+bzw. <code>.avd-academy-print-btn</code> auf <code>.avd-academy-tool--theme</code> bzw.
+<code>.avd-academy-tool--print</code> umschreiben. Wer die Werkzeuge nur über die Variablen
+<code>--avd-academy-tool-*</code> anpasst, ist nicht betroffen.</p>
 
 <p><strong>Für 2.0 durchgegangen und geleert.</strong> Der Durchgang hat eine Schicht gefunden, die nie hier
 stand: <code>simulation.js</code> las jeden Autorenschlüssel deutsch <strong>und</strong> englisch. Sie ist mit 2.0
