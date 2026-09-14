@@ -59,16 +59,15 @@
 --><html lang="de">
 <head>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Eine Schnittstelle mit dem HTTP-Client ansprechen · Java SE (ATVANTAGE Academy)</title>
-<meta name="description" content="Sprich eine laufende Schnittstelle mit dem HTTP-Client aus der IDE an – als versionierte .http-Datei mit Umgebungen – und arbeite mit generiertem Lombok- und MapStruct-Code."><link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Eine Schnittstelle mit dem HTTP-Client ansprechen · ATVANTAGE Academy</title><meta name="description" content="Sprich eine laufende Schnittstelle mit dem HTTP-Client aus der IDE an – als versionierte .http-Datei mit Umgebungen – und arbeite mit generiertem Lombok- und MapStruct-Code."><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1787838460"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1787838460">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1787838460">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1787838460">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1787838460"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1787838460">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1787838460" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1787838460" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1787838460">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1789379185"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1789379185">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1789379185">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1789379185">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1789379185"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1789379185">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1789379185" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1789379185" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1789379185">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   Promise.all([import(_hlbase + "core.min.js"), import(_hlbase + "java.min.js")])
@@ -82,25 +81,27 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1787838460">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1787838460"></head><body class="avd-academy-guide">
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav">
-    <span>ATVANTAGE Academy</span>
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1789379185">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1789379185"></head><body class="avd-academy-guide">
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
   </div>
 
-  <header class="avd-academy-header">
-  <a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite">
+  <header class="avd-academy-header"><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite">
     <img class="avd-academy-header__logo"
          src="/training-material-java-se/assets/logo-schulung.svg"
          alt="ATVANTAGE Academy">
   </a>
   <button class="avd-academy-btn avd-academy-btn--ghost avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
           aria-label="Navigation umschalten" aria-expanded="false">☰</button>
-  <nav class="avd-academy-header__nav" id="avd-academy-main-nav"><a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+  <nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
         <button type="button" class="avd-academy-header__grouptoggle"
-                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button><div class="avd-academy-header__submenu" role="menu"><a role="menuitem" href="/training-material-java-se/oop-mit-java/">Objektorientierte Programmierung mit Java</a><a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button><div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
         </div>
-      </div><a href="/training-material-java-se/shared/visualisierungen/">Visualisierungen</a>
+      </div>
+      <a href="/training-material-java-se/shared/visualisierungen/">Visualisierungen</a>
   </nav><div class="avd-academy-header__tools"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
                 title="Diese Seite auf Deinem Smartphone öffnen"
                 aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme avd-academy-theme-toggle" data-avd-academy-theme-toggle
@@ -384,8 +385,7 @@ HTTP-Aufruf dagegen laufen, sodass Du darin anhältst.
 
   <footer class="avd-academy-footer">
   <div class="avd-academy-footer__grid">
-    <div>
-      <strong>Java SE (ATVANTAGE Academy)</strong>
+    <div><strong>ATVANTAGE Academy</strong>
       <p>Schulungen im Bereich 'Java SE'</p>
     </div><div>
       <strong>Kontakt</strong>

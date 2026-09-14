@@ -15,6 +15,473 @@ Abschnitt „Theme-Version“.
 
 ---
 
+## 2.6.0
+
+### `title: ""` ließ die Überschrift ganz verschwinden
+
+Eine Seite mit einem **leeren** Front-Matter-`title` trug am Ende **gar keine sichtbare
+Überschrift** – und einen `<title>`, der nur aus dem Trennzeichen und dem Site-Namen
+bestand (`· Academy`). Betroffen war jede solche Seite, und `title: ""` war die
+verbreitete Schreibweise aus der Zeit, als `title` noch Pflichtfeld war.
+
+**Warum es so lange unentdeckt blieb:** In Liquid ist der Leerstring **truthy**. Die
+Ableitung stand als
+
+{% raw %}
+    {%- assign pageTitle = page.title -%}
+    {%- unless pageTitle -%}  … erste #-Überschrift …  {%- endunless -%}
+{% endraw %}
+
+Bei `title: ""` war `pageTitle` damit „gesetzt", der 2.0 eingeführte Rückfall auf die
+erste `#`-Überschrift griff **nicht**, und die Hero-Prüfung
+auf `pageTitle` erzeugte ein leeres `<h1></h1>`. Die Überschrift aus dem Inhalt blieb zwar im HTML, wurde
+aber von `.avd-academy-guide-main > h1:first-child { display: none }` als vermeintliches
+Duplikat ausgeblendet – die Regel, die sonst genau das doppelte Anzeigen verhindert.
+Beides zusammen ergab die leere Seitenüberschrift. Dieselbe Ursache erzeugte eine
+**leere Brotkrume**.
+
+Der Build lief dabei grün, das Schema war zufrieden, und die Seite sah auf den ersten
+Blick plausibel aus – der Fehler zeigte sich nur im Vergleich.
+
+**Behoben:** Die Ableitung liegt jetzt in einem gemeinsamen Include
+`_includes/avd-page-title.html`, prüft den Leerstring **ausdrücklich** und setzt
+`pageTitle` auf `nil`, wenn nichts übrig bleibt. Damit funktionieren alle vorhandenen
+`if pageTitle`-Prüfungen wieder wie gedacht. `head.html` vergleicht zusätzlich gegen
+`''`, weil der `default`-Filter zwar `nil` ersetzt, ein `''` aber durchreicht.
+
+**Nebenbei entfernt: dreifache Kopie.** Dieselben sechs Zeilen standen in
+`default.html`, `presentation.html` und `simulation.html`. Ein Fehler darin war ein
+Fehler an drei Stellen – und genau so ist er entstanden.
+
+**Was sich für Konsumenten ändert.** Seiten mit `title: ""` zeigen ihre Überschrift
+**wieder an** und bekommen einen richtigen Browser-Titel. Das ist eine **sichtbare
+Änderung am Ergebnis bestehender Seiten** – deshalb Minor und nicht Patch. Seiten
+**ohne** `title` und Seiten mit **gesetztem** `title` bauen byte-identisch wie zuvor
+(verifiziert per Vorher/Nachher-Diff über vier Fälle; einziger Unterschied war der
+Cache-Buster). Nichts ist umzustellen: Wer `title: ""` stehen lässt, bekommt das
+Verhalten, das seit 2.0 zugesagt ist. Wer den Hero-Titel absichtlich leer halten
+möchte, hat dafür bislang kein Feld – bitte melden, dann wird daraus eines.
+
+---
+
+## 2.5.6
+
+### Mehr-Host-Adressen: gemessen statt vermutet
+
+Zu 2.5.5 stand in der Doku ein Muster für Sites, die aus **einem** Image unter mehreren
+Adressen laufen – ein Platzhalter zur Bauzeit, den der ausliefernde Dienst je Anfrage
+ersetzt. Ein Consumer hat es nachgestellt, und die Messung hat zwei Annahmen korrigiert:
+
+* **Es sind zwei Werte, nicht einer.** `jekyll-github-metadata` berechnet `url` **und**
+  `baseurl`. Wer auf GHE nur `url` setzt, sieht den Abbruch bloß weiterwandern:
+  `Error processing value 'url'` wird zu `… value 'baseurl'`. Erst beide zusammen bauen
+  durch (ein `--baseurl` auf der Kommandozeile zählt mit). `head.html` und die Doku
+  sagten bisher nur `url`.
+* **Der Platzhalter gehört in die Vorlage, nicht in `site.url`.** `absolute_url`
+  normalisiert die Adresse und prozentkodiert dabei die Prozentzeichen – aus `%%ORIGIN%%`
+  wird `%25%25ORIGIN%25%25`, und zwar auch ohne jedes Plugin. Dieselbe Normalisierung
+  schreibt klein (`https://ORIGIN` → `https://origin`). Wer einen Platzhalter dennoch
+  durch den Filter schicken muss, nimmt einen Hostnamen unter der reservierten TLD
+  `.invalid` (RFC 2606) – er übersteht sie unverändert, und eine ausgebliebene Ersetzung
+  zeigt auf einen Namen, der nie auflösen kann.
+
+Dazu eine Einordnung, die bisher fehlte: **Die GHE-Falle greift nur, wo
+`jekyll-github-metadata` überhaupt installiert ist** (über das `github-pages`-Gem). Ein
+Repo, das nur `jekyll`, `jekyll-optional-front-matter` und `jekyll-relative-links` zieht,
+kann sie nicht treffen. Dass das Theme trotzdem überall relativ verweist, bleibt Absicht –
+sonst müsste jeder Consumer wissen, in welcher der beiden Welten er gerade baut.
+
+Nur Doku und Kommentare; am Verhalten ändert sich nichts.
+
+## 2.5.5
+
+### Collection-Dokumente werden geprüft – und ihre `.md`-Verweise umgeschrieben
+
+Eine Jekyll-Collection (`collections:` in der `_config.yml`) lief bisher an zwei
+Prüfungen des Themes **vorbei**, ohne dass das irgendwo sichtbar wurde:
+
+* **`validate.rb` übersprang sie.** Unterstrich-Ordner rendert Jekyll nicht – bis auf die
+  Collections. Der Prüfer nahm die Ausnahme nicht mit und meldete danach „N Seite(n)
+  geprüft, keine Verstöße“, als wäre nichts übrig geblieben. Jetzt sind die in
+  `collections:` erklärten Verzeichnisse ausgenommen, `_posts` immer; `_data`,
+  `_includes` und `_layouts` bleiben draußen. Die Schlussmeldung nennt die
+  Collection-Dokumente eigens: `… 34 Seite(n) (darunter 32 aus Collections) geprüft …`.
+* **`jekyll-relative-links` fasste sie nicht an.** Ein `[Text](../konfiguration/foo.md)`
+  in einem Collection-Dokument blieb unverändert im HTML stehen und war im Browser tot –
+  ohne Baufehler. Die Defaults setzen deshalb `relative_links.collections: true`; das
+  Plugin löst den Verweis gegen den **Quellpfad** auf und schreibt die Adresse der
+  gebauten Seite hin. In einer Collection gilt damit dieselbe Regel wie überall: im
+  Markdown auf die `.md` verweisen.
+
+<div class="avd-academy-callout avd-academy-callout--warning" markdown="1">
+**Für Repos mit Collections kann dieses Update rot werden.** Front Matter, das bisher
+ungeprüft durchlief, wird ab jetzt gegen das Schema geprüft. Repo-eigene Felder brauchen
+dort – wie auf jeder Seite – das Präfix `x_` (`x_version`, `x_highlights`). Das ist der
+Zweck der Änderung: Die Prüfung sagt jetzt, was sie wirklich angeschaut hat.
+
+Wer die Theme-Defaults **nicht** lädt (Build mit `_config.yml` + `_config.audience.yml`),
+trägt `relative_links: { collections: true }` in seine eigene `_config.yml` ein.
+</div>
+
+Neu im Front-Matter-Schema: **`categories`** und **`tags`** – beides liest Jekyll selbst
+(Adresse eines Beitrags, `site.categories`/`site.tags`), nicht das Theme. Ohne sie meldete
+die frisch erweiterte Prüfung jeden `_posts`-Eintrag als Tippfehler. Die Tags im Hero einer
+Seite heißen weiterhin `topics`. Im Konfigurations-Schema steht jetzt `relative_links`, und
+`collections` ist auch als Namensliste erlaubt – beides kennt Jekyll so. **Die
+Schema-Versionen bleiben bei 2:** nur Ergänzungen, nichts entfällt, nichts wird enger.
+
+### Doku: eine Site unter mehreren Adressen
+
+`head.html` begründet ausführlich, warum das Theme ausschließlich `relative_url` nutzt, und
+schloss mit „wer vollqualifizierte Verweise braucht, setzt `url` in der eigenen
+`_config.yml`“. Das trägt für eine Site unter **einer** Adresse. Wird dieselbe gebaute Site
+unter mehreren Hosts ausgeliefert – lokal, im Container, in der Cloud, alles aus demselben
+Image –, kann der Build die Adresse gar nicht kennen; `url` ist dort die falsche Antwort.
+Die Doku benennt den Fall jetzt und beschreibt das Muster dafür (Platzhalter zur Bauzeit,
+den der ausliefernde Dienst je Anfrage ersetzt):
+[Einbindung → Eine Site unter mehreren Adressen](../docs/verwendung/einbindung.md#mehr-host).
+
+## 2.5.4
+
+### `hreflang` nennt nur noch Fassungen, die es gibt
+
+`i18n.switch.fallback: base` schickt den Sprachumschalter auf die **Wurzel** des anderen
+Sprachbaums, wenn es die Seite dort nicht gibt – damit ein Leser überhaupt in den anderen
+Baum kommt. Als Knopf ist das richtig; **als Angabe über die Seite war es falsch.**
+
+Dieser Rückfall lief bisher auch in den Kopf der Seite:
+
+```html
+<link rel="alternate" hreflang="en" href="/en/">
+```
+
+Das behauptet, `/en/` sei die englische Fassung **dieser** Seite. Auf einer erst teilweise
+übersetzten Site behaupten das Hunderte Seiten gleichzeitig, und keine bekommt von `/en/`
+eine Bestätigung zurück – `hreflang` verlangt aber Gegenseitigkeit, sonst wertet eine
+Suchmaschine die Angabe ab, statt sie zu nutzen. In der Doku dieses Repos trugen **20 von
+52** Seiten mit Sprachangaben eine Übersetzung, die es nicht gibt; jetzt sind es **null**,
+und jede verbliebene Angabe zeigt zurück.
+
+Dieselbe Trennung gilt für die Browsersprachen-Erkennung (`i18n.detect`): Sie leitet nur
+noch dorthin um, wo es **diese** Seite in der bevorzugten Sprache wirklich gibt. Vorher
+verlor ein englischsprachiger Leser auf einer unübersetzten Seite genau die Seite, die er
+aufgerufen hatte, und landete auf der englischen Startseite.
+
+**Am Umschalter ändert sich nichts** – der Rückfall bleibt genau da, wofür er gedacht war.
+Intern führt `avd-i18n.html` dafür zwei Listen: `iAlt` (echte Gegenstücke, gelesen von
+`head.html`) und `iAltSchalter` (echte Gegenstücke plus Rückfall, gelesen von
+`tools.html`).
+
+**Was Projekte tun müssen:** nichts. Wer `fallback: base` gesetzt hat, behält den
+Umschalter und verliert nur eine Angabe, die ohnehin nicht stimmte.
+
+---
+
+## 2.5.3
+
+**Eine Prüfung, die tote Verweise findet – und die 60 toten Verweise, die sie gefunden
+hat.** Angestoßen von einem Hinweis aus demselben zweisprachigen Consumer-Repo, das
+schon 2.5.1 und 2.5.2 gemeldet hat.
+
+### Neu: `theme/jekyll/links.rb`
+
+Ein Verweis ins Leere ist für Jekyll **kein Baufehler**. Die Seite entsteht, der Link
+ist tot, und es fällt erst beim Klicken auf – oft Wochen später und einem Leser, nicht
+dem Autor. Das Paket bringt deshalb eine Prüfung mit, die gegen das **gebaute `_site`**
+läuft und dreierlei meldet:
+
+* **Ziel fehlt** – das `href` trifft keine Datei. Ein Ordner ohne `index.html` gehört
+  dazu: Auf GitHub Pages ist er ein 404, kein Verzeichnislisting.
+* **Anker fehlt** – `#kapitel` trifft auf der Zielseite keine `id`. Geprüft im gebauten
+  HTML, weil kramdown den Slug dort schon erzeugt hat. Wer ihn aus der Überschrift
+  **nachbaut**, trifft die Umlautregel falsch und meldet `#löschen` als tot.
+* **Sprachbaum gewechselt** – der Verweis führt in eine andere Sprache, **obwohl es die
+  Zielseite in der Sprache der verweisenden Seite gibt**. Zugehörigkeit und Gegenstück
+  kommen aus dem gebauten HTML (`<html lang>`, `<link rel="alternate">`), der Befund
+  nennt deshalb gleich die richtige Adresse. Ein Verweis mit `hreflang` ist Absicht und
+  wird übergangen.
+
+**Warum gegen das Gebaute:** Ein Verweis entsteht an **fünf** Stellen – Fließtext,
+`resources`, `nav`, Sprachkarten, `breadcrumb.ancestors` – und sieht in der Quelle jedes
+Mal anders aus. Ein Prüfer über die Quellen kennt immer nur einige davon und hat sein
+Loch genau dort, wo der echte tote Verweis steht. Im `_site` steht überall dasselbe.
+
+`--baseurl` (derselbe Wert wie beim Bauen) und `--ignore «Praefix»` (Adressen, die erst
+die laufende Anwendung bedient) sind die beiden Angaben, die eine Site braucht. Externe
+Links prüft sie nicht: Ein Prüflauf, der aus fremden Gründen rot wird, wird
+abgeschaltet. `--self-test` prüft die Prüfung an einer Site, die jeden Befund einmal
+enthält – im eigenen Repo entstehen die interessanten Fälle nicht, und genau diese
+Blindheit hat 2.5.1 grün durchlaufen lassen.
+
+**Für Konsumenten:** Beide Workflow-Vorlagen (`github-pages/deploy.example.yml`,
+`theme/jekyll/starter/pages.yml`, Vorlagenversion **10**) rufen die Prüfung nach dem
+Build auf. Wer eine ältere Kopie hat, zieht den Schritt nach – nötig ist er nicht.
+Doku: [GitHub Pages → Tote Verweise finden](../github-pages/#verweise-pruefen).
+
+### Behoben: die automatische Brotkrume verlinkte Ordner, die es nicht gibt
+
+Die aus der Ordnerstruktur gebaute Kette verlinkte **jeden** Vorfahren – auch einen
+Ordner **ohne `index`-Seite**. `/docs/` ist auf GitHub Pages dann ein 404, und zwar auf
+jeder Seite darunter. In der Doku dieses Repos waren es **56 tote Verweise**, die
+niemandem aufgefallen sind, weil eine Brotkrume selten angeklickt wird.
+
+Ein Vorfahre ohne `index`-Seite steht jetzt als **Text** statt als Link; eine statische
+`index.html` zählt dabei mit. Sichtbare Folge: Diese Krumen sind nicht mehr anklickbar –
+sie waren es vorher auch nicht, sie sahen nur so aus.
+
+### Behoben: vier tote und 37 sprachfremde Verweise in der englischen Doku
+
+Gefunden von der neuen Prüfung, alle aus der Übersetzung in 2.5.0:
+
+* ein Markdown-Verweis über **zwei Zeilen** – `jekyll-relative-links` schreibt ihn nicht
+  um, und die Seite lieferte `href="docs/usage/quickstart.md"` aus;
+* zwei Verweise in **rohem HTML** (`<a href="academy.md#…">`) – auch die schreibt das
+  Plugin nicht um, denn es kennt nur Markdown-Syntax;
+* ein relativer Verweis im CHANGELOG, der eine Ebene zu hoch zeigte;
+* 37 Verweise aus dem englischen Baum auf die **deutsche** Fassung einer Seite, die es
+  auf Englisch gibt – samt der Klammern „(German)“, die dazu nicht mehr stimmten.
+
+---
+
+## 2.5.2
+
+**Zwei Fehler aus 2.5.1, beide von außen gemeldet** – aus einem zweisprachigen
+Consumer-Repo, in dem Englisch in der Wurzel und Deutsch unter `/de/` liegt.
+
+### Der Sprachhinweis klebte am vorigen Attribut
+
+An jedem Verweis, der in eine andere Sprache zeigte, entstand **ungültiges HTML**: Dem
+Attributnamen fehlte das trennende Leerzeichen zum schließenden Anführungsstrich des
+vorigen Attributs.
+
+**Die Ursache war unsichtbar.** `_includes/avd-link-target.html` baute die Attribute per
+`capture`, mit dem trennenden Leerzeichen als **erstem Zeichen** des Blocks – und genau
+den Whitespace danach schneidet das `-%}` der öffnenden Anweisung weg. Alle sechs
+Verweisstellen verlassen sich darauf, dass das Leerzeichen im Wert steckt.
+
+Das Leerzeichen wird jetzt **angehängt** (`' ' | append: …`) statt hingeschrieben. Ein
+Leerzeichen, das nur als Whitespace in einer Liquid-Anweisung existiert, ist beim nächsten
+Aufräumen der Delimiter wieder weg – und der Fehler fällt nicht auf, weil Browser das HTML
+trotzdem darstellen. Bemerkt wird er erst von einem Validator, einem Parser oder einem
+Screenreader.
+
+**Warum der eigene Build nichts zeigte:** In derselben Runde war jedes Verweisziel der
+Doku-Site übersetzt worden – damit entstand dort **kein einziger** fremdsprachiger Verweis,
+und die betroffene Codezeile lief nie. Ein grüner Build war in diesem Fall kein Beleg.
+
+### Was keine Seite ist, bekam trotzdem eine Sprache
+
+`avd-lang-of-url.html` nahm nur **externe** Adressen (`://`) aus. Eine **wurzel-absolute**
+Adresse wie `/schemas/client.schema.json` durchlief dagegen die Sprachbaum-Erkennung, fand
+keinen Treffer und landete beim Rückfall auf der Standardsprache. Damit galt eine
+JSON-Datei als Seite in dieser Sprache, und auf einer Seite der anderen Sprache stand
+daran ein Sprachhinweis – eine Behauptung über etwas, das gar keine Seite ist. Betroffen
+war jeder Verweis auf Asset, PDF, Schema oder eine von der Anwendung ausgelieferte Datei.
+
+Geprüft wird jetzt gegen **`site.pages`** – denselben Index, den der Umschalter ohnehin
+nutzt. Trifft nichts zu, wird wie bei einer externen Adresse verfahren: kein `hreflang`,
+kein `title`. Fragment und Abfrage (`#kapitel`, `?x=1`) zählen beim Vergleich nicht mit,
+denn sie bezeichnen eine Stelle **in** einer Seite: `/a.html#kapitel` **ist** die Seite
+`/a.html`.
+
+### Regressionsschutz: `bin/html-attributes.sh`
+
+Neue Prüfung über das **gebaute** `_site`: Klebt irgendwo ein Attributname am vorigen
+Attribut? Sie hängt in `make check` und – mit `--require-site` – hinter dem Build der
+Pages-Pipeline.
+
+**Zweistufig, und beides war nötig.** Erst werden die echten Tags herausgeschnitten (ein
+Codebeispiel steht gebaut als `&lt;a …&gt;` und ist keines), dann werden die
+Attributwerte durch ein Zeichen ersetzt. Ohne den zweiten Schritt kann ein Muster
+öffnende und schließende Anführungsstriche nicht unterscheiden und meldet jeden Wert, der
+selbst ein `=` enthält – `content="width=device-width, initial-scale=1"` also auf **jeder**
+Seite. `<script>` und `<style>` fallen heraus: Die Simulations-Vorlage baut ihre Bühne mit
+JS-Template-Literalen, die wie Markup aussehen und keines sind.
+
+### Mitgefunden: `page.description` wurde unescaped in ein Attribut geschrieben
+
+Die neue Prüfung hat auf Anhieb einen **zweiten, älteren** Fehler derselben Art gefunden:
+`head.html` schrieb `content="{{ page.description }}"` ohne `escape`. Ein
+Anführungsstrich in der Beschreibung beendet damit den Attributwert, und der Rest des
+Satzes wird zu Pseudo-Attributen. Aufgefallen ist es an den Skill-Referenzen des Plugins –
+ihre Beschreibungen führen Trigger-Sätze in Anführungsstrichen. Jetzt mit `escape`.
+
+---
+
+## 2.5.1
+
+**Ein Verweis wird in der Sprache seines Ziels beschriftet.** Das korrigiert einen
+Fehler aus 2.5.0, und zwar einen sichtbaren: Auf der englischen Fassung der Doku-Site
+standen **elf von vierzehn** Menüpunkten englisch beschriftet da und öffneten deutsche
+Seiten. Wer „With Claude“ anklickt und Deutsch bekommt, hält nicht die Übersetzung für
+unfertig, sondern die Site für kaputt.
+
+Jetzt erscheint dort „Mit Claude“ – in der Sprache der Zielseite –, dazu `hreflang="de"`
+am Verweis und ein Hinweis im Tooltip („Diese Seite ist auf Deutsch“). Zu konfigurieren
+ist nichts.
+
+**Warum das keine Notlösung ist:** Die Beschriftung beschreibt eine Seite, also spricht
+sie deren Sprache. Nebenwirkung mit Absicht – eine unfertige Übersetzung ist im Menü zu
+**sehen**, statt sich hinter englischen Wörtern zu verstecken.
+
+**Die Regel steckt in EINEM Auflöser** (`avd-link-target.html`), den alle sechs
+Verweisstellen benutzen: Kopfzeile (Haupteintrag und Untermenü), Fußbereich, `resources`,
+Brotkrumen-Vorfahren und die Kopie im Markdown. Der Fehler war entstanden, weil die
+Auflösung an jeder Stelle einzeln stand; gebündelt kann sie an keiner vergessen werden.
+
+**Kein neues sichtbares Element.** Erwogen war ein Sprach-Abzeichen („DE“) neben dem
+englischen Label – eine neue Komponente, eigenes CSS, und der Sprachwechsel wäre eine
+Überraschung geblieben, nur eine angekündigte. Das deutsche Wort selbst ist der
+ehrlichere Hinweis.
+
+**Der Sprachhinweis steht in der Sprache des ZIELS.** Der erste Versuch setzte ihn in der
+Sprache des Lesers zusammen und lieferte „This page is in Deutsch“ – ein englischer Satz
+mit deutschem Sprachnamen. Ein Satz je Sprache genügt (`avd-lang-name.html`,
+`form="hint"`); die Alternative wäre eine Tabelle je Sprachpaar, also quadratisch.
+
+**Ausnahmen, beide begründet:** Menü-**Gruppen** (Einträge mit `children`) sind keine
+Seiten und behalten die Sprache der aktuellen Seite. **Externe Ziele** (`://`) ebenfalls –
+welche Sprache dort wartet, kann das Theme nicht wissen, und ein Hinweis, den niemand
+belegen kann, ist schlimmer als keiner.
+
+**Eingestuft als PATCH, nicht als Minor.** Es ist eine Korrektur eines Fehlers aus
+2.5.0 und keine neue Funktion – die drei neuen Includes sind Innenleben, kein neues
+Angebot an Projekte. Für Repos gibt es nichts zu tun und nichts zu entscheiden: Wer
+einsprachig ist, merkt nichts; wer zweisprachig ist, bekommt die Beschriftungen
+richtig.
+
+**Einsprachige Repos sind erneut nachweislich unberührt:** derselbe Build aus `main` und
+aus diesem Stand, jeweils ohne `i18n`, **60 Seiten, null** inhaltliche Abweichung.
+
+**Und die Faustregel dazu: `page` für alles Interne, `url` nur für Externes.** Weil der
+Dateiname als Identität einspringt (2.5.0), ist jede Seite über `page` erreichbar – ein
+interner `url`-Eintrag hat keinen Vorteil mehr, aber drei Nachteile: Er bricht beim
+Verschieben, muss bei mehreren Sprachen doppelt gepflegt werden, und ein Tippfehler darin
+fällt erst beim Klicken auf. `url` bleibt intern nur bei Ordner-Indizes (alle heißen
+`index`), bei Dateien, die keine Seite sind, und bei Verweisen mit Anker – ein Fragment
+trägt `page` nicht. Die Doku-Site führt jetzt **keinen** internen `url`-Eintrag mehr.
+
+Neu: `theme/jekyll/_includes/avd-link-target.html` (Adresse, Sprache und Sprachhinweis
+eines Verweises), `avd-lang-of-url.html` (Sprache einer Adresse),
+`avd-lang-name.html` (Eigenname und Hinweissatz je Sprache – die Tabelle stand vorher
+in `avd-i18n.html` und wird jetzt an zwei Stellen gebraucht).
+
+---
+
+## 2.5.0
+
+**Das Theme kann zwei Sprachen.** Seine Beschriftungen lagen als deutsche Literale im
+Markup – eine englische Seite war damit nicht darstellbar, ohne das Theme anzufassen.
+Jetzt bringt es Deutsch und Englisch mit, und eine Site kann je Sprache einen
+Ordnerbaum führen.
+
+**Für einsprachige Repos ändert sich nichts, und zwar nachweislich.** Derselbe Build
+aus `main` und aus diesem Stand, 54 Seiten, whitespace-normalisiert **null**
+inhaltliche Abweichung. Ohne den neuen Schlüssel `i18n` gibt es kein Pfad-Präfix,
+keinen Umschalter und keine Umleitung; `lang: de` bleibt die Vorgabe, und eine
+unbekannte Sprache bekommt weiterhin die deutschen Texte.
+
+**Neu in der `_config.yml`:**
+
+```yaml
+lang: de                    # Standardsprache – ihr Sprachbaum ist die WURZEL
+i18n:
+  languages:
+    - code: de
+    - code: en              # base: "/en/" ist die Vorgabe
+  switch: { enabled: true, fallback: none }
+  detect: { enabled: false }
+```
+
+**Neu im Front Matter:** `page_id` – die stabile Identität einer Seite.
+
+**Und ein Verweis nennt die Seite, nicht ihren Ort.** `nav.items`, `footer.links.items`,
+`resources` und `breadcrumb.ancestors` kennen neben `url` jetzt `page`:
+
+```yaml
+nav:
+  items:
+    - title: Getting Started
+      page: schnellstart          # statt url: /docs/verwendung/schnellstart.html
+```
+
+Adressierbar ist eine Seite über ihre ausdrückliche `page_id` – oder, wenn sie keine
+hat, über ihren **Dateinamen ohne Endung**. Die ID wird zuerst gesucht. **Das lohnt sich
+auch einsprachig:** Der Verweis löst sich vom Pfad, ein Umbenennen oder Verschieben
+bricht ihn nicht mehr. Bei mehreren Sprachen bildet das Theme daraus je Sprachbaum die
+passende Adresse – es gibt also nichts zu übersetzen –, und fehlt die Übersetzung, zeigt
+der Verweis von selbst auf die Standardsprache.
+
+Ein Tippfehler ist dabei ein **Build-Fehler**, kein fehlender Menüpunkt: Ohne Prüfung
+fände das Theme nichts, ließe den Verweis weg, und niemand sähe, dass er fehlen sollte.
+Dasselbe für Mehrdeutigkeit – und die wird nur dort gemeldet, wo sie auch greift: Zwei
+`index.md` in verschiedenen Ordnern sind der Normalfall und erst dann ein Problem, wenn
+jemand `page: index` schreibt.
+
+**Ordnerbäume, nicht Dateinamen-Suffixe.** Zur Wahl stand, die Übersetzung neben das
+Original zu legen (`einbindung_en.md`). Dagegen sprach der Zuschnitt: Ordner und Dateien
+tragen je Sprache eigene Namen (`docs/verwendung/einbindung.md` ↔
+`en/docs/usage/setup.md`) – die URL ist Teil der Unterlage. Ein Suffix-Schema erzwingt
+dagegen deutsche Dateinamen im englischen Baum.
+
+**Deshalb eine ID und keine Pfad-Arithmetik.** Bei eigenen Namen je Sprache lässt sich
+das Gegenstück aus dem Pfad nicht berechnen. `page_id` verbindet die Fassungen
+symmetrisch und für beliebig viele Sprachen. Fehlt das Gegenstück, erscheint kein
+Umschalter – ein Knopf ins 404 ist schlimmer als keiner.
+
+**Ein Jekyll-Build, nicht zwei.** Beide Bäume entstehen in einem Lauf; es gibt kein
+zweites Kommando, kein Config-Overlay und keine Pipeline-Änderung. Nebeneffekt, auf dem
+der Umschalter beruht: In einem Build kennt jede Seite alle anderen, das Theme kann die
+Existenz der anderen Fassung also **prüfen** statt eine Adresse zu raten.
+
+**Jeder konfigurierte Text darf eine Sprachkarte sein** – `title`, `url` und `icon` in
+TopNav, Fußbereich und `resources`, dazu `site.title`, `brand.tagline`, die Rechtstexte,
+`topics`, `breadcrumb` und die Beschriftungen unter `components`:
+
+```yaml
+nav:
+  items:
+    - title: { de: "Design-System", en: "Design system" }
+      url:   { de: "/theme.html", en: "/en/theme.html" }
+```
+
+**Auch die Adresse, nicht nur der Titel.** Wäre nur der Titel mehrsprachig, zeigte die
+englische Leiste mit englischer Beschriftung auf die deutsche Seite. Die Alternative
+wäre ein parallel gepflegter Navigationsbaum je Sprache gewesen – zwei Bäume driften,
+und es fällt niemandem auf, weil beide für sich gültig sind. Nebeneinander im selben
+Eintrag sieht man beim Schreiben, dass eine Übersetzung fehlt.
+
+**Das Wörterbuch steht in einem Include, nicht in `_config.defaults.yml`.** Zwei der
+drei Consumer laden diese Datei nicht – `bin/build.sh` einer Unterlage baut mit
+`_config.yml` + `_config.audience.yml`. Ein Wörterbuch dort wäre für sie nicht vorhanden,
+und jede Beschriftung käme leer heraus; dieselbe Begründung wie bei den harten Vorgaben
+in `avd-switch.html`.
+
+**Die Prüfung kommt aus dem Schema, nicht aus einer Namensliste.** `validate.rb`
+vergleicht jeden Sprachcode gegen `i18n.languages` und meldet doppelte `page_id` je
+Sprache. Der erste Versuch war eine Liste der Feldnamen und war sofort falsch:
+`brand.icon` ist ein Hash aus `default`/`small`/`apple`, heißt aber `icon` – dasselbe
+Wort bedeutet an verschiedenen Stellen Verschiedenes. Jetzt läuft die Prüfung durch Wert
+und Schema gleichzeitig; wer ein Feld sprachfähig macht, ändert nur das Schema.
+
+**Browsersprache statt `Accept-Language`.** GitHub Pages liefert statische Dateien aus –
+es gibt keinen Prozess, der den Header sähe. `navigator.languages` ist dieselbe
+Einstellung, clientseitig gelesen. Mit `i18n.detect.enabled: true` leitet das Theme
+einmal je Sitzung um; eine ausdrückliche Wahl am Umschalter gewinnt immer, und `?nolang`
+schaltet es fallweise ab. Vorgabe ist **aus**: Eine Umleitung ist eine
+Verhaltensänderung.
+
+**Was das Theme nicht übernimmt:** das Übersetzen. Prosa auf Satzebene zu verschlüsseln
+(`{{ t.abschnitt3 }}`) macht das Markdown unlesbar, zerstört die Vorschau und erzwingt
+Übersetzungen, die nicht auseinandergehen dürfen – obwohl Beispiele, Redewendungen und
+Screenshots das müssen.
+
+Neu: `theme/jekyll/_includes/avd-i18n.html` (Sprache, Sprachfassungen, Wörterbuch),
+`theme/jekyll/_includes/avd-lang-value.html` (Sprachkarten auflösen), die Klasse
+`avd-academy-tool--lang`. Doku: [Mehrsprachigkeit](../docs/theme/mehrsprachigkeit.md).
+
+---
+
 ## 2.4.1
 
 **Das Tempo-Menü der Simulation ging nicht mehr auf.**

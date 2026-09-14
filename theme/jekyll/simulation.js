@@ -52,6 +52,23 @@
 (function () {
   "use strict";
 
+  /* --- Beschriftungen, die erst im Browser entstehen -----------------------
+     Die Steuerleiste beschriftet Liquid beim Bauen (avd-i18n.html). Diese Texte
+     nicht: Sie wechseln zur Laufzeit (Abspielen/Pause) oder gehören zu Elementen,
+     die dieses Skript selbst erzeugt (die Reiter der Szenarien).
+
+     GELESEN WIRD `<html lang>` – gesetzt vom Layout aus der Sprache der Seite.
+     Unbekannte Sprache fällt auf Deutsch zurück. */
+  var TEXTE = {
+    de: { abspielen: "Abspielen", pause: "Pause", leertaste: "Leertaste",
+          uebersicht: "Übersicht", alleSzenarien: "Alle Szenarien", szenario: "Szenario",
+          taste: "Taste" },
+    en: { abspielen: "Play",      pause: "Pause", leertaste: "space",
+          uebersicht: "Overview", alleSzenarien: "All scenarios", szenario: "Scenario",
+          taste: "key" }
+  };
+  var T = TEXTE[(document.documentElement.getAttribute("lang") || "de").split("-")[0].toLowerCase()] || TEXTE.de;
+
   var REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var TEMPI = [0.5, 1, 2, 5];
 
@@ -339,10 +356,10 @@
 
   function playKnopf() {
     if (el.playIcon) el.playIcon.textContent = playing ? "⏸" : "▶";
-    if (el.playText) el.playText.textContent = playing ? "Pause" : "Abspielen";
+    if (el.playText) el.playText.textContent = playing ? T.pause : T.abspielen;
     if (el.play) {
-      el.play.setAttribute("aria-label", playing ? "Pause" : "Abspielen");
-      el.play.setAttribute("title", (playing ? "Pause" : "Abspielen") + " (Leertaste)");
+      el.play.setAttribute("aria-label", playing ? T.pause : T.abspielen);
+      el.play.setAttribute("title", (playing ? T.pause : T.abspielen) + " (" + T.leertaste + ")");
       el.play.classList.toggle("is-laeuft", playing);
     }
     if (el.reset) el.reset.disabled = index === 0 && !playing;
@@ -579,8 +596,8 @@
     var uebersichtKnopf = document.createElement("button");
     uebersichtKnopf.type = "button";
     uebersichtKnopf.className = "avd-academy-sim__tab avd-academy-sim__tab--uebersicht";
-    uebersichtKnopf.textContent = "Übersicht";
-    uebersichtKnopf.title = "Alle Szenarien (Taste 0)";
+    uebersichtKnopf.textContent = T.uebersicht;
+    uebersichtKnopf.title = T.alleSzenarien + " (" + T.taste + " 0)";
     uebersichtKnopf.addEventListener("click", function () { zurUebersicht(); });
     el.tabs.appendChild(uebersichtKnopf);
     el.tabUebersicht = uebersichtKnopf;
@@ -591,8 +608,8 @@
       b.className = "avd-academy-sim__tab";
       b.innerHTML = '<span class="avd-academy-sim__tab-nr">' + (i + 1) + '</span>' +
                     '<span class="avd-academy-sim__tab-title"></span>';
-      b.querySelector(".avd-academy-sim__tab-title").textContent = sz.titel || ("Szenario " + (i + 1));
-      if (i < 9) b.title = (sz.titel || "") + " (Taste " + (i + 1) + ")";
+      b.querySelector(".avd-academy-sim__tab-title").textContent = sz.titel || (T.szenario + " " + (i + 1));
+      if (i < 9) b.title = (sz.titel || "") + " (" + T.taste + " " + (i + 1) + ")";
       b.addEventListener("click", function () { zumSzenario(i); });
       el.tabs.appendChild(b);
       sz.tab = b;
