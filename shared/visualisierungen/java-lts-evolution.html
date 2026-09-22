@@ -64,13 +64,13 @@
 <meta property="og:description" content="Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.">
 <meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790063694"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790063694">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790063694">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790063694">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790063694"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790063694">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790063694" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1790063694" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790063694">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790065159"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790065159">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790065159">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790065159">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790065159"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790065159">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790065159" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1790065159" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790065159">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   const _hlsprachen = ["java", "http", "json", "xml"];
@@ -113,8 +113,8 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1790063694">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790063694"></head><body class="avd-academy-guide avd-academy-guide--viz">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1790065159">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790065159"></head><body class="avd-academy-guide avd-academy-guide--viz">
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
            aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
       <div class="avd-academy-guide-hero__tags">
@@ -135,7 +135,7 @@
    `--avd-academy-guide-max` vor (bei `layout: visualization` 1040px). Derselbe Wert
    steuert über den Gutter auch den Hero – eine eigene, engere max-width würde den
    Inhalt gegenüber dem Hero-Titel einrücken. */
-.jev-lead{opacity:.85;margin:0 0 1.5rem;}
+.jev-lead{color:var(--avd-academy-color-ink-muted,#5F5F5F);margin:0 0 1.5rem;}
 .jev-timeline{position:relative;margin-top:2.5rem;padding-bottom:120px;}
 .jev-axis{position:absolute;left:50%;top:0;bottom:0;width:3px;border-radius:3px;transform:translateX(-50%);background:linear-gradient(to bottom,var(--color-orange,#FF5401),var(--avd-slate,#303E4F),var(--color-orange,#FF5401));}
 .jev-year{position:absolute;left:50%;transform:translate(-50%,-50%);background:var(--avd-academy-color-bg,var(--color-background,#fff));border:1px solid var(--avd-academy-color-border,#d9d9d9);border-radius:999px;padding:3px 12px;font-size:.72rem;font-weight:800;opacity:.75;white-space:nowrap;z-index:5;}
@@ -217,7 +217,7 @@ body.jev-modal-open{overflow:hidden;}
 
 </div>
 
-<div id="jev-modal" class="jev-modal" aria-hidden="true" onclick="jevCloseOnExternal(event)">
+<div id="jev-modal" class="jev-modal" aria-hidden="true" inert="" onclick="jevCloseOnExternal(event)">
   <div id="jev-modal-container" class="jev-modal-container" role="dialog" aria-modal="true" aria-labelledby="jev-modal-title" onclick="event.stopPropagation()">
     <div class="jev-modal-head">
       <div>
@@ -420,6 +420,7 @@ body.jev-modal-open{overflow:hidden;}
             document.body.classList.add('jev-modal-open');
             jevModal.classList.add('open');
             jevModal.setAttribute('aria-hidden', 'false');
+            jevModal.removeAttribute('inert');
             if (updateHash){ try { history.replaceState(null, '', '#' + jevSlug(v.ver)); } catch (e){ location.hash = jevSlug(v.ver); } }
         }
 
@@ -442,6 +443,11 @@ body.jev-modal-open{overflow:hidden;}
             var y = window.scrollY;
             jevModal.classList.remove('open');
             jevModal.setAttribute('aria-hidden', 'true');
+            // `inert` ZUSAETZLICH zu aria-hidden: Das Fenster bleibt im Dokument
+            // stehen (nur durchsichtig und ohne Zeigerereignisse), seine Knoepfe
+            // und Verweise blieben damit in der Tabulatorreihenfolge - der Fokus
+            // wanderte in etwas, das niemand sieht und keine Vorlesehilfe ansagt.
+            jevModal.setAttribute('inert', '');
             document.body.classList.remove('jev-modal-open');
             try { history.replaceState(null, '', location.pathname + location.search); } catch (e){ location.hash = ''; }
             window.scrollTo(0, y);

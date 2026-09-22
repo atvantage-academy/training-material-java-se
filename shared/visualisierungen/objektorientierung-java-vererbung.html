@@ -64,13 +64,13 @@
 <meta property="og:description" content="Vom Vererbungspfeil zum Code: extends, super(…), die Oberklasse Object und die Regel „links allgemein, rechts konkret“ – am Bibliotheksbeispiel.">
 <meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790063694"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790063694">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790063694">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790063694">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790063694"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790063694">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790063694" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1790063694" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790063694">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790065159"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790065159">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790065159">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790065159">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790065159"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790065159">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790065159" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1790065159" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790065159">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   const _hlsprachen = ["java", "http", "json", "xml"];
@@ -113,8 +113,8 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1790063694">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790063694"></head><body class="avd-academy-guide avd-academy-guide--viz">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1790065159">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790065159"></head><body class="avd-academy-guide avd-academy-guide--viz">
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
            aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
       <div class="avd-academy-guide-hero__tags">
@@ -135,12 +135,16 @@
    (Präfix dort jsg-, hier ojv-), damit beide Nachschlagewerke gleich aussehen
    und sich gleich bedienen. Keine eigene Breitenbegrenzung: Die Breite der
    Inhaltsspalte gibt das Theme über `--avd-academy-guide-max` vor. */
-.ojv-lead{opacity:.85;margin:0 0 2rem;}
+.ojv-lead{color:var(--avd-academy-color-ink-muted,#5F5F5F);margin:0 0 2rem;}
 
 .ojv-sec{margin:0 0 2.75rem;}
 .ojv-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.45rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border,#e2e2e2);padding-bottom:.5rem;}
 .ojv-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--radius,5px);background:var(--avd-slate,#303E4F);color:#fff;font-size:.9rem;font-weight:700;}
-.ojv-note{margin:.9rem 0 0;font-size:.92rem;opacity:.85;}
+/* KEINE DECKKRAFT FUER ZURUECKGENOMMENEN TEXT. `opacity` wirkt auf die ganze
+   Gruppe: Sie zieht auch das hervorgehobene Wort darin herunter, und der
+   Akzent landete dadurch bei 4,21:1 statt der geforderten 4,5 - gemessen.
+   Ein gedaempfter FARBWERT tut dasselbe, ohne den Rest mitzunehmen. */
+.ojv-note{margin:.9rem 0 0;font-size:.92rem;color:var(--avd-academy-color-ink-muted,#5F5F5F);}
 .ojv-note strong{color:var(--color-orange,#FF5401);}
 
 .ojv-table-wrap{overflow-x:auto;}
@@ -187,7 +191,7 @@
 .ojv-svg-spitze{fill:var(--avd-academy-color-bg,#fff);stroke:currentColor;stroke-width:2;}
 
 @media print{
-  .ojv-lead{font-size:10.5pt;opacity:1;}
+  .ojv-lead{font-size:10.5pt;}
   .ojv-sec{break-inside:auto;margin:0 0 14pt;}
   .ojv-sec > h2{font-size:14pt;margin:0 0 6pt;padding-bottom:3pt;border-bottom:2px solid var(--color-orange,#FF5401);break-after:avoid;}
   .ojv-num{width:auto;height:auto;background:transparent !important;color:#000 !important;font-size:14pt;}
@@ -199,7 +203,7 @@
   .ojv-card--good,.ojv-card--bad{border-left:2pt solid #000 !important;padding-left:6pt !important;}
   .ojv-card h3{font-size:10.5pt;margin:0 0 2pt;}
   .ojv-card p{font-size:9pt;margin:0 0 3pt;opacity:1;}
-  .ojv-note{font-size:9pt;opacity:1;margin-top:5pt;}
+  .ojv-note{font-size:9pt;margin-top:5pt;}
   .ojv-note strong{color:#000 !important;}
   .ojv-root pre,.ojv-root pre code,.ojv-root pre code *{color:#000 !important;background:transparent !important;}
   .ojv-root pre{white-space:pre-wrap;word-break:break-word;font-size:8pt;border:none !important;padding:2pt 0 !important;margin:0;break-inside:avoid;}
