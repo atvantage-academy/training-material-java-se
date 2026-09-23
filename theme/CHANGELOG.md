@@ -15,6 +15,80 @@ Abschnitt „Theme-Version“.
 
 ---
 
+## 2.44.0
+
+### Der Blockrhythmus fehlte in Reitern, im Akkordeon – und an Listen und Zitaten überall
+
+Gemeldet aus `training-concept-container-technologies` (A-005), gemessen an Theme 2.42.0:
+In einem Reiter stößt eine `<ul>` hart an den Absatz darunter, ein `<blockquote>` hart an
+die Tabelle. **Die Meldung war richtig und traf nur die Hälfte.**
+
+**Erstens: die Aufzählung.** `base.css` räumt mit `* { margin: 0 }` alles ab; zurück holt
+den Rhythmus eine Eulenregel, die nur **direkte** Kinder der Inhaltsspalte zählt, plus
+eine **Aufzählung** der Container, in denen er ebenfalls gelten soll. In dieser
+Aufzählung fehlten `avd-academy-tabs__panel` (seit Einführung der Reiter) und
+`avd-academy-accordion__body` (seit 2.40.0, also vom ersten Tag des Bausteins an).
+
+Das wiegt schwerer als ein Einzelfall: Das Didaktikon schreibt Reiter für **jedes**
+Regiebuch vor – der gesamte Trainerleitfaden jedes Konzept-Repos stand damit in genau dem
+Container, in dem der Rhythmus fehlte.
+
+**Zweitens, und das stand nicht in der Meldung: drei Element-Regeln machten die Eulenregel
+zunichte.** `.avd-academy-guide-main ul, ol` und `.avd-academy-guide-main blockquote`
+setzten `margin: 0` – redundant, weil `base.css` das längst tut, aber **nach** der
+Eulenregel und mit höherer Spezifität (0-1-1 gegen 0-1-0). Jede Liste und jedes Zitat
+verlor damit seinen Blockabstand, **auch auf der Seitenebene**. Gemessen an der
+Bausteine-Seite: `margin-top: 0px` an jeder `<ul>`, heute 25,6 px.
+
+**Gemessen, vorher → nachher:**
+
+| | vorher | jetzt |
+| --- | --- | --- |
+| Akkordeon, `<ul>` → `<blockquote>` | 0 px | **26 px** |
+| Reiter, erster Absatz | 0 px | 0 px + 24 px Innenabstand (richtig, siehe unten) |
+| Seitenebene, `<ul>` | 0 px | **25,6 px** |
+| Listenpunkte `li + li` | 0 px | 0 px (unverändert, der `gap` macht sie) |
+
+**Kein doppelter Abstand im Reiterstreifen.** Das `<summary>` ist dort `display: none`,
+zählt für die Eulenregel aber als Geschwister – der erste sichtbare Absatz hätte 24 px
+Innenabstand **plus** 25,6 px Marge bekommen. Eine eigene Regel nimmt ihn im
+`--enhanced`-Zustand heraus; im Akkordeon-Zustand ist das `summary` sichtbar und der
+Abstand gehört dorthin.
+
+### `avd-academy-flow` – die Aufzählung ist nicht mehr der einzige Weg
+
+Die Meldung fragte, ob die Aufzählung selbst das Problem sei. **Ja** – sie muss bei jedem
+neuen Container von Hand nachgezogen werden, in **zwei** Dateien, und der Fehler ist
+unsichtbar: Wo der Abstand fehlt, sieht die Seite nicht kaputt aus, sondern nur eng.
+Zweimal ist es passiert, das zweite Mal vom Autor des Bausteins selbst.
+
+Wer jetzt einen Fluss-Container baut – im Theme oder in einem Repo –, gibt ihm
+`avd-academy-flow`:
+
+```html
+<div class="mein-kasten avd-academy-flow" markdown="1">
+```
+
+**Die Umkehrung („alles außer …") wurde erwogen und verworfen.** Sie hätte die bessere
+Fehlerrichtung – ein vergessener Eintrag fiele als *zu viel* Abstand auf statt als gar
+keiner –, aber die Ausnahmeliste wäre länger als die heutige (Reiterleiste, Karten-Gitter,
+Materialspalten, Zeilenerklärung, das Akkordeon selbst, die Demo-Bühne), und `ul > li + li`
+bekäme plötzlich Blockabstand. Das ist ein Eingriff in jede Seite jedes Repos und gehört in
+einen eigenen Schnitt, nicht in die Behebung eines gemeldeten Befunds.
+
+**Und ein Wächter.** `bin/flow-containers.sh` prüft, dass beide Listen identisch sind und
+die Marke enthalten – in `make check` und in der Pipeline. Was er nicht kann: wissen,
+welcher Container hineingehört. Das bleibt eine Entwurfsentscheidung.
+
+### Zur dritten Frage: Grundmargen an den Elementen
+
+**Nein.** Eine Grundmarge an `ul`, `ol`, `table`, `blockquote` wäre ein zweites System
+neben dem Rhythmus-Token und würde in Flex- und Grid-Komponenten wieder stören, wo genau
+kein Abstand gewollt ist. Der Ort für den Abstand ist die Eulenregel – sie muss nur
+überall greifen und darf nicht hinterher zurückgesetzt werden. Genau das war der Fehler.
+
+---
+
 ## 2.43.0
 
 ### Mehr Luft um Überschriften – und der Wert darunter kommt jetzt an

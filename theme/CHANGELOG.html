@@ -64,13 +64,13 @@
 
 <meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790156368"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790156368">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790156368">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790156368">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790156368"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790156368">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790156368" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1790156368" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790156368">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790165395"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790165395">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790165395">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790165395">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790165395"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790165395">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790165395" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=1790165395" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790165395">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   const _hlsprachen = ["java", "http", "json", "xml"];
@@ -113,13 +113,13 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1790156368">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790156368"></head><body class="avd-academy-guide">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=1790165395">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790165395"></head><body class="avd-academy-guide">
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
   </div>
 
   <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
-          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 290 / 34;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
           aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
       <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
         <button type="button" class="avd-academy-header__grouptoggle"
@@ -179,6 +179,104 @@
 inkompatibel gilt und wie eingestuft wird, steht in
 <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/AGENTS.md"><code>AGENTS.md</code></a>,
 Abschnitt „Theme-Version“.</p>
+
+<hr />
+
+<h2 id="2440">2.44.0</h2>
+
+<h3 id="der-blockrhythmus-fehlte-in-reitern-im-akkordeon--und-an-listen-und-zitaten-überall">Der Blockrhythmus fehlte in Reitern, im Akkordeon – und an Listen und Zitaten überall</h3>
+
+<p>Gemeldet aus <code>training-concept-container-technologies</code> (A-005), gemessen an Theme 2.42.0:
+In einem Reiter stößt eine <code>&lt;ul&gt;</code> hart an den Absatz darunter, ein <code>&lt;blockquote&gt;</code> hart an
+die Tabelle. <strong>Die Meldung war richtig und traf nur die Hälfte.</strong></p>
+
+<p><strong>Erstens: die Aufzählung.</strong> <code>base.css</code> räumt mit <code>* { margin: 0 }</code> alles ab; zurück holt
+den Rhythmus eine Eulenregel, die nur <strong>direkte</strong> Kinder der Inhaltsspalte zählt, plus
+eine <strong>Aufzählung</strong> der Container, in denen er ebenfalls gelten soll. In dieser
+Aufzählung fehlten <code>avd-academy-tabs__panel</code> (seit Einführung der Reiter) und
+<code>avd-academy-accordion__body</code> (seit 2.40.0, also vom ersten Tag des Bausteins an).</p>
+
+<p>Das wiegt schwerer als ein Einzelfall: Das Didaktikon schreibt Reiter für <strong>jedes</strong>
+Regiebuch vor – der gesamte Trainerleitfaden jedes Konzept-Repos stand damit in genau dem
+Container, in dem der Rhythmus fehlte.</p>
+
+<p><strong>Zweitens, und das stand nicht in der Meldung: drei Element-Regeln machten die Eulenregel
+zunichte.</strong> <code>.avd-academy-guide-main ul, ol</code> und <code>.avd-academy-guide-main blockquote</code>
+setzten <code>margin: 0</code> – redundant, weil <code>base.css</code> das längst tut, aber <strong>nach</strong> der
+Eulenregel und mit höherer Spezifität (0-1-1 gegen 0-1-0). Jede Liste und jedes Zitat
+verlor damit seinen Blockabstand, <strong>auch auf der Seitenebene</strong>. Gemessen an der
+Bausteine-Seite: <code>margin-top: 0px</code> an jeder <code>&lt;ul&gt;</code>, heute 25,6 px.</p>
+
+<p><strong>Gemessen, vorher → nachher:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>vorher</th>
+      <th>jetzt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Akkordeon, <code>&lt;ul&gt;</code> → <code>&lt;blockquote&gt;</code></td>
+      <td>0 px</td>
+      <td><strong>26 px</strong></td>
+    </tr>
+    <tr>
+      <td>Reiter, erster Absatz</td>
+      <td>0 px</td>
+      <td>0 px + 24 px Innenabstand (richtig, siehe unten)</td>
+    </tr>
+    <tr>
+      <td>Seitenebene, <code>&lt;ul&gt;</code></td>
+      <td>0 px</td>
+      <td><strong>25,6 px</strong></td>
+    </tr>
+    <tr>
+      <td>Listenpunkte <code>li + li</code></td>
+      <td>0 px</td>
+      <td>0 px (unverändert, der <code>gap</code> macht sie)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Kein doppelter Abstand im Reiterstreifen.</strong> Das <code>&lt;summary&gt;</code> ist dort <code>display: none</code>,
+zählt für die Eulenregel aber als Geschwister – der erste sichtbare Absatz hätte 24 px
+Innenabstand <strong>plus</strong> 25,6 px Marge bekommen. Eine eigene Regel nimmt ihn im
+<code>--enhanced</code>-Zustand heraus; im Akkordeon-Zustand ist das <code>summary</code> sichtbar und der
+Abstand gehört dorthin.</p>
+
+<h3 id="avd-academy-flow--die-aufzählung-ist-nicht-mehr-der-einzige-weg"><code>avd-academy-flow</code> – die Aufzählung ist nicht mehr der einzige Weg</h3>
+
+<p>Die Meldung fragte, ob die Aufzählung selbst das Problem sei. <strong>Ja</strong> – sie muss bei jedem
+neuen Container von Hand nachgezogen werden, in <strong>zwei</strong> Dateien, und der Fehler ist
+unsichtbar: Wo der Abstand fehlt, sieht die Seite nicht kaputt aus, sondern nur eng.
+Zweimal ist es passiert, das zweite Mal vom Autor des Bausteins selbst.</p>
+
+<p>Wer jetzt einen Fluss-Container baut – im Theme oder in einem Repo –, gibt ihm
+<code>avd-academy-flow</code>:</p>
+
+<pre><code class="language-html">&lt;div class="mein-kasten avd-academy-flow" markdown="1"&gt;
+</code></pre>
+
+<p><strong>Die Umkehrung („alles außer …”) wurde erwogen und verworfen.</strong> Sie hätte die bessere
+Fehlerrichtung – ein vergessener Eintrag fiele als <em>zu viel</em> Abstand auf statt als gar
+keiner –, aber die Ausnahmeliste wäre länger als die heutige (Reiterleiste, Karten-Gitter,
+Materialspalten, Zeilenerklärung, das Akkordeon selbst, die Demo-Bühne), und <code>ul &gt; li + li</code>
+bekäme plötzlich Blockabstand. Das ist ein Eingriff in jede Seite jedes Repos und gehört in
+einen eigenen Schnitt, nicht in die Behebung eines gemeldeten Befunds.</p>
+
+<p><strong>Und ein Wächter.</strong> <code>bin/flow-containers.sh</code> prüft, dass beide Listen identisch sind und
+die Marke enthalten – in <code>make check</code> und in der Pipeline. Was er nicht kann: wissen,
+welcher Container hineingehört. Das bleibt eine Entwurfsentscheidung.</p>
+
+<h3 id="zur-dritten-frage-grundmargen-an-den-elementen">Zur dritten Frage: Grundmargen an den Elementen</h3>
+
+<p><strong>Nein.</strong> Eine Grundmarge an <code>ul</code>, <code>ol</code>, <code>table</code>, <code>blockquote</code> wäre ein zweites System
+neben dem Rhythmus-Token und würde in Flex- und Grid-Komponenten wieder stören, wo genau
+kein Abstand gewollt ist. Der Ort für den Abstand ist die Eulenregel – sie muss nur
+überall greifen und darf nicht hinterher zurückgesetzt werden. Genau das war der Fehler.</p>
 
 <hr />
 
