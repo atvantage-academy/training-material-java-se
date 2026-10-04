@@ -1,62 +1,4 @@
-<!DOCTYPE html>
-<!--
-  ATVANTAGE-Academy – Layout „simulation“ (Jekyll)
-  ------------------------------------------------
-  Bühne für BEWEGTE Abläufe. Anders als eine Präsentation, die Folien wechselt,
-  zeigt eine Simulation EINEN Schauplatz, der sich Schritt für Schritt verändert:
-  Kästen entstehen, Werte wandern, Pfeile werden gezogen. Der Ablauf lässt sich
-  vorwärts und rückwärts durchgehen, zurücksetzen und automatisch abspielen.
-
-  Optisch ist die Seite an das Layout „presentation“ angelehnt – dieselbe schmale
-  Kopfleiste mit Logo, Titel, QR-Code und Farbschema-Umschalter. Drei Zonen:
-
-    ┌──────────────────────────────────────────────┐
-    │ Kopfleiste  Logo · Titel · Schritt · Werkzeug│
-    ├───────────────────────────────┬──────────────┤
-    │ Bühne (der Inhalt dieser Datei)│ Erklärtext   │
-    │                               │ (je Schritt) │
-    ├───────────────────────────────┴──────────────┤
-    │ Fortschritt + Steuerleiste (⟲ ‹ ▶ Abspielen 1×▴ ›)│
-    └──────────────────────────────────────────────┘
-
-  AUFZEICHNEN: Der Capture-Modus (Taste C oder ?capture in der Adresse) räumt alles
-  weg, was nicht zur Sache gehört – Kopfleiste, Erklärspalte, Fortschritt,
-  Steuerleiste – und blendet den Mauszeiger aus. Die Bühne füllt das Fenster. Der
-  Erklärtext ist dann nicht verloren: Taste T holt ihn als Einblendung (OST) an den
-  unteren Rand zurück, für den Fall, dass beim Aufzeichnen niemand spricht.
-
-  NICHT DRUCKBAR – bewusst. Eine Simulation lebt von der Bewegung; ein Ausdruck
-  wäre ein willkürliches Standbild. Es gibt daher weder Druck-Knopf noch
-  Drucklayout; wer die Seite trotzdem druckt, bekommt den gerade sichtbaren
-  Schritt und den QR-Code als Rückweg zur Online-Fassung.
-
-  Front Matter (alles optional außer `layout`):
-    layout: simulation
-    title:        "…"            → Titel in der Kopfleiste; sonst die erste #-Überschrift
-    description:  "…"            → Meta-Description
-    simulation:
-      aside: false               → rechte Spalte weglassen (Bühne über volle Breite)
-      intro: "…"                 → ein Satz auf der Szenario-Übersicht (nur bei mehreren)
-      speed: 0.5 | 1 | 2 | 5     → Start-Tempo des automatischen Abspielens
-      step:
-        interval: 2500           → Grunddauer je Schritt beim Abspielen (ms)
-
-  MEHRERE SZENARIEN: Meldet die Seite über `registerScenario` mehr als einen
-  Ablauf an, bekommt sie eine Reiterleiste und eine Übersicht als Startbild. Je
-  Szenario liefert die Seite ein eigenes Bühnenbild in einem Container mit
-  `data-avd-academy-sim-scene="«id»"`; sichtbar ist immer genau eines. Mit nur
-  einem Szenario (oder bloßem `registerStep`) ändert sich nichts.
-
-  Der INHALT dieser Seite ist das BÜHNENBILD: die Kulisse (Kästen, Beschriftungen,
-  Container) plus ein <script>, das die Schritte anmeldet. Das Miniframework dazu
-  liefert theme/jekyll/simulation.js als `AvdSimulation` – es wird ABSICHTLICH
-  ohne `defer` geladen, damit ein Inline-<script> im Body es bereits vorfindet.
-
-  Ohne JavaScript bleibt die Seite lesbar: Die Kulisse steht da, Steuerleiste und
-  Erklärspalte bleiben leer – der Ablauf ist eine Zutat, keine Voraussetzung.
-
-  Anleitung und Beispiel: /templates/simulations/.
---><html lang="de">
+<!DOCTYPE html><html lang="de">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>Referenztypen · ATVANTAGE Academy</title><meta name="description" content="Vier Szenarien durch den Speicher: Was bei jeder Codezeile im Thread Stack und im Heap passiert – Abgrenzung zu primitiven Typen, Objektgeflecht, Identität gegen Inhalt, this und static."><meta property="og:site_name" content="ATVANTAGE Academy">
@@ -64,13 +6,13 @@
 <meta property="og:description" content="Vier Szenarien durch den Speicher: Was bei jeder Codezeile im Thread Stack und im Heap passiert – Abgrenzung zu primitiven Typen, Objektgeflecht, Identität gegen Inhalt, this und static.">
 <meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=1790166369"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=1790166369">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=1790166369">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=1790166369">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=1790166369"><link rel="stylesheet" href="/training-material-java-se/theme/academy/print.css?v=1790166369">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=1790166369" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=1790166369" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=1790166369">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
   const _hlsprachen = ["java", "http", "json", "xml"];
@@ -83,24 +25,8 @@
         .querySelectorAll(_auswahl)
         .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
       _faerben(document);
-
-      /* NACHTRAEGLICH EINGEFUEGTER CODE. Die Hervorhebung laeuft einmal beim Laden.
-         Eine Seite, die ihre Codebloecke per Skript einsetzt - eine Visualisierung,
-         die rohe Nachrichten durchschaltet -, bekam deshalb gar keine Farben und
-         baute sich einen eigenen Hervorheber. Genau die Kopie, die das Theme
-         verhindern soll.
-
-         `AvdHighlight.apply(knoten)` faerbt, was seither dazugekommen ist; `hljs`
-         liegt daneben fuer Faelle, die mehr brauchen. Das Ereignis sagt Seiten, die
-         frueh zeichnen, wann der Haken da ist - die Module laden asynchron. */
       window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
       document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-
-      /* Statuszeile nach Klasse einfaerben. highlight.js gibt jedem dreistelligen
-         Code dieselbe Klasse `hljs-number` - in einem Mitschnitt ist aber genau das
-         die Stelle, auf die man zuerst sieht: 2xx ist etwas anderes als 4xx.
-         Deshalb hier die einzige eigene Zutat, und bewusst nur diese: Die
-         Statusklassen von HTTP aendern sich nicht, das bleibt stabil. */
       document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
         const code = parseInt(el.textContent, 10);
         if (code >= 100 && code <= 599) {
@@ -112,20 +38,21 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/simulation.css?v=1790166369"><script src="/training-material-java-se/theme/jekyll/simulation.js?v=1790166369"></script>
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=1790166369"></head>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/simulation.css?v=2a72bfdf"><script src="/training-material-java-se/theme/jekyll/simulation.js?v=d7bb5e7e"></script>
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head>
 <body class="avd-academy-sim" data-avd-academy-sim data-avd-academy-sim-title="Referenztypen"
       data-avd-academy-sim-speed="1"
       data-avd-academy-sim-step-interval="3200">
   <a class="avd-academy-skip-link" href="#avd-academy-sim-stage">Zum Inhalt springen</a>
 
   <header class="avd-academy-sim__bar">
-    <img class="avd-academy-sim__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-sim__title">Referenztypen</span>
+    <img class="avd-academy-sim__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-sim__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><span class="avd-academy-sim__title">Referenztypen</span>
     <span class="avd-academy-sim__counter" data-avd-academy-sim-counter aria-live="off"></span>
     <div class="avd-academy-sim__tools"><button type="button" class="avd-academy-sim__back" data-avd-academy-back hidden
               title="Zurück" aria-label="Zurück">← Zurück</button><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
                 title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme avd-academy-theme-toggle" data-avd-academy-theme-toggle
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
               title="Farbschema umschalten (hell/dunkel)"
               aria-label="Farbschema umschalten">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--full"
               data-avd-academy-sim-full
@@ -1747,9 +1674,9 @@ int größer = Math.max(3, 7);</code></pre>
 
 
     </div><div class="avd-academy-sim__intro" data-avd-academy-sim-intro hidden
-         data-lead="Vier Abläufe zu einer Frage: Was steht eigentlich in einer Variablen – und was passiert damit beim Kopieren, Vergleichen und Aufrufen? Jedes Szenario beginnt von vorn und lässt sich einzeln zeigen."></div><div class="avd-academy-sim__ost" data-avd-academy-sim-ost hidden aria-hidden="true">
-      <p class="avd-academy-sim__ost-title" data-avd-academy-sim-ost-title></p>
-      <div class="avd-academy-sim__ost-text" data-avd-academy-sim-ost-text></div>
+         data-lead="Vier Abläufe zu einer Frage: Was steht eigentlich in einer Variablen – und was passiert damit beim Kopieren, Vergleichen und Aufrufen? Jedes Szenario beginnt von vorn und lässt sich einzeln zeigen."></div><div class="avd-academy-sim__caption" data-avd-academy-sim-caption hidden aria-hidden="true">
+      <p class="avd-academy-sim__caption-title" data-avd-academy-sim-caption-title></p>
+      <div class="avd-academy-sim__caption-text" data-avd-academy-sim-caption-text></div>
     </div>
     <aside class="avd-academy-sim__aside" aria-label="Erklärung zum aktuellen Schritt">
       <h2 class="avd-academy-sim__note-title" data-avd-academy-sim-note-title></h2>

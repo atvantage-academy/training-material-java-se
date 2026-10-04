@@ -15,6 +15,2088 @@ Abschnitt „Theme-Version“.
 
 ---
 
+## 3.16.0
+
+### Einstellbare Prüfungen: `checks`
+
+**Minor.** Zwei Prüfungen der Schemaprüfung dienen nicht der eigenen Site, sondern der
+Weitergabe ihrer Quellen: eigene Styles und Skripte, wo das Layout sie nicht erlaubt
+(`source_assets: false`), und Seiten mit dem abstrakten `layout: default`. Bisher waren beide
+ein fester Hinweis. Jetzt stellt das Projekt die Stufe ein:
+
+```yaml
+checks:
+  source_assets: error       # error | warning | off
+  abstract_layouts: warning
+```
+
+- `error` meldet jede Stelle als Fehler, der Lauf scheitert. Wer seine Quellen weitergibt
+  (etwa an ATLAS), scheitert damit **heute schon** im eigenen Bau statt erst beim Empfänger.
+- `warning` ist der **Standard** und entspricht dem bisherigen Verhalten.
+- `off` prüft nicht. Mit `source_assets: off` darf jede Seite eigene Assets mitbringen,
+  über das Element im Text wie über `styles`/`scripts` im Front Matter – gedacht für eine
+  Doku mit interaktiven Seiten, deren Quellen nie weitergegeben werden. Ein unquotiertes
+  `off` liest YAML als `false`; beides gilt als `off`.
+
+Einstellbar ist nur, was der Weitergabe dient. Die Liquid-Prüfung braucht keine Stufe: Sie
+läuft ohnehin nur, wo die Site Liquid selbst abschaltet.
+
+**Angekündigt für 4.0:** Der Standard beider Prüfungen wird `error` (#269).
+
+### Layout-Einstellungen vererben sich
+
+**Minor.** Was unter `layouts.overrides.«layout».components` eingestellt ist, gilt jetzt auch
+für die Layouts, die von diesem Layout erben – solange dort nichts anderes steht. Wer `page`
+einstellt, stellt damit auch `guide` ein; `layouts.overrides.default` nimmt Einstellungen an
+und erreicht alle Layouts mit Rahmen. Der nächste Vorfahr gewinnt, das Layout selbst und die
+Seite gewinnen gegen beide.
+
+**Verbote erben nicht.** `allowed`/`forbidden` gelten weiter nur für Seiten, die genau dieses
+Layout tragen. `default: forbidden` trifft also nur `layout: default`, und ein `allowed` lässt
+kein Kind-Layout an einer Positivliste vorbei.
+
+Dafür trägt jedes Layout des Themes `lineage` – seinen Namen mit seiner Tiefe in der
+Vererbung. `bin/theme-contract.rb` prüft die Tiefen gegen `layout:`. Ein eigenes Layout braucht
+den Schlüssel nicht.
+
+**Was ein Projekt prüfen sollte:** Steht in der `_config.yml` eine Einstellung unter
+`layouts.overrides.page` (oder einem anderen Layout mit Erben), wirkt sie ab dieser Fassung
+auch auf dessen Erben, etwa `guide`. Soll eine Übung anders aussehen, gehört eine eigene
+Einstellung unter `layouts.overrides.guide`. Diese Änderung des Verhaltens ist bewusst als
+Minor eingestuft.
+
+## 3.15.4
+
+### Die Suche fand keine Seite, die ein Generator erzeugt
+
+**Patch.** Erzeugte Seiten fehlten im Index – gebaut, erreichbar, ohne `noindex`, und
+trotzdem nicht auffindbar (#289). Bei ATLAS trifft es die acht Kategorieseiten, also genau
+die Themenseiten: Wer „Kubernetes“ suchte, fand die Seite „Container & Kubernetes“ nicht.
+Dass etwas fehlt, sah niemand – die Trefferliste war ja nicht leer.
+
+**Die Ursache war eine Doppelbedeutung.** `avd_search_source` hält den Quellpfad fest,
+bevor ein Permalink eine Seite verschiebt; gesetzt wird er in `post_read`, also VOR den
+Generatoren. Derselbe Stempel diente zugleich als Eintrittskarte in den Index. Wer bei
+`post_read` noch nicht existierte, hatte keinen – und das wurde als „gehört nicht hinein“
+gelesen.
+
+Der frühe Zeitpunkt bleibt richtig und bleibt. Die Doppelbedeutung fällt weg: Fehlt der
+Stempel, wird er nachgeholt, und der Bereich kommt dann aus der ADRESSE. Das widerspricht
+der Regel „der Bereich folgt dem Ordner, nie der Adresse“ nicht – sie schützt VERSCHOBENE
+Seiten davor, im Bereich ihres neuen Ortes zu landen, und eine erzeugte Seite wurde nie
+verschoben.
+
+**Betroffen war mehr als gedacht.** Auch `jekyll-optional-front-matter` macht aus einer
+Datei ohne Front Matter erst beim Generieren eine Seite – alles, was so entsteht, fehlte
+ebenso.
+
+**Das Theme-Verzeichnis bleibt dafür jetzt ausdrücklich draußen.** Was unter `theme/`
+liegt, ist das eingespielte Paket, nicht der Inhalt der Unterlage. Ohne diese Grenze holte
+die Behebung das Theme-CHANGELOG in jede Unterlage; hier stand zusätzlich schon vorher
+eine Werkstattseite des Fundaments im Index, und die verschwindet damit. Abgeleitet wird
+die Grenze aus `layouts_dir` – wo das Theme liegt, bestimmt die Konfiguration, nicht eine
+feste Zeichenkette.
+
+## 3.15.3
+
+### Weiterleitungen blockierten die Barrierefreiheitsmessung
+
+**Patch.** Ein Permalink lässt in der Betriebsart `full` an der alten Adresse eine
+Weiterleitung zurück: `<meta http-equiv="refresh">`, ein Verweis, sonst nichts. Sie trägt
+absichtlich kein Stylesheet – eines zu laden, um es sofort wieder zu verlassen, wäre
+verschwendet.
+
+Die Messung las sie trotzdem als Seite. Und weil sie „Theme nicht angekommen" zu Recht als
+**nicht messbar** und damit als Fehler wertet – nacktes HTML als „sauber" zu verbuchen wäre
+schlimmer –, wurde daraus ein roter Lauf. Ob der Prüfer die Weiterleitung oder schon ihr Ziel
+erwischt, entscheidet dabei ein Rennen: Dasselbe Bundle lief mal grün, mal rot. Einmal hat es
+die Veröffentlichung von 3.15.2 blockiert, ohne dass an der Unterlage etwas gewesen wäre.
+
+Weiterleitungen bleiben jetzt draußen, wie Kopiervorlagen auch, und werden am Ende des Laufs
+mit Namen genannt. **Gemessen wird dafür ihr Ziel** – das steht als gewöhnliche Seite ohnehin
+in der Liste. In dieser Doku betrifft es drei Adressen; die Seiten dahinter, etwa die
+Permalinks-Doku unter `/p/permalinks/`, werden unverändert gemessen.
+
+Erkannt wird eine Weiterleitung am `refresh` MIT Ziel, nicht am Ordner: Welche Adressen ein
+Permalink freiräumt, weiß nur der Build, und ein `refresh` ohne `url=` lädt bloß neu und
+bleibt eine Seite.
+
+## 3.15.2
+
+### Die Topics einer Seite zählen in der Suche mit
+
+**Patch.** Sie zählten bisher **gar nicht**. Die Tags stehen im Hero, und der liegt
+außerhalb von `<main>` – gelesen hat der Indexer aber nur `<main>`. Wer „Open Graph“
+suchte, fand die so verschlagwortete Seite nicht, obwohl die Angabe genau dafür da ist.
+Allein in dieser Doku standen **elf** Topics nirgends im Index.
+
+Gelesen werden sie jetzt direkt aus dem Front Matter statt aus dem HTML. Das hat einen
+zweiten Vorteil: Sie zählen auch dort, wo der Text NICHT in den Index geht – eine
+Visualisierung oder ein Wissens-Check ist damit über sein Thema auffindbar, ohne dass
+Schritte oder Antworten in den Index wandern.
+
+**Gewichtet zwischen `h1` und `h2`.** Ein Topic ist ein absichtlich gesetztes Schlagwort
+und wiegt deshalb mehr als eine Zwischenüberschrift. Über die `h1` geht es nicht: Topics
+sind kurz und oft allgemein, ein Kapiteltitel sagt genauer, wovon die Seite handelt.
+
+Der Index wächst dadurch um die Topics selbst – an dieser Doku gemessen von 408 781 auf
+410 905 Byte, also ein halbes Prozent.
+
+## 3.15.1
+
+### Die Suche gewichtet Überschriften nach ihrer Ebene
+
+**Patch.** Gewichtet wurde schon vorher – Titel vor Überschriften vor Beschreibung vor
+Fließtext. Alle Überschriften lagen dabei aber in **einem** Feld: Ein Treffer in einer `h3`
+zählte so viel wie einer in einer `h2`. Die Gliederung sagt aber etwas darüber, wie zentral
+ein Begriff für die Seite ist.
+
+Der Indexer schreibt die Ebenen jetzt getrennt, und `search.js` wiegt sie verschieden: `h1`
+über der Beschreibung, `h2` darunter, `h3` nochmals darunter – alle drei deutlich über dem
+Fließtext. Neu konfigurierbar ist nichts; die Index-Dateien erzeugt und liest das Theme
+selbst, beide reisen im selben Paket.
+
+**Der Index wird davon nicht größer.** Leere Überschriftenfelder fallen jetzt ganz aus der
+Datei, statt als `"j":""` durch jeden Browser zu wandern – gemessen an dieser Doku: 408 791
+Byte vorher, 408 781 danach, bei drei Ebenen statt einer.
+
+Nebenbei zählt eine Überschrift nur noch, wenn ihr schließendes Tag zur Ebene passt;
+`<h2>…</h3>` galt vorher als Überschrift.
+
+## 3.15.0
+
+### Suche in der Kopfzeile
+
+**Minor.** Rechts in der Kopfzeile steht ein Such-Icon. Ein Klick – oder zweimal Shift –
+öffnet ein Feld, und beim Tippen erscheinen die passenden Seiten der Site, nach Relevanz
+sortiert. Eine Auswahl im Feld grenzt auf einen **Bereich** ein. Gesucht wird nur in der
+eigenen Site und nur in der Sprache der aktuellen Seite.
+
+**Es gibt keinen Server.** `_plugins/avd-search.rb` schreibt beim Bauen einen Index nach
+`/theme/search/` – je Sprache eine Übersicht, je Bereich eine Datei –, und
+`theme/jekyll/search.js` lädt ihn erst beim ersten Öffnen. Der Text kommt aus der fertigen
+Seite: Liquid ist aufgelöst, und was eine Zielgruppe nicht sehen soll, ist in ihrer Ausgabe
+gar nicht erst gebaut.
+
+**Ohne Angabe ist die Suche an.** Nach dem Update zeigt also jede Site das Icon, die nicht
+ausdrücklich abschaltet:
+
+```yaml
+search: disabled
+```
+
+Ein Abschnitt stellt sie ein – alle Schlüssel optional:
+
+| Schlüssel | Werte | Standard |
+| --------- | ----- | -------- |
+| `search.display` | `expand` · `dialog` | `expand` |
+| `search.shortcut` | `double_shift` · `disabled` | `double_shift` |
+| `search.case_sensitive` | Ja/Nein | nein |
+| `search.scope_source` | `index` · `nav` | `index` |
+| `search.preselect` | `default` · `current` (Bereich der aktuellen Seite) | `default` |
+
+**Bereiche** definiert die `index.md` eines Ordners (`search: { scope: true }`; ID ist ihre
+`page_id`) – oder, mit `scope_source: nav`, jeder Eintrag der obersten Ebene der TopNav.
+Höchstens ein Bereich darf `default: true` tragen, sonst bricht der Build ab. Als Indexseite
+zählt auch eine Fassung für eine Zielgruppe (`index-trainer.md`). Der Schemaprüfer lässt
+deshalb dieselbe `page_id` in mehreren Fassungen zu, solange sich ihre `audiences` nicht
+überschneiden. Die Zuordnung
+folgt dem **Ordner der Datei**, nie der Adresse: `slug`, `folder_slug` und `permalink`
+verschieben eine Seite nicht in einen anderen Bereich.
+
+**Nicht im Index:** Seiten mit `noindex` oder `search: disabled` – in einer `index.md` der
+ganze Ordner –, Weiterleitungen der Permalinks und Elemente mit
+`data-avd-academy-search-skip`, etwa eine Musterlösung. Das Attribut ist neu im Markup
+Contract (Fassung 9).
+
+**Neu im Layout-Schema:** `search_index` (`full` · `meta`). `presentation`, `simulation`,
+`visualization` und `quiz` geben nur Titel und Beschreibung her – ein Wissens-Check verriete
+sonst seine Antworten.
+
+**Neue Felder in den Schemas,** ohne neue Fassung (nur Ergänzungen): `search` in Konfiguration
+und Front Matter, `nav.items[].search`, `search_index` im Layout. Neues Icon
+`academy/icons/icon-search.svg`.
+
+**Grenzen:** Über `file://` und ohne JavaScript bleibt das Icon aus. Teilwörter findet die
+Suche nicht („filter“ findet nicht „Zielgruppenfilter“). Im Ausdruck erscheint sie nie.
+
+### Eine Seite darf im Hero eine Grafik zeigen
+
+**Minor.** Neu im Front Matter: **`hero_image`** – ein Porträt auf einer Personenseite,
+ein Symbol auf einer Kategorieseite. Ein Pfad genügt; eine Karte mit `src`, `alt`,
+`shape` und `frame` bestimmt zusätzlich die Darstellung.
+
+```yaml
+hero_image:
+  src: /team/img/anna-berger.png
+  shape: circle          # circle | rounded | square
+  frame:
+    enabled: true
+```
+
+**Warum es das braucht.** Bis hierher ging eine Grafik neben dem Titel nur, indem die
+Quelle `.avd-academy-guide-hero h1::before` mit eigenem CSS überschrieb – also das
+INNERE des Heros, über das es keine Zusage gibt. Der Markup Contract nennt
+`avd-academy-guide-hero` und seine Bereiche, nicht ihr Gefüge; eine Umbauung hätte jede
+solche Seite still zerlegt. Gefunden wurde das in ATLAS, wo zwei Lebenslaufseiten genau
+so ein rundes Porträt bauten.
+
+**Form und Rahmen sind ZWEI Einstellungen**, weil sie unabhängig voneinander sind: Ein
+eckiges Logo kann den Rahmen brauchen, ein freigestelltes Symbol gerade nicht. In der
+bisherigen Lösung waren sie zu einer verschmolzen.
+
+**Drei Dinge entscheidet das Theme, nicht die Seite:** die Größe (ein Feld dafür wäre der
+Anfang eines Gestaltungsdialekts im Front Matter), das Verhalten bei schmaler Darstellung
+(die Grafik rückt über die Überschrift, statt sie auf wenige Zeichen je Zeile zu quetschen)
+und der Druck (sie wird nicht gedruckt – auf Papier kostet sie Toner und trägt nichts bei).
+
+**`alt` ist standardmäßig leer**, also dekorativ: Auf einer Personenseite steht der Name
+direkt daneben als Überschrift, und ein Alternativtext doppelte ihn für Screenreader. Ein
+`aria-hidden` steht bewusst NICHT daneben – ein leeres `alt` nimmt das Bild schon aus dem
+Accessibility-Baum.
+
+Die Grafik steht **neben** der Überschrift, nicht als Bannerbild über die volle Breite:
+Das ist ein anderes Gestaltungskonzept mit eigenen Fragen – Textkontrast auf dem Bild,
+Zuschnitt bei 320 Pixeln, Druck – und bekäme ein eigenes Feld.
+
+Markup Contract damit in **Fassung 9**: `avd-academy-guide-hero__headline`,
+`__image` und die drei Formen plus `--framed`. Die Umhüllung entsteht nur mit Bild –
+ohne sie bleibt die H1 ein unmittelbares Kind des Heros wie bisher.
+
+### `forbidden` versprach mehr, als es hält
+
+**Patch.** Die Schemabeschreibung zu `layouts.overrides.«layout»` sagte, `forbidden`
+lasse „den Bau scheitern". Das stimmt nur, wo jemand `validate.rb` vor den Bau stellt –
+weder die ausgelieferte Baukomponente (`jekyll/_bin/build.sh`) noch die Prüf-Bausteine
+rufen es von sich aus auf. Ein nacktes `jekyll build` rendert das verbotene Layout
+klaglos. Der Satz nennt jetzt die Prüfung statt des Baus und sagt, was zu tun ist.
+
+## 3.14.0
+
+### Das Paket gibt Auskunft über sich selbst
+
+**Minor.** Wer gegen dieses Theme baut, konnte bisher nicht nachsehen, welche Layouts es
+gibt und was sie sind – das stand nur im Repository, und wer das Paket aus der Registry
+bezieht, hat es nicht. ATLAS führte deshalb eine eigene, geschlossene Typliste, die sich
+mit den Layouts nicht deckte: `quiz` fehlte dort, `page` und `guide` hießen anders, und
+jedes neue Layout hätte dort eine Schemaänderung verlangt.
+
+Neu im Paket liegt **`contract/theme.json`**, daneben **`contract/theme.schema.json`**,
+das sie beschreibt. Je Layout stehen dort fünf Angaben:
+
+| Angabe | sagt |
+| ------ | ---- |
+| `label` | Beschriftung auf Deutsch und Englisch |
+| `inherits` | das Layout, von dem es erbt – `null` bei einem eigenständigen Dokument |
+| `abstract` | ob es nur Oberklasse ist, von der eigene Layouts erben |
+| `heading` | wer die H1 rendert: der Rahmen aus `title` oder die Quelle |
+| `source_assets` | ob das Layout **erlaubt**, dass die Quelldatei der Seite eigene Styles und Skripte mitbringt |
+
+Dazu ein Register der übrigen Verträge – Markup Contract, Farb-Tokens,
+Kontrast-Paare und die beiden Schemas – mit Fassung, Pfad im Paket und Zweck. Ein
+Konsument muss ihre Namen damit nicht kennen, sondern findet sie.
+
+**`heading` und `source_assets` sind zwei Angaben und nicht eine**, und das ist der Punkt,
+an dem die naheliegende Lösung nicht trägt. Bei `visualization` laufen sie auseinander:
+Die Visualisierung bringt ihr eigenes CSS und JS mit (`source_assets: true`), bekommt ihre
+H1 aber trotzdem vom Rahmen – auch der schmale Hero rendert sie aus `title`, und eine
+führende H1 im Seitenkörper wird aus dem Dokument entfernt. Ein einziger Wert
+„eingebettet oder eigenständig" müsste sich für eine der beiden Antworten entscheiden
+und wäre für die andere falsch.
+
+**Die Zusage:** Ein Layout hinzufügen ist ein Minor. Eines entfernen, umbenennen oder
+seine Einstufung ändern ist ein Major. `contract_version` zählt bei jeder Änderung
+hoch, auch bei einer Ergänzung.
+
+**Einzurichten ist nichts.** Die Datei wird nicht geladen; sie liegt im Paket zum
+Nachlesen, wie der Markup Contract seit 3.0.0.
+
+### `layout: default` bekommt einen Hinweis
+
+**Minor, kein Bruch.** `default` ist in der Selbstauskunft als `abstract` eingestuft: Es
+ist die Oberklasse, von der eigene Layouts erben, und keine Seite soll es tragen – ihr
+fehlen Kopfzeile, Brotkrumen, Hero und Sidebar.
+
+`validate.rb` meldet eine solche Seite jetzt als **Hinweis** und nennt Datei und Zeile.
+Der Lauf bleibt grün, und `layout: default` wirkt unverändert. Aus dem Hinweis wird im
+nächsten Major ein Fehler; bis dahin ist er die Vorwarnung. Wer ihn loswerden will,
+schreibt `layout: page` – oder lässt das Feld weg, denn `page` ist die Vorgabe.
+
+Fehlt `contract/theme.json` neben `validate.rb` – etwa bei der einzeln veröffentlichten
+Fassung unter `/schemas/` –, entfällt der Hinweis. Eine Prüfung, die ohne ihre
+Deklaration rät, wäre schlimmer als keine.
+
+### Ein Layout sagt jetzt selbst, welche Schalter es liest
+
+**Minor.** Die Zuständigkeit der [Schalter](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/layouts.md#schalter)
+stand bis hierher als Liste von **Layout-Namen** im Auflöser `avd-switch.html`. Jetzt
+deklariert jedes Layout sie in seinem eigenen Front Matter, in derselben Form wie
+Konfiguration und Front Matter einer Seite:
+
+```yaml
+# _layouts/page.html
+switches:
+  sidebar:
+    toc:      { enabled: true }
+    progress: { enabled: false }
+  toolbar:
+    qr: { enabled: true }
+```
+
+Geerbt wird mit – `guide` nennt nur, was bei ihm anders ist als bei `page`. Was nirgends
+deklariert ist, bleibt stumm, und Konfiguration dazu wirkt nicht; das war vorher auch so.
+
+**Was das für ein eigenes Layout ändert.** Bisher konnte es überhaupt keinen Schalter
+lesen: Sein Name stand in keiner Liste des Themes und konnte dort auch nicht stehen. Ein
+eigenes Layout, das von `page` erbt, rendert die Sidebar – und ihre Karten blieben leer.
+Jetzt deklariert es seine Schalter wie die mitgelieferten, und wer von `page` aufbaut,
+erbt dessen Schalter mit. Die Doku sagte bis hierher ausdrücklich, das gehe nicht; dieser
+Satz ist weg.
+
+**Für die mitgelieferten Layouts ändert sich nichts** – mit einer Ausnahme, die der
+nächste Abschnitt beschreibt. Nachgerechnet am gebauten Stand: Von 111 Seiten unterscheiden
+sich genau die beiden Wissens-Checks.
+
+### Der Wissens-Check bekommt QR-Code, Sprachumschalter und Drucken-Knopf
+
+**Minor, Fehlerbehebung.** `quiz` stand in **keiner** Zuständigkeitsliste – das Layout kam
+hinzu, ohne im Auflöser, im Konfigurations-Schema und in der Doku-Tabelle nachgezogen zu
+werden. Sichtbar war das so: Eine Seite mit `layout: quiz` rendert einen Hero mit
+Werkzeugen (`hero_tools: true`), zeigte darin aber nur Farbschema und Link. Auf einer
+zweisprachigen Site fehlte damit auf **jedem** Wissens-Check der Sprachwechsel, und der
+QR-Code – der Rückweg vom Beamer aufs eigene Gerät – fehlte überall.
+
+Der Wissens-Check liest jetzt `toolbar.qr`, `toolbar.lang` und `toolbar.print`, alle drei
+mit Vorgabe **an**, und bekommt seinen Eintrag unter `components.layouts.quiz`.
+**Kein `toolbar.copy`:** Die Quelle eines Wissens-Checks sind die Fragen im Front Matter –
+als Markdown kopiert ergäbe das die Lösungen gleich mit.
+
+**Was Projekte tun müssen:** nichts. Auf bestehenden Wissens-Checks erscheinen die drei
+Werkzeuge; wer eines davon nicht will, schaltet es wie überall über
+`components.layouts.quiz.toolbar.«werkzeug».enabled` ab.
+
+### Die Layout-Konfiguration steht jetzt unter `layouts`
+
+**Minor – `components` wirkt weiter.** Was je Layout eingestellt wird, stand bisher
+umgekehrt herum: `components.layouts.«layout».«gruppe»` – Baustein je Layout, und die
+Verfügbarkeit eines Layouts hatte dort überhaupt keinen Platz. Jetzt steht das Layout
+vorn:
+
+```yaml
+layouts:
+  default_values:
+    unlisted: forbidden            # Positivliste
+    components:
+      toolbar: { qr: { enabled: false } }
+  overrides:
+    page: allowed                  # Kurzform: nur die Verfügbarkeit
+    guide:                         # Objektform: Einstellungen – und damit erlaubt
+      components:
+        sidebar: { resources: { enabled: false } }
+    default: forbidden
+```
+
+| bis 3.13 | ab 3.14 |
+| -------- | ------- |
+| `components.«gruppe»` | `layouts.default_values.components.«gruppe»` |
+| `components.layouts.«layout».«gruppe»` | `layouts.overrides.«layout».components.«gruppe»` |
+
+**Stehen beide da, gewinnt das neue Format** – je Ebene, nicht für den ganzen Teilbaum:
+Ein Repo, das nur die site-weite Hälfte umgestellt hat, baut weiter. Die Schemaprüfung
+nennt `components` als veraltet; entfernt wird es beim nächsten Major (#269).
+
+#### Neu: Ein Layout lässt sich verbieten
+
+`forbidden` lässt den Bau scheitern, sobald eine Seite das Layout trägt – mit Datei und
+Zeile. `default_values.unlisted: forbidden` macht daraus eine **Positivliste**.
+
+**Wofür.** Wer **eingereichte** Seiten baut, legt damit fest, welche Layouts er verträgt.
+Das Theme kennt diese Regel nicht und soll sie nicht kennen – es liefert die Layouts und
+ihre Einstufung, die Entscheidung trifft der Konsument in seiner eigenen `_config.yml`.
+Und ein **neues** Layout im Theme ist unter einer Positivliste nicht automatisch
+zugelassen: Der Konsument entscheidet beim Anheben seiner Theme-Fassung.
+
+**Ein Name, den es nicht gibt, ist ein Fehler.** `layouts.overrides.guids` verbietet
+nichts und stellt nichts ein. Die Prüfung weist ihn ab und nennt die Layouts, die es gibt
+– die des Themes aus `contract/theme.json` und die aus dem `layouts_dir` des Repos. Ohne
+diese Prüfung hielte sich eine Site für abgesichert, die es nicht ist.
+
+#### Das Feld `layout` schlägt die mitgelieferten Layouts vor
+
+Im Front-Matter-Schema steht unter `layout` jetzt eine **offene Auswahl**: Die IDE
+schlägt die Layouts des Themes vor, ein **eigenes** Layout des Repos bleibt trotzdem
+erlaubt. Ein `enum` allein verböte es, und eigene Layouts sind ein zugesagtes Merkmal.
+`bin/theme-contract.rb --check` rechnet nach, dass die Auswahl und die Einträge unter
+`layouts.overrides` dieselben Layouts nennen wie die Selbstauskunft.
+
+#### Die Typnamen in den Schemas sind englisch
+
+Die `definitions` beider Schemas hießen deutsch oder halb deutsch (`sprachtext`,
+`navEintrag`, `sidebarSchalter`). Sie heißen jetzt `language_text`, `nav_item`,
+`sidebar_switches` und so fort – Bezeichner sind englisch wie überall sonst. **Für
+Konsumenten ändert das nichts:** Die Namen stehen nur innerhalb der Schemadateien, kein
+Feld und keine Adresse heißt anders, und die veröffentlichten älteren Fassungen bleiben
+unberührt. Die Schemafassungen steigen deshalb nicht.
+
+### Das Front Matter eines Layouts bekommt ein Schema
+
+**Minor.** Ein Layout trägt Front Matter wie jede Seite – nur war es als einziges
+ungeprüft. Seit dem vorigen Abschnitt steht dort auch die Deklaration der Schalter, und
+ein Tippfehler darin ist der unangenehmste Fehler, den es hier gibt: Er bricht nichts, er
+**macht nichts**. `switchs:` statt `switches:` – der Baustein erscheint einfach nicht.
+
+Neu ausgeliefert wird deshalb `jekyll/schema/layout.schema.json` (Fassung 1),
+veröffentlicht unter `/schemas/layout/1/schema.json`. `validate.rb` prüft damit die
+Dateien in `layouts_dir`:
+
+```
+_layouts/mein-format.html:31: `switches.toolbar.prnt` unbekanntes Feld `prnt` –
+                             erlaubt sind: copy, lang, print, qr
+```
+
+**Oben offen, innen geschlossen.** Eigene Schlüssel im Front Matter eines Layouts bleiben
+erlaubt – es ist das Layout des Repos, und wären sie ein Fehler, ginge ein bestehender,
+grüner Lauf rot. Innerhalb von `switches` ist die Auswahl dagegen geschlossen: Welche
+Schalter es gibt, entscheidet das Theme, denn es rendert die Bausteine.
+
+Fehlt das Schema – etwa bei einer veröffentlichten Ablage älteren Standes –, bleiben die
+Layout-Dateien ungeprüft. Das ist kein Befund, sondern ein älteres Schema.
+
+Die Doku bekommt dazu den **vollständigen Katalog der Schalter** samt ihren
+Voraussetzungen, dazu `styles`/`scripts` je Layout und den Hinweis, dass der
+`contract:`-Block nur den Layouts des Themes gehört.
+
+Das Register der **Selbstauskunft** nennt das neue Schema mit Fassung, Paketpfad und
+Zweck. Gefunden hat das die Prüfung selbst – eine Vertragsdatei mit Fassungsnummer, die
+im Register fehlt, lässt den Lauf scheitern.
+
+### Ein angeklicktes Untermenü blieb neben dem überfahrenen offen
+
+**Patch.** Am Schreibtisch öffnete sich ein Untermenü beim Überfahren, ein **Klick** auf
+den Gruppen-Schalter hielt es zusätzlich offen – und blieb offen, während nebenan schon
+das nächste aufging. Wer „Design-System" aufklappte, darin „Grundlagen" anklickte und dann
+auf „Referenz" fuhr, hatte **drei** Menüs gleichzeitig stehen.
+
+Die Ursache lag nicht beim Klick-Zustand, sondern beim **Fokus**: Nachgemessen trug das
+Menü `data-open=false` und `:hover=false`, aber `:focus-within=true` – der Klick hatte den
+Schalter fokussiert, und `…__group:focus-within > …__submenu` hält auf. Die vorhandene
+Übernahme räumte nur `data-open`.
+
+Eine Übernahme **per Zeiger** nimmt jetzt den Fokus aus der verlassenen Gruppe, und es gibt
+sie auf **jeder** Ebene – bisher nur bei den seitlichen Menüs der dritten, weshalb auch auf
+der obersten Ebene ein geklicktes Menü neben dem überfahrenen stehenblieb.
+
+**Im schmalen Layout ändert sich nichts.** Dort öffnet und schließt allein der Klick; ein
+aufgeklapptes Untermenü soll beim Scrollen nicht zugehen, wenn der Zeiger darüberfährt.
+Nachgemessen bei 600 Pixeln: Beide Ebenen bleiben offen wie bisher.
+
+**Die Tastatur bleibt unberührt:** Der Fokus öffnet weiterhin, `aria-expanded` zieht mit,
+und wer sich mit der Tabulatortaste hineinbewegt, löst keine Übernahme aus.
+
+### Zwei neue öffentliche Klassen für breite Inhalte
+
+**Minor.** `avd-academy-reveal--wide` gibt einem Aufklapp-Panel die Breite, die eine
+Vergleichstabelle braucht – die Vorgabe von 780 px bleibt für die häufige
+Info-Schaltfläche mit zwei Sätzen, wo eine lange Zeile schlechter zu lesen wäre.
+`avd-academy-fieldtable__nowrap` hält eine Spalte zusammen, deren Inhalt umgebrochen wie
+zwei Angaben aussähe (`frame` / `source`). **Markup Contract in Fassung 8.**
+
+### Eine Seite darf eigene Assets deklarieren – und nur noch so
+
+**Minor.** Neu im Front Matter: **`styles`** und **`scripts`**. Das Theme bindet sie im
+`<head>` ein, Skripte mit `defer`; die Reihenfolge ist site-weit → je Layout → je Seite.
+
+Damit ist die Zusage `source_assets` erst einhaltbar. Sie sagt, ob ein Layout **erlaubt**,
+dass die Quelldatei der Seite eigene `<style>`-, `<script>`- oder `<link>`-Elemente
+mitbringt – aber wo sie `false` steht, gab es bis hierher **keinen** anderen Weg: Eine
+Seite konnte Assets nur als Element im Text einbinden. Eine Regel, die sich nicht
+einhalten lässt, ist keine.
+
+**Geprüft werden BEIDE Wege.** Das Element im Text ist der eine; die Deklaration im Front
+Matter ist der andere, und sie lädt genauso. Nur den Text zu prüfen hieße, die unsaubere
+Form zu verbieten und die saubere durchzulassen. Eine **leere** Liste ist keine Angabe.
+
+**Dazu neu: `scripts` in der `_config.yml`** – das Gegenstück zu `styles`, das es nicht
+gab. Eine Site konnte site-weit CSS nachladen, aber kein JS; wer beides brauchte, schrieb
+ein `<script>` in den Seitenkörper. Genau das verbietet die neue Regel.
+
+**Die Schemaprüfung meldet es jetzt – als Hinweis.** Geprüft wird die **Quelle**, nicht
+das gebaute HTML: Dort stehen auch Elemente, die das Layout beisteuert (der Wissens-Check
+serialisiert seine Fragen in ein `<script type="application/json">`), und das ist kein
+Fehler der Quelle. Code-Zäune, Inline-Code und HTML-Kommentare zählen nicht – ohne diese
+Ausnahme meldete die Prüfung in diesem Repository zwölf Seiten, von denen keine einzige
+einen Fehler hatte.
+
+**Aus dem Hinweis wird im nächsten Major ein Fehler** (#269). Bestehende Stände haben
+solche Stellen; sie heute rot zu färben wäre ein Bruch.
+
+Die Bausteine-Seite der Doku war der eine echte Fall im Repository: Sie lädt die
+Vorführungs-Assets und tat das bis hierher als `<link>` im Text – zweimal sogar. Sie
+stehen jetzt **site-weit** in der `_config.yml`: Ihr Layout ist `page`, und das erlaubt
+eigene Assets über keinen der beiden Wege.
+
+**Die deklarierten Assets werden behandelt wie die des Themes.** Sie laufen durch
+denselben Filter: `baseurl` davor, Cache-Kennung dahinter, solange
+`assets.cache_busting` nicht auf `none` steht. Ein von Hand geschriebenes `<link>` im
+Seitenkörper bekommt beides nicht – es ist unter einem Unterpfad tot und liefert nach
+jedem Build die alte Datei aus dem Browser-Cache. Das ist der dritte Grund für den Weg
+über das Front Matter, neben der Prüfbarkeit und der Verschiebung durch einen Permalink.
+
+**`presentation` und `simulation` lasen die Angaben gar nicht.** Beide erlauben eigene
+Assets (`source_assets: true`), banden aber nur `site.styles` ein – `styles`/`scripts` je
+Seite und je Layout sowie das neue site-weite `scripts` liefen ins Leere, ohne Meldung.
+Die Einbindung steht jetzt einmal in `_includes/avd-page-assets.html` und wird von allen
+drei Rahmen (`default`, `presentation`, `simulation`) benutzt.
+
+**Ein Pfad ohne Datei dahinter wird gemeldet.** `styles`/`scripts` sind **site-relativ** –
+sie zählen ab der Wurzel der Site, nicht ab dem Ordner der Seite. Wer `demo.css` neben die
+Seite legt und so einträgt, bekam `/demo.css` an der Wurzel: Der Bau lief grün, die Seite
+lud nichts, und niemand sah warum. Liegt eine Datei dieses Namens neben der Seite, sagt
+der Hinweis das ausdrücklich.
+
+### Die Simulation zählte auf Deutsch, auch auf einer englischen Seite
+
+**Patch.** Die Steuerleiste einer Simulation beschriftet Liquid beim Bauen; was erst im
+Browser entsteht, holt `simulation.js` aus einem Mini-Wörterbuch und liest dazu
+`<html lang>`. Drei Beschriftungen standen dort nicht, sondern als deutsches Literal im
+Skript: der Zähler „Schritt 4 / 17“, „4 Szenarien“ in der Übersicht und „17 Schritte“ je
+Eintrag darin. Auf einer englischen Seite stand daneben alles andere auf Englisch.
+
+### `<base>` eines Permalinks ließ die Basisadresse weg
+
+**Patch.** Zieht ein Permalink in der Betriebsart `full` eine Seite an ihre kurze Adresse,
+setzt der Rahmen ein `<base>` auf das Ursprungsverzeichnis – damit die relativen Verweise
+**in** der Seite weiter dort auflösen, wo die Dateien liegen: Bilder, Nachbarseiten, ein
+`<script src>` oder `url()` in einem eigenen `<style>`.
+
+Diese Basis stand roh in der Seite, ohne `baseurl`. Auf einer GitHub-Projektseite
+(`…github.io/«repo»/`) zeigte sie damit **an der Site vorbei**: aus `/«repo»/docs/kurs/`
+wurde `/docs/kurs/`, und jeder relative Verweis der Seite lief ins Leere – still, denn der
+Bau kennt den Unterpfad nicht. Unter Root-Hosting (`baseurl: ""`) fiel es nicht auf.
+
+---
+
+## 3.13.1
+
+### Nach einer Druckvorschau wurden die Reiter zur wachsenden Liste
+
+**Patch.** Wer die Druckvorschau einer Seite mit Reitern öffnete und wieder schloss, hatte
+danach **keinen Reiterstreifen mehr**: Jeder Klick legte den neuen Inhalt zu allen vorher
+geöffneten dazu, bis zum nächsten Neuladen.
+
+Für den Druck klappt das Theme alle `<details>` auf und nimmt ihnen dafür kurz das
+`name`-Attribut, über das der Browser sie gruppiert. Dieser Teil war richtig. Falsch war,
+dass die Vorbereitung **zweimal** lief – `beforeprint` und der Wechsel des Media-Query sind
+beide unbedingt registriert. Beim zweiten Lauf fand sie nichts mehr vor und überschrieb die
+beiden Merklisten mit **leeren** Listen; danach gab es nichts mehr zurückzustellen.
+
+Vorbereitung und Aufräumen laufen jetzt genau einmal je Druck, gleich über welchen Weg sie
+angestoßen werden. Gemeldet aus `training-concept-container-technologies` (A-007).
+
+### Ein modales `<dialog>` saß oben links statt in der Mitte
+
+**Patch.** Der Reset `* { margin: 0 }` traf auch `<dialog>`. Ein modales Fenster zentriert
+der Browser über `inset: 0` **und `margin: auto`** – ohne dieses `auto` klebt es in der
+Ecke. Das Theme stellt die Vorgabe jetzt wieder her.
+
+**Der Reset war dabei nur die halbe Ursache.** Steht das Fenster im Inhaltsfluss – der
+Normalfall –, trifft es auch der **Blockrhythmus**, und der ist spezifischer als die
+Vorgabe: Er setzt ein `margin-top` und schiebt das Fenster an den oberen Rand. Gemessen auf
+einer Seite mit modalem Fenster: 26 px oben, 676 px unten. `dialog` ist deshalb auch aus
+den Rhythmus-Regeln ausgenommen; danach steht es in beiden Achsen mittig (351 px oben wie
+unten).
+
+Die Marge ist hier **Funktion**, nicht Dekoration. Wer das Fenster baut, sucht den Grund in
+seinem eigenen CSS und findet ihn dort nicht. Gemeldet aus
+`training-concept-container-technologies` (A-005).
+
+### Folieninhalt steht senkrecht in der Mitte
+
+**Patch.** Eine Folie trägt **eine** Aussage und ist meist kurz – oft ein Bild und zwei
+Zeilen. Oben angeschlagen las sich das wie ein angefangener Text; in der Mitte steht es als
+Aussage da.
+
+Gesetzt ist das als `margin-block: auto` an der Inhaltsspalte, **nicht** als
+`justify-content: center`: Beide zentrieren, aber `justify-content: center` schneidet bei zu
+hohem Inhalt den **oberen** Rand ab, und er ist dann nicht mehr erreichbar. Automatische
+Außenabstände lösen sich bei fehlendem Platz zu Null auf – eine zu hohe Folie beginnt oben
+und lässt sich vollständig rollen.
+
+**Bestehende Foliensätze sehen damit anders aus.** Die Titelfolie und das Regie-Deck waren
+schon zentriert und bleiben, wie sie sind. Gemeldet aus
+`training-concept-container-technologies` (A-008).
+
+### Festgehalten: Die Wortmarke trägt die Schulungsfarbe
+
+**Patch.** Dass die Wortmarke mit `brand.logo_ratio` die Akzentfarbe annimmt, stand bisher
+nur als Mechanik in der Doku – nicht als Entscheidung. Jetzt steht in
+[Academy-Design](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/academy.md), **warum** eine Marke das hier darf: Auf einer
+Unterlage ist die Wortmarke die Kopfzeile des Materials, nicht der Absender. Und daraus
+folgt die Regel, an der sich künftige Layouts messen lassen müssen – **alle** tragen
+dieselbe Umschaltung, auch die mit eigener Kopfleiste.
+
+## 3.13.0
+
+### Ein eigenes Icon darf jetzt mitfärben: `mask`
+
+**Minor.** Die sechs Vorgaben des Themes tragen die Farbe ihres Verweises. Ein eigenes Icon
+aus `linkmarks` tat das nicht – aus gutem Grund: Dem Theme sieht man einer fremden Datei
+nicht an, ob sie eine einfarbige Glyphe oder ein **Foto** ist, und eine Maske machte aus
+beidem eine Silhouette.
+
+**Die Lücke war nicht die Vorgabe, sondern dass es keinen Weg daneben gab.** Der Wert von
+`linkmarks` war im Schema schlicht `{"type": "string"}` – wer ein einfarbiges Icon eintrug,
+konnte nirgends sagen „das darf mitfärben". Jetzt kann er es:
+
+```yaml
+linkmarks:
+  "docker.com": /assets/icons/docker.svg          # wie bisher: behält seine Farben
+  "jira.example.com":
+    icon: /assets/icons/jira.svg
+    mask: true                                    # einfarbig: folgt der Linkfarbe
+```
+
+Die Zeichenketten-Form bleibt gültig und bedeutet unverändert dasselbe. **Die Zusage kann
+nur die Autorin geben** – sie kennt ihr Bild.
+
+**Es wirkt an beiden Orten**, im Fließtext wie in TopNav, Fußbereich und
+Ressourcen-Leiste. Nachgemessen am gebauten Stand mit roter Linkfarbe:
+
+| | Fließtext | Seitenleiste |
+| --- | --- | --- |
+| `mask: true` | Maske, Fläche `rgb(200,30,30)` | `<span>`, Maske, `rgb(200,30,30)` |
+| ohne `mask` | keine Maske | `<img>`, keine Maske |
+
+### Das GitHub-Pages-Icon ist nicht mehr angeschnitten
+
+Es wirkte beschnitten – und war es: Gemessen mit `getBBox()` ragte der Octocat **1,6
+Einheiten nach links und 1,33 nach oben** aus der `viewBox` heraus, während die Kugel unten
+rechts mit 0,2 Einheiten fast am Rand klebte. Das Zeichen sitzt jetzt mit ringsum 1,05 bis
+1,17 Einheiten Luft darin.
+
+### Korrektur
+
+Die Beschreibung von `linkmarks` im Konfigurations-Schema nannte noch **fünf** Vorgaben und
+zählte `github.io` nicht mit – ein unvollständiges Umbenennen aus 3.10.0. Das ist der Text,
+den die IDE beim Schreiben der `_config.yml` zeigt.
+
+Schema-Fassungen bleiben unverändert (Config 10): Die Objektform kommt **zusätzlich** zur
+Zeichenkette, nichts wird entfernt oder verengt.
+
+---
+
+## 3.12.0
+
+### Auch neben dem Fließtext trägt die Linkmarke die Farbe ihres Verweises
+
+**Minor.** Mit 3.10.1 nahm das Icon vor einem Verweis `currentColor` an – aber nur im
+**Fließtext**. In Navigation, Fußbereich und Ressourcen-Leiste blieb es orange, auch wenn
+der Linktext daneben blau war. Auf einer Seite mit eigener Akzentfarbe standen damit zwei
+Farben nebeneinander, die dasselbe meinen.
+
+**Der Grund war das Markup, nicht die Farbe.** Dort steht das Icon als `<img>`, und ein
+`<img>` ist ein **ersetztes** Element: Eine Maske beschneidet es, färbt es aber nicht um –
+seine Pixel kommen aus der Datei, und in der steht `fill="#FF5401"`. Keine CSS-Variable der
+Seite reicht dorthin.
+
+**Für die sechs Linkmarken-Glyphen gibt das Theme jetzt ein maskiertes Element aus:**
+
+```html
+<!-- vorher -->  <img  class="avd-academy-linkicon" src="…/icon-github.svg" alt="">
+<!-- jetzt  -->  <span class="avd-academy-linkicon avd-academy-linkicon--mark" …></span>
+```
+
+### Was ausdrücklich ein Bild bleibt
+
+| | warum |
+| --- | --- |
+| die übrigen 21 Icons des Themes | **Anthrazit-Kacheln** mit weißen und orangen Zeichen – maskiert würden sie zu einer einfarbigen Fläche |
+| ein eigenes `icon:` einer Autorin | Sie hat das Bild gewählt, samt seiner Farben |
+| Profilbilder | Die Teamseiten zeigen über dasselbe Feld **Fotos**, kreisrund beschnitten |
+
+Entschieden wird das am **Markup**, nicht in der CSS: `_includes/avd-linkicon.html` kennt die
+sechs einfarbigen Glyphen namentlich. Ein Pfadpräfix wie „alles unter `icons/`" träfe auch
+die Kacheln.
+
+**Der runde Beschnitt entfällt für die Glyphen.** `.avd-academy-linkicon` rundet
+quadratische Quellbilder zu Avataren; bei LinkedIn schnitte der Radius die Ecken des
+Zeichens ab.
+
+**Ohne Maskenunterstützung** bleibt es beim Bild in seiner eigenen Farbe – dieselbe
+Rückfallebene wie bei den Marken im Fließtext.
+
+**Neue Klasse `avd-academy-linkicon--mark`**, Markup Contract Fassung 7. Für Autorinnen
+ändert sich nichts: Weder `resources` noch `nav` noch `footer` bekommen ein neues Feld.
+
+---
+
+## 3.11.0
+
+### Ein Feldname wird gerade gerückt: `permaid` → `perma_id`
+
+**Minor, und nichts bricht.** Zusammengesetzte Feldnamen des Themes schreiben sich mit
+Unterstrich – `page_id`, `folder_slug`, `og_image`, `cache_busting`, `compact_after`,
+`open_threshold`, `error_mode`, `logo_ratio`. Genau **einer** tat es nicht: `permaid`.
+
+```yaml
+perma_id: http-grundlagen   # neu
+permaid:   http-grundlagen   # wirkt weiter, meldet sich als veraltet
+```
+
+**Der alte Name wirkt unverändert**, und zwar überall: Die Seite bekommt ihre kurze
+Adresse, die Weiterleitung entsteht, der Eintrag in `avd-permalinks.json` auch. Umgelegt
+wird er, bevor irgendetwas ihn liest (`_plugins/avd-aliases.rb`, Haken `post_read`) – der
+übrige Code kennt nur noch einen Namen.
+
+**Stehen beide auf einer Seite, gewinnt `perma_id`.** Wer beide schreibt, hat den neuen
+bewusst gesetzt; der alte steht meist nur noch da, weil ihn niemand entfernt hat.
+
+### Der Schemaprüfer kennt `deprecated`
+
+Neu als Schlüsselwort in `schema/validate.rb` – und ausdrücklich als **Hinweis**, nicht als
+Fehler:
+
+```
+HINWEIS: `permaid` ist veraltet – 1 Stelle(n).
+         VERALTET: benutze `perma_id`.
+         z. B. docs/beispiel.md:4
+```
+
+Der Lauf bleibt grün (Exit-Code 0). Wäre es ein Fehler, ginge jeder bestehende Stand rot,
+und diese Umbenennung wäre ein Major statt eines Minor. Gesammelt wird **je Feld**, nicht
+je Stelle: Wer `permaid` auf vierzig Seiten stehen hat, bekommt einen Satz und drei
+Beispiele – dieselbe Form wie beim `lang`-Hinweis.
+
+Der Nachfolger steht in der **Beschreibung** des Schemas und nicht in einem eigenen
+Schlüsselwort: `deprecated` ist in JSON Schema ein Boolean, und die veröffentlichten
+Schemas liest auch die IDE. Eine Quelle, nicht zwei, die auseinanderlaufen können.
+
+### `avd-permalinks.json` trägt beide Schlüssel
+
+Die Datei lesen fremde Pipelines; ein Schlüssel, den kein Schema prüft, darf nicht
+stillschweigend verschwinden. Sie trägt deshalb `perma_id` **und** `permaid` mit demselben
+Wert. Der alte entfällt mit dem nächsten Major.
+
+### Was NICHT umbenannt wurde
+
+Geprüft wurden alle 51 Front-Matter- und 100 Konfigurationsschlüssel. `permaid` war der
+einzige belegte Ausreißer. Bewusst geblieben sind:
+
+| Name | warum |
+| --- | --- |
+| `noindex` | spiegelt `<meta name="robots" content="noindex">` – eine Web-Konvention |
+| `tagline`, `website` | echte englische Wörter, keine Zusammensetzungen |
+| `qr`, `toc`, `i18n` | etablierte Abkürzungen; `qr_code` wäre keine Verbesserung |
+| `og_image` | `og` ist der Namensraum, der Unterstrich steht richtig |
+| `audience` / `audiences` | kein Tippfehler-Paar: die Zielgruppe DIESES Builds gegen die Deklaration aller |
+
+Offen und bewusst vertagt: `linkmarks` (Wortschöpfung, läse sich als `link_marks`) und die
+Asymmetrie zwischen `page_id` beim Setzen und `page` beim Verweisen.
+
+Schema-Fassungen bleiben unverändert (Front Matter 4): Ein zusätzliches optionales Feld ist
+additiv, und entfernt wird nichts.
+
+---
+
+## 3.10.1
+
+### Die Linkmarke trägt die Farbe ihres Verweises
+
+Das Icon vor einem Verweis stand fest auf dem **Akzent** der Site. Die Linkfarbe kommt im
+Auslieferungszustand aus derselben Quelle – wer sie aber eigens setzt, bekam ein Icon in
+einer Farbe und den Text daneben in einer anderen. Die Marke nimmt jetzt `currentColor`
+und folgt damit dem Verweis, vor dem sie steht.
+
+```css
+/* vorher */ background-color: var(--avd-academy-color-accent);
+/* jetzt  */ background-color: currentColor;
+```
+
+**Im Auslieferungszustand ändert sich nichts.** `--avd-academy-color-link` ist als
+`var(--avd-academy-color-accent)` definiert; ohne eigene Linkfarbe ist das Ergebnis Pixel
+für Pixel dasselbe wie in 3.10.0.
+
+**`fill="currentColor"` im SVG hätte das nicht geleistet, und das ist nachgemessen:** Ein
+über `url()` geladenes SVG ist ein eigenes Dokument. `currentColor` löst dort gegen dessen
+eigene Wurzel auf und wird **schwarz**, nicht zur Farbe der Seite. Die Farbe muss von
+aussen kommen – über die Fläche unter der Maske. Die Icon-Dateien sind deshalb unverändert.
+
+**Neu zugesagt:** `ui --avd-academy-color-link --avd-academy-color-bg` (3:1). Ohne diese
+Zeile wäre die Marke die einzige UI-Grafik des Themes ohne gemessenes Kontrastpaar – ihr
+Kontrast hängt jetzt an der Linkfarbe und nicht mehr am Akzent. Kontrastpaare in Fassung 2,
+320 Messungen.
+
+**Unverändert bleibt zweierlei:** Ohne Unterstützung für `mask-image` zeigt der Browser
+weiterhin die Datei selbst, also das Marken-Orange – diese Rückfallebene gab es schon
+vorher. Und ein eigenes Icon aus `linkmarks` bleibt unmaskiert und behält seine Farben; es
+könnte mehrfarbig sein, und eine Maske machte daraus eine Silhouette.
+
+---
+
+## 3.10.0
+
+### Eine eigene Linkmarke für GitHub Pages
+
+**Minor.** Ein Verweis auf ein Repository und ein Verweis auf die daraus veröffentlichte
+Seite sind zwei verschiedene Ziele. Bisher trug nur der erste eine Marke: `github.com`
+wurde erkannt, `github.io` nicht – ausgerechnet die Adresse, unter der die Unterlagen der
+Academy selbst stehen.
+
+| Ziel | woran | Icon |
+| --- | --- | --- |
+| `github.com` | Host | Octocat |
+| **`github.io`** | **Host** | **Octocat mit Weltkugel** |
+
+**Warum ein eigenes Icon und nicht dasselbe.** GitHub hat für Pages keine eigene Marke,
+und der Octocat allein verspricht Quelltext. Wer in einer Unterlage auf beides verweist –
+„hier das Repo, hier die fertige Seite" –, soll den Unterschied **vor** dem Klick sehen.
+Das Zeichen ist deshalb die Octocat-Marke mit einer ausgestanzten Kugel daneben; die
+Aussparung ist keine Zierde, sondern nötig, weil Linkmarken einfarbig als Maske gerendert
+werden und beide Formen sonst zu einer Fläche zusammenliefen.
+
+**Die beiden Muster können sich nicht in die Quere kommen:** `github.com` kommt in
+`…github.io/…` nicht vor und umgekehrt. Ein Repo-Link behält den Octocat.
+
+Neu dazu die Klasse `avd-academy-linkmark--github-pages` – für den Fall, dass eine
+veröffentlichte Seite unter eigener Domain liegt und das Muster deshalb nicht greift:
+
+```html
+<a class="avd-academy-linkmark--github-pages" href="https://schulung.example.com/">die Unterlage</a>
+```
+
+Die Marke gilt wie die anderen auch im Fließtext, in der Navigation, im Fußbereich und in
+der Ressourcen-Leiste; `avd-academy-linkmark--none` nimmt sie wie gewohnt weg.
+Markup-Contract-Fassung 6, neu im Paket `academy/icons/icon-github-pages.svg`.
+
+**Wer `github.io` schon selbst in `linkmarks` eingetragen hat, behält seine Angabe** –
+ein gleicher Schlüssel in der `_config.yml` gewinnt weiterhin gegen die Vorgabe.
+
+---
+
+## 3.9.0
+
+### Die ausgelieferte Seite wird schlank
+
+**Minor.** Am Verhalten ändert sich nichts, an der Menge schon: Eine gewöhnliche Doku-Seite
+lud bisher rund **288 KB** Theme-CSS und -JS, jetzt sind es **107 KB**. Nichts davon muss
+ein Projekt tun – es kommt mit dem Paket.
+
+**Kommentare bleiben in der Quelle.** Das Seitenlayout trug seine Erklärung als echten
+HTML-Kommentar, und damit stand sie in **jeder** gebauten Seite: 3 631 Byte, bei einer
+48-KB-Seite rund sieben Prozent. Dasselbe galt für die Kommentare in den Inline-Skripten
+(Spracherkennung, Syntax-Hervorhebung), im erzeugten `<style>` der Linkmarken und in den
+SVG-Bildmarken. Alle Erklärungen stehen weiter da, wo sie hingehören – als
+Liquid-Kommentar in der Quelle, der es nicht ins Ergebnis schafft.
+
+**CSS, JS und SVG werden minimiert ausgeliefert.** Leerraum und Kommentare raus, lokale
+Namen im JavaScript gekürzt (esbuild). **Öffentliche Namen bleiben unangetastet:** Jede
+Klasse `avd-academy-*` und jede Variable `--avd-academy-*` aus
+`contract/markup-contract.txt` heißt nach der Minimierung genau so wie davor – sie sind
+eine Zusage, kein Implementierungsdetail. Das Markenfundament unter `atvantage/` bleibt
+ebenfalls, wie es aus dem Export kam.
+
+| Datei | vorher | nachher |
+| --- | ---: | ---: |
+| `academy/components.css` | 110 872 | 47 431 |
+| `academy/atvantage.js` | 90 138 | 26 749 |
+| `jekyll/simulation.js` + `.css` | 78 671 | 37 647 |
+| alles zusammen | 435 646 | 175 724 |
+
+**`print.css` hält das Rendern nicht mehr auf.** Es wird mit `media="print"` eingebunden –
+12 KB, die für die Bildschirmansicht nichts beitragen. Die eine Bildschirmregel, die dort
+stand (`.avd-academy-print-contact` ausblenden), liegt jetzt in `components.css`. **Wer
+eigenes Druck-CSS an dieser Datei vorbei ergänzt hat, braucht nichts zu tun;** wer
+Bildschirmregeln in einer eigenen `print.css`-Kopie führte, verschiebt sie wie hier.
+
+### Neu: `assets.cache_busting`
+
+Hinter jeder Asset-Adresse steht eine Kennung, damit der Browser nach einem neuen Build
+nicht die alte Fassung aus seinem Cache zeigt. Bisher war das die **Bauzeit** – also
+entwertete jeder Build **alles**, auch die 110 KB `components.css`, an der sich nichts
+geändert hatte. Jetzt entsteht die Kennung aus dem **Dateiinhalt**: Was gleich geblieben
+ist, bleibt im Cache.
+
+```yaml
+assets:
+  cache_busting: hash   # Vorgabe – Kennung aus dem Dateiinhalt
+  # cache_busting: time # Bauzeit, das Verhalten bis 3.8
+  # cache_busting: none # gar keine Kennung, etwa hinter einem CDN
+```
+
+Schema-Fassungen bleiben unverändert (`config` 10): Das Feld ist optional und additiv.
+
+### Doku: „Auslieferung“
+
+Unter *Funktionsumfang → Bauen* steht alles davon auf einer Seite – was das Theme von
+sich aus schlank hält, was ausdrücklich nicht passiert und wo die beiden Schalter sitzen.
+Neu im Paket dafür `academy/icons/icon-delivery.svg`.
+
+---
+
+## 3.8.1
+
+### Der Kopieren-Knopf funktioniert wieder ohne sicheren Kontext
+
+An einem Code-Block und an „Markdown kopieren" tat der Knopf nichts, und in der Konsole
+stand:
+
+```
+Uncaught TypeError: Cannot read properties of undefined (reading 'writeText')
+```
+
+**`navigator.clipboard` gibt es nur im sicheren Kontext.** Eine aus dem Dateisystem
+geöffnete Unterlage hat keinen, und über `http://` von einer anderen Maschine aus auch
+nicht. Dort ist das Objekt schlicht `undefined`, und der direkte Zugriff wirft.
+
+**Der Rückfall war längst da – nur eingeschlossen.** Der Adress-Knopf der Werkzeugleiste
+hatte ihn seit 3.4.0; er lag aber **innerhalb** dessen eigener Funktion und war für die
+beiden anderen Knöpfe nicht erreichbar. Ein Rückfall, den nur eine von drei gleichartigen
+Stellen kennt, ist keiner. Er steht jetzt einmal für alle (`copyText`).
+
+**Auch eine Ablehnung fällt jetzt zurück.** Die Schnittstelle kann da sein und trotzdem
+ablehnen – fehlende Berechtigung, Seite nicht im Vordergrund. Und schlagen **beide** Wege
+fehl, fängt der Aufrufer das ab: Sonst bliebe eine unbehandelte Ablehnung stehen, derselbe
+rote Konsoleneintrag eine Zeile später. Der Knopf bleibt dann unmarkiert – er hat nicht
+kopiert und soll es nicht behaupten.
+
+| Lage | vorher | nachher |
+| --- | --- | --- |
+| kein `navigator.clipboard` | `TypeError`, keine Rückmeldung | kopiert über das Textfeld |
+| `writeText` lehnt ab | unbehandelte Ablehnung | Rückfall, sonst stiller Misserfolg |
+| Normalfall | kopiert | unverändert |
+
+---
+
+## 3.8.0
+
+### Permalink-Pfade dürfen je Sprache verschieden heißen
+
+**Minor.** Ein Vorsatz ist eine Adresse, und Adressen sind mehrsprachig: Was auf Deutsch
+„Schulungen" heißt, heißt auf Englisch „Trainings". Überall dort, wo in `permalinks` ein
+Pfad steht – in `base` wie in jedem Wert unter `overrides.entries` –, darf jetzt statt einer
+Zeichenkette eine **Sprachkarte** stehen, genau wie bei `folder_slug`:
+
+```yaml
+permalinks:
+  overrides:
+    strategy: path
+    entries:
+      "/trainings/**": { de: "/schulungen/{1}", en: "/trainings/{1}" }
+```
+
+| Seite | Adresse |
+| --- | --- |
+| deutsche Fassung | `/schulungen/«ordner»/«permaid»/` |
+| englische Fassung | `/en/trainings/«ordner»/«permaid»/` |
+
+Für `base` gilt dasselbe, ganz ohne `overrides` – `base: { de: "/kurz", en: "/short" }`
+ergibt `/kurz/«permaid»/` und `/en/short/«permaid»/`.
+
+**Die Sprachwurzel kommt weiterhin davor.** Die Karte wählt nur, welcher Pfad dahinter
+steht; das Muster links trifft wie immer den Quellpfad.
+
+**Eine unvollständige Karte bricht den Bau ab** – hier gibt es keinen Rückfall auf die
+Standardsprache, anders als bei `sprachtext`-Feldern. Dort ist der Wert eine Beschriftung:
+Fehlt sie, steht der deutsche Text im englischen Baum, sichtbar und schnell behoben. Hier
+ist der Wert eine **Adresse**; ein Rückfall legte die englische Seite unter den deutschen
+Vorsatz, und alles, was die Sprache am Pfad abliest, hielte sie für deutsch. Der Bau bliebe
+dabei grün. Ein nicht deklarierter Code bricht ebenso ab.
+
+**Zweimal geprüft:** Das Schema kennt die deklarierten Sprachen und meldet einen unbekannten
+Code **vor** dem Bau mit Zeilennummer (neue Definition `sprachpfad`); die Vollständigkeit
+prüft das Plugin beim Bau.
+
+**Reserviert wird jetzt genauer.** Ein `{ de: "/schulungen", en: "/trainings" }` sperrt
+`/schulungen/` und `/en/trainings/` – nicht mehr `/en/schulungen/`, wo nie ein Permalink
+entstünde. Eine Zeichenkette gilt weiterhin in jedem Sprachbaum.
+
+**Nichts zu tun für bestehende Sites:** Eine Zeichenkette bedeutet unverändert dasselbe.
+Die Schemafassung steigt nicht – es kommt eine Möglichkeit hinzu, keine fällt weg.
+
+---
+
+## 3.7.1
+
+### Das Icon bleibt bei seinem Verweis
+
+Stand ein Verweis am Zeilenende, konnte der Umbruch zwischen Marke und Text fallen: Das Icon
+blieb allein auf der einen Zeile, der Verweistext rutschte auf die nächste.
+
+**Die Ursache war die Bauart, nicht ein Randfall.** Als `inline-block` war das Icon ein
+eigenes Kästchen im Textfluss, und dahinter darf ein Browser umbrechen. Gemessen über 121
+Spaltenbreiten trat das bei **14** davon auf.
+
+**Jetzt nimmt das Icon am Umbruch gar nicht mehr teil:** Es ist absolut positioniert, den
+Platz macht das `padding-left` des Verweises – und der bricht erst **vor seinem ersten Wort**
+um. Nach derselben Messung: **0 von 121**.
+
+**Lange Verweistexte brechen weiterhin normal.** Das war die Gegenprobe, denn ein
+`white-space: nowrap` hätte den Umbruch zwar auch verhindert – und dafür jeden langen Verweis
+über den Rand geschoben.
+
+**Die Rücknahme nimmt den Platz mit weg.** `avd-academy-linkmark--none` entfernt jetzt auch
+die Einrückung, sonst bliebe eine Lücke ohne Icon stehen. Sie nennt dafür dieselben Ziele
+noch einmal, statt pauschal `a { padding-left: 0 }` zu schreiben: Das hätte auch einem Knopf
+im selben Abschnitt seine Innenabstände genommen – nachgemessen, er behält sie.
+
+### Die Marke trägt die Farbe der Site
+
+Ein Schulungsrepo mit blauem Akzent bekam bisher **orange** Linkmarken. Die Icons liegen als
+Bilddatei vor, und ein Bild färbt kein CSS um.
+
+**Jetzt nehmen die fünf Vorgaben die Akzentfarbe** – `--avd-academy-color-accent`, also auch
+das, was `--avd-academy-accent-base` daraus ableitet, und den Wechsel zwischen Hell und
+Dunkel gleich mit.
+
+**Maske statt Filter, und das ist gemessen.** Eine `filter`-Kette kann eine Zielfarbe nur
+annähern – gemessen `rgb(36,126,237)` statt `rgb(31,111,235)` – und vor allem **keine
+Variable lesen**: Ihre Stufen sind feste Zahlen, die Akzentfarbe steht erst zur Laufzeit
+fest. Die Maske nimmt das Icon als Schablone und die Farbe aus dem Token: exakt getroffen.
+
+**Wo keine Maske geht, bleibt alles beim Alten.** Der Umbau steht in einem `@supports`;
+ohne Maskenunterstützung bliebe sonst ein eingefärbter Klotz in Icon-Grösse stehen.
+
+**`icon-pdf.svg` ist neu gezeichnet.** Die Buchstaben „PD" und der Eckknick waren weiss
+*aufgemalt* – in einer Maske ist Weiss deckend, das Blatt wäre eine leere Fläche geworden.
+Jetzt sind sie **Aussparungen** (`fill-rule="evenodd"`). Sichtbar ändert sich dadurch nichts,
+ausser dass der Eckknick nun auch als Knick zu sehen ist.
+
+**Ein eigenes Icon aus `site.linkmarks` bleibt unmaskiert.** Es könnte mehrfarbig sein, und
+eine Maske machte daraus eine Silhouette – die erzeugten Regeln nehmen sie ausdrücklich
+zurück. Wer seine Marke eingefärbt haben will, liefert sie in der gewünschten Farbe.
+
+Der Markup Contract bleibt bei **Fassung 5**: Es kommt kein Name dazu und keiner fällt weg.
+
+---
+
+## 3.7.0
+
+### Linkmarken sind jetzt eine Schnittstelle
+
+**Minor.** Welches Ziel welches Icon bekommt, steht ab jetzt in der `_config.yml` – und
+damit im Projekt, nicht im Theme:
+
+```yaml
+linkmarks:
+  "docker.com": /assets/icons/docker.svg         # neues Ziel
+  "github.com": /assets/icons/github-eigen.svg   # Vorgabe überschrieben
+  ".zip": /assets/icons/archiv.svg               # neue Endung
+```
+
+**Der Schlüssel sagt selbst, wie er trifft:** mit einem Punkt beginnend eine **Endung**, mit
+einem Doppelpunkt endend ein **Schema**, sonst ein **Host**. Drei Formen, die sich nicht
+verwechseln lassen – und keine vierte Regel, die man nachschlagen müsste.
+
+**Es ergänzt und überschreibt, es ersetzt nicht.** Die fünf Vorgaben bleiben; ein gleicher
+Schlüssel gewinnt, ein neuer kommt dazu. Das ist Jekylls eigenes Zusammenführen der
+Konfigurationen – nachgemessen, nicht angenommen.
+
+**Überschreibst Du eine Vorgabe, zieht ihre Klasse mit.** `avd-academy-linkmark--github`
+bedeutet „dieses Ziel", nicht „diese Datei". Ein eigener Schlüssel bekommt bewusst **keine**
+Klasse: Das Theme soll ihren Namen nicht erfinden.
+
+**Es wirkt an allen drei Stellen** – als Marke im Fließtext und als Standard-Icon in TopNav,
+Fußbereich und `resources`. Die Rangfolge: `icon` am Eintrag, dann `linkmarks`, dann die
+Vorgaben.
+
+**Die Vorgaben bleiben in der CSS, nicht in `_config.defaults.yml`.** Zwei der drei Consumer
+laden diese Datei nicht; stünden die fünf Ziele dort, verlören genau diese Sites ihre
+Marken. Dieselbe Falle wie beim Wörterbuch.
+
+**Kein neues Icon im Paket.** Ein Docker-Logo wäre ein fremdes Markenzeichen, über das das
+Theme nicht zu entscheiden hat – wer es braucht, bringt es mit und trägt eine Zeile ein.
+
+Der Markup Contract bleibt bei **Fassung 5**: Es kommt kein Name dazu und keiner fällt weg.
+
+---
+
+## 3.6.1
+
+### Ein Eintrag ohne `icon` bekommt es jetzt vom Ziel
+
+Wer in `resources` oder in der TopNav einen Verweis nach draußen setzt, musste bisher den
+Icon-Pfad dazuschreiben. Jetzt genügen Titel und Adresse:
+
+```yaml
+resources:
+  - title: "Den Trainerleitfaden lesen"
+    url: /shared/trainerleitfaden-lesen.html      # intern – kein Icon
+  - title: "Musterlösungen (GitHub)"
+    url: https://github.com/atvantage-academy/…   # Octocat, ohne Zutun
+```
+
+Erkannt wird dasselbe wie bei den Linkmarken im Fließtext: `github.com`, `linkedin.com`,
+`baeldung.com`, ein `mailto:` und eine Adresse, die auf `.pdf` **endet** (`/a.pdf.html` ist
+eine HTML-Seite, `handout.pdf?v=2` eine PDF).
+
+**Eine eigene Angabe schlägt die Ableitung immer.** Bei einem Kurzlink, einem Spiegel unter
+eigener Domain oder einem zweiten Profil beim selben Anbieter liegt das Muster daneben –
+dann sagt es die Autorin.
+
+**Abgeleitet wird nur mit `title`.** Ein Eintrag ohne Titel rendert das Icon **statt** eines
+Textes; aus einem Menüpunkt würde sonst ein nacktes Logo. Der Kontaktblock des Fußbereichs
+bleibt ebenfalls unberührt: Dort steht die E-Mail-Adresse als Text, und ein Umschlag daneben
+sagte nichts, was die Adresse nicht schon sagt.
+
+**Ein Auflöser für alle drei Stellen** – `theme/jekyll/_includes/avd-link-icon.html`, benutzt
+von Kopfzeile, Fußbereich und Ressourcen-Leiste. Stünde die Regel an jeder einzeln, wäre sie
+an einer davon irgendwann vergessen.
+
+**Die Zielliste steht damit zweimal** – hier in Liquid, im Fließtext als CSS
+(`avd-academy-linkmark`). Das ist bewusst: Ein `::before` in der Leiste sähe anders aus als
+ein gesetztes Icon, stünde auf der falschen Seite und liesse sich nicht überschreiben. Beide
+Stellen verweisen aufeinander; **wer ein Ziel ergänzt, ergänzt es an beiden.**
+
+---
+
+## 3.6.0
+
+### Linkmarken: ein Verweis zeigt sein Ziel
+
+**Minor.** Ein Verweis nach draußen bekommt **von selbst** ein Icon, das verrät, wo er
+hinführt. Die Autorin schreibt einen gewöhnlichen Markdown-Link, sonst nichts:
+
+```markdown
+Die [Musterlösung](https://github.com/…) liegt im Repo.
+```
+
+| Ziel | woran | Icon |
+| --- | --- | --- |
+| `github.com` | Domain | Octocat |
+| `linkedin.com` | Domain | LinkedIn |
+| `baeldung.com` | Domain | Feder |
+| `mailto:` | **Schema** | Umschlag |
+| `.pdf` | **Endung** | Blatt |
+
+**Die letzten beiden sind keine Marken, sondern Gattungen.** Ein `mailto:` gehört keinem
+Anbieter, und eine Dateiendung erst recht nicht – deshalb konnten sie hinzukommen, ohne dass
+jemand über ein fremdes Logo entscheiden muss. Die drei Markenzeichen sind dieselben, die
+Academy Online längst führt; das Theme ist jetzt ihr einziger Ort.
+
+**Zwei Ausnahmen, beide als Klasse:**
+
+| | |
+| --- | --- |
+| `avd-academy-linkmark--none` | keine Marke, auch wenn ein Muster greift – wirkt auch von einem Vorfahren aus, für eine ganze Linkliste |
+| `avd-academy-linkmark--«name»` | diese Marke, auch wenn keines greift – für Kurzlinks, Weiterleitungen, Spiegel unter eigener Domain |
+
+**Nur im Inhaltsbereich.** In Navigation, Fußbereich und Ressourcen tragen Verweise ihr Icon
+weiter über das Feld `icon` – dort bestimmt die Autorin das Bild, hier das Ziel.
+
+**Kein JavaScript.** Ein Attributselektor auf `href` leistet das und wirkt auch im Ausdruck
+und in einem Bundle, das jemand aus dem Dateisystem öffnet.
+
+| | |
+| --- | --- |
+| neu im Contract | die sechs `avd-academy-linkmark--*` |
+| Fassung | 4 → **5** (290 Namen) |
+
+---
+
+## 3.5.0
+
+### `avd-academy-grid` trägt jetzt eine Zusage
+
+**Minor.** Das Raster, in das die Doku Autor:innen zum Gruppieren von Karten schickt, stand
+**nicht** im Markup Contract – ein Release hätte es umbenennen können, ohne dass
+`bin/markup-contract.sh --check` anschlägt. Vier Seiten der öffentlichen Academy hätten ihr
+Kartenraster verloren, und niemand wäre gewarnt worden (Issue #240).
+
+**Die Ursache war der Ort, nicht die Liste.** Der Contract entsteht **erzeugt** aus
+`theme/academy/*.css`; das Raster stand in `theme/jekyll/site.css`, also in der Layout-Ebene.
+Deshalb ist es dorthin gezogen, wo die Bausteine wohnen – seitdem nimmt der Generator es von
+selbst mit, und dasselbe Versehen kann sich nicht wiederholen.
+
+**Am Ergebnis ändert der Umzug nichts:** Die Klasse wird nirgends überschrieben, und
+`site.css` lädt ohnehin nach `components.css`.
+
+| | |
+| --- | --- |
+| neu im Contract | `avd-academy-grid`, `avd-academy-grid--tiles` |
+| Fassung | 3 → **4** (284 Namen) |
+
+**Was Layout-Inneres ist, bleibt ohne Zusage** – `avd-academy-doc*`, `-site-main`,
+`-container`, `-prose`. Das steht jetzt als Regel in `AGENTS.md`, in beide Richtungen.
+
+**`--tiles` ist dokumentiert**, in beiden Sprachen: Das Standard-Raster lässt Karten auf die
+Zeilenbreite wachsen, die Kachel-Variante hält sie auf fester Breite.
+
+---
+
+## 3.4.0
+
+### Permalinks: eine kurze Adresse je Seite, die nie wechselt
+
+**Minor.** Eine Zeile im Front Matter, und die Seite ist unter `/p/<id>/` erreichbar – für
+den Beamer, einen QR-Code auf Papier, einen Link im Ticket.
+
+```yaml
+---
+title: HTTP-Grundlagen
+permaid: http-grundlagen
+---
+```
+
+**Die Zeile ist der Schalter.** Ohne sie bekommt eine Seite keinen Permalink; ein Projekt
+ohne eine einzige solche Zeile merkt von dieser Fassung nichts.
+
+**Drei Betriebsarten** über `permalinks.mode`:
+
+| | |
+| --- | --- |
+| `full` (Vorgabe) | Die Seite liegt **nur** unter dem Permalink. Die kurze Adresse steht in der Adresszeile, ein Lesezeichen merkt sich sie. An der alten Adresse bleibt eine Weiterleitung |
+| `light` | Die Seite bleibt, wo sie ist; unter dem Permalink entsteht eine Weiterleitung. Die Werkzeugleiste bietet ein Kettensymbol an, das die kurze Adresse kopiert |
+| `disabled` | Jedes `permaid` wird übergangen, der Vorsatz ist frei |
+
+**Der QR-Code zeigt in beiden wirksamen Betriebsarten den Permalink** – er ist der Grund,
+warum es ihn gibt: Ein Code auf Papier überlebt jede Umbenennung.
+
+**Eigene Vorsätze** über `permalinks.overrides` – nach Layout oder nach Quellpfad, mit
+Platzhaltern:
+
+```yaml
+permalinks:
+  base: /p
+  overrides:
+    strategy: path
+    entries:
+      "/trainings/**": "/trainings/{1}"
+```
+
+Eingesetzt wird dabei, was **öffentlich** heißt: Ein Ordner `03-http` mit
+`folder_slug: http-grundlagen` ergibt `http-grundlagen`, nicht `03-http`.
+
+**Was der Bau abbricht**, statt still etwas Falsches zu bauen: zwei Seiten einer Sprache auf
+derselben ID, eine gewöhnliche Seite im Vorsatz, ein Platzhalter ohne Entsprechung, ein
+`{}` oder `{x}`. Ein Eintrag, der auf **nichts** passt, wird laut genannt; `.avd-permalinks`
+zählt je Eintrag mit, und `avd-permalinks.json` trägt die Zuordnung für die Pipeline.
+
+**Statische Dateien werden nie bewegt.** Ein Bild, auf das auch andere Seiten zeigen, bliebe
+sonst hinter ihnen zurück – oder läge zweimal im Bundle, mit zwei Adressen für dieselben
+Bytes.
+
+### `links.rb` liest Weiterleitungen
+
+`<meta http-equiv="refresh">` zählt jetzt als Verweis. Eine Seite, die nur aus einer
+Weiterleitung besteht, ist der Regelfall für eine kurze Adresse; zeigt ihr Ziel ins Leere,
+ist der Verweis tot wie jeder andere – nur schlimmer, weil der Leser eine leere Seite
+bekommt, ohne etwas angeklickt zu haben.
+
+### Schemas
+
+`permaid` im Front Matter (Fassung 4), `permalinks` in der Konfiguration (Fassung 10).
+`validate.rb` kennt jetzt `pattern` und `not`.
+
+### Brotkrume
+
+Eine Seite unter ihrem Permalink zeigt weiter, wo sie **inhaltlich** steht – nicht
+„Home / P / …". Beide Wege des Layouts lesen dafür ihr Ursprungsverzeichnis.
+
+---
+
+## 3.3.0
+
+### `--include`: eine Prüfung auf einen Ausschnitt beschränken
+
+**Minor.** Alle fünf Prüfwerkzeuge kennen jetzt `--include` als Gegenstück zu
+`--ignore` beziehungsweise `--exclude`:
+
+| Angabe | Wirkung |
+| --- | --- |
+| keine | alles wird angesehen – unverändert |
+| `--include /trainings` | angesehen wird **nur**, was darunter liegt |
+| `--include /trainings --ignore /trainings/alt` | erst eingrenzen, dann herausnehmen |
+
+**Ein Ausschluss schlägt einen Einschluss.** Anders herum liesse sich ein einmal
+ausgenommener Zweig durch ein weiteres Einschlussmuster wieder hereinholen –
+welche der beiden Angaben dann gälte, entschiede die Reihenfolge, und die steht
+in einer Eingabe nirgends verlässlich fest.
+
+**Wofür.** Ein Bundle enthält mehr, als ein Lauf beurteilen soll. Der Probebau
+eines eingereichten Trainingsstands baut die ganze Site, meldet aber nur, was
+der Einreichende auch ändern kann. Mit `--ignore` allein liesse sich das nicht
+ausdrücken: Es müsste alles Übrige aufzählen, und diese Menge wächst mit dem
+Bestand.
+
+**Die Schreibweise ist dieselbe wie bei `--ignore`** – `theme`, `/theme`,
+`theme/` und `/theme/**` bedeuten dasselbe, verglichen wird segmentweise. Beide
+Listen gehen durch denselben Normalisierer; zwei Fassungen davon wären zwei
+Wahrheiten darüber, was `theme/` heisst.
+
+Betroffen sind `links.rb`, `contrast.rb`, `components.rb`, `a11y.mjs` und
+`readability.mjs`. Die Regel steht in jedem Werkzeug an genau einer Stelle
+(`Scope` beziehungsweise `uebersprungen`), und die Selbsttests von `links.rb`
+und `components.rb` halten sie fest – mit Gegenprobe.
+
+---
+
+## 3.2.0
+
+### Eine Schreibweise für Ausschlussmuster – in allen fünf Werkzeugen
+
+Bis hierher hatte jedes Werkzeug seine eigene Vorstellung davon, was ein Ausschluss ist:
+
+| Werkzeug | Eingabe | Form |
+| --- | --- | --- |
+| `links.rb`, `contrast.rb`, `components.rb` | `--ignore` | `/theme/` – mit Schrägstrichen, roher Präfix |
+| `a11y.mjs`, `readability.mjs` | `--exclude` | `theme/academy` – ohne Schrägstrich, kommagetrennt |
+
+**Jetzt meinen `theme`, `/theme`, `theme/`, `/theme/` und `/theme/**` überall dasselbe**,
+und jede Eingabe nimmt eine kommagetrennte Liste.
+
+#### Verglichen wird segmentweise
+
+Der bisherige Vergleich war ein **roher Präfix** (`path.start_with?(muster)`). Damit traf
+`/theme` auch **`/themes-overview/`** – eine Seite, die niemand ausnehmen wollte, und sie
+fiel still aus der Prüfung. Umgekehrt musste man den Schrägstrich am Ende selbst
+mitschreiben, sonst griff nichts richtig.
+
+Der neue Vergleich ist **Gleichheit oder Präfix samt trennendem Schrägstrich**. Damit
+trifft `/theme` genau das, was gemeint ist – einschliesslich einer Adresse, die **exakt**
+`/theme` lautet, und ausschliesslich `/themes-overview/`.
+
+#### Umstellen
+
+**Nichts.** Jede bisherige Schreibweise bedeutet weiter dasselbe; dazu kommen die übrigen.
+Wer die Werkzeuge über die Prüf-Bausteine aufruft, bekommt mit deren Fassung **3.0.0** eine
+einzige Eingabe dafür: `exclude-urls`.
+
+### `scope.path` wird jetzt gelesen, wie Jekyll es liest
+
+Davon unberührt ist der Jekyll-Schlüssel `defaults[].scope.path` – eine andere Sache, und
+`liquid.rb` las sie falsch. Die Prüfung beantwortet **eine** Frage: *Rendert Jekyll diese
+Datei ohne Liquid?* Wer dabei anders urteilt als der Renderer, prüft etwas anderes, als
+gebaut wird.
+
+Zwei Abweichungen, beide in die **stille** Richtung – die Prüfung hielt eine Seite für
+„Liquid an" und übersprang sie:
+
+| | Jekyll (`frontmatter_defaults.rb`, `applies_path?`) | `liquid.rb` bisher |
+| --- | --- | --- |
+| ohne `*` | **roher Präfix** – `path_is_subpath?` ist `path.start_with?(parent_path)`. `trainings` erfasst auch `trainingsheft/a.md` | Präfix auf **Verzeichnisgrenze** – erfasste es nicht |
+| mit `*` | `Dir.glob` gegen das **Dateisystem**, Ergebnis wieder als Präfix | gar nicht unterstützt |
+
+Beides ist nachgebaut, samt dem abgeschnittenen führenden Schrägstrich. **Hier wird
+absichtlich nicht „sauberer" verglichen als Jekyll** – die Begründung steht im Quelltext.
+
+`strip_collections_dir` ist nicht nachgebaut: Es greift nur bei gesetztem `collections_dir`,
+und Sammlungen liest diese Prüfung ohnehin nicht.
+
+Der Selbsttest deckt beide Zweige ab; eine Gegenprobe mit wieder eingebauter
+Verzeichnisgrenze lässt ihn scheitern.
+
+---
+
+## 3.1.1
+
+### Keine inhaltliche Änderung
+
+Ausgelöst von einer Änderung an den Auslösern der Pipeline. Ein Workflow löst seit dieser
+Fassung auch bei seiner **eigenen** Datei aus – aus einem YAML-Diff ist nicht zu sehen, ob
+er das fertige Produkt verändert, und eine Patch-Nummer ist der kleinere Preis.
+
+---
+
+## 3.1.0
+
+### Ein Kontrastbefund sagt jetzt, wem er gehört
+
+Die Prüfung misst `body *` über das ganze Bundle: jedes Element mit eigenem Text gegen die
+wirksame Fläche darunter, in beiden Farbschemata. Ein Befund trug bisher Signatur,
+Farbwerte und Verhältnis – **kein Merkmal, das seine Ursache benennt**.
+
+Im Theme-Repo ist das richtig: Dort ist jede gemessene Paarung die eigene. **Beim
+Verbraucher nicht.** Wer kein eigenes CSS und kein Token-Overlay hat, misst ausschließlich
+Paarungen aus dem Token-Satz des Themes – also das, was das Theme vor jedem Release ohnehin
+verbindlich nachrechnet (`bin/contrast-pairs.sh`). Er bekommt einen Befund, dessen Ursache
+er nicht anfassen kann, und eine Prüfung, die das tut, wird abgeschaltet oder überlesen.
+
+Aufgefallen beim Umstellen von ATLAS auf Theme 3: `"tokens": null` im Profil, kein eigenes
+CSS – **jeder** Befund gehörte dem Theme.
+
+#### Wie zugeordnet wird
+
+Über das **Stylesheet**, nicht über Token-Namen. Das Messskript baut einmal je Seite einen
+Index aller Regeln mit ihrer Herkunft und fragt für jeden Befund: Setzt eine Regel
+**außerhalb** von `/theme/` die Schriftfarbe oder eine der Hintergrundschichten? Dann
+gehört der Befund dem Projekt.
+
+| | |
+| --- | --- |
+| beide Farben nur aus `/theme/` | **Warnung** im Bericht, zählt nicht, macht nichts rot |
+| irgendeine Regel aus dem Projekt | Befund wie bisher |
+| Herkunft nicht feststellbar | wie Projekt |
+
+**Absichtlich grob, und absichtlich in diese Richtung.** Gefragt wird nicht nach dem
+Gewinner der Kaskade, sondern ob überhaupt eine Projektregel im Spiel ist. Wer die Kaskade
+nachbaut, baut Spezifität, Ebenen und `!important` nach und liegt irgendwann falsch – still.
+Lieber ein Befund zu viel als eine stille Lücke. Als Projekt zählen dabei jedes `<style>`
+im Dokument, jedes Stylesheet außerhalb von `/theme/` und das `style`-Attribut am Element.
+
+**Jede Hintergrundschicht zählt mit**, nicht nur der deckende Grund: Eine durchscheinende
+Tintung des Projekts über einer Theme-Fläche macht die wirksame Farbe zur Sache des
+Projekts.
+
+**Die Zuordnung läuft nur auf Befunden**, nicht auf jedem Element – bei einer sauberen Site
+kostet sie nichts.
+
+Zwei Dinge daran waren nicht offensichtlich und stehen deshalb hier:
+
+- **Vollständig durchsichtige Elemente zählen nicht mit.** Zwischen einem Text und seiner
+  Fläche liegen typischerweise vier, fünf Elemente ohne jede Hintergrundangabe – `p`,
+  `main`, ein paar `div`. Für sie gibt es keine Regel zu finden, „nicht feststellbar" zählt
+  wie Projekt, und damit wäre **jeder** Befund einer des Projekts geworden.
+- **Die Kurzschreibweise wird mitgefragt.** Steht in einer Regel
+  `background: var(--avd-academy-color-bg-subtle)`, kann CSSOM sie nicht zerlegen:
+  `getPropertyValue("background-color")` gibt den Leerstring zurück. Das Theme schreibt
+  seine Flächen fast durchweg so – ohne diese Abfrage fand die Suche zu **keinem**
+  Hintergrund eine Regel.
+
+- **Vererbung wird verfolgt.** `color` vererbt sich: Ein `<code>` in einem Verweis hat
+  meist gar keine eigene Farbregel, es trägt die des `<a>`. Wer nur das Element fragt,
+  findet nichts. `background-color` vererbt sich nicht – dort wäre Weitersuchen falsch.
+
+Alle drei Fälle stehen im Selbsttest.
+
+#### Kein Schalter
+
+Ein Schalter wäre eine Entscheidung, die jeder Aufrufer treffen müsste, und die Antwort
+wäre überall dieselbe. Im Theme-Repo selbst geht dadurch nichts verloren: Verbindlich ist
+dort `bin/contrast-pairs.sh`, das die zugesagten Token-Paare nachrechnet; der Lauf über die
+Doku-Seiten berichtet ohnehin nur, und die Theme-Paarungen stehen weiter im Bericht.
+
+#### Umstellen
+
+Nichts. Ein Aufrufer bekommt ab dieser Fassung weniger Befunde und eine Warnung mehr – und
+zwar genau die, die er nicht beheben konnte. Die Prüf-Bausteine ändern sich nicht: Das
+Werkzeug liegt im Paket, nicht in der Action.
+
+---
+
+## 3.0.3
+
+### Der Zielgruppenfilter beurteilte Dateien, die nie eine Seite werden
+
+`filter.rb` las **jede** Markdown-Datei unter der Quelle und prüfte ihre Verweise gegen die
+Zielgruppenregel – auch `AGENTS.md`, `CLAUDE.md`, `README.md` und `ABWEICHUNGEN.md`. Die
+stehen im `exclude` der `_config.yml` und kommen nie ins Bundle; ein Verweis darin kann
+nirgends ins Leere zeigen.
+
+Beim Umstellen der fünf Schulungsrepos auf Theme 3 waren das **13 von 19 Meldungen** – und
+jede einzelne davon hätte den Build angehalten (Rückgabewert 5), ohne dass es etwas zu
+beheben gab.
+
+`filter.rb` liest `exclude` jetzt so, wie `liquid.rb` es liest und wie Jekyll es liest:
+Setzt ein Projekt den Schlüssel, ersetzt das die Liste des Themes vollständig.
+
+---
+
+## 3.0.2
+
+### Eine Seite konnte die Liquid-Abschaltung für sich aufheben – unbemerkt
+
+`render_with_liquid` ist **Front Matter**, kein globaler Schalter; einen solchen hat Jekyll
+nicht ([jekyll/jekyll#9018](https://github.com/jekyll/jekyll/issues/9018) ist der offene
+Wunsch danach). Eine Site schaltet Liquid deshalb über `defaults` für alle Seiten ab – und
+genau daraus folgt die Lücke: **Jede einzelne Seite kann die Abschaltung mit
+`render_with_liquid: true` in ihrem eigenen Front Matter wieder aufheben**, ein
+`defaults`-Eintrag sogar für einen ganzen Ordner.
+
+Die Liquid-Prüfung übersprang solche Seiten bis hierher stillschweigend – zu Recht, denn
+dort ist Liquid ja an. Der Lauf blieb grün und meldete „keine Liquid-Syntax“, während sich
+eine Seite ausdrücklich ausgenommen hatte.
+
+**Für die meisten Projekte ist das in Ordnung.** Eine Seite, die Liquid vorführt, braucht
+Liquid. Deshalb bleibt es die Vorgabe.
+
+**Für einen Verbraucher, der ohne Liquid rendert, ist es keine Ausnahme, sondern ein
+Loch.** ATLAS etwa sagt seinen Lesern „ohne Liquid“ zu (Vertragsregel B35, ADR 0025) und
+liest `render_with_liquid` gar nicht erst. Was sich hier ausnimmt, steht dort wörtlich auf
+der Seite.
+
+Neu ist deshalb `--forbid-liquid-optin`: Dann ist die Ausnahme selbst der Befund – für eine
+einzelne Seite wie für einen `defaults`-Eintrag, der einen Ordner wieder anschaltet. In den
+Prüf-Bausteinen heißt der Schalter `liquid-optin: forbid`.
+
+Weil die Prüfung je gefilterter Fassung läuft, lässt sich das **je Zielgruppe** verschieden
+halten: Die Trainerfassung, die im Haus bleibt, darf `allow` bekommen; die
+Teilnehmerfassung, die weitergereicht wird, `forbid`.
+
+### Nichts aus dem Theme wird beim Verbraucher geprüft
+
+Drei Werkzeuge lasen mit, was gar nicht dem Projekt gehört – die Dateien des ausgepackten
+npm-Pakets unter `theme/`. Ein Befund darin ist einer, den kein Projekt beheben kann: Er
+kommt mit jedem Paket wieder.
+
+| Werkzeug | was es las | jetzt |
+| --- | --- | --- |
+| `filter.rb` | jede `.md` unter der Quelle, `theme/CHANGELOG.md` eingeschlossen | übergeht `theme/` und die Baukataloge |
+| `liquid.rb` | dasselbe | dieselbe Liste |
+| `components.rb` | jede `.html` im Bundle, `/theme/…` eingeschlossen | neues `--ignore`, in den Prüf-Bausteinen an `ignore` gehängt |
+
+`links.rb`, `contrast.rb`, `a11y.mjs` und `readability.mjs` taten es längst – über `ignore:
+/theme/` beziehungsweise `exclude: theme`. Jetzt tun es alle.
+
+### Liquid abgeschaltet, aber nichts darunter – das war ein grüner Lauf
+
+Steht `render_with_liquid: false` auf einem `scope.path`, unter dem keine einzige Quelle
+liegt, meldete die Prüfung „keine Liquid-Syntax in 0 Quelle(n)" und ging durch. Von außen
+sieht das aus wie ein sauberer Bestand und ist in Wahrheit ein Bereich, den es nicht gibt –
+ein Pfad mit Tippfehler, oder Inhalt, der noch gar nicht importiert ist.
+
+Jetzt ist es Rückgabewert 2 („die Prüfung konnte nicht laufen"), samt der Liste der Pfade,
+für die abgeschaltet wurde. Dieselbe Regel wie in `links.rb`: Eine Prüfung über die leere
+Menge ist kein Erfolg. Gefunden beim Vorbereiten von ATLAS auf Theme 3, wo der Schalter für
+`/trainings/` gesetzt wird, bevor es diesen Bereich gibt.
+
+### Der Zielgruppenfilter brach am CHANGELOG des Themes ab
+
+`filter.rb` las **jede** Markdown-Datei unter der Quelle – auch die des ausgepackten
+npm-Pakets unter `theme/`. Dessen `CHANGELOG.md` erklärt in Prosa, dass eine
+`audience`-Weiche auf eine eigene Zeile gehört; der Filter las das als Weiche mitten in
+einer Zeile und beendete den Build mit Rückgabewert 5.
+
+Ein Befund, den kein Projekt beheben kann: Er kommt mit jedem Paket wieder.
+
+`filter.rb` und `liquid.rb` übergehen jetzt beide dieselbe Liste – `_site`, `.git`,
+`.jekyll-cache`, `node_modules`, `vendor`, `.github`, jedes Pfadstück mit `_` am Anfang und
+eben `theme/`. Dieselbe Begründung steht hinter `ignore: /theme/` und `exclude: theme` in
+den Prüf-Bausteinen.
+
+### Bezeichner in `jekyll/liquid.rb` jetzt englisch
+
+Die Datei war bei der Umstellung auf englische Bezeichner (3.0.0) übersehen worden. Rein
+intern – kein Aufruf ändert sich.
+
+---
+
+## 3.0.1
+
+### `render_with_liquid` durfte nicht dastehen, obwohl das Theme es verlangt
+
+Das Front-Matter-Schema ist **geschlossen** – und kannte den Jekyll-Schalter nicht. Wer der
+Anleitung folgte und `render_with_liquid: false` in die `defaults` seiner `_config.yml`
+schrieb, bekam:
+
+```
+`defaults.0.values.render_with_liquid` unbekanntes Feld
+```
+
+Also genau dort einen Fehler, wo das Theme den Schlüssel selbst empfiehlt. Gefunden beim
+Umstellen des ersten Schulungsrepos auf Theme 3.
+
+Das Feld ist ergänzt und in beiden Sprachfassungen unter „Aus dem Jekyll-Standard“
+dokumentiert. **Die Schema-Version bleibt bei 2:** Ein erlaubtes Feld mehr ist eine
+Erweiterung, keine Verengung.
+
+**Warum es im FRONT-MATTER-Schema steht und nicht im Konfigurations-Schema:** Jekyll kennt
+keinen globalen Schalter dafür – `render_with_liquid` ist ein Front-Matter-Schlüssel, und
+site-weit setzt man ihn über `defaults` in der `_config.yml`. Der Prüfer liest
+`defaults.*.values` deshalb gegen das Front-Matter-Schema, und genau dort fehlte er.
+
+## 3.0.0
+
+### Zielgruppen entscheidet `audiences` – allein, und jeder Build filtert
+
+**Major.** Eine Ausgabe, die bisher vollständig war, ist es danach nicht mehr – das ist der
+Zweck der Änderung und ihr Bruch zugleich.
+
+#### Was sich ändert
+
+**`audience_filter` und `exclude_names` sind entfallen.** Bis hierher entschied eine Liste
+in der `_config.yml`, *wer überhaupt gefiltert wird*. Wer nicht darin stand, bekam alles.
+Das las sich bequem – „Trainer:innen sehen ohnehin alles“ – und war der Grund, warum eine
+Ausgabe ungefiltert entstand, ohne dass es jemandem auffiel.
+
+Jetzt gilt eine Regel:
+
+| im Front Matter | erscheint |
+| --------------- | --------- |
+| keine Angabe | in **jedem** Build |
+| `audiences: [a]` | nur im Build für `a` |
+
+Ausdrücklich auch gegenüber einer Gruppe, die sonst alles sah. Wer will, dass sie fremdes
+Material bekommt, trägt sie **in `audiences`** mit ein – dort, wo es um die Datei geht, und
+nicht in einer Ausnahmeliste, die niemand liest.
+
+**Eine Zielgruppe ist Pflicht, sobald `audiences` deklariert ist.** Ein `jekyll build` oder
+`jekyll serve` ohne sie bricht ab. Bis 2.x baute so ein Lauf die *ganze* Site, und weil das
+Theme seine Navigationseinträge gegen `site.audience` prüft, erschien ohne die Variable auch
+jeder Eintrag mit `audiences`. Der Fallback war „alles zeigen“, lautlos – genau so zeigte
+die lokale Vorschau eines Schulungsrepos Trainermaterial. Eine Vorgabe-Zielgruppe gibt es
+bewusst nicht: Sie wäre eine Annahme darüber, wer was sehen darf.
+
+**Zwei Fassungen dürfen dieselbe Adresse tragen.** Eine Startseite kann je Zielgruppe anders
+aussehen, ohne eine Verzweigung im Inhalt – die zweite beansprucht ihre Adresse über
+`permalink`. Gefiltert wird vor Jekyll; der Renderer sieht die Doppelbelegung nie.
+Überschneiden sich die `audiences` doch, bleiben beide stehen und der Lauf bricht ab.
+
+**Ein Verweis darf nicht enger zielen, als er steht:** `audiences(Quelle) ⊆ audiences(Ziel)`,
+mit „keine Angabe“ als voller Menge. Geprüft wird strukturell über alle Dateien – ein Lauf
+sieht nur eine Zielgruppe, und wer nur eine Sicht baut, bekäme die übrigen Verstöße nie zu
+sehen.
+
+**Neu als eigenständiges Werkzeug:** `theme/jekyll/filter.rb`. Es filtert auch ohne Bauen –
+für eine Zielgruppensicht, die weitergegeben wird. Über
+`academy-theme-actions/filter@v2` auch als Baustein.
+
+**Die Weiche im Inhalt: `{% raw %}{% audience … %}{% endraw %}`.** Für den Fall, dass nur eine Zeile
+abweicht und eine zweite Seite zu grob wäre. Trifft die gebaute Zielgruppe zu, bleibt der
+Inhalt und die Tags verschwinden; sonst verschwindet beides. Ein Verweis in der Weiche
+zählt mit deren Zielgruppen.
+
+Eine Weiche muss **enger** sein als die Seite: Nennt sie nur, was im Front Matter ohnehin
+steht, grenzt sie nichts ein; haben beide keine Zielgruppe gemeinsam, erschiene ihr Inhalt
+nie. Beides bricht ab – der eine Fall tut nichts, der andere versteckt Inhalt, den niemand
+zu sehen bekommt, und beides sieht im Diff aus wie eine Absicht, die wirkt.
+
+Sie sieht aus wie Liquid und ist keines: `audience` nimmt eine Liste von Zielgruppen, sonst
+nichts. Ein nachgebautes `{% raw %}{% if %}{% endraw %}` wäre eine Zusage auf Liquids ganze
+Ausdrucksgrammatik, und ein Ausdruck, den der Filter anders läse als Liquid, wäre schlimmer
+als gar keine Weiche. Die Klammern bleiben trotzdem – sie sind das Sicherheitsnetz: Bliebe
+eine Weiche stehen, bräche Jekyll mit „Unknown tag“ ab (Liquid an) oder `liquid.rb` meldete
+sie (Liquid aus). Ein HTML-Kommentar hätte die schlechteste Eigenschaft überhaupt: Marker
+unsichtbar, Inhalt sichtbar.
+
+#### Umstellen
+
+1. **`audience_filter` aus der `_config.yml` streichen**, `exclude_names` mit. `audiences`
+   bleibt als Deklaration.
+2. **Jede Seite prüfen, die bisher über `exclude_names` gefiltert wurde** – der Dateiname
+   entscheidet nichts mehr. Was einer Gruppe vorbehalten bleiben soll, bekommt `audiences`.
+3. **Jede Seite prüfen, die eine Gruppe bisher „mitbekam“, weil sie nicht gefiltert wurde.**
+   Soll sie das weiter, gehört die Gruppe in ihr `audiences`. Das ist der Schritt, der
+   Arbeit macht – und der einzige, der etwas sichtbar verändert.
+4. **Verzweigungen im Inhalt auflösen.** `{%- raw -%}{% if site.audience %}{%- endraw -%}`
+   entfällt; zwei Dateien mit `audiences` treten an seine Stelle, notfalls mit `permalink`
+   auf dieselbe Adresse.
+5. **Verweise gegen die Regel prüfen.** Der Filter meldet jeden Verstoß mit Datei, Ziel und
+   den Zielgruppen, für die es fehlt.
+6. **Bauen ohne Zielgruppe ersetzen** – `sh theme/jekyll/_bin/build.sh «zielgruppe»`.
+
+#### Der Reiterstreifen wird bei 320 px brauchbar
+
+Er rollte. Bei 320 px sah man vom dritten Reiter nichts mehr – und ahnte auch nicht, dass es
+ihn gibt: Eine waagerechte Rollleiste in einem Kasten wird übersehen. Sichtbar bleibt jetzt
+nur der **gewählte** Reiter, die übrigen stehen hinter einem **Burger** daneben; ein Druck
+darauf stellt sie untereinander.
+
+**Ab wann, entscheidet die Messung.** Wie viel Platz die Leiste braucht, hängt an Anzahl und
+Länge der Beschriftungen – eine feste Pixelgrenze wäre bei zwei kurzen Reitern zu früh und
+bei sechs langen zu spät. Ein `ResizeObserver` hält es beim Größenändern nach.
+
+**Der Burger steht neben der `tablist`, nicht darin** – ein Knopf zwischen den Reitern
+verletzt `aria-required-children`. Dafür gibt es den Rahmen `avd-academy-tabs__nav`; die
+trennende Linie sitzt an ihm, damit sie über die ganze Breite läuft.
+
+Vier neue öffentliche Namen – `avd-academy-tabs__nav`, `avd-academy-tabs__more`,
+`avd-academy-tabs--compact`, `avd-academy-tabs--menu-offen` –, **Markup Contract auf
+Fassung 3**. Die seitliche Fassung bleibt unberührt.
+
+#### Die Schnittstelle der Simulationen ist englisch
+
+**Major, und hier liegt der Grund für den Zeitpunkt:** Diese Namen stehen in fremden
+Simulationsskripten. Sie später umzubenennen wäre ein zweiter Bruch – der richtige Moment
+ist der erste.
+
+| vorher | jetzt |
+| ------ | ----- |
+| `sim.tempo(stufe)` | `sim.speed(level)` |
+| `sim.szenario(id)` | `sim.scenario(id)` |
+| `sim.uebersicht()` | `sim.overview()` |
+| `sim.ost(an)` | `sim.caption(on)` |
+| `sim.szenarien` | `sim.scenarios` |
+| `sim.aktuellesSzenario` | `sim.currentScenario` |
+| `sim.istUebersicht` | `sim.isOverview` |
+| Adresse `#/uebersicht` | `#/overview` |
+
+Mit umgezogen sind die Auszeichnungen, die das Layout setzt: `data-avd-academy-sim-ost` →
+`-caption`, `avd-academy-sim__ost*` → `__caption*`, `data-uebersicht` → `data-overview`,
+`avd-academy-sim__tab--uebersicht` → `--overview`, und die CSS-Variable
+`--avd-academy-sim-ost-h` → `--avd-academy-sim-caption-h`. Wer davon etwas in eigenem CSS
+selektiert, schreibt um.
+
+**Die mitgelieferten Beispiele mussten nicht angefasst werden** – sie rufen `setup`,
+`registerStep`, `registerScenario`, `list`, `pulse` und `codeLine`, und die hießen schon
+vorher so. Nachgemessen an der gebauten Beispielsimulation: Schnittstelle vollständig
+englisch, vier Szenarien, Schrittwechsel, Tempo, Übersicht und Szenariowechsel geprüft.
+
+#### Die Doku der Simulationen nannte Namen, die es nicht mehr gab
+
+Kein Bruch, sondern eine Korrektur – und eine, die Arbeit gekostet hat: Die deutsche Seite
+führte `titel`, `dauer` und `beschreibung` als Schritt- und Szenariofelder, dazu die
+Kontext-Schlüssel `vorher`, `richtung`, `animiert`, `schritt`, `anzahl` und `szenarioIndex`
+sowie die Front-Matter-Schlüssel `einleitung`, `erklaerspalte` und `tempo`. **Nichts davon
+existiert** – die Feldnamen sind mit 2.0 auf Englisch umgestellt worden, die
+Front-Matter-Schlüssel liegen unter `simulation.*`. Die englische Fassung war an diesen
+Stellen richtig; die deutsche war die ältere von beiden.
+
+#### Die Kompatibilitätsschichten sind weg
+
+Das Register nennt sie „technische Schuld mit Verfallsdatum“, und das Datum ist dieser Major.
+Beide Einträge sind abgearbeitet:
+
+- **`brand.website`** wird nicht mehr als Rückfall gelesen. Die Adresse steht unter
+  `contact.website`; `ruby bin/migrate.rb --from 2 --to 3` benennt sie um. Der Schlüssel ist
+  auch aus dem Konfigurations-Schema gestrichen.
+- **`avd-academy-theme-toggle`** und **`avd-academy-print-btn`** stehen nicht mehr neben
+  `avd-academy-tool` auf den Knöpfen. Wer sie in seiner `assets/custom.css` selektiert,
+  schreibt auf `.avd-academy-tool--theme` bzw. `.avd-academy-tool--print` um. **Markup
+  Contract auf Fassung 2** – zwei öffentliche Namen sind entfallen.
+
+#### Weiteres
+
+**Config-Schema auf Version 3** (`audience_filter` entfernt). Die Fassung 2 bleibt unter
+`/schemas/config/2/` erreichbar.
+
+**Eine `permalink`-Seite belegt ihre Adresse.** Sie wird weiterhin nicht umbenannt, fiel bis
+hierher aber aus der Kollisionsprüfung – eine über `slug` oder `folder_slug` abgebildete
+Seite konnte still auf dieselbe Adresse laufen, und Jekyll schrieb beide.
+
+**`links.rb --label`.** Seit jeder Build filtert, laufen regelmäßig mehrere; ohne
+Beschriftung stehen zwei gleichlautende Ergebnisse nebeneinander.
+
+**Neu: `avd-academy-fieldtable--wrap`.** Die erste Spalte einer Feldtabelle darf damit an
+Leerzeichen umbrechen – die Namen selbst bleiben ganz. Für Tabellen, deren erste Zelle neben
+dem Namen noch etwas trägt (einen Alias etwa); ohne das stünde die Spalte so breit wie Name
+plus Zusatz.
+
+**Die Kontrastprüfung fährt EINEN Browser statt einen je Seite.** Sie rief bis hierher
+`chrome --headless --dump-dom` auf – einmal je Seite **und** Farbschema. Gemessen an der
+Doku-Site sind das 148 Chrome-Kaltstarts. Der Browser-Teil liegt jetzt in
+`jekyll/contrast.mjs` neben `a11y.mjs`, beide teilen sich `browser.mjs`.
+
+| | vorher | jetzt |
+| --- | --- | --- |
+| lokal (74 Seiten × 2 Schemata) | 3 min 34 | **44 s** |
+| Chrome-Starts | 148 | **1** |
+
+Der Bericht bleibt Zeichen für Zeichen derselbe – mit einem Unterschied: Der alte Lauf
+verlor sporadisch eine Seite als „Sonde ohne Antwort“, der neue misst sie.
+
+**Dafür braucht die Kontrastprüfung jetzt Node (22+)**, so wie die Barrierefreiheitsmessung
+längst. Fehlt es, steigt der Lauf sichtbar aus, statt eine leere Messung als sauberen Lauf
+auszugeben.
+
+**Der Bericht ist jetzt reproduzierbar sortiert.** Bei gleichem Kontrastverhältnis entschied
+vorher die Reihenfolge der Messung – zwei Läufe über dieselbe Site lieferten denselben Inhalt
+in anderer Ordnung, und ein Diff zeigte Bewegung, wo keine war.
+
+**Neu: `jekyll/components.rb`.** Prüft, ob ein Baustein so **benutzt** ist, dass er tut, was
+er soll – der Markup Contract sagt nur, welche Namen es gibt. Die erste Regel gilt der
+Info-Schaltfläche; sie stand im Theme selbst an 16 Stellen falsch, ohne dass es auffiel. Das
+Werkzeug lag bis hierher unter `bin/` und damit nur diesem Repo zur Verfügung – der Defekt
+kann aber in jeder Unterlage entstehen.
+
+**Neu: `jekyll/readability.mjs`.** Misst, wie schwer sich die Prosa des gebauten `_site`
+liest – Flesch-Reading-Ease (deutsch nach Amstad) und, auf Deutsch, die Wiener
+Sachtextformel. Anders als die übrigen Werkzeuge braucht es eine Installation
+(`npm install --no-save @lunarisapp/readability`); fehlt sie, steigt der Lauf sichtbar aus.
+Sie liegt nicht im Paket, weil sie mit rund 48 MB in jedem Bundle mitreiste.
+
+**Zwei Icons mehr:** `academy/icons/icon-design.svg` und `icon-blocks.svg`. Die Kachel
+(`avd-academy-card`) trug ihr Zeichen bis hierher als **Emoji** – das sieht auf jedem
+System anders aus und wird vom Screenreader mitgelesen. Jetzt steht dort dasselbe
+`avd-academy-linkicon` wie in der Navigation, mit `alt=""`, weil der Titel danebensteht.
+
+## 2.50.0
+
+### `jekyll/version.txt` – das Theme nennt seine Fassung dort, wo sie gelesen wird
+
+Die Prüf-Bausteine (`academy-theme-actions`) werden **unabhängig** vom Theme gepinnt. Ob
+beides zusammenpasst, konnten sie bisher nicht feststellen: `package.json` liegt zwar im
+npm-Paket, die Site schließt `theme/package.json` aber vom Jekyll-Output aus – im **gebauten
+Bundle**, dem ersten Fundort der Bausteine, war die Version nicht lesbar. Dieselbe Falle wie
+bei axe-core.
+
+**Neu:** `jekyll/version.txt` trägt die Paketversion und liegt neben den Werkzeugen, reist
+also in jedes Bundle mit. `npm-validate` erzwingt den Gleichstand mit `package.json` – zwei
+Stellen für dieselbe Zahl driften sonst.
+
+Ab Actions 1.6.0 bricht ein Lauf gegen eine unverträgliche Theme-Reihe damit ab, statt
+unbemerkt gegen Werkzeuge zu laufen, die den Stand nicht kennen.
+
+## 2.49.0
+
+### `liquid.rb` — steht in den Quellen etwas, das nie ausgewertet wird?
+
+Ein neues Werkzeug im Paket, neben `links.rb`, `contrast.rb` und `a11y.mjs`. Es beantwortet
+eine Frage, die erst entsteht, wenn eine Unterlage an einen Verbraucher geht, der **ohne
+Liquid** rendert: Wo verlässt sie sich noch darauf?
+
+Ohne Liquid wird jede Anweisung gedruckt statt ausgewertet. Aus einer Verzweigung wird
+sichtbarer Text; und ein {% raw %}`{% comment %}`{% endraw %}-Block, der sonst **nichts** anzeigt, stellt seine
+internen Notizen in die Öffentlichkeit.
+
+**Die Prüfung läuft nur, wenn Liquid aus ist** — und das sagt nicht sie, sondern die Site,
+über Jekylls eigenen Schalter:
+
+```yaml
+defaults:
+  - scope: { path: "" }
+    values:
+      render_with_liquid: false
+```
+
+Solange Liquid läuft, ist eine Liquid-Anweisung Absicht. Eine Prüfung, die sie dann meldet,
+wäre reiner Lärm und würde abgeschaltet statt gelesen.
+
+**Als einziges der vier Werkzeuge misst es an den Quellen**, nicht am gebauten `_site`. Zu
+beheben ist die Quelle, und nur sie kennt Datei und Zeile.
+
+Gelesen wird Markdown ohne Front Matter, ohne umzäunte Codeblöcke und ohne Code-Spans,
+dazu HTML mit Front Matter. Ein `{{ name }}` in einem Vue-Beispiel ist kein Befund.
+
+Die Mustererkennung ist die von ATLAS (Regel 35), Zeichen für Zeichen — nur mit `/m`: Ein
+Tag darf sich über beliebig viele Zeilen ziehen. Liquid erlaubt das, ein mehrzeiliges
+`include` mit Parametern ist der häufigste Fall, und ein übersehener Befund wiegt schwerer
+als einer zu viel — er geht ungesehen auf die Seite. Was syntaktisch ein Tag ist, wird
+gefunden.
+
+**Liquid ist kein Plugin**, sondern Jekylls Kern; die Frage ist nur, welche Dateien
+hindurchlaufen. `jekyll-optional-front-matter` befördert Markdown **ohne** Front Matter zu
+einer Seite – dann läuft auch die durch Liquid. Ob es wirkt, wird aus der Konfiguration
+gelesen statt angenommen: Setzt ein Projekt `plugins` selbst, ersetzt das die Theme-Vorgabe
+vollständig. Fehlt das Plugin, bleibt Markdown ohne Front Matter ungelesen – es ist dann
+keine Seite, sondern eine kopierte Datei.
+
+Aufrufbar aus jeder Pipeline über `academy-theme-actions@v1` mit `checks: liquid`.
+
+## 2.48.0
+
+### Der Token-Satz sagt Kontrast zu – und rechnet es vor jedem Release nach
+
+Das Theme hat seinen Farbsatz mehrfach umgebaut: Dark-Theme, Füllflächen, abgeleiteter
+Akzent, Vordergrundfassungen. Jedes Mal fiel erst im Nachhinein auf, dass eine Paarung
+darunter gelitten hatte – die Messwerte stehen bis heute in den Kommentaren von
+`tokens.css`, aber **nichts rechnete sie nach**. Und nach außen war gar nichts davon
+lesbar: Ein Schulungspaket, das seine Farben aus den Tokens nimmt, konnte nicht erfahren,
+welche Paarung trägt.
+
+**Neu im Paket: zwei weitere Zusagen unter `contract/`.**
+
+| Datei | Inhalt |
+| ----- | ------ |
+| `contract/contrast-pairs.txt` | 63 zugesagte Paare mit ihrer WCAG-Stufe |
+| `contract/contrast-pairs.version.txt` | die Fassung der Zusage, hier `1` |
+| `contract/color-tokens.txt` | die 63 Variablen, die eine Farbe tragen |
+| `contract/color-tokens.version.txt` | die Fassung der Liste, hier `1` |
+
+Dieselbe Form wie Markup Contract und Schemas: Datei plus Fassungsnummer daneben.
+
+**Drei Stufen, keine erfundene vierte:** `text` (4,5:1, WCAG 1.4.3), `gross` (3:1, große
+Schrift) und `ui` (3:1, WCAG 1.4.11).
+
+**Gemessen in fünf Modi, nicht in zweien.** Hell und Dunkel jeweils über
+`prefers-color-scheme` **und** über `data-avd-academy-theme`, dazu der Druck. Die
+doppelte Messung von Hell und Dunkel ist Absicht: Die Dark-Werte stehen zweimal in
+`tokens.css`, und eine Prüfung über nur einen Weg sähe es nicht, wenn die Blöcke
+auseinanderliefen. Der Druck hat eigene, fest geschriebene Werte – eine gedruckte
+Unterlage ist kein Nebenschauplatz dieser Akademie.
+
+**Im Browser gemessen, nicht aus dem CSS gelesen.** Die Werte entstehen erst beim Rechnen:
+`color-mix(in srgb …)`, `color-mix(in oklab …)`, `oklch(from … calc(c * 3) h)` und
+`var()`-Ketten über drei Ebenen. Sie nachzubilden hieße, eine zweite Farb-Engine zu
+pflegen, die gerade dort abweicht, wo am meisten gerechnet wird. 315 Messungen, alle über
+der Zusage; der Engpass liegt bei **4,56:1** (Ton 3 als Schrift auf abgesetzter Fläche im
+Light-Theme) – exakt die Zahl, die seit 2.7.0 im Kommentar von `tokens.css` steht.
+
+**Was NICHT zugesagt ist, steht mit Messwert dabei.** Am Ende der Datei: Haarlinien
+(1,05–1,82:1, Schmuck statt Bedeutungsträger), Gold auf heller Fläche (2,42:1), Slate auf
+dunkler (1,53:1), Orange auf der abgesetzten Fläche (2,75:1) – jeweils mit dem Token, das
+stattdessen trägt. Ohne diesen Teil läse man das Fehlen einer Paarung als „geht schon“.
+
+**Die Farb-Token-Liste ist erzeugt, nicht geführt.** Welche Variable eine Farbe trägt,
+entscheidet die Messung: 63 von 104 geführten Variablen. Eine Ermessensfrage bleibt,
+kuratiert und begründet – `--avd-academy-accent-base` ist die EINGABE der Schulungsfarbe,
+das Theme setzt sie bewusst nicht, und ohne den Eintrag hielte ein Konsument genau den
+sanktionierten Weg für eine fest geschriebene Farbe.
+
+**Kein Release mehr ohne Selbstprüfung.** `npm-publish` veröffentlicht erst, wenn auf
+**demselben Checkout** beides durch ist: die Kontrast-Zusage und die Barrierefreiheit der
+Komponenten und des Chromes (`a11y.sh`, WCAG 2.2 A/AA). Beide Berichte liegen dem
+GitHub-Release bei. Bisher veröffentlichte die Pipeline bei jedem Push auf `theme/**`,
+unabhängig davon, was gemessen worden war – ein Release sagte nichts darüber, ob es die
+Selbstprüfung bestanden hatte.
+
+**Ein Paar zu entfernen oder abzuschwächen ist ab jetzt ein Bruch**, wie ein weggefallener
+Name im Markup Contract.
+
+**Für Konsumenten ändert sich nichts** außer vier zusätzlichen Dateien. Kein Token wurde
+hinzugefügt, umbenannt oder in seinem Wert geändert.
+
+Nebenbei: Die Ansteuerung des Browsers liegt jetzt einmal statt zweimal im Repo
+(`jekyll/browser.mjs`); `a11y.sh` und die neue Prüfung teilen sie.
+
+Behebt #226.
+
+---
+
+## 2.47.0
+
+### Die Zusage lag nur im Theme-Repo – jetzt wandert sie mit
+
+`markup-contract.txt` führt seit 1.14.1 die Namen, die dieses Theme stabil hält: 170
+Klassen, 104 Variablen-Definitionen, vier `data`-Attribute der Autorenfläche. Ein PR-Check
+lässt die CI scheitern, sobald einer davon verschwindet. **Lesbar war die Liste aber nur
+hier.** Die beiden JSON-Schemas wandern längst mit dem Paket, die Namensliste fehlte im
+`files`-Feld – und damit war die Zusage von außen nicht nachschlagbar.
+
+Das fällt jetzt auf, weil Trainingspakete künftig **Quellen** einreichen und ATLAS sie mit
+**seiner** Theme-Fassung baut. Damit ist das Content-Design dieses Themes die Fläche, an
+der beide Seiten sich treffen. Nach ATLAS-ADR 0018 ist die Liste dabei eine **Zusage,
+keine Grenze**: Ein Stand darf auch eigenes Markup schreiben, es trägt nur kein
+Stabilitätsversprechen. Genau deshalb muss er die Liste lesen können – sonst weiß er
+nicht, was davon welches ist.
+
+**Neu im Paket: `contract/`.**
+
+| Datei | Inhalt |
+| ----- | ------ |
+| `contract/markup-contract.txt` | die 278 geführten Namen, eine Zeile je Name |
+| `contract/markup-contract.version.txt` | die Fassung der Liste, hier `1` |
+
+Dieselbe Form wie bei den Schemas unter `jekyll/schema/`: Datei plus Fassungsnummer
+daneben. Ein eigener Ordner und nicht die Paketwurzel, weil die Kontrast-Zusagen aus #226
+dort dazukommen – Zusagen gehören an einen Ort.
+
+**Die Fassungsnummer steigt bei jeder Änderung der Liste**, auch wenn nur ein Name
+dazukommt: Ein Konsument soll daran erkennen, ob sein Stand noch der aktuelle ist. Die
+Pflicht dazu steht in `AGENTS.md` neben der Pflicht, das Artefakt selbst nachzuziehen, und
+der Hinweis erscheint bei jedem Lauf von `bin/markup-contract.sh --check`.
+
+**Ein entfernter Name ist ab jetzt immer ein Bruch.** Bisher galt das „wenn Projekte etwas
+tun müssen“ – wer die ausgelieferte Zusage nur liest, ist von hier aus aber nicht sichtbar.
+
+**Für Konsumenten ändert sich nichts**, außer dass eine Datei dazukommt. Keine Namen
+wurden ergänzt, geändert oder entfernt; nachgemessen mit `npm pack` gegen ein frisch
+ausgepacktes Paket. Wie man die Liste liest, steht jetzt in der `README.md`.
+
+Behebt #213.
+
+---
+
+## 2.46.1
+
+### Ein Baustein, der sich spät anmeldet, bekam seinen Zustand nie
+
+Gefunden beim Umstellen von `training-concept-api-engineering`: Sechs eigene
+Visualisierungen schrieben ihren Zustand brav in die Adresse – und stellten ihn nach dem
+Neuladen **nicht** her. Die Adresse war richtig, niemand las sie.
+
+**Die Ursache ist die Reihenfolge, und sie trifft jeden Aufrufer.** `atvantage.js` trägt
+`defer`: Wenn es läuft, steht `document.readyState` bereits auf `interactive`, das Theme
+richtet sich also **sofort** ein und stellt den Zustand her. Ein Inline-Skript der Seite
+kann sich zu diesem Zeitpunkt noch gar nicht angemeldet haben – es wartet, wie üblich, auf
+`DOMContentLoaded`, und das kommt danach. Wer sich später meldet, fand ein `restore()` vor,
+das längst gelaufen war.
+
+**Jetzt reicht die Bibliothek den Wert nach**, sobald sich jemand anmeldet. Anmelden darf
+damit **jederzeit** passieren – das ist die Zusage an eigene Bausteine; ohne sie müsste
+jeder Aufrufer die innere Reihenfolge des Themes kennen.
+
+Dazu ein zweiter, feinerer Punkt: Der **Ausgangszustand** wird jetzt aus dem Markup
+bestimmt (`standardOffen` je Baustein) statt aus dem gerade sichtbaren Stand. Beides fällt
+auseinander, sobald eine späte Anmeldung nachträgt – sonst vergliche „weicht ab?" künftig
+gegen die Adresse statt gegen das Dokument, und die Adresse räumte sich nicht mehr auf.
+
+**Nachgemessen** an einer Seite, deren eigener Baustein sich bewusst erst bei
+`DOMContentLoaded` meldet: schreiben, neu laden, Zustand da – und zusammen mit den
+Theme-Bausteinen in **einer** Adresse (`#/?open=…&ansicht=netz`).
+
+## 2.46.0
+
+### Bausteine merken sich ihren Zustand – gemeinsam, in der Adresse
+
+Eine Bedienung, die man nicht wiederfindet, ist ein Verlust. Wer einen Reiter wählt, einen
+Abschnitt aufklappt oder eine Musterlösung aufdeckt und neu lädt, stand bisher wieder am
+Anfang – und der QR-Code an der Wand zeigte auf ein anderes Bild als das, über das gerade
+gesprochen wird.
+
+**Die Ursache war nicht fehlender Wille, sondern fehlende Zuständigkeit.** Es gibt genau
+**ein** Fragment je Seite. Der Reiterstreifen schrieb bisher `#«panel-id»` selbst hinein –
+und löschte damit alles, was ein anderer Baustein dort hätte stehen haben wollen. Solange
+jeder für sich schreibt, gewinnt der letzte Klick.
+
+**Neu ist deshalb eine gemeinsame Stelle:** `window.AvdAcademyState` in
+`theme/academy/atvantage.js`. Sie sammelt den Zustand aller Bausteine und schreibt die
+Adresse **einmal**:
+
+    #kapitel-2                 eine gewöhnliche Sprungmarke – unverändert
+    #/?open=tag-1,hinweis      nur Zustand
+    #/kapitel-2?open=tag-1     Sprungmarke UND Zustand
+
+**Vier Bausteine hängen ab sofort daran** – ohne eine Zeile in den Unterlagen:
+**Reiter** (`avd-academy-tabs`), **Akkordeon** (`avd-academy-accordion`), **Klappabschnitt**
+(`avd-academy-fold`) und **aufdeckbarer Inhalt** (`avd-academy-reveal`). Der Fold hatte bis
+hierher gar kein JavaScript; er bekommt es nur dafür und bleibt ohne es vollständig
+bedienbar.
+
+**Geschrieben wird nur, was vom Dokument abweicht.** Der Ausgangszustand ist das Markup des
+Autors: Solange niemand etwas anfasst, bleibt die Adresse sauber. Steht `open` dagegen
+darin, ist es die Wahrheit – auch leer (`open=`) heißt dann „alles zu“, sonst ließe sich ein
+zugeklappter Standard-Aufklapper nicht ausdrücken. Reiter und Akkordeon-Abschnitte, die
+nicht genannt sind, bleiben wie sie sind: Dort ist immer höchstens eines offen.
+
+**Für eigene Bausteine** (Consumer des Themes, klickbare Visualisierungen) gibt es zwei
+Aufrufe: `openable({id, istOffen, setzen, exklusiv})` reiht etwas in `open` ein,
+`register({key, read, apply})` nimmt jeden anderen Zustand auf; `update()` nach der
+Bedienung schreibt die Adresse. Die Bibliothek erledigt dabei, was von Hand regelmäßig
+schiefgeht: `replaceState` statt `location.hash` (kein Sprung, kein Verlaufseintrag je
+Klick), das Ereignis `avd-academy-urlchange` für den QR-Code, das Zuhören auf `hashchange`,
+und ein unbekannter Wert führt still in den Ausgangszustand.
+
+**Auf Präsentation und Simulation hält die Bibliothek still.** Dort gehört das Fragment dem
+Layout (`#/3`, `#/abgrenzung/3`); ein zweiter Schreiber zerschösse die Folien- oder
+Schrittnummer.
+
+**Abmelden geht:** `data-avd-academy-state="off"` an einem Baustein oder an einem Container
+darüber. Neu im Markup Contract.
+
+**Was sich für bestehende Unterlagen ändert:** Die Adresse sieht beim Reiterwechsel anders
+aus als bisher (`#/?open=tag-1` statt `#tag-1`). **Bestehende Verweise bleiben gültig** –
+ein `#tag-1` im Text öffnet weiterhin den zugehörigen Reiter, und die Sprungmarken der
+Seite sind unberührt.
+
+**Nachgemessen** im Browser, an einer Seite mit Reitern, Akkordeon, zwei Folds und einem
+Reveal: fünfundzwanzig Prüfungen – Zustand nach dem Neuladen, mehrere Bausteine in einer
+Adresse, Vor/Zurück, tiefer Verweis in einen geschlossenen Reiter, `open=` als „alles zu“,
+abgemeldeter Baustein, unbekannter Wert, und das Fragment einer Präsentationsseite bleibt
+unangetastet.
+
+**Doku:** [Zustand in der Adresse](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/funktionen/zustand-in-der-url.md)
+und je Baustein ein Abschnitt in `docs/theme/bausteine.md`.
+
+## 2.45.0
+
+### Die Wortmarke war in Simulation und Präsentation orange statt in der Schulungsfarbe
+
+Gemeldet aus dem Docker-Grundlagenkurs: „Nur die Simulation hat ein orangenes Logo."
+
+**Und genau so war es.** `brand.logo_ratio` schaltet die Wortmarke von Bild auf Maske, damit
+sie die Schulungsfarbe trägt – gebaut war das aber nur in `_includes/header.html`, also für
+alles, was durch `default.html` läuft. `presentation` und `simulation` sind **eigenständige
+Dokumente** mit eigenem `<!DOCTYPE html>`; sie banden die Marke als schlichtes `<img>` ein.
+Ein `<img>` lädt das SVG als eigenes Dokument, und dort ist weder ein Token der Seite noch
+`currentColor` sichtbar – die Datei behielt ihre eigene Farbe.
+
+Aufgefallen ist es erst jetzt, weil die Vorlage bis vor Kurzem eine **grüne** Platzhalter-
+Wortmarke lieferte: Grün neben Grün fällt nicht auf, Orange neben Blau schon.
+
+Beide Layouts tragen jetzt dieselbe Konstruktion wie der Kopfbereich – `<img>` plus
+eingefärbter `<span>`, und das Bild bleibt stehen, wenn eine Engine keine Masken kann.
+
+**Nachgemessen** an der mitgelieferten Beispiel-Simulation: `<img>` ausgeblendet, Maske
+sichtbar, Farbe der Akzent der Site.
+
+**Neue Namen:** `avd-academy-sim__logo-mask`, `avd-academy-present__logo-mask`.
+
+**Die eigentliche Lehre steht in der Doku:** Eigenständig heißt, dass jede Gemeinsamkeit
+zweimal gebaut werden muss – und genau dort entstehen Abweichungen, die niemand sucht. Wer
+an Kopfbereich oder Marke etwas ändert, sieht in beiden Layouts nach.
+
+---
+
 ## 2.44.0
 
 ### Der Blockrhythmus fehlte in Reitern, im Akkordeon – und an Listen und Zitaten überall
@@ -1269,7 +3351,7 @@ für jedes Verweisziel. In `avd-page-url.html` ist sie aus gemessenen Gründen e
 statt eingebunden – der Include verdoppelte dort die Bauzeit (4,7 s → 9,5 s); der
 Kommentar an beiden Stellen hält das fest.
 
-Doku: [Mehrsprachigkeit → Die Sprache einer Seite](https://timetoact.ghe.com/pages/AVD-Academy-Tools/academy-theme/docs/theme/mehrsprachigkeit.html#seitensprache).
+Doku: [Mehrsprachigkeit → Die Sprache einer Seite](https://timetoact.ghe.com/pages/AVD-Academy-Tools/academy-theme/docs/funktionen/mehrsprachigkeit.html#seitensprache).
 
 ---
 
@@ -1615,7 +3697,7 @@ CHANGELOG verwiesen relativ auf die Doku **dieses** Repos:
 ```
 ../docs/verwendung/einbindung.md#mehr-host
 ../github-pages/#verweise-pruefen
-../docs/theme/mehrsprachigkeit.md
+../docs/funktionen/mehrsprachigkeit.md
 ```
 
 Im eigenen Repo zeigen die ins Ziel. In einem Schulungs-Repo gibt es weder `docs/` noch
@@ -2474,7 +4556,7 @@ Blindheit hat 2.5.1 grün durchlaufen lassen.
 **Für Konsumenten:** Beide Workflow-Vorlagen (`github-pages/deploy.example.yml`,
 `theme/jekyll/starter/pages.yml`, Vorlagenversion **10**) rufen die Prüfung nach dem
 Build auf. Wer eine ältere Kopie hat, zieht den Schritt nach – nötig ist er nicht.
-Doku: [GitHub Pages → Tote Verweise finden](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/github-pages/index.md).
+Doku: [GitHub Pages → Tote Verweise finden](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/funktionen/github-pages.md).
 
 ### Behoben: die automatische Brotkrume verlinkte Ordner, die es nicht gibt
 
@@ -2736,7 +4818,7 @@ Screenshots das müssen.
 
 Neu: `theme/jekyll/_includes/avd-i18n.html` (Sprache, Sprachfassungen, Wörterbuch),
 `theme/jekyll/_includes/avd-lang-value.html` (Sprachkarten auflösen), die Klasse
-`avd-academy-tool--lang`. Doku: [Mehrsprachigkeit](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/mehrsprachigkeit.md).
+`avd-academy-tool--lang`. Doku: [Mehrsprachigkeit](https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/funktionen/mehrsprachigkeit.md).
 
 ---
 
@@ -3285,45 +5367,31 @@ Register der Übergangslösungen, die nur existieren, um einen Bruch zu vermeide
 **Jeder Eintrag ist technische Schuld mit Verfallsdatum:** Beim nächsten
 Major-Sprung wird die Liste durchgegangen und geleert.
 
-| Seit | Kompatibilitätsschicht | Entfällt mit |
-| ---- | ---------------------- | ------------ |
-| 2.1.0 | `brand.website` wird gelesen, wenn `contact.website` fehlt | **3.0** |
-| 2.3.0 | `avd-academy-theme-toggle` und `avd-academy-print-btn` bleiben neben `avd-academy-tool` auf den Knöpfen | **3.0** |
+**Offen für den nächsten Major (4.0)** – verfolgt in Issue #269:
 
-**Eintrag 2.1.0 im Klartext.** Die Academy-Website heißt seit 2.1.0 `contact.website`. Der
-alte Schlüssel `brand.website` bleibt als Rückfall lesbar, damit der Umzug keine
-Konfiguration bricht. **Beim Sprung auf 3.0 ist zu tun:**
+| Seit | Schicht | beim Major zu tun |
+| ---- | ------- | ----------------- |
+| 3.11.0 | `permaid` als Alias für `perma_id` (Front Matter) | Feld aus `frontmatter.schema.json` und aus `AvdAcademy::Aliases::FRONT_MATTER` entfernen |
+| 3.11.0 | Schlüssel `permaid` neben `perma_id` in `avd-permalinks.json` | aus `avd-permalinks.rb` entfernen |
+| 3.14.0 | `layout: default` auf einer Seite ist ein Hinweis, kein Fehler | Standard von `checks.abstract_layouts` auf `error` setzen (Stufe seit 3.16.0) und `bin/migrate.rb` eine Stufe `layout: default → page` geben |
+| 3.16.0 | eigene Assets, wo das Layout `source_assets: false` trägt, sind standardmäßig nur ein Hinweis | Standard von `checks.source_assets` auf `error` setzen |
+| 3.14.0 | `components` und `components.layouts` neben `layouts` | Rückfall in `avd-switch.html` und die veralteten Zweige im Config-Schema entfernen; `bin/migrate.rb` die Stufe geben |
 
-1. Den Rückfall `| default: site.brand.website` aus `theme/jekyll/_layouts/default.html`,
-   `theme/jekyll/_layouts/presentation.html` und `theme/jekyll/_includes/footer.html`
-   entfernen.
-2. `brand.website` aus `theme/jekyll/schema/config.schema.json` streichen (und die
-   Schema-Version in `config.version.txt` hochzählen, weil ein bisher erlaubter Schlüssel
-   entfällt).
-3. In `bin/migrate.rb` unter der Stufe `3` die Regel `%w[brand website] => %w[contact
-   website]` ergänzen – dann zieht `ruby bin/migrate.rb --from 2 --to 3` den Schlüssel in
-   den Repos um.
-4. Die veraltet-Vermerke aus `docs/theme/academy.md`, `docs/theme/schemas.md` und
-   `docs/theme/migration-2.0.md` entfernen.
+**Projekte müssen dann:** `permaid:` im Front Matter in `perma_id:` umbenennen – der
+Schemaprüfer nennt bis dahin jede Stelle. Wer `avd-permalinks.json` in einer eigenen
+Pipeline liest, stellt dort auf den Schlüssel `perma_id` um.
 
-**Projekte müssen danach:** `brand.website` in ihrer `_config.yml` auf `contact.website`
-umbenennen (falls überhaupt gesetzt – in den Pipelines schreibt die Vorlage den neuen
-Schlüssel bereits seit Vorlagenversion 9).
+**Für 3.0 durchgegangen und geleert.** Zwei Einträge standen drin, beide sind weg:
 
-**Eintrag 2.3.0 im Klartext.** Die Seitenwerkzeuge sind seit 2.3.0 eine Komponente und
-tragen `avd-academy-tool`. Die beiden alten Namen stehen im Markup-Vertrag – fremde
-Repos selektieren sie in ihrer `assets/custom.css` – und bleiben deshalb als zweite
-Klasse auf denselben Knöpfen. **Beim Sprung auf 3.0 ist zu tun:**
+| Seit | Schicht | erledigt in |
+| ---- | ------- | ----------- |
+| 2.1.0 | `brand.website` als Rückfall für `contact.website` | 3.0 – Schlüssel aus Layouts, Footer und Schema entfernt, Migrationsregel in `bin/migrate.rb` |
+| 2.3.0 | `avd-academy-theme-toggle` / `avd-academy-print-btn` neben `avd-academy-tool` | 3.0 – Selektoren und Klassen entfernt |
 
-1. `avd-academy-theme-toggle` und `avd-academy-print-btn` aus dem Selektor in
-   `theme/academy/components.css` und aus der Ausblendliste in
-   `theme/academy/print.css` entfernen.
-2. Beide Klassen aus den Knöpfen in `theme/jekyll/_includes/tools.html` streichen.
-3. `bin/markup-contract.sh > theme/markup-contract.txt` neu erzeugen.
-
-**Projekte müssen danach:** In ihrer `assets/custom.css` `.avd-academy-theme-toggle`
-bzw. `.avd-academy-print-btn` auf `.avd-academy-tool--theme` bzw.
-`.avd-academy-tool--print` umschreiben. Wer die Werkzeuge nur über die Variablen
+**Projekte müssen danach:** `brand.website` in `contact.website` umbenennen
+(`ruby bin/migrate.rb --from 2 --to 3` erledigt es) und in ihrer `assets/custom.css`
+`.avd-academy-theme-toggle` bzw. `.avd-academy-print-btn` auf `.avd-academy-tool--theme`
+bzw. `.avd-academy-tool--print` umschreiben. Wer die Werkzeuge nur über die Variablen
 `--avd-academy-tool-*` anpasst, ist nicht betroffen.
 
 **Für 2.0 durchgegangen und geleert.** Der Durchgang hat eine Schicht gefunden, die nie hier
