@@ -8,6 +8,10 @@
     var t = localStorage.getItem("avd-academy-theme");
     if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
   } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
 })();
 </script><title>Referenztypen · ATVANTAGE Academy</title><meta name="description" content="Vier Szenarien durch den Speicher: Was bei jeder Codezeile im Thread Stack und im Heap passiert – Abgrenzung zu primitiven Typen, Objektgeflecht, Identität gegen Inhalt, this und static."><meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Referenztypen">
@@ -19,12 +23,15 @@
 <link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
 <link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=4bb910cc">
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=5b38f054">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bbc32c95"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b7ac85b7" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=e8877089">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=6092d972"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.1.3">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.1.3","schemas":{"config":"1.0.0","frontmatter":"1.0.0","layout":"1.0.0"},"audience":"learner","languages":["de"]}</script>
+
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=5631daa9" defer></script>
 <script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
 <script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791187650" defer></script>
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791233346" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";

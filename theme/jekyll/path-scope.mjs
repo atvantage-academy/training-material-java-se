@@ -1,1 +1,0 @@
-export function normalizePatterns(e){return[...new Set(e.flatMap(t=>String(t).split(",")).map(t=>t.trim().replace(/\/\*\*$/,"").replace(/\/+$/,"")).filter(Boolean).map(t=>t.startsWith("/")?t:"/"+t).filter(t=>t!=="/"))]}export function covered(e,t){return t.some(r=>e===r||e.startsWith(r+"/"))}export function skipped(e,t,r){return t.length&&!covered(e,t)?!0:covered(e,r)}
