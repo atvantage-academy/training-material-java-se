@@ -1,0 +1,645 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Prozedurale Logik nach Java übertragen · ATVANTAGE Academy</title><meta name="description" content="Übertrage vertraute prozedurale Konstrukte in gültige Java-Syntax – in vier Schritten von der ersten Rechnung bis zur überladenen Methode."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Prozedurale Logik nach Java übertragen">
+<meta property="og:description" content="Übertrage vertraute prozedurale Konstrukte in gültige Java-Syntax – in vier Schritten von der ersten Rechnung bis zur überladenen Methode.">
+<meta property="og:type" content="article"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=7c528890">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1791172983"
+             data-base="/training-material-java-se/"
+             data-preselect="current">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=ae641391" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Farbschema umschalten">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-basics/">Java-Grundlagen</a><span>/</span><a href="/training-material-java-se/java-basics/oop-mit-java/">OOP mit Java</a><span>/</span><span aria-current="page">Prozedurale Logik nach Java übertragen</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 45 Minuten</span><span class="avd-academy-tag">Java-Syntax</span><span class="avd-academy-tag">Methoden</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Prozedurale Logik nach Java übertragen</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in möchte ich vertraute Konstrukte wie Variablen, Schleifen und Methoden in Java schreiben, damit mir die Syntax für den Rest der Woche flüssig von der Hand geht.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Die Visualisierung <em>Java-Syntax auf einen Blick</em> (rechts unter
+„Weiterführende Informationen“) fasst Datentypen, Schreibweisen, Typumwandlung,
+Methoden und Kontrollstrukturen zum Nachschlagen zusammen. Schreib den Code
+selbst und schlag dort nach, wenn Du hängst.</p>
+</blockquote>
+
+<p>Die Übung wächst in <strong>vier Teilen</strong>: Jeder Teil baut auf dem vorigen auf, und nach
+jedem Teil läuft Dein Programm. Diesmal arbeitest Du <strong>allein in der IDE</strong> – das
+gemeinsame Vormachen aus dem letzten Modul entfällt.</p>
+
+<p>Am Ende jedes Teils kannst Du die <strong>Musterlösung</strong> aufdecken – sie erscheint mittig
+über der Seite, ein Klick daneben schließt sie wieder. Öffne sie erst, wenn Dein
+eigener Code läuft – oder wenn Du wirklich feststeckst. Es ist <em>eine</em> Lösung, nicht
+<em>die</em> Lösung: Deine darf anders aussehen und trotzdem richtig sein. (Im Ausdruck der
+Seite sind die Musterlösungen bewusst nicht enthalten.)</p>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du…</p>
+
+<ul>
+  <li>arbeitest eigenständig in der IDE: legst eine Klasse an, schreibst Code, startest das Programm und liest Fehlermeldungen selbst.</li>
+  <li>deklarierst Variablen mit passendem Typ und gibst Ergebnisse mit <code>System.out.println(…)</code> aus.</li>
+  <li>lagerst eine Berechnung in eine Methode mit Parametern und Rückgabewert aus und rufst sie auf.</li>
+  <li>nutzt eine Schleife und eine Bedingung, um über ein Array zu laufen.</li>
+  <li>benennst die Signatur einer Methode und überlädst sie.</li>
+  <li>erklärst, warum die Division zweier <code>int</code>-Werte nicht den erwarteten Mittelwert liefert, und setzt den Cast an der richtigen Stelle.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><strong>Teil 1:</strong> Im Projekt liegt eine Klasse <code>Wetterstation</code>; <code>main</code> deklariert zwei Messwerte, berechnet ihren Mittelwert und gibt ihn aus.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><strong>Teil 2:</strong> Die Berechnung steckt in einer Methode <code>mittelwert</code>, die zwei <code>int</code>-Werte entgegennimmt und einen <code>double</code> zurückgibt; <code>main</code> ruft sie mit mehreren Wertepaaren auf, und das Ergebnis stimmt jetzt.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><strong>Teil 3:</strong> Eine Methode <code>durchschnitt</code> läuft mit einer Schleife über ein <code>int[]</code> und liefert den Mittelwert; der Fall „leere Messreihe“ ist mit einer Bedingung abgefangen.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><strong>Teil 4:</strong> Es gibt eine zweite, <strong>überladene</strong> Methode <code>durchschnitt</code> mit zusätzlichem Standardwert; sie ruft die Variante aus Teil 3 auf, statt die Berechnung zu kopieren.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>main</code> ruft am Ende alle Varianten auf – auch einmal mit einer leeren Messreihe – und gibt die Ergebnisse aus.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="teil-1-zwei-messwerte-ein-mittelwert">Teil 1: Zwei Messwerte, ein Mittelwert</h3>
+
+<p>Deine Wetterstation misst die Temperatur in ganzen Grad. Lege im Projekt aus dem
+letzten Modul eine neue Klasse <code>Wetterstation</code> an, deklariere in <code>main</code> zwei
+Messwerte (z. B. <code>17</code> morgens und <code>24</code> mittags), berechne ihren Mittelwert und gib
+ihn mit <code>System.out.println(…)</code> aus.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Das Gerüst <code>public static void main(String[] args)</code> findest Du in der
+Visualisierung im Abschnitt <em>Einstieg über <code>main</code></em> – tipp es zunächst einfach ab.
+Was die einzelnen Schlüsselwörter davor bedeuten, klären wir später in der Woche.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Mit <code>+</code> hängst Du Text und Werte aneinander:
+<code>System.out.println("Mittelwert: " + mittelwert);</code></p>
+</blockquote>
+
+<p>Sieh Dir das Ergebnis genau an: Für <code>17</code> und <code>24</code> erwartest Du <code>20.5</code> – was gibt
+Dein Programm aus? Lass den Befund erst einmal so stehen, Du reparierst ihn in
+Teil 2.</p>
+
+<details class="avd-academy-reveal avd-academy-reveal--screen-only">
+<summary>Musterlösung – Teil 1: Zwei Messwerte, ein Mittelwert</summary>
+<pre><code class="language-java">public class Wetterstation {
+
+    public static void main(String[] args) {
+        int morgens = 17;
+        int mittags = 24;
+
+        double mittelwert = (morgens + mittags) / 2;
+
+        System.out.println("Mittelwert: " + mittelwert);
+    }
+}
+
+// Ausgabe: Mittelwert: 20.0
+// Erwartet hättest Du 20.5 – warum das so ist, klärt Teil 2.</code></pre>
+</details>
+
+<h3 id="teil-2-die-berechnung-in-eine-methode-auslagern">Teil 2: Die Berechnung in eine Methode auslagern</h3>
+
+<p>Verschiebe die Rechnung aus <code>main</code> in eine eigene Methode <code>mittelwert</code>, die zwei
+<code>int</code>-Werte entgegennimmt und das Ergebnis zurückgibt. Überleg Dir dabei, welchen
+<strong>Rückgabetyp</strong> das Ergebnis braucht – der Mittelwert ganzer Zahlen ist selten
+wieder eine ganze Zahl. Ruf die Methode aus <code>main</code> mit mehreren Wertepaaren auf.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Den Aufbau einer Methode zeigt die Visualisierung im Abschnitt
+<em>Methoden</em>. Das Wort <code>static</code> vor dem Rückgabetyp übernimmst Du dort einfach mit –
+warum es nötig ist, klärt sich am zweiten Tag.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Achtung, Stolperstein:</strong> Teilst Du zwei <code>int</code>-Werte, rechnet Java <strong>ganzzahlig</strong>
+und schneidet den Rest ab – <code>41 / 2</code> ergibt <code>20</code>, nicht <code>20.5</code>. Ein Rückgabetyp
+<code>double</code> allein repariert das <strong>nicht</strong>: Da ist der Rest schon weg. Setze den Cast
+an der Stelle, an der er wirkt, und probier beide Varianten aus.</p>
+</blockquote>
+
+<details class="avd-academy-reveal avd-academy-reveal--screen-only">
+<summary>Musterlösung – Teil 2: Die Berechnung in eine Methode auslagern</summary>
+<pre><code class="language-java">public class Wetterstation {
+
+    public static void main(String[] args) {
+        System.out.println("Mittelwert: " + mittelwert(17, 24));
+        System.out.println("Mittelwert: " + mittelwert(19, 22));
+    }
+
+    // Der Cast steht vor der Division: Sobald einer der Operanden ein
+    // Gleitkommatyp ist, rechnet Java nicht mehr ganzzahlig.
+    static double mittelwert(int a, int b) {
+        return (double) (a + b) / 2;
+    }
+}
+
+// Ausgabe: Mittelwert: 20.5
+//          Mittelwert: 20.5</code></pre>
+</details>
+
+<h3 id="teil-3-eine-ganze-messreihe">Teil 3: Eine ganze Messreihe</h3>
+
+<p>Eine Woche hat mehr als zwei Messwerte. Lege in <code>main</code> ein <code>int[]</code> mit den
+Temperaturen einer Woche an (z. B. <code>{17, 24, 19, 22, 25, 18, 21}</code>) und schreibe eine
+Methode <code>durchschnitt</code>, die ein solches Array entgegennimmt und den Mittelwert aller
+Werte zurückgibt.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Die Anzahl der Elemente liefert <code>messwerte.length</code> – beim Array ohne
+Klammern, anders als <code>length()</code> beim <code>String</code>. Über die Elemente kommst Du mit
+einer klassischen <code>for</code>-Schleife oder mit <code>for-each</code>.</p>
+</blockquote>
+
+<p>Probier danach aus, was bei einer <strong>leeren Messreihe</strong> (<code>{}</code>) passiert – die Station
+war einfach eine Woche lang aus. Sieh Dir an, was Dein Programm tut, und fang den
+Fall mit einer Bedingung ab.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Was Du im leeren Fall zurückgeben sollst, ist gar nicht so klar –
+<code>0</code> behauptet 0 °C, obwohl gar nichts gemessen wurde. Halt diesen Zwiespalt
+kurz fest, Teil 4 greift ihn auf.</p>
+</blockquote>
+
+<details class="avd-academy-reveal avd-academy-reveal--screen-only">
+<summary>Musterlösung – Teil 3: Eine ganze Messreihe</summary>
+<pre><code class="language-java">public class Wetterstation {
+
+    public static void main(String[] args) {
+        int[] woche = {17, 24, 19, 22, 25, 18, 21};
+        int[] keineMessung = {};
+
+        System.out.println("Durchschnitt: " + durchschnitt(woche));
+        System.out.println("Durchschnitt: " + durchschnitt(keineMessung));
+    }
+
+    static double durchschnitt(int[] messwerte) {
+        if (messwerte.length == 0) {
+            // Notbehelf: 0 behauptet 0 Grad, obwohl nichts gemessen wurde.
+            // Teil 4 macht daraus etwas Ehrlicheres.
+            return 0;
+        }
+
+        int summe = 0;
+        for (int wert : messwerte) {
+            summe += wert;
+        }
+
+        return (double) summe / messwerte.length;
+    }
+}
+
+// Ausgabe: Durchschnitt: 20.857142857142858
+//          Durchschnitt: 0.0</code></pre>
+</details>
+
+<h3 id="teil-4-denselben-namen-zweimal--überladen">Teil 4: Denselben Namen zweimal – Überladen</h3>
+
+<p>Schreibe eine <strong>zweite Methode mit demselben Namen</strong> <code>durchschnitt</code>, die zusätzlich
+einen Standardwert entgegennimmt: Ist die Messreihe leer, gibt sie diesen Wert
+zurück, sonst den berechneten Mittelwert. Ruf am Ende in <code>main</code> beide Varianten auf –
+mit gefüllter und mit leerer Messreihe – und gib die Ergebnisse aus.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Beide Methoden heißen gleich und unterscheiden sich nur in der
+Parameterliste – genau das ist <strong>Überladen</strong>. Ein anderer Rückgabetyp allein würde
+dafür nicht genügen. Ruf die Variante aus Teil 3 auf, statt die Berechnung zu
+kopieren.</p>
+</blockquote>
+
+<details class="avd-academy-reveal avd-academy-reveal--screen-only">
+<summary>Musterlösung – Teil 4: Denselben Namen zweimal – Überladen</summary>
+<pre><code class="language-java">public class Wetterstation {
+
+    public static void main(String[] args) {
+        int[] woche = {17, 24, 19, 22, 25, 18, 21};
+        int[] keineMessung = {};
+
+        System.out.println("Mittelwert:   " + mittelwert(17, 24));
+        System.out.println("Durchschnitt: " + durchschnitt(woche));
+        System.out.println("Durchschnitt: " + durchschnitt(keineMessung));
+        System.out.println("Durchschnitt: " + durchschnitt(keineMessung, -99.0));
+    }
+
+    static double mittelwert(int a, int b) {
+        return (double) (a + b) / 2;
+    }
+
+    static double durchschnitt(int[] messwerte) {
+        if (messwerte.length == 0) {
+            return 0;
+        }
+
+        int summe = 0;
+        for (int wert : messwerte) {
+            summe += wert;
+        }
+
+        return (double) summe / messwerte.length;
+    }
+
+    // Gleicher Name, andere Parameterliste – das ist Überladen.
+    // Die Berechnung wird nicht kopiert, sondern aufgerufen.
+    static double durchschnitt(int[] messwerte, double standardwert) {
+        if (messwerte.length == 0) {
+            return standardwert;
+        }
+
+        return durchschnitt(messwerte);
+    }
+}
+
+// Ausgabe: Mittelwert:   20.5
+//          Durchschnitt: 20.857142857142858
+//          Durchschnitt: 0.0
+//          Durchschnitt: -99.0</code></pre>
+</details>
+
+<h3 id="für-schnelle-eine-dritte-variante">Für Schnelle: eine dritte Variante</h3>
+
+<p>Schreibe die Schleife aus Teil 3 einmal anders – hast Du eine klassische
+<code>for</code>-Schleife genommen, probier <code>for-each</code>, und umgekehrt. Vergleiche, welche der
+beiden Varianten sich für Dich flüssiger liest.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Beide sind gleich richtig. Interessant ist, was Du beim Umbau über
+Index, Länge und Elementzugriff bemerkst.</p>
+</blockquote>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Was gehört zur Signatur einer Methode – und wodurch unterscheiden sich zwei überladene Methoden?</li>
+  <li>Warum liefert die Division zweier <code>int</code>-Werte nicht den erwarteten Mittelwert – und wo genau muss der Cast stehen, damit er hilft?</li>
+</ul>
+
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Prozedurale Logik nach Java übertragen
+
+Als Entwickler:in möchte ich vertraute Konstrukte wie Variablen, Schleifen und Methoden in Java schreiben, damit mir die Syntax für den Rest der Woche flüssig von der Hand geht.
+
+&gt; **Hinweis:** Die Visualisierung *Java-Syntax auf einen Blick* (rechts unter
+&gt; „Weiterführende Informationen“) fasst Datentypen, Schreibweisen, Typumwandlung,
+&gt; Methoden und Kontrollstrukturen zum Nachschlagen zusammen. Schreib den Code
+&gt; selbst und schlag dort nach, wenn Du hängst.
+
+Die Übung wächst in **vier Teilen**: Jeder Teil baut auf dem vorigen auf, und nach
+jedem Teil läuft Dein Programm. Diesmal arbeitest Du **allein in der IDE** – das
+gemeinsame Vormachen aus dem letzten Modul entfällt.
+
+Am Ende jedes Teils kannst Du die **Musterlösung** aufdecken – sie erscheint mittig
+über der Seite, ein Klick daneben schließt sie wieder. Öffne sie erst, wenn Dein
+eigener Code läuft – oder wenn Du wirklich feststeckst. Es ist *eine* Lösung, nicht
+*die* Lösung: Deine darf anders aussehen und trotzdem richtig sein. (Im Ausdruck der
+Seite sind die Musterlösungen bewusst nicht enthalten.)
+
+## Lernziele
+
+Du…
+
+* arbeitest eigenständig in der IDE: legst eine Klasse an, schreibst Code, startest das Programm und liest Fehlermeldungen selbst.
+* deklarierst Variablen mit passendem Typ und gibst Ergebnisse mit `System.out.println(…)` aus.
+* lagerst eine Berechnung in eine Methode mit Parametern und Rückgabewert aus und rufst sie auf.
+* nutzt eine Schleife und eine Bedingung, um über ein Array zu laufen.
+* benennst die Signatur einer Methode und überlädst sie.
+* erklärst, warum die Division zweier `int`-Werte nicht den erwarteten Mittelwert liefert, und setzt den Cast an der richtigen Stelle.
+
+## Definition of Done
+
+* [ ] **Teil 1:** Im Projekt liegt eine Klasse `Wetterstation`; `main` deklariert zwei Messwerte, berechnet ihren Mittelwert und gibt ihn aus.
+* [ ] **Teil 2:** Die Berechnung steckt in einer Methode `mittelwert`, die zwei `int`-Werte entgegennimmt und einen `double` zurückgibt; `main` ruft sie mit mehreren Wertepaaren auf, und das Ergebnis stimmt jetzt.
+* [ ] **Teil 3:** Eine Methode `durchschnitt` läuft mit einer Schleife über ein `int[]` und liefert den Mittelwert; der Fall „leere Messreihe“ ist mit einer Bedingung abgefangen.
+* [ ] **Teil 4:** Es gibt eine zweite, **überladene** Methode `durchschnitt` mit zusätzlichem Standardwert; sie ruft die Variante aus Teil 3 auf, statt die Berechnung zu kopieren.
+* [ ] `main` ruft am Ende alle Varianten auf – auch einmal mit einer leeren Messreihe – und gibt die Ergebnisse aus.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Arbeitsschritte
+
+### Teil 1: Zwei Messwerte, ein Mittelwert
+
+Deine Wetterstation misst die Temperatur in ganzen Grad. Lege im Projekt aus dem
+letzten Modul eine neue Klasse `Wetterstation` an, deklariere in `main` zwei
+Messwerte (z. B. `17` morgens und `24` mittags), berechne ihren Mittelwert und gib
+ihn mit `System.out.println(…)` aus.
+
+&gt; **Hinweis:** Das Gerüst `public static void main(String[] args)` findest Du in der
+&gt; Visualisierung im Abschnitt *Einstieg über `main`* – tipp es zunächst einfach ab.
+&gt; Was die einzelnen Schlüsselwörter davor bedeuten, klären wir später in der Woche.
+
+&gt; **Hinweis:** Mit `+` hängst Du Text und Werte aneinander:
+&gt; `System.out.println(&quot;Mittelwert: &quot; + mittelwert);`
+
+Sieh Dir das Ergebnis genau an: Für `17` und `24` erwartest Du `20.5` – was gibt
+Dein Programm aus? Lass den Befund erst einmal so stehen, Du reparierst ihn in
+Teil 2.
+
+&lt;details class=&quot;avd-academy-reveal avd-academy-reveal--screen-only&quot; markdown=&quot;0&quot;&gt;
+&lt;summary&gt;Musterlösung – Teil 1: Zwei Messwerte, ein Mittelwert&lt;/summary&gt;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class Wetterstation {
+
+    public static void main(String[] args) {
+        int morgens = 17;
+        int mittags = 24;
+
+        double mittelwert = (morgens + mittags) / 2;
+
+        System.out.println(&quot;Mittelwert: &quot; + mittelwert);
+    }
+}
+
+// Ausgabe: Mittelwert: 20.0
+// Erwartet hättest Du 20.5 – warum das so ist, klärt Teil 2.&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+### Teil 2: Die Berechnung in eine Methode auslagern
+
+Verschiebe die Rechnung aus `main` in eine eigene Methode `mittelwert`, die zwei
+`int`-Werte entgegennimmt und das Ergebnis zurückgibt. Überleg Dir dabei, welchen
+**Rückgabetyp** das Ergebnis braucht – der Mittelwert ganzer Zahlen ist selten
+wieder eine ganze Zahl. Ruf die Methode aus `main` mit mehreren Wertepaaren auf.
+
+&gt; **Hinweis:** Den Aufbau einer Methode zeigt die Visualisierung im Abschnitt
+&gt; *Methoden*. Das Wort `static` vor dem Rückgabetyp übernimmst Du dort einfach mit –
+&gt; warum es nötig ist, klärt sich am zweiten Tag.
+
+&gt; **Achtung, Stolperstein:** Teilst Du zwei `int`-Werte, rechnet Java **ganzzahlig**
+&gt; und schneidet den Rest ab – `41 / 2` ergibt `20`, nicht `20.5`. Ein Rückgabetyp
+&gt; `double` allein repariert das **nicht**: Da ist der Rest schon weg. Setze den Cast
+&gt; an der Stelle, an der er wirkt, und probier beide Varianten aus.
+
+&lt;details class=&quot;avd-academy-reveal avd-academy-reveal--screen-only&quot; markdown=&quot;0&quot;&gt;
+&lt;summary&gt;Musterlösung – Teil 2: Die Berechnung in eine Methode auslagern&lt;/summary&gt;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class Wetterstation {
+
+    public static void main(String[] args) {
+        System.out.println(&quot;Mittelwert: &quot; + mittelwert(17, 24));
+        System.out.println(&quot;Mittelwert: &quot; + mittelwert(19, 22));
+    }
+
+    // Der Cast steht vor der Division: Sobald einer der Operanden ein
+    // Gleitkommatyp ist, rechnet Java nicht mehr ganzzahlig.
+    static double mittelwert(int a, int b) {
+        return (double) (a + b) / 2;
+    }
+}
+
+// Ausgabe: Mittelwert: 20.5
+//          Mittelwert: 20.5&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+### Teil 3: Eine ganze Messreihe
+
+Eine Woche hat mehr als zwei Messwerte. Lege in `main` ein `int[]` mit den
+Temperaturen einer Woche an (z. B. `{17, 24, 19, 22, 25, 18, 21}`) und schreibe eine
+Methode `durchschnitt`, die ein solches Array entgegennimmt und den Mittelwert aller
+Werte zurückgibt.
+
+&gt; **Hinweis:** Die Anzahl der Elemente liefert `messwerte.length` – beim Array ohne
+&gt; Klammern, anders als `length()` beim `String`. Über die Elemente kommst Du mit
+&gt; einer klassischen `for`-Schleife oder mit `for-each`.
+
+Probier danach aus, was bei einer **leeren Messreihe** (`{}`) passiert – die Station
+war einfach eine Woche lang aus. Sieh Dir an, was Dein Programm tut, und fang den
+Fall mit einer Bedingung ab.
+
+&gt; **Hinweis:** Was Du im leeren Fall zurückgeben sollst, ist gar nicht so klar –
+&gt; `0` behauptet 0 °C, obwohl gar nichts gemessen wurde. Halt diesen Zwiespalt
+&gt; kurz fest, Teil 4 greift ihn auf.
+
+&lt;details class=&quot;avd-academy-reveal avd-academy-reveal--screen-only&quot; markdown=&quot;0&quot;&gt;
+&lt;summary&gt;Musterlösung – Teil 3: Eine ganze Messreihe&lt;/summary&gt;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class Wetterstation {
+
+    public static void main(String[] args) {
+        int[] woche = {17, 24, 19, 22, 25, 18, 21};
+        int[] keineMessung = {};
+
+        System.out.println(&quot;Durchschnitt: &quot; + durchschnitt(woche));
+        System.out.println(&quot;Durchschnitt: &quot; + durchschnitt(keineMessung));
+    }
+
+    static double durchschnitt(int[] messwerte) {
+        if (messwerte.length == 0) {
+            // Notbehelf: 0 behauptet 0 Grad, obwohl nichts gemessen wurde.
+            // Teil 4 macht daraus etwas Ehrlicheres.
+            return 0;
+        }
+
+        int summe = 0;
+        for (int wert : messwerte) {
+            summe += wert;
+        }
+
+        return (double) summe / messwerte.length;
+    }
+}
+
+// Ausgabe: Durchschnitt: 20.857142857142858
+//          Durchschnitt: 0.0&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+### Teil 4: Denselben Namen zweimal – Überladen
+
+Schreibe eine **zweite Methode mit demselben Namen** `durchschnitt`, die zusätzlich
+einen Standardwert entgegennimmt: Ist die Messreihe leer, gibt sie diesen Wert
+zurück, sonst den berechneten Mittelwert. Ruf am Ende in `main` beide Varianten auf –
+mit gefüllter und mit leerer Messreihe – und gib die Ergebnisse aus.
+
+&gt; **Hinweis:** Beide Methoden heißen gleich und unterscheiden sich nur in der
+&gt; Parameterliste – genau das ist **Überladen**. Ein anderer Rückgabetyp allein würde
+&gt; dafür nicht genügen. Ruf die Variante aus Teil 3 auf, statt die Berechnung zu
+&gt; kopieren.
+
+&lt;details class=&quot;avd-academy-reveal avd-academy-reveal--screen-only&quot; markdown=&quot;0&quot;&gt;
+&lt;summary&gt;Musterlösung – Teil 4: Denselben Namen zweimal – Überladen&lt;/summary&gt;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class Wetterstation {
+
+    public static void main(String[] args) {
+        int[] woche = {17, 24, 19, 22, 25, 18, 21};
+        int[] keineMessung = {};
+
+        System.out.println(&quot;Mittelwert:   &quot; + mittelwert(17, 24));
+        System.out.println(&quot;Durchschnitt: &quot; + durchschnitt(woche));
+        System.out.println(&quot;Durchschnitt: &quot; + durchschnitt(keineMessung));
+        System.out.println(&quot;Durchschnitt: &quot; + durchschnitt(keineMessung, -99.0));
+    }
+
+    static double mittelwert(int a, int b) {
+        return (double) (a + b) / 2;
+    }
+
+    static double durchschnitt(int[] messwerte) {
+        if (messwerte.length == 0) {
+            return 0;
+        }
+
+        int summe = 0;
+        for (int wert : messwerte) {
+            summe += wert;
+        }
+
+        return (double) summe / messwerte.length;
+    }
+
+    // Gleicher Name, andere Parameterliste – das ist Überladen.
+    // Die Berechnung wird nicht kopiert, sondern aufgerufen.
+    static double durchschnitt(int[] messwerte, double standardwert) {
+        if (messwerte.length == 0) {
+            return standardwert;
+        }
+
+        return durchschnitt(messwerte);
+    }
+}
+
+// Ausgabe: Mittelwert:   20.5
+//          Durchschnitt: 20.857142857142858
+//          Durchschnitt: 0.0
+//          Durchschnitt: -99.0&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+### Für Schnelle: eine dritte Variante
+
+Schreibe die Schleife aus Teil 3 einmal anders – hast Du eine klassische
+`for`-Schleife genommen, probier `for-each`, und umgekehrt. Vergleiche, welche der
+beiden Varianten sich für Dich flüssiger liest.
+
+&gt; **Hinweis:** Beide sind gleich richtig. Interessant ist, was Du beim Umbau über
+&gt; Index, Länge und Elementzugriff bemerkst.
+
+## Reflexionsfragen
+
+* Was gehört zur Signatur einer Methode – und wodurch unterscheiden sich zwei überladene Methoden?
+* Warum liefert die Division zweier `int`-Werte nicht den erwarteten Mittelwert – und wo genau muss der Cast stehen, damit er hilft?
+
+## Weiterführende Informationen
+
+- [Visualisierung: Java-Syntax auf einen Blick](../../../shared/visualisierungen/java-syntax-grundlagen.html)
+</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered">
+        <div class="avd-academy-guide-side__label">Weiterführende Informationen</div>
+        <div class="avd-academy-guide-side__links"><a href="../../../shared/visualisierungen/java-syntax-grundlagen.html"><span>Visualisierung: Java-Syntax auf einen Blick</span></a>
+        </div></div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Kontoarten unterschiedlich prüfen lassen · ATVANTAGE Academy</title><meta name="description" content="Mach das Konto abstrakt, lass das Girokonto anders prüfen als das Sparkonto und lege fest, wann zwei Konten gleich sind."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Kontoarten unterschiedlich prüfen lassen">
+<meta property="og:description" content="Mach das Konto abstrakt, lass das Girokonto anders prüfen als das Sparkonto und lege fest, wann zwei Konten gleich sind.">
+<meta property="og:type" content="article"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=7c528890">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1791172983"
+             data-base="/training-material-java-se/"
+             data-preselect="current">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=ae641391" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Farbschema umschalten">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-basics/">Java-Grundlagen</a><span>/</span><a href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a><span>/</span><span aria-current="page">Kontoarten unterschiedlich prüfen lassen</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 40 Minuten</span><span class="avd-academy-tag">Vererbung</span><span class="avd-academy-tag">Polymorphie</span><span class="avd-academy-tag">equals</span><span class="avd-academy-tag">Banking</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Kontoarten unterschiedlich prüfen lassen</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in möchte ich, dass jede Kontoart selbst entscheidet, wie viel abgehoben werden darf, damit ich beim Abheben nicht nach der Kontoart fragen muss.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Polymorphie kennst Du. Hier geht es um die <strong>Java-Mittel</strong> dafür:
+<code>abstract</code>, <code>@Override</code>, <code>protected</code> und die Methoden, die jede Klasse von
+<code>Object</code> erbt.</p>
+</blockquote>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du…</p>
+
+<ul>
+  <li>machst eine Oberklasse abstrakt und siehst, was der Compiler daraufhin verbietet.</li>
+  <li>überschreibst eine Methode und sicherst das mit <code>@Override</code> ab.</li>
+  <li>lässt ein Verhalten je Unterklasse variieren, ohne den Aufrufer zu ändern.</li>
+  <li>implementierst <code>equals</code> fachlich und grenzt es gegen <code>==</code> ab.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Konto</code> ist abstrakt; <code>new Konto(...)</code> kompiliert nicht mehr.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Die Prüfung, ob genug verfügbar ist, ist eine eigene Methode; <code>abheben</code> ruft sie auf.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Das Girokonto überschreibt die Prüfung (Dispolimit), das Sparkonto nicht.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Jede überschriebene Methode trägt <code>@Override</code>.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Ein Giro- und ein Sparkonto in einem <code>Konto[]</code> reagieren in derselben Schleife unterschiedlich auf dieselbe Abhebung.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Zwei Konten mit derselben IBAN sind laut <code>equals</code> gleich.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="die-oberklasse-abstrakt-machen">Die Oberklasse abstrakt machen</h3>
+
+<p>Es gibt kein Konto, das weder Giro- noch Sparkonto ist. Sorg dafür, dass der
+Compiler das durchsetzt.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Probier danach bewusst <code>new Konto(...)</code> aus und lies die Meldung.</p>
+</blockquote>
+
+<h3 id="die-prüfung-herausziehen">Die Prüfung herausziehen</h3>
+
+<p>Beim Abheben stellt sich immer dieselbe Frage: Ist genug da? Was „genug“
+bedeutet, unterscheidet sich je Kontoart – die Frage selbst nicht. Trenne beides:
+Das Abheben bleibt in der Oberklasse, die Prüfung wird eine eigene Methode.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Damit die Unterklasse die Prüfung ersetzen kann, muss sie sie sehen.
+Welche Sichtbarkeit passt – und was bedeutet sie in Java zusätzlich?</p>
+</blockquote>
+
+<h3 id="das-girokonto-anders-prüfen-lassen">Das Girokonto anders prüfen lassen</h3>
+
+<p>Beim Girokonto darf bis zum Dispolimit ins Minus gegangen werden. Überschreib die
+Prüfung entsprechend – und fass das Abheben nicht an.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Setz <code>@Override</code> davor. Bau danach einmal absichtlich einen
+Tippfehler in den Methodennamen und sieh Dir an, was die Annotation meldet. Und
+dann: Nimm die Annotation weg und lass den Tippfehler stehen. Was passiert jetzt?</p>
+</blockquote>
+
+<h3 id="beide-konten-gemeinsam-behandeln">Beide Konten gemeinsam behandeln</h3>
+
+<p>Leg ein Giro- und ein Sparkonto in ein <code>Konto[]</code> und versuch in einer Schleife,
+bei jedem denselben Betrag abzuheben.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Überleg vor dem Start, was passieren wird, und vergleich es danach
+mit der Ausgabe.</p>
+</blockquote>
+
+<h3 id="gleichheit-festlegen">Gleichheit festlegen</h3>
+
+<p>Zwei Konten sind dasselbe Konto, wenn ihre IBAN übereinstimmt. Überschreib die
+Methode, die das festlegt.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Die Methode erbst Du – wie <code>toString()</code> – aus <code>Object</code>. Achte auf den
+Typ des Parameters. Vergleich anschließend zwei Objekte mit derselben IBAN einmal
+mit <code>==</code> und einmal mit Deiner Methode.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Wenn solche Objekte später in ein <code>HashSet</code> wandern, gehört noch
+eine zweite Methode dazu. Das kommt im Kurs noch – für heute genügt <code>equals</code>.</p>
+</blockquote>
+
+<h3 id="für-schnelle">Für Schnelle</h3>
+
+<ul>
+  <li>Ergänze eine dritte Kontoart mit einer eigenen Regel und lauf die Schleife erneut – wie viel bestehenden Code musstest Du anfassen?</li>
+  <li>Schreib <code>equals</code> einmal von Hand und lass es danach von der IDE erzeugen. Was macht die IDE anders?</li>
+</ul>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Warum musstest Du das Abheben nicht ändern, obwohl sich das Verhalten je Kontoart unterscheidet?</li>
+  <li>Was ist ohne <code>@Override</code> beim Tippfehler passiert – und warum ist das gefährlicher als ein Compilerfehler?</li>
+  <li>Warum muss der Parameter von <code>equals</code> den Typ <code>Object</code> haben?</li>
+  <li>Wie gibt Deine bisherige Sprache eine Methode zum Überschreiben frei – und wie macht es Java?</li>
+</ul>
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Kontoarten unterschiedlich prüfen lassen
+
+Als Entwickler:in möchte ich, dass jede Kontoart selbst entscheidet, wie viel abgehoben werden darf, damit ich beim Abheben nicht nach der Kontoart fragen muss.
+
+&gt; **Hinweis:** Polymorphie kennst Du. Hier geht es um die **Java-Mittel** dafür:
+&gt; `abstract`, `@Override`, `protected` und die Methoden, die jede Klasse von
+&gt; `Object` erbt.
+
+## Lernziele
+
+Du…
+
+* machst eine Oberklasse abstrakt und siehst, was der Compiler daraufhin verbietet.
+* überschreibst eine Methode und sicherst das mit `@Override` ab.
+* lässt ein Verhalten je Unterklasse variieren, ohne den Aufrufer zu ändern.
+* implementierst `equals` fachlich und grenzt es gegen `==` ab.
+
+## Definition of Done
+
+* [ ] `Konto` ist abstrakt; `new Konto(...)` kompiliert nicht mehr.
+* [ ] Die Prüfung, ob genug verfügbar ist, ist eine eigene Methode; `abheben` ruft sie auf.
+* [ ] Das Girokonto überschreibt die Prüfung (Dispolimit), das Sparkonto nicht.
+* [ ] Jede überschriebene Methode trägt `@Override`.
+* [ ] Ein Giro- und ein Sparkonto in einem `Konto[]` reagieren in derselben Schleife unterschiedlich auf dieselbe Abhebung.
+* [ ] Zwei Konten mit derselben IBAN sind laut `equals` gleich.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Arbeitsschritte
+
+### Die Oberklasse abstrakt machen
+
+Es gibt kein Konto, das weder Giro- noch Sparkonto ist. Sorg dafür, dass der
+Compiler das durchsetzt.
+
+&gt; **Hinweis:** Probier danach bewusst `new Konto(...)` aus und lies die Meldung.
+
+### Die Prüfung herausziehen
+
+Beim Abheben stellt sich immer dieselbe Frage: Ist genug da? Was „genug“
+bedeutet, unterscheidet sich je Kontoart – die Frage selbst nicht. Trenne beides:
+Das Abheben bleibt in der Oberklasse, die Prüfung wird eine eigene Methode.
+
+&gt; **Hinweis:** Damit die Unterklasse die Prüfung ersetzen kann, muss sie sie sehen.
+&gt; Welche Sichtbarkeit passt – und was bedeutet sie in Java zusätzlich?
+
+### Das Girokonto anders prüfen lassen
+
+Beim Girokonto darf bis zum Dispolimit ins Minus gegangen werden. Überschreib die
+Prüfung entsprechend – und fass das Abheben nicht an.
+
+&gt; **Hinweis:** Setz `@Override` davor. Bau danach einmal absichtlich einen
+&gt; Tippfehler in den Methodennamen und sieh Dir an, was die Annotation meldet. Und
+&gt; dann: Nimm die Annotation weg und lass den Tippfehler stehen. Was passiert jetzt?
+
+### Beide Konten gemeinsam behandeln
+
+Leg ein Giro- und ein Sparkonto in ein `Konto[]` und versuch in einer Schleife,
+bei jedem denselben Betrag abzuheben.
+
+&gt; **Hinweis:** Überleg vor dem Start, was passieren wird, und vergleich es danach
+&gt; mit der Ausgabe.
+
+### Gleichheit festlegen
+
+Zwei Konten sind dasselbe Konto, wenn ihre IBAN übereinstimmt. Überschreib die
+Methode, die das festlegt.
+
+&gt; **Hinweis:** Die Methode erbst Du – wie `toString()` – aus `Object`. Achte auf den
+&gt; Typ des Parameters. Vergleich anschließend zwei Objekte mit derselben IBAN einmal
+&gt; mit `==` und einmal mit Deiner Methode.
+
+&gt; **Hinweis:** Wenn solche Objekte später in ein `HashSet` wandern, gehört noch
+&gt; eine zweite Methode dazu. Das kommt im Kurs noch – für heute genügt `equals`.
+
+### Für Schnelle
+
+* Ergänze eine dritte Kontoart mit einer eigenen Regel und lauf die Schleife erneut – wie viel bestehenden Code musstest Du anfassen?
+* Schreib `equals` einmal von Hand und lass es danach von der IDE erzeugen. Was macht die IDE anders?
+
+## Reflexionsfragen
+
+* Warum musstest Du das Abheben nicht ändern, obwohl sich das Verhalten je Kontoart unterscheidet?
+* Was ist ohne `@Override` beim Tippfehler passiert – und warum ist das gefährlicher als ein Compilerfehler?
+* Warum muss der Parameter von `equals` den Typ `Object` haben?
+* Wie gibt Deine bisherige Sprache eine Methode zum Überschreiben frei – und wie macht es Java?
+
+## Weiterführende Informationen
+
+- [Visualisierung: Objektorientierung mit Java (Vererbung)](../../../shared/visualisierungen/objektorientierung-java-vererbung.html)
+</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered">
+        <div class="avd-academy-guide-side__label">Weiterführende Informationen</div>
+        <div class="avd-academy-guide-side__links"><a href="../../../shared/visualisierungen/objektorientierung-java-vererbung.html"><span>Visualisierung: Objektorientierung mit Java (Vererbung)</span></a>
+        </div></div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

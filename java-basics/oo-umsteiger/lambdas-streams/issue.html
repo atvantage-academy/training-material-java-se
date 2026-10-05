@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Konten mit Streams auswerten · ATVANTAGE Academy</title><meta name="description" content="Sortiere, filtere, summiere und gruppiere die Konten der Bank mit Lambdas, Methodenreferenzen und Streams."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Konten mit Streams auswerten">
+<meta property="og:description" content="Sortiere, filtere, summiere und gruppiere die Konten der Bank mit Lambdas, Methodenreferenzen und Streams.">
+<meta property="og:type" content="article"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=7c528890">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1791172983"
+             data-base="/training-material-java-se/"
+             data-preselect="current">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=ae641391" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Farbschema umschalten">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-basics/">Java-Grundlagen</a><span>/</span><a href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a><span>/</span><span aria-current="page">Konten mit Streams auswerten</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 80 Minuten</span><span class="avd-academy-tag">Lambdas</span><span class="avd-academy-tag">Streams</span><span class="avd-academy-tag">Optional</span><span class="avd-academy-tag">Banking</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Konten mit Streams auswerten</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelines formulieren, damit im Code steht, <strong>was</strong> ich wissen will, und nicht, wie die Schleife läuft.</p>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du…</p>
+
+<ul>
+  <li>sortierst Objekte mit einem <code>Comparator</code>, den Du als Lambda und als Methodenreferenz schreibst.</li>
+  <li>formulierst Auswertungen als Stream-Pipeline aus Filtern, Abbilden und einer Endoperation.</li>
+  <li>gruppierst Objekte mit <code>Collectors.groupingBy</code>.</li>
+  <li>gibst ein Ergebnis, das fehlen kann, als <code>Optional</code> zurück und wertest es aus.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Die Konten lassen sich nach Stand sortiert ausgeben – einmal mit Lambda, einmal mit <code>Comparator.comparing</code> und Methodenreferenz.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Eine Pipeline liefert alle Konten mit negativem Stand.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Eine Pipeline liefert die Summe aller Stände – ohne Schleife und ohne äußere Variable.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Eine Pipeline gruppiert die Konten nach ihrer Inhaberin bzw. ihrem Inhaber.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Die Suche nach einer IBAN gibt ein <code>Optional&lt;Konto&gt;</code> zurück; der Aufrufer behandelt beide Fälle.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Das Programm startet und läuft fehlerfrei.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="sortieren-vom-lambda-zur-methodenreferenz">Sortieren: vom Lambda zur Methodenreferenz</h3>
+
+<p>Hol Dir alle Konten als <code>List&lt;Konto&gt;</code> und gib sie nach Stand aufsteigend sortiert
+aus. Schreib den <code>Comparator</code> zuerst als Lambda.</p>
+
+<pre><code class="language-java">konten.sort((a, b) -&gt; Long.compare(a.getStandInCent(), b.getStandInCent()));
+</code></pre>
+
+<p>Ersetz ihn danach durch <code>Comparator.comparing(…)</code> mit einer Methodenreferenz.
+Wie sortierst Du <strong>absteigend</strong>?</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> <code>sort</code> verändert die Liste selbst. Ist das bei Deinen Konten in
+Ordnung – oder brauchst Du eine sortierte <strong>Kopie</strong>?</p>
+</blockquote>
+
+<h3 id="filtern-konten-im-minus">Filtern: Konten im Minus</h3>
+
+<p>Liefere alle Konten, deren Stand negativ ist, als neue Liste.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Welche Konten kommen dafür überhaupt in Frage? Prüf am Ergebnis, ob
+Deine Dispo-Regel aus dem Girokonto greift.</p>
+</blockquote>
+
+<h3 id="summieren-der-gesamtbestand">Summieren: der Gesamtbestand</h3>
+
+<p>Berechne die Summe aller Stände – ohne Schleife.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Ein <code>Stream&lt;Konto&gt;</code> kennt kein <code>sum()</code>. Mit welcher Operation
+wird daraus ein Stream von <code>long</code>-Werten?</p>
+</blockquote>
+
+<h3 id="gruppieren-konten-je-inhaberin">Gruppieren: Konten je Inhaber:in</h3>
+
+<p>Gruppiere die Konten nach ihrer Inhaberin bzw. ihrem Inhaber und gib für jede
+Person die Anzahl ihrer Konten aus.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> <code>Collectors.groupingBy</code> liefert eine <code>Map</code>. Damit <code>Kunde</code> als
+Schlüssel taugt, muss Gleichheit stimmen – das hast Du bei den Collections
+erledigt. Für die Anzahl gibt es einen nachgelagerten Collector.</p>
+</blockquote>
+
+<h3 id="suchen-mit-optional">Suchen mit <code>Optional</code></h3>
+
+<p>Schreib eine Methode <code>findeKonto(String iban)</code>, die ein <code>Optional&lt;Konto&gt;</code>
+zurückgibt. Ruf sie mit einer vorhandenen und einer unbekannten IBAN auf und
+behandle beide Fälle.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Probier <code>orElse</code>, <code>orElseThrow</code> und <code>ifPresent</code> aus. Welche
+Variante passt, wenn eine Überweisung an eine unbekannte IBAN gehen soll?</p>
+</blockquote>
+
+<h3 id="für-schnelle">Für Schnelle</h3>
+
+<ul>
+  <li>Berechne für ein Konto die Summe aller <strong>Einzahlungen</strong> aus seinen Buchungen.</li>
+  <li>Gib die IBANs aller Konten aus, deren Inhaber:in in einem bestimmten Ort wohnt – sortiert und durch Komma getrennt (<code>Collectors.joining</code>).</li>
+  <li>Finde das Konto mit dem höchsten Stand (<code>max</code>). Was gibt <code>max</code> zurück, und warum?</li>
+</ul>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Wann ist eine Methodenreferenz lesbarer als ein Lambda – und wann nicht?</li>
+  <li>Warum ist ein <code>forEach</code>, das eine äußere Variable verändert, keine gute Pipeline?</li>
+  <li>Was ist der Unterschied zwischen <code>orElse</code> und <code>orElseThrow</code> bei der Kontosuche – und wer entscheidet, welche Variante richtig ist?</li>
+  <li>Welchen Typ hat ein Lambda in Java – und in Deiner bisherigen Sprache?</li>
+</ul>
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Konten mit Streams auswerten
+
+Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelines formulieren, damit im Code steht, **was** ich wissen will, und nicht, wie die Schleife läuft.
+
+## Lernziele
+
+Du…
+
+* sortierst Objekte mit einem `Comparator`, den Du als Lambda und als Methodenreferenz schreibst.
+* formulierst Auswertungen als Stream-Pipeline aus Filtern, Abbilden und einer Endoperation.
+* gruppierst Objekte mit `Collectors.groupingBy`.
+* gibst ein Ergebnis, das fehlen kann, als `Optional` zurück und wertest es aus.
+
+## Definition of Done
+
+* [ ] Die Konten lassen sich nach Stand sortiert ausgeben – einmal mit Lambda, einmal mit `Comparator.comparing` und Methodenreferenz.
+* [ ] Eine Pipeline liefert alle Konten mit negativem Stand.
+* [ ] Eine Pipeline liefert die Summe aller Stände – ohne Schleife und ohne äußere Variable.
+* [ ] Eine Pipeline gruppiert die Konten nach ihrer Inhaberin bzw. ihrem Inhaber.
+* [ ] Die Suche nach einer IBAN gibt ein `Optional&lt;Konto&gt;` zurück; der Aufrufer behandelt beide Fälle.
+* [ ] Das Programm startet und läuft fehlerfrei.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Arbeitsschritte
+
+### Sortieren: vom Lambda zur Methodenreferenz
+
+Hol Dir alle Konten als `List&lt;Konto&gt;` und gib sie nach Stand aufsteigend sortiert
+aus. Schreib den `Comparator` zuerst als Lambda.
+
+```java
+konten.sort((a, b) -&gt; Long.compare(a.getStandInCent(), b.getStandInCent()));
+```
+
+Ersetz ihn danach durch `Comparator.comparing(…)` mit einer Methodenreferenz.
+Wie sortierst Du **absteigend**?
+
+&gt; **Hinweis:** `sort` verändert die Liste selbst. Ist das bei Deinen Konten in
+&gt; Ordnung – oder brauchst Du eine sortierte **Kopie**?
+
+### Filtern: Konten im Minus
+
+Liefere alle Konten, deren Stand negativ ist, als neue Liste.
+
+&gt; **Hinweis:** Welche Konten kommen dafür überhaupt in Frage? Prüf am Ergebnis, ob
+&gt; Deine Dispo-Regel aus dem Girokonto greift.
+
+### Summieren: der Gesamtbestand
+
+Berechne die Summe aller Stände – ohne Schleife.
+
+&gt; **Hinweis:** Ein `Stream&lt;Konto&gt;` kennt kein `sum()`. Mit welcher Operation
+&gt; wird daraus ein Stream von `long`-Werten?
+
+### Gruppieren: Konten je Inhaber:in
+
+Gruppiere die Konten nach ihrer Inhaberin bzw. ihrem Inhaber und gib für jede
+Person die Anzahl ihrer Konten aus.
+
+&gt; **Hinweis:** `Collectors.groupingBy` liefert eine `Map`. Damit `Kunde` als
+&gt; Schlüssel taugt, muss Gleichheit stimmen – das hast Du bei den Collections
+&gt; erledigt. Für die Anzahl gibt es einen nachgelagerten Collector.
+
+### Suchen mit `Optional`
+
+Schreib eine Methode `findeKonto(String iban)`, die ein `Optional&lt;Konto&gt;`
+zurückgibt. Ruf sie mit einer vorhandenen und einer unbekannten IBAN auf und
+behandle beide Fälle.
+
+&gt; **Hinweis:** Probier `orElse`, `orElseThrow` und `ifPresent` aus. Welche
+&gt; Variante passt, wenn eine Überweisung an eine unbekannte IBAN gehen soll?
+
+### Für Schnelle
+
+* Berechne für ein Konto die Summe aller **Einzahlungen** aus seinen Buchungen.
+* Gib die IBANs aller Konten aus, deren Inhaber:in in einem bestimmten Ort wohnt – sortiert und durch Komma getrennt (`Collectors.joining`).
+* Finde das Konto mit dem höchsten Stand (`max`). Was gibt `max` zurück, und warum?
+
+## Reflexionsfragen
+
+* Wann ist eine Methodenreferenz lesbarer als ein Lambda – und wann nicht?
+* Warum ist ein `forEach`, das eine äußere Variable verändert, keine gute Pipeline?
+* Was ist der Unterschied zwischen `orElse` und `orElseThrow` bei der Kontosuche – und wer entscheidet, welche Variante richtig ist?
+* Welchen Typ hat ein Lambda in Java – und in Deiner bisherigen Sprache?</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

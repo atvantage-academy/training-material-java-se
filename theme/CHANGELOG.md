@@ -15,6 +15,43 @@ Abschnitt „Theme-Version“.
 
 ---
 
+## 3.17.0
+
+### Suche: geteilte Unterlagen einbinden
+
+**Minor.** Übungen, Visualisierungen oder ein Glossar, die mehrere Schulungen verwenden,
+liegen meist außerhalb der Schulungsordner, etwa unter `shared/`. Ein Bereich aus einer
+Indexseite bindet sie jetzt ein:
+
+```yaml
+search:
+  scope:
+    includes: [shared-uebungen, streams-schaubild]
+```
+
+- Je Eintrag eine `page_id`. Eine Indexseite steht für ihren Ordner samt Unterordnern, jede
+  andere Seite für sich. Aufgelöst wird in der Sprache der definierenden Indexseite.
+- Die Seite behält ihren eigenen Bereich und steht zusätzlich in jedem, der sie einbindet.
+  Unter „Alle“ erscheint sie einmal.
+- Was `search: disabled` oder `noindex` trägt, bleibt draußen. Eine `page_id`, die es im
+  Build nicht gibt, meldet der Build als Hinweis.
+- Nur bei `scope_source: index`.
+
+### Suche: Bereichskontext auf geteilten Seiten
+
+**Minor.** Bei `preselect: current` merkt sich die Suche je Tab den Weg durch die Site. Auf
+einer eingebundenen Seite ohne eigenen Bereich ist der Bereich vorausgewählt, aus dem man
+kommt – nach einem Treffer wie nach einem gewöhnlichen Verweis. Ein eigener Bereich geht
+immer vor. Treffer tragen den gewählten Bereich als `?scope=` mit; die Zielseite nimmt ihn
+sofort aus der Adresse. Gespeichert wird nur im `sessionStorage` des Tabs.
+
+Im Manifest zeigt `pages` jetzt je Adresse auf eine **Liste** von Bereichen statt auf
+einen einzelnen. Das Manifest ist eine interne Datei des Themes; `search.js` liest das neue
+Format.
+
+**Angekündigt für 4.0:** Der Standard von `search.preselect` richtet sich nach
+`scope_source` – `current` bei `index`, `default` bei `nav` (#269).
+
 ## 3.16.0
 
 ### Einstellbare Prüfungen: `checks`

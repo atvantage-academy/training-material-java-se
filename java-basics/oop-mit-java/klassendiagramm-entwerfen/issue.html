@@ -1,0 +1,497 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Ein Klassendiagramm zur Bank · ATVANTAGE Academy</title><meta name="description" content="Lies einen Anforderungstext zur Bank und zeichne daraus ein einfaches UML-Klassendiagramm – Klassen, Eigenschaften, Fähigkeiten, Beziehungen mit Multiplizitäten."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Ein Klassendiagramm zur Bank">
+<meta property="og:description" content="Lies einen Anforderungstext zur Bank und zeichne daraus ein einfaches UML-Klassendiagramm – Klassen, Eigenschaften, Fähigkeiten, Beziehungen mit Multiplizitäten.">
+<meta property="og:type" content="article"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=7c528890">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1791172983"
+             data-base="/training-material-java-se/"
+             data-preselect="current">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=ae641391" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Farbschema umschalten">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-basics/">Java-Grundlagen</a><span>/</span><a href="/training-material-java-se/java-basics/oop-mit-java/">OOP mit Java</a><span>/</span><span aria-current="page">Ein Klassendiagramm zur Bank</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 25 Minuten</span><span class="avd-academy-tag">Objektorientierung</span><span class="avd-academy-tag">UML</span><span class="avd-academy-tag">Modellierung</span><span class="avd-academy-tag">Banking</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Ein Klassendiagramm zur Bank</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in möchte ich aus einer Anforderung in Prosa die beteiligten Dinge herauslesen und als Klassendiagramm aufzeichnen, damit ich weiß, woher die Klassen in meinem Java-Code eigentlich kommen.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Hier wird <strong>gezeichnet, nicht programmiert</strong> – Papier und Stift
+genügen, ein UML-Werkzeug brauchst Du ausdrücklich nicht. Es gibt zu dieser
+Übung bewusst keine Musterlösung: Die Diagramme werden anschließend
+miteinander verglichen, und es gibt mehr als eine tragfähige Lösung.</p>
+</blockquote>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du…</p>
+
+<ul>
+  <li>liest aus einem Anforderungstext Kandidaten für Klassen, Eigenschaften und Fähigkeiten heraus.</li>
+  <li>entscheidest begründet, ob ein Begriff eine eigene Klasse oder nur eine Eigenschaft wird.</li>
+  <li>zeichnest ein einfaches UML-Klassendiagramm mit Klassen, Eigenschaften, Fähigkeiten und Beziehungen.</li>
+  <li>gibst an den Beziehungen an, wie viele Objekte beteiligt sind (1:1, 1:n, n:m).</li>
+  <li>unterscheidest fachliche Aussagen von Umsetzungsentscheidungen.</li>
+  <li>benennst, was Du bewusst weggelassen hast.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast den Text gelesen und die Begriffe markiert, die Dir wichtig erscheinen.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Dein Diagramm enthält <strong>Klassen</strong> mit <strong>Eigenschaften</strong> und mindestens je einer <strong>Fähigkeit</strong>.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><strong>Beziehungen</strong> zwischen den Klassen sind als Linie eingezeichnet, mit <strong>Multiplizitäten</strong> an beiden Enden (<code>1</code>, <code>*</code>, <code>0..1</code>).</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du kannst zu jeder Klasse sagen, <strong>warum</strong> sie eine eigene Klasse ist.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="der-anforderungstext">Der Anforderungstext</h2>
+
+<blockquote>
+  <p>Eine Bank möchte ihre Konten verwalten.</p>
+
+  <p>Zu jeder <strong>Kundin und jedem Kunden</strong> sind Name und Wohnort bekannt. Beim
+Anlegen vergibt die Bank eine eindeutige Kundennummer; zieht jemand um, wird
+der Wohnort geändert.</p>
+
+  <p>Ein <strong>Konto</strong> hat eine IBAN und einen Kontostand und gehört genau einer Kundin
+oder einem Kunden – wer mehrere Konten braucht, bekommt mehrere. Auf ein Konto
+kann <strong>eingezahlt</strong> werden, und es kann <strong>abgehoben</strong> werden, allerdings nur,
+solange genug Guthaben vorhanden ist. Der aktuelle Kontostand lässt sich
+abfragen.</p>
+
+  <p>Die <strong>Bank</strong> selbst kennt ihre Kundschaft und deren Konten und kann ein Konto
+anhand der IBAN heraussuchen.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Alle Konten sind hier gleichartig – verschiedene Kontoarten (Giro,
+Spar, Kredit) lassen wir in diesem Modell bewusst weg. Wie man Gemeinsames und
+Unterschiedliches sauber trennt, kommt später im Kurs.</p>
+</blockquote>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="den-text-lesen-und-markieren">Den Text lesen und markieren</h3>
+
+<p>Lies den Text einmal ganz und markiere dann:</p>
+
+<ul>
+  <li><strong>Substantive</strong> – das sind Kandidaten für Klassen oder Eigenschaften.</li>
+  <li><strong>Verben</strong> – das sind Kandidaten für Fähigkeiten.</li>
+  <li><strong>Sätze, die zwei Dinge verbinden</strong> – daraus werden Beziehungen.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Kandidat heißt Kandidat. Nicht jedes Substantiv wird eine Klasse –
+manches ist nur ein Wert an einer anderen Klasse.</p>
+</blockquote>
+
+<h3 id="entscheiden-was-eine-eigene-klasse-wird">Entscheiden, was eine eigene Klasse wird</h3>
+
+<p>Geh Deine Kandidaten durch und entscheide für jeden: <strong>eigene Klasse oder
+Eigenschaft?</strong> Frag Dich dabei:</p>
+
+<ul>
+  <li>Hat das Ding eigene Daten <em>und</em> eigenes Verhalten?</li>
+  <li>Kommt es mehrfach und unabhängig vor?</li>
+</ul>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Denk bei Kundennummer, IBAN und Kontostand kurz nach: eigenes Ding
+– oder nur ein Wert an einer anderen Klasse?</p>
+</blockquote>
+
+<h3 id="das-diagramm-zeichnen">Das Diagramm zeichnen</h3>
+
+<p>Zeichne für jede Klasse ein <strong>Kästchen</strong> mit drei Bereichen:</p>
+
+<pre><code>┌───────────────────────────┐
+│ Konto                     │   ← Name
+├───────────────────────────┤
+│ iban                      │   ← Eigenschaften
+│ stand                │
+├───────────────────────────┤
+│ einzahlen()               │   ← Fähigkeiten
+│ abheben()                 │
+└───────────────────────────┘
+</code></pre>
+
+<p>Verbinde Klassen, die etwas miteinander zu tun haben, mit einer <strong>einfachen
+Linie</strong>. Wenn Du möchtest, schreib an die Linie, worin die Beziehung besteht
+(z. B. „gehört zu“).</p>
+
+<p><strong>Schreib an beide Enden der Linie, wie viele es sein können</strong> – daran erkennt man
+später den Unterschied zwischen 1:1, 1:n und n:m:</p>
+
+<pre><code>Kunde  1 ────────── *  Konto        ein Kunde hat beliebig viele Konten,
+                                    ein Konto gehört genau einem Kunden
+
+Kurs   * ────────── *  Mitglied     jeder Kurs hat viele Mitglieder,
+                                    jedes Mitglied besucht viele Kurse
+</code></pre>
+
+<p>Üblich sind <code>1</code> (genau eins), <code>*</code> (beliebig viele, auch keines) und <code>0..1</code>
+(höchstens eins).</p>
+
+<blockquote>
+  <p><strong>Achtung:</strong> Alles, was schon eine Aussage über die spätere Umsetzung wäre,
+lassen wir weg – <strong>keine Pfeilspitzen</strong>, keine Rauten, keine Vererbung. Ob eine
+Klasse die andere „kennt“ (und nicht umgekehrt), ist ein Implementierungsdetail
+und noch keine fachliche Aussage.</p>
+</blockquote>
+
+<h3 id="prüfen-ob-dein-modell-den-text-trägt">Prüfen, ob Dein Modell den Text trägt</h3>
+
+<p>Geh den Text noch einmal durch und prüfe an ein, zwei Aussagen, ob Dein Diagramm
+sie hergibt – zum Beispiel: <em>„Abheben ist nur möglich, solange genug Guthaben
+vorhanden ist.“</em> An welcher Stelle Deines Modells könnte diese Regel geprüft
+werden? Und: <em>„Wer mehrere Konten braucht, bekommt mehrere.“</em> Woran sieht man das
+in Deinem Diagramm?</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Wenn Dir dabei etwas fehlt, ergänze es. Wenn Du etwas eingezeichnet
+hast, das der Text gar nicht erwähnt, streich es wieder – Modellieren heißt
+auch weglassen.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Nicht jede Frage musst Du hier beantworten. Ob die Bank ihre Konten
+in einer Liste hält oder nach IBAN nachschlägt, ist eine Frage der Umsetzung –
+fachlich kennt die Bank einfach ihre Konten. Solche Entscheidungen fallen später
+im Code.</p>
+</blockquote>
+
+<h3 id="für-schnelle-noch-ein-text">Für Schnelle: noch ein Text</h3>
+
+<p>Das Vorgehen ist immer dasselbe – und genau das ist die gute Nachricht: Ab dem
+zweiten oder dritten Text läuft es fast von allein. Such Dir einen der folgenden
+Texte aus und zeichne auch dazu ein Diagramm.</p>
+
+<p><strong>Stadtbibliothek</strong></p>
+
+<blockquote>
+  <p>Die Bibliothek besitzt Bücher mit Titel, Autor und ISBN. Von einem beliebten
+Buch stehen mehrere Exemplare im Regal, jedes mit eigener Inventarnummer und
+Standort; ein Exemplar kann ausgeliehen und zurückgegeben werden. Leserinnen
+und Leser melden sich mit Name und Adresse an und erhalten eine Ausweisnummer.
+Bei jeder Ausleihe wird festgehalten, wer welches Exemplar wann mitgenommen hat
+und bis wann es zurückzugeben ist; eine Ausleihe kann verlängert werden.</p>
+</blockquote>
+
+<p><strong>Kino</strong></p>
+
+<blockquote>
+  <p>Ein Kino zeigt Filme mit Titel, Länge und Altersfreigabe. Eine Vorstellung
+findet in einem bestimmten Saal zu einer bestimmten Uhrzeit statt und zeigt
+genau einen Film. Ein Saal hat eine Bezeichnung und nummerierte Sitzplätze. Für
+eine Vorstellung lassen sich Plätze reservieren; eine Reservierung gehört zu
+einer Person mit Name und Telefonnummer und kann storniert werden.</p>
+</blockquote>
+
+<p><strong>Fitnessstudio</strong></p>
+
+<blockquote>
+  <p>Mitglieder melden sich mit Name, Geburtsdatum und Mitgliedsnummer an. Das Studio
+bietet Kurse an, jeweils mit Titel, Wochentag, Uhrzeit und einer maximalen
+Teilnehmerzahl. Ein Mitglied kann sich für einen Kurs anmelden und wieder
+abmelden; ist der Kurs voll, ist keine Anmeldung mehr möglich. Jeder Kurs wird
+von einer Trainerin oder einem Trainer geleitet.</p>
+</blockquote>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Welche Substantive aus dem Text sind bei Dir <strong>keine</strong> Klasse geworden – und warum nicht?</li>
+  <li>Wo hast Du Verhalten eingezeichnet, und woran hast Du entschieden, an welche Klasse es gehört?</li>
+  <li>Was hast Du bewusst weggelassen?</li>
+</ul>
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Ein Klassendiagramm zur Bank
+
+Als Entwickler:in möchte ich aus einer Anforderung in Prosa die beteiligten Dinge herauslesen und als Klassendiagramm aufzeichnen, damit ich weiß, woher die Klassen in meinem Java-Code eigentlich kommen.
+
+&gt; **Hinweis:** Hier wird **gezeichnet, nicht programmiert** – Papier und Stift
+&gt; genügen, ein UML-Werkzeug brauchst Du ausdrücklich nicht. Es gibt zu dieser
+&gt; Übung bewusst keine Musterlösung: Die Diagramme werden anschließend
+&gt; miteinander verglichen, und es gibt mehr als eine tragfähige Lösung.
+
+## Lernziele
+
+Du…
+
+* liest aus einem Anforderungstext Kandidaten für Klassen, Eigenschaften und Fähigkeiten heraus.
+* entscheidest begründet, ob ein Begriff eine eigene Klasse oder nur eine Eigenschaft wird.
+* zeichnest ein einfaches UML-Klassendiagramm mit Klassen, Eigenschaften, Fähigkeiten und Beziehungen.
+* gibst an den Beziehungen an, wie viele Objekte beteiligt sind (1:1, 1:n, n:m).
+* unterscheidest fachliche Aussagen von Umsetzungsentscheidungen.
+* benennst, was Du bewusst weggelassen hast.
+
+## Definition of Done
+
+* [ ] Du hast den Text gelesen und die Begriffe markiert, die Dir wichtig erscheinen.
+* [ ] Dein Diagramm enthält **Klassen** mit **Eigenschaften** und mindestens je einer **Fähigkeit**.
+* [ ] **Beziehungen** zwischen den Klassen sind als Linie eingezeichnet, mit **Multiplizitäten** an beiden Enden (`1`, `*`, `0..1`).
+* [ ] Du kannst zu jeder Klasse sagen, **warum** sie eine eigene Klasse ist.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Der Anforderungstext
+
+&gt; Eine Bank möchte ihre Konten verwalten.
+&gt;
+&gt; Zu jeder **Kundin und jedem Kunden** sind Name und Wohnort bekannt. Beim
+&gt; Anlegen vergibt die Bank eine eindeutige Kundennummer; zieht jemand um, wird
+&gt; der Wohnort geändert.
+&gt;
+&gt; Ein **Konto** hat eine IBAN und einen Kontostand und gehört genau einer Kundin
+&gt; oder einem Kunden – wer mehrere Konten braucht, bekommt mehrere. Auf ein Konto
+&gt; kann **eingezahlt** werden, und es kann **abgehoben** werden, allerdings nur,
+&gt; solange genug Guthaben vorhanden ist. Der aktuelle Kontostand lässt sich
+&gt; abfragen.
+&gt;
+&gt; Die **Bank** selbst kennt ihre Kundschaft und deren Konten und kann ein Konto
+&gt; anhand der IBAN heraussuchen.
+
+&gt; **Hinweis:** Alle Konten sind hier gleichartig – verschiedene Kontoarten (Giro,
+&gt; Spar, Kredit) lassen wir in diesem Modell bewusst weg. Wie man Gemeinsames und
+&gt; Unterschiedliches sauber trennt, kommt später im Kurs.
+
+## Arbeitsschritte
+
+### Den Text lesen und markieren
+
+Lies den Text einmal ganz und markiere dann:
+
+* **Substantive** – das sind Kandidaten für Klassen oder Eigenschaften.
+* **Verben** – das sind Kandidaten für Fähigkeiten.
+* **Sätze, die zwei Dinge verbinden** – daraus werden Beziehungen.
+
+&gt; **Hinweis:** Kandidat heißt Kandidat. Nicht jedes Substantiv wird eine Klasse –
+&gt; manches ist nur ein Wert an einer anderen Klasse.
+
+### Entscheiden, was eine eigene Klasse wird
+
+Geh Deine Kandidaten durch und entscheide für jeden: **eigene Klasse oder
+Eigenschaft?** Frag Dich dabei:
+
+* Hat das Ding eigene Daten *und* eigenes Verhalten?
+* Kommt es mehrfach und unabhängig vor?
+
+&gt; **Hinweis:** Denk bei Kundennummer, IBAN und Kontostand kurz nach: eigenes Ding
+&gt; – oder nur ein Wert an einer anderen Klasse?
+
+### Das Diagramm zeichnen
+
+Zeichne für jede Klasse ein **Kästchen** mit drei Bereichen:
+
+```
+┌───────────────────────────┐
+│ Konto                     │   ← Name
+├───────────────────────────┤
+│ iban                      │   ← Eigenschaften
+│ stand                │
+├───────────────────────────┤
+│ einzahlen()               │   ← Fähigkeiten
+│ abheben()                 │
+└───────────────────────────┘
+```
+
+Verbinde Klassen, die etwas miteinander zu tun haben, mit einer **einfachen
+Linie**. Wenn Du möchtest, schreib an die Linie, worin die Beziehung besteht
+(z. B. „gehört zu“).
+
+**Schreib an beide Enden der Linie, wie viele es sein können** – daran erkennt man
+später den Unterschied zwischen 1:1, 1:n und n:m:
+
+```
+Kunde  1 ────────── *  Konto        ein Kunde hat beliebig viele Konten,
+                                    ein Konto gehört genau einem Kunden
+
+Kurs   * ────────── *  Mitglied     jeder Kurs hat viele Mitglieder,
+                                    jedes Mitglied besucht viele Kurse
+```
+
+Üblich sind `1` (genau eins), `*` (beliebig viele, auch keines) und `0..1`
+(höchstens eins).
+
+&gt; **Achtung:** Alles, was schon eine Aussage über die spätere Umsetzung wäre,
+&gt; lassen wir weg – **keine Pfeilspitzen**, keine Rauten, keine Vererbung. Ob eine
+&gt; Klasse die andere „kennt“ (und nicht umgekehrt), ist ein Implementierungsdetail
+&gt; und noch keine fachliche Aussage.
+
+### Prüfen, ob Dein Modell den Text trägt
+
+Geh den Text noch einmal durch und prüfe an ein, zwei Aussagen, ob Dein Diagramm
+sie hergibt – zum Beispiel: *„Abheben ist nur möglich, solange genug Guthaben
+vorhanden ist.“* An welcher Stelle Deines Modells könnte diese Regel geprüft
+werden? Und: *„Wer mehrere Konten braucht, bekommt mehrere.“* Woran sieht man das
+in Deinem Diagramm?
+
+&gt; **Hinweis:** Wenn Dir dabei etwas fehlt, ergänze es. Wenn Du etwas eingezeichnet
+&gt; hast, das der Text gar nicht erwähnt, streich es wieder – Modellieren heißt
+&gt; auch weglassen.
+
+&gt; **Hinweis:** Nicht jede Frage musst Du hier beantworten. Ob die Bank ihre Konten
+&gt; in einer Liste hält oder nach IBAN nachschlägt, ist eine Frage der Umsetzung –
+&gt; fachlich kennt die Bank einfach ihre Konten. Solche Entscheidungen fallen später
+&gt; im Code.
+
+### Für Schnelle: noch ein Text
+
+Das Vorgehen ist immer dasselbe – und genau das ist die gute Nachricht: Ab dem
+zweiten oder dritten Text läuft es fast von allein. Such Dir einen der folgenden
+Texte aus und zeichne auch dazu ein Diagramm.
+
+**Stadtbibliothek**
+
+&gt; Die Bibliothek besitzt Bücher mit Titel, Autor und ISBN. Von einem beliebten
+&gt; Buch stehen mehrere Exemplare im Regal, jedes mit eigener Inventarnummer und
+&gt; Standort; ein Exemplar kann ausgeliehen und zurückgegeben werden. Leserinnen
+&gt; und Leser melden sich mit Name und Adresse an und erhalten eine Ausweisnummer.
+&gt; Bei jeder Ausleihe wird festgehalten, wer welches Exemplar wann mitgenommen hat
+&gt; und bis wann es zurückzugeben ist; eine Ausleihe kann verlängert werden.
+
+**Kino**
+
+&gt; Ein Kino zeigt Filme mit Titel, Länge und Altersfreigabe. Eine Vorstellung
+&gt; findet in einem bestimmten Saal zu einer bestimmten Uhrzeit statt und zeigt
+&gt; genau einen Film. Ein Saal hat eine Bezeichnung und nummerierte Sitzplätze. Für
+&gt; eine Vorstellung lassen sich Plätze reservieren; eine Reservierung gehört zu
+&gt; einer Person mit Name und Telefonnummer und kann storniert werden.
+
+**Fitnessstudio**
+
+&gt; Mitglieder melden sich mit Name, Geburtsdatum und Mitgliedsnummer an. Das Studio
+&gt; bietet Kurse an, jeweils mit Titel, Wochentag, Uhrzeit und einer maximalen
+&gt; Teilnehmerzahl. Ein Mitglied kann sich für einen Kurs anmelden und wieder
+&gt; abmelden; ist der Kurs voll, ist keine Anmeldung mehr möglich. Jeder Kurs wird
+&gt; von einer Trainerin oder einem Trainer geleitet.
+
+## Reflexionsfragen
+
+* Welche Substantive aus dem Text sind bei Dir **keine** Klasse geworden – und warum nicht?
+* Wo hast Du Verhalten eingezeichnet, und woran hast Du entschieden, an welche Klasse es gehört?
+* Was hast Du bewusst weggelassen?</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

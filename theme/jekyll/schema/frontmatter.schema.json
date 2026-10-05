@@ -401,7 +401,7 @@
       "description": "Skripte, die NUR diese Seite lädt – site-relative Pfade, eingebunden mit `defer`. GILT IN: allen Layouts, die auf `default` aufbauen. STANDARD: keine. WOFÜR: eine Seite, die wirklich eigenes Verhalten mitbringt. Der Weg über das Front Matter ist der einzige erlaubte – ein `<script>` im Seitenkörper verbietet das Layout über `source_assets` (siehe `contract/theme.json`), weil es seitenweit wirkt. NUR WO DAS LAYOUT ES ERLAUBT: Steht in `contract/theme.json` beim Layout `source_assets: false`, ist auch diese Angabe unzulässig – es sei denn, das Projekt hat die Prüfung mit `checks.source_assets: disabled` in der `_config.yml` abgeschaltet. Die Prüfung macht zwischen dem Element im Text und der Deklaration keinen Unterschied – beides lädt."
     },
     "search": {
-      "description": "Die Seite in der Suche. `search: disabled` nimmt sie aus dem Index – in einer Indexseite (`index.md`, `index_en.md`, eine Fassung für eine Zielgruppe wie `index-trainer.md` …) den ganzen Ordner samt Unterordnern, in der Sprache dieser Indexseite; darunter lässt sich nichts zurückholen. In einer INDEXSEITE definiert `search: { scope: … }` einen Bereich der Suche für den Ordner samt Unterordnern. Die ID des Bereichs ist die `page_id` der Indexseite – sie ist dafür Pflicht. Gilt nur bei `search.scope_source: index` (Standard). Grundlage ist immer der Ordner, in dem die Datei liegt, nie die Adresse: `slug`, `folder_slug` und `permalink` ändern daran nichts. GILT IN: allen.",
+      "description": "Die Seite in der Suche. `search: disabled` nimmt sie aus dem Index – in einer Indexseite (`index.md`, `index_en.md`, eine Fassung für eine Zielgruppe wie `index-trainer.md` …) den ganzen Ordner samt Unterordnern, in der Sprache dieser Indexseite; darunter lässt sich nichts zurückholen. In einer INDEXSEITE definiert `search: { scope: … }` einen Bereich der Suche für den Ordner samt Unterordnern – und mit `scope.includes` für weitere Seiten und Ordner außerhalb davon. Die ID des Bereichs ist die `page_id` der Indexseite – sie ist dafür Pflicht. Gilt nur bei `search.scope_source: index` (Standard). Grundlage ist immer der Ordner, in dem die Datei liegt, nie die Adresse: `slug`, `folder_slug` und `permalink` ändern daran nichts. GILT IN: allen.",
       "oneOf": [
         {
           "const": "disabled",
@@ -416,7 +416,7 @@
           "description": "Bereich definieren (nur Indexseiten)",
           "properties": {
             "scope": {
-              "description": "Der Bereich, den diese Indexseite definiert. `true`: mit dem `title` der Seite als Namen. Ein Abschnitt: mit eigenem `title` und optional `default`.",
+              "description": "Der Bereich, den diese Indexseite definiert. `true`: mit dem `title` der Seite als Namen. Ein Abschnitt: mit eigenem `title` und optional `default` und `includes`.",
               "oneOf": [
                 {
                   "const": true,
@@ -435,6 +435,15 @@
                       "type": "boolean",
                       "default": false,
                       "description": "Diesen Bereich in der Suche vorauswählen. Höchstens ein Bereich der Site darf das tragen, sonst bricht der Build ab; ohne Marke ist „Alle“ vorausgewählt."
+                    },
+                    "includes": {
+                      "type": "array",
+                      "minItems": 1,
+                      "uniqueItems": true,
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Seiten und Ordner, die AUSSERHALB des Ordners liegen und trotzdem zu diesem Bereich gehören – etwa geteilte Übungen und Visualisierungen, die mehrere Schulungen verwenden. Je Eintrag eine `page_id`: Zeigt sie auf eine Indexseite, gehört deren Ordner samt Unterordnern dazu, sonst die eine Seite. Aufgelöst in der Sprache dieser Indexseite. Die Seiten behalten ihren eigenen Bereich; sie stehen zusätzlich in jedem, der sie einbindet. Was `search: disabled` oder `noindex` trägt, kommt so nicht zurück. Eine `page_id`, die es im Build nicht gibt, meldet der Build als Hinweis. Mit `preselect: current` gilt auf einer eingebundenen Seite ohne eigenen Bereich der Bereich, aus dem man kommt. STANDARD: keine."
                     }
                   }
                 }

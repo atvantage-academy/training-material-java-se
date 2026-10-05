@@ -581,7 +581,7 @@
                 "current"
               ],
               "default": "default",
-              "description": "Welcher Bereich beim Öffnen der Suche vorausgewählt ist. `default`: der Bereich mit `default: true`, ohne Marke „Alle“. `current`: der Bereich der aktuellen Seite – gehört sie zu keinem (etwa die Startseite), „Alle“; `default: true` wirkt dann nicht. Gilt bei beiden `scope_source`."
+              "description": "Welcher Bereich beim Öffnen der Suche vorausgewählt ist. `default`: der Bereich mit `default: true`, ohne Marke „Alle“. `current`: der Bereich der aktuellen Seite – gehört sie zu keinem (etwa die Startseite), „Alle“; `default: true` wirkt dann nicht. Gilt bei beiden `scope_source`. Eine Seite ohne eigenen Bereich, die andere Bereiche einbinden (`search.scope.includes`), übernimmt den Bereich, aus dem man kommt – über einen Treffer oder einen Verweis, je Tab. Ein eigener Bereich geht immer vor."
             }
           }
         }
