@@ -15,6 +15,50 @@ Abschnitt „Theme-Version“.
 
 ---
 
+## 4.0.3
+
+### Seitenübergänge griffen beim Klick auf einen Verweis nicht
+
+**Patch.** Der Seitenübergang aus 4.0 war beim Klick auf einen Verweis meist nicht zu sehen,
+obwohl beide Seiten den Effekt an hatten (#337). Die alte Seite stimmte zu, die neue lehnte
+ab: Der Browser prüft die Zustimmung der Zielseite, bevor das Stylesheet am Ende des `<head>`
+wirkt, und dort stand sie. Gemessen mit 60 ms Laufzeit je Antwort: kein Übergang bei acht
+Klicks. Zurück und Vor fielen nicht auf – die Seite kommt dort aus dem bfcache.
+
+Die Zustimmung steht jetzt als eingebettetes `<style>` im `<head>` jeder Seite, für die der
+Effekt an ist; `page-transitions.css` trägt nur noch Übergangsnamen, Ablauf und Fläche. Beides
+gibt das neue Include `avd-page-transitions.html` aus, das den Schalter
+`effects.page_transitions` selbst auflöst – bei „aus“ erscheint wie bisher nichts davon.
+Unter „Bewegung reduzieren“ gibt es weiter keinen Übergang.
+
+**Eigenständige Layouts eines Repos** (eigenes `<html>`) können damit teilnehmen: den Schalter
+unter `switches:` deklarieren und das Include im `<head>` aufrufen. Präsentation und Simulation
+bleiben ohne Übergang. **Eine Content-Security-Policy ohne `'unsafe-inline'` für
+`style-src`** nähme den Übergang weg, wie schon die Linkmarken; keine ausgelieferte Unterlage
+setzt heute eine. Wann der Browser einen Übergang zeigt, steht in der Doku unter „Effekte“.
+
+## 4.0.2
+
+**Patch.**
+
+- **Kopfzeile folgt dem Farbschema sofort (#339).** Mit dem Effekt `translucent_header`
+  behielt die Kopfzeile nach dem Umschalten zwischen hell und dunkel gescrollt ihren alten
+  Hintergrund, bis die Seite neu geladen wurde. Ursache: Die Farbe stand in den Keyframes der
+  Scroll-Animation, und der Browser wertet sie beim Wechsel des Farbschemas nicht neu aus.
+  Jetzt läuft am Scrollweg nur noch die Deckkraft einer deckenden Schicht; die Farben stehen
+  in gewöhnlichen Deklarationen. Aussehen und Kontrast oben wie gescrollt sind unverändert.
+
+## 4.0.1
+
+### Suche: Was eine Einbindung umfasst
+
+Die Doku sagt jetzt ausdrücklich, dass ein **Verweis** aus einer eingebundenen Seite sein Ziel
+nicht in den Bereich holt (#338). Liegt etwa eine Visualisierung in einem anderen geteilten
+Ordner als die Übung, die sie verlinkt, nennt der Bereich auch diesen Ordner in `includes` –
+über die `page_id` seiner Indexseite. Das Verhalten des Themes ändert sich nicht.
+
+Die englische Doku der Suche nennt außerdem `includes` an Einträgen der TopNav (seit 4.0.0).
+
 ## 4.0.0
 
 **Major** (#269, #297). Die Übergangsschichten aus 3.x sind entfernt, zwei Prüfungen sind

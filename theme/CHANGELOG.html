@@ -20,11 +20,11 @@
 <link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=4bb910cc">
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=5b38f054">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=9f9281d8"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bbc32c95"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
 <script src="/training-material-java-se/theme/academy/atvantage.js?v=b7ac85b7" defer></script>
 <script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
 <script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791179666" defer></script>
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791187650" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
@@ -53,7 +53,8 @@
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
   <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-  <link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=4f91af09">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
   <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
 <div class="avd-academy-reading-progress" aria-hidden="true"></div>
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
@@ -74,7 +75,7 @@
       </div>
   </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
              data-mode="expand" data-shortcut="double_shift"
-             data-index="/training-material-java-se/theme/search/de.json?v=1791179666"
+             data-index="/training-material-java-se/theme/search/de.json?v=1791187650"
              data-base="/training-material-java-se/">
           <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
                   aria-expanded="false" aria-controls="avd-academy-search-dialog"
@@ -152,6 +153,52 @@ inkompatibel gilt und wie eingestuft wird, steht in
 Abschnitt „Theme-Version“.</p>
 
 <hr />
+
+<h2 id="403">4.0.3</h2>
+
+<h3 id="seitenübergänge-griffen-beim-klick-auf-einen-verweis-nicht">Seitenübergänge griffen beim Klick auf einen Verweis nicht</h3>
+
+<p><strong>Patch.</strong> Der Seitenübergang aus 4.0 war beim Klick auf einen Verweis meist nicht zu sehen,
+obwohl beide Seiten den Effekt an hatten (#337). Die alte Seite stimmte zu, die neue lehnte
+ab: Der Browser prüft die Zustimmung der Zielseite, bevor das Stylesheet am Ende des <code>&lt;head&gt;</code>
+wirkt, und dort stand sie. Gemessen mit 60 ms Laufzeit je Antwort: kein Übergang bei acht
+Klicks. Zurück und Vor fielen nicht auf – die Seite kommt dort aus dem bfcache.</p>
+
+<p>Die Zustimmung steht jetzt als eingebettetes <code>&lt;style&gt;</code> im <code>&lt;head&gt;</code> jeder Seite, für die der
+Effekt an ist; <code>page-transitions.css</code> trägt nur noch Übergangsnamen, Ablauf und Fläche. Beides
+gibt das neue Include <code>avd-page-transitions.html</code> aus, das den Schalter
+<code>effects.page_transitions</code> selbst auflöst – bei „aus“ erscheint wie bisher nichts davon.
+Unter „Bewegung reduzieren“ gibt es weiter keinen Übergang.</p>
+
+<p><strong>Eigenständige Layouts eines Repos</strong> (eigenes <code>&lt;html&gt;</code>) können damit teilnehmen: den Schalter
+unter <code>switches:</code> deklarieren und das Include im <code>&lt;head&gt;</code> aufrufen. Präsentation und Simulation
+bleiben ohne Übergang. <strong>Eine Content-Security-Policy ohne <code>'unsafe-inline'</code> für
+<code>style-src</code></strong> nähme den Übergang weg, wie schon die Linkmarken; keine ausgelieferte Unterlage
+setzt heute eine. Wann der Browser einen Übergang zeigt, steht in der Doku unter „Effekte“.</p>
+
+<h2 id="402">4.0.2</h2>
+
+<p><strong>Patch.</strong></p>
+
+<ul>
+  <li><strong>Kopfzeile folgt dem Farbschema sofort (#339).</strong> Mit dem Effekt <code>translucent_header</code>
+behielt die Kopfzeile nach dem Umschalten zwischen hell und dunkel gescrollt ihren alten
+Hintergrund, bis die Seite neu geladen wurde. Ursache: Die Farbe stand in den Keyframes der
+Scroll-Animation, und der Browser wertet sie beim Wechsel des Farbschemas nicht neu aus.
+Jetzt läuft am Scrollweg nur noch die Deckkraft einer deckenden Schicht; die Farben stehen
+in gewöhnlichen Deklarationen. Aussehen und Kontrast oben wie gescrollt sind unverändert.</li>
+</ul>
+
+<h2 id="401">4.0.1</h2>
+
+<h3 id="suche-was-eine-einbindung-umfasst">Suche: Was eine Einbindung umfasst</h3>
+
+<p>Die Doku sagt jetzt ausdrücklich, dass ein <strong>Verweis</strong> aus einer eingebundenen Seite sein Ziel
+nicht in den Bereich holt (#338). Liegt etwa eine Visualisierung in einem anderen geteilten
+Ordner als die Übung, die sie verlinkt, nennt der Bereich auch diesen Ordner in <code>includes</code> –
+über die <code>page_id</code> seiner Indexseite. Das Verhalten des Themes ändert sich nicht.</p>
+
+<p>Die englische Doku der Suche nennt außerdem <code>includes</code> an Einträgen der TopNav (seit 4.0.0).</p>
 
 <h2 id="400">4.0.0</h2>
 
