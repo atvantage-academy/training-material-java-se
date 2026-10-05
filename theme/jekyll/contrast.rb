@@ -467,56 +467,9 @@ JS
 # ---------------------------------------------------------------------------
 SCHEMES = %w[light dark].freeze
 
-# `--ignore` wie bei `links.rb`: Die WERKSTATT des Fundaments liegt als gebaute
-# Seite im `_site` (u. a. „ATVANTAGE Homepage.html“, 1,3 MB, rendert sich per
-# JS-Bundle nach). Sie ist weder Teil des Pakets noch von uns geschrieben, und der
-# Browser kommt dort nie zur Ruhe. Ausgenommen wird sie ausdruecklich im Aufruf,
-# nicht still im Skript - wer den Makefile-Eintrag liest, sieht es.
-# --- Eine Schreibweise für Ausschlussmuster ----------------------------------
-#
-# DERSELBE BLOCK STEHT IN `links.rb` UND `components.rb`. Drei Werkzeuge, die
-# über dieselbe Angabe verschieden urteilen, sind schlimmer als eines – wer hier
-# etwas ändert, ändert es dort mit.
-#
-# `theme`, `/theme`, `theme/`, `/theme/` und `/theme/**` meinen DASSELBE. Wer
-# `links` und `contrast` nebeneinander aufruft, soll nicht zweimal nachdenken
-# müssen, und wer ein Muster hinschreibt, soll nicht raten, ob der Schrägstrich
-# zählt.
-#
-# VERGLICHEN WIRD SEGMENTWEISE, nicht als roher Präfix. Der Unterschied ist kein
-# Feinschliff: `path.start_with?("/theme")` trifft auch `/themes-overview/` –
-# eine Seite, die niemand ausnehmen wollte, und sie fiele still aus der Prüfung.
-# Gleichzeitig muss eine Adresse, die GENAU `/theme` ist, getroffen werden.
-# Deshalb: Gleichheit ODER Präfix samt trennendem Schrägstrich.
-#
-# LEERE ANGABEN FALLEN WEG. Ein leeres Muster wurde sonst zu `/`, und weil jeder
-# Pfad damit anfängt, war anschliessend alles ausgenommen – der Lauf meldete
-# „keine einzige gebaute Seite“ und sah aus wie ein kaputtes Bundle.
-def normalize_patterns(patterns)
-  Array(patterns).compact.map { |p| p.to_s.strip }.reject(&:empty?).map do |p|
-    p = p.sub(%r{/\*\*\z}, '')
-    p = p.sub(%r{/+\z}, '')
-    p = "/#{p}" unless p.start_with?('/')
-    p
-  end.reject { |p| p == '/' }.uniq
-end
-
-def ignored?(path, ignore)
-  ignore.any? { |p| path == p || path.start_with?("#{p}/") }
-end
-
-# WAS DIE MESSUNG ANSIEHT - zwei Listen, eine Regel. `only` leer: alles ist
-# erfasst. `only` gesetzt: erfasst ist nur, was darauf passt. `ignore` nimmt in
-# beiden Faellen danach noch heraus - ein Ausschluss schlaegt einen Einschluss,
-# sonst entschiede die Reihenfolge der Angaben, welche von beiden gilt.
-# Wortgleich in links.rb und components.rb.
-Scope = Struct.new(:only, :ignore) do
-  def skips?(path)
-    return true unless only.empty? || ignored?(path, only)
-
-    ignored?(path, ignore)
-  end
-end
+# Pfadmuster und Erfassungsregel: EINE Stelle für alle Prüfer (path_scope.rb).
+require_relative 'path_scope'
+Scope = AvdAcademy::PathScope::Scope
 
 # KOPIERVORLAGEN BLEIBEN DRAUSSEN. Eine eigenständige Vorlage trägt statt Pfaden
 # den Platzhalter `«BASISPFAD»` – sie lädt also weder Stylesheet noch Skript und
@@ -731,7 +684,7 @@ def report(findings, skipped, quiet, exceptions, page_count, without_theme = [],
   covered = groups.select { |sig, _| exceptions.key?(sig) }
 
   puts
-  puts "Kontrast: #{page_count} Seite(n) × #{SCHEMES.size} Farbschemata gemessen (WCAG 2.1)."
+  puts "Kontrast: #{page_count} Seite(n) × #{SCHEMES.size} Farbschemata gemessen (WCAG 2.2)."
   # DIE BEZUGSGROESSE GEHOERT IN DEN BERICHT. Ohne sie liest sich ein Lauf ueber
   # vier Elemente genauso wie einer ueber hundertsechs - und beide melden
   # „keine Paarung unter der Schwelle".
@@ -1185,7 +1138,7 @@ def main
     exit 0
   end
 
-  scope = Scope.new(normalize_patterns(only), normalize_patterns(ignore))
+  scope = Scope.new(AvdAcademy::PathScope.normalize(only), AvdAcademy::PathScope.normalize(ignore))
   open, quiet, without_theme = run(site, browser, jobs, exceptions, deadline, scope, base)
   # EIGENER RUECKGABEWERT, UND ZWAR UNABHAENGIG VON `--strict`. Ein Befund ist eine
   # inhaltliche Entscheidung und darf eine Warnung bleiben; eine Seite ohne

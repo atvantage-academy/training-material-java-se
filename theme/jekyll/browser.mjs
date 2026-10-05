@@ -115,11 +115,16 @@ export class Browser {
     });
   }
 
+  /* DIE FRIST WIRD ABGERÄUMT, sobald das Ereignis eintrifft. Blieb sie stehen,
+     hielt sie den Prozess am Leben: `a11y.mjs` war nach dem Bericht fertig und
+     endete trotzdem erst, wenn die Frist des letzten Seitenaufrufs (30 s)
+     abgelaufen war. Der Harness der Tests (`Tab.geladen`) räumt seine Frist
+     genauso ab. */
   event(method, sessionId, msDeadline) {
     return new Promise((done) => {
       const key = (sessionId || "") + "|" + method;
-      this.listeners.set(key, done);
-      setTimeout(() => { if (this.listeners.get(key)) { this.listeners.delete(key); done(null); } }, msDeadline);
+      const clock = setTimeout(() => { if (this.listeners.get(key)) { this.listeners.delete(key); done(null); } }, msDeadline);
+      this.listeners.set(key, (p) => { clearTimeout(clock); done(p); });
     });
   }
 

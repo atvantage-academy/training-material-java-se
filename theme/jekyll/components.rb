@@ -126,26 +126,26 @@ def self_test
   # dasselbe bedeuten, sonst ist die Zusage „`theme` ≡ `/theme` ≡ `/theme/**`"
   # nur behauptet - und sie steht wortgleich in links.rb und contrast.rb.
   %w[theme /theme theme/ /theme/ /theme/**].each do |schreibweise|
-    muster = normalize_patterns([schreibweise])
-    unless ignored?("theme/CHANGELOG.html", muster)
+    muster = AvdAcademy::PathScope.normalize([schreibweise])
+    unless AvdAcademy::PathScope.covered?("/theme/CHANGELOG.html", muster)
       errors << "Schreibweise `#{schreibweise}` nimmt theme/ nicht aus."
     end
     # Eine Adresse, die GENAU so heisst, gehoert ebenfalls dazu.
-    errors << "`#{schreibweise}` trifft `/theme` selbst nicht." unless ignored?("theme", muster)
+    errors << "`#{schreibweise}` trifft `/theme` selbst nicht." unless AvdAcademy::PathScope.covered?("/theme", muster)
     # Aber `/themes-overview/` nicht - ein roher Praefixvergleich taete es.
-    if ignored?("themes-overview/index.html", muster)
+    if AvdAcademy::PathScope.covered?("/themes-overview/index.html", muster)
       errors << "`#{schreibweise}` trifft fälschlich `/themes-overview/`."
     end
   end
-  errors << "Ein leeres Muster wurde nicht verworfen." unless normalize_patterns(["", "  ", "/"]).empty?
+  errors << "Ein leeres Muster wurde nicht verworfen." unless AvdAcademy::PathScope.normalize(["", "  ", "/"]).empty?
 
   # DER EINSCHLUSS und sein Verhältnis zum Ausschluss. Vier Aussagen, die
   # zusammen die ganze Regel ergeben - steht wortgleich in links.rb.
-  muster = normalize_patterns(["/theme"])
-  errors << "`--include` nimmt die benannte Seite aus." if Scope.new(muster, []).skips?("theme/CHANGELOG.html")
-  errors << "`--include` lässt eine nicht benannte Seite durch." unless Scope.new(muster, []).skips?("index.html")
-  errors << "Ohne Angabe fällt eine Seite heraus." if Scope.new([], []).skips?("index.html")
-  unless Scope.new(muster, muster).skips?("theme/CHANGELOG.html")
+  muster = AvdAcademy::PathScope.normalize(["/theme"])
+  errors << "`--include` nimmt die benannte Seite aus." if Scope.new(muster, []).skips?("/theme/CHANGELOG.html")
+  errors << "`--include` lässt eine nicht benannte Seite durch." unless Scope.new(muster, []).skips?("/index.html")
+  errors << "Ohne Angabe fällt eine Seite heraus." if Scope.new([], []).skips?("/index.html")
+  unless Scope.new(muster, muster).skips?("/theme/CHANGELOG.html")
     errors << "Ein Ausschluss schlägt den Einschluss nicht."
   end
 
@@ -162,66 +162,15 @@ $stderr.sync = true
 mode = ARGV.include?("--check") ? :check : :bericht
 site = ARGV.include?("--site") ? ARGV[ARGV.index("--site") + 1] : "_site"
 
-# --- Was nicht dem Projekt gehört -------------------------------------------
-#
-# `--ignore «Präfix»` nimmt Seiten aus, so wie es links.rb und contrast.rb tun –
-# und aus demselben Grund: Ein gebautes Bundle enthält unter `/theme/` die
-# Seiten des Themes selbst. Ein Befund darin ist einer, den kein Projekt beheben
-# kann; er kommt mit jedem Paket wieder. NICHTS, WAS AUS DEM THEME KOMMT, WIRD
-# BEIM VERBRAUCHER GEPRÜFT.
-#
-# --- Eine Schreibweise für Ausschlussmuster ----------------------------------
-#
-# DERSELBE BLOCK STEHT IN `links.rb` UND `contrast.rb`. Drei Werkzeuge, die
-# über dieselbe Angabe verschieden urteilen, sind schlimmer als eines – wer hier
-# etwas ändert, ändert es dort mit.
-#
-# `theme`, `/theme`, `theme/`, `/theme/` und `/theme/**` meinen DASSELBE. Wer
-# `links` und `contrast` nebeneinander aufruft, soll nicht zweimal nachdenken
-# müssen, und wer ein Muster hinschreibt, soll nicht raten, ob der Schrägstrich
-# zählt.
-#
-# VERGLICHEN WIRD SEGMENTWEISE, nicht als roher Präfix. Der Unterschied ist kein
-# Feinschliff: `path.start_with?("/theme")` trifft auch `/themes-overview/` –
-# eine Seite, die niemand ausnehmen wollte, und sie fiele still aus der Prüfung.
-# Gleichzeitig muss eine Adresse, die GENAU `/theme` ist, getroffen werden.
-# Deshalb: Gleichheit ODER Präfix samt trennendem Schrägstrich.
-#
-# LEERE ANGABEN FALLEN WEG. Ein leeres Muster wurde sonst zu `/`, und weil jeder
-# Pfad damit anfängt, war anschliessend alles ausgenommen – der Lauf meldete
-# „keine einzige gebaute Seite“ und sah aus wie ein kaputtes Bundle.
-def normalize_patterns(patterns)
-  Array(patterns).compact.map { |p| p.to_s.strip }.reject(&:empty?).map do |p|
-    p = p.sub(%r{/\*\*\z}, '')
-    p = p.sub(%r{/+\z}, '')
-    p = "/#{p}" unless p.start_with?('/')
-    p
-  end.reject { |p| p == '/' }.uniq
-end
-
-def ignored?(relative, ignore)
-  path = "/#{relative}"
-  ignore.any? { |p| path == p || path.start_with?("#{p}/") }
-end
-
-# WAS DIE PRÜFUNG ANSIEHT - zwei Listen, eine Regel. `only` leer: alles ist
-# erfasst. `only` gesetzt: erfasst ist nur, was darauf passt. `ignore` nimmt in
-# beiden Fällen danach noch heraus - ein Ausschluss schlägt einen Einschluss,
-# sonst entschiede die Reihenfolge der Angaben, welche von beiden gilt.
-# Wortgleich in links.rb und contrast.rb.
-Scope = Struct.new(:only, :ignore) do
-  def skips?(relative)
-    return true unless only.empty? || ignored?(relative, only)
-
-    ignored?(relative, ignore)
-  end
-end
+# Pfadmuster und Erfassungsregel: EINE Stelle für alle Prüfer (path_scope.rb).
+require_relative 'path_scope'
+Scope = AvdAcademy::PathScope::Scope
 
 ignore = []
 only = []
 ARGV.each_with_index { |a, i| ignore << ARGV[i + 1] if a == "--ignore" }
 ARGV.each_with_index { |a, i| only << ARGV[i + 1] if a == "--include" }
-scope = Scope.new(normalize_patterns(only), normalize_patterns(ignore))
+scope = Scope.new(AvdAcademy::PathScope.normalize(only), AvdAcademy::PathScope.normalize(ignore))
 
 
 if ARGV.include?("--self-test")
@@ -249,7 +198,7 @@ findings = []
 checked = 0
 Dir.glob(File.join(site, "**", "*.html")).sort.each do |path|
   relative = path.delete_prefix("#{site}/")
-  next if scope.skips?(relative)
+  next if scope.skips?("/#{relative}")
 
   checked += 1
   text = File.read(path, encoding: "UTF-8", invalid: :replace, undef: :replace)

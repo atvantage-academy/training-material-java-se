@@ -1,17 +1,30 @@
-<!DOCTYPE html><html lang="de">
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions translucent-header reading-progress">
 <head>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Gemeinsamkeiten herausziehen · ATVANTAGE Academy</title><meta name="description" content="Zieh aus mehreren Klassen das Gemeinsame heraus und zeichne es als Oberklasse – mit Vererbungspfeil, noch ohne Java."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+})();
+</script><title>Gemeinsamkeiten herausziehen · ATVANTAGE Academy</title><meta name="description" content="Zieh aus mehreren Klassen das Gemeinsame heraus und zeichne es als Oberklasse – mit Vererbungspfeil, noch ohne Java."><meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Gemeinsamkeiten herausziehen">
 <meta property="og:description" content="Zieh aus mehreren Klassen das Gemeinsame heraus und zeichne es als Oberklasse – mit Vererbungspfeil, noch ohne Java.">
-<meta property="og:type" content="article"><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<meta property="og:type" content="article"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=4bb910cc">
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=5b38f054">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=9f9281d8"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b7ac85b7" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791174717" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
@@ -39,12 +52,15 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=7c528890">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+  <link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=4f91af09">
   <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
   </div>
 
-  <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+  <header class="avd-academy-header"
+        data-avd-academy-menu-visible="7" data-avd-academy-menu-speed="1.0" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
           style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
           aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
       <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
@@ -58,9 +74,8 @@
       </div>
   </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
              data-mode="expand" data-shortcut="double_shift"
-             data-index="/training-material-java-se/theme/search/de.json?v=1791172983"
-             data-base="/training-material-java-se/"
-             data-preselect="current">
+             data-index="/training-material-java-se/theme/search/de.json?v=1791174717"
+             data-base="/training-material-java-se/">
           <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
                   aria-expanded="false" aria-controls="avd-academy-search-dialog"
                   title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
@@ -86,11 +101,11 @@
             <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
           </dialog>
         </div>
-        <script src="/training-material-java-se/theme/jekyll/search.js?v=ae641391" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=4b72be9e" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
                 title="Diese Seite auf Deinem Smartphone öffnen"
                 aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
               title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Farbschema umschalten">◐</button></div>
+              aria-label="Dunkles Farbschema">◐</button></div>
 </header>
 <section class="avd-academy-guide-hero"
            aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-basics/">Java-Grundlagen</a><span>/</span><a href="/training-material-java-se/java-basics/oop-mit-java/">OOP mit Java</a><span>/</span><span aria-current="page">Gemeinsamkeiten herausziehen</span></nav><div class="avd-academy-guide-hero__meta">

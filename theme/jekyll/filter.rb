@@ -2,8 +2,8 @@
 # =============================================================================
 # Zielgruppenfilter – aus einem Quellbaum die Sicht EINER Zielgruppe machen
 #
-#   ruby theme/jekyll/filter.rb --audience learner
 #   ruby theme/jekyll/filter.rb --audience learner --source . --into ausgabe/
+#   ruby theme/jekyll/filter.rb --audience learner --in-place   # im Quellbaum (löscht dort!)
 #   ruby theme/jekyll/filter.rb --self-test
 #
 # WOFÜR: Eine Unterlage trägt Material für mehrere Zielgruppen. Was eine Gruppe
@@ -43,9 +43,9 @@ require 'yaml'
 require 'date'
 require 'fileutils'
 require 'set'
+require_relative '_plugins/avd-language'
 
 MARKDOWN = %w[.md .markdown .mkdown .mkdn .mkd].freeze
-LANG_SUFFIX = /_([a-z]{2}(?:-[A-Za-z0-9]+)?)\z/.freeze
 
 def front_matter(path)
   raw = File.read(path, encoding: 'UTF-8', invalid: :replace, undef: :replace)
@@ -66,11 +66,13 @@ end
 # und `b_en.md` mit demselben `slug` liegen auf verschiedenen Adressen, weil sie
 # in verschiedenen Sprachbäumen landen. Ohne die Sprache sähe das wie eine
 # Kollision aus, und der Lauf bräche ab, wo nichts kaputt ist.
-def language(head, base)
-  return head['lang'].to_s if head.is_a?(Hash) && head['lang'].is_a?(String)
-
-  hits = base.match(LANG_SUFFIX)
-  hits ? hits[1] : ''
+#
+# DIE REGEL DES THEMES, nicht eine eigene: `lang`, sonst der Sprachbaum aus
+# `i18n.languages`, sonst die Standardsprache (_plugins/avd-language.rb). Die
+# Konfiguration setzt der Hauptlauf unten.
+def language(head, relative)
+  lang = head['lang'] if head.is_a?(Hash)
+  AvdAcademy::Language.of(@sprach_konfiguration || {}, lang: lang, path: relative)
 end
 
 # DIE ADRESSE, SOWEIT SIE FÜR EINE KOLLISION HIER ZÄHLT.
@@ -112,7 +114,7 @@ end
 def address(head, relative)
   head = {} unless head.is_a?(Hash)
   base = File.basename(relative, '.*')
-  lang = language(head, base)
+  lang = language(head, relative)
   folder = File.dirname(relative).sub(/\A\.\z/, '')
 
   if head['permalink'].is_a?(String)
@@ -122,7 +124,9 @@ def address(head, relative)
 
   return nil if head['slug'].is_a?(Hash)
 
-  segment = head['slug'].is_a?(String) ? head['slug'] : base.sub(LANG_SUFFIX, '')
+  # Das Anhängsel `_«sprache»` gehört zur Datei, nicht zur Adresse – aber nur, wenn es
+  # die Sprache der Seite nennt (wie in avd-addresses.rb).
+  segment = head['slug'].is_a?(String) ? head['slug'] : base.sub(/_#{Regexp.escape(lang)}\z/, '')
   return folder_slug(folder, lang) if segment == 'index'
 
   ['pfad', "#{folder}\t#{segment}\t#{lang}"]
@@ -363,7 +367,7 @@ def duplicate_ids(kept)
   kept.each do |relative, head|
     next unless head.is_a?(Hash) && head['page_id'].is_a?(String)
 
-    by_id[[head['page_id'], language(head, File.basename(relative, '.*'))]] << relative
+    by_id[[head['page_id'], language(head, relative)]] << relative
   end
   by_id.select { |_, v| v.size > 1 }
 end
@@ -458,7 +462,9 @@ SELF_TEST_CASES = {
   'nur-trainer.md' => "---\naudiences: [trainer]\n---\nSales-Material\n",
   'ohne-fm.md' => "Kein Front Matter\n",
   'de.md' => "---\nslug: gleich\n---\nDeutsch\n",
-  'de_en.md' => "---\nslug: gleich\n---\nEnglisch, andere Sprache\n",
+  # Sprache per `lang` – die Endung `_en` allein macht eine Seite nicht englisch
+  # (Regel des Themes, _plugins/avd-language.rb).
+  'de_en.md' => "---\nslug: gleich\nlang: en\n---\nEnglisch, andere Sprache\n",
   # Verweist aus einer Seite, die JEDER Build bekommt, auf eine, die nur eine
   # Gruppe bekommt: im anderen Build ein toter Verweis.
   'verweist.md' => "---\ntitle: X\n---\nSiehe [Sales](nur-trainer.md) und [Alle](gemeinsam.md).\n",
@@ -621,6 +627,7 @@ group = nil
 config = nil
 self_test_only = false
 quiet = false
+in_place = false
 
 argv = ARGV.dup
 until argv.empty?
@@ -630,6 +637,7 @@ until argv.empty?
   when '--into' then target = argv.shift
   when '--config' then config = argv.shift
   when '--quiet' then quiet = true
+  when '--in-place' then in_place = true
   when '--self-test' then self_test_only = true
   when '--help', '-h'
     puts File.read(__FILE__).lines[2..6].map { |z| z.sub(/\A# ?/, '') }.join
@@ -659,6 +667,7 @@ unless File.directory?(source)
 end
 
 data = config_data(config || File.join(source, '_config.yml'))
+@sprach_konfiguration = data
 declared = Array(data['audiences']).map(&:to_s)
 
 # OHNE DEKLARATION GIBT ES NICHTS ZU FILTERN, und das ist kein Fehler: Eine Site
@@ -746,7 +755,32 @@ end
 # GEMELDET WIRD VOR DEM LÖSCHEN – danach lässt sich nicht mehr feststellen, was
 # auf was zeigte. Geprüft wird über ALLE Dateien, nicht über die behaltenen: Die
 # Frage ist strukturell und hängt nicht daran, was dieser Lauf gerade baut.
+# Wie jeder andere Befund beendet er den Lauf, BEVOR etwas geschrieben wird: Ohne
+# `--into` ist der Arbeitsbaum der Quellbaum, und ein Prüflauf mit Befund darf ihn
+# nicht verändert zurücklassen (#299 4.6).
 too_narrow = links_too_narrow(work_tree, files, declared)
+unless too_narrow.empty?
+  warn ''
+  warn "FEHLER: #{too_narrow.size} Verweis(e) zielen enger, als sie stehen:"
+  too_narrow.each { |from, target, missing| warn "  #{from} -> #{target}  (fehlt für: #{missing.join(', ')})" }
+  warn ''
+  warn '  Ein Ziel muss überall sichtbar sein, wo die verweisende Seite sichtbar ist.'
+  warn '  Entweder bekommt das Ziel die `audiences` der Quelle mit, oder die Quelle wird'
+  warn '  auf die des Ziels eingeschränkt. Keine Angabe heißt „überall“ – eine Seite ohne'
+  warn '  `audiences` ist damit die strengste Quelle, die es gibt.'
+  exit 5
+end
+
+# IM QUELLBAUM NUR AUF AUSDRÜCKLICHEN WUNSCH. Ohne `--into` ist der Arbeitsbaum der
+# Quellbaum, und hier würde gelöscht – eine Verwechslung kostete ungesicherte Arbeit.
+# Geprüft wird erst JETZT, nach allen Befunden: Ein Prüflauf ohne Zielverzeichnis meldet
+# sie weiter, bevor er an dieser Stelle aussteigt.
+if target.nil? && !in_place
+  warn 'FEHLER: Ohne --into würde der Filter im Quellbaum löschen.'
+  warn '  In eine Kopie filtern:    --into «verzeichnis»'
+  warn '  Im Quellbaum (Absicht):   --in-place'
+  exit 4
+end
 
 removed.each { |relative| File.delete(File.join(work_tree, relative)) }
 
@@ -762,16 +796,4 @@ unless quiet
   removed.each { |relative| puts "  - #{relative}" }
   resolved = kept.count { |relative, _| switches.key?(relative) }
   puts "  #{resolved} Seite(n) mit Weichen aufgelöst." if resolved.positive?
-end
-
-unless too_narrow.empty?
-  warn ''
-  warn "FEHLER: #{too_narrow.size} Verweis(e) zielen enger, als sie stehen:"
-  too_narrow.each { |from, target, missing| warn "  #{from} -> #{target}  (fehlt für: #{missing.join(', ')})" }
-  warn ''
-  warn '  Ein Ziel muss überall sichtbar sein, wo die verweisende Seite sichtbar ist.'
-  warn '  Entweder bekommt das Ziel die `audiences` der Quelle mit, oder die Quelle wird'
-  warn '  auf die des Ziels eingeschränkt. Keine Angabe heißt „überall“ – eine Seite ohne'
-  warn '  `audiences` ist damit die strengste Quelle, die es gibt.'
-  exit 5
 end

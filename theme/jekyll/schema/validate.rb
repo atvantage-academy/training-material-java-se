@@ -7,6 +7,8 @@
 #   ruby validate.rb --root . --schemas /tmp/schema/1
 #   ruby validate.rb --config _config.yml --config _config.ci.yml
 #   ruby validate.rb --self-test                  # nur die Schemas prüfen
+#   ruby validate.rb --json datei.json --schema datei.schema.json
+#                                                 # eine JSON-Datei gegen ein Schema
 #
 # WARUM RUBY OHNE GEMS: Das Skript läuft in drei Umgebungen – Doku-Pipeline,
 # Schulungs-Pipeline und lokal im Container. Ruby ist überall da (Jekyll), YAML
@@ -31,6 +33,12 @@
 require 'yaml'
 require 'json'
 require 'date'
+# DIE SPRACHREGEL DES THEMES (`lang`, sonst Sprachbaum, sonst Standardsprache). Im Paket
+# liegt sie unter `jekyll/_plugins/`, veröffentlicht unter `/schemas/` neben dieser Datei
+# (bin/publish-schemas.sh).
+%w[../_plugins/avd-language.rb avd-language.rb].map { |r| File.expand_path(r, __dir__) }
+                                               .find { |f| File.exist?(f) }
+                                               .then { |f| f ? require(f) : abort('FEHLER: avd-language.rb fehlt neben validate.rb.') }
 
 SCHEMA_KEYWORDS = %w[
   $ref type enum const required properties patternProperties additionalProperties
@@ -72,7 +80,7 @@ class Validator
   # Schluessel ist der ABSOLUTE Pfad. Damit loest `$ref` relativ zur Datei auf, in
   # der er steht – und der Pruefer versteht beide Ablagen: die flache im Paket
   # (`frontmatter.schema.json` neben `config.schema.json`) und die veroeffentlichte
-  # (`schemas/config/1/schema.json` verweist auf `../../frontmatter/1/schema.json`).
+  # (`schemas/config/v1.0.0/schema.json` verweist auf `../../frontmatter/v1.0.0/schema.json`).
   def document(file)
     path = File.expand_path(file)
     @documents[path] ||= JSON.parse(File.read(path))
@@ -421,33 +429,17 @@ end
 #
 # WER `audience` OHNE `audiences` BENUTZT, bekommt einen Fehler – nicht ein Achselzucken.
 # Das ist der ganze Zweck: Eine Angabe ohne pruefbare Menge ist eine Vermutung.
-def check_audiences(data, declared, source, path = [])
+#
+# `config:` sagt, ob `data` eine Konfiguration ist. Nur dort ist `audiences` auf der
+# Wurzel die Deklaration; im Front Matter einer Seite ist es eine Verwendung.
+def check_audiences(data, declared, source, path = [], config: true)
   messages = []
   case data
   when Hash
     data.each do |k, v|
       # `audiences` auf der WURZEL einer Konfiguration ist die Deklaration selbst, keine
-      # Verwendung – sonst pruefte sie sich gegen sich.
-      declaration = k == 'audiences' && path.empty?
-      # `audience_filter` benutzt die Zielgruppen als SCHLÜSSEL, nicht als Werte – der
-      # Durchlauf unten würde sie nie zu Gesicht bekommen. Ein Tippfehler darin wirkt
-      # still: Die Regel greift nie, die Ausgabe ist ungefiltert statt gefiltert, und
-      # weil eine ungefilterte Ausgabe VOLLSTÄNDIG aussieht, fällt es niemandem auf.
-      if k == 'audience_filter' && path.empty? && v.is_a?(Hash)
-        v.each_key do |audience|
-          next unless audience.is_a?(String)
-          if declared.nil? || declared.empty?
-            messages << ["audience_filter.#{audience}",
-                          "Zielgruppe `#{audience}` benutzt, aber die Site deklariert keine " \
-                          '`audiences`. Ohne Deklaration ist der Wert nicht prüfbar.']
-          elsif !declared.include?(audience)
-            messages << ["audience_filter.#{audience}",
-                          "`#{audience}` ist keine deklarierte Zielgruppe. Deklariert sind: " \
-                          "#{declared.join(', ')} (Schlüssel `audiences` in der _config.yml)."]
-          end
-        end
-        next
-      end
+      # Verwendung – sonst pruefte sie sich gegen sich. Im Front Matter ist sie Verwendung.
+      declaration = config && k == 'audiences' && path.empty?
       used = !declaration && (k == 'audiences' || (k == 'audience' && v.is_a?(String)))
       if used
         full = (path + [k.to_s]).join('.')
@@ -463,11 +455,11 @@ def check_audiences(data, declared, source, path = [])
           end
         end
       else
-        messages += check_audiences(v, declared, source, path + [k.to_s])
+        messages += check_audiences(v, declared, source, path + [k.to_s], config: config)
       end
     end
   when Array
-    data.each_with_index { |v, i| messages += check_audiences(v, declared, source, path + [i.to_s]) }
+    data.each_with_index { |v, i| messages += check_audiences(v, declared, source, path + [i.to_s], config: config) }
   end
   messages
 end
@@ -589,27 +581,14 @@ class SchemaWalk
   end
 end
 
-# Die Sprache einer QUELLDATEI aus ihrem Pfad – dieselbe Ableitung wie im Layout
-# (avd-i18n.html), nur auf dem Quellbaum statt auf der URL: Der laengste passende
-# Praefix gewinnt, die Standardsprache wohnt in der Wurzel.
+# Die Sprache einer QUELLDATEI aus ihrem Pfad – die Regel des Themes
+# (avd-language.rb), angewandt auf den Quellbaum statt auf die URL.
 #
 # VORAUSSETZUNG ist die dokumentierte Konvention, dass der Quellordner dem `base` der
 # Sprache entspricht (`base: "/en/"` -> `en/…`). Wer anders ausliefert, verliert hier die
 # Doppelungspruefung – nicht die Übersetzung.
-def language_from_path(rel, languages, default)
-  hits = default
-  length = 0
-  languages.each do |lp|
-    code = lp['code'].to_s
-    base = (lp['base'] || (code == default ? '/' : "/#{code}/")).to_s
-    prefix = base.sub(%r{\A/}, '')
-    next if prefix.empty?
-    next unless rel.start_with?(prefix)
-    next unless prefix.length > length
-    length = prefix.length
-    hits = code
-  end
-  hits
+def language_from_path(rel, config)
+  AvdAcademy::Language.of_path(config, rel)
 end
 
 # ---------------------------------------------------------------------------
@@ -702,6 +681,8 @@ self_test_only = false
 argv = ARGV.dup
 site_dir = nil
 site_required = false
+json_file = nil
+json_schema = nil
 until argv.empty?
   case (arg = argv.shift)
   when '--root'  then root = argv.shift
@@ -712,6 +693,8 @@ until argv.empty?
   when '--self-test' then self_test_only = true
   when '--site' then site_dir = argv.shift
   when '--require-site' then site_required = true
+  when '--json' then json_file = argv.shift
+  when '--schema' then json_schema = argv.shift
   when '--help', '-h'
     puts File.read(__FILE__).lines[2..24].map { |z| z.sub(/\A# ?/, '') }.join
     exit 0
@@ -721,9 +704,34 @@ until argv.empty?
   end
 end
 
+# EINE JSON-DATEI GEGEN EIN SCHEMA – derselbe Validator, damit IDE und Prüfung auch bei
+# den Vertragsdateien gleich urteilen (die Selbstauskunft `contract/theme.json`,
+# geprüft von bin/theme-contract.rb).
+if json_file || json_schema
+  unless json_file && json_schema && File.exist?(json_file) && File.exist?(json_schema)
+    warn 'FEHLER: --json und --schema gehören zusammen und müssen auf vorhandene Dateien zeigen.'
+    exit 2
+  end
+  begin
+    daten = JSON.parse(File.read(json_file))
+  rescue JSON::ParserError => e
+    warn "FEHLER: #{json_file} ist kein gültiges JSON: #{e.message}"
+    exit 2
+  end
+  pruefer = Validator.new
+  meldungen = pruefer.check_all(daten, pruefer.document(json_schema), File.expand_path(json_schema))
+  if meldungen.empty?
+    puts "#{File.basename(json_file)} entspricht #{File.basename(json_schema)}."
+    exit 0
+  end
+  warn "FEHLER: #{File.basename(json_file)} verstößt gegen #{File.basename(json_schema)}:"
+  meldungen.each { |m| warn "  #{m[:pointer].empty? ? '/' : m[:pointer]}: #{m[:text]}" }
+  exit 1
+end
+
 # Die beiden Schemas: entweder ueber --schemas (flache Ablage im Paket) oder
 # einzeln ueber --frontmatter-schema/--config-schema (veroeffentlichte Ablage,
-# `schemas/«name»/«version»/schema.json`). Ohne Angabe gilt das Verzeichnis dieser Datei.
+# `schemas/«name»/v«x»/schema.json`). Ohne Angabe gilt das Verzeichnis dieser Datei.
 paths = {
   frontmatter: fm_schema || File.join(schema_dir, 'frontmatter.schema.json'),
   config: cfg_schema || File.join(schema_dir, 'config.schema.json')
@@ -736,7 +744,7 @@ paths.each do |role, path|
   next if File.exist?(path)
   warn "FEHLER: Das #{role == :config ? 'Konfigurations' : 'Front-Matter'}-Schema fehlt: #{path}"
   warn '       Das Theme liefert die Schemas unter theme/jekyll/schema/ aus, die Doku-Site'
-  warn '       unter /schemas/«name»/«version»/schema.json. Ohne sie gibt es keine Prüfung –'
+  warn '       unter /schemas/«name»/v«x»/schema.json. Ohne sie gibt es keine Prüfung –'
   warn '       und eine Prüfung, die nichts prüft, ist kein Erfolg.'
   exit 2
 end
@@ -754,10 +762,6 @@ if self_test_only
 end
 
 validator = Validator.new
-def schema_version(dir, name)
-  file = File.join(dir, "#{name}.version.txt")
-  File.exist?(file) ? File.read(file).strip : '?'
-end
 # Version: die Datei neben dem Schema (veroeffentlichte Ablage: schemas/«name»/version.txt,
 # Paket: «name».version.txt). Fehlt sie, steht dort ein Fragezeichen statt einer Erfindung.
 def version_of(path, name)
@@ -784,13 +788,11 @@ veraltet = []
 #
 # DIE DEKLARATION IST `contract/theme.json`, die Selbstauskunft des Pakets. Sie liegt
 # im Paket neben dieser Datei; fehlt sie – etwa weil `validate.rb` als einzelne Datei
-# unter `/schemas/` veröffentlicht wurde –, entfällt der Hinweis. Er ist eine
-# Vorwarnung und keine Regel, und eine Prüfung, die ohne ihre Deklaration rät, wäre
-# schlimmer als keine.
+# unter `/schemas/` veröffentlicht wurde –, entfällt die Prüfung. Eine Prüfung, die
+# ohne ihre Deklaration rät, wäre schlimmer als keine.
 #
-# ES IST EIN HINWEIS, KEIN FEHLER. `layout: default` ist bis heute gültig und in der
-# Doku als Wahl beschrieben; daraus einen Fehler zu machen ist ein Bruch und gehört in
-# den nächsten Major (#269). Bis dahin ist diese Meldung die Vorwarnung.
+# DIE STUFE STELLT `checks.abstract_layouts` EIN, Vorgabe `error` (seit 4.0, #269).
+# Fehlt die Selbstauskunft, entfällt die Prüfung ganz – siehe oben.
 def abstract_layouts
   path = File.expand_path('../../contract/theme.json', __dir__)
   return [] unless File.exist?(path)
@@ -824,9 +826,8 @@ abstrakt = []
 # meldete die Pruefung in diesem Repository zwoelf Seiten, von denen keine einzige einen
 # Fehler hatte (gemessen).
 #
-# ES IST EIN HINWEIS, KEIN FEHLER – wie beim abstrakten Layout. Bestehende Staende haben
-# solche Stellen, und sie rot zu faerben waere ein Bruch. Scharf wird es im naechsten
-# Major (#269).
+# DIE STUFE STELLT `checks.source_assets` EIN, Vorgabe `error` (seit 4.0, #269) – wie
+# beim abstrakten Layout. Wer seine Quellen nie weitergibt, stellt `off` ein.
 def source_assets_erlaubt
   path = File.expand_path('../../contract/theme.json', __dir__)
   return {} unless File.exist?(path)
@@ -865,6 +866,8 @@ audiences = []
 languages = []
 default_language = 'de'
 config_data = []
+# Was die Sprachregel braucht: `lang` und `i18n.languages`, über alle Konfigurationen.
+sprach_konfiguration = { 'i18n' => { 'languages' => languages } }
 configs.each do |cfg|
   unless File.exist?(cfg)
     warn "FEHLER: #{cfg} gibt es nicht."
@@ -879,7 +882,9 @@ configs.each do |cfg|
   excluded += Array(data['exclude'])
   audiences += Array(data['audiences'])
   languages += Array(data.dig('i18n', 'languages')).select { |lp| lp.is_a?(Hash) && lp['code'] }
+  sprach_konfiguration['i18n']['languages'] = languages
   default_language = data['lang'].to_s if data['lang']
+  sprach_konfiguration['lang'] = default_language
   display = cfg.sub(/\A#{Regexp.escape(root)}\/?/, '')
   config_data << [display, cfg, data]
   validator.reset_deprecations
@@ -935,15 +940,17 @@ eigene_layouts = LayoutRules.own_layouts(root, alle_konfigurationen)
 # --- Einstellbare Prüfungen (`checks`) ----------------------------------
 # Nur was der WEITERGABE der Quellen dient, ist einstellbar – siehe die Beschreibung
 # von `checks` im Schema. Je Prüfung eine Stufe:
-#   error    der Befund ist ein Fehler, der Lauf scheitert
-#   warning  der Befund ist ein Hinweis, der Lauf bleibt grün (Vorgabe)
+#   error    der Befund ist ein Fehler, der Lauf scheitert (Vorgabe)
+#   warning  der Befund ist ein Hinweis, der Lauf bleibt grün
 #   off      es wird nicht geprüft
 # Die spätere Konfiguration gewinnt, wie überall. Ein unbekannter Wert ist ein
 # Schemafehler und wird dort gemeldet; bis dahin gilt die Vorgabe.
 #
-# WARUM `warning` DIE VORGABE IST: Beide Prüfungen waren bisher Hinweise. Wer seine
-# Quellen weitergibt, stellt sie heute schon auf `error`; die Vorgabe wird erst mit dem
-# nächsten Major zur Schranke (#269).
+# WARUM `error` DIE VORGABE IST: Eine Seite, die ein Verbraucher ohne die Eigenheiten
+# dieser Site nicht rendern kann, fällt sonst erst dort auf. Eingeführt wurden beide als
+# Hinweis (3.14.0/3.16.0) und mit Theme 4.0 zur Schranke (#269) – so verlangen es die
+# Versionsregeln für einen strengeren Default. Wer seine Quellen nie weitergibt, stellt
+# `off` ein.
 pruefungen = {}
 alle_konfigurationen.each do |data|
   block = data['checks']
@@ -955,7 +962,7 @@ pruefstufe = lambda do |name|
   return 'off' if pruefungen[name] == false
 
   wert = pruefungen[name].to_s
-  %w[error warning off].include?(wert) ? wert : 'warning'
+  %w[error warning off].include?(wert) ? wert : 'error'
 end
 
 # Nur prüfen, wenn die Selbstauskunft des Themes gelesen werden konnte: Ohne sie wäre
@@ -967,25 +974,18 @@ unless bekannte_layouts.empty?
   eigene_layouts -= bekannte_layouts
   erlaubte_namen = (bekannte_layouts + eigene_layouts).uniq
   config_data.each do |display, cfg, data|
-    %w[layouts components].each do |wurzel|
-      namen = if wurzel == 'layouts'
-                data.dig('layouts', 'overrides')
-              else
-                data.dig('components', 'layouts')
-              end
-      next unless namen.is_a?(Hash)
+    namen = data.dig('layouts', 'overrides')
+    next unless namen.is_a?(Hash)
 
-      pfad = wurzel == 'layouts' ? 'layouts.overrides' : 'components.layouts'
-      namen.each_key do |name|
-        next if erlaubte_namen.include?(name.to_s)
+    namen.each_key do |name|
+      next if erlaubte_namen.include?(name.to_s)
 
-        line = line_of(cfg, '/' + wurzel, 0)
-        messages << "#{display}#{line ? ":#{line}" : ''}: `#{pfad}.#{name}` nennt kein " \
-                    'Layout. Das Theme liefert ' \
-                    "#{bekannte_layouts.sort.join(', ')}" \
-                    "#{eigene_layouts.empty? ? '' : "; eigene: #{eigene_layouts.sort.join(', ')}"}. " \
-                    'Ein Name, den es nicht gibt, stellt nichts ein und verbietet nichts.'
-      end
+      line = line_of(cfg, '/layouts', 0)
+      messages << "#{display}#{line ? ":#{line}" : ''}: `layouts.overrides.#{name}` nennt kein " \
+                  'Layout. Das Theme liefert ' \
+                  "#{bekannte_layouts.sort.join(', ')}" \
+                  "#{eigene_layouts.empty? ? '' : "; eigene: #{eigene_layouts.sort.join(', ')}"}. " \
+                  'Ein Name, den es nicht gibt, stellt nichts ein und verbietet nichts.'
     end
   end
 end
@@ -1047,7 +1047,23 @@ without_language = []
 # ein zweites Mal hier und koennte von der im Plugin abweichen.
 slug_present = false
 siblings = false
-Dir.glob(File.join(root, '**', '*.{md,markdown,html}')).sort.each do |path|
+# SYMLINKS WERDEN VERFOLGT, wie Jekyll es außerhalb des Safe Mode tut: Ein verlinktes
+# Verzeichnis gehört zur Site und wird gebaut – also wird es auch geprüft. `Dir.glob`
+# mit `**` steigt in verlinkte Verzeichnisse nicht hinab; eine Seite dort fiele still
+# aus der Prüfung. Jedes Verzeichnis wird nur einmal betreten (über seinen echten
+# Pfad), damit ein Link, der auf einen Vorfahren zeigt, keine Schleife baut.
+def site_files(dir, besucht = {})
+  echt = File.realpath(dir)
+  return [] if besucht[echt]
+
+  besucht[echt] = true
+  Dir.children(dir).sort.flat_map do |name|
+    pfad = File.join(dir, name)
+    File.directory?(pfad) ? site_files(pfad, besucht) : [pfad]
+  end
+end
+
+site_files(root).select { |p| p.match?(/\.(md|markdown|html)\z/) }.sort.each do |path|
   rel = path.sub(/\A#{Regexp.escape(root)}\/?/, '')
   next if skipped?(rel, excluded, collections)
   data, errors = front_matter(path)
@@ -1072,14 +1088,14 @@ Dir.glob(File.join(root, '**', '*.{md,markdown,html}')).sort.each do |path|
   # Verweis EINDEUTIG ist: Zwei Seiten mit demselben Dateinamen in verschiedenen Ordnern
   # sind der Normalfall (jeder Ordner hat eine `index.md`) und erst dann ein Problem, wenn
   # jemand darauf verweist.
-  page_language = language_from_path(rel, languages, default_language)
+  page_language = language_from_path(rel, sprach_konfiguration)
   slug_present = true if data.is_a?(Hash) && (data['slug'] || data['folder_slug'])
   if data.is_a?(Hash) && data['lang'].is_a?(String)
     # SPRACHE DEKLARIERT, ORDNER SAGT ETWAS ANDERES: Die Seite liegt NEBEN ihrer
     # Uebersetzung statt im Sprachbaum. Dann erzeugt nur das Plugin das `/en/`-Praefix.
-    siblings = true if data['lang'].split('-').first.downcase !=
-                            page_language.split('-').first.downcase
-    page_language = data['lang']
+    deklariert = AvdAcademy::Language.short(data['lang'])
+    siblings = true if deklariert != page_language
+    page_language = deklariert
   elsif data.is_a?(Hash)
     # OHNE `lang` entscheidet der Ordner. Das bleibt gültig und ist der bequeme
     # Normalfall – aber es bindet die Seite an ihren Platz im Baum. Wer eine
@@ -1183,7 +1199,7 @@ Dir.glob(File.join(root, '**', '*.{md,markdown,html}')).sort.each do |path|
     line = line_of(path, d[:pointer], 1)
     veraltet << ["#{rel}#{line ? ":#{line}" : ''}", d[:pointer].sub(%r{\A/}, '').gsub('/', '.'), d[:hint]]
   end
-  check_audiences(data, audiences.uniq, rel).each do |field, text|
+  check_audiences(data, audiences.uniq, rel, config: false).each do |field, text|
     line = line_of(path, '/' + field.split('.').first, 1)
     messages << "#{rel}#{line ? ":#{line}" : ''}: `#{field}` #{text}"
   end
@@ -1325,7 +1341,7 @@ if language_codes.size > 1 && !without_language.empty?
 end
 
 # VERALTETE FELDER – gültig, aber auf dem Weg hinaus. Gesammelt je FELD und nicht
-# je Stelle: Wer `permaid` auf vierzig Seiten stehen hat, braucht einen Satz dazu
+# je Stelle: Wer ein veraltetes Feld auf vierzig Seiten stehen hat, braucht einen Satz dazu
 # und nicht vierzig. Genannt werden drei Dateien als Einstieg, der Rest gezählt –
 # dieselbe Form wie beim `lang`-Hinweis darüber, aus demselben Grund.
 #

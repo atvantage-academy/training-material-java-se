@@ -32,6 +32,7 @@
    ============================================================================= */
 import { readdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { normalizePatterns, skipped as pfadUebersprungen } from "./path-scope.mjs";
 
 const arg = (name, standard) => {
   const i = process.argv.indexOf("--" + name);
@@ -51,44 +52,14 @@ const THRESHOLD = Number(arg("min-flesch", "40"));
 const MIN_WORDS = Number(arg("min-words", "120"));
 const NO_FAIL = process.argv.includes("--no-fail");
 const REQUIRE_TOOL = process.argv.includes("--require-tool");
-/* --- Eine Schreibweise für Ausschlussmuster --------------------------------
-   DERSELBE BLOCK STEHT IN `a11y.mjs`. Zwei Werkzeuge, die über dieselbe Angabe
-   verschieden urteilen, sind schlimmer als eines.
-
-   `theme`, `/theme`, `theme/`, `/theme/` und `/theme/**` meinen DASSELBE -
-   dieselbe Schreibweise wie bei `links.rb`, `contrast.rb` und `components.rb`.
-
-   VERGLICHEN WIRD SEGMENTWEISE: `"/themes-overview".startsWith("/theme")` ist
-   wahr, gemeint ist es nicht. Getroffen wird Gleichheit oder Präfix samt
-   trennendem Schrägstrich - und damit auch die Adresse, die GENAU `/theme` ist. */
-function musterNormalisieren(liste) {
-  return liste
-    .flatMap((x) => String(x).split(","))
-    .map((x) => x.trim().replace(/\/\*\*$/, "").replace(/\/+$/, ""))
-    .filter(Boolean)
-    .map((x) => (x.startsWith("/") ? x : "/" + x))
-    .filter((x) => x !== "/");
-}
-
-function ausgeschlossen(rel, muster) {
-  const pfad = "/" + rel.split(path.sep).join("/");
-  return muster.some((m) => pfad === m || pfad.startsWith(m + "/"));
-}
-
-const EXCLUDED = musterNormalisieren([arg("exclude", "theme/atvantage,theme/academy")]);
-/* WAS DIE MESSUNG ANSIEHT - zwei Listen, eine Regel. Ohne `--include` ist alles
-   erfasst, wie bisher. Mit `--include` zaehlt nur, was darauf passt; `--exclude`
-   nimmt in beiden Faellen danach noch heraus.
-
-   WARUM DER AUSSCHLUSS DEN EINSCHLUSS SCHLAEGT: Anders herum liesse sich ein
-   einmal ausgenommener Zweig durch ein weiteres Einschlussmuster wieder
-   hereinholen - welche Angabe dann gilt, entschiede die Reihenfolge. Dieselbe
-   Regel steht in links.rb, contrast.rb und components.rb. */
-const EINSCHLUSS = musterNormalisieren([arg("include", "")]);
+/* --- Pfadmuster: EINE Stelle für alle Prüfer (path-scope.mjs) ------------
+   Ohne `--include` ist alles erfasst; `--exclude` nimmt danach noch heraus, der
+   Ausschluss schlägt den Einschluss. Schreibweise und Begründung dort. */
+const EXCLUDED = normalizePatterns([arg("exclude", "theme/atvantage,theme/academy")]);
+const EINSCHLUSS = normalizePatterns([arg("include", "")]);
 
 function uebersprungen(rel) {
-  if (EINSCHLUSS.length && !ausgeschlossen(rel, EINSCHLUSS)) return true;
-  return ausgeschlossen(rel, EXCLUDED);
+  return pfadUebersprungen("/" + rel.split(path.sep).join("/"), EINSCHLUSS, EXCLUDED);
 }
 
 

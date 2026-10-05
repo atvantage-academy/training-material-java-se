@@ -21,6 +21,7 @@ import { createServer } from "node:http";
 import { readFile, readdir, stat, writeFile } from "node:fs/promises";
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { normalizePatterns, skipped } from "./path-scope.mjs";
 
 /* --- Aufrufparameter ------------------------------------------------------ */
 const arg = (name, standard) => {
@@ -40,44 +41,14 @@ const SCHEMATA = arg("schemes", "light,dark").split(",");
 const JSONZIEL = arg("json", "");
 const MDZIEL = arg("markdown", "");
 const NICHT_SCHEITERN = process.argv.includes("--no-fail");
-/* --- Eine Schreibweise für Ausschlussmuster --------------------------------
-   DERSELBE BLOCK STEHT IN `readability.mjs`. Zwei Werkzeuge, die über dieselbe Angabe
-   verschieden urteilen, sind schlimmer als eines.
-
-   `theme`, `/theme`, `theme/`, `/theme/` und `/theme/**` meinen DASSELBE -
-   dieselbe Schreibweise wie bei `links.rb`, `contrast.rb` und `components.rb`.
-
-   VERGLICHEN WIRD SEGMENTWEISE: `"/themes-overview".startsWith("/theme")` ist
-   wahr, gemeint ist es nicht. Getroffen wird Gleichheit oder Präfix samt
-   trennendem Schrägstrich - und damit auch die Adresse, die GENAU `/theme` ist. */
-function musterNormalisieren(liste) {
-  return liste
-    .flatMap((x) => String(x).split(","))
-    .map((x) => x.trim().replace(/\/\*\*$/, "").replace(/\/+$/, ""))
-    .filter(Boolean)
-    .map((x) => (x.startsWith("/") ? x : "/" + x))
-    .filter((x) => x !== "/");
-}
-
-function ausgeschlossen(rel, muster) {
-  const pfad = "/" + rel.split(path.sep).join("/");
-  return muster.some((m) => pfad === m || pfad.startsWith(m + "/"));
-}
-
-const AUSSCHLUSS = musterNormalisieren([arg("exclude", "theme/atvantage,theme/academy")]);
-/* WAS DIE MESSUNG ANSIEHT - zwei Listen, eine Regel. Ohne `--include` ist alles
-   erfasst, wie bisher. Mit `--include` zaehlt nur, was darauf passt; `--exclude`
-   nimmt in beiden Faellen danach noch heraus.
-
-   WARUM DER AUSSCHLUSS DEN EINSCHLUSS SCHLAEGT: Anders herum liesse sich ein
-   einmal ausgenommener Zweig durch ein weiteres Einschlussmuster wieder
-   hereinholen - welche Angabe dann gilt, entschiede die Reihenfolge. Dieselbe
-   Regel steht in links.rb, contrast.rb und components.rb. */
-const EINSCHLUSS = musterNormalisieren([arg("include", "")]);
+/* --- Pfadmuster: EINE Stelle für alle Prüfer (path-scope.mjs) ------------
+   Ohne `--include` ist alles erfasst; `--exclude` nimmt danach noch heraus, der
+   Ausschluss schlägt den Einschluss. Schreibweise und Begründung dort. */
+const AUSSCHLUSS = normalizePatterns([arg("exclude", "theme/atvantage,theme/academy")]);
+const EINSCHLUSS = normalizePatterns([arg("include", "")]);
 
 function uebersprungen(rel) {
-  if (EINSCHLUSS.length && !ausgeschlossen(rel, EINSCHLUSS)) return true;
-  return ausgeschlossen(rel, AUSSCHLUSS);
+  return skipped("/" + rel.split(path.sep).join("/"), EINSCHLUSS, AUSSCHLUSS);
 }
 
 /* DIE BASISADRESSE GEHOERT DAZU. Ein Bundle, das fuer `/mein-repo/` gebaut wurde,
@@ -316,9 +287,13 @@ async function seiteMessen(b, sitzung, url, axeQuelle, breite, schema) {
      Genau so ist einmal ein Bericht mit 468 Befunden entstanden, weil ein Bundle
      mit Basisadresse unter `/` ausgeliefert wurde. Deshalb wird zuerst geprueft,
      ob das Theme angekommen ist: Ohne seine Tokens gibt es kein Ergebnis, sondern
-     eine Fehlmeldung mit Grund. */
+     eine Fehlmeldung mit Grund.
+     AUSNAHME MIT ERKLÄRUNG: Eine Seite, die bewusst ohne Theme ausgeliefert wird
+     (etwa die Startseite einer Pages-Site), sagt das mit
+     `<meta name="avd-academy-theme" content="none">` – sie wird gemessen wie sie ist. */
   const { result: probe } = await b.call("Runtime.evaluate", {
     expression: `(() => {
+      if (document.querySelector('meta[name="avd-academy-theme"][content="none"]')) return "";
       const w = getComputedStyle(document.documentElement)
         .getPropertyValue("--avd-academy-color-bg").trim();
       return w ? "" : "Theme-Stylesheet nicht angekommen - stimmt die Basisadresse (--baseurl)?";

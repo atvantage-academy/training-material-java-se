@@ -1,17 +1,30 @@
-<!DOCTYPE html><html lang="de">
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions translucent-header reading-progress">
 <head>
   <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Änderungen am ATVANTAGE Academy Theme · ATVANTAGE Academy</title><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+})();
+</script><title>Änderungen am ATVANTAGE Academy Theme · ATVANTAGE Academy</title><meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Änderungen am ATVANTAGE Academy Theme">
 
-<meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/styles.css?v=118a443d"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=2dd7a61e">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=4bb910cc">
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=a4e28645">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=bcf4d1b2"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=36dd1ae6" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=a9cecc4f" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=5b38f054">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=9f9281d8"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=a3e87ccf">
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b7ac85b7" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791174717" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
@@ -39,12 +52,15 @@
 <link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=7c528890">
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+  <link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=4f91af09">
   <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
   <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
   </div>
 
-  <header class="avd-academy-header" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+  <header class="avd-academy-header"
+        data-avd-academy-menu-visible="7" data-avd-academy-menu-speed="1.0" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
           style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span></a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
           aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
       <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
@@ -58,9 +74,8 @@
       </div>
   </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
              data-mode="expand" data-shortcut="double_shift"
-             data-index="/training-material-java-se/theme/search/de.json?v=1791172983"
-             data-base="/training-material-java-se/"
-             data-preselect="current">
+             data-index="/training-material-java-se/theme/search/de.json?v=1791174717"
+             data-base="/training-material-java-se/">
           <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
                   aria-expanded="false" aria-controls="avd-academy-search-dialog"
                   title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
@@ -86,11 +101,11 @@
             <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
           </dialog>
         </div>
-        <script src="/training-material-java-se/theme/jekyll/search.js?v=ae641391" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=4b72be9e" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
                 title="Diese Seite auf Deinem Smartphone öffnen"
                 aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
               title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Farbschema umschalten">◐</button></div>
+              aria-label="Dunkles Farbschema">◐</button></div>
 </header>
 <section class="avd-academy-guide-hero"
            aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/">Home</a><span>/</span><span>Theme</span><span>/</span><span aria-current="page">Änderungen am ATVANTAGE Academy Theme</span></nav><div class="avd-academy-guide-hero__meta">
@@ -131,12 +146,518 @@
   </tbody>
 </table>
 
-<p>Die Spanne <code>^1</code> (<code>&gt;=1.0.0 &lt;2.0.0</code>) ist damit die empfohlene Bindung. Was als
+<p>Die Spanne <code>^4</code> (<code>&gt;=4.0.0 &lt;5.0.0</code>) ist damit die empfohlene Bindung. Was als
 inkompatibel gilt und wie eingestuft wird, steht in
 <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/AGENTS.md"><code>AGENTS.md</code></a>,
 Abschnitt „Theme-Version“.</p>
 
 <hr />
+
+<h2 id="400">4.0.0</h2>
+
+<p><strong>Major</strong> (#269, #297). Die Übergangsschichten aus 3.x sind entfernt, zwei Prüfungen sind
+jetzt eine Schranke, die Baukomponente prüft vor dem Bau, und die Suche wählt in Schulungen
+den eigenen Bereich vor. Die Fehlerbehebungen aus #299 gehen in diesen Major mit ein; sie
+stehen unter „Fehlerbehebungen“.</p>
+
+<h3 id="brüche-und-umstellung">Brüche und Umstellung</h3>
+
+<p><strong>In vier Schritten:</strong></p>
+
+<ol>
+  <li>Die Theme-Bindung auf <code>^4</code> heben – Repo-Variable <code>THEME_VERSION</code> bzw. der Pin im
+eigenen Workflow oder <code>Makefile</code>. Die Prüf-Bausteine bleiben bei <code>@v4</code>.</li>
+  <li>
+    <p>Aus einem Klon des Theme-Repositorys die Migration als Vorschau laufen lassen, dann
+schreiben:</p>
+
+    <pre><code class="language-bash">ruby «klon»/bin/migrate.rb --from 3 --to 4 --root «repo»
+ruby «klon»/bin/migrate.rb --from 3 --to 4 --root «repo» --write
+</code></pre>
+
+    <p>Weicht die Konfiguration ab (<code>--config «pfad»</code>), gilt dieselbe Option wie bisher.
+Exit-Code 1 heißt: fertig, aber ein Hinweis braucht Handarbeit.</p>
+  </li>
+  <li>Die gemeldete Handarbeit erledigen und die <code>_config.yml</code> durchsehen – Kommentare
+zwischen zwei Einträgen können beim Umzug zurückbleiben.</li>
+  <li>Prüfen: <code>ruby theme/jekyll/schema/validate.rb</code> (mit derselben <code>--config</code>-Folge wie der
+Bau). Danach baut <code>theme/jekyll/_bin/build.sh</code> wieder.</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>Was bricht</th>
+      <th>Wie umstellen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><code>permaid</code> im Front Matter wirkt nicht mehr</strong> (Alias seit 3.11.0). Die Seite bekommt keinen Permalink; die Schemaprüfung meldet <code>unbekanntes Feld permaid</code>.</td>
+      <td><code>permaid:</code> in <code>perma_id:</code> umbenennen – <code>migrate.rb</code> tut es. Steht <code>perma_id</code> schon daneben, hat es bisher gewonnen; dann fällt <code>permaid</code> nur weg.</td>
+    </tr>
+    <tr>
+      <td><strong><code>avd-permalinks.json</code> trägt nur noch <code>perma_id</code>.</strong> Der Schlüssel <code>permaid</code> daneben entfällt.</td>
+      <td>Eine fremde Pipeline, die die Datei liest, liest <code>perma_id</code>. Die Datei wird weiter mit der Site veröffentlicht.</td>
+    </tr>
+    <tr>
+      <td><strong><code>components</code> in der <code>_config.yml</code> wirkt nicht mehr</strong> (veraltet seit 3.14.0). Die Schemaprüfung meldet den Block als Fehler, statt ihn still durchzulassen.</td>
+      <td><code>components.«gruppe»</code> → <code>layouts.default_values.components.«gruppe»</code>, <code>components.layouts.«layout».«gruppe»</code> → <code>layouts.overrides.«layout».components.«gruppe»</code> – <code>migrate.rb</code> zieht um und führt in einen vorhandenen <code>layouts</code>-Block zusammen. Steht am Ziel schon etwas (etwa <code>layouts.overrides.quiz: forbidden</code>), bleibt der Eintrag stehen und wird als Handarbeit gemeldet.</td>
+    </tr>
+    <tr>
+      <td><strong><code>layout: default</code> auf einer Seite ist ein Fehler</strong> – <code>checks.abstract_layouts</code> steht standardmäßig auf <code>error</code> (Stufe seit 3.16.0).</td>
+      <td><code>layout: page</code> schreiben oder die Zeile streichen. <code>migrate.rb</code> schreibt <code>layout: default</code> im Front Matter auf <code>page</code> um und nennt die Seiten: Sie bekommen damit Kopfzeile, Brotkrumen, Hero und Sidebar – ansehen. Wer nur den Rahmen will, legt ein eigenes Layout an, das von <code>default</code> erbt. <code>layouts.overrides.default</code> bleibt: Es trägt Einstellungen, die alle Layouts mit Rahmen erben.</td>
+    </tr>
+    <tr>
+      <td><strong>Eigene Assets, wo das Layout sie nicht erlaubt, sind ein Fehler</strong> – <code>checks.source_assets</code> steht standardmäßig auf <code>error</code>. Gemeint sind <code>&lt;style&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;link&gt;</code> in der Quelle und <code>styles</code>/<code>scripts</code> im Front Matter auf Layouts mit <code>source_assets: false</code>.</td>
+      <td>Das passende Layout nehmen (<code>visualization</code>, <code>presentation</code>, <code>simulation</code> erlauben eigene Assets) oder – wer seine Quellen nie weitergibt – <code>checks.source_assets: off</code> setzen; <code>warning</code> meldet nur.</td>
+    </tr>
+    <tr>
+      <td><strong><code>theme/jekyll/_bin/build.sh</code> prüft vor dem Bau.</strong> Es ruft <code>validate.rb</code> über <code>_config.yml</code>, <code>_config.ci.yml</code> (falls vorhanden) und das Front Matter auf und bricht bei einem Verstoß mit <strong>Exit-Code 5</strong> ab, ohne zu bauen. Ein Stand, der bisher grün baute und irgendwo einen Schemafehler trägt, wird rot.</td>
+      <td>Die gemeldeten Stellen beheben. Ein eigener Prüfschritt vor dem Bau kann entfallen; der Starter hat keinen mehr. <code>ruby</code> muss im <code>PATH</code> sein – in jedem Bau mit Jekyll ist es das.</td>
+    </tr>
+    <tr>
+      <td><strong><code>search.preselect</code> richtet sich ohne Angabe nach <code>scope_source</code>:</strong> <code>current</code> bei <code>index</code>, <code>default</code> bei <code>nav</code>. Eine Schulungs-Site wählt damit den Bereich der aktuellen Seite vor; die Marke <code>default: true</code> wirkt dort erst mit <code>preselect: default</code>.</td>
+      <td>Nichts, wenn die neue Vorgabe passt – <code>preselect: current</code> darf entfallen. Wer bei Bereichen aus Indexseiten die Marke behalten will, setzt <code>search.preselect: default</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Schema-Fassungen folgen SemVer</strong> und beginnen neu bei <strong>1.0.0</strong> (Config, Front Matter, Layout; ADR-0054): MAJOR bei Inkompatibilität, MINOR bei neuen Feldern, PATCH bei Beschreibungen – jede Änderung erhöht die Fassung. Veröffentlicht wird fest unter <code>/schemas/«name»/v«x.y.z»/schema.json</code> und beweglich unter <code>/schemas/«name»/v«x»/schema.json</code> (höchste Fassung des Majors). Inhaltlich entspricht 1.0.0 dem 4.0-Stand: Config ohne <code>components</code>, Front Matter ohne <code>permaid</code>.</td>
+      <td>Eine <code>$schema</code>-Zeile, die auf eine veröffentlichte Fassung zeigt, auf <code>/schemas/config/v1/schema.json</code> bzw. <code>/schemas/frontmatter/v1/schema.json</code> (<code>/schemas/layout/v1/schema.json</code>) umstellen – <code>migrate.rb</code> nennt sie. Die ganzzahligen Fassungen bis Config 11 und Front Matter 5 bleiben unter <code>/schemas/«name»/«n»/</code> erreichbar, bekommen aber keine neuen Felder mehr. Die Zeile der Kopiervorlage zeigt auf die Paketkopie und braucht nichts.</td>
+    </tr>
+    <tr>
+      <td><strong>Die Klassen des Regie-Decks heißen englisch</strong> (Markup Contract <strong>Fassung 10</strong>): <code>avd-academy-regie__*</code> → <code>avd-academy-cue__*</code> – <code>kopf</code> → <code>head</code>, <code>zeit</code> → <code>time</code>, <code>meta</code> → <code>meta</code>, <code>spalten</code> → <code>columns</code>, <code>material</code> → <code>material</code>, <code>falle</code> → <code>pitfall</code>, <code>naechst</code> → <code>next</code>, <code>pause</code> → <code>break</code>, <code>uhr</code> → <code>clock</code>, <code>raster</code> → <code>schedule</code>, <code>rz</code> → <code>slot</code>, <code>rd</code> → <code>duration</code>, <code>trenn</code> → <code>divider</code>. Die alten Namen gestalten nichts mehr.</td>
+      <td><code>migrate.rb</code> schreibt die alten Namen in Markdown, HTML und CSS des Repos um.</td>
+    </tr>
+    <tr>
+      <td><strong>Ungenutzte Klassen entfallen</strong> (Markup Contract <strong>Fassung 10</strong>): <code>avd-academy-topbar</code>, <code>-topbar__logo</code>, <code>-topbar__nav</code> (die Kopfzeile vor dem heutigen Header) und <code>avd-academy-guide-foot</code>, <code>-guide-foot__right</code> (der Fuß vor <code>avd-academy-footer</code>). Kein Layout erzeugt sie seit Langem; wer sie im eigenen Markup oder CSS verwendet, verliert ihre Gestaltung. Das Token <code>--avd-academy-topbar-bg</code> bleibt – es färbt Kopfzeile und Menüs.</td>
+      <td>Eigene Verwendungen durch die Kopfzeile (<code>header.html</code>) bzw. den Fußbereich (<code>footer.html</code>) des Themes ersetzen oder die Regeln ins eigene CSS übernehmen.</td>
+    </tr>
+    <tr>
+      <td><strong><code>breadcrumb</code> als Liste wirkt nicht mehr.</strong> Die alte Form <code>breadcrumb: [{title, url}, …]</code> rendert nicht mehr; das Schema erlaubt sie seit Längerem nicht.</td>
+      <td><code>breadcrumb.label</code> und <code>breadcrumb.ancestors</code> nutzen, oder die Brotkrume aus der Ordnerstruktur ableiten lassen.</td>
+    </tr>
+    <tr>
+      <td><strong>Keine eigenständigen HTML-Vorlagen mehr.</strong> Foliendeck (<code>presentation-template.html</code>, <code>slides.js</code>, <code>presentation.css</code>, <code>EXAMPLE-presentation.html</code>) und Simulation (<code>simulation-template.html</code>) ohne Jekyll entfallen, ebenso das Seitengerüst <code>academy/page-template.html</code> mit <code>academy/partials/</code> (beide nie im Paket). Mit dem Deck entfallen schrittweise aufgebaute Folien, Sprechernotizen und die Folienübersicht.</td>
+      <td>Präsentationen und Simulationen als Seite mit <code>layout: presentation</code> bzw. <code>layout: simulation</code> schreiben (Anleitungen unter <code>templates/presentations/</code> und <code>templates/simulations/</code>). Eine schon kopierte Vorlage läuft weiter, wird aber nicht mehr gepflegt.</td>
+    </tr>
+    <tr>
+      <td><strong>Die Zielgruppen-Schranke prüft, dass gefiltert wurde.</strong> Ein Lauf mit <code>audience</code> in einer Konfigurationsdatei, aber ohne den Filter (<code>jekyll build</code>/<code>serve</code> direkt), bricht ab, sobald darin eine Seite einer anderen Zielgruppe oder eine unaufgelöste <code>audience</code>-Weiche steht – bisher entstand dann still eine ungefilterte Ausgabe.</td>
+      <td>Über die Baukomponente bauen: <code>sh theme/jekyll/_bin/build.sh «zielgruppe»</code>. Wer <code>audience</code> von Hand gesetzt hat, streicht die Zeile.</td>
+    </tr>
+    <tr>
+      <td><strong><code>filter.rb</code> löscht ohne <code>--into</code> nur noch mit <code>--in-place</code>.</strong> Ohne beides meldet er seine Befunde und bricht dann mit Exit 4 ab, statt im Quellbaum zu löschen.</td>
+      <td>Wer an Ort und Stelle filtert (eigener Bauschritt auf einer Kopie), ergänzt <code>--in-place</code>. <code>build.sh</code> und der Prüf-Baustein <code>filter</code> tun das selbst.</td>
+    </tr>
+    <tr>
+      <td><strong>Die Doku-Site des Themes liegt unter <code>/docs/</code></strong> (ADR-0062). Die Pages-Site gliedert sich in Startseite <code>/</code> (schlicht, ohne Theme), Benutzerdoku <code>/docs/</code> (englisch <code>/docs/en/</code>), Architekturdoku <code>/arc/</code> und Schemas <code>/schemas/</code> mit Index. Alle Adressen der Benutzerdoku ändern sich – die Seiten liegen direkt unter dem Basispfad: <code>/docs/funktionen/…</code>, <code>/docs/verwendung/…</code>, die Referenz (Design-System, Bausteine, Schemas) unter <code>/docs/referenz/…</code> statt <code>/docs/theme/…</code>; aus <code>/en/…</code> wird <code>/docs/en/…</code> (Ordner englisch: <code>features/</code>, <code>usage/</code>, <code>reference/</code>), aus <code>/p/…</code> wird <code>/docs/p/…</code>, aus <code>/templates/…</code> wird <code>/docs/templates/…</code>; Weiterleitungen gibt es nicht. Die Schema-Adressen bleiben. Benutzerdoku und Architekturdoku verweisen im Fußbereich aufeinander.</td>
+      <td>Gespeicherte Links und Lesezeichen auf die Doku-Site über die Startseite <code>/</code> neu aufsuchen. <code>$schema</code>-Zeilen brauchen nichts.</td>
+    </tr>
+    <tr>
+      <td><strong>Vorlagenversion 15.</strong> Der Starter (<code>jekyll/starter/pages.yml</code>) prüft nicht mehr in einem eigenen Schritt – das tut <code>build.sh</code> –, bindet <code>^4</code> und beschreibt <code>checks</code> mit der Vorgabe <code>error</code>.</td>
+      <td>Bestehende Kopien von <code>deploy.example.yml</code> und <code>_config.example.yml</code> vergleichen und nachziehen.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Selbstauskunft:</strong> <code>contract/theme.json</code> auf Fassung 4 – sie nennt die Schema-Fassungen
+als SemVer-Zeichenkette (<code>"version": "1.0.0"</code>), die Vertragslisten weiter als ganze Zahl.
+Layouts und ihre Einstufung sind unverändert.</p>
+
+<p><strong>Prüf-Bausteine:</strong> <code>academy-theme-actions</code> 4.0.0 unterstützt die Theme-Reihen 3 (ab 3.4.0)
+und 4 (<code>&gt;=3.4.0 &lt;5.0.0</code>). Zu <code>^4</code> gehört <code>@v4</code>.</p>
+
+<p><strong>Autoren-Plugin:</strong> 5.0.0 – seine Skills und Referenzen setzen Theme 4 voraus.</p>
+
+<p><strong>Was bewusst bleibt</strong>, obwohl der Major es erlaubt hätte – die Begründungen stehen in den
+Architekturentscheidungen des Repositorys:</p>
+
+<ul>
+  <li>Die Vertragslisten unter <code>contract/</code> bleiben Zeilenlisten.</li>
+  <li><code>page_id</code> setzt die Kennung einer Seite, <code>page</code> verweist darauf – zwei Rollen, zwei Namen.</li>
+  <li>Das Präfix <code>avd-</code> an erzeugten Dateien (<code>avd-permalinks.json</code>, <code>.avd-permalinks</code>,
+<code>.avd-addresses</code>) bleibt; es schützt im Wurzelverzeichnis einer fremden Site vor
+Namenskollisionen.</li>
+  <li><code>avd-permalinks.json</code> wird bewusst mit veröffentlicht – für fremde Pipelines. Die beiden
+Spuren mit Punkt am Anfang erreichen GitHub Pages nicht: <code>upload-pages-artifact</code> lässt
+solche Dateien seit v4 weg.</li>
+</ul>
+
+<h3 id="suche">Suche</h3>
+
+<ul>
+  <li><strong>Jede Seite zählt zum Weg.</strong> Ein kleines Skript (<code>jekyll/search-trail.js</code>) notiert den
+Weg der Suche in jedem Layout – auch in Präsentation, Simulation und Seiten ohne Kopfzeile,
+ohne den Index zu laden. Öffnet eine Seite einen <strong>neuen Tab</strong>, beginnt der mit dem Weg,
+der zu ihr geführt hat; vorher begann er ohne Bereich, wenn die öffnende Seite keinen
+eigenen hatte. Mit <code>search: disabled</code> entfällt das Skript.</li>
+  <li><strong>Der Weg reißt nicht ab.</strong> Er hält weiterhin 30 Einträge, ersetzt einen längeren Anfang
+aber durch den Bereich, der dort galt. Wer lange auf geteilten Seiten unterwegs ist, sucht
+weiter im Bereich, aus dem er kam.</li>
+  <li><strong>Neu: <code>includes</code> an Einträgen der TopNav</strong> (<code>nav.items[].search.includes</code>, bei
+<code>search.scope_source: nav</code>): bindet Seiten und Ordner per <code>page_id</code> in den Bereich ein,
+wie <code>search.scope.includes</code> in einer Indexseite.</li>
+  <li><strong>Die Vorauswahl wird an einer Stelle abgeleitet</strong>, im Suchplugin; das Skript liest sie
+aus dem Manifest. Das Suchfeld trägt kein <code>data-preselect</code> mehr.</li>
+  <li><strong>Größe des Such-Manifests</strong> wird in der Pipeline der Doku-Site berichtet
+(<code>bin/search-manifest-size.rb</code>, Schwelle 100 KB je Sprache, Warnung statt Abbruch).</li>
+  <li>Architekturentscheidung: ADR-0057.</li>
+</ul>
+
+<h3 id="navigation">Navigation</h3>
+
+<ul>
+  <li><strong>Kurze Menüs:</strong> Am Schreibtisch zeigt ein Aufklappmenü höchstens
+<code>nav.settings.scrollable.visible_items</code> Zeilen (Standard 7; jedes Ziel und jede
+Überschrift eines eingebetteten Menüs ist eine Zeile). Hat es mehr oder passt es nicht
+ins Fenster, stehen oben und unten Dreiecke; Zeigen darauf lässt das Menü laufen
+(<code>nav.settings.scrollable.speed</code>, Standard 1.0), am Rand ist das Dreieck ausgegraut. Kein
+Scrollbalken. Ein seitliches Menü bleibt auch neben einem laufenden Menü ganz sichtbar.
+Im Burger bleibt alles, wie es ist (ADR-0059).</li>
+  <li><strong>Pfeiltasten</strong> wandern durch die Einträge eines offenen Menüs; Tab bleibt, wie es war.
+Ein fokussierter Eintrag steht immer im sichtbaren Teil.</li>
+  <li>Config-Schema: neuer Abschnitt <code>nav.settings.scrollable</code>.</li>
+</ul>
+
+<h3 id="erkennungsmerkmal-von-40">Erkennungsmerkmal von 4.0</h3>
+
+<p>Drei Effekte, jeder ein eigener Schalter unter <code>effects</code>, standardmäßig an (ADR-0061):</p>
+
+<pre><code class="language-yaml">layouts:
+  default_values:
+    effects:                # direkt hier, nicht unter `components`
+      page_transitions:   { enabled: true }   # sanfter Übergang zur nächsten Seite
+      translucent_header: { enabled: true }   # Kopfzeile beim Scrollen durchscheinend
+      reading_progress:   { enabled: true }   # Lesefortschritt als Linie am oberen Rand
+</code></pre>
+
+<ul>
+  <li><strong>Seitenübergänge</strong> (<code>page</code>, <code>guide</code>, <code>visualization</code>, <code>quiz</code>): Die alte Seite blendet
+vollständig zur Seitenfarbe aus (220 ms), danach die neue aus ihr ein (280 ms); die
+Kopfzeile bleibt stehen. Ein Übergang findet nur zwischen zwei Seiten
+statt, für die der Effekt an ist – eine Seite, für die er aus ist, trägt keine
+Übergangsregel und wechselt hart. Bei „reduzierter Bewegung“ nie.</li>
+  <li><strong>Durchscheinende Kopfzeile</strong> (<code>page</code>, <code>guide</code>): Ab den ersten 64 px Scrollweg zu 88 %
+deckend mit Unschärfe und feiner Kante in der Schulungsfarbe; die Kontrastzusagen der
+Kopfzeile halten auch über ganz schwarzem bzw. weißem Inhalt.</li>
+  <li><strong>Lesefortschritt</strong> (<code>page</code>, <code>guide</code>, <code>visualization</code>, <code>quiz</code>): 2-px-Linie in der
+Schulungsfarbe am oberen Rand, wächst mit dem Scrollweg. Nie im Druck.</li>
+  <li>Ohne Skript; Browser ohne Unterstützung zeigen die Seite ohne den Effekt. Präsentation und
+Simulation lesen keinen der Schalter.</li>
+  <li>Abschaltbar site-weit, je Layout (<code>layouts.overrides.«layout».components.effects</code>) und je
+Seite (<code>effects.«effekt».enabled</code> im Front Matter). Schemas: neuer Abschnitt <code>effects</code>
+(Front Matter, Config, Layout-Deklaration <code>switches.effects</code>); neue Datei
+<code>jekyll/page-transitions.css</code> im Paket.</li>
+</ul>
+
+<h3 id="fehlerbehebungen-299">Fehlerbehebungen (#299)</h3>
+
+<p>Einige Korrekturen bringen Adressen und Ausgaben an die Stelle, die die Doku zusagt –
+<strong>was ein Projekt prüfen sollte</strong>, steht am Ende.</p>
+
+<h4 id="konfiguration-und-darstellung">Konfiguration und Darstellung</h4>
+
+<ul>
+  <li><strong>Beschriftungen, Anfangszustand und Schwellen wirken unter <code>layouts</code>.</strong> Kartentitel und
+Werkzeugbeschriftungen (<code>title</code>) sowie <code>open</code> und <code>open_threshold</code> der Sidebar-Karten
+wirkten seit 3.14.0 nur in der veralteten Form <code>components</code>. Jetzt gelten sie wie
+dokumentiert unter <code>layouts.default_values.components</code>, <code>title</code> auch je Layout und für
+erbende Layouts. Schalter, Beschriftungen und Anfangszustand lösen ihre Ebenen über einen
+gemeinsamen Include (<code>avd-setting.html</code>) auf.</li>
+  <li><strong><code>i18n.switch.enabled: false</code> blendet den Sprachumschalter aus.</strong> Der dokumentierte
+Schlüssel war wirkungslos. Ohne Angabe bleibt der Umschalter an; <code>toolbar.lang</code> wirkt
+daneben weiter je Layout oder Seite.</li>
+  <li><strong>Weiterführende Informationen tragen die <code>baseurl</code>.</strong> Einträge in <code>resources</code> mit <code>page</code>
+oder einer Adresse dieser Site liefen auf Sites mit <code>baseurl</code> ins Leere. Fremde Adressen
+und Platzhalter bleiben unverändert.</li>
+  <li><strong>Fußbereich beachtet <code>audiences</code>.</strong> Einträge unter <code>footer.links.items</code> erscheinen nur in
+den Ausgaben ihrer Zielgruppen, wie in der TopNav. Bleibt kein Eintrag, entfällt die Spalte.</li>
+  <li><strong>Burger zählt nur sichtbare Menüpunkte.</strong> Eine Gruppe, deren Einträge alle einer anderen
+Zielgruppe gehören, zählte für <code>nav.compact_after</code> mit.</li>
+  <li><strong>Brotkrume erkennt <code>index_«sprache».md</code>.</strong> Auf der Indexseite einer Übersetzung neben dem
+Original doppelte sie Ordner und Titel.</li>
+  <li><strong>Farbschema:</strong> Der Umschalter trägt seinen Zustand (<code>aria-pressed</code>, Name „Dunkles
+Farbschema“) und folgt der Systemeinstellung, solange nichts gespeichert ist. Die
+gespeicherte Wahl gilt vor dem ersten Bild (kleines Skript im Kopf) statt erst nach dem
+Laden. Bei dunkler Systemeinstellung schaltet schon der erste Klick sichtbar auf hell.</li>
+  <li><strong>Altes Doku-Layout aus <code>site.css</code>, <code>site.js</code> und <code>atvantage.js</code> entfernt.</strong> Regeln und
+Skript stammten aus dem Layout vor 2.0 (darunter <code>-doc-layout</code>, <code>-doc-sidebar</code>,
+<code>-prose</code>); kein Layout erzeugt dieses Markup mehr. Keine Namen aus dem Markup Contract.</li>
+  <li><strong>Toter Code entfernt:</strong> eine nie aufgerufene Methode im Adressen-Plugin, eine in
+<code>validate.rb</code> und dessen Prüfung des seit 3.0.0 entfallenen <code>audience_filter</code>
+(<code>bin/migrate.rb</code> entfernt den Schlüssel).</li>
+  <li><strong>Menü der dritten Ebene bleibt im Fenster.</strong> Passt es mit langen Einträgen auf keiner
+Seite in voller Breite, bekommt es die Breite der größeren Seite und bricht um, statt
+über den Fensterrand zu ragen. Ist es höher als das Fenster, rückt es nach oben und
+scrollt notfalls selbst, statt unten herauszuragen.</li>
+  <li><strong>Kein leerer Verweis mehr in TopNav und Fußbereich.</strong> Ein Eintrag ohne <code>title</code> und ohne
+<code>icon</code> trägt den Titel seiner Zielseite (<code>page</code>) bzw. seine Adresse (<code>url</code>). Ohne
+<code>footer.tagline</code> entfällt der leere Absatz unter dem Titel.</li>
+</ul>
+
+<h4 id="eine-quelle-statt-doppelter-strukturen">Eine Quelle statt doppelter Strukturen</h4>
+
+<ul>
+  <li><strong>Hell und Dunkel stehen je Token in einer Zeile:</strong> <code>light-dark(«hell», «dunkel»)</code> in
+<code>academy/tokens.css</code>, geschaltet über <code>color-scheme</code> – Systemeinstellung als Vorgabe,
+<code>data-avd-academy-theme</code> legt fest, der Druck bleibt hell. Die Farbwerte sind in allen
+fünf Modi unverändert (Kontrastzusage und Token-Liste nachgemessen). <strong>Sichtbar neu:</strong>
+Bildlaufleisten und Formularelemente des Browsers folgen dem gewählten Farbschema.
+<strong>Voraussetzung</strong> ist ein Browser mit <code>light-dark()</code>: Chrome und Edge ab 123, Firefox ab
+120, Safari ab 17.5.</li>
+  <li><strong>Der Wissens-Check erbt von der Visualisierung</strong> (<code>layout: visualization</code>), statt ihre
+Eigenschaften zu wiederholen. Er sieht aus wie bisher. <strong>Für die Konfiguration heißt das:</strong>
+Was unter <code>layouts.overrides.visualization.components</code> steht, gilt jetzt auch für <code>quiz</code>,
+solange <code>layouts.overrides.quiz</code> nichts anderes sagt. Den Kopierknopf liest der
+Wissens-Check weiterhin nicht aus; das Layout-Schema erlaubt dafür <code>switches.toolbar.copy: ~</code>
+– eine geerbte Deklaration zurücknehmen.</li>
+  <li><strong>Skip-Link, Druck-Kontaktzeile und Wortmarke</strong> stehen je in einem Include
+(<code>avd-skip-link.html</code>, <code>avd-print-contact.html</code>, <code>avd-logo.html</code>), das Kopfzeile, Rahmen,
+Präsentation und Simulation einbinden. Die Ausgabe ist unverändert.</li>
+  <li><strong>Die BreadcrumbList (JSON-LD) entsteht aus denselben Daten wie die sichtbare Brotkrume</strong>
+(<code>avd-breadcrumb-ld.html</code>) und nicht mehr aus dem gerenderten Markup; das Plugin
+<code>avd-structured-data.rb</code> entfällt.</li>
+</ul>
+
+<h4 id="prüfungen-selbstauskunft-gegen-ihr-schema">Prüfungen: Selbstauskunft gegen ihr Schema</h4>
+
+<ul>
+  <li><strong><code>validate.rb --json «datei» --schema «schema»</code></strong> prüft eine beliebige JSON-Datei gegen
+ein Schema, mit demselben Validator wie Front Matter und <code>_config.yml</code>.</li>
+  <li><code>bin/theme-contract.rb</code> prüft die erzeugte Selbstauskunft <code>contract/theme.json</code> damit
+gegen <code>contract/theme.schema.json</code> – bisher wurde sie nur mit den Layouts verglichen.</li>
+</ul>
+
+<h4 id="webschrift-aus-dem-theme-keine-verbindung-zu-google">Webschrift aus dem Theme, keine Verbindung zu Google</h4>
+
+<p>„Outfit“ liegt jetzt im Paket (<code>academy/fonts/</code>, Lizenz <code>OFL.txt</code>) – als <strong>eine variable
+Schrift</strong> in zwei Zeichenbereichen, rund 46 KB; erweitertes Latein lädt nur, wenn eine
+Seite solche Zeichen enthält. <strong>Keine Seite stellt mehr eine Verbindung zu
+<code>fonts.googleapis.com</code> oder <code>fonts.gstatic.com</code> her</strong>, und eine Unterlage erscheint auch
+ohne Netz in ihrer Schrift (ADR-0053). Das Paket wird um rund 50 KB größer.</p>
+
+<ul>
+  <li><code>head.html</code> lädt <code>academy/fonts.css</code> und die lateinische Datei vorab; das Fundament bindet
+es einzeln ein, ohne <code>atvantage/tokens/fonts.css</code>, die von Google Fonts lädt.</li>
+  <li><code>academy/atvantage.css</code> (Einbindung ohne Jekyll) bringt die Schrift selbst mit. Wer in
+einer eigenständigen HTML-Datei zusätzlich den Google-Fonts-Link gesetzt hat, kann ihn
+streichen.</li>
+</ul>
+
+<h4 id="verweise-neben-die-site-baseurl-false">Verweise neben die Site: <code>baseurl: false</code></h4>
+
+<p>Ein Verweis in <code>nav.items</code>, <code>footer.links.items</code> oder <code>resources</code> kann mit <code>baseurl: false</code>
+auf eine Adresse ab der Wurzel des Hosts zeigen – ohne die <code>baseurl</code> der Site davor. Für
+Ziele neben der Site unter demselben Host, etwa eine zweite Dokumentation.</p>
+
+<h4 id="breakpoints-an-einer-stelle">Breakpoints an einer Stelle</h4>
+
+<p>Das Layout schaltet an einer festen Skala um: <strong>480 / 600 / 768 / 900 / 960 px</strong>, genannt im
+Kopf von <code>academy/tokens.css</code>. Vorher waren es zwölf Werte in Pixeln und rem. Sichtbar ändert
+sich dadurch nur, <strong>ab welcher Breite</strong> einzelne Umbrüche greifen:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Was</th>
+      <th>vorher</th>
+      <th>jetzt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Material neben Übungen (<code>avd-academy-materials</code>) untereinander</td>
+      <td>800 px</td>
+      <td>768 px</td>
+    </tr>
+    <tr>
+      <td>Reiter als Seitenleiste wieder oben (<code>avd-academy-tabs--side</code>)</td>
+      <td>46rem (736 px)</td>
+      <td>768 px</td>
+    </tr>
+    <tr>
+      <td>Bild über der Überschrift im Hero</td>
+      <td>30rem (480 px)</td>
+      <td>480 px</td>
+    </tr>
+    <tr>
+      <td>Meta-Navigation aus</td>
+      <td>700 px</td>
+      <td>768 px</td>
+    </tr>
+    <tr>
+      <td>Spalten im Regie-Deck untereinander</td>
+      <td>62rem (992 px)</td>
+      <td>960 px</td>
+    </tr>
+    <tr>
+      <td>Knappe Steuerleiste der Simulation</td>
+      <td>620 px</td>
+      <td>600 px</td>
+    </tr>
+    <tr>
+      <td>Suche als Vollbild</td>
+      <td>640 px</td>
+      <td>600 px</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="eine-sprachregel-seitenverweise-auf-collection-dokumente">Eine Sprachregel, Seitenverweise auf Collection-Dokumente</h4>
+
+<ul>
+  <li><strong>Collection-Dokumente sind über <code>page:</code> erreichbar</strong> – in Navigation, Fußbereich und
+<code>resources</code>, über ihre <code>page_id</code> oder ihren Dateinamen. Zwei Dokumente mit derselben
+<code>page_id</code> und verschiedenem <code>lang</code> sind Sprachfassungen voneinander: Der Sprachumschalter
+und die <code>hreflang</code>-Angaben führen vom einen zum anderen.</li>
+  <li><strong>Eine Sprachregel für alles</strong> (<code>jekyll/_plugins/avd-language.rb</code>): <code>lang</code>, sonst der
+längste passende Sprachbaum, sonst die Standardsprache. Auch der Zielgruppenfilter und
+<code>validate.rb</code> rechnen damit, statt eine vereinfachte Fassung zu nutzen.</li>
+  <li><strong>Regionale Standardsprache bleibt an der Wurzel.</strong> Mit <code>lang: de-DE</code> und
+<code>i18n.languages</code> mit <code>code: de-DE</code> legte die Adressbildung die deutschen Seiten unter
+<code>/de-DE/</code>; jetzt bilden alle Stellen den Sprachbaum gleich.</li>
+  <li><strong>Seitenverweise schlagen nach, statt zu suchen.</strong> Das Theme legt je Bau eine Tabelle der
+Seiten an (<code>site.data.avd_pages</code>); die Bauzeit der Doku-Site sank von rund 13 auf rund 5
+Sekunden, die Ausgabe ist unverändert.</li>
+  <li><strong><code>/schemas/validate.rb</code> braucht <code>avd-language.rb</code> daneben.</strong> Die Doku-Site
+veröffentlicht beide (<code>bin/publish-schemas.sh</code>); wer die Datei einzeln herunterlädt,
+lädt die zweite mit.</li>
+</ul>
+
+<h4 id="adressen-permalinks-und-suche">Adressen, Permalinks und Suche</h4>
+
+<ul>
+  <li><strong><code>perma_id</code> ohne <code>lang</code> bricht den Bau nicht mehr ab</strong> (Ruby-Fehler). Die Seite bekommt
+den Permalink-Vorsatz ihres Sprachbaums bzw. der Standardsprache.</li>
+  <li><strong>Permalinks bleiben im Sprachbaum</strong>, auch wenn eine Seite unter <code>en/</code> kein <code>lang</code> trägt
+(<code>/en/p/…</code>). <code>avd-permalinks.json</code> nennt in <code>lang</code> die tatsächliche Sprache.</li>
+  <li><strong>Übersetzungen neben dem Original bekommen ihren Sprachpräfix</strong> (<code>/en/…</code>) auch, wenn die
+Site nirgends <code>slug</code> oder <code>folder_slug</code> verwendet – sofern die Sprache in
+<code>i18n.languages</code> deklariert ist.</li>
+  <li><strong><code>folder_slug</code> als Text je Index-Datei</strong> (<code>index.md</code>, <code>index_en.md</code>) benennt den Ordner
+für die Sprache dieser Datei, wie in „Adressen“ beschrieben; bisher brach das den Bau ab.</li>
+  <li><strong>Seiten ohne Front Matter</strong> folgen dem <code>folder_slug</code> ihres Ordners und zählen in der
+Kollisionsprüfung mit; Verweise auf sie ziehen mit. Die Permalinks laufen fest nach der
+Adressbildung.</li>
+  <li><strong>Weiterleitungsseiten der Permalinks tragen <code>noindex</code>.</strong></li>
+  <li><strong>Unter <code>jekyll serve</code> sammeln sich keine Schreib-Haken mehr.</strong> <code>avd-permalinks.json</code>,
+<code>.avd-permalinks</code> und <code>.avd-addresses</code> zeigen den Stand des letzten Laufs.</li>
+  <li><strong>Spuren:</strong> <code>.avd-addresses</code> zählt <code>abgebildet=</code> richtig; <code>.avd-permalinks</code> und die
+Warnung zu nie greifenden Einträgen nennen den Vorsatz als Pfad.</li>
+  <li><strong>Suche:</strong> Eine Seite ohne Front Matter erscheint mit ihrer ersten Überschrift als Titel.</li>
+</ul>
+
+<h4 id="prüfungen-und-schemas">Prüfungen und Schemas</h4>
+
+<ul>
+  <li><strong><code>validate.rb</code> prüft <code>audiences</code> im Front Matter.</strong> Ein Tippfehler wie
+<code>audiences: [lerner]</code> oder eine Zielgruppe ohne Deklaration ging ohne Meldung durch.</li>
+  <li><strong><code>filter.rb</code> verändert bei einem Befund nichts mehr</strong> – er endet, bevor er löscht.</li>
+  <li><strong>Schema- und Liquid-Prüfung folgen Symlinks</strong>, wie Jekyll außerhalb des Safe Mode baut.
+Jedes Verzeichnis wird nur einmal betreten. Der Zielgruppenfilter folgt Symlinks bewusst
+<strong>nicht</strong>: Er löscht und überschreibt Dateien.</li>
+  <li><strong>Schema-Archiv vollständig:</strong> <code>config/3</code> und <code>frontmatter/2</code> sind wieder erreichbar.
+<code>bin/publish-schemas.sh --check-archive</code> prüft gegen die Git-Historie, dass keine
+veröffentlichte Fassung fehlt.</li>
+  <li><strong>Schema-Beschreibungen</strong> nennen die gültigen Fassungen und die aktuellen Feldnamen.</li>
+  <li><strong>Kontrastbericht nennt WCAG 2.2.</strong></li>
+  <li><strong><code>a11y.mjs</code> und die Kontrastmessung enden direkt nach dem Bericht</strong> statt rund 30 s später.</li>
+  <li><strong>Pfadmuster an einer Stelle:</strong> <code>--include</code>/<code>--exclude</code>/<code>--ignore</code> liest
+<code>jekyll/path_scope.rb</code> für <code>links.rb</code>, <code>components.rb</code> und <code>contrast.rb</code> und
+<code>jekyll/path-scope.mjs</code> für <code>a11y.mjs</code> und <code>readability.mjs</code>; ein Test vergleicht beide.
+Das Verhalten bleibt gleich.</li>
+  <li><strong>Liquid-Erkennung an einer Stelle:</strong> <code>jekyll/liquid_syntax.rb</code>, genutzt von <code>liquid.rb</code>.
+Das Theme ist die Quelle dieser Regel; ATLAS kann sie aus dem Paket laden.</li>
+</ul>
+
+<h4 id="starter-vorlagen-und-doku">Starter, Vorlagen und Doku</h4>
+
+<ul>
+  <li><strong>Eine Pipeline-Vorlage: der Starter.</strong> <code>jekyll/starter/pages.yml</code> bezieht das Theme per
+npm samt <code>contract/</code>, baut mit <code>theme/jekyll/_bin/build.sh</code> (Schemaprüfung vorab,
+Zielgruppe über <code>AUDIENCE</code>) und prüft mit <code>academy-theme-actions@v4</code>. Die Kopiervorlagen
+<code>deploy.example.yml</code> und <code>_config.example.yml</code> sind dieselben Dateien mit Kopfzeile;
+beide Konfigurationen bestehen das aktuelle Schema (Vorlagenversion siehe oben).
+Schulungs-Repositories bauen über das Didaktikon.</li>
+  <li><strong>Marken und Bindung:</strong> Doku, Vorlagen und Starter nennen <code>academy-theme-actions@v4</code> und
+die Bindung <code>^4</code>; die Release-Notizen leiten die Bindung aus der Version ab.</li>
+  <li><strong>Einbindung als Git-Submodule</strong> ist kein beschriebener Weg mehr; die Doku nennt npm,
+Einkopieren und Verlinken.</li>
+  <li>Korrigierte Doku: Schema-Fassungen und Optionen von <code>validate.rb</code>, Ladereihenfolge der
+Konfigurationen, „Prüfen, ohne zu bauen“ mit <code>filter.rb --into</code>, <code>bin/migrate.rb</code> als
+Werkzeug des Theme-Repos.</li>
+</ul>
+
+<h4 id="werkzeugketten">Werkzeugketten</h4>
+
+<p>GitHub-Runner führen JavaScript-Actions nur noch mit Node 24 aus; Node 20 ist entfernt (#295).</p>
+
+<ul>
+  <li><strong>Starter und Kopiervorlage</strong> (<code>jekyll/starter/pages.yml</code>, <code>deploy.example.yml</code>) richten
+<strong>Ruby 4.0</strong> und <strong>Node 24</strong> ein und nutzen Actions, die mit Node 24 laufen:
+<code>checkout@v7</code>, <code>setup-node@v7</code>, <code>configure-pages@v6</code>, <code>upload-pages-artifact@v5</code>,
+<code>deploy-pages@v5</code>. <code>setup-node</code> legt keinen npm-Cache an (<code>package-manager-cache: false</code>),
+weil das Theme ohne Lockfile kommt.</li>
+  <li><strong>Pages-Artefakt ohne versteckte Dateien:</strong> <code>upload-pages-artifact</code> lässt seit v4
+Dateien mit Punkt am Anfang weg. Die Spuren <code>.avd-addresses</code> und <code>.avd-permalinks</code> sowie
+<code>.nojekyll</code> erscheinen damit nicht mehr in der veröffentlichten Site; gebraucht werden
+sie dort nicht.</li>
+  <li><strong>Suche unter Ruby 4.0:</strong> Das Suchplugin lädt aus der CGI-Bibliothek nur <code>cgi/escape</code>.
+Ruby 4.0 hat den Rest entfernt und warnte bei <code>require 'cgi'</code>.</li>
+  <li><strong>Docker-Image der Doku-Site</strong> auf <code>ruby:4.0</code>; das Gemfile verlangt Jekyll 4.4, das
+<code>csv</code> und <code>base64</code> selbst mitbringt. Das Beispiel-Dockerfile der Doku nennt ebenfalls
+<code>ruby:4.0</code>.</li>
+</ul>
+
+<h4 id="repository">Repository</h4>
+
+<ul>
+  <li><strong>Veröffentlicht wird in einem Lauf hinter den Tests</strong> (ADR-0063): Der neue Workflow
+<code>release</code> startet bei jedem Push auf <code>main</code>, ermittelt die betroffenen Bereiche
+(<code>bin/release-bereiche.rb</code>), lässt die Testsuite laufen und ruft erst danach
+<code>npm-publish</code>, <code>pages</code> (mit Deploy), <code>plugin-sync</code>, <code>actions-sync</code> und
+<code>release-nachlauf</code> als Bausteine. Rote Tests halten jede Veröffentlichung an – bisher
+nur das Paket. Die Bausteine haben keinen eigenen Auslöser auf <code>main</code> mehr; von Hand
+veröffentlicht nur <code>release</code>.</li>
+  <li><strong>Werkzeuge ohne Theme:</strong> <code>a11y.mjs</code> misst eine Seite mit
+<code>&lt;meta name="avd-academy-theme" content="none"&gt;</code> wie sie ist, statt sie mangels
+Theme-Stylesheet als unmessbar zu werten – für Seiten, die bewusst ohne Theme
+ausgeliefert werden.</li>
+</ul>
+
+<p>Das Repository ist umgebaut: Die Theme-Quellen liegen unter <code>src/</code>, die Benutzerdoku unter
+<code>user-docs/</code>, die Vorlagen unter <code>templates/</code>. Am Paket ändert sich dadurch nichts; die
+Verweise in README und CHANGELOG zeigen auf die neuen Orte. Eine Testsuite (<code>make test</code>)
+deckt Theme, Werkzeuge, Vorlagen und Plugin-Build ab.</p>
+
+<p>Die Pipelines des Repositorys sind gegen stille Lücken abgesichert (ADR-0058):</p>
+
+<ul>
+  <li><strong>Nachlauf der Veröffentlichungen</strong> (<code>release-nachlauf</code>): Als letzter Baustein von
+<code>release</code>, sobald <code>npm-publish</code>, <code>plugin-sync</code> oder <code>actions-sync</code> gelaufen ist, holt
+<code>bin/release-nachlauf.rb</code> fehlende Marken und Releases nach – Marke und Release des
+Pakets, Marke im Plugin-Spiegel, feste und bewegliche Marke der Prüf-Bausteine.
+Idempotent; von Hand zeigt er nur, was fehlt.</li>
+  <li><strong>Fehlender Deploy-Key auf <code>main</code> ist ein Fehler</strong>: <code>plugin-sync</code> und <code>actions-sync</code>
+scheitern, statt den Spiegel mit einer Warnung zurückzulassen.</li>
+  <li><strong>Workflows des Plugin-Spiegels aus der Quelle</strong>: <code>plugin/mirror/.github/</code> wird
+mitgespiegelt; Werkzeugketten-Test und <code>workflows-lint</code> prüfen ihn.</li>
+  <li><strong>Sperrliste von <code>pages</code></strong> wird geprüft: Jeder andere Workflow muss darin stehen.</li>
+</ul>
+
+<h4 id="was-ein-projekt-prüfen-sollte">Was ein Projekt prüfen sollte</h4>
+
+<ul>
+  <li><strong>Adressen:</strong> Übersetzungen neben dem Original ohne Slug, Seiten ohne Front Matter in
+Ordnern mit <code>folder_slug</code> und Permalinks unter <code>en/</code> ohne <code>lang</code> liegen jetzt dort, wo die
+Doku sie zusagt – also unter einer anderen Adresse als bisher.</li>
+  <li><strong>Zielgruppen:</strong> <code>validate.rb</code> meldet jetzt Tippfehler in <code>audiences</code> einer Seite; ein
+bisher grüner Lauf kann rot werden.</li>
+  <li><strong>Fußbereich:</strong> Verweise mit <code>audiences</code> erscheinen nur noch in ihrer Ausgabe.</li>
+  <li><strong>Sprache aus dem Dateinamen:</strong> Der Zielgruppenfilter hielt <code>seite_en.md</code> ohne <code>lang</code> für
+englisch. Nach der Regel des Themes ist sie das nicht – sie liegt in der Standardsprache
+unter <code>/seite_en.html</code>. Trägt eine solche Datei denselben <code>slug</code> wie ihr Original, meldet
+der Filter jetzt die Doppelbelegung, die der Bau ohnehin hätte. Abhilfe: <code>lang: en</code>.</li>
+</ul>
 
 <h2 id="3170">3.17.0</h2>
 
@@ -540,7 +1061,7 @@ Deklaration rät, wäre schlimmer als keine.</p>
 
 <h3 id="ein-layout-sagt-jetzt-selbst-welche-schalter-es-liest">Ein Layout sagt jetzt selbst, welche Schalter es liest</h3>
 
-<p><strong>Minor.</strong> Die Zuständigkeit der <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/layouts.md#schalter">Schalter</a>
+<p><strong>Minor.</strong> Die Zuständigkeit der <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/theme/layouts.md#schalter">Schalter</a>
 stand bis hierher als Liste von <strong>Layout-Namen</strong> im Auflöser <code>avd-switch.html</code>. Jetzt
 deklariert jedes Layout sie in seinem eigenen Front Matter, in derselben Form wie
 Konfiguration und Front Matter einer Seite:</p>
@@ -853,7 +1374,7 @@ schon zentriert und bleiben, wie sie sind. Gemeldet aus
 
 <p><strong>Patch.</strong> Dass die Wortmarke mit <code>brand.logo_ratio</code> die Akzentfarbe annimmt, stand bisher
 nur als Mechanik in der Doku – nicht als Entscheidung. Jetzt steht in
-<a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/academy.md">Academy-Design</a>, <strong>warum</strong> eine Marke das hier darf: Auf einer
+<a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/theme/academy.md">Academy-Design</a>, <strong>warum</strong> eine Marke das hier darf: Auf einer
 Unterlage ist die Wortmarke die Kopfzeile des Materials, nicht der Absender. Und daraus
 folgt die Regel, an der sich künftige Layouts messen lassen müssen – <strong>alle</strong> tragen
 dieselbe Umschaltung, auch die mit eigener Kopfleiste.</p>
@@ -2687,7 +3208,7 @@ Adresse, Vor/Zurück, tiefer Verweis in einen geschlossenen Reiter, <code>open=<
 abgemeldeter Baustein, unbekannter Wert, und das Fragment einer Präsentationsseite bleibt
 unangetastet.</p>
 
-<p><strong>Doku:</strong> <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/funktionen/zustand-in-der-url.md">Zustand in der Adresse</a>
+<p><strong>Doku:</strong> <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/funktionen/zustand-in-der-url.md">Zustand in der Adresse</a>
 und je Baustein ein Abschnitt in <code>docs/theme/bausteine.md</code>.</p>
 
 <h2 id="2450">2.45.0</h2>
@@ -5405,7 +5926,7 @@ es in alten Engines bei Weiß wie bisher.</p>
 <p><strong>Was sich sichtbar ändert:</strong> Im Auslieferungszustand trägt der Abspiel-Knopf jetzt
 <strong>schwarze statt weißer</strong> Schrift auf Orange (6,52:1 statt 3,22:1). Das ist eine
 Abweichung vom ATVANTAGE-Fundament, das bei <code>Tag</code>/orange selbst Weiß auf Orange setzt –
-begründet und eingetragen in <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/academy.md"><code>docs/theme/academy.md</code></a>.</p>
+begründet und eingetragen in <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/theme/academy.md"><code>docs/theme/academy.md</code></a>.</p>
 
 <h4 id="--avd-academy-color-ink-muted-unter-aa-auf-abgesetzten-flächen"><code>--avd-academy-color-ink-muted</code> unter AA auf abgesetzten Flächen</h4>
 
@@ -5588,7 +6109,7 @@ unter mehreren Hosts ausgeliefert – lokal, im Container, in der Cloud, alles a
 Image –, kann der Build die Adresse gar nicht kennen; <code>url</code> ist dort die falsche Antwort.
 Die Doku benennt den Fall jetzt und beschreibt das Muster dafür (Platzhalter zur Bauzeit,
 den der ausliefernde Dienst je Anfrage ersetzt):
-<a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/verwendung/einbindung.md">Einbindung → Eine Site unter mehreren Adressen</a>.</p>
+<a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/verwendung/einbindung.md">Einbindung → Eine Site unter mehreren Adressen</a>.</p>
 
 <h2 id="254">2.5.4</h2>
 
@@ -5666,7 +6187,7 @@ Blindheit hat 2.5.1 grün durchlaufen lassen.</p>
 <p><strong>Für Konsumenten:</strong> Beide Workflow-Vorlagen (<code>github-pages/deploy.example.yml</code>,
 <code>theme/jekyll/starter/pages.yml</code>, Vorlagenversion <strong>10</strong>) rufen die Prüfung nach dem
 Build auf. Wer eine ältere Kopie hat, zieht den Schritt nach – nötig ist er nicht.
-Doku: <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/funktionen/github-pages.md">GitHub Pages → Tote Verweise finden</a>.</p>
+Doku: <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/funktionen/github-pages.md">GitHub Pages → Tote Verweise finden</a>.</p>
 
 <h3 id="behoben-die-automatische-brotkrume-verlinkte-ordner-die-es-nicht-gibt">Behoben: die automatische Brotkrume verlinkte Ordner, die es nicht gibt</h3>
 
@@ -5927,7 +6448,7 @@ Screenshots das müssen.</p>
 
 <p>Neu: <code>theme/jekyll/_includes/avd-i18n.html</code> (Sprache, Sprachfassungen, Wörterbuch),
 <code>theme/jekyll/_includes/avd-lang-value.html</code> (Sprachkarten auflösen), die Klasse
-<code>avd-academy-tool--lang</code>. Doku: <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/funktionen/mehrsprachigkeit.md">Mehrsprachigkeit</a>.</p>
+<code>avd-academy-tool--lang</code>. Doku: <a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/funktionen/mehrsprachigkeit.md">Mehrsprachigkeit</a>.</p>
 
 <hr />
 
@@ -6596,48 +7117,50 @@ Projekt, <strong>nach</strong> dem Release.</p>
 <strong>Jeder Eintrag ist technische Schuld mit Verfallsdatum:</strong> Beim nächsten
 Major-Sprung wird die Liste durchgegangen und geleert.</p>
 
-<p><strong>Offen für den nächsten Major (4.0)</strong> – verfolgt in Issue #269:</p>
+<p><strong>Offen für den nächsten Major (5.0):</strong> nichts.</p>
+
+<p><strong>Für 4.0 durchgegangen und geleert</strong> (#269). Fünf Einträge standen drin, alle sind weg:</p>
 
 <table>
   <thead>
     <tr>
       <th>Seit</th>
       <th>Schicht</th>
-      <th>beim Major zu tun</th>
+      <th>erledigt in</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>3.11.0</td>
       <td><code>permaid</code> als Alias für <code>perma_id</code> (Front Matter)</td>
-      <td>Feld aus <code>frontmatter.schema.json</code> und aus <code>AvdAcademy::Aliases::FRONT_MATTER</code> entfernen</td>
+      <td>4.0 – Feld aus <code>frontmatter.schema.json</code> (Fassung 5) und aus <code>AvdAcademy::Aliases::FRONT_MATTER</code> entfernt; <code>bin/migrate.rb --from 3 --to 4</code> benennt um</td>
     </tr>
     <tr>
       <td>3.11.0</td>
       <td>Schlüssel <code>permaid</code> neben <code>perma_id</code> in <code>avd-permalinks.json</code></td>
-      <td>aus <code>avd-permalinks.rb</code> entfernen</td>
+      <td>4.0 – aus <code>avd-permalinks.rb</code> entfernt</td>
     </tr>
     <tr>
       <td>3.14.0</td>
       <td><code>layout: default</code> auf einer Seite ist ein Hinweis, kein Fehler</td>
-      <td>Standard von <code>checks.abstract_layouts</code> auf <code>error</code> setzen (Stufe seit 3.16.0) und <code>bin/migrate.rb</code> eine Stufe <code>layout: default → page</code> geben</td>
+      <td>4.0 – Standard von <code>checks.abstract_layouts</code> ist <code>error</code>; <code>bin/migrate.rb</code> schreibt <code>layout: default</code> auf <code>page</code> um</td>
     </tr>
     <tr>
       <td>3.16.0</td>
       <td>eigene Assets, wo das Layout <code>source_assets: false</code> trägt, sind standardmäßig nur ein Hinweis</td>
-      <td>Standard von <code>checks.source_assets</code> auf <code>error</code> setzen</td>
+      <td>4.0 – Standard von <code>checks.source_assets</code> ist <code>error</code></td>
     </tr>
     <tr>
       <td>3.14.0</td>
       <td><code>components</code> und <code>components.layouts</code> neben <code>layouts</code></td>
-      <td>Rückfall in <code>avd-switch.html</code> und die veralteten Zweige im Config-Schema entfernen; <code>bin/migrate.rb</code> die Stufe geben</td>
+      <td>4.0 – Rückfall aus <code>avd-setting.html</code> und Zweige aus dem Config-Schema (Fassung 11) entfernt; die Schemaprüfung meldet den Block; <code>bin/migrate.rb</code> zieht nach <code>layouts</code> um</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>Projekte müssen dann:</strong> <code>permaid:</code> im Front Matter in <code>perma_id:</code> umbenennen – der
-Schemaprüfer nennt bis dahin jede Stelle. Wer <code>avd-permalinks.json</code> in einer eigenen
-Pipeline liest, stellt dort auf den Schlüssel <code>perma_id</code> um.</p>
+<p><strong>Projekte müssen danach:</strong> die Schritte unter „Brüche und Umstellung“ in 4.0.0 gehen –
+<code>ruby «klon»/bin/migrate.rb --from 3 --to 4 --root «repo» --write</code> erledigt die Umbenennungen.
+Wer <code>avd-permalinks.json</code> in einer eigenen Pipeline liest, liest den Schlüssel <code>perma_id</code>.</p>
 
 <p><strong>Für 3.0 durchgegangen und geleert.</strong> Zwei Einträge standen drin, beide sind weg:</p>
 
@@ -7687,7 +8210,7 @@ Schlusszeile einer Zelle), an <code>&lt;tr&gt;</code>: <code>…__gap</code> (Zw
 <code>…__free</code> (freier Raum innerhalb einer Gruppe), <code>…__alert</code> (Ankündigung, dass das
 Raster verlassen wird). Dazu <code>avd-academy-grouptable-legend</code> mit
 <code>…__key--tone-*</code> / <code>…__key--gap</code>. Markup, Beispiel und Grenzen:
-<a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/docs/theme/academy.md">Doku, Abschnitt „Gruppierte Tabelle“</a>.</p>
+<a href="https://timetoact.ghe.com/AVD-Academy-Tools/academy-theme/blob/main/user-docs/docs/theme/academy.md">Doku, Abschnitt „Gruppierte Tabelle“</a>.</p>
 
 <p><strong>Neue Tokens: <code>--avd-academy-tone-1..4</code> und <code>--avd-academy-tone-alert.</code></strong> Sie leiten
 sich aus der kategorialen Füllpalette (<code>--avd-academy-fill-*</code>) bzw. der Danger-Farbe

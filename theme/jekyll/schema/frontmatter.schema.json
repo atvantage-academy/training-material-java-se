@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Academy-Theme – Front Matter einer Seite",
-  "description": "Alle Front-Matter-Felder, die das Academy-Theme einer Markdown-Seite ausliest. Schema-Version 2. Jedes Feld ist optional; zu jedem gibt es einen Standardwert. Draft-07, weil die IDE-Auflöser (VS Code / JetBrains) diesen Entwurf am verlässlichsten unterstützen.",
+  "description": "Alle Front-Matter-Felder, die das Academy-Theme einer Markdown-Seite ausliest. Schema-Version 1.0.0. Jedes Feld ist optional; zu jedem gibt es einen Standardwert. Draft-07, weil die IDE-Auflöser (VS Code / JetBrains) diesen Entwurf am verlässlichsten unterstützen.",
   "type": "object",
   "additionalProperties": false,
   "patternProperties": {
@@ -160,21 +160,11 @@
     "perma_id": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-      "description": "PERMALINK DIESER SEITE – eine kurze Adresse, die NIE wechselt: für den Beamer, einen QR-Code auf Papier, einen Link im Ticket. Die Zeile IST der Schalter; ohne sie bekommt die Seite keinen. EINE ID IST EIN VERSPRECHEN, dass die Adresse bleibt – sie wird nicht geändert, auch nicht, wenn der Titel sich ändert, sonst ist jeder ausgegebene Link tot. Erlaubt sind Kleinbuchstaben, Ziffern und Bindestriche. EINDEUTIG JE SPRACHBAUM: Dieselbe ID in der deutschen und der englischen Fassung ist in Ordnung – der Pfad hält sie auseinander. NICHT `slug`: Der benennt ein Segment an Ort und Stelle um, der Baum überlebt; ein Permalink ist eine globale Adresse. UND NICHT `permalink`: Das gehört Jekyll und setzt schlicht die Adresse DIESER Seite – ohne Kollisionsprüfung, ohne Weiterleitung, ohne Eintrag in `avd-permalinks.json`. Stehen beide auf einer Seite, gewinnt in `full` das `permaid`. Wirkt nur bei `permalinks.mode: full` oder `light`.",
+      "description": "PERMALINK DIESER SEITE – eine kurze Adresse, die NIE wechselt: für den Beamer, einen QR-Code auf Papier, einen Link im Ticket. Die Zeile IST der Schalter; ohne sie bekommt die Seite keinen. EINE ID IST EIN VERSPRECHEN, dass die Adresse bleibt – sie wird nicht geändert, auch nicht, wenn der Titel sich ändert, sonst ist jeder ausgegebene Link tot. Erlaubt sind Kleinbuchstaben, Ziffern und Bindestriche. EINDEUTIG JE SPRACHBAUM: Dieselbe ID in der deutschen und der englischen Fassung ist in Ordnung – der Pfad hält sie auseinander. NICHT `slug`: Der benennt ein Segment an Ort und Stelle um, der Baum überlebt; ein Permalink ist eine globale Adresse. UND NICHT `permalink`: Das gehört Jekyll und setzt schlicht die Adresse DIESER Seite – ohne Kollisionsprüfung, ohne Weiterleitung, ohne Eintrag in `avd-permalinks.json`. Stehen beide auf einer Seite, gewinnt in `full` die `perma_id`. Wirkt nur bei `permalinks.mode: full` oder `light`.",
       "examples": [
         "http-grundlagen",
         "k7f3q"
       ]
-    },
-    "permaid": {
-      "type": "string",
-      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
-      "description": "VERALTET: benutze `perma_id`. Der Name wird mit dem nächsten Major entfernt; bis dahin wirkt er unverändert. Stehen beide auf einer Seite, gewinnt `perma_id`. Hintergrund: Zusammengesetzte Feldnamen des Themes schreiben sich mit Unterstrich (`page_id`, `folder_slug`, `og_image`) – `permaid` war der einzige, der es nicht tat. PERMALINK DIESER SEITE – eine kurze Adresse, die NIE wechselt: für den Beamer, einen QR-Code auf Papier, einen Link im Ticket. Die Zeile IST der Schalter; ohne sie bekommt die Seite keinen. EINE ID IST EIN VERSPRECHEN, dass die Adresse bleibt – sie wird nicht geändert, auch nicht, wenn der Titel sich ändert, sonst ist jeder ausgegebene Link tot. Erlaubt sind Kleinbuchstaben, Ziffern und Bindestriche. EINDEUTIG JE SPRACHBAUM: Dieselbe ID in der deutschen und der englischen Fassung ist in Ordnung – der Pfad hält sie auseinander. NICHT `slug`: Der benennt ein Segment an Ort und Stelle um, der Baum überlebt; ein Permalink ist eine globale Adresse. UND NICHT `permalink`: Das gehört Jekyll und setzt schlicht die Adresse DIESER Seite – ohne Kollisionsprüfung, ohne Weiterleitung, ohne Eintrag in `avd-permalinks.json`. Stehen beide auf einer Seite, gewinnt in `full` das `permaid`. Wirkt nur bei `permalinks.mode: full` oder `light`.",
-      "examples": [
-        "http-grundlagen",
-        "k7f3q"
-      ],
-      "deprecated": true
     },
     "permalink": {
       "type": "string",
@@ -301,11 +291,11 @@
             },
             "title": {
               "$ref": "frontmatter.schema.json#/definitions/language_text",
-              "description": "Überschrift der Karte. STANDARD: „Auf dieser Seite“. Site-weit unter `components.sidebar.toc.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
+              "description": "Überschrift der Karte. STANDARD: „Auf dieser Seite“. Site-weit unter `layouts.default_values.components.sidebar.toc.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
             },
             "open": {
               "type": "boolean",
-              "description": "Startet die Karte aufgeklappt? OHNE ANGABE entscheidet die Schwelle `components.sidebar.toc.open_threshold` der `_config.yml` – und zugeklappt startet das Verzeichnis nur, wenn UNTER ihm noch eine Karte steht (Fortschritt, Verweise), die es sonst aus dem Bild schiebt. Ist es das letzte Element der Sidebar, bleibt es offen: Ein Klick, der nichts freilegt, lohnt nicht."
+              "description": "Startet die Karte aufgeklappt? OHNE ANGABE entscheidet die Schwelle `layouts.default_values.components.sidebar.toc.open_threshold` der `_config.yml` – und zugeklappt startet das Verzeichnis nur, wenn UNTER ihm noch eine Karte steht (Fortschritt, Verweise), die es sonst aus dem Bild schiebt. Ist es das letzte Element der Sidebar, bleibt es offen: Ein Klick, der nichts freilegt, lohnt nicht."
             }
           }
         },
@@ -320,7 +310,7 @@
             },
             "title": {
               "$ref": "frontmatter.schema.json#/definitions/language_text",
-              "description": "Überschrift der Karte. STANDARD: „Fortschritt“. Site-weit unter `components.sidebar.progress.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
+              "description": "Überschrift der Karte. STANDARD: „Fortschritt“. Site-weit unter `layouts.default_values.components.sidebar.progress.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
             }
           }
         },
@@ -336,11 +326,11 @@
             },
             "title": {
               "$ref": "frontmatter.schema.json#/definitions/language_text",
-              "description": "Überschrift der Karte. STANDARD: „Weiterführende Informationen“. Site-weit unter `components.sidebar.resources.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
+              "description": "Überschrift der Karte. STANDARD: „Weiterführende Informationen“. Site-weit unter `layouts.default_values.components.sidebar.resources.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
             },
             "open": {
               "type": "boolean",
-              "description": "Startet die Karte aufgeklappt? Eine Angabe hier macht die Karte überhaupt erst klappbar – ohne sie und ohne die Schwelle `components.sidebar.resources.open_threshold` ist sie ein gewöhnlicher Kasten."
+              "description": "Startet die Karte aufgeklappt? Eine Angabe hier macht die Karte überhaupt erst klappbar – ohne sie und ohne die Schwelle `layouts.default_values.components.sidebar.resources.open_threshold` ist sie ein gewöhnlicher Kasten."
             }
           }
         }
@@ -434,7 +424,7 @@
                     "default": {
                       "type": "boolean",
                       "default": false,
-                      "description": "Diesen Bereich in der Suche vorauswählen. Höchstens ein Bereich der Site darf das tragen, sonst bricht der Build ab; ohne Marke ist „Alle“ vorausgewählt."
+                      "description": "Diesen Bereich in der Suche vorauswählen. Höchstens ein Bereich der Site darf das tragen, sonst bricht der Build ab; ohne Marke ist „Alle“ vorausgewählt. WIRKT NUR bei `search.preselect: default` – bei Bereichen aus Indexseiten ist ohne Angabe `current` die Vorgabe, dann gilt der Bereich der aktuellen Seite."
                     },
                     "includes": {
                       "type": "array",
@@ -499,7 +489,7 @@
             },
             "title": {
               "$ref": "frontmatter.schema.json#/definitions/language_text",
-              "description": "Tooltip und Beschriftung für Screenreader. STANDARD: „Markdown kopieren“. Site-weit unter `components.toolbar.copy.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
+              "description": "Tooltip und Beschriftung für Screenreader. STANDARD: „Markdown kopieren“. Site-weit unter `layouts.default_values.components.toolbar.copy.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
             }
           }
         },
@@ -515,7 +505,7 @@
             },
             "title": {
               "$ref": "frontmatter.schema.json#/definitions/language_text",
-              "description": "Tooltip und Beschriftung für Screenreader. In der Präsentation lautet die Vorgabe „Drucken (alle Folien)“ – dort druckt der Knopf alle. STANDARD: „Diese Seite drucken“. Site-weit unter `components.toolbar.print.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
+              "description": "Tooltip und Beschriftung für Screenreader. In der Präsentation lautet die Vorgabe „Drucken (alle Folien)“ – dort druckt der Knopf alle. STANDARD: „Diese Seite drucken“. Site-weit unter `layouts.default_values.components.toolbar.print.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
             }
           }
         },
@@ -531,7 +521,7 @@
             },
             "title": {
               "$ref": "frontmatter.schema.json#/definitions/language_text",
-              "description": "Tooltip und Beschriftung für Screenreader. STANDARD: „Diese Seite auf Deinem Smartphone öffnen“. Site-weit unter `components.toolbar.qr.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
+              "description": "Tooltip und Beschriftung für Screenreader. STANDARD: „Diese Seite auf Deinem Smartphone öffnen“. Site-weit unter `layouts.default_values.components.toolbar.qr.title`, je Seite hier – ein Repo, das seine Übungen anders nennt, soll das auch hier tun können, ohne das Theme anzufassen. Eine leere Zeichenkette gilt NICHT als Angabe; wer die Beschriftung loswerden will, schaltet den Baustein über `enabled` ab. MEHRSPRACHIG: auch als Sprachkarte."
             }
           }
         },
@@ -544,6 +534,49 @@
               "type": "boolean",
               "default": true,
               "description": "Umschalter anbieten. Auf `false` für eine Site, die beide Sprachen führt, den Wechsel aber nicht anbieten will."
+            }
+          }
+        }
+      }
+    },
+    "effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Effekte – das optische Erkennungsmerkmal von Theme 4 (ADR-0061). Jeder ist einzeln abschaltbar; Browser ohne Unterstützung zeigen die Seite wie ohne ihn.",
+      "properties": {
+        "page_transitions": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Sanfter Übergang zur nächsten Seite; der Seitentitel gleitet an seinen Platz. Ein Übergang findet nur zwischen zwei Seiten statt, für die der Effekt an ist – ist er für eine aus, wechselt sie hart, als Start wie als Ziel. Unter `prefers-reduced-motion: reduce` immer aus. GILT IN: `page`, `guide`, `visualization`, `quiz`.",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Ist der Effekt an? STANDARD: an."
+            }
+          }
+        },
+        "translucent_header": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Die Kopfzeile wird beim Scrollen leicht durchscheinend, mit Unschärfe und feiner Akzentkante; oben auf der Seite bleibt sie deckend. GILT IN: `page`, `guide` (Layouts mit Kopfzeile).",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Ist der Effekt an? STANDARD: an."
+            }
+          }
+        },
+        "reading_progress": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Lesefortschritt als 2-px-Linie in der Schulungsfarbe am oberen Rand; wächst mit dem Scrollweg der Seite. Nie im Druck. GILT IN: `page`, `guide`, `visualization`, `quiz`.",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true,
+              "description": "Ist der Effekt an? STANDARD: an."
             }
           }
         }
@@ -601,6 +634,10 @@
         "url": {
           "$ref": "frontmatter.schema.json#/definitions/language_text",
           "description": "Ziel, site-relativ (führender `/`). Absolute URLs (`://`) öffnen in einem neuen Tab. MEHRSPRACHIG: auch als Sprachkarte `{ de: …, en: … }`."
+        },
+        "baseurl": {
+          "type": "boolean",
+          "description": "Nur bei `url`: `false` – die Adresse gilt ab der Wurzel des Hosts, ohne die `baseurl` der Site davor. Für Ziele NEBEN der Site unter demselben Host, etwa eine zweite Dokumentation. STANDARD: keine Angabe = die `baseurl` steht davor."
         },
         "page": {
           "$ref": "frontmatter.schema.json#/definitions/page_reference"

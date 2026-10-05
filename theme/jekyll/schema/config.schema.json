@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Academy-Theme – _config.yml einer Site",
-  "description": "Die Jekyll-Konfiguration einer Site, die das Academy-Theme nutzt: der von Jekyll selbst gelesene Standard PLUS die Schlüssel, die das Theme ausliest. Schema-Version 2. An der Oberfläche bewusst OFFEN (`additionalProperties`): Jekyll-Plugins und die Site selbst dürfen eigene Schlüssel setzen. Getippte Schlüssel werden geprüft, unbekannte durchgelassen.",
+  "description": "Die Jekyll-Konfiguration einer Site, die das Academy-Theme nutzt: der von Jekyll selbst gelesene Standard PLUS die Schlüssel, die das Theme ausliest. Schema-Version 1.0.0. An der Oberfläche bewusst OFFEN (`additionalProperties`): Jekyll-Plugins und die Site selbst dürfen eigene Schlüssel setzen. Getippte Schlüssel werden geprüft, unbekannte durchgelassen.",
   "type": "object",
   "properties": {
     "title": {
@@ -113,7 +113,7 @@
     "permalinks": {
       "type": "object",
       "additionalProperties": false,
-      "description": "PERMALINKS – eine kurze Adresse je Seite, die nie wechselt. Sie entsteht NUR für Seiten mit einem `permaid` im Front Matter; ohne eine einzige solche Zeile passiert nichts. NICHT ZU VERWECHSELN MIT `permalink` (Einzahl, darüber): Das ist Jekylls URL-Muster für ALLE Seiten.",
+      "description": "PERMALINKS – eine kurze Adresse je Seite, die nie wechselt. Sie entsteht NUR für Seiten mit einer `perma_id` im Front Matter; ohne eine einzige solche Zeile passiert nichts. NICHT ZU VERWECHSELN MIT `permalink` (Einzahl, darüber): Das ist Jekylls URL-Muster für ALLE Seiten.",
       "properties": {
         "mode": {
           "type": "string",
@@ -123,7 +123,7 @@
             "disabled"
           ],
           "default": "full",
-          "description": "OB UND WIE – ein Schlüssel für beides, damit sich nichts widersprechen kann. `full`: Die Seite liegt NUR unter dem Permalink; die kurze Adresse steht in der Adresszeile, ein Lesezeichen merkt sich sie. `light`: Die Seite bleibt, wo sie ist, und unter dem Permalink entsteht eine Weiterleitung – nichts kann brechen, dafür bietet die Werkzeugleiste die kurze Adresse zum Kopieren an. `disabled`: Jedes `permaid` wird übergangen, und der Vorsatz ist für gewöhnliche Seiten frei."
+          "description": "OB UND WIE – ein Schlüssel für beides, damit sich nichts widersprechen kann. `full`: Die Seite liegt NUR unter dem Permalink; die kurze Adresse steht in der Adresszeile, ein Lesezeichen merkt sich sie. `light`: Die Seite bleibt, wo sie ist, und unter dem Permalink entsteht eine Weiterleitung – nichts kann brechen, dafür bietet die Werkzeugleiste die kurze Adresse zum Kopieren an. `disabled`: Jede `perma_id` wird übergangen, und der Vorsatz ist für gewöhnliche Seiten frei."
         },
         "base": {
           "$ref": "#/definitions/language_path",
@@ -152,7 +152,7 @@
               "additionalProperties": {
                 "$ref": "#/definitions/language_path"
               },
-              "description": "DIE EINTRÄGE ZUR GEWÄHLTEN STRATEGIE, GEORDNET – bei mehreren Treffern gewinnt der ERSTE. Bei `layout` ist der Schlüssel ein Layoutname (freier Text, damit eigene Layouts dazukommen können). Bei `path` ein Pfadmuster, VERANKERT AN DER WURZEL DES QUELLBAUMS: `*` steht für EIN Segment, `**` für beliebig viele, ein Schrägstrich am Ende meint „dieses Verzeichnis und alles darunter\". `/funktionen/**` trifft also NICHT `docs/funktionen/…` – dafür `/docs/funktionen/**`. Ein Muster ohne Treffer nennt der Lauf, und `.avd-permalinks` zählt je Eintrag mit. IM WERT SIND PLATZHALTER ERLAUBT: `{0}`, `{1}`, … stehen für die Stellen HINTER dem festen Teil des Musters, von null an gezählt. EINGESETZT WIRD, WAS ÖFFENTLICH HEISST – ein Ordner `03-http` mit `folder_slug: http-grundlagen` ergibt `http-grundlagen`, nicht `03-http`; sonst stünde die Nummerierung aus dem Editor in der Adresse. PLATZHALTER ZEIGEN NUR AUF VERZEICHNISSE, nie auf die Seite selbst: Ihr Name steht ohnehin als `permaid` dahinter, und ihn davor zu wiederholen ergäbe eine Dopplung. Zeigt ein Platzhalter dorthin, bricht der Bau ab. Das MUSTER trifft dagegen den Quellpfad: Es beschreibt die Ablage, und gegen die öffentliche Adresse zu mustern hiesse, die Sprachwurzel mitzumustern. Ein Platzhalter ohne Entsprechung bricht den Bau ab, ebenso ein `{}` oder `{x}` – stillschweigend etwas Falsches zu bauen wäre schlimmer. MEHRSPRACHIG: Ein Wert darf statt einer Zeichenkette eine Sprachkarte sein – `{\"/trainings/**\": { de: \"/schulungen/{1}\", en: \"/trainings/{1}\" }}`. Sie muss jede deklarierte Sprache nennen; eine fehlende bricht den Bau ab, weil ein Rückfall die Seite in den falschen Sprachbaum legte."
+              "description": "DIE EINTRÄGE ZUR GEWÄHLTEN STRATEGIE, GEORDNET – bei mehreren Treffern gewinnt der ERSTE. Bei `layout` ist der Schlüssel ein Layoutname (freier Text, damit eigene Layouts dazukommen können). Bei `path` ein Pfadmuster, VERANKERT AN DER WURZEL DES QUELLBAUMS: `*` steht für EIN Segment, `**` für beliebig viele, ein Schrägstrich am Ende meint „dieses Verzeichnis und alles darunter\". `/funktionen/**` trifft also NICHT `docs/funktionen/…` – dafür `/docs/funktionen/**`. Ein Muster ohne Treffer nennt der Lauf, und `.avd-permalinks` zählt je Eintrag mit. IM WERT SIND PLATZHALTER ERLAUBT: `{0}`, `{1}`, … stehen für die Stellen HINTER dem festen Teil des Musters, von null an gezählt. EINGESETZT WIRD, WAS ÖFFENTLICH HEISST – ein Ordner `03-http` mit `folder_slug: http-grundlagen` ergibt `http-grundlagen`, nicht `03-http`; sonst stünde die Nummerierung aus dem Editor in der Adresse. PLATZHALTER ZEIGEN NUR AUF VERZEICHNISSE, nie auf die Seite selbst: Ihr Name steht ohnehin als `perma_id` dahinter, und ihn davor zu wiederholen ergäbe eine Dopplung. Zeigt ein Platzhalter dorthin, bricht der Bau ab. Das MUSTER trifft dagegen den Quellpfad: Es beschreibt die Ablage, und gegen die öffentliche Adresse zu mustern hiesse, die Sprachwurzel mitzumustern. Ein Platzhalter ohne Entsprechung bricht den Bau ab, ebenso ein `{}` oder `{x}` – stillschweigend etwas Falsches zu bauen wäre schlimmer. MEHRSPRACHIG: Ein Wert darf statt einer Zeichenkette eine Sprachkarte sein – `{\"/trainings/**\": { de: \"/schulungen/{1}\", en: \"/trainings/{1}\" }}`. Sie muss jede deklarierte Sprache nennen; eine fehlende bricht den Bau ab, weil ein Rückfall die Seite in den falschen Sprachbaum legte."
             }
           },
           "oneOf": [
@@ -522,6 +522,42 @@
           "minimum": 1,
           "default": 5,
           "description": "Ab wie vielen Top-Level-Einträgen die Leiste als Burger erscheint – auch am Schreibtisch. STANDARD: 5. Eine zweizeilige Navigationsleiste sieht nicht nach Absicht aus. Zusätzlich misst das Theme den tatsächlichen Umbruch; diese Zahl gilt auch ohne JavaScript."
+        },
+        "settings": {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x_": {
+              "description": "Repo-eigenes Feld – vom Theme nicht gelesen."
+            }
+          },
+          "description": "Einstellungen der Kopfnavigation, getrennt von ihren Einträgen.",
+          "properties": {
+            "scrollable": {
+              "type": "object",
+              "additionalProperties": false,
+              "patternProperties": {
+                "^x_": {
+                  "description": "Repo-eigenes Feld – vom Theme nicht gelesen."
+                }
+              },
+              "description": "Kurze Aufklappmenüs am Schreibtisch: Ein Menü zeigt höchstens `visible_items` Zeilen; hat es mehr, stehen oben und unten Dreiecke, und Zeigen darauf lässt es laufen – ohne Scrollbalken. Am Rand ist das Dreieck ausgegraut. Mit der Tastatur wandern Pfeil runter/rauf durch die Einträge und scrollen am Rand weiter. Im Burger (schmal oder `compact_after`) gilt das nicht.",
+              "properties": {
+                "visible_items": {
+                  "type": "integer",
+                  "minimum": 3,
+                  "default": 7,
+                  "description": "Wie viele Zeilen ein Aufklappmenü höchstens zeigt. Jedes Ziel ist eine Zeile, die Überschrift eines eingebetteten Menüs ebenfalls; Trennstriche zählen nicht. STANDARD: 7."
+                },
+                "speed": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "default": 1.0,
+                  "description": "Wie schnell das Menü beim Zeigen auf ein Dreieck läuft – relativ: 1.0 ist etwa eine Zeile in einer Drittelsekunde, 2.0 doppelt so schnell. Ohne Bewegung (`prefers-reduced-motion`) springt es zeilenweise im selben Takt. STANDARD: 1.0."
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -580,8 +616,7 @@
                 "default",
                 "current"
               ],
-              "default": "default",
-              "description": "Welcher Bereich beim Öffnen der Suche vorausgewählt ist. `default`: der Bereich mit `default: true`, ohne Marke „Alle“. `current`: der Bereich der aktuellen Seite – gehört sie zu keinem (etwa die Startseite), „Alle“; `default: true` wirkt dann nicht. Gilt bei beiden `scope_source`. Eine Seite ohne eigenen Bereich, die andere Bereiche einbinden (`search.scope.includes`), übernimmt den Bereich, aus dem man kommt – über einen Treffer oder einen Verweis, je Tab. Ein eigener Bereich geht immer vor."
+              "description": "Welcher Bereich beim Öffnen der Suche vorausgewählt ist. `default`: der Bereich mit `default: true`, ohne Marke „Alle“. `current`: der Bereich der aktuellen Seite – gehört sie zu keinem (etwa die Startseite), „Alle“; `default: true` wirkt dann nicht. Gilt bei beiden `scope_source`. STANDARD: je Herkunft der Bereiche – `current` bei `scope_source: index` (Bereiche sind abgeschlossene Inhalte wie Schulungen, in denen man bleiben will), `default` bei `scope_source: nav` (die TopNav gliedert eine Doku, in der man quer sucht). Eine Angabe hier gewinnt. Eine Seite ohne eigenen Bereich, die andere Bereiche einbinden (`search.scope.includes`), übernimmt den Bereich, aus dem man kommt – über einen Treffer oder einen Verweis, je Tab. Ein eigener Bereich geht immer vor."
             }
           }
         }
@@ -697,7 +732,7 @@
     "layouts": {
       "type": "object",
       "additionalProperties": false,
-      "description": "LAYOUT-KONFIGURATION – alles, was je Layout eingestellt wird, an einer Stelle: ob eine Seite es tragen darf und welche Bausteine es zeigt. Löst `components` ab, das weiter wirkt (siehe dort). Auflösung von schwach nach stark: harte Vorgabe des Layouts → `layouts.default_values.components` → `layouts.overrides.«vorfahr».components` der Vorfahren des Layouts, vom entferntesten zum nächsten → `layouts.overrides.«layout».components` → Front Matter der Seite. VERERBUNG: Was für ein Layout eingestellt ist, gilt auch für die Layouts, die von ihm erben, solange dort nichts anderes steht – `page` stellt damit auch `guide` ein, `default` alle Layouts mit Rahmen. Die VERFÜGBARKEIT (`allowed`/`forbidden`) ERBT NICHT: Sie gilt nur für Seiten, die genau dieses Layout tragen – wer `page` verbietet, verbietet `guide` nicht. Für Layouts, die niemand nennt, gilt `default_values.unlisted`.",
+      "description": "LAYOUT-KONFIGURATION – alles, was je Layout eingestellt wird, an einer Stelle: ob eine Seite es tragen darf und welche Bausteine (`components`) und welche Effekte (`effects`) es zeigt. Effekte stehen direkt unter den Layout-Einstellungen, nicht unter `components`: Sie sind keine Bausteine. Auflösung von schwach nach stark: harte Vorgabe des Layouts → `layouts.default_values.components` → `layouts.overrides.«vorfahr».components` der Vorfahren des Layouts, vom entferntesten zum nächsten → `layouts.overrides.«layout».components` → Front Matter der Seite. VERERBUNG: Was für ein Layout eingestellt ist, gilt auch für die Layouts, die von ihm erben, solange dort nichts anderes steht – `page` stellt damit auch `guide` ein, `default` alle Layouts mit Rahmen. Die VERFÜGBARKEIT (`allowed`/`forbidden`) ERBT NICHT: Sie gilt nur für Seiten, die genau dieses Layout tragen – wer `page` verbietet, verbietet `guide` nicht. Für Layouts, die niemand nennt, gilt `default_values.unlisted`.",
       "properties": {
         "default_values": {
           "type": "object",
@@ -715,6 +750,9 @@
             },
             "components": {
               "$ref": "#/definitions/sitewide_components"
+            },
+            "effects": {
+              "$ref": "frontmatter.schema.json#/properties/effects"
             }
           }
         },
@@ -734,6 +772,9 @@
                 "properties": {
                   "components": {
                     "$ref": "#/definitions/custom_components"
+                  },
+                  "effects": {
+                    "$ref": "frontmatter.schema.json#/properties/effects"
                   }
                 }
               }
@@ -753,6 +794,9 @@
                   "properties": {
                     "components": {
                       "$ref": "#/definitions/sitewide_components"
+                    },
+                    "effects": {
+                      "$ref": "frontmatter.schema.json#/properties/effects"
                     }
                   }
                 }
@@ -771,6 +815,9 @@
                   "properties": {
                     "components": {
                       "$ref": "#/definitions/page_components"
+                    },
+                    "effects": {
+                      "$ref": "frontmatter.schema.json#/properties/effects"
                     }
                   }
                 }
@@ -789,6 +836,9 @@
                   "properties": {
                     "components": {
                       "$ref": "#/definitions/page_components"
+                    },
+                    "effects": {
+                      "$ref": "frontmatter.schema.json#/properties/effects"
                     }
                   }
                 }
@@ -807,6 +857,9 @@
                   "properties": {
                     "components": {
                       "$ref": "#/definitions/visualization_components"
+                    },
+                    "effects": {
+                      "$ref": "#/definitions/effects_without_header"
                     }
                   }
                 }
@@ -825,6 +878,9 @@
                   "properties": {
                     "components": {
                       "$ref": "#/definitions/quiz_components"
+                    },
+                    "effects": {
+                      "$ref": "#/definitions/effects_without_header"
                     }
                   }
                 }
@@ -873,7 +929,7 @@
     "checks": {
       "type": "object",
       "additionalProperties": false,
-      "description": "EINSTELLBARE PRÜFUNGEN der Schemaprüfung (`validate.rb`) – je Prüfung eine Stufe: `error` (der Befund lässt den Lauf scheitern), `warning` (Hinweis, der Lauf bleibt grün) oder `off` (keine Prüfung). Einstellbar ist nur, was der WEITERGABE der Quellen dient – dass ein anderer Verbraucher sie ohne die Eigenheiten dieser Site rendern kann, etwa ATLAS. Was die eigene Ausgabe schützt (Zielgruppen, unbekannte Schlüssel, Bausteine, Verweise), ist immer ein Fehler. Ein Verbraucher prüft mit seiner eigenen Konfiguration; dieser Block regelt, wie streng das Projekt mit sich selbst ist. STANDARD: jede Prüfung `warning`; mit dem nächsten Major `error`.",
+      "description": "EINSTELLBARE PRÜFUNGEN der Schemaprüfung (`validate.rb`) – je Prüfung eine Stufe: `error` (der Befund lässt den Lauf scheitern), `warning` (Hinweis, der Lauf bleibt grün) oder `off` (keine Prüfung). Einstellbar ist nur, was der WEITERGABE der Quellen dient – dass ein anderer Verbraucher sie ohne die Eigenheiten dieser Site rendern kann, etwa ATLAS. Was die eigene Ausgabe schützt (Zielgruppen, unbekannte Schlüssel, Bausteine, Verweise), ist immer ein Fehler. Ein Verbraucher prüft mit seiner eigenen Konfiguration; dieser Block regelt, wie streng das Projekt mit sich selbst ist. STANDARD: jede Prüfung `error`.",
       "properties": {
         "source_assets": {
           "anyOf": [
@@ -890,8 +946,8 @@
               "description": "Unquotiertes `off` – YAML 1.1 liest es als `false`. Gilt wie `off`."
             }
           ],
-          "default": "warning",
-          "description": "Eigene `<style>`, `<script>` oder `<link>` in der Quelle einer Seite und `styles`/`scripts` in ihrem Front Matter, wo das Layout das laut `contract/theme.json` nicht erlaubt (`source_assets: false`). `error`: Fehler je Seite. `warning`: ein Hinweis je Layout. `off`: Die Seite darf eigene Assets mitbringen, nichts wird gemeldet – für eine Site, deren Quellen nie weitergegeben werden, etwa eine Doku mit interaktiven Seiten. STANDARD: `warning`. HINWEIS: Unquotiert liest YAML `off` als `false`; beides gilt als `off`."
+          "default": "error",
+          "description": "Eigene `<style>`, `<script>` oder `<link>` in der Quelle einer Seite und `styles`/`scripts` in ihrem Front Matter, wo das Layout das laut `contract/theme.json` nicht erlaubt (`source_assets: false`). `error`: Fehler je Seite. `warning`: ein Hinweis je Layout. `off`: Die Seite darf eigene Assets mitbringen, nichts wird gemeldet – für eine Site, deren Quellen nie weitergegeben werden, etwa eine Doku mit interaktiven Seiten. STANDARD: `error`. HINWEIS: Unquotiert liest YAML `off` als `false`; beides gilt als `off`."
         },
         "abstract_layouts": {
           "anyOf": [
@@ -908,51 +964,16 @@
               "description": "Unquotiertes `off` – YAML 1.1 liest es als `false`. Gilt wie `off`."
             }
           ],
-          "default": "warning",
-          "description": "Seiten, die ein abstraktes Layout tragen (`layout: default`) – laut `contract/theme.json` eine Oberklasse, von der eigene Layouts erben. `error`: Fehler je Seite. `warning`: ein Hinweis. `off`: keine Prüfung. STANDARD: `warning`. HINWEIS: Unquotiert liest YAML `off` als `false`; beides gilt als `off`."
+          "default": "error",
+          "description": "Seiten, die ein abstraktes Layout tragen (`layout: default`) – laut `contract/theme.json` eine Oberklasse, von der eigene Layouts erben. `error`: Fehler je Seite. `warning`: ein Hinweis. `off`: keine Prüfung. STANDARD: `error`. HINWEIS: Unquotiert liest YAML `off` als `false`; beides gilt als `off`."
         }
       }
     },
     "components": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "VERALTET seit 3.14.0 – stattdessen `layouts`: `components.«gruppe»` wird zu `layouts.default_values.components.«gruppe»`, `components.layouts.«layout».«gruppe»` zu `layouts.overrides.«layout».components.«gruppe»`. Bausteine zu- und abschalten – site-weite Vorgaben. Auflösung von schwach nach stark: harte Vorgabe je Layout → `components.«gruppe»` → `components.layouts.«layout».«gruppe»` → Front Matter der Seite. Die Form ist auf allen Ebenen dieselbe wie im Front Matter.",
-      "properties": {
-        "sidebar": {
-          "$ref": "#/definitions/sidebar_sitewide"
-        },
-        "toolbar": {
-          "$ref": "frontmatter.schema.json#/properties/toolbar"
-        },
-        "layouts": {
-          "type": "object",
-          "description": "Vorgaben je Layout. Der Schlüssel ist der Layout-Name aus dem Front Matter der Seite. Angeboten wird je Layout nur, was dieses Layout auch AUSLIEST.",
-          "additionalProperties": {
-            "$ref": "#/definitions/custom_components"
-          },
-          "properties": {
-            "page": {
-              "$ref": "#/definitions/page_components"
-            },
-            "guide": {
-              "$ref": "#/definitions/page_components"
-            },
-            "visualization": {
-              "$ref": "#/definitions/visualization_components"
-            },
-            "quiz": {
-              "$ref": "#/definitions/quiz_components"
-            },
-            "presentation": {
-              "$ref": "#/definitions/presentation_components"
-            },
-            "simulation": {
-              "$ref": "#/definitions/simulation_components"
-            }
-          }
-        }
-      },
-      "deprecated": true
+      "description": "ENTFALLEN mit Theme 4.0 – `components` stellt nichts mehr ein. `components.«gruppe»` gehört nach `layouts.default_values.components.«gruppe»`, `components.layouts.«layout».«gruppe»` nach `layouts.overrides.«layout».components.«gruppe»`; `bin/migrate.rb --from 3 --to 4` aus dem Theme-Repository stellt um. Das Feld steht nur noch hier, damit die Prüfung es nennt: Die Konfiguration ist an der Wurzel offen, ein entfallener Block ginge sonst still durch.",
+      "not": {
+        "description": "ENTFALLEN mit Theme 4.0 – `components` stellt nichts mehr ein. `components.«gruppe»` gehört nach `layouts.default_values.components.«gruppe»`, `components.layouts.«layout».«gruppe»` nach `layouts.overrides.«layout».components.«gruppe»`; `bin/migrate.rb --from 3 --to 4` aus dem Theme-Repository stellt um."
+      }
     }
   },
   "definitions": {
@@ -1018,6 +1039,10 @@
         "url": {
           "$ref": "frontmatter.schema.json#/definitions/link/properties/url"
         },
+        "baseurl": {
+          "type": "boolean",
+          "description": "Nur bei `url`: `false` – die Adresse gilt ab der Wurzel des Hosts, ohne die `baseurl` der Site davor. Für Ziele NEBEN der Site unter demselben Host, etwa eine zweite Dokumentation. STANDARD: keine Angabe = die `baseurl` steht davor."
+        },
         "page": {
           "$ref": "frontmatter.schema.json#/definitions/page_reference"
         },
@@ -1045,7 +1070,7 @@
           "description": "Nur bei einem Eintrag der ZWEITEN Ebene mit `children`: wie sein Untermenü erscheint. `flyout` fährt am Schreibtisch zur Seite aus (Standard), `embedded` stellt die Kinder IM Menü dar, abgetrennt durch einen Querstrich, mit dem Titel als Überschrift. Auf der DRITTEN Ebene wird der Schlüssel nicht gelesen – dort ist es immer `embedded`, weil ein viertes Aufklappmenü nicht mehr zu treffen wäre."
         },
         "search": {
-          "description": "Nur bei `search.scope_source: nav` und nur an einem Eintrag der OBERSTEN Ebene gelesen: wie der Eintrag als Bereich der Suche wirkt. `disabled`: Der Eintrag wird kein Bereich – seine Seiten sind nur unter „Alle“ zu finden. `default: true`: Der Bereich ist vorausgewählt; höchstens ein Eintrag darf das tragen, sonst bricht der Build ab.",
+          "description": "Nur bei `search.scope_source: nav` und nur an einem Eintrag der OBERSTEN Ebene gelesen: wie der Eintrag als Bereich der Suche wirkt. `disabled`: Der Eintrag wird kein Bereich – seine Seiten sind nur unter „Alle“ zu finden. `default: true`: Der Bereich ist vorausgewählt (bei `search.preselect: default`, der Vorgabe für Bereiche aus der TopNav); höchstens ein Eintrag darf das tragen, sonst bricht der Build ab. `includes`: Seiten und Ordner, die zum Bereich gehören, ohne verlinkt zu sein.",
           "oneOf": [
             {
               "const": "disabled",
@@ -1060,6 +1085,15 @@
                   "type": "boolean",
                   "default": false,
                   "description": "Diesen Bereich in der Suche vorauswählen. Ohne Marke ist „Alle“ vorausgewählt."
+                },
+                "includes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Seiten und Ordner, die der Eintrag nicht selbst verlinkt und die trotzdem zu seinem Bereich gehören – etwa geteilte Übungen. Je Eintrag eine `page_id`: Zeigt sie auf eine Indexseite, gehört deren Ordner samt Unterordnern dazu, sonst die eine Seite. Aufgelöst in jeder Sprache der Site. Die Seiten behalten ihren eigenen Bereich; sie stehen zusätzlich in jedem, der sie einbindet. Eine `page_id`, die es im Build nicht gibt, meldet der Build als Hinweis. Mit `preselect: current` gilt auf einer eingebundenen Seite ohne eigenen Bereich der Bereich, aus dem man kommt. STANDARD: keine."
                 }
               }
             }
@@ -1070,7 +1104,7 @@
     "sidebar_switches": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Sidebar-Karten dieses Layouts: `enabled` und `title`. NICHT `open` und `open_threshold` – Anfangszustand und Schwelle werden je Layout nicht ausgelesen; sie stehen site-weit unter `components.sidebar` bzw. im Front Matter der Seite. Ein Eintrag ohne Wirkung wäre schlimmer als keiner.",
+      "description": "Sidebar-Karten dieses Layouts: `enabled` und `title`. NICHT `open` und `open_threshold` – Anfangszustand und Schwelle werden je Layout nicht ausgelesen; sie stehen site-weit unter `layouts.default_values.components.sidebar` bzw. im Front Matter der Seite. Ein Eintrag ohne Wirkung wäre schlimmer als keiner.",
       "properties": {
         "toc": {
           "type": "object",
@@ -1303,7 +1337,7 @@
         "allowed",
         "forbidden"
       ],
-      "description": "Darf eine Seite dieses Layout tragen? `forbidden` lässt die SCHEMAPRÜFUNG mit einer Meldung scheitern, die Datei und Zeile nennt – und damit jeden Bauablauf, der sie vorschaltet. Ein nacktes `jekyll build` hält sie nicht auf: Weder die ausgelieferte Baukomponente noch die Prüf-Bausteine rufen `validate.rb` von sich aus auf. Wer die Regel durchsetzen will, nimmt den Aufruf in seine Pipeline. WOFÜR: Ein Konsument, der eingereichte Seiten baut, legt damit fest, welche Layouts er verträgt – das Theme kennt seine Regeln nicht. STANDARD: der Wert aus `layouts.default_values.unlisted`."
+      "description": "Darf eine Seite dieses Layout tragen? `forbidden` lässt die SCHEMAPRÜFUNG mit einer Meldung scheitern, die Datei und Zeile nennt – und damit jeden Bauablauf, der sie vorschaltet. Die Baukomponente des Themes (`jekyll/_bin/build.sh`) prüft vor dem Bau und bricht dann ab; ein nacktes `jekyll build` hält sie nicht auf. WOFÜR: Ein Konsument, der eingereichte Seiten baut, legt damit fest, welche Layouts er verträgt – das Theme kennt seine Regeln nicht. STANDARD: der Wert aus `layouts.default_values.unlisted`."
     },
     "sitewide_components": {
       "type": "object",
@@ -1315,6 +1349,19 @@
         },
         "toolbar": {
           "$ref": "frontmatter.schema.json#/properties/toolbar"
+        }
+      }
+    },
+    "effects_without_header": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Effekte ohne Kopfzeile – kein `translucent_header`.",
+      "properties": {
+        "page_transitions": {
+          "$ref": "frontmatter.schema.json#/properties/effects/properties/page_transitions"
+        },
+        "reading_progress": {
+          "$ref": "frontmatter.schema.json#/properties/effects/properties/reading_progress"
         }
       }
     }

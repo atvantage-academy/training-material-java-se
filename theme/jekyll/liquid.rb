@@ -60,10 +60,10 @@
 #                                      anderen Sprache und hat mit Liquid nichts
 #                                      zu tun
 #
-# DIE MUSTERERKENNUNG IST DIE VON ATLAS, WÖRTLICH ÜBERNOMMEN (Regel 35,
-# `atlas_contract/content_check.rb`). Zwei Werkzeuge, die über dieselbe Datei
-# verschieden urteilen, sind schlimmer als eines – wer hier eine Klammer anfasst,
-# fasst sie dort mit an.
+# DIE MUSTERERKENNUNG STEHT IN `liquid_syntax.rb`. Das Theme ist ihre Quelle; ATLAS
+# prüft Einreichungen mit derselben Regel (Regel 35) und kann die Datei aus dem
+# gepinnten Paket laden. Zwei Werkzeuge, die über dieselbe Datei verschieden
+# urteilen, sind schlimmer als eines.
 #
 # WO DIESE LESART ENDET: Ein eingerückter Codeblock (vier Leerzeichen, kein
 # Zaun) wird als Fließtext gelesen. Ihn von einem fortgesetzten Listenpunkt zu
@@ -86,29 +86,8 @@ require 'date'
 # `Dir.mktmpdir` und `FileUtils` braucht der Selbsttest – beide Standardbibliothek.
 require 'fileutils'
 
-# Das Muster von ATLAS (`AtlasContract::ContentCheck`), Zeichen für Zeichen – nur
-# mit `/m`, damit ein Tag sich über Zeilen ziehen darf.
-#
-# WARUM `/m` SEIN MUSS: Liquid erlaubt Zeilenumbrüche IM Tag, und ATLAS liest
-# Zeile für Zeile. Ein mehrzeiliges
-#
-#     {%- include baustein.html
-#         titel="…" -%}
-#
-# entgeht damit vollständig. Maßgeblich ist, was Liquids eigener Lexer als Tag
-# liest, nicht, was bequem zu suchen ist: Was syntaktisch ein Tag ist, muss
-# gefunden werden.
-#
-# KEINE SCHRANKE ÜBER DIE LEERZEILE. Der Gedanke lag nahe – zwei zufällige
-# Klammern in getrennten Absätzen wären dann kein Befund –, aber er sparte am
-# falschen Ende. Fließtext mit einer `{{` im einen und einer `}}` im übernächsten
-# Absatz gibt es faktisch nicht; ein Tag, das der Prüfung entgeht, geht dagegen
-# ungesehen auf die Seite. Ein Fehlalarm kostet einen Blick, ein übersehener
-# Befund kostet die Veröffentlichung. Und Liquid selbst zieht die Grenze auch
-# nicht: Es liest über die Leerzeile hinweg und wirft dann einen Syntaxfehler.
-#
-# `.*?` bleibt nicht-gierig: Gesucht wird der NÄCHSTE Schließer, nicht der letzte.
-LIQUID = /\{\{.*?\}\}|\{%.*?%\}/m.freeze
+# Liquid-Syntax finden: EINE Stelle, auch für ATLAS (liquid_syntax.rb).
+require_relative 'liquid_syntax'
 MARKDOWN_EXTENSIONS = %w[.md .markdown .mkdown .mkdn .mkd].freeze
 HTML_EXTENSIONS = %w[.html .htm .xhtml].freeze
 FENCE = /\A[ \t]*(`{3,}|~{3,})/.freeze
@@ -369,13 +348,27 @@ rescue Psych::Exception
   {}
 end
 
-# Ein Befund je DATEI, nicht je Fundstelle – von ATLAS übernommen. Wer zehn
-# Verzweigungen in einer Datei hat, hat ein Problem und nicht zehn; die Zeile der
-# ersten Fundstelle genügt zum Finden, die Anzahl sagt, wie viel Arbeit wartet.
+# Ein Befund je DATEI, nicht je Fundstelle – Begründung in liquid_syntax.rb.
+# SYMLINKS WERDEN VERFOLGT, wie Jekyll es außerhalb des Safe Mode tut: Was über einen
+# Link in der Site liegt, wird gebaut – also auch geprüft. `Dir.glob` mit `**` steigt
+# in verlinkte Verzeichnisse nicht hinab. Jedes Verzeichnis nur einmal (über seinen
+# echten Pfad), damit ein Link auf einen Vorfahren keine Schleife baut. Punktdateien
+# zählen mit, wie bisher über `File::FNM_DOTMATCH`.
+def source_files(dir, besucht = {})
+  echt = File.realpath(dir)
+  return [] if besucht[echt]
+
+  besucht[echt] = true
+  Dir.children(dir).sort.flat_map do |name|
+    pfad = File.join(dir, name)
+    File.directory?(pfad) ? source_files(pfad, besucht) : [pfad]
+  end
+end
+
 def scan(source, defaults, pattern, md_without_fm = true, forbid_optin = false)
   findings = []
   checked = 0
-  Dir.glob(File.join(source, '**', '*'), File::FNM_DOTMATCH).sort.each do |path|
+  source_files(source).sort.each do |path|
     next unless File.file?(path)
 
     relative = path.delete_prefix("#{source}/")
@@ -407,13 +400,10 @@ def scan(source, defaults, pattern, md_without_fm = true, forbid_optin = false)
     next if text.nil?
 
     checked += 1
-    # Über den GANZEN Text, nicht Zeile für Zeile – sonst entginge jeder Tag mit
-    # Zeilenumbruch. Die Zeilennummer kommt aus dem Offset des ersten Treffers.
-    first = text.index(LIQUID)
-    next if first.nil?
+    line, count = AvdAcademy::LiquidSyntax.first_finding(text)
+    next if line.nil?
 
-    findings << Finding.new(relative, text[0...first].count("\n") + 1,
-                            text.scan(LIQUID).length, :syntax)
+    findings << Finding.new(relative, line, count, :syntax)
   end
   [findings, checked]
 end

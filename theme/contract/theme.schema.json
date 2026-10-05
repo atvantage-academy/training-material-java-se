@@ -30,7 +30,7 @@
       "type": "array",
       "minItems": 1,
       "description": "Die JSON-Schemas, gegen die das Theme Front Matter und Konfiguration prüft.",
-      "items": { "$ref": "#/definitions/contract_file" }
+      "items": { "$ref": "#/definitions/schema_file" }
     },
     "contract_files": {
       "type": "array",
@@ -100,6 +100,25 @@
           "description": "Pfad im npm-Paket, relativ zu dessen Wurzel. KEINE URL: Die veröffentlichten Adressen entstehen erst beim Deploy und liegen hinter dem GHE-Login; der Paketpfad stimmt immer."
         },
         "purpose": { "type": "string", "description": "Wofür die Datei da ist." }
+      }
+    },
+    "schema_file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "package_path", "purpose"],
+      "description": "Ein JSON-Schema im Paket, mit seiner eigenen SemVer-Fassung.",
+      "properties": {
+        "name": { "type": "string", "description": "Kurzname ohne Endung." },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "Fassung DIESES Schemas nach SemVer: MAJOR bei Inkompatibilität, MINOR bei neuen Feldern, PATCH bei Beschreibungen. Veröffentlicht fest unter /schemas/«name»/v«x.y.z»/ und beweglich unter /schemas/«name»/v«x»/."
+        },
+        "package_path": {
+          "type": "string",
+          "description": "Pfad im npm-Paket, relativ zu dessen Wurzel."
+        },
+        "purpose": { "type": "string", "description": "Wofür das Schema da ist." }
       }
     }
   }

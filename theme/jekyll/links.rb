@@ -62,10 +62,9 @@
 # Assets mitprüfen will, prüft etwas anderes und sollte es getrennt tun.
 #
 # NUR VOLLSTÄNDIGE DOKUMENTE werden als Quelle gelesen (eine Datei mit `<html …>`).
-# Das Theme legt Partials als fertiges HTML ab (`theme/academy/partials/footer.html`),
-# und die tragen Platzhalter statt Adressen (`href="«WEBSITE-URL»"`). Sie sind keine
-# Seiten: Ihre relativen Verweise gelten für die Seite, die sie einbindet, nicht für
-# ihren Ablageort. Dieselbe Auswahl-Logik wie bei js-hooks.sh, das nur Seiten mit dem
+# Ein HTML-Bruchstück – ein Partial, das eine andere Seite einbindet – ist keine Seite:
+# Seine relativen Verweise gelten für die Seite, die es einbindet, nicht für seinen
+# Ablageort. Dieselbe Auswahl-Logik wie bei js-hooks.sh, das nur Seiten mit dem
 # Wurzel-Haken seines Layouts zählt.
 #
 # `<script>` UND `<style>` FALLEN HERAUS. Die Simulations-Vorlage baut ihre Bühne mit
@@ -198,7 +197,7 @@ end
 
 # WEITERLEITUNGEN ZÄHLEN ALS VERWEISE. Eine Seite, die nur aus
 # `<meta http-equiv="refresh" content="0; url=…">` besteht, ist der Regelfall
-# für eine kurze Adresse (`permaid`) und für jede von Hand gelegte Umleitung.
+# für eine kurze Adresse (`perma_id`) und für jede von Hand gelegte Umleitung.
 # Zeigt ihr Ziel ins Leere, ist der Verweis tot wie jeder andere – nur schlimmer,
 # weil der Leser eine leere Seite bekommt, ohne je etwas angeklickt zu haben.
 #
@@ -285,56 +284,9 @@ def read_pages(site, baseurl, scope)
   end.compact
 end
 
-# --- Eine Schreibweise für Ausschlussmuster ----------------------------------
-#
-# DERSELBE BLOCK STEHT IN `contrast.rb` UND `components.rb`. Drei Werkzeuge, die
-# über dieselbe Angabe verschieden urteilen, sind schlimmer als eines – wer hier
-# etwas ändert, ändert es dort mit.
-#
-# `theme`, `/theme`, `theme/`, `/theme/` und `/theme/**` meinen DASSELBE. Wer
-# `links` und `contrast` nebeneinander aufruft, soll nicht zweimal nachdenken
-# müssen, und wer ein Muster hinschreibt, soll nicht raten, ob der Schrägstrich
-# zählt.
-#
-# VERGLICHEN WIRD SEGMENTWEISE, nicht als roher Präfix. Der Unterschied ist kein
-# Feinschliff: `path.start_with?("/theme")` trifft auch `/themes-overview/` –
-# eine Seite, die niemand ausnehmen wollte, und sie fiele still aus der Prüfung.
-# Gleichzeitig muss eine Adresse, die GENAU `/theme` ist, getroffen werden.
-# Deshalb: Gleichheit ODER Präfix samt trennendem Schrägstrich.
-#
-# LEERE ANGABEN FALLEN WEG. Ein leeres Muster wurde sonst zu `/`, und weil jeder
-# Pfad damit anfängt, war anschliessend alles ausgenommen – der Lauf meldete
-# „keine einzige gebaute Seite“ und sah aus wie ein kaputtes Bundle.
-def normalize_patterns(patterns)
-  Array(patterns).compact.map { |p| p.to_s.strip }.reject(&:empty?).map do |p|
-    p = p.sub(%r{/\*\*\z}, '')
-    p = p.sub(%r{/+\z}, '')
-    p = "/#{p}" unless p.start_with?('/')
-    p
-  end.reject { |p| p == '/' }.uniq
-end
-
-def ignored?(path, ignore)
-  ignore.any? { |p| path == p || path.start_with?("#{p}/") }
-end
-
-# WAS EINE PRÜFUNG ANSIEHT – zwei Listen, eine Regel, an genau dieser Stelle.
-#
-# `only` leer: alles ist erfasst, wie bisher. `only` gesetzt: erfasst ist nur,
-# was darauf passt. `ignore` nimmt in BEIDEN Fällen danach noch heraus.
-#
-# WARUM DER AUSSCHLUSS DEN EINSCHLUSS SCHLÄGT: Anders herum liesse sich ein
-# einmal ausgenommener Zweig durch ein weiteres Einschlussmuster wieder
-# hereinholen – welche der beiden Angaben dann gilt, entschiede die Reihenfolge,
-# und die steht in einer Eingabe nirgends verlässlich fest. So gilt: Was
-# ausgenommen ist, bleibt ausgenommen.
-Scope = Struct.new(:only, :ignore) do
-  def skips?(path)
-    return true unless only.empty? || ignored?(path, only)
-
-    ignored?(path, ignore)
-  end
-end
+# Pfadmuster und Erfassungsregel: EINE Stelle für alle Prüfer (path_scope.rb).
+require_relative 'path_scope'
+Scope = AvdAcademy::PathScope::Scope
 
 # Adressen, die nicht auf diese Site zeigen – nichts davon ist hier prüfbar. Dazu
 # gehören auch PLATZHALTER: Vorlagen bleiben inhaltsleer und schreiben `«…»` hin
@@ -596,7 +548,7 @@ def self_test(baseurl)
     # DREI SCHREIBWEISEN, ABSICHTLICH: Sie müssen dasselbe bedeuten, sonst ist die
     # Zusage „`theme` ≡ `/theme` ≡ `/theme/**`“ nur behauptet.
     %w[/ausgenommen/ ausgenommen /ausgenommen/**].each do |schreibweise|
-      muster = normalize_patterns([schreibweise])
+      muster = AvdAcademy::PathScope.normalize([schreibweise])
       pages_x = read_pages(site, baseurl, Scope.new([], muster))
       if pages_x.any? { |p| p[:path].start_with?('/ausgenommen/') }
         errors << "#{label}: Schreibweise `#{schreibweise}` nimmt die Seite nicht aus."
@@ -604,7 +556,7 @@ def self_test(baseurl)
     end
     # UND DIE GEGENPROBE: `/ausgenommen` darf `/ausgenommenes/` NICHT treffen.
     # Ein roher Präfixvergleich täte es, und die Seite fiele still aus der Prüfung.
-    unless ignored?('/ausgenommenes/seite.html', normalize_patterns(['/ausgenommen']))
+    unless AvdAcademy::PathScope.covered?('/ausgenommenes/seite.html', AvdAcademy::PathScope.normalize(['/ausgenommen']))
       # erwartet – nichts zu melden
     else
       errors << "#{label}: `/ausgenommen` trifft fälschlich `/ausgenommenes/`."
@@ -613,7 +565,7 @@ def self_test(baseurl)
     # DER EINSCHLUSS – und dass der Ausschluss ihn schlägt. Vier Aussagen, die
     # zusammen die ganze Regel ergeben; fällt eine, ist der Umfang einer Prüfung
     # ein anderer als der angegebene, und das fiele sonst niemandem auf.
-    muster = normalize_patterns(['/ausgenommen'])
+    muster = AvdAcademy::PathScope.normalize(['/ausgenommen'])
     nur = Scope.new(muster, [])
     errors << "#{label}: `--include` nimmt die benannte Seite aus." if nur.skips?('/ausgenommen/seite.html')
     errors << "#{label}: `--include` lässt eine nicht benannte Seite durch." unless nur.skips?('/')
@@ -622,7 +574,7 @@ def self_test(baseurl)
       errors << "#{label}: Ein Ausschluss schlägt den Einschluss nicht."
     end
 
-    scope = Scope.new([], normalize_patterns(['/ausgenommen/']))
+    scope = Scope.new([], AvdAcademy::PathScope.normalize(['/ausgenommen/']))
     pages = read_pages(site, baseurl, scope)
     findings, = check(site, pages, baseurl, scope)
 
@@ -730,7 +682,7 @@ end
 baseurl = (baseurl || '').to_s.chomp('/')
 baseurl = '/' + baseurl unless baseurl.empty? || baseurl.start_with?('/')
 
-scope = Scope.new(normalize_patterns(only), normalize_patterns(ignore))
+scope = Scope.new(AvdAcademy::PathScope.normalize(only), AvdAcademy::PathScope.normalize(ignore))
 
 pages = read_pages(site, baseurl, scope)
 if pages.empty?

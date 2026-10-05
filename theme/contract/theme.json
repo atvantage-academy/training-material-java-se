@@ -1,6 +1,6 @@
 {
   "$schema": "theme.schema.json",
-  "contract_version": 2,
+  "contract_version": 4,
   "theme": "@avd-academy-tools/academy-theme",
   "layouts": [
     {
@@ -57,7 +57,7 @@
         "de": "Wissens-Check",
         "en": "Knowledge check"
       },
-      "inherits": "default",
+      "inherits": "visualization",
       "abstract": false,
       "heading": "frame",
       "source_assets": false,
@@ -91,19 +91,19 @@
   "schemas": [
     {
       "name": "config",
-      "version": 10,
+      "version": "1.0.0",
       "package_path": "jekyll/schema/config.schema.json",
       "purpose": "Die `_config.yml` der Site und ihre Overlays."
     },
     {
       "name": "frontmatter",
-      "version": 4,
+      "version": "1.0.0",
       "package_path": "jekyll/schema/frontmatter.schema.json",
       "purpose": "Die Front-Matter-Felder, die das Theme einer Seite ausliest."
     },
     {
       "name": "layout",
-      "version": 1,
+      "version": "1.0.0",
       "package_path": "jekyll/schema/layout.schema.json",
       "purpose": "Das Front Matter einer Layout-Datei – die Eigenschaften des Rahmens und die Schalter, die ein Layout ausliest."
     }
@@ -123,7 +123,7 @@
     },
     {
       "name": "markup-contract",
-      "version": 9,
+      "version": 10,
       "package_path": "contract/markup-contract.txt",
       "purpose": "Öffentliche Klassen, Variablen und data-Attribute, auf die eigenes Markup und CSS sich verlassen dürfen."
     }
