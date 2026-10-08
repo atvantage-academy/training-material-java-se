@@ -30,7 +30,7 @@
 <script src="/training-material-java-se/theme/academy/atvantage.js?v=ad4b504d" defer></script>
 <script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
 <script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791448762" defer></script>
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791448964" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
@@ -81,7 +81,7 @@
       </div>
   </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
              data-mode="expand" data-shortcut="double_shift"
-             data-index="/training-material-java-se/theme/search/de.json?v=1791448762"
+             data-index="/training-material-java-se/theme/search/de.json?v=1791448964"
              data-base="/training-material-java-se/">
           <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
                   aria-expanded="false" aria-controls="avd-academy-search-dialog"
@@ -148,21 +148,34 @@ Stift genügen. Wie das in Java aussieht, kommt gleich danach.</p>
 <h2 id="definition-of-done">Definition of Done</h2>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast <strong>Aufgabe 3</strong> (Dateien und Ordner) gelöst und mindestens <strong>eine</strong> der beiden anderen.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast <strong>Aufgabe 1</strong> gelöst und mindestens <strong>eine</strong> der beiden anderen.</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />In jedem Diagramm steht in der Oberklasse nur, was für <strong>alle</strong> Unterklassen gilt.</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Jeder Vererbungspfeil zeigt von der Unterklasse <strong>nach oben</strong> zur Oberklasse.</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du kannst jeden Pfeil als „ist ein“-Satz vorlesen, und der Satz ergibt Sinn.</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
 </ul>
 
-<h2 id="aufgabe-1-fahrzeuge-einer-spedition">Aufgabe 1: Fahrzeuge einer Spedition</h2>
+<blockquote>
+  <p><strong>Hinweise:</strong></p>
+
+  <ul>
+    <li>Die Beispiele sind von der Komplexität her <strong>aufsteigend</strong> sortiert.</li>
+    <li>Nimm bitte nur die Dinge ins Diagramm auf, die hier genannt sind. Ergänze
+<strong>keine</strong> eigenen fachlichen Anforderungen.</li>
+  </ul>
+</blockquote>
+
+<h2 id="aufgabe-1-dateien-und-ordner">Aufgabe 1: Dateien und Ordner</h2>
 
 <blockquote>
-  <p>Eine Spedition verwaltet <strong>Fahrräder</strong>, <strong>PKW</strong> und <strong>LKW</strong>. Jedes Fahrzeug hat
-eine Inventarnummer und ein Gewicht und kann gewartet werden. PKW und LKW haben
-außerdem ein Kennzeichen, einen Kraftstoffstand und eine Motorleistung; nur der
-LKW hat eine Nutzlast, nur der PKW eine Sitzplatzzahl.</p>
+  <p>Ein Dateisystem kennt <strong>Dateien</strong> und <strong>Ordner</strong>. Beide haben einen Namen und
+eine Größe, beide lassen sich umbenennen, und bei beiden kann man den Inhalt
+auslesen. Eine Datei hat zusätzlich eine Endung, ein Ordner weiß, wie viele
+Einträge er enthält.</p>
 </blockquote>
+
+<p>Zeichne die beiden Klassen, zieh das Gemeinsame in eine Oberklasse und setz die
+Pfeile.</p>
 
 <h2 id="aufgabe-2-medien-einer-bibliothek">Aufgabe 2: Medien einer Bibliothek</h2>
 
@@ -175,17 +188,14 @@ Zeitschrift eine Ausgabennummer. Ein Hörbuch dagegen wird heruntergeladen und
 hat eine Spieldauer und eine Dateigröße.</p>
 </blockquote>
 
-<h2 id="aufgabe-3-dateien-und-ordner">Aufgabe 3: Dateien und Ordner</h2>
+<h2 id="aufgabe-3-fahrzeuge-einer-spedition">Aufgabe 3: Fahrzeuge einer Spedition</h2>
 
 <blockquote>
-  <p>Ein Dateisystem kennt <strong>Dateien</strong> und <strong>Ordner</strong>. Beide haben einen Namen und
-eine Größe, beide lassen sich umbenennen, und bei beiden kann man den Inhalt
-auslesen. Eine Datei hat zusätzlich eine Endung, ein Ordner weiß, wie viele
-Einträge er enthält.</p>
+  <p>Eine Spedition verwaltet <strong>Fahrräder</strong>, <strong>PKW</strong> und <strong>LKW</strong>. Jedes Fahrzeug hat
+eine Inventarnummer und ein Gewicht und kann gewartet werden. PKW und LKW haben
+außerdem ein Kennzeichen, einen Kraftstoffstand und eine Motorleistung; nur der
+LKW hat eine Nutzlast, nur der PKW eine Sitzplatzzahl.</p>
 </blockquote>
-
-<p>Zeichne die beiden Klassen, zieh das Gemeinsame in eine Oberklasse und setz die
-Pfeile.</p>
 
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 
@@ -214,18 +224,27 @@ Du…
 
 ## Definition of Done
 
-* [ ] Du hast **Aufgabe 3** (Dateien und Ordner) gelöst und mindestens **eine** der beiden anderen.
+* [ ] Du hast **Aufgabe 1** gelöst und mindestens **eine** der beiden anderen.
 * [ ] In jedem Diagramm steht in der Oberklasse nur, was für **alle** Unterklassen gilt.
 * [ ] Jeder Vererbungspfeil zeigt von der Unterklasse **nach oben** zur Oberklasse.
 * [ ] Du kannst jeden Pfeil als „ist ein“-Satz vorlesen, und der Satz ergibt Sinn.
 * [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
 
-## Aufgabe 1: Fahrzeuge einer Spedition
+&gt; **Hinweise:**
+&gt;
+&gt; * Die Beispiele sind von der Komplexität her **aufsteigend** sortiert.
+&gt; * Nimm bitte nur die Dinge ins Diagramm auf, die hier genannt sind. Ergänze
+&gt;   **keine** eigenen fachlichen Anforderungen.
 
-&gt; Eine Spedition verwaltet **Fahrräder**, **PKW** und **LKW**. Jedes Fahrzeug hat
-&gt; eine Inventarnummer und ein Gewicht und kann gewartet werden. PKW und LKW haben
-&gt; außerdem ein Kennzeichen, einen Kraftstoffstand und eine Motorleistung; nur der
-&gt; LKW hat eine Nutzlast, nur der PKW eine Sitzplatzzahl.
+## Aufgabe 1: Dateien und Ordner
+
+&gt; Ein Dateisystem kennt **Dateien** und **Ordner**. Beide haben einen Namen und
+&gt; eine Größe, beide lassen sich umbenennen, und bei beiden kann man den Inhalt
+&gt; auslesen. Eine Datei hat zusätzlich eine Endung, ein Ordner weiß, wie viele
+&gt; Einträge er enthält.
+
+Zeichne die beiden Klassen, zieh das Gemeinsame in eine Oberklasse und setz die
+Pfeile.
 
 ## Aufgabe 2: Medien einer Bibliothek
 
@@ -236,15 +255,12 @@ Du…
 &gt; Zeitschrift eine Ausgabennummer. Ein Hörbuch dagegen wird heruntergeladen und
 &gt; hat eine Spieldauer und eine Dateigröße.
 
-## Aufgabe 3: Dateien und Ordner
+## Aufgabe 3: Fahrzeuge einer Spedition
 
-&gt; Ein Dateisystem kennt **Dateien** und **Ordner**. Beide haben einen Namen und
-&gt; eine Größe, beide lassen sich umbenennen, und bei beiden kann man den Inhalt
-&gt; auslesen. Eine Datei hat zusätzlich eine Endung, ein Ordner weiß, wie viele
-&gt; Einträge er enthält.
-
-Zeichne die beiden Klassen, zieh das Gemeinsame in eine Oberklasse und setz die
-Pfeile.
+&gt; Eine Spedition verwaltet **Fahrräder**, **PKW** und **LKW**. Jedes Fahrzeug hat
+&gt; eine Inventarnummer und ein Gewicht und kann gewartet werden. PKW und LKW haben
+&gt; außerdem ein Kennzeichen, einen Kraftstoffstand und eine Motorleistung; nur der
+&gt; LKW hat eine Nutzlast, nur der PKW eine Sitzplatzzahl.
 
 ## Reflexionsfragen
 
