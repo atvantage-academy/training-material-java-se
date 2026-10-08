@@ -1,0 +1,941 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Enums, Annotations und Records · ATVANTAGE Academy</title><meta name="description" content="Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Enums, Annotations und Records">
+<meta property="og:description" content="Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden.">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=40065c05">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=6092d972"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.4.0">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.4.0","schemas":{"config":"1.2.0","frontmatter":"1.0.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-basics/shared/typarten/enums-annotations-records.html","title":"Enums, Annotations und Records","layout":"visualization","description":"Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=ad4b504d" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791448762" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
+           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags">
+      </div>
+      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
+                data-avd-academy-print
+                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Enums, Annotations und Records</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung
+     - Ort: java-basics/shared/typarten/ – eingebunden in die Materialübersicht
+       („Zum Nachschlagen“) von „OOP mit Java“ (Thema „Robuste Programme“) und
+       „Java für OO-Umsteiger“ (Thema „Robuste Programme & Daten“), jeweils am ENDE
+       der Liste, in index.md und index-trainer.md.
+     - Eine Seite mit DREI REITERN, einer je Typart (Theme-Baustein avd-academy-tabs;
+       der Reiter steht damit ohne eigenes Skript in der Adresse, z. B. #/?open=records).
+     - ENUMS: Zweck, Syntax, Beispiel „Kartenfarbe“ einmal einfach und einmal mit
+       Instanzvariable `wert` (Skat-Grundwerte Kreuz 12, Pik 11, Herz 10, Karo 9).
+       Vergleich mit derselben Umsetzung OHNE Enum – „was macht der Compiler daraus“:
+       Enum und ausgeschriebene Klasse (mit extends Enum<Kartenfarbe>) als zwei
+       gleich hohe Reiter auf voller Breite, belegt mit javap. Vertiefung der
+       Syntax: abstrakte Methoden je Konstante und Interfaces implementieren.
+     - ANNOTATIONS: Zweck; Syntax in drei Formen (Marker, mit Attribut `value`, mit
+       mehreren Attributen). Es muss klar werden, dass Annotations auch nur TYPEN
+       sind – Java-Code (@interface), Bytecode (javap: Interface, das
+       java.lang.annotation.Annotation erweitert), Packages (import). Wer sie
+       ausliest, steht NUR ALS HINWEIS da: entweder der Compiler oder ein Framework
+       mit eigenen Annotations (Beispiel JAX-RS). BEWUSST OHNE Reflection-API zum
+       Auslesen und ohne Annotation Processing – @Retention nur als ein Satz.
+     - RECORDS: Zweck, Syntax an einem Beispiel, dann der HINTERGRUND, warum Records
+       keine Getter-Benennung tragen – mit der offiziellen Begründung, und daraus
+       abgeleitet die Vergleichstabelle Java Beans vs. Records (wo definiert, Zweck,
+       Veränderbarkeit, Konstruktor, Zugriff, equals/hashCode/toString, Vererbung …).
+       Ausdrücklicher Nachtrag des Auftraggebers: Erst die Begründung, „daraus
+       leitet sich der Vergleich ab“ – die Reihenfolge nicht umdrehen.
+     - QUELLEN der Records-Begründung (abgerufen 2026-10-08):
+         · JEP 395 „Records“ (JDK 16), Summary und Non-Goals – https://openjdk.org/jeps/395
+         · Brian Goetz, „Data Classes and Sealed Types for Java“, Februar 2019 –
+           https://openjdk.org/projects/amber/design-notes/records-and-sealed-classes
+         · Brian Goetz auf amber-dev, „Feedback for records: Accessors name() vs.
+           getName()“, 5. 8. 2020 –
+           https://mail.openjdk.org/pipermail/amber-dev/2020-August/006414.html und
+           https://mail.openjdk.org/pipermail/amber-dev/2020-August/006421.html
+         · JavaBeans-Spezifikation 1.01 (Sun, 1997), Definition „reusable software
+           component that can be manipulated visually in a builder tool“ – zitiert
+           von Goetz, amber-dev 006417.
+       Zitate im Original (Englisch) mit deutscher Wiedergabe daneben; nichts
+       hinzudichten, was dort nicht steht.
+     - ALLE AUSGABEN SIND ECHT: jedes Beispiel mit OpenJDK 25.0.2 ausgeführt
+       (2026-10-08); javap-Ausgaben ebenso; Compilermeldungen aus javac mit deutscher
+       Locale (-J-Duser.language=de). Das JAX-RS-Beispiel ist gegen
+       jakarta.ws.rs-api 4.0.0 kompiliert (keine Ausgabe, es läuft erst im Server).
+       Ausnahme: Der Hash in „SpielkarteBean@…“ wechselt je Lauf. Wer Beispiele
+       ändert, muss neu ausführen – nicht schätzen.
+     - Bezeichner mit Umlauten (AGENTS.md, A-006): Geprüft, Vorläufig, istRot …
+       Packages bleiben ASCII (de.bank.annotationen), weil sie Ordnernamen sind.
+-->
+
+<style>
+/* Präfix ear- („Enums, Annotations, Records“). Farben ausschließlich aus den
+   Theme-Tokens – damit stimmt die Seite in Light und Dark ohne zweiten Regelsatz.
+   Keine eigene Breitenbegrenzung: die gibt das Layout vor. */
+.ear-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.5rem;}
+
+/* Abschnitte je Reiter: Nummer + Überschrift, wie in den übrigen Nachschlagewerken */
+.ear-sec{margin:1.6rem 0 2.4rem;}
+.ear-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.4rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border);padding-bottom:.5rem;}
+.ear-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-primary);color:var(--avd-academy-color-primary-contrast);font-size:.9rem;font-weight:700;}
+.ear-sec h3{font-size:1.02rem;margin:1.1rem 0 .45rem;}
+.ear-sec p,.ear-sec li{font-size:.95rem;}
+
+/* Karten im Raster – nebeneinander, auf schmalen Geräten untereinander */
+.ear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(21rem,1fr));gap:1.1rem;margin:.6rem 0;}
+
+/* Reiter auf voller Breite statt enger Spalten (Enum-Vergleich, Annotation-Formen,
+   Annotation-Ebenen). Alle Reiter einer Gruppe sind gleich hoch: Das Skript am Ende
+   misst den höchsten Inhalt und setzt ihn als min-height – beim Umschalten springt
+   nichts. Ohne Skript bleibt nur die Höhe je Reiter, sonst nichts. */
+.ear-reiter{margin:.6rem 0 1rem;}
+.ear-reiter__inhalt > :first-child{margin-top:0;}
+.ear-reiter__inhalt > :last-child{margin-bottom:0;}
+.ear-reiter__inhalt pre{margin:.2rem 0 .8rem;}
+.ear-root .ear-reiter pre code.hljs{font-size:.92rem;line-height:1.5;}
+.ear-root .ear-reiter .ear-konsole{font-size:.88rem;}
+.ear-reiter__mess{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;}
+.ear-card{min-width:0;background:var(--avd-academy-color-bg-subtle);border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius);padding:1rem 1.15rem;}
+.ear-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
+.ear-card p{margin:0 0 .6rem;font-size:.9rem;}
+.ear-card p:last-child{margin-bottom:0;}
+.ear-card pre{margin:0;overflow-x:auto;}
+.ear-card pre + p{margin-top:.6rem;}
+.ear-card--gut{border-left:4px solid var(--avd-academy-color-success);}
+.ear-card--schlecht{border-left:4px solid var(--avd-academy-color-warning);}
+.ear-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-accent-ink);margin:0 0 .3rem;}
+.ear-root pre{overflow-x:auto;}
+.ear-root pre code.hljs{border-radius:var(--avd-academy-radius-lg);font-size:.8rem;line-height:1.5;}
+
+/* Ausgaben: Konsole und javap. Bewusst KEIN Java-Highlighting – es ist Text. */
+.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-bg);border:1px dashed var(--avd-academy-color-border);font-family:var(--avd-academy-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
+.ear-konsole::before{content:attr(data-titel);display:block;font-family:var(--avd-academy-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);margin-bottom:.3rem;}
+.ear-konsole mark{background:var(--avd-academy-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
+
+/* Merksatz und Hinweise */
+.ear-merke{margin:1.2rem 0 0;padding:.7rem 1rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-accent-soft);}
+.ear-note{margin:.8rem 0 0;font-size:.9rem;color:var(--avd-academy-color-ink-muted);}
+
+
+/* Zitate der offiziellen Begründung: Original + deutsche Wiedergabe */
+.ear-zitat{margin:.8rem 0;padding:.75rem 1rem;border-left:4px solid var(--avd-academy-color-accent);background:var(--avd-academy-color-bg-subtle);border-radius:0 var(--avd-academy-radius) var(--avd-academy-radius) 0;}
+.ear-zitat blockquote{margin:0;padding:0;border:none;font-style:italic;}
+.ear-zitat p{margin:0 0 .4rem;}
+.ear-zitat .ear-de{font-style:normal;}
+.ear-zitat cite{display:block;font-style:normal;font-size:.8rem;color:var(--avd-academy-color-ink-muted);}
+.ear-gruende{counter-reset:grund;list-style:none;padding:0;margin:.6rem 0;}
+.ear-gruende > li{counter-increment:grund;position:relative;padding:0 0 0 2.4rem;margin:0 0 1.1rem;}
+.ear-gruende > li::before{content:counter(grund);position:absolute;left:0;top:.05rem;width:1.7rem;height:1.7rem;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--avd-academy-color-accent-soft);font-weight:700;font-size:.85rem;}
+
+/* Vergleichstabelle */
+.ear-tabelle-rahmen{overflow-x:auto;margin:.6rem 0;}
+.ear-tabelle{width:100%;border-collapse:collapse;font-size:.9rem;}
+.ear-tabelle th,.ear-tabelle td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--avd-academy-color-border);}
+.ear-tabelle thead th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);white-space:nowrap;}
+.ear-tabelle tbody th{font-weight:700;white-space:nowrap;}
+.ear-tabelle td:last-child{background:color-mix(in srgb,var(--avd-academy-color-accent-soft) 55%,transparent);}
+
+@media (max-width:30rem){
+  .ear-grid{grid-template-columns:minmax(0,1fr);}
+  .ear-root .ear-reiter pre code.hljs{font-size:.8rem;}
+}
+
+/* Druck: Die Theme-Reiter klappen vor dem Druck selbst alle auf. */
+@media print{
+  .ear-reiter__inhalt{min-height:0 !important;}
+  .ear-card,.ear-zitat{break-inside:avoid;background:transparent !important;}
+  .ear-root pre,.ear-root pre code,.ear-root pre code *,.ear-konsole{color:#000 !important;background:transparent !important;}
+  .ear-root pre,.ear-konsole{white-space:pre-wrap;word-break:break-word;font-size:8pt;}
+}
+</style>
+
+<div class="ear-root">
+
+<p class="ear-lead">Drei Typarten, die mehr können als eine gewöhnliche Klasse – oder bewusst weniger. Jede hat einen Reiter: <strong>wozu</strong> es sie gibt, <strong>wie</strong> man sie schreibt und <strong>was der Compiler daraus macht</strong>. Alle Ausgaben auf dieser Seite stammen aus echten Läufen mit Java 25.</p>
+
+<div class="avd-academy-tabs">
+
+<!-- =======================================================================
+     REITER 1 – ENUMS
+     ======================================================================= -->
+<details class="avd-academy-tabs__panel" name="ear-typart" id="enums" open="">
+<summary>Enums</summary>
+
+<section class="ear-sec">
+<h2><span class="ear-num">1</span>Wozu ein Enum?</h2>
+<p>Manche Werte stehen <strong>von vornherein fest</strong>: die vier Farben eines Kartenspiels, die Wochentage, die Zustände einer Bestellung. Ein <code>enum</code> (seit Java 5) ist ein Typ mit <strong>genau diesen Werten und keinem anderen</strong>. Der Compiler prüft das – ein Tippfehler oder eine erfundene Zahl fällt beim Übersetzen auf, nicht erst beim Kunden.</p>
+<div class="ear-grid">
+<div class="ear-card ear-card--schlecht">
+<span class="ear-etikett">Vorher: Zahlenkonstanten</span>
+<pre><code class="language-java">public static final int KREUZ = 0;
+public static final int PIK   = 1;
+public static final int HERZ  = 2;
+public static final int KARO  = 3;
+
+static void ausspielen(int farbe) { … }
+
+ausspielen(HERZ);
+ausspielen(42);               // kompiliert – leider
+System.out.println(HERZ);     // 2</code></pre>
+<p>Jede <code>int</code>-Zahl ist „eine Farbe“, und die Ausgabe sagt nichts.</p>
+</div>
+<div class="ear-card ear-card--gut">
+<span class="ear-etikett">Mit Enum</span>
+<pre><code class="language-java">public enum Kartenfarbe {
+    KREUZ, PIK, HERZ, KARO
+}
+
+static void ausspielen(Kartenfarbe farbe) { … }
+
+ausspielen(Kartenfarbe.HERZ);
+ausspielen(42);               // Compilerfehler
+System.out.println(Kartenfarbe.HERZ);   // HERZ</code></pre>
+<p>Nur die vier Konstanten passen, und jede kennt ihren Namen.</p>
+</div>
+</div>
+</section>
+
+<section class="ear-sec">
+<h2><span class="ear-num">2</span>Syntax: das einfache Enum</h2>
+<p>Das Schlüsselwort <code>enum</code> steht dort, wo sonst <code>class</code> steht; dahinter folgen die Konstanten, durch Komma getrennt. Konstanten schreibt man in GROSSBUCHSTABEN. Jedes Enum bringt ein paar Methoden fertig mit:</p>
+<div class="ear-grid">
+<div class="ear-card">
+<pre><code class="language-java">Kartenfarbe trumpf = Kartenfarbe.HERZ;
+System.out.println(trumpf);                        // HERZ
+System.out.println(trumpf.name());                 // HERZ
+System.out.println(trumpf.ordinal());              // 2
+System.out.println(trumpf == Kartenfarbe.HERZ);    // true
+System.out.println(Kartenfarbe.valueOf("PIK"));    // PIK
+
+for (Kartenfarbe f : Kartenfarbe.values()) {
+    System.out.print(f + " ");
+}
+
+switch (trumpf) {
+    case KREUZ, PIK -&gt; System.out.println("schwarz");
+    case HERZ, KARO -&gt; System.out.println("rot");
+}</code></pre>
+<div class="ear-konsole" data-titel="Ausgabe">HERZ
+HERZ
+2
+true
+PIK
+KREUZ PIK HERZ KARO
+rot</div>
+</div>
+<div class="ear-card">
+<h3>Was Du mitbekommst</h3>
+<ul>
+<li><code>name()</code> und <code>toString()</code> – der Name der Konstante als Text.</li>
+<li><code>ordinal()</code> – die Position, ab 0. Nicht für Fachlogik verwenden: Wer die Reihenfolge ändert, ändert die Zahl.</li>
+<li><code>values()</code> – alle Konstanten als Array, in Deklarationsreihenfolge.</li>
+<li><code>valueOf(String)</code> – vom Text zur Konstante; unbekannter Text wirft eine <code>IllegalArgumentException</code>.</li>
+<li><strong>Vergleich mit <code>==</code></strong> ist richtig: Jede Konstante gibt es genau einmal.</li>
+<li><code>switch</code> kennt Enums – in den <code>case</code>-Zweigen ohne <code>Kartenfarbe.</code> davor.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="ear-sec">
+<h2><span class="ear-num">3</span>Syntax: Enum mit Instanzvariable</h2>
+<p>Ein Enum ist eine Klasse – es darf Felder, Konstruktoren und Methoden haben. Beim Skat hat jede Farbe einen <strong>Grundwert</strong>. Den gibt man jeder Konstante in Klammern mit; die Klammern rufen den Konstruktor auf.</p>
+<div class="ear-grid">
+<div class="ear-card">
+<pre><code class="language-java">public enum Kartenfarbe {
+    KREUZ(12), PIK(11), HERZ(10), KARO(9);   // ← Semikolon!
+
+    private final int wert;
+
+    Kartenfarbe(int wert) {                  // automatisch private
+        this.wert = wert;
+    }
+
+    public int getWert() {
+        return wert;
+    }
+}</code></pre>
+</div>
+<div class="ear-card">
+<pre><code class="language-java">for (Kartenfarbe f : Kartenfarbe.values()) {
+    System.out.println(f + " = " + f.getWert());
+}
+int spielwert = Kartenfarbe.KREUZ.getWert() * 2;
+System.out.println(spielwert);</code></pre>
+<div class="ear-konsole" data-titel="Ausgabe">KREUZ = 12
+PIK = 11
+HERZ = 10
+KARO = 9
+24</div>
+</div>
+</div>
+<h3>Die Regeln dazu</h3>
+<ul>
+<li>Die Konstanten stehen <strong>zuerst</strong>; sobald noch etwas folgt, schließt ein <strong>Semikolon</strong> die Liste ab.</li>
+<li>Der Konstruktor ist immer <code>private</code> – auch ohne das Wort. <code>new Kartenfarbe(8)</code> geht nicht: Es bleibt bei den vier.</li>
+<li>Felder macht man <code>final</code>. Eine Konstante, deren Wert sich ändert, wäre keine.</li>
+</ul>
+</section>
+
+<section class="ear-sec" id="ohne-enum">
+<h2><span class="ear-num">4</span>Dasselbe ohne Enum – was der Compiler daraus macht</h2>
+<p>Ein Enum ist <strong>Kurzschrift für eine Klasse</strong>. Der erste Reiter zeigt, was Du schreibst; der zweite, was der Compiler daraus erzeugt – als Java-Code ausgeschrieben, damit man es lesen kann.</p>
+<!-- Vorgabe: Beide Fassungen in einer Reiter-Komponente, jede auf voller Breite und in
+     großer Schrift; beide Reiter gleich hoch (Skript „gleich hohe Reiter“ unten),
+     damit beim Umschalten nichts springt. Die Klasse folgt dem echten Bytecode
+     (javap -c, 2026-10-08): extends Enum, super(name, ordinal), $VALUES.clone(),
+     Enum.valueOf(Kartenfarbe.class, name). -->
+<div class="avd-academy-tabs ear-reiter ear-reiter--code">
+<details class="avd-academy-tabs__panel" name="ear-umsetzung" id="enum-quelltext" open="">
+<summary>Das schreibst Du</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">public enum Kartenfarbe {
+    KREUZ(12), PIK(11), HERZ(10), KARO(9);
+
+    private final int wert;
+
+    Kartenfarbe(int wert) {
+        this.wert = wert;
+    }
+
+    public int getWert() {
+        return wert;
+    }
+}</code></pre>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-umsetzung" id="enum-compiler">
+<summary>Das macht der Compiler daraus</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">public final class Kartenfarbe extends Enum&lt;Kartenfarbe&gt; {   // final: keine Unterklassen
+
+    public static final Kartenfarbe KREUZ = new Kartenfarbe("KREUZ", 0, 12);
+    public static final Kartenfarbe PIK   = new Kartenfarbe("PIK",   1, 11);
+    public static final Kartenfarbe HERZ  = new Kartenfarbe("HERZ",  2, 10);
+    public static final Kartenfarbe KARO  = new Kartenfarbe("KARO",  3, 9);
+
+    private static final Kartenfarbe[] $VALUES = { KREUZ, PIK, HERZ, KARO };
+
+    private final int wert;
+
+    private Kartenfarbe(String name, int ordinal, int wert) {
+        super(name, ordinal);            // name(), ordinal(), toString() … kommen aus Enum
+        this.wert = wert;
+    }
+
+    public int getWert() {
+        return wert;
+    }
+
+    public static Kartenfarbe[] values() {
+        return $VALUES.clone();          // Kopie – das Original bleibt heil
+    }
+
+    public static Kartenfarbe valueOf(String name) {
+        return Enum.valueOf(Kartenfarbe.class, name);
+    }
+}</code></pre>
+</div>
+</details>
+</div>
+<p>Der Beleg: <code>javap -p</code> zeigt, was wirklich in der <code>Kartenfarbe.class</code> steht. Jede Konstante ist ein <code>public static final</code>-Feld, die Klasse ist <code>final</code> und erbt von <code>java.lang.Enum</code>, <code>values()</code> und <code>valueOf()</code> hat der Compiler ergänzt.</p>
+<div class="ear-konsole" data-titel="javap -p Kartenfarbe.class">Compiled from "Kartenfarbe.java"
+<mark>public final class Kartenfarbe extends java.lang.Enum&lt;Kartenfarbe&gt;</mark> {
+  <mark>public static final Kartenfarbe KREUZ;</mark>
+  public static final Kartenfarbe PIK;
+  public static final Kartenfarbe HERZ;
+  public static final Kartenfarbe KARO;
+  private final int wert;
+  private static final Kartenfarbe[] $VALUES;
+  <mark>public static Kartenfarbe[] values();</mark>
+  <mark>public static Kartenfarbe valueOf(java.lang.String);</mark>
+  private Kartenfarbe(int);
+  public int getWert();
+  private static Kartenfarbe[] $values();
+  static {};
+}</div>
+<p class="ear-note">Der Konstruktor heißt dort nur scheinbar <code>Kartenfarbe(int)</code>: Seine echte Signatur ist <code>(String, int, int)</code> – Name und Position reicht der Compiler unsichtbar mit durch. Im statischen Initialisierer steht dann <code>new Kartenfarbe("KREUZ", 0, 12)</code>, genau wie im zweiten Reiter oben.</p>
+<h3>Warum dann nicht gleich selbst schreiben?</h3>
+<p>Weil man es nicht darf: Diese Klasse kann nur der Compiler erzeugen. Schreibt man sie selbst, meldet <code>javac</code>: „Klassen können java.lang.Enum nicht direkt erweitern“. Und es ist gut so – über die Oberklasse <code>Enum</code> bekommt ein echtes Enum <code>compareTo</code> in Deklarationsreihenfolge, ein <code>equals</code>, das niemand überschreiben kann, Schutz davor, dass beim Serialisieren eine fünfte „Kreuz“-Instanz entsteht, die Unterstützung im <code>switch</code> und die schnellen Sammlungen <code>EnumSet</code> und <code>EnumMap</code>.</p>
+</section>
+
+<section class="ear-sec" id="vertiefung">
+<h2><span class="ear-num">5</span>Vertiefung: abstrakte Methoden und Interfaces</h2>
+<p>Weil ein Enum eine Klasse ist, darf es <strong>Interfaces implementieren</strong> und <strong>abstrakte Methoden</strong> deklarieren. Dann bekommt <em>jede Konstante einen eigenen Rumpf</em> in geschweiften Klammern – das Verhalten unterscheidet sich je Konstante, ohne <code>switch</code>.</p>
+<div class="ear-grid">
+<div class="ear-card">
+<pre><code class="language-java">public interface Symbol {
+    char symbol();
+}
+
+public enum Kartenfarbe implements Symbol {
+    KREUZ(12) {
+        public boolean istRot() { return false; }
+        public char symbol()    { return '♣'; }
+    },
+    PIK(11) {
+        public boolean istRot() { return false; }
+        public char symbol()    { return '♠'; }
+    },
+    HERZ(10) {
+        public boolean istRot() { return true; }
+        public char symbol()    { return '♥'; }
+    },
+    KARO(9) {
+        public boolean istRot() { return true; }
+        public char symbol()    { return '♦'; }
+    };
+
+    private final int wert;
+
+    Kartenfarbe(int wert) {
+        this.wert = wert;
+    }
+
+    public int getWert() {
+        return wert;
+    }
+
+    public abstract boolean istRot();   // jede Konstante MUSS sie liefern
+}</code></pre>
+</div>
+<div class="ear-card">
+<pre><code class="language-java">for (Kartenfarbe f : Kartenfarbe.values()) {
+    System.out.println(f.symbol() + " " + f + " rot? " + f.istRot());
+}
+Symbol s = Kartenfarbe.PIK;           // über das Interface ansprechbar
+System.out.println(s.symbol());
+System.out.println(Kartenfarbe.HERZ.getClass());
+System.out.println(Kartenfarbe.HERZ.getDeclaringClass());</code></pre>
+<div class="ear-konsole" data-titel="Ausgabe">♣ KREUZ rot? false
+♠ PIK rot? false
+♥ HERZ rot? true
+♦ KARO rot? true
+♠
+class Kartenfarbe$3
+class Kartenfarbe</div>
+<h3>Was der Compiler daraus macht</h3>
+<p>Jeder Konstantenrumpf wird eine <strong>anonyme Unterklasse</strong>: Neben <code>Kartenfarbe.class</code> liegen <code>Kartenfarbe$1.class</code> bis <code>Kartenfarbe$4.class</code>. Die Enum-Klasse selbst ist jetzt <code>abstract</code> statt <code>final</code>:</p>
+<div class="ear-konsole" data-titel="javap -p Kartenfarbe.class (Auszug)"><mark>public abstract class Kartenfarbe extends java.lang.Enum&lt;Kartenfarbe&gt; implements Symbol</mark> {
+  public static final Kartenfarbe KREUZ;
+  …
+  public abstract boolean istRot();
+  …
+}</div>
+<p class="ear-note">Deshalb liefert <code>getClass()</code> für <code>HERZ</code> die Unterklasse <code>Kartenfarbe$3</code>. Wer die Enum-Klasse braucht – etwa für einen Vergleich –, nimmt <code>getDeclaringClass()</code>.</p>
+</div>
+</div>
+<p><strong>Interface oder abstrakte Methode?</strong> Ein <em>Interface</em> lohnt sich, wenn auch andere Typen dieselbe Fähigkeit haben sollen (eine <code>Symbol</code>-Methode haben auch Spielfiguren). Eine <em>abstrakte Methode</em> reicht, wenn nur dieses Enum sie braucht. Beides lässt sich, wie oben, kombinieren. Ist das Verhalten nur ein anderer <em>Wert</em>, genügt ein Feld wie <code>wert</code> – ein eigener Rumpf je Konstante lohnt erst bei echt unterschiedlicher Logik.</p>
+</section>
+
+<p class="ear-merke"><strong>Merksatz:</strong> Ein Enum ist eine Klasse mit einer festen, vom Compiler bewachten Liste von Instanzen – mit Feldern, Methoden und sogar eigenem Verhalten je Konstante.</p>
+
+</details>
+
+<!-- =======================================================================
+     REITER 2 – ANNOTATIONS
+     Vorgabe: Wer sie ausliest, nur als HINWEIS – keine Reflection-API, kein
+     Annotation Processing. @Retention nur in einem Satz.
+     ======================================================================= -->
+<details class="avd-academy-tabs__panel" name="ear-typart" id="annotations">
+<summary>Annotations</summary>
+
+<section class="ear-sec">
+<h2><span class="ear-num">1</span>Wozu Annotations?</h2>
+<p>Eine Annotation (seit Java 5) ist eine <strong>Markierung am Code</strong> – an einer Klasse, einer Methode, einem Feld, einem Parameter. Sie heftet eine Information an, <strong>verändert aber selbst nichts</strong>: Kein Befehl wird durch eine Annotation ausgeführt. Sie wirkt erst, wenn jemand sie <strong>ausliest</strong> – der Compiler oder ein Framework (siehe <a href="#wer-liest">unten</a>).</p>
+<p>Man kann sie sich wie einen Klebezettel vorstellen: „Diese Methode soll eine geerbte überschreiben.“ – „Diese Methode beantwortet HTTP-GET-Anfragen.“ Der Zettel tut nichts; wer ihn liest, handelt danach.</p>
+</section>
+
+<section class="ear-sec">
+<h2><span class="ear-num">2</span>Syntax: drei Formen</h2>
+<p>Eine Annotation beginnt mit <code>@</code> und steht <strong>vor</strong> dem, was sie markiert. Je nachdem, ob sie Attribute hat, gibt es drei Schreibweisen:</p>
+<!-- Vorgabe: die drei Formen als Reiter auf voller Breite (drei Spalten waren zu eng). -->
+<div class="avd-academy-tabs ear-reiter">
+<details class="avd-academy-tabs__panel" name="ear-formen" id="form-marker" open="">
+<summary>Marker – ohne Attribute</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">@Override
+public String toString() {
+    return "Konto[" + saldo + "]";
+}
+
+@FunctionalInterface
+interface Prüfer {
+    boolean prüfe(int wert);
+}</code></pre>
+<p>Die bloße Anwesenheit ist die Information.</p>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-formen" id="form-value">
+<summary>Mit dem Attribut value</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">@SuppressWarnings("unchecked")
+static List&lt;String&gt; roh() { … }
+
+// ausführlich – dasselbe:
+@SuppressWarnings(value = "unchecked")</code></pre>
+<p>Heißt das einzige angegebene Attribut <code>value</code>, darf man <code>value =</code> weglassen. Mehrere Werte stehen in geschweiften Klammern: <code>@SuppressWarnings({"unchecked", "removal"})</code>.</p>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-formen" id="form-attribute">
+<summary>Mit mehreren Attributen</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">@Deprecated(since = "2.0", forRemoval = true)
+public static void altesVerfahren() { … }</code></pre>
+<p>Jedes Attribut mit Namen, durch Komma getrennt; die Reihenfolge ist egal. Attribute mit Standardwert darf man weglassen – <code>@Deprecated</code> allein geht auch.</p>
+</div>
+</details>
+</div>
+</section>
+
+<section class="ear-sec" id="typen">
+<h2><span class="ear-num">3</span>Annotations sind auch nur Typen</h2>
+<p><code>@Override</code> ist kein Schlüsselwort und keine Magie, sondern ein <strong>Typ</strong> – genau wie eine Klasse oder ein Interface. Man kann eigene deklarieren: mit <code>@interface</code>. Die Attribute sind Methoden ohne Parameter, <code>default</code> gibt den Standardwert.</p>
+<!-- Vorgabe: die drei Ebenen als Reiter auf voller Breite, analog zu den drei Formen. -->
+<div class="avd-academy-tabs ear-reiter">
+<details class="avd-academy-tabs__panel" name="ear-ebenen" id="typ-java-code" open="">
+<summary>Java-Code</summary>
+<div class="ear-reiter__inhalt">
+<p>Eine eigene Datei, ein eigener Name, ein Package:</p>
+<pre><code class="language-java">package de.bank.annotationen;
+
+public @interface Geprüft {
+    String value();
+    String von() default "unbekannt";
+    int stufe() default 1;
+}</code></pre>
+<pre><code class="language-java">package de.bank.annotationen;
+
+public @interface Vorläufig {
+}</code></pre>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-ebenen" id="typ-bytecode">
+<summary>Bytecode</summary>
+<div class="ear-reiter__inhalt">
+<p>Der Compiler macht daraus eine <code>.class</code>-Datei – und zwar ein <strong>Interface</strong>, das <code>java.lang.annotation.Annotation</code> erweitert:</p>
+<div class="ear-konsole" data-titel="javap Geprüft.class">Compiled from "Geprüft.java"
+<mark>public interface</mark> de.bank.annotationen.Geprüft
+    <mark>extends java.lang.annotation.Annotation</mark> {
+  public abstract java.lang.String value();
+  public abstract java.lang.String von();
+  public abstract int stufe();
+}</div>
+<p class="ear-note">Ein Marker wie <code>Vorläufig</code> ist ein Interface ohne Methoden.</p>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-ebenen" id="typ-packages">
+<summary>Packages</summary>
+<div class="ear-reiter__inhalt">
+<p>Wer sie verwendet, muss sie <strong>importieren</strong> – wie jeden anderen Typ:</p>
+<pre><code class="language-java">package de.bank;
+
+import de.bank.annotationen.Geprüft;
+import de.bank.annotationen.Vorläufig;
+
+@Vorläufig
+@Geprüft("2026-10-08")
+public class Konto {
+
+    @Geprüft(value = "2026-10-01", von = "Mia", stufe = 2)
+    public void einzahlen(double betrag) { }
+}</code></pre>
+<div class="ear-konsole" data-titel="Nach javac">out/de/bank/Konto.class
+out/de/bank/annotationen/Geprüft.class
+out/de/bank/annotationen/Vorläufig.class</div>
+</div>
+</details>
+</div>
+<p>Auch die eingebauten liegen in Packages: <code>@Override</code>, <code>@Deprecated</code>, <code>@SuppressWarnings</code> und <code>@FunctionalInterface</code> stehen in <code>java.lang</code> – deshalb braucht man für sie keinen <code>import</code>.</p>
+</section>
+
+<section class="ear-sec" id="wer-liest">
+<h2><span class="ear-num">4</span>Wer liest sie aus?</h2>
+<p>Eine Annotation ohne Leser ist ein Kommentar mit Syntaxprüfung. Gelesen wird sie <strong>entweder vom Compiler oder von einem Framework</strong>.</p>
+<div class="ear-grid">
+<div class="ear-card">
+<span class="ear-etikett">Der Compiler</span>
+<p><code>@Override</code> verspricht: „Diese Methode überschreibt eine geerbte.“ Ein Tippfehler im Namen fällt sofort auf:</p>
+<pre><code class="language-java">public class Konto {
+    private double saldo;
+
+    @Override
+    public String tostring() {          // kleines s!
+        return "Konto[" + saldo + "]";
+    }
+}</code></pre>
+<div class="ear-konsole" data-titel="javac">Konto.java:4: Fehler: Methode überschreibt oder implementiert keine Methode aus einem Supertyp
+    @Override
+    ^
+1 Fehler</div>
+<p>Und wer eine mit <code>@Deprecated(since = "2.0", forRemoval = true)</code> markierte Methode aufruft, bekommt eine Warnung:</p>
+<div class="ear-konsole" data-titel="javac">Nutzer.java:3: Warnung: [removal] altesVerfahren() in Alt ist veraltet und wurde zum Entfernen markiert
+        Alt.altesVerfahren();
+           ^
+1 Warnung</div>
+</div>
+<div class="ear-card">
+<span class="ear-etikett">Ein Framework – mit eigenen Annotations</span>
+<p>Frameworks definieren <strong>ihre eigenen</strong> Annotations und lesen sie zur Laufzeit. Beispiel <strong>JAX-RS</strong> (Jakarta REST): Die Annotations sagen dem Server, welche Methode welche HTTP-Anfrage beantwortet. Aufrufen tut die Methode niemand im eigenen Code – das Framework findet sie über die Annotations.</p>
+<pre><code class="language-java">import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
+@Path("/konten")
+public class KontoRessource {
+
+    @GET
+    @Path("/{iban}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Konto finde(@PathParam("iban") String iban) {
+        return kontoService.finde(iban);
+    }
+}</code></pre>
+<p>Eine Anfrage <code>GET /konten/DE89…</code> landet in <code>finde</code>, das Stück hinter <code>/konten/</code> im Parameter <code>iban</code>, und die Antwort geht als JSON zurück. Und auch hier: <code>jakarta.ws.rs.Path</code> ist nur ein Typ aus einer Bibliothek –</p>
+<div class="ear-konsole" data-titel="javap jakarta.ws.rs.Path">public interface jakarta.ws.rs.Path extends java.lang.annotation.Annotation {
+  public abstract java.lang.String value();
+}</div>
+</div>
+</div>
+<p class="ear-note">Wie lange eine Annotation erhalten bleibt, legt ihre Deklaration mit <code>@Retention</code> fest: nur im Quelltext (für den Compiler) oder bis zur Laufzeit (für Frameworks). Wie man sie selbst ausliest, ist nicht Thema dieser Seite.</p>
+</section>
+
+<p class="ear-merke"><strong>Merksatz:</strong> Eine Annotation ist ein Typ – im Code mit <code>@interface</code> deklariert, im Bytecode ein Interface, in einem Package zu Hause. Sie markiert nur; wirken lässt sie erst ein Leser: der Compiler oder ein Framework.</p>
+
+</details>
+
+<!-- =======================================================================
+     REITER 3 – RECORDS
+     Reihenfolge vorgegeben: Zweck → Syntax → Hintergrund (offizielle Begründung
+     für x() statt getX()) → daraus abgeleitet die Vergleichstabelle.
+     ======================================================================= -->
+<details class="avd-academy-tabs__panel" name="ear-typart" id="records">
+<summary>Records</summary>
+
+<section class="ear-sec">
+<h2><span class="ear-num">1</span>Wozu Records?</h2>
+<p>Viele Klassen sind nichts als ein <strong>Behälter für ein paar Werte</strong>: eine Spielkarte aus Farbe und Bild, ein Punkt aus x und y, eine Adresse. Für so eine Klasse schreibt man von Hand Felder, Konstruktor, Zugriffsmethoden, <code>equals</code>, <code>hashCode</code> und <code>toString</code> – viel Code, in dem sich leicht ein Fehler versteckt. Ein <code>record</code> (seit Java 16) erklärt nur noch <strong>die Daten</strong>; den Rest leitet der Compiler daraus ab.</p>
+<div class="ear-zitat">
+<blockquote><p>„Records […] are classes that act as transparent carriers for immutable data.“</p></blockquote>
+<p class="ear-de">Records sind Klassen, die als <strong>durchsichtige Träger für unveränderliche Daten</strong> dienen.</p>
+<cite>JEP 395, „Records“ (JDK 16) – Summary</cite>
+</div>
+</section>
+
+<section class="ear-sec">
+<h2><span class="ear-num">2</span>Syntax am Beispiel</h2>
+<p>Hinter dem Namen stehen in Klammern die <strong>Komponenten</strong> – Typ und Name, wie Parameter. Ein Rumpf darf eigene Methoden und einen <strong>kompakten Konstruktor</strong> zur Prüfung enthalten (ohne Parameterliste; die Zuweisung an die Felder ergänzt der Compiler).</p>
+<!-- Vorgabe: Beispiel und Compiler-Sicht als zwei Reiter auf voller Breite (zwei Spalten waren zu schmal). -->
+<div class="avd-academy-tabs ear-reiter">
+<details class="avd-academy-tabs__panel" name="ear-record-syntax" id="record-beispiel" open="">
+<summary>Beispiel</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">public record Spielkarte(Kartenfarbe farbe, String bild) {
+
+    public Spielkarte {                        // kompakter Konstruktor
+        if (bild == null || bild.isBlank()) {
+            throw new IllegalArgumentException("Bild fehlt");
+        }
+    }
+
+    public boolean istTrumpf(Kartenfarbe trumpf) {
+        return farbe == trumpf || bild.equals("Bube");
+    }
+}</code></pre>
+<pre><code class="language-java">Spielkarte a = new Spielkarte(Kartenfarbe.HERZ, "Dame");
+Spielkarte b = new Spielkarte(Kartenfarbe.HERZ, "Dame");
+
+System.out.println(a);                    // toString
+System.out.println(a.farbe());            // Zugriffsmethode
+System.out.println(a.equals(b));          // equals nach Inhalt
+System.out.println(a == b);               // zwei Objekte
+System.out.println(a.hashCode() == b.hashCode());
+System.out.println(a.istTrumpf(Kartenfarbe.KREUZ));
+new Spielkarte(Kartenfarbe.PIK, " ");     // wirft</code></pre>
+<div class="ear-konsole" data-titel="Ausgabe">Spielkarte[farbe=HERZ, bild=Dame]
+HERZ
+true
+false
+true
+false
+Bild fehlt</div>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-record-syntax" id="record-compiler">
+<summary>Was der Compiler daraus macht</summary>
+<div class="ear-reiter__inhalt">
+<p>Aus <strong>einer Zeile Komponenten</strong> wird eine vollständige Klasse:</p>
+<div class="ear-konsole" data-titel="javap -p Spielkarte.class"><mark>public final class Spielkarte extends java.lang.Record</mark> {
+  <mark>private final Kartenfarbe farbe;</mark>
+  <mark>private final java.lang.String bild;</mark>
+  <mark>public Spielkarte(Kartenfarbe, java.lang.String);</mark>
+  public boolean istTrumpf(Kartenfarbe);
+  <mark>public final java.lang.String toString();</mark>
+  <mark>public final int hashCode();</mark>
+  <mark>public final boolean equals(java.lang.Object);</mark>
+  <mark>public Kartenfarbe farbe();</mark>
+  <mark>public java.lang.String bild();</mark>
+}</div>
+<ul>
+<li>je Komponente ein <code>private final</code>-Feld – <strong>keine Setter</strong>;</li>
+<li>ein Konstruktor mit allen Komponenten (der „kanonische“);</li>
+<li>je Komponente eine Zugriffsmethode – <code>farbe()</code>, <strong>nicht</strong> <code>getFarbe()</code>;</li>
+<li><code>equals</code>, <code>hashCode</code>, <code>toString</code> aus allen Komponenten;</li>
+<li>die Klasse ist <code>final</code> und erbt von <code>java.lang.Record</code> – Interfaces implementieren darf sie.</li>
+</ul>
+</div>
+</details>
+</div>
+</section>
+
+<section class="ear-sec" id="warum-kein-get">
+<h2><span class="ear-num">3</span><span>Hintergrund: Warum heißt es <code>farbe()</code> und nicht <code>getFarbe()</code>?</span></h2>
+<p>Die Frage kam schon während der Vorschauphase auf: Fast jede Java-Klasse mit Daten hat Getter nach dem Muster <code>getX()</code>, viele Frameworks erwarten sie – warum also nicht auch Records? Die Antwort der Sprachdesigner bei Oracle (Projekt Amber, federführend Brian Goetz) steht in der JEP, in einem Designpapier und auf der Mailingliste <em>amber-dev</em>. Sie hat vier Teile:</p>
+<ol class="ear-gruende">
+<li>
+<strong>Records sind kein Ersatz für Java Beans – das war ausdrücklich nicht das Ziel.</strong>
+<div class="ear-zitat">
+<blockquote><p>„It is not a goal to declare a ‚war on boilerplate‘. In particular, it is not a goal to address the problems of mutable classes which use the JavaBeans naming conventions.“</p></blockquote>
+<p class="ear-de">Es ist kein Ziel, dem Schreibaufwand den Krieg zu erklären – und insbesondere nicht, die Probleme <strong>veränderlicher</strong> Klassen nach den JavaBeans-Namenskonventionen zu lösen.</p>
+<cite>JEP 395 – Non-Goals</cite>
+</div>
+</li>
+<li>
+<strong><code>getX</code>/<code>setX</code> ist eine Konvention aus einer anderen Zeit – kein Standard der Sprache.</strong> Die JavaBeans-Spezifikation von 1997 beschreibt Bausteine für grafische Oberflächen-Editoren: „A Java Bean is a reusable software component that can be manipulated visually in a builder tool.“ Ein Editor erzeugt das Objekt mit einem leeren Konstruktor und setzt danach die Eigenschaften – dafür braucht es zu jedem <code>getX</code> ein <code>setX</code>.
+<div class="ear-zitat">
+<blockquote><p>„[…] that was fine in the days when JavaBeans were only intended to model visual components in a GUI builder and the object lifecycle was based on calling a no-arg constructor and then setting properties. We're far, far from those days […]“</p></blockquote>
+<p class="ear-de">Das passte, solange Java Beans nur Oberflächen-Bausteine im GUI-Editor waren, die man leer erzeugt und dann befüllt. Von dieser Zeit sind wir weit entfernt.</p>
+<cite>Brian Goetz, amber-dev, 5. 8. 2020</cite>
+</div>
+</li>
+<li>
+<strong>Eine Sprache soll keine Namensverstümmelung festschreiben.</strong> <code>getX</code> ist eine Umformung des Namens: Präfix davor, ersten Buchstaben groß – und bei <code>boolean</code> heißt es plötzlich <code>isX</code>. Was Bibliotheken als Konvention pflegen, ist für eine <em>Sprache</em>, die Methoden selbst erzeugt, eine viel höhere Hürde. Der Komponentenname selbst ist die einzige vertretbare Wahl – möglich nur, weil Felder und Methoden in Java getrennte Namensräume haben.
+<div class="ear-zitat">
+<blockquote><p>„Languages should not be in the business of exposing name mangling like this; this is the domain of libraries and frameworks. […] if there is any justifiable choice here, <code>x()</code> is really the only possible one […]“</p></blockquote>
+<p class="ear-de">Namen so umzuformen ist Sache von Bibliotheken und Frameworks, nicht der Sprache. Wenn überhaupt eine Wahl zu rechtfertigen ist, dann <code>x()</code>.</p>
+<cite>Brian Goetz, amber-dev, 5. 8. 2020</cite>
+</div>
+</li>
+<li>
+<strong>Ein Record ist sein Zustand – und die Zugriffsmethode ist garantiert ein reiner Zugriff.</strong> Bei einer gewöhnlichen Klasse kann man nur <em>raten</em>, dass <code>getX()</code>, <code>setX(…)</code> und der Konstruktorparameter <code>x</code> dasselbe meinen. Beim Record ist es festgelegt: Komponente, Feld, Konstruktorparameter und Zugriffsmethode tragen <strong>denselben Namen</strong>, und die Reflection weiß es (<code>Spielkarte.class.getRecordComponents()</code> liefert zu <code>farbe</code> die Methode <code>farbe()</code>).
+<div class="ear-zitat">
+<blockquote><p>„The API for a data class models the state, the whole state, and nothing but the state.“</p></blockquote>
+<p class="ear-de">Die Schnittstelle einer Datenklasse bildet den Zustand ab – den ganzen Zustand und nichts als den Zustand.</p>
+<cite>Brian Goetz, „Data Classes and Sealed Types for Java“, Februar 2019</cite>
+</div>
+</li>
+</ol>
+<p class="ear-note">Die Folge für Frameworks, die nach <code>get</code> suchen, hat Goetz in Kauf genommen: Sie müssten Records eben kennenlernen – „frameworks (and there are only a few of them) will have to update to recognize the new conventions (and it's easy for them to do so.)“ Die gängigen haben das inzwischen getan; manche – etwa JPA für Entitäten – brauchen aber weiterhin eine veränderliche Bean.</p>
+</section>
+
+<section class="ear-sec" id="vergleich">
+<h2><span class="ear-num">4</span>Daraus folgt: Java Bean und Record im Vergleich</h2>
+<p>Die Begründung zeigt: Die beiden lösen <strong>verschiedene Aufgaben</strong>. Dieselbe Spielkarte einmal als Bean und einmal als Record – darunter der Vergleich Punkt für Punkt:</p>
+<!-- Vorgabe: Bean und Record als zwei Reiter auf voller Breite, die Tabelle darunter. -->
+<div class="avd-academy-tabs ear-reiter">
+<details class="avd-academy-tabs__panel" name="ear-bean-record" id="vergleich-bean" open="">
+<summary>Java Bean</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">public class SpielkarteBean {
+
+    private Kartenfarbe farbe;
+    private String bild;
+
+    public SpielkarteBean() { }
+
+    public Kartenfarbe getFarbe()            { return farbe; }
+    public void setFarbe(Kartenfarbe farbe)  { this.farbe = farbe; }
+    public String getBild()                  { return bild; }
+    public void setBild(String bild)         { this.bild = bild; }
+}
+
+SpielkarteBean bean = new SpielkarteBean();
+bean.setFarbe(Kartenfarbe.HERZ);
+bean.setBild("Dame");
+System.out.println(bean);
+System.out.println(bean.getFarbe());</code></pre>
+<div class="ear-konsole" data-titel="Ausgabe">SpielkarteBean@33909752
+HERZ</div>
+<p class="ear-note">Ohne eigenes <code>toString</code> nur Klassenname und Hashwert (er wechselt je Lauf); <code>equals</code> vergleicht die Identität.</p>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="ear-bean-record" id="vergleich-record">
+<summary>Record</summary>
+<div class="ear-reiter__inhalt">
+<pre><code class="language-java">public record Spielkarte(Kartenfarbe farbe, String bild) { }
+
+Spielkarte karte = new Spielkarte(Kartenfarbe.HERZ, "Dame");
+System.out.println(karte);
+System.out.println(karte.farbe());</code></pre>
+<div class="ear-konsole" data-titel="Ausgabe">Spielkarte[farbe=HERZ, bild=Dame]
+HERZ</div>
+<p class="ear-note">Fertig erzeugt und vollständig befüllt in einem Schritt – danach unveränderlich.</p>
+</div>
+</details>
+</div>
+<div class="ear-tabelle-rahmen">
+<table class="ear-tabelle">
+<thead><tr><th scope="col"></th><th scope="col">Java Bean</th><th scope="col">Record</th></tr></thead>
+<tbody>
+<tr><th scope="row">Wo definiert</th><td><strong>Konvention</strong> aus der JavaBeans-Spezifikation 1.01 (Sun, 1997); im JDK nur als Bibliothek <code>java.beans</code>. Der Compiler weiß nichts von Beans.</td><td><strong>Sprachmittel</strong> – Schlüsselwort <code>record</code>, Java Language Specification (§ 8.10), seit Java 16 (JEP 395).</td></tr>
+<tr><th scope="row">Ursprünglicher Zweck</th><td>Wiederverwendbare Bausteine, die ein Werkzeug (GUI-Editor) visuell bearbeitet; heute meist allgemein „Klasse mit Gettern und Settern“.</td><td>Durchsichtiger Träger für unveränderliche Daten.</td></tr>
+<tr><th scope="row">Veränderbarkeit</th><td>Veränderlich – zu <code>getX</code> gehört <code>setX</code>.</td><td>Unveränderlich – alle Felder <code>final</code>, keine Setter. (Ein enthaltenes Objekt wie eine Liste kann sich selbst noch ändern.)</td></tr>
+<tr><th scope="row">Entstehung eines Objekts</th><td>Öffentlicher <strong>parameterloser</strong> Konstruktor, danach Setter aufrufen – zwischendurch ist das Objekt halb fertig.</td><td><strong>Kanonischer</strong> Konstruktor mit allen Komponenten; Prüfung im kompakten Konstruktor. Danach ist das Objekt vollständig.</td></tr>
+<tr><th scope="row">Lesezugriff</th><td><code>getFarbe()</code>, bei <code>boolean</code> <code>isX()</code> – Name umgeformt.</td><td><code>farbe()</code> – derselbe Name wie die Komponente.</td></tr>
+<tr><th scope="row">Felder</th><td>Beliebig, auch solche ohne Getter.</td><td>Nur die Komponenten. Zusätzliche Instanzfelder sind verboten („the whole state“).</td></tr>
+<tr><th scope="row"><code>equals</code>, <code>hashCode</code>, <code>toString</code></th><td>Von <code>Object</code> geerbt (Identität), sofern man sie nicht selbst schreibt.</td><td>Vom Compiler aus allen Komponenten erzeugt – zwei Karten mit gleichen Werten sind gleich.</td></tr>
+<tr><th scope="row">Vererbung</th><td>Darf erben und beerbt werden.</td><td>Implizit <code>final</code>, erbt von <code>java.lang.Record</code>; darf nur Interfaces implementieren.</td></tr>
+<tr><th scope="row">Wer die Struktur erkennt</th><td>Frameworks per Reflection und <strong>Namenskonvention</strong> – sie raten aus den ersten drei Buchstaben.</td><td>Die Sprache selbst: <code>isRecord()</code>, <code>getRecordComponents()</code> – <strong>verlässlich</strong> statt geraten.</td></tr>
+<tr><th scope="row">Typisch für</th><td>Objekte, die ein Framework leer erzeugt und befüllt (z. B. JPA-Entitäten), Formular-Modelle, veränderliche Fachobjekte.</td><td>Werte und Datentransfer: Rückgabe mehrerer Werte, DTOs, Schlüssel in einer <code>Map</code>, Nachrichten zwischen Schichten.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<p class="ear-merke"><strong>Merksatz:</strong> Ein Record ist kein kürzer geschriebenes Bean, sondern ein anderes Versprechen: „Ich bin genau diese Daten – unveränderlich und durchsichtig.“ Deshalb heißt der Zugriff wie die Komponente, und deshalb gibt es keine Setter.</p>
+
+</details>
+
+</div>
+
+</div>
+
+<script>
+/* Gleich hohe Reiter: Je Gruppe (.ear-reiter) wird jeder Inhalt als unsichtbare Kopie
+   in der Breite des offenen Reiters gemessen; der höchste Wert wird min-height aller
+   Inhalte. Die Kopie ist kein <details> und trägt keine ids – sie löst also keine
+   Reiter-Ereignisse aus und gerät nicht in die Adresse. */
+(function () {
+  "use strict";
+  var gruppen = Array.prototype.slice.call(document.querySelectorAll(".ear-reiter"));
+
+  function angleichen(gruppe) {
+    var inhalte = Array.prototype.slice.call(gruppe.querySelectorAll(".ear-reiter__inhalt"));
+    /* Maßgeblich ist der OFFENE Reiter: Geschlossene haben im Theme eine Breite, aber
+       ohne den Innenabstand des Reiters – dort gemessen fiele die Höhe zu klein aus. */
+    var sichtbar = inhalte.filter(function (i) { return i.parentElement.open && i.offsetWidth > 0; })[0];
+    if (!sichtbar) return;
+    var breite = sichtbar.clientWidth;
+    var höhe = 0;
+    inhalte.forEach(function (inhalt) {
+      var kopie = inhalt.cloneNode(true);
+      kopie.removeAttribute("style");
+      kopie.querySelectorAll("[id]").forEach(function (e) { e.removeAttribute("id"); });
+      kopie.classList.add("ear-reiter__mess");
+      kopie.style.width = breite + "px";
+      gruppe.appendChild(kopie);
+      höhe = Math.max(höhe, kopie.offsetHeight);
+      gruppe.removeChild(kopie);
+    });
+    inhalte.forEach(function (inhalt) { inhalt.style.minHeight = höhe + "px"; });
+  }
+
+  function alleAngleichen() { gruppen.forEach(angleichen); }
+
+  gruppen.forEach(function (g) { g.style.position = "relative"; });
+  alleAngleichen();
+  window.addEventListener("load", alleAngleichen);
+  window.addEventListener("resize", alleAngleichen);
+  /* Ein Reiter in einem bisher verborgenen äußeren Reiter hat erst nach dem
+     Umschalten eine Breite – deshalb auch nach jedem Öffnen eines Reiters. */
+  document.addEventListener("toggle", function (e) { if (e.target.open) alleAngleichen(); }, true);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alleAngleichen);
+  /* Das Theme färbt den Code erst nachträglich ein (highlight.js, Klasse „hljs“) – danach
+     ist er kleiner gesetzt. Deshalb neu messen, sobald sich an einem <code> die Klasse
+     ändert; gebündelt auf einen Durchgang je Bild. */
+  var geplant = false;
+  if ("MutationObserver" in window) {
+    new MutationObserver(function (änderungen) {
+      var betrifftCode = änderungen.some(function (ä) { return ä.target.tagName === "CODE"; });
+      if (!betrifftCode || geplant) return;
+      geplant = true;
+      requestAnimationFrame(function () { geplant = false; alleAngleichen(); });
+    }).observe(document.querySelector(".ear-root"), { attributes: true, attributeFilter: ["class"], subtree: true });
+  }
+})();
+</script>
+
+
+
+    </main>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
