@@ -1,0 +1,1329 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Collections-API · ATVANTAGE Academy</title><meta name="description" content="Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Collections-API">
+<meta property="og:description" content="Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen.">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=40065c05">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=6092d972"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.4.0">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.4.0","schemas":{"config":"1.2.0","frontmatter":"1.0.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-basics/shared/collections/collections-api.html","title":"Collections-API","layout":"visualization","description":"Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=ad4b504d" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791436315" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
+           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags">
+      </div>
+      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
+                data-avd-academy-print
+                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Collections-API</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung
+     - Ort: java-basics/shared/collections/ – eingebunden in die Materialübersicht
+       („Zum Nachschlagen“) von „OOP mit Java“ und „Java für OO-Umsteiger“, jeweils
+       im Thema mit der Collections-Übung (index.md und index-trainer.md).
+     - Oben ein KLICKBARES KLASSENDIAGRAMM mit genau diesen Typen: Collection, List,
+       Set, Map (Interfaces) und ArrayList, LinkedList, HashSet, TreeSet, HashMap,
+       TreeMap (Klassen). Methoden im Diagramm: add, remove, get(index), iterator,
+       stream(), size(), clear(), isEmpty(), contains – plus das Nötigste von List
+       und Map (put/get/keySet …), sonst ist Map leer.
+     - WENIG VERERBUNG: Die Pfeile stehen da, damit man die Familien sieht – erklärt
+       wird UML hier nicht. Eine Zeile Legende genügt. Ausdrücklich so gewünscht.
+     - Klick auf einen Typ öffnet ein Popup mit Reitern:
+         · Erklärung – Besonderheiten, wann verwenden, Stärken, Stolpersteine
+         · Codebeispiel (NUR konkrete Klassen) – Beispieldaten Strings/Integers,
+           nach JEDEM add die Ausgabe, damit Sortierung und Duplikate sichtbar werden
+         · Interne Umsetzung (NUR konkrete Klassen) – ArrayList: Array; LinkedList:
+           verkettete Knoten; HashSet/HashMap: Hash-Tabelle mit hashCode + equals;
+           TreeSet/TreeMap: Baum mit Comparable bzw. Comparator
+       Interfaces haben statt Codebeispiel/Intern den Reiter „Methoden“ (ein
+       Reiterstreifen braucht mindestens zwei Reiter; dort stehen die Methoden
+       des Diagramms mit Bedeutung).
+     - Unter dem Diagramm allgemeine Beispiele: Anlegen (new, List.of & Co.,
+       Hilfsklassen Arrays/Collections), Generics (add nur mit dem Elementtyp),
+       Iterieren (Iterator, for-each, stream()), Mengenoperationen.
+     - BEWUSST ÜBER DIE ABGRENZUNG DES TRAINER-MODULS HINAUS: Das Modul
+       collections/index.md lässt Streams, Interna und Comparator weg. Diese Seite
+       ist ein Nachschlagewerk und zeigt sie auf ausdrücklichen Auftrag trotzdem:
+       Die Übersicht muss VOLLSTÄNDIG sein. Was über das Modul hinausgeht, ordnet
+       der Trainer im Unterricht ein (Hinweis statt Weglassen). Nicht kürzen.
+     - ALLE AUSGABEN SIND ECHT: jedes Beispiel mit OpenJDK 25.0.2 ausgeführt
+       (2026-10-08), Compilermeldungen aus javac mit deutscher Locale. Gilt besonders
+       für die Reihenfolge in HashSet/HashMap ([Birne, Kiwi, Apfel]) und die
+       Bucket-Nummern (Tabelle mit 16 Plätzen: Birne 1, Kiwi 3, Apfel 6). Wer
+       Beispieldaten ändert, muss neu ausführen – nicht schätzen.
+     - Bezeichner mit Umlauten (AGENTS.md, A-006), auch im JavaScript dieser Seite.
+     - Zustand in der Adresse: `typ` (offenes Popup) über AvdAcademyState, der Reiter
+       über die Theme-Reiter (`open`). Beispiel: #/?typ=hashset&open=hashset-intern
+-->
+
+<style>
+/* Präfix cap- („Collections-API“). Farben ausschließlich aus den Theme-Tokens –
+   damit stimmt die Seite in Light und Dark ohne zweiten Regelsatz. Keine eigene
+   Breitenbegrenzung: die gibt das Layout über `--avd-academy-guide-max` vor. */
+.cap-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.5rem;}
+
+/* --- Klassendiagramm --------------------------------------------------------
+   Sechs Spalten, drei Zeilen. Die Kästen sind <button>; die Linien zeichnet das
+   Skript unten aus den tatsächlichen Positionen (so stimmen sie bei jeder Schrift).
+   Unter 940px rollt der RAHMEN waagerecht, nie die Seite. */
+.cap-diagramm-rahmen{overflow-x:auto;margin:0 0 .75rem;padding:.25rem 0 .5rem;}
+.cap-diagramm{position:relative;min-width:940px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:14px;row-gap:56px;}
+.cap-linien{position:absolute;left:0;top:0;pointer-events:none;color:var(--avd-academy-color-ink-muted);overflow:visible;}
+.cap-linie{fill:none;stroke:currentColor;stroke-width:1.6;}
+.cap-linie--gestrichelt{stroke-dasharray:6 4;}
+/* Die Spitze ist HOHL: mit der Seitenfläche gefüllt, sonst liefe die Linie hindurch. */
+.cap-spitze{fill:var(--avd-academy-color-bg);stroke:currentColor;stroke-width:1.6;}
+
+.cap-typ{position:relative;z-index:1;align-self:start;justify-self:center;display:flex;flex-direction:column;text-align:left;font:inherit;color:var(--avd-academy-color-ink);background:var(--avd-academy-color-bg);border:2px solid var(--avd-academy-color-ink-muted);border-radius:var(--avd-academy-radius);padding:0;cursor:pointer;transition:border-color var(--avd-academy-transition),box-shadow var(--avd-academy-transition),transform var(--avd-academy-transition);}
+.cap-typ:hover{border-color:var(--avd-academy-color-accent);transform:translateY(-2px);box-shadow:0 6px 18px color-mix(in srgb,var(--avd-academy-color-accent) 22%,transparent);}
+.cap-typ:focus-visible{outline:3px solid var(--avd-academy-color-accent);outline-offset:3px;}
+.cap-typ[aria-pressed="true"]{border-color:var(--avd-academy-color-accent);box-shadow:0 0 0 3px var(--avd-academy-color-accent-soft);}
+.cap-typ__kopf{display:block;padding:.4rem .75rem .35rem;text-align:center;border-bottom:1px solid var(--avd-academy-color-border);}
+.cap-typ__stereo{display:block;font-size:.7rem;color:var(--avd-academy-color-ink-muted);}
+.cap-typ__name{display:block;font-weight:700;font-size:.98rem;line-height:1.25;color:var(--avd-academy-color-headline);}
+.cap-typ__intern{display:block;font-size:.72rem;color:var(--avd-academy-color-ink-muted);margin-top:.1rem;}
+.cap-typ__methoden{display:block;padding:.4rem .75rem .5rem;font-family:var(--avd-academy-font-mono);font-size:.76rem;line-height:1.6;white-space:nowrap;}
+.cap-typ__methoden > span{display:block;}
+.cap-typ__regel{display:block;font-family:var(--avd-academy-font-sans);font-style:italic;color:var(--avd-academy-color-ink-muted);}
+/* Interfaces: Name kursiv (UML), Fläche gedämpft. Klassen: Akzentstreifen oben. */
+.cap-typ--interface{background:var(--avd-academy-color-bg-subtle);}
+.cap-typ--interface .cap-typ__name{font-style:italic;}
+.cap-typ--klasse{border-top:5px solid var(--avd-academy-color-accent);min-width:8.5rem;}
+.cap-typ--klasse .cap-typ__kopf{border-bottom:none;padding:.5rem .7rem;}
+
+/* Platzierung im Raster */
+.cap-pos-collection{grid-column:1 / 5;grid-row:1;}
+.cap-pos-map{grid-column:5 / 7;grid-row:1;}
+.cap-pos-list{grid-column:1 / 3;grid-row:2;}
+.cap-pos-set{grid-column:3 / 5;grid-row:2;}
+.cap-pos-arraylist{grid-column:1;grid-row:3;}
+.cap-pos-linkedlist{grid-column:2;grid-row:3;}
+.cap-pos-hashset{grid-column:3;grid-row:3;}
+.cap-pos-treeset{grid-column:4;grid-row:3;}
+.cap-pos-hashmap{grid-column:5;grid-row:3;}
+.cap-pos-treemap{grid-column:6;grid-row:3;}
+
+.cap-legende{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;align-items:center;font-size:.85rem;color:var(--avd-academy-color-ink-muted);margin:0 0 2.5rem;}
+.cap-legende svg{vertical-align:middle;margin-right:.35rem;color:var(--avd-academy-color-ink-muted);}
+
+/* --- Popup (natives <dialog>) ---------------------------------------------- */
+.cap-dialog{width:min(96vw,960px);max-height:90vh;padding:0;border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius-lg);background:var(--avd-academy-color-bg);color:var(--avd-academy-color-ink);box-shadow:0 24px 70px rgba(0,0,0,.45);}
+.cap-dialog::backdrop{background:rgba(2,6,23,.65);backdrop-filter:blur(3px);}
+/* Der Innenkasten füllt den Dialog ganz: Ein Klick, der den <dialog> SELBST trifft,
+   kann dann nur auf den Hintergrund gegangen sein – und schließt. */
+.cap-dialog__innen{padding:1.25rem 1.5rem 1.5rem;}
+.cap-dialog__kopf{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin:0 0 1rem;}
+.cap-dialog__stereo{display:block;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--avd-academy-color-accent-ink);}
+.cap-dialog__kopf h2{margin:.1rem 0 .3rem;font-size:1.6rem;line-height:1.15;color:var(--avd-academy-color-headline);}
+.cap-dialog__kopf p{margin:0;color:var(--avd-academy-color-ink-muted);}
+.cap-dialog__zu{flex:none;font:inherit;font-size:1.6rem;line-height:1;color:inherit;background:none;border:1px solid transparent;border-radius:var(--avd-academy-radius);padding:.15rem .55rem;cursor:pointer;}
+.cap-dialog__zu:hover,.cap-dialog__zu:focus-visible{border-color:var(--avd-academy-color-border);color:var(--avd-academy-color-danger);}
+html:has(.cap-dialog[open]){overflow:hidden;}
+.cap-dialog h3{font-size:1.05rem;margin:1.1rem 0 .4rem;}
+.cap-dialog h3:first-child{margin-top:.2rem;}
+.cap-dialog p,.cap-dialog li{font-size:.94rem;}
+.cap-dialog pre{overflow-x:auto;margin:.4rem 0 .8rem;}
+
+/* Stärken / Stolpersteine nebeneinander */
+.cap-abwaegung{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.8rem;margin:.6rem 0;}
+.cap-abwaegung > div{background:var(--avd-academy-color-bg-subtle);border-radius:var(--avd-academy-radius);padding:.7rem .95rem;border-left:4px solid var(--avd-academy-color-success);}
+.cap-abwaegung > div + div{border-left-color:var(--avd-academy-color-warning);}
+.cap-abwaegung h4{margin:0 0 .3rem;font-size:.9rem;}
+.cap-abwaegung ul{margin:0;padding-left:1.1rem;}
+.cap-wann{margin:.8rem 0 0;padding:.6rem .9rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-accent-soft);}
+
+.cap-tabelle-rahmen{overflow-x:auto;}
+.cap-tabelle{width:100%;border-collapse:collapse;font-size:.88rem;}
+.cap-tabelle th,.cap-tabelle td{text-align:left;vertical-align:top;padding:.45rem .65rem;border-bottom:1px solid var(--avd-academy-color-border);}
+.cap-tabelle th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);white-space:nowrap;}
+.cap-tabelle td:first-child{white-space:nowrap;font-family:var(--avd-academy-font-mono);font-size:.82rem;}
+
+/* --- Schaubilder der internen Umsetzung ------------------------------------- */
+.cap-bild{overflow-x:auto;margin:.6rem 0 1rem;padding:.9rem 1rem;border:1px dashed var(--avd-academy-color-border);border-radius:var(--avd-academy-radius);}
+.cap-bild__titel{display:block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);margin:0 0 .6rem;}
+.cap-bild__notiz{display:block;font-size:.82rem;color:var(--avd-academy-color-ink-muted);margin-top:.55rem;}
+.cap-mono{font-family:var(--avd-academy-font-mono);}
+
+/* Array: Zellen mit Index darüber; leere Plätze gestrichelt */
+.cap-array{display:flex;gap:0;min-width:max-content;}
+.cap-zelle{display:flex;flex-direction:column;align-items:center;}
+.cap-zelle i{font-style:normal;font-size:.7rem;color:var(--avd-academy-color-ink-muted);margin-bottom:.15rem;}
+.cap-zelle b{display:block;min-width:4.4rem;padding:.4rem .3rem;text-align:center;font-family:var(--avd-academy-font-mono);font-weight:400;font-size:.8rem;border:1.5px solid var(--avd-academy-color-ink-muted);margin-left:-1.5px;background:var(--avd-academy-color-accent-soft);}
+.cap-zelle--leer b{background:transparent;border-style:dashed;color:var(--avd-academy-color-ink-muted);}
+
+/* Verkettete Knoten */
+.cap-kette{display:flex;align-items:center;gap:.35rem;min-width:max-content;font-size:.8rem;}
+.cap-kette__zeiger{font-family:var(--avd-academy-font-mono);color:var(--avd-academy-color-ink-muted);}
+.cap-kette__pfeil{color:var(--avd-academy-color-ink-muted);font-size:1.1rem;}
+.cap-knoten{display:grid;grid-template-columns:auto auto auto;border:1.5px solid var(--avd-academy-color-ink-muted);border-radius:var(--avd-academy-radius-sm);font-family:var(--avd-academy-font-mono);}
+.cap-knoten span{padding:.35rem .45rem;color:var(--avd-academy-color-ink-muted);font-size:.7rem;align-self:center;}
+.cap-knoten b{padding:.35rem .55rem;font-weight:400;background:var(--avd-academy-color-accent-soft);border-left:1px solid var(--avd-academy-color-border);border-right:1px solid var(--avd-academy-color-border);}
+
+/* Hash-Tabelle: 16 Plätze in zwei Reihen */
+.cap-eimer{display:grid;grid-template-columns:repeat(8,minmax(4.6rem,1fr));gap:.35rem;min-width:max-content;}
+.cap-eimer > div{border:1.5px dashed var(--avd-academy-color-border);border-radius:var(--avd-academy-radius-sm);padding:.25rem .35rem;min-height:3rem;font-size:.78rem;}
+.cap-eimer i{display:block;font-style:normal;font-size:.68rem;color:var(--avd-academy-color-ink-muted);}
+.cap-eimer b{display:block;font-family:var(--avd-academy-font-mono);font-weight:400;}
+.cap-eimer .cap-eimer--voll{border-style:solid;border-color:var(--avd-academy-color-accent);background:var(--avd-academy-color-accent-soft);}
+
+/* Baum als Inline-SVG: Linien und Schrift über currentColor */
+.cap-baum svg{display:block;color:var(--avd-academy-color-ink);}
+.cap-baum line{stroke:currentColor;stroke-width:1.5;}
+.cap-baum circle,.cap-baum rect{fill:var(--avd-academy-color-accent-soft);stroke:currentColor;stroke-width:1.5;}
+.cap-baum text{fill:currentColor;font-family:var(--avd-academy-font-mono);font-size:13px;text-anchor:middle;dominant-baseline:central;}
+
+/* --- Allgemeine Beispiele unter dem Diagramm --------------------------------
+   Aufbau wie in den übrigen Nachschlagewerken (Nummer, Karten im Raster). */
+.cap-sec{margin:0 0 2.75rem;}
+.cap-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.45rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border);padding-bottom:.5rem;}
+.cap-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-primary);color:var(--avd-academy-color-primary-contrast);font-size:.9rem;font-weight:700;}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(22rem,1fr));gap:1.1rem;}
+.cap-card{min-width:0;background:var(--avd-academy-color-bg-subtle);border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius);padding:1rem 1.15rem;}
+.cap-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
+.cap-card p{margin:0 0 .6rem;font-size:.9rem;}
+.cap-card p:last-child{margin-bottom:0;}
+.cap-card pre{margin:0;overflow-x:auto;}
+.cap-card pre + p{margin-top:.6rem;}
+.cap-root pre code.hljs{border-radius:var(--avd-academy-radius-lg);font-size:.8rem;line-height:1.5;}
+.cap-note{margin:.9rem 0 0;font-size:.92rem;color:var(--avd-academy-color-ink-muted);}
+
+@media (max-width:30rem){
+  .cap-grid{grid-template-columns:minmax(0,1fr);}
+  .cap-dialog__innen{padding:1rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  .cap-typ{transition:none;}
+  .cap-typ:hover{transform:none;}
+}
+
+/* Druck: Das Diagramm wird verkleinert (transform ändert die Layoutmaße nicht, die
+   Linien bleiben also deckungsgleich), und JEDES Popup erscheint als Abschnitt –
+   die Theme-Reiter klappen vor dem Druck selbst alle Reiter auf. */
+@media print{
+  .cap-diagramm-rahmen{overflow:visible;height:460px;break-inside:avoid;}
+  .cap-diagramm{transform:scale(.68);transform-origin:top left;}
+  .cap-typ{box-shadow:none !important;transform:none !important;}
+  .cap-dialog{display:block !important;position:static !important;width:auto !important;max-height:none !important;border:none !important;box-shadow:none !important;margin:0 0 14pt !important;break-before:page;}
+  .cap-dialog__zu{display:none !important;}
+  .cap-dialog__innen{padding:0 !important;}
+  .cap-grid{display:block;}
+  .cap-card{break-inside:avoid;background:transparent !important;border:none !important;padding:0 !important;margin:0 0 9pt;}
+  .cap-root pre,.cap-root pre code,.cap-root pre code *{color:#000 !important;background:transparent !important;}
+  .cap-root pre{white-space:pre-wrap;word-break:break-word;font-size:8pt;border:none !important;padding:2pt 0 !important;}
+}
+</style>
+
+<div class="cap-root">
+
+<p class="cap-lead">Listen, Mengen und Zuordnungen – die zehn Typen, die Du im Alltag wirklich brauchst. <strong>Klicke einen Typ an</strong>: Du bekommst seine Besonderheiten, bei den konkreten Klassen ein Beispiel mit echter Ausgabe und einen Blick darauf, wie er intern gebaut ist. Darunter stehen die Grundgriffe, die für alle gelten.</p>
+
+<!-- KLASSENDIAGRAMM. data-eltern + data-beziehung steuern die Linien (Skript unten):
+     extends = durchgezogen (Interface erweitert Interface), implements = gestrichelt.
+     Map steht bewusst NEBEN Collection, nicht darunter: Eine Map ist keine Collection. -->
+<div class="cap-diagramm-rahmen">
+<div class="cap-diagramm" id="cap-diagramm">
+<svg class="cap-linien" id="cap-linien" aria-hidden="true" focusable="false"></svg>
+
+<button type="button" class="cap-typ cap-typ--interface cap-pos-collection" data-typ="collection" aria-haspopup="dialog" aria-pressed="false" aria-label="Interface Collection&lt;E&gt; – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__stereo">«interface»</span><span class="cap-typ__name">Collection&lt;E&gt;</span></span>
+<span class="cap-typ__methoden"><span>boolean add(E e)</span><span>boolean remove(Object o)</span><span>boolean contains(Object o)</span><span>int size()</span><span>boolean isEmpty()</span><span>void clear()</span><span>Iterator&lt;E&gt; iterator()</span><span>Stream&lt;E&gt; stream()</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--interface cap-pos-map" data-typ="map" aria-haspopup="dialog" aria-pressed="false" aria-label="Interface Map&lt;K, V&gt; – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__stereo">«interface»</span><span class="cap-typ__name">Map&lt;K, V&gt;</span></span>
+<span class="cap-typ__methoden"><span>V put(K key, V value)</span><span>V get(Object key)</span><span>V remove(Object key)</span><span>boolean containsKey(Object key)</span><span>Set&lt;K&gt; keySet()</span><span>Collection&lt;V&gt; values()</span><span>int size()</span><span>boolean isEmpty()</span><span>void clear()</span><span class="cap-typ__regel">{ Schlüssel eindeutig }</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--interface cap-pos-list" data-typ="list" data-eltern="collection" data-beziehung="extends" aria-haspopup="dialog" aria-pressed="false" aria-label="Interface List&lt;E&gt; – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__stereo">«interface»</span><span class="cap-typ__name">List&lt;E&gt;</span></span>
+<span class="cap-typ__methoden"><span>E get(int index)</span><span>E set(int index, E e)</span><span>void add(int index, E e)</span><span>E remove(int index)</span><span>int indexOf(Object o)</span><span class="cap-typ__regel">{ Reihenfolge, Index }</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--interface cap-pos-set" data-typ="set" data-eltern="collection" data-beziehung="extends" aria-haspopup="dialog" aria-pressed="false" aria-label="Interface Set&lt;E&gt; – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__stereo">«interface»</span><span class="cap-typ__name">Set&lt;E&gt;</span></span>
+<span class="cap-typ__methoden"><span class="cap-typ__regel">keine eigenen Methoden</span><span class="cap-typ__regel">{ keine Duplikate }</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--klasse cap-pos-arraylist" data-typ="arraylist" data-eltern="list" data-beziehung="implements" aria-haspopup="dialog" aria-pressed="false" aria-label="Klasse ArrayList – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__name">ArrayList</span><span class="cap-typ__intern">intern: Array</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--klasse cap-pos-linkedlist" data-typ="linkedlist" data-eltern="list" data-beziehung="implements" aria-haspopup="dialog" aria-pressed="false" aria-label="Klasse LinkedList – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__name">LinkedList</span><span class="cap-typ__intern">intern: verkettete Knoten</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--klasse cap-pos-hashset" data-typ="hashset" data-eltern="set" data-beziehung="implements" aria-haspopup="dialog" aria-pressed="false" aria-label="Klasse HashSet – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__name">HashSet</span><span class="cap-typ__intern">intern: Hash-Tabelle</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--klasse cap-pos-treeset" data-typ="treeset" data-eltern="set" data-beziehung="implements" aria-haspopup="dialog" aria-pressed="false" aria-label="Klasse TreeSet – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__name">TreeSet</span><span class="cap-typ__intern">intern: Rot-Schwarz-Baum</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--klasse cap-pos-hashmap" data-typ="hashmap" data-eltern="map" data-beziehung="implements" aria-haspopup="dialog" aria-pressed="false" aria-label="Klasse HashMap – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__name">HashMap</span><span class="cap-typ__intern">intern: Hash-Tabelle</span></span>
+</button>
+
+<button type="button" class="cap-typ cap-typ--klasse cap-pos-treemap" data-typ="treemap" data-eltern="map" data-beziehung="implements" aria-haspopup="dialog" aria-pressed="false" aria-label="Klasse TreeMap – Details">
+<span class="cap-typ__kopf"><span class="cap-typ__name">TreeMap</span><span class="cap-typ__intern">intern: Rot-Schwarz-Baum</span></span>
+</button>
+</div>
+</div>
+
+<!-- Eine Zeile Legende, mehr UML nicht (Anforderung: wenig Vererbung). -->
+<p class="cap-legende">
+<span><svg width="34" height="10" aria-hidden="true"><line x1="0" y1="5" x2="34" y2="5" stroke="currentColor" stroke-width="1.6" /></svg>erweitert (Interface → Interface)</span>
+<span><svg width="34" height="10" aria-hidden="true"><line x1="0" y1="5" x2="34" y2="5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4" /></svg>implementiert (Klasse → Interface)</span>
+<span>Kursiv mit «interface»: nur Vertrag · Kasten mit Streifen: konkrete Klasse, die Du mit <code>new</code> erzeugst</span>
+</p>
+
+<!-- ======================================================================
+     POPUPS – eines je Typ. Der Inhalt steht statisch im Dokument (das Theme färbt
+     den Code beim Laden, der Druck zeigt alles). Reiter = Theme-Baustein
+     avd-academy-tabs; die id jedes Reiters steht so in der Adresse.
+     ====================================================================== -->
+
+<!-- ---------------------------------------------------------- Collection -->
+<dialog class="cap-dialog" id="cap-dialog-collection" aria-labelledby="cap-titel-collection">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Interface</span><h2 id="cap-titel-collection">Collection&lt;E&gt;</h2><p>Der gemeinsame Nenner aller Listen und Mengen.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-collection" id="collection-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Was es ist</h3>
+<p><code>Collection</code> beschreibt, was <em>jede</em> Gruppe von Elementen kann: hinzufügen, entfernen, nachsehen, zählen, durchlaufen. Es sagt aber nichts darüber, <strong>ob es eine Reihenfolge gibt</strong> und <strong>ob Duplikate erlaubt sind</strong> – das legen erst <code>List</code> und <code>Set</code> fest. Einen Index gibt es hier deshalb nicht.</p>
+<p>Ein Interface kannst Du nicht mit <code>new</code> erzeugen. Du verwendest es als <strong>Typ einer Variablen oder eines Parameters</strong> – das Objekt dahinter ist immer eine konkrete Klasse:</p>
+<pre><code class="language-java">Collection&lt;String&gt; obst = new ArrayList&lt;&gt;();   // links allgemein, rechts konkret
+
+int zähleLange(Collection&lt;String&gt; wörter) {   // nimmt jede Liste UND jede Menge
+    int anzahl = 0;
+    for (String w : wörter) {
+        if (w.length() &gt; 4) anzahl++;
+    }
+    return anzahl;
+}</code></pre>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Eine Methode mit <code>Collection</code>-Parameter funktioniert mit jeder Liste und jeder Menge.</li><li>Erbt von <code>Iterable</code> – deshalb geht die for-each-Schleife über jede Collection.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li><code>contains</code> und <code>remove</code> vergleichen mit <code>equals</code> – bei eigenen Klassen musst Du es überschreiben.</li><li><strong><code>Map</code> ist keine <code>Collection</code></strong>: Sie hat Schlüssel <em>und</em> Werte, also kein <code>add(E)</code>.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Als Parametertyp, wenn eine Methode nur durchlaufen, zählen oder nachsehen will – und ihr egal ist, ob eine Liste oder eine Menge hereinkommt.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-collection" id="collection-methoden">
+<summary>Methoden</summary>
+<div class="cap-tabelle-rahmen"><table class="cap-tabelle">
+<thead><tr><th>Methode</th><th>Was sie tut</th><th>Gut zu wissen</th></tr></thead>
+<tbody>
+<tr><td>add(E e)</td><td>fügt ein Element hinzu</td><td>Liefert <code>true</code>, wenn sich etwas geändert hat – ein <code>Set</code> mit Duplikat liefert <code>false</code>.</td></tr>
+<tr><td>remove(Object o)</td><td>entfernt <strong>ein</strong> Vorkommen</td><td>Sucht per <code>equals</code>; bei Listen das erste Vorkommen.</td></tr>
+<tr><td>contains(Object o)</td><td>prüft, ob das Element enthalten ist</td><td>Liste: läuft alles durch. Hash-Strukturen: fragen zuerst <code>hashCode</code>.</td></tr>
+<tr><td>size()</td><td>Anzahl der Elemente</td><td>Nicht <code>length</code> wie beim Array.</td></tr>
+<tr><td>isEmpty()</td><td>leer?</td><td>Liest sich besser als <code>size() == 0</code>.</td></tr>
+<tr><td>clear()</td><td>entfernt alles</td><td>Die Collection selbst bleibt bestehen.</td></tr>
+<tr><td>iterator()</td><td>liefert einen <code>Iterator</code></td><td>Grundlage der for-each-Schleife; erlaubt sicheres Entfernen beim Durchlaufen.</td></tr>
+<tr><td>stream()</td><td>liefert einen <code>Stream</code></td><td>Seit Java 8: filtern, umwandeln, sammeln in einer Kette.</td></tr>
+</tbody></table></div>
+<pre><code class="language-java">Collection&lt;String&gt; obst = new ArrayList&lt;&gt;(List.of("Birne", "Apfel"));
+System.out.println(obst.size());            // 2
+System.out.println(obst.isEmpty());         // false
+System.out.println(obst.contains("Apfel")); // true
+System.out.println(obst.remove("Apfel"));   // true
+System.out.println(obst);                   // [Birne]
+obst.clear();
+System.out.println(obst.isEmpty());         // true</code></pre>
+<p>Dazu kommen die Mengenmethoden <code>addAll</code>, <code>retainAll</code>, <code>removeAll</code> und <code>containsAll</code> – siehe <a href="#mengen">Mengenoperationen</a> unten.</p>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ---------------------------------------------------------------- List -->
+<dialog class="cap-dialog" id="cap-dialog-list" aria-labelledby="cap-titel-list">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Interface</span><h2 id="cap-titel-list">List&lt;E&gt;</h2><p>Eine Folge mit fester Reihenfolge und Index.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-list" id="list-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Was es ist</h3>
+<p>Eine <code>List</code> merkt sich die <strong>Reihenfolge</strong>, in der Du einfügst, und gibt jedem Element eine <strong>Position</strong> (Index ab 0). <strong>Duplikate sind erlaubt</strong> – dasselbe Element darf mehrfach vorkommen.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Zugriff und Änderung an einer bestimmten Stelle: <code>get(i)</code>, <code>set(i, e)</code>, <code>add(i, e)</code>.</li><li>Die Reihenfolge ist verlässlich – die Ausgabe sieht aus wie die Eingabe.</li><li>Seit Java 21 auch <code>getFirst()</code> und <code>getLast()</code>.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li><strong><code>remove</code> hat zwei Bedeutungen.</strong> Bei <code>List&lt;Integer&gt;</code> entfernt <code>remove(1)</code> die Stelle 1, nicht die Zahl 1 (siehe Reiter „Methoden“).</li><li>Ein falscher Index wirft <code>IndexOutOfBoundsException</code>.</li><li>Eindeutigkeit prüft sie nicht – dafür gibt es <code>Set</code>.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Wenn die Reihenfolge zählt oder Elemente mehrfach vorkommen dürfen: ein Buchungsverlauf, die Positionen einer Bestellung, eine Rangliste. Als Implementierung im Zweifel <code>ArrayList</code>.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-list" id="list-methoden">
+<summary>Methoden</summary>
+<p>Alles aus <code>Collection</code>, dazu der Zugriff über die Position:</p>
+<div class="cap-tabelle-rahmen"><table class="cap-tabelle">
+<thead><tr><th>Methode</th><th>Was sie tut</th></tr></thead>
+<tbody>
+<tr><td>get(int index)</td><td>liest das Element an der Stelle</td></tr>
+<tr><td>set(int index, E e)</td><td>ersetzt das Element an der Stelle, liefert das alte</td></tr>
+<tr><td>add(int index, E e)</td><td>fügt an der Stelle ein, der Rest rückt nach hinten</td></tr>
+<tr><td>remove(int index)</td><td>entfernt die Stelle, liefert das entfernte Element</td></tr>
+<tr><td>indexOf(Object o)</td><td>erste Position des Elements, sonst <code>-1</code></td></tr>
+</tbody></table></div>
+<pre><code class="language-java">List&lt;String&gt; obst = new ArrayList&lt;&gt;(List.of("Birne", "Apfel", "Kiwi"));
+System.out.println(obst.get(0));          // Birne
+System.out.println(obst.indexOf("Kiwi")); // 2
+System.out.println(obst.set(1, "Mango")); // Apfel
+System.out.println(obst);                 // [Birne, Mango, Kiwi]</code></pre>
+<h3>Die <code>remove</code>-Falle bei Zahlen</h3>
+<pre><code class="language-java">List&lt;Integer&gt; zahlen = new ArrayList&lt;&gt;(List.of(10, 20, 30));
+zahlen.remove(1);                    // int → remove(int index)
+System.out.println(zahlen);          // [10, 30]
+zahlen.remove(Integer.valueOf(10));  // Objekt → remove(Object o)
+System.out.println(zahlen);          // [30]</code></pre>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ----------------------------------------------------------------- Set -->
+<dialog class="cap-dialog" id="cap-dialog-set" aria-labelledby="cap-titel-set">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Interface</span><h2 id="cap-titel-set">Set&lt;E&gt;</h2><p>Eine Menge – jedes Element höchstens einmal.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-set" id="set-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Was es ist</h3>
+<p>Ein <code>Set</code> ist eine Menge im mathematischen Sinn: <strong>keine Duplikate</strong>. Ein zweites <code>add</code> mit einem gleichen Element ändert nichts und liefert <code>false</code>. Neue Methoden bringt <code>Set</code> nicht mit – es verschärft nur die Regeln von <code>Collection</code>.</p>
+<p><strong>Ob es eine Reihenfolge gibt, entscheidet die Implementierung:</strong> <code>HashSet</code> gar keine verlässliche, <code>TreeSet</code> eine sortierte, <code>LinkedHashSet</code> die Einfügereihenfolge.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Eindeutigkeit ohne eigenen Prüfcode.</li><li><code>contains</code> ist schnell (Hash: konstant, Baum: logarithmisch) – viel schneller als in einer Liste.</li><li>Duplikate aus einer Liste entfernen: <code>new HashSet&lt;&gt;(liste)</code>.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Was „gleich“ ist, bestimmen <code>equals</code>/<code>hashCode</code> (HashSet) bzw. <code>compareTo</code>/<code>Comparator</code> (TreeSet).</li><li>Kein Index: kein <code>get(i)</code>.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Wenn jedes Element nur einmal zählen soll oder Du schnell fragen willst „ist das schon drin?“: Kunden-IDs, besuchte Seiten, vergebene Benutzernamen.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-set" id="set-methoden">
+<summary>Methoden</summary>
+<p>Dieselben wie <code>Collection</code> – nur mit strengerer Bedeutung:</p>
+<div class="cap-tabelle-rahmen"><table class="cap-tabelle">
+<thead><tr><th>Methode</th><th>Bedeutung im Set</th></tr></thead>
+<tbody>
+<tr><td>add(E e)</td><td><code>false</code>, wenn ein gleiches Element schon da ist – es wird <em>nicht</em> ersetzt</td></tr>
+<tr><td>contains(Object o)</td><td>die Kernfrage einer Menge – und schnell</td></tr>
+<tr><td>remove(Object o)</td><td>entfernt das Element (es gibt höchstens eines)</td></tr>
+<tr><td>size()</td><td>Anzahl <em>verschiedener</em> Elemente</td></tr>
+<tr><td>addAll / retainAll / removeAll</td><td>Vereinigung, Schnittmenge, Differenz – siehe <a href="#mengen">Mengenoperationen</a></td></tr>
+</tbody></table></div>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ----------------------------------------------------------------- Map -->
+<dialog class="cap-dialog" id="cap-dialog-map" aria-labelledby="cap-titel-map">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Interface</span><h2 id="cap-titel-map">Map&lt;K, V&gt;</h2><p>Zuordnung Schlüssel → Wert, zum Nachschlagen.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-map" id="map-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Was es ist</h3>
+<p>Eine <code>Map</code> ordnet jedem <strong>Schlüssel</strong> (<code>K</code>) genau einen <strong>Wert</strong> (<code>V</code>) zu – wie ein Wörterbuch. Schlüssel sind eindeutig, Werte dürfen sich wiederholen. Ein <code>put</code> mit einem vorhandenen Schlüssel <strong>überschreibt</strong> den alten Wert.</p>
+<p><strong>Eine <code>Map</code> ist keine <code>Collection</code></strong> – deshalb steht sie im Diagramm daneben. Sie liefert aber Collection-Sichten auf ihren Inhalt: <code>keySet()</code>, <code>values()</code> und <code>entrySet()</code>; darüber wird sie auch durchlaufen.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Nachschlagen per Schlüssel statt Suchen in einer Liste.</li><li><code>getOrDefault</code> erspart die <code>null</code>-Prüfung.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li><code>get</code> liefert <code>null</code>, wenn der Schlüssel fehlt – oder wenn der Wert <code>null</code> ist.</li><li>Schlüssel sollten unveränderlich sein (<code>String</code>, <code>Integer</code>, Records).</li><li>Suchen nach einem <em>Wert</em> (<code>containsValue</code>) läuft alles durch.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Wenn Du über etwas Eindeutiges nachschlagen willst: IBAN → Konto, Artikelnummer → Artikel, Wort → Häufigkeit.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-map" id="map-methoden">
+<summary>Methoden</summary>
+<div class="cap-tabelle-rahmen"><table class="cap-tabelle">
+<thead><tr><th>Methode</th><th>Was sie tut</th></tr></thead>
+<tbody>
+<tr><td>put(K key, V value)</td><td>legt ab oder überschreibt; liefert den <em>alten</em> Wert oder <code>null</code></td></tr>
+<tr><td>get(Object key)</td><td>Wert zum Schlüssel oder <code>null</code></td></tr>
+<tr><td>getOrDefault(key, ersatz)</td><td>Wert oder der Ersatzwert</td></tr>
+<tr><td>remove(Object key)</td><td>entfernt den Eintrag, liefert den Wert</td></tr>
+<tr><td>containsKey(Object key)</td><td>Schlüssel vorhanden?</td></tr>
+<tr><td>keySet() / values() / entrySet()</td><td>Sichten auf Schlüssel, Werte, Paare</td></tr>
+<tr><td>size() / isEmpty() / clear()</td><td>wie bei <code>Collection</code></td></tr>
+</tbody></table></div>
+<pre><code class="language-java">Map&lt;String, Integer&gt; bestand = new HashMap&lt;&gt;();
+bestand.put("Birne", 3);
+bestand.put("Apfel", 5);
+bestand.put("Kiwi", 2);
+System.out.println(bestand.keySet());           // [Birne, Kiwi, Apfel]
+System.out.println(bestand.values());           // [3, 2, 5]
+System.out.println(bestand.containsKey("Kiwi")); // true
+System.out.println(bestand.remove("Kiwi"));      // 2
+System.out.println(bestand);                     // {Birne=3, Apfel=5}</code></pre>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ----------------------------------------------------------- ArrayList -->
+<dialog class="cap-dialog" id="cap-dialog-arraylist" aria-labelledby="cap-titel-arraylist">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Klasse · implementiert List</span><h2 id="cap-titel-arraylist">ArrayList&lt;E&gt;</h2><p>Die Standard-Liste: ein Array, das von selbst wächst.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-arraylist" id="arraylist-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Besonderheiten</h3>
+<p>Behält die Einfügereihenfolge, erlaubt Duplikate und <code>null</code>. Der Zugriff über den Index ist sofort da, egal wie lang die Liste ist – weil intern ein Array steckt.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li><code>get(i)</code> und <code>set(i, e)</code> in konstanter Zeit.</li><li><code>add</code> am Ende ist im Mittel schnell.</li><li>Kompakt im Speicher; Durchlaufen ist sehr schnell.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Einfügen oder Löschen <strong>am Anfang oder in der Mitte</strong> verschiebt alle folgenden Elemente.</li><li><code>contains</code> und <code>indexOf</code> laufen die Liste von vorn durch.</li><li>Nicht für gleichzeitigen Zugriff aus mehreren Threads gedacht.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Fast immer, wenn Du eine Liste brauchst. Sie ist die richtige Vorgabe, bis eine Messung etwas anderes sagt.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-arraylist" id="arraylist-beispiel">
+<summary>Codebeispiel</summary>
+<p>Nach jedem <code>add</code> die Ausgabe: Die Reihenfolge bleibt, das zweite <code>"Apfel"</code> wird aufgenommen.</p>
+<pre><code class="language-java">List&lt;String&gt; obst = new ArrayList&lt;&gt;();
+
+obst.add("Birne");  System.out.println(obst);  // [Birne]
+obst.add("Apfel");  System.out.println(obst);  // [Birne, Apfel]
+obst.add("Kiwi");   System.out.println(obst);  // [Birne, Apfel, Kiwi]
+obst.add("Apfel");  System.out.println(obst);  // [Birne, Apfel, Kiwi, Apfel]  ← Duplikat bleibt
+
+System.out.println(obst.get(1));   // Apfel
+System.out.println(obst.size());   // 4
+
+obst.remove("Apfel");    System.out.println(obst);  // [Birne, Kiwi, Apfel]  ← nur das erste
+obst.add(0, "Mango");    System.out.println(obst);  // [Mango, Birne, Kiwi, Apfel]</code></pre>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-arraylist" id="arraylist-intern">
+<summary>Interne Umsetzung</summary>
+<p>Eine <code>ArrayList</code> besteht aus einem gewöhnlichen <strong>Array</strong> (<code>Object[] elementData</code>) und einem Zähler <code>size</code>. Das Array ist meist größer als nötig – die freien Plätze sind Reserve für die nächsten <code>add</code>.</p>
+<!-- Stand nach den vier add des Codebeispiels: new ArrayList<>() legt beim ersten
+     add ein Array mit 10 Plätzen an (DEFAULT_CAPACITY). -->
+<div class="cap-bild" role="img" aria-label="Array mit 10 Plätzen, belegt sind 0 bis 3 mit Birne, Apfel, Kiwi, Apfel; size 4, Kapazität 10">
+<span class="cap-bild__titel">Nach den vier <code>add</code>: size = 4, Kapazität = 10</span>
+<div class="cap-array">
+<div class="cap-zelle"><i>0</i><b>"Birne"</b></div>
+<div class="cap-zelle"><i>1</i><b>"Apfel"</b></div>
+<div class="cap-zelle"><i>2</i><b>"Kiwi"</b></div>
+<div class="cap-zelle"><i>3</i><b>"Apfel"</b></div>
+<div class="cap-zelle cap-zelle--leer"><i>4</i><b>null</b></div>
+<div class="cap-zelle cap-zelle--leer"><i>5</i><b>null</b></div>
+<div class="cap-zelle cap-zelle--leer"><i>6</i><b>null</b></div>
+<div class="cap-zelle cap-zelle--leer"><i>7</i><b>null</b></div>
+<div class="cap-zelle cap-zelle--leer"><i>8</i><b>null</b></div>
+<div class="cap-zelle cap-zelle--leer"><i>9</i><b>null</b></div>
+</div>
+<span class="cap-bild__notiz"><code>get(2)</code> rechnet nur die Adresse von Platz 2 aus – deshalb ist der Zugriff sofort da.</span>
+</div>
+<h3>Was bei den Operationen passiert</h3>
+<ul>
+<li><strong><code>add(e)</code> am Ende:</strong> nächster freier Platz, <code>size++</code>. Ist das Array voll, wird ein neues mit rund <strong>1,5-facher Größe</strong> angelegt (10 → 15 → 22 …) und alles hinüberkopiert. Das ist selten, deshalb ist <code>add</code> im Mittel trotzdem schnell.</li>
+<li><strong><code>add(0, e)</code> / <code>remove(0)</code>:</strong> Alle Elemente dahinter rücken um einen Platz (<code>System.arraycopy</code>). Bei einer Million Elemente ist das eine Million Verschiebungen.</li>
+<li><strong><code>contains</code> / <code>indexOf</code>:</strong> vergleicht von vorn mit <code>equals</code>, bis es passt.</li>
+</ul>
+<p>Weißt Du vorher, wie viele Elemente kommen, spart <code>new ArrayList&lt;&gt;(1_000)</code> das wiederholte Umkopieren.</p>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ---------------------------------------------------------- LinkedList -->
+<dialog class="cap-dialog" id="cap-dialog-linkedlist" aria-labelledby="cap-titel-linkedlist">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Klasse · implementiert List (und Deque)</span><h2 id="cap-titel-linkedlist">LinkedList&lt;E&gt;</h2><p>Eine Kette von Knoten, die einander kennen.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-linkedlist" id="linkedlist-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Besonderheiten</h3>
+<p>Nach außen eine ganz normale <code>List</code>: Reihenfolge, Duplikate, Index. Zusätzlich ist sie eine <strong>Warteschlange mit zwei Enden</strong> (<code>Deque</code>): <code>addFirst</code>, <code>addLast</code>, <code>removeFirst</code>, <code>peekFirst</code> …</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Einfügen und Entfernen <strong>an beiden Enden</strong> in konstanter Zeit.</li><li>Kein Umkopieren beim Wachsen.</li><li>Einfügen/Löschen über einen Iterator mitten in der Liste, ohne zu verschieben.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li><strong><code>get(i)</code> muss Knoten für Knoten laufen.</strong> Eine <code>for</code>-Schleife mit <code>get(i)</code> wird dadurch quadratisch langsam.</li><li>Mehr Speicher je Element (Knotenobjekt mit zwei Verweisen).</li><li>In der Praxis meist <em>langsamer</em> als <code>ArrayList</code>, auch beim Durchlaufen.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Selten. Wenn Du hauptsächlich vorn und hinten einfügst und entnimmst. Für eine reine Warteschlange ist <code>ArrayDeque</code> meist die bessere Wahl.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-linkedlist" id="linkedlist-beispiel">
+<summary>Codebeispiel</summary>
+<p>Wie eine Liste – plus Einfügen am Anfang. Duplikate bleiben auch hier.</p>
+<pre><code class="language-java">LinkedList&lt;String&gt; schlange = new LinkedList&lt;&gt;();
+
+schlange.add("Birne");       System.out.println(schlange);  // [Birne]
+schlange.add("Apfel");       System.out.println(schlange);  // [Birne, Apfel]
+schlange.addFirst("Kiwi");   System.out.println(schlange);  // [Kiwi, Birne, Apfel]  ← vorn
+schlange.add("Apfel");       System.out.println(schlange);  // [Kiwi, Birne, Apfel, Apfel]  ← Duplikat bleibt
+
+System.out.println(schlange.get(2));          // Apfel  (läuft die Kette ab, hier vom Ende her)
+System.out.println(schlange.removeFirst());   // Kiwi
+System.out.println(schlange);                 // [Birne, Apfel, Apfel]</code></pre>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-linkedlist" id="linkedlist-intern">
+<summary>Interne Umsetzung</summary>
+<p>Jedes Element steckt in einem eigenen <strong>Knoten</strong> (<code>Node</code>) mit drei Feldern: dem Element selbst, einem Verweis auf den Vorgänger (<code>prev</code>) und einem auf den Nachfolger (<code>next</code>). Die Liste kennt nur den ersten und den letzten Knoten.</p>
+<!-- Stand nach den vier add des Codebeispiels (vor removeFirst). -->
+<div class="cap-bild" role="img" aria-label="Doppelt verkettete Liste: first zeigt auf Kiwi, dann Birne, Apfel, Apfel; last zeigt auf das letzte Apfel. Jeder Knoten hat prev und next.">
+<span class="cap-bild__titel">Doppelt verkettet: [Kiwi, Birne, Apfel, Apfel]</span>
+<div class="cap-kette">
+<span class="cap-kette__zeiger">first →</span>
+<span class="cap-knoten"><span>prev</span><b>"Kiwi"</b><span>next</span></span>
+<span class="cap-kette__pfeil" aria-hidden="true">⇄</span>
+<span class="cap-knoten"><span>prev</span><b>"Birne"</b><span>next</span></span>
+<span class="cap-kette__pfeil" aria-hidden="true">⇄</span>
+<span class="cap-knoten"><span>prev</span><b>"Apfel"</b><span>next</span></span>
+<span class="cap-kette__pfeil" aria-hidden="true">⇄</span>
+<span class="cap-knoten"><span>prev</span><b>"Apfel"</b><span>next</span></span>
+<span class="cap-kette__zeiger">← last</span>
+</div>
+<span class="cap-bild__notiz">Die Knoten liegen irgendwo im Speicher – zusammengehalten nur durch die Verweise.</span>
+</div>
+<pre><code class="language-java">private static class Node&lt;E&gt; {   // so steht es im JDK
+    E item;
+    Node&lt;E&gt; next;
+    Node&lt;E&gt; prev;
+}</code></pre>
+<h3>Was bei den Operationen passiert</h3>
+<ul>
+<li><strong><code>addFirst</code> / <code>addLast</code> / <code>removeFirst</code>:</strong> neuen Knoten anlegen bzw. lösen und zwei, drei Verweise umbiegen – unabhängig von der Länge.</li>
+<li><strong><code>get(i)</code>:</strong> läuft ab <code>first</code> (oder ab <code>last</code>, wenn <code>i</code> in der hinteren Hälfte liegt) Verweis für Verweis bis zur Stelle.</li>
+<li><strong><code>add(i, e)</code> in der Mitte:</strong> Das Umhängen selbst ist billig – aber erst muss die Stelle gefunden werden, und das ist wieder ein Lauf durch die Kette.</li>
+</ul>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ------------------------------------------------------------- HashSet -->
+<dialog class="cap-dialog" id="cap-dialog-hashset" aria-labelledby="cap-titel-hashset">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Klasse · implementiert Set</span><h2 id="cap-titel-hashset">HashSet&lt;E&gt;</h2><p>Die schnelle Menge – ohne Reihenfolge.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-hashset" id="hashset-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Besonderheiten</h3>
+<p>Keine Duplikate, und <strong>keine verlässliche Reihenfolge</strong>: Die Ausgabe folgt der internen Ablage, nicht der Einfügereihenfolge – und kann sich ändern, wenn die Menge wächst. Ein <code>null</code> ist erlaubt.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li><code>add</code>, <code>remove</code> und <code>contains</code> im Mittel in konstanter Zeit – auch bei Millionen Elementen.</li><li>Die richtige Vorgabe für ein <code>Set</code>.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Eigene Klassen brauchen <strong><code>equals</code> UND <code>hashCode</code></strong>. Fehlt <code>hashCode</code>, gelten zwei gleiche Objekte als verschieden.</li><li>Ändert sich ein Feld, das in den Hash eingeht, findet das Set das Objekt nicht mehr.</li><li>Brauchst Du eine Reihenfolge: <code>LinkedHashSet</code> (Einfügen) oder <code>TreeSet</code> (sortiert).</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Wenn Eindeutigkeit zählt und die Reihenfolge egal ist: Kunden-IDs, Schlagwörter, „schon gesehen?“-Prüfungen.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-hashset" id="hashset-beispiel">
+<summary>Codebeispiel</summary>
+<p>Dieselben Daten wie bei der Liste. Achte auf zwei Dinge: das zweite <code>"Apfel"</code> wird <strong>abgelehnt</strong>, und <code>"Kiwi"</code> landet <strong>nicht</strong> am Ende.</p>
+<pre><code class="language-java">Set&lt;String&gt; obst = new HashSet&lt;&gt;();
+
+System.out.println(obst.add("Birne"));  // true
+System.out.println(obst);               // [Birne]
+System.out.println(obst.add("Apfel"));  // true
+System.out.println(obst);               // [Birne, Apfel]
+System.out.println(obst.add("Kiwi"));   // true
+System.out.println(obst);               // [Birne, Kiwi, Apfel]  ← nicht Einfügereihenfolge
+System.out.println(obst.add("Apfel"));  // false                 ← Duplikat abgelehnt
+System.out.println(obst);               // [Birne, Kiwi, Apfel]
+
+System.out.println(obst.contains("Kiwi"));  // true
+System.out.println(obst.size());            // 3</code></pre>
+<p>Warum gerade diese Reihenfolge? Das zeigt der Reiter „Interne Umsetzung“.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-hashset" id="hashset-intern">
+<summary>Interne Umsetzung</summary>
+<p>Ein <code>HashSet</code> ist eine <strong>Hash-Tabelle</strong>: ein Array von „Eimern“ (Buckets). In welchen Eimer ein Element gehört, berechnet sich aus seinem <code>hashCode()</code>. (Genau genommen benutzt <code>HashSet</code> intern eine <code>HashMap</code> und legt die Elemente als deren Schlüssel ab.)</p>
+<!-- Echte Werte, JDK 25: Tabelle mit 16 Plätzen, Platz = (h ^ (h >>> 16)) & 15.
+     Birne 64193506 → 1, Kiwi 2339024 → 3, Apfel 63466718 → 6. Daraus folgt die
+     Ausgabe [Birne, Kiwi, Apfel]: Iteriert wird Eimer für Eimer. -->
+<div class="cap-bild" role="img" aria-label="Hash-Tabelle mit 16 Plätzen: Birne in Platz 1, Kiwi in Platz 3, Apfel in Platz 6, alle anderen leer">
+<span class="cap-bild__titel">Startgröße 16 Plätze – Platz = Hash, auf die Tabellengröße zugeschnitten (hier 0…15)</span>
+<div class="cap-eimer">
+<div><i>0</i></div>
+<div class="cap-eimer--voll"><i>1</i><b>"Birne"</b></div>
+<div><i>2</i></div>
+<div class="cap-eimer--voll"><i>3</i><b>"Kiwi"</b></div>
+<div><i>4</i></div>
+<div><i>5</i></div>
+<div class="cap-eimer--voll"><i>6</i><b>"Apfel"</b></div>
+<div><i>7</i></div>
+<div><i>8</i></div>
+<div><i>9</i></div>
+<div><i>10</i></div>
+<div><i>11</i></div>
+<div><i>12</i></div>
+<div><i>13</i></div>
+<div><i>14</i></div>
+<div><i>15</i></div>
+</div>
+<span class="cap-bild__notiz"><span class="cap-mono">"Birne".hashCode() = 64193506 → Platz 1 · "Kiwi" = 2339024 → Platz 3 · "Apfel" = 63466718 → Platz 6</span><br />Die Ausgabe läuft die Plätze von vorn ab – daher <span class="cap-mono">[Birne, Kiwi, Apfel]</span>.<br />Wächst die Tabelle, ändern sich die Plätze – und damit die Ausgabereihenfolge.</span>
+</div>
+<h3>So arbeiten <code>hashCode</code> und <code>equals</code> zusammen</h3>
+<ol>
+<li><strong><code>hashCode()</code> wählt den Eimer.</strong> Nur dieser eine Eimer wird angesehen – deshalb ist die Suche so schnell.</li>
+<li><strong><code>equals()</code> entscheidet im Eimer.</strong> Verschiedene Objekte können im selben Eimer landen (Kollision, z. B. haben <code>"Aa"</code> und <code>"BB"</code> beide den Hash 2112). Dann wird mit <code>equals</code> verglichen.</li>
+<li>Ist ein gleiches Element schon da, lehnt <code>add</code> ab (<code>false</code>).</li>
+</ol>
+<p><strong>Der Vertrag:</strong> Gleiche Objekte (<code>equals</code> liefert <code>true</code>) müssen denselben <code>hashCode</code> haben. Sonst landen sie in verschiedenen Eimern und werden nie verglichen – das Set enthält dann „gleiche“ Objekte doppelt.</p>
+<pre><code class="language-java">class Kunde {
+    private final String nummer;   // fachliche Identität, ändert sich nie
+    private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Kunde k &amp;&amp; nummer.equals(k.nummer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nummer);  // dieselben Felder wie in equals
+    }
+}</code></pre>
+<h3>Wachstum</h3>
+<p>Die Tabelle startet mit 16 Plätzen. Ist sie zu drei Vierteln gefüllt (Ladefaktor 0,75 – hier also beim 13. Element), wird sie <strong>verdoppelt</strong> und jedes Element neu einsortiert. Deshalb kann sich die Ausgabereihenfolge ändern, wenn die Menge wächst. Läuft ein Eimer durch viele Kollisionen voll, baut Java ihn intern zu einem kleinen Baum um.</p>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ------------------------------------------------------------- TreeSet -->
+<dialog class="cap-dialog" id="cap-dialog-treeset" aria-labelledby="cap-titel-treeset">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Klasse · implementiert Set (sortiert)</span><h2 id="cap-titel-treeset">TreeSet&lt;E&gt;</h2><p>Die sortierte Menge.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-treeset" id="treeset-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Besonderheiten</h3>
+<p>Keine Duplikate, und die Elemente sind <strong>immer sortiert</strong> – egal, in welcher Reihenfolge Du einfügst. Sortiert wird nach der <em>natürlichen Ordnung</em> (<code>Comparable</code>: Zahlen aufsteigend, Texte alphabetisch) oder nach einem <code>Comparator</code>, den Du mitgibst.</p>
+<p><strong>Wichtig:</strong> Ob zwei Elemente „gleich“ sind, entscheidet hier <strong>nicht <code>equals</code></strong>, sondern der Vergleich: Liefert er 0, gilt das neue Element als Duplikat.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Sortierung ohne eigenen Aufwand.</li><li>Navigieren: <code>first()</code>, <code>last()</code>, <code>headSet</code>, <code>tailSet</code>, <code>ceiling</code>, <code>floor</code>.</li><li>Operationen in logarithmischer Zeit – bei einer Million Elemente rund 20 Schritte.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Elemente müssen vergleichbar sein, sonst <code>ClassCastException</code>.</li><li>Ein <code>Comparator</code> legt auch fest, was als Duplikat gilt – siehe Codebeispiel.</li><li>Kein <code>null</code>; langsamer als <code>HashSet</code>.</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Wenn eindeutige Elemente <em>sortiert</em> gebraucht werden oder Du nach Bereichen fragst: Ranglisten ohne Doppel, „alle Termine ab heute“, kleinstes/größtes Element.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-treeset" id="treeset-beispiel">
+<summary>Codebeispiel</summary>
+<p>Zahlen in beliebiger Reihenfolge – die Ausgabe ist trotzdem sortiert, die zweite 7 wird abgelehnt.</p>
+<pre><code class="language-java">TreeSet&lt;Integer&gt; zahlen = new TreeSet&lt;&gt;();
+
+zahlen.add(42);  System.out.println(zahlen);  // [42]
+zahlen.add(7);   System.out.println(zahlen);  // [7, 42]         ← einsortiert
+zahlen.add(19);  System.out.println(zahlen);  // [7, 19, 42]     ← einsortiert
+zahlen.add(7);   System.out.println(zahlen);  // [7, 19, 42]     ← Duplikat abgelehnt
+zahlen.add(3);   System.out.println(zahlen);  // [3, 7, 19, 42]
+
+System.out.println(zahlen.first() + " " + zahlen.last());  // 3 42</code></pre>
+<h3>Mit <code>Comparator</code>: Er bestimmt auch, was gleich ist</h3>
+<pre><code class="language-java">Set&lt;String&gt; nachLänge = new TreeSet&lt;&gt;(Comparator.comparing(String::length));
+
+nachLänge.add("Birne");  System.out.println(nachLänge);  // [Birne]
+nachLänge.add("Kiwi");   System.out.println(nachLänge);  // [Kiwi, Birne]  ← 4 vor 5 Zeichen
+nachLänge.add("Apfel");  System.out.println(nachLänge);  // [Kiwi, Birne]  ← Apfel fehlt!</code></pre>
+<p><code>"Apfel"</code> hat wie <code>"Birne"</code> fünf Zeichen. Der Comparator liefert 0 – für das <code>TreeSet</code> ist das ein Duplikat. Abhilfe: einen zweiten Vergleich anhängen, <code>Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder())</code>.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-treeset" id="treeset-intern">
+<summary>Interne Umsetzung</summary>
+<p>Ein <code>TreeSet</code> ist ein <strong>binärer Suchbaum</strong> (genauer: ein Rot-Schwarz-Baum, intern über eine <code>TreeMap</code>). Jeder Knoten hat höchstens zwei Kinder: <strong>links das Kleinere, rechts das Größere</strong>. Beim Einfügen wird von der Wurzel aus verglichen und links oder rechts abgebogen, bis ein freier Platz kommt.</p>
+<!-- Echter Baum nach add(42), add(7), add(19), add(3): Beim Einfügen der 19
+     rotiert der Rot-Schwarz-Baum, 19 wird Wurzel. Farben bewusst weggelassen –
+     die Balance-Regeln sind nicht das Thema, nur „links kleiner, rechts größer“. -->
+<div class="cap-bild cap-baum" role="img" aria-label="Suchbaum: Wurzel 19, links 7 mit linkem Kind 3, rechts 42">
+<span class="cap-bild__titel">Nach 42, 7, 19, 7, 3 – der Baum hat sich selbst ausbalanciert</span>
+<svg viewBox="0 0 300 150" width="300" height="150" aria-hidden="true">
+<line x1="150" y1="28" x2="85" y2="76" /><line x1="150" y1="28" x2="215" y2="76" /><line x1="85" y1="76" x2="45" y2="124" />
+<circle cx="150" cy="28" r="19" /><text x="150" y="28">19</text>
+<circle cx="85" cy="76" r="19" /><text x="85" y="76">7</text>
+<circle cx="215" cy="76" r="19" /><text x="215" y="76">42</text>
+<circle cx="45" cy="124" r="19" /><text x="45" y="124">3</text>
+</svg>
+<span class="cap-bild__notiz">Von links nach rechts gelesen: 3, 7, 19, 42 – genau die Ausgabe. Die zweite 7 kam bis zum Knoten 7, der Vergleich lieferte 0: abgelehnt.</span>
+</div>
+<h3>Woher weiß der Baum, was kleiner ist?</h3>
+<div class="cap-grid">
+<div class="cap-card">
+<h3><code>Comparable</code> – die natürliche Ordnung</h3>
+<p>Die Elemente vergleichen sich selbst über <code>compareTo</code>. <code>String</code>, <code>Integer</code>, <code>LocalDate</code> können das schon.</p>
+<pre><code class="language-java">class Konto implements Comparable&lt;Konto&gt; {
+    private final String iban;
+
+    @Override
+    public int compareTo(Konto anderes) {
+        return iban.compareTo(anderes.iban);
+    }
+}
+
+Set&lt;Konto&gt; konten = new TreeSet&lt;&gt;();</code></pre>
+</div>
+<div class="cap-card">
+<h3><code>Comparator</code> – eine Ordnung von außen</h3>
+<p>Ein eigenes Vergleichsobjekt, beim Anlegen mitgegeben. Geht auch für Klassen, die Du nicht ändern kannst, und für mehrere Sortierungen.</p>
+<pre><code class="language-java">Set&lt;Konto&gt; nachSaldo = new TreeSet&lt;&gt;(
+    Comparator.comparing(Konto::saldo)
+              .thenComparing(Konto::iban));
+
+Set&lt;String&gt; absteigend =
+    new TreeSet&lt;&gt;(Comparator.reverseOrder());</code></pre>
+</div>
+</div>
+<p class="cap-note">Ein Ergebnis &lt; 0 heißt „kleiner“, &gt; 0 „größer“, 0 „gleich“ – und „gleich“ heißt im <code>TreeSet</code>: kommt nicht noch einmal hinein.</p>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ------------------------------------------------------------- HashMap -->
+<dialog class="cap-dialog" id="cap-dialog-hashmap" aria-labelledby="cap-titel-hashmap">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Klasse · implementiert Map</span><h2 id="cap-titel-hashmap">HashMap&lt;K, V&gt;</h2><p>Die schnelle Zuordnung – ohne Reihenfolge.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-hashmap" id="hashmap-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Besonderheiten</h3>
+<p>Schlüssel sind eindeutig, ein zweites <code>put</code> mit demselben Schlüssel <strong>überschreibt</strong> den Wert (und liefert den alten zurück). Die Einträge haben <strong>keine verlässliche Reihenfolge</strong>. Ein <code>null</code>-Schlüssel ist erlaubt.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li><code>put</code>, <code>get</code> und <code>containsKey</code> im Mittel in konstanter Zeit.</li><li>Die richtige Vorgabe für eine <code>Map</code>.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Der Schlüssel braucht passendes <code>equals</code> und <code>hashCode</code> – wie beim <code>HashSet</code>.</li><li>Schlüssel nicht nachträglich ändern; am besten unveränderliche Typen.</li><li>Reihenfolge nötig? <code>LinkedHashMap</code> (Einfügen) oder <code>TreeMap</code> (sortiert).</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Immer, wenn Du per Schlüssel nachschlägst und die Reihenfolge egal ist: IBAN → Konto, Artikelnummer → Bestand.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-hashmap" id="hashmap-beispiel">
+<summary>Codebeispiel</summary>
+<p>Ein Lagerbestand. Achte auf das zweite <code>put</code> mit <code>"Apfel"</code>: kein zweiter Eintrag, sondern ein neuer Wert.</p>
+<pre><code class="language-java">Map&lt;String, Integer&gt; bestand = new HashMap&lt;&gt;();
+
+System.out.println(bestand.put("Birne", 3));  // null  (gab es noch nicht)
+System.out.println(bestand);                  // {Birne=3}
+System.out.println(bestand.put("Apfel", 5));  // null
+System.out.println(bestand);                  // {Birne=3, Apfel=5}
+System.out.println(bestand.put("Kiwi", 2));   // null
+System.out.println(bestand);                  // {Birne=3, Kiwi=2, Apfel=5}  ← nicht Einfügereihenfolge
+System.out.println(bestand.put("Apfel", 8));  // 5     ← alter Wert, überschrieben
+System.out.println(bestand);                  // {Birne=3, Kiwi=2, Apfel=8}
+
+System.out.println(bestand.get("Kiwi"));               // 2
+System.out.println(bestand.get("Mango"));              // null
+System.out.println(bestand.getOrDefault("Mango", 0));  // 0</code></pre>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-hashmap" id="hashmap-intern">
+<summary>Interne Umsetzung</summary>
+<p>Dieselbe <strong>Hash-Tabelle</strong> wie beim <code>HashSet</code> – nur liegt in jedem Eimer ein Paar aus Schlüssel und Wert. <strong>Den Platz bestimmt allein der Schlüssel</strong>; der Wert spielt dafür keine Rolle.</p>
+<!-- Dieselben Plätze wie beim HashSet (gleiche Schlüssel, Tabelle mit 16 Plätzen),
+     Werte nach dem Überschreiben (Apfel=8). Mit JDK 25 nachgeprüft. -->
+<div class="cap-bild" role="img" aria-label="Hash-Tabelle mit 16 Plätzen: Platz 1 Birne gleich 3, Platz 3 Kiwi gleich 2, Platz 6 Apfel gleich 8">
+<span class="cap-bild__titel">Startgröße 16 Plätze – Platz = Hash des Schlüssels, auf die Tabellengröße zugeschnitten (hier 0…15)</span>
+<div class="cap-eimer">
+<div><i>0</i></div>
+<div class="cap-eimer--voll"><i>1</i><b>Birne=3</b></div>
+<div><i>2</i></div>
+<div class="cap-eimer--voll"><i>3</i><b>Kiwi=2</b></div>
+<div><i>4</i></div>
+<div><i>5</i></div>
+<div class="cap-eimer--voll"><i>6</i><b>Apfel=8</b></div>
+<div><i>7</i></div>
+<div><i>8</i></div>
+<div><i>9</i></div>
+<div><i>10</i></div>
+<div><i>11</i></div>
+<div><i>12</i></div>
+<div><i>13</i></div>
+<div><i>14</i></div>
+<div><i>15</i></div>
+</div>
+<span class="cap-bild__notiz">Das zweite <span class="cap-mono">put("Apfel", 8)</span> landet wieder in Platz 6, findet dort per <span class="cap-mono">equals</span> den Schlüssel <span class="cap-mono">"Apfel"</span> – und ersetzt nur den Wert.<br />Wächst die Tabelle, ändern sich die Plätze – und damit die Ausgabereihenfolge.</span>
+</div>
+<h3>Ablauf von <code>put(key, value)</code> und <code>get(key)</code></h3>
+<ol>
+<li><code>key.hashCode()</code> berechnen und auf einen Platz der Tabelle abbilden.</li>
+<li>Im Eimer jeden Eintrag mit <code>key.equals(…)</code> prüfen.</li>
+<li><code>put</code>: Treffer → Wert ersetzen, alten zurückgeben. Kein Treffer → neuen Eintrag anhängen, <code>null</code> zurückgeben.<br /><code>get</code>: Treffer → Wert. Kein Treffer → <code>null</code>.</li>
+</ol>
+<p>Wachstum wie beim <code>HashSet</code>: Start mit 16 Plätzen, bei 75 % Füllung verdoppeln und neu verteilen.</p>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ------------------------------------------------------------- TreeMap -->
+<dialog class="cap-dialog" id="cap-dialog-treemap" aria-labelledby="cap-titel-treemap">
+<div class="cap-dialog__innen">
+<div class="cap-dialog__kopf">
+<div><span class="cap-dialog__stereo">Klasse · implementiert Map (sortiert)</span><h2 id="cap-titel-treemap">TreeMap&lt;K, V&gt;</h2><p>Die nach Schlüsseln sortierte Zuordnung.</p></div>
+<button type="button" class="cap-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<div class="avd-academy-tabs">
+<details class="avd-academy-tabs__panel" name="cap-treemap" id="treemap-erklaerung" open="">
+<summary>Erklärung</summary>
+<h3>Besonderheiten</h3>
+<p>Eine <code>Map</code>, deren Einträge <strong>immer nach dem Schlüssel sortiert</strong> sind – natürliche Ordnung oder ein mitgegebener <code>Comparator</code>. Für die Werte gilt keine Sortierung. Was über das <code>TreeSet</code> gesagt ist, gilt hier für die Schlüssel.</p>
+<div class="cap-abwaegung">
+<div><h4>Stärken</h4><ul><li>Sortierte Ausgabe ohne eigenen Aufwand.</li><li>Bereichsabfragen: <code>firstKey()</code>, <code>lastKey()</code>, <code>headMap</code>, <code>tailMap</code>, <code>floorKey</code>, <code>ceilingKey</code>.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Schlüssel müssen vergleichbar sein; kein <code>null</code>-Schlüssel.</li><li>Der Vergleich (nicht <code>equals</code>) entscheidet, ob ein Schlüssel schon da ist.</li><li>Langsamer als <code>HashMap</code> (logarithmisch statt konstant).</li></ul></div>
+</div>
+<p class="cap-wann"><strong>Wann verwenden?</strong> Wenn Schlüssel sortiert gebraucht werden: ein Index von A bis Z, Messwerte nach Datum, „alle Buchungen bis zum 31.“.</p>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-treemap" id="treemap-beispiel">
+<summary>Codebeispiel</summary>
+<p>Derselbe Lagerbestand wie bei der <code>HashMap</code> – jetzt alphabetisch nach Schlüssel.</p>
+<pre><code class="language-java">TreeMap&lt;String, Integer&gt; bestand = new TreeMap&lt;&gt;();
+
+bestand.put("Birne", 3);  System.out.println(bestand);  // {Birne=3}
+bestand.put("Apfel", 5);  System.out.println(bestand);  // {Apfel=5, Birne=3}          ← einsortiert
+bestand.put("Kiwi", 2);   System.out.println(bestand);  // {Apfel=5, Birne=3, Kiwi=2}
+bestand.put("Apfel", 8);  System.out.println(bestand);  // {Apfel=8, Birne=3, Kiwi=2}  ← überschrieben
+
+System.out.println(bestand.firstKey());       // Apfel
+System.out.println(bestand.headMap("Kiwi"));  // {Apfel=8, Birne=3}  ← alles vor "Kiwi"</code></pre>
+</details>
+<details class="avd-academy-tabs__panel" name="cap-treemap" id="treemap-intern">
+<summary>Interne Umsetzung</summary>
+<p>Ein <strong>Rot-Schwarz-Baum</strong> wie beim <code>TreeSet</code> (das <code>TreeSet</code> benutzt intern sogar eine <code>TreeMap</code>). Jeder Knoten trägt Schlüssel <em>und</em> Wert; einsortiert wird nur nach dem Schlüssel – links kleiner, rechts größer.</p>
+<!-- Echter Baum nach put Birne, Apfel, Kiwi: keine Rotation nötig, Birne bleibt
+     Wurzel. Das letzte put(Apfel, 8) findet den Knoten Apfel (Vergleich 0) und
+     ersetzt nur den Wert. -->
+<div class="cap-bild cap-baum" role="img" aria-label="Suchbaum: Wurzel Birne gleich 3, links Apfel gleich 8, rechts Kiwi gleich 2">
+<span class="cap-bild__titel">Nach den vier <code>put</code></span>
+<svg viewBox="0 0 320 120" width="320" height="120" aria-hidden="true">
+<line x1="160" y1="26" x2="75" y2="88" /><line x1="160" y1="26" x2="245" y2="88" />
+<rect x="115" y="10" width="90" height="32" rx="6" /><text x="160" y="26">Birne=3</text>
+<rect x="30" y="72" width="90" height="32" rx="6" /><text x="75" y="88">Apfel=8</text>
+<rect x="200" y="72" width="90" height="32" rx="6" /><text x="245" y="88">Kiwi=2</text>
+</svg>
+<span class="cap-bild__notiz"><span class="cap-mono">put("Apfel", 8)</span>: an der Wurzel ist „Apfel“ kleiner als „Birne“ → links; dort liefert der Vergleich 0 → Wert ersetzen.</span>
+</div>
+<p>Der Vergleich kommt wie beim <code>TreeSet</code> aus <code>Comparable</code> (die Schlüssel vergleichen sich selbst) oder aus einem <code>Comparator</code> im Konstruktor:</p>
+<pre><code class="language-java">Map&lt;String, Integer&gt; ohneGroßKlein = new TreeMap&lt;&gt;(String.CASE_INSENSITIVE_ORDER);
+Map&lt;LocalDate, Double&gt; kurse = new TreeMap&lt;&gt;();   // LocalDate ist Comparable</code></pre>
+</details>
+</div>
+</div>
+</dialog>
+
+<!-- ======================================================================
+     ALLGEMEINE BEISPIELE – gelten für alle Typen oben.
+     ====================================================================== -->
+
+<section class="cap-sec" id="anlegen">
+<h2><span class="cap-num">1</span> Anlegen</h2>
+<div class="cap-grid">
+<div class="cap-card">
+<h3>Mit <code>new</code> – veränderbar</h3>
+<pre><code class="language-java">List&lt;String&gt; obst = new ArrayList&lt;&gt;();            // leer
+Set&lt;String&gt; einmalig = new HashSet&lt;&gt;(obst);       // Kopie einer anderen Collection
+Map&lt;String, Integer&gt; bestand = new HashMap&lt;&gt;();
+List&lt;String&gt; groß = new ArrayList&lt;&gt;(1_000);       // mit Startkapazität</code></pre>
+<p>Links das Interface, rechts die Klasse. Der Konstruktor mit einer Collection übernimmt deren Elemente – praktisch zum Umwandeln, etwa Liste → Menge ohne Duplikate.</p>
+</div>
+<div class="cap-card">
+<h3><code>List.of</code>, <code>Set.of</code>, <code>Map.of</code> – unveränderlich</h3>
+<pre><code class="language-java">List&lt;String&gt; obst = List.of("Birne", "Apfel", "Kiwi");
+System.out.println(obst);   // [Birne, Apfel, Kiwi]
+obst.add("Mango");          // UnsupportedOperationException
+
+Set.of("Apfel", "Apfel");
+// IllegalArgumentException: duplicate element: Apfel
+
+Map&lt;String, Integer&gt; bestand = Map.of("Apfel", 5, "Kiwi", 2);
+System.out.println(bestand.get("Apfel"));   // 5</code></pre>
+<p>Kurz und sicher für feste Werte. Kein <code>add</code>, kein <code>remove</code>, kein <code>null</code> (<code>NullPointerException</code>).</p>
+</div>
+<div class="cap-card">
+<h3>Veränderbare Kopie</h3>
+<pre><code class="language-java">List&lt;String&gt; obst = new ArrayList&lt;&gt;(List.of("Birne", "Apfel", "Kiwi"));
+obst.add("Mango");
+System.out.println(obst);   // [Birne, Apfel, Kiwi, Mango]</code></pre>
+<p>Das gängige Muster, wenn Du mit festen Startwerten beginnen und danach weiter ändern willst.</p>
+</div>
+<div class="cap-card">
+<h3>Helfer aus <code>Arrays</code> und <code>Collections</code></h3>
+<pre><code class="language-java">List&lt;String&gt; fest = Arrays.asList("Birne", "Apfel");
+fest.set(0, "Kiwi");        // erlaubt → [Kiwi, Apfel]
+fest.add("Mango");          // UnsupportedOperationException – feste Größe
+
+List&lt;String&gt; leer = Collections.emptyList();
+
+List&lt;String&gt; obst = new ArrayList&lt;&gt;(List.of("Birne", "Apfel", "Kiwi"));
+Collections.sort(obst);                       // [Apfel, Birne, Kiwi]
+System.out.println(Collections.max(obst));    // Kiwi
+
+List&lt;String&gt; sicht = Collections.unmodifiableList(obst);  // Nur-Lese-Sicht
+List&lt;String&gt; kopie = List.copyOf(obst);                   // unveränderliche Kopie</code></pre>
+<p><strong>Sicht oder Kopie?</strong> <code>unmodifiableList</code> zeigt Änderungen am Original weiterhin an, lässt selbst aber keine zu – ideal für Getter. <code>List.copyOf</code> friert den Stand ein.</p>
+</div>
+</div>
+</section>
+
+<section class="cap-sec" id="generics">
+<h2><span class="cap-num">2</span> Generics: der Elementtyp in spitzen Klammern</h2>
+<div class="cap-grid">
+<div class="cap-card">
+<h3>Nur dieser Typ kommt hinein</h3>
+<pre><code class="language-java">List&lt;String&gt; namen = new ArrayList&lt;&gt;();   // &lt;&gt; rechts: Typ wird abgeleitet
+namen.add("Mia");                         // ✓
+namen.add(42);
+// Fehler: Inkompatible Typen: int kann nicht in String konvertiert werden
+
+String erster = namen.get(0);             // kein Cast nötig</code></pre>
+<p>Der Compiler prüft <strong>beim Übersetzen</strong>, dass nur <code>String</code> hineinkommt – und weiß deshalb auch, dass nur <code>String</code> herauskommt.</p>
+</div>
+<div class="cap-card">
+<h3>Mehrere Typparameter</h3>
+<pre><code class="language-java">Map&lt;String, Integer&gt; bestand = new HashMap&lt;&gt;();
+bestand.put("Apfel", 5);       // ✓ String → Integer
+bestand.put(5, "Apfel");       // Compilerfehler: 5 ist kein String
+
+Map&lt;String, List&lt;String&gt;&gt; kategorien = new HashMap&lt;&gt;();
+kategorien.put("Obst", List.of("Apfel", "Birne"));</code></pre>
+<p>Eine <code>Map</code> hat zwei: Schlüssel- und Werttyp. Typparameter lassen sich auch schachteln.</p>
+</div>
+<div class="cap-card">
+<h3>Keine primitiven Typen</h3>
+<pre><code class="language-java">List&lt;int&gt; zahlen;
+// Fehler: Unerwarteter Typ – Erforderlich: Referenz, Ermittelt: int
+
+List&lt;Integer&gt; zahlen = new ArrayList&lt;&gt;();
+zahlen.add(42);            // Autoboxing: int → Integer
+int x = zahlen.get(0);     // Unboxing:   Integer → int</code></pre>
+<p>Collections speichern Objekte. Für <code>int</code>, <code>double</code>, <code>boolean</code> nimmst Du die Hüllklassen <code>Integer</code>, <code>Double</code>, <code>Boolean</code> – das Umwandeln erledigt Java selbst.</p>
+</div>
+<div class="cap-card">
+<h3>Warum das ein Gewinn ist</h3>
+<pre><code class="language-java">List roh = new ArrayList();      // ohne Typangabe („Raw Type“)
+roh.add("Mia");
+roh.add(42);                     // wird angenommen …
+String s = (String) roh.get(1);  // … und knallt erst hier:
+// ClassCastException – zur Laufzeit</code></pre>
+<p>Ohne Generics fällt der Fehler erst beim Ausführen auf, irgendwo später. Mit Generics meldet ihn der Compiler sofort, an der richtigen Stelle.</p>
+</div>
+</div>
+</section>
+
+<section class="cap-sec" id="iterieren">
+<h2><span class="cap-num">3</span> Iterieren</h2>
+<div class="cap-grid">
+<div class="cap-card">
+<h3>Mit dem <code>Iterator</code></h3>
+<pre><code class="language-java">List&lt;String&gt; obst = new ArrayList&lt;&gt;(List.of("Birne", "Apfel", "Kiwi", "Apfel"));
+
+Iterator&lt;String&gt; it = obst.iterator();
+while (it.hasNext()) {
+    String s = it.next();
+    if (s.equals("Apfel")) {
+        it.remove();             // sicher entfernen
+    }
+}
+System.out.println(obst);        // [Birne, Kiwi]</code></pre>
+<p><code>hasNext()</code> fragt, ob noch etwas kommt; <code>next()</code> liefert es (am Ende: <code>NoSuchElementException</code>). Der einzige Weg, <strong>während</strong> des Durchlaufens sicher zu entfernen.</p>
+</div>
+<div class="cap-card">
+<h3>Mit for-each</h3>
+<pre><code class="language-java">for (String s : obst) {
+    System.out.println(s);
+}
+// Birne
+// Kiwi
+
+List&lt;String&gt; liste = new ArrayList&lt;&gt;(List.of("Birne", "Apfel", "Kiwi"));
+for (String s : liste) {
+    if (s.equals("Birne")) liste.remove(s);
+}
+// ConcurrentModificationException</code></pre>
+<p>Die kürzeste Form – intern ist es derselbe <code>Iterator</code>, nur unsichtbar. Deshalb darfst Du die Collection darin <strong>nicht</strong> ändern; dafür gibt es <code>it.remove()</code> oder <code>obst.removeIf(…)</code>.</p>
+</div>
+<div class="cap-card">
+<h3>Mit <code>stream()</code></h3>
+<pre><code class="language-java">List&lt;String&gt; obst = List.of("Birne", "Apfel", "Kiwi", "Apfel");
+
+List&lt;String&gt; ergebnis = obst.stream()
+    .distinct()                     // Duplikate raus
+    .sorted()                       // sortieren
+    .map(String::toUpperCase)       // umwandeln
+    .toList();
+System.out.println(ergebnis);       // [APFEL, BIRNE, KIWI]
+
+long anzahl = obst.stream().filter(s -&gt; s.startsWith("A")).count();
+System.out.println(anzahl);         // 2
+System.out.println(obst);           // [Birne, Apfel, Kiwi, Apfel]  ← unverändert</code></pre>
+<p>Beschreibt, <em>was</em> passieren soll, statt einer Schleife. Ein Stream verändert die Quelle nicht, er liefert ein neues Ergebnis.</p>
+</div>
+<div class="cap-card">
+<h3>Über eine <code>Map</code></h3>
+<pre><code class="language-java">Map&lt;String, Integer&gt; bestand = new TreeMap&lt;&gt;(Map.of("Birne", 3, "Apfel", 5, "Kiwi", 2));
+
+for (Map.Entry&lt;String, Integer&gt; e : bestand.entrySet()) {
+    System.out.println(e.getKey() + " → " + e.getValue());
+}
+// Apfel → 5
+// Birne → 3
+// Kiwi → 2</code></pre>
+<p>Eine <code>Map</code> ist nicht <code>Iterable</code>; durchlaufen wird eine ihrer Sichten. <code>entrySet()</code> liefert Schlüssel und Wert zusammen.</p>
+</div>
+</div>
+</section>
+
+<section class="cap-sec" id="mengen">
+<h2><span class="cap-num">4</span> Mengenoperationen</h2>
+<!-- TreeSet statt HashSet, damit die gezeigten Ausgaben sortiert und damit
+     verlässlich sind. Die Methoden selbst gehören zu Collection. -->
+<div class="cap-tabelle-rahmen" style="margin-bottom:1.1rem"><table class="cap-tabelle">
+<thead><tr><th>Operation</th><th>Methode</th><th>a = [Apfel, Birne, Kiwi], b = [Apfel, Kiwi, Mango]</th></tr></thead>
+<tbody>
+<tr><td>Vereinigung a ∪ b</td><td><code>v.addAll(b)</code></td><td>[Apfel, Birne, Kiwi, Mango]</td></tr>
+<tr><td>Schnittmenge a ∩ b</td><td><code>s.retainAll(b)</code></td><td>[Apfel, Kiwi]</td></tr>
+<tr><td>Differenz a \ b</td><td><code>d.removeAll(b)</code></td><td>[Birne]</td></tr>
+<tr><td>Teilmenge?</td><td><code>a.containsAll(…)</code></td><td><code>a.containsAll(Set.of("Apfel", "Kiwi"))</code> → true</td></tr>
+<tr><td>Disjunkt?</td><td><code>Collections.disjoint(a, …)</code></td><td><code>Collections.disjoint(a, Set.of("Mango"))</code> → true</td></tr>
+</tbody></table></div>
+<div class="cap-grid">
+<div class="cap-card">
+<h3>Erst kopieren, dann rechnen</h3>
+<pre><code class="language-java">Set&lt;String&gt; a = new TreeSet&lt;&gt;(Set.of("Apfel", "Birne", "Kiwi"));
+Set&lt;String&gt; b = new TreeSet&lt;&gt;(Set.of("Kiwi", "Mango", "Apfel"));
+
+Set&lt;String&gt; vereinigung = new TreeSet&lt;&gt;(a);
+vereinigung.addAll(b);
+System.out.println(vereinigung);  // [Apfel, Birne, Kiwi, Mango]
+
+Set&lt;String&gt; schnitt = new TreeSet&lt;&gt;(a);
+schnitt.retainAll(b);
+System.out.println(schnitt);      // [Apfel, Kiwi]
+
+Set&lt;String&gt; differenz = new TreeSet&lt;&gt;(a);
+differenz.removeAll(b);
+System.out.println(differenz);    // [Birne]
+
+System.out.println(a);            // [Apfel, Birne, Kiwi]  ← unverändert</code></pre>
+<p><code>addAll</code>, <code>retainAll</code> und <code>removeAll</code> <strong>ändern die Menge, auf der sie aufgerufen werden</strong>. Wer <code>a</code> behalten will, rechnet auf einer Kopie.</p>
+</div>
+<div class="cap-card">
+<h3>Symmetrische Differenz und Streams</h3>
+<pre><code class="language-java">// in genau einer der beiden Mengen: (a ∪ b) \ (a ∩ b)
+Set&lt;String&gt; nurEinmal = new TreeSet&lt;&gt;(vereinigung);
+nurEinmal.removeAll(schnitt);
+System.out.println(nurEinmal);    // [Birne, Mango]
+
+// Schnittmenge als Stream – lässt a und b unberührt
+Set&lt;String&gt; schnitt2 = a.stream()
+    .filter(b::contains)
+    .collect(Collectors.toCollection(TreeSet::new));
+System.out.println(schnitt2);     // [Apfel, Kiwi]</code></pre>
+<p>Die Methoden funktionieren auch mit Listen – dann bleiben aber Duplikate erhalten. Für Mengenrechnung ist ein <code>Set</code> der passende Typ.</p>
+</div>
+</div>
+</section>
+
+</div>
+
+<script>
+/* Klassendiagramm + Popups. Ein Zustand (offenerTyp), eine Funktion, die ihn
+   sichtbar macht (zeigen). Der Zustand steht über AvdAcademyState in der Adresse
+   (#/?typ=hashset); den gewählten Reiter führt der Theme-Baustein selbst (open=…).
+   Selektoren und ids bleiben ASCII (AGENTS.md), Bezeichner tragen Umlaute. */
+(function () {
+  "use strict";
+  var diagramm = document.getElementById("cap-diagramm");
+  var linien = document.getElementById("cap-linien");
+  if (!diagramm || !linien) return;
+  var knöpfe = Array.prototype.slice.call(diagramm.querySelectorAll(".cap-typ"));
+  var dialoge = Array.prototype.slice.call(document.querySelectorAll("dialog.cap-dialog"));
+  var offenerTyp = "";
+
+  function dialogFür(typ) { return typ ? document.getElementById("cap-dialog-" + typ) : null; }
+  function typVon(dialog) { return dialog.id.replace("cap-dialog-", ""); }
+  function adresseAktualisieren() { if (window.AvdAcademyState) window.AvdAcademyState.update(); }
+
+  /* Unbekannte Werte (#/?typ=quatsch) führen still in den Ausgangszustand. */
+  function zeigen(typ) {
+    if (!dialogFür(typ)) typ = "";
+    offenerTyp = typ;
+    dialoge.forEach(function (d) {
+      var soll = typVon(d) === typ;
+      if (soll && !d.open) d.showModal();
+      if (!soll && d.open) d.close();
+    });
+    knöpfe.forEach(function (k) { k.setAttribute("aria-pressed", String(k.dataset.typ === typ)); });
+  }
+
+  /* Nach dem Schließen wieder auf den ersten Reiter – sonst bliebe der zuletzt
+     gewählte Reiter eines geschlossenen Popups in der Adresse stehen. */
+  function reiterZurücksetzen(dialog) {
+    var erster = dialog.querySelector("details.avd-academy-tabs__panel");
+    if (erster && !erster.open) erster.open = true;
+  }
+
+  knöpfe.forEach(function (k) {
+    k.addEventListener("click", function () { zeigen(k.dataset.typ); adresseAktualisieren(); });
+  });
+
+  dialoge.forEach(function (d) {
+    var zu = d.querySelector(".cap-dialog__zu");
+    if (zu) zu.addEventListener("click", function () { d.close(); });
+    /* Verweise auf Abschnitte der Seite (#mengen) schließen das Popup – sonst
+       spränge die Seite unsichtbar hinter dem Hintergrund. */
+    d.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener("click", function () { d.close(); });
+    });
+    /* Klick auf den Hintergrund: trifft den <dialog> selbst, nicht seinen Inhalt. */
+    d.addEventListener("click", function (e) { if (e.target === d) d.close(); });
+    /* „close“ kommt bei Esc, ×, Hintergrund – und beim Wechsel über die Adresse.
+       Nur wenn DIESES Popup noch als offen gilt, hat die Person es geschlossen. */
+    d.addEventListener("close", function () {
+      if (offenerTyp !== typVon(d)) return;
+      var knopf = diagramm.querySelector('[data-typ="' + typVon(d) + '"]');
+      offenerTyp = "";
+      reiterZurücksetzen(d);
+      knöpfe.forEach(function (k) { k.setAttribute("aria-pressed", "false"); });
+      adresseAktualisieren();
+      if (knopf) knopf.focus();
+    });
+  });
+
+  /* Linien aus den echten Positionen der Kästen: von der Unterkante des Elterntyps
+     senkrecht auf eine Sammelschiene über den Kindern, von dort zu jedem Kind.
+     Spitze (hohles Dreieck) an der Unterkante des Elterntyps. */
+  function linienZeichnen() {
+    var breite = diagramm.scrollWidth, höhe = diagramm.scrollHeight;
+    linien.setAttribute("width", breite);
+    linien.setAttribute("height", höhe);
+    linien.setAttribute("viewBox", "0 0 " + breite + " " + höhe);
+    var kinderJe = {};
+    knöpfe.forEach(function (k) {
+      var e = k.dataset.eltern;
+      if (e) (kinderJe[e] = kinderJe[e] || []).push(k);
+    });
+    var svg = "";
+    Object.keys(kinderJe).forEach(function (typ) {
+      var oben = diagramm.querySelector('[data-typ="' + typ + '"]');
+      var kinder = kinderJe[typ];
+      var ox = oben.offsetLeft + oben.offsetWidth / 2;
+      var oy = oben.offsetTop + oben.offsetHeight;
+      var spitze = 13;
+      var schiene = Math.min.apply(null, kinder.map(function (k) { return k.offsetTop; })) - 22;
+      var xs = kinder.map(function (k) { return k.offsetLeft + k.offsetWidth / 2; });
+      var d = "M" + ox + " " + (oy + spitze) + " V" + schiene +
+              " M" + Math.min.apply(null, xs.concat(ox)) + " " + schiene + " H" + Math.max.apply(null, xs.concat(ox));
+      kinder.forEach(function (k, i) { d += " M" + xs[i] + " " + schiene + " V" + k.offsetTop; });
+      var gestrichelt = kinder[0].dataset.beziehung === "implements";
+      svg += '<path class="cap-linie' + (gestrichelt ? " cap-linie--gestrichelt" : "") + '" d="' + d + '"/>';
+      svg += '<polygon class="cap-spitze" points="' + ox + "," + oy + " " + (ox - 8) + "," + (oy + spitze) + " " + (ox + 8) + "," + (oy + spitze) + '"/>';
+    });
+    linien.innerHTML = svg;
+  }
+
+  linienZeichnen();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(linienZeichnen);
+  if ("ResizeObserver" in window) new ResizeObserver(linienZeichnen).observe(diagramm);
+  else window.addEventListener("resize", linienZeichnen);
+  window.addEventListener("beforeprint", linienZeichnen);
+  window.addEventListener("afterprint", linienZeichnen);
+
+  function anmelden() {
+    if (!window.AvdAcademyState) return;
+    window.AvdAcademyState.register({
+      key: "typ",
+      read: function () { return offenerTyp; },
+      apply: function (wert) { zeigen(wert || ""); }
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", anmelden);
+  else anmelden();
+})();
+</script>
+
+
+
+    </main>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
