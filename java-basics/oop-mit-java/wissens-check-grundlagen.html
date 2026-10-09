@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Wissens-Check: Java- und OO-Grundlagen · ATVANTAGE Academy</title><meta name="description" content="Selbsttest zum Rückblick auf die Woche – von der Plattform über Klassen und Objekte bis zu Vererbung, Polymorphie, Ausnahmen und Collections."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Wissens-Check: Java- und OO-Grundlagen">
+<meta property="og:description" content="Selbsttest zum Rückblick auf die Woche – von der Plattform über Klassen und Objekte bis zu Vererbung, Polymorphie, Ausnahmen und Collections.">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=36db4c3a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=3813ae91"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.4.3">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.4.3","schemas":{"config":"1.2.0","frontmatter":"1.0.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-basics/oop-mit-java/wissens-check-grundlagen.html","title":"Wissens-Check: Java- und OO-Grundlagen","layout":"quiz","description":"Selbsttest zum Rückblick auf die Woche – von der Plattform über Klassen und Objekte bis zu Vererbung, Polymorphie, Ausnahmen und Collections.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=ad4b504d" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791521848" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/theme/jekyll/quiz.css?v=fcd32207">
+  <script src="/training-material-java-se/theme/jekyll/quiz.js?v=844b6504" defer></script>
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
+           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags">
+      </div>
+      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
+                data-avd-academy-print
+                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Wissens-Check: Java- und OO-Grundlagen</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main" id="avd-academy-content"><!--
+AUFTRAG: Wissens-Check zum Rückblick auf die ganze Woche „Objektorientierte
+Programmierung mit Java“ – ca. 20 Fragen, auch herausfordernd, ausgerichtet an den
+Lernzielen des Kurses (kursbeschreibung.md) und der Module – bis einschließlich
+„Robuste Programme“.
+
+ABGEDECKT (Modul → Fragen):
+- einfuehrung-java: Plattform/Bytecode/JVM
+- java-syntax-umsteiger: implizite Typumwandlung / Ganzzahldivision
+- debugger-tooling: warum ein Programm anhalten kann
+- klassendiagramm-entwerfen / klassen-und-objekte: Assoziation, == vs. equals,
+  Referenz bei Zuweisung, static ohne this
+- kapselung: Paketsichtbarkeit, final-Feld → Konstruktor
+- vererbung-in-java: super(…), allgemeinere linke Seite
+- vererbung-vertiefung: Polymorphie (drei Code-Fragen), @Override, abstract
+- interfaces: Interface vs. abstrakte Klasse, gegen das Interface programmieren
+- entwurf-ueben: Quadrat/Rechteck
+- ausnahmebehandlung, collections, generics: checked Exception, Map-Auswahl,
+  equals/hashCode-Vertrag, Typschranke
+
+BEWUSST NICHT: der optionale Themenblock „Weitere Themen“ (Gradle, JUnit,
+Integrationsprojekt) – auf Wunsch des Auftraggebers; Singleton (Puffer-Einheit),
+Überladen, switch/break, finally, unveränderbare Sicht. Was eine eigene Begründung
+verlangt (Modelle vergleichen, Entwurfsentscheidungen), gehört in die
+Reflexionsfragen, nicht ins Quiz.
+
+FORM: Das Layout zeigt Text ohne Code-Formatierung und ohne Zeilenumbrüche –
+Codebeispiele stehen deshalb einzeilig im context.
+-->
+
+
+<div class="avd-academy-quiz" data-avd-academy-quiz><script type="application/json" data-avd-academy-quiz-data>
+{"questions":[{"question":"Was macht „Write once, run anywhere“ technisch möglich?","options":[{"text":"Der Compiler erzeugt Bytecode, den die JVM der Plattform ausführt.","correct":true,"feedback":"Genau. Übersetzt wird einmal – in Bytecode. Plattformabhängig ist nur die JVM, die ihn ausführt; die gibt es für jedes System."},{"text":"Der Quellcode wird auf jedem Zielrechner vor dem Start neu kompiliert.","feedback":"Dann bräuchte jeder Zielrechner ein JDK und den Quellcode. Ausgeliefert wird aber der Bytecode – die .class-Dateien."},{"text":"Java wird ohne Compiler direkt aus dem Quelltext interpretiert.","feedback":"Es gibt einen Compiler: javac. Er erzeugt Bytecode; erst der wird von der JVM ausgeführt (und dabei teils interpretiert, teils zur Laufzeit übersetzt)."},{"text":"Der Compiler erzeugt Maschinencode für alle Systeme zugleich.","feedback":"So entstünde eine Datei je Betriebssystem und Prozessor. Java geht den Umweg über ein gemeinsames Zwischenformat – den Bytecode."}]},{"context":"int a = 7; int b = 2; double d = a / b;","question":"Welchen Wert hat d danach?","options":[{"text":"3.0","correct":true,"feedback":"Richtig. a / b ist eine Ganzzahldivision und ergibt 3. Erst das Ergebnis wird implizit nach double umgewandelt – zu 3.0."},{"text":"3.5","feedback":"Der Zieltyp double ändert die Rechnung nicht. Gerechnet wird mit den Typen der Operanden – beide int. Für 3.5 müsste ein Operand ein double sein, etwa (double) a / b."},{"text":"3","feedback":"Gerechnet wird tatsächlich 3 – aber d ist ein double. Die Variable hält 3.0."},{"text":"Compilerfehler","feedback":"int nach double ist eine erweiternde Umwandlung: Es geht keine Information verloren, also macht Java sie implizit. Einen Cast braucht nur die umgekehrte Richtung."}]},{"question":"Warum kann die IDE ein laufendes Programm an einem Breakpoint anhalten?","options":[{"text":"Die JVM läuft im Debug-Modus, die IDE steuert sie über einen Port.","correct":true,"feedback":"Genau. Anhalten ist eine Fähigkeit der JVM. Die IDE verbindet sich nur – deshalb geht das auch mit einer JVM auf einem anderen Rechner."},{"text":"Die IDE baut Haltebefehle in den Code ein und kompiliert neu.","feedback":"Der Code bleibt unverändert. Breakpoints setzt die IDE von außen über die Debug-Schnittstelle der JVM."},{"text":"Die IDE führt den Quelltext im Debug-Modus selbst Zeile für Zeile aus.","feedback":"Ausgeführt wird immer von der JVM, auch beim Debuggen. Die IDE zeigt nur an, wo die JVM gerade steht."},{"text":"Das Betriebssystem friert den Prozess an der markierten Zeile ein.","feedback":"Das Betriebssystem kennt keine Java-Zeilen. Welche Zeile gerade läuft, weiß nur die JVM."}]},{"context":"In der Anforderung steht: „Ein Kunde kann mehrere Konten besitzen.“","question":"Wie hältst Du das im Klassendiagramm fest?","options":[{"text":"Als Linie zwischen Kunde und Konto, am Konto-Ende ein *.","correct":true,"feedback":"Richtig. Eine Beziehung zwischen zwei Klassen ist eine Assoziation; die Multiplizität * sagt „beliebig viele“."},{"text":"Als Vererbungspfeil von Konto zu Kunde: Konto erbt von Kunde.","feedback":"Prüfsatz: „Ein Konto ist ein Kunde“ – stimmt nicht. Besitzen ist eine Beziehung, keine Spezialisierung."},{"text":"Als Eigenschaft konten: String in der Klasse Kunde.","feedback":"Ein Text ist kein Konto. Die Beziehung zeigt auf Objekte der Klasse Konto – im Code wird daraus eine Referenz, keine Zeichenkette."},{"text":"Als Fähigkeit besitzen() in der Klasse Kunde.","feedback":"„Besitzen“ ist hier kein Verhalten, das der Kunde ausführt, sondern ein dauerhafter Zusammenhang zweier Objekte – also eine Beziehung."}]},{"context":"class Konto { private String iban; Konto(String iban) { this.iban = iban; } }   …   Konto a = new Konto(\"DE01\"); Konto b = new Konto(\"DE01\");","question":"Was liefert a.equals(b)?","options":[{"text":"false – das geerbte equals prüft die Identität.","correct":true,"feedback":"Richtig. Ohne eigene Fassung gilt equals aus Object – und das prüft dasselbe wie ==: ob beide auf dasselbe Objekt zeigen. Zweimal new heißt zwei Objekte."},{"text":"true – beide Konto-Objekte haben dieselbe IBAN.","feedback":"Woran zwei Konten fachlich gleich sind, weiß Java nicht von selbst. Dass die IBAN zählt, muss man in einem überschriebenen equals festlegen."},{"text":"true – equals vergleicht alle Felder einzeln.","feedback":"Einen automatischen Vergleich aller Felder gibt es für normale Klassen nicht. Object kennt die Felder von Konto gar nicht."},{"text":"Compilerfehler – Konto hat gar kein equals.","feedback":"Jede Klasse erbt equals von Object, der gemeinsamen Wurzel. Aufrufen lässt es sich immer – die Frage ist nur, was es vergleicht."}]},{"context":"class Konto { private double kontostand; void einzahlen(double betrag) { kontostand += betrag; } }   …   Konto a = new Konto(); Konto b = a; b.einzahlen(100);","question":"Was gilt danach für a?","options":[{"text":"Auch a hat 100 mehr – a und b zeigen auf dasselbe Objekt.","correct":true,"feedback":"Richtig. Bei der Zuweisung wird die Referenz kopiert, nicht das Objekt. Es gibt nur ein Konto."},{"text":"a ist unverändert – b ist eine Kopie von a.","feedback":"Kopiert wird nur der Verweis. Eine Kopie des Objekts entsteht nur mit new (oder einer eigenen Kopiermethode)."},{"text":"a ist unverändert – Änderungen über b sind lokal.","feedback":"Eine Variable ist kein eigener Speicher für das Objekt, sondern ein Verweis darauf. Über welchen Verweis man ändert, ist egal."},{"text":"Compilerfehler – ein Objekt darf nur eine Variable haben.","feedback":"Beliebig viele Variablen dürfen auf dasselbe Objekt zeigen. Das ist gewollt – etwa, wenn ein Kunde sein Konto kennt und die Bank auch."}]},{"context":"class Konto { private double kontostand; static void zeige() { System.out.println(kontostand); } }","question":"Warum kompiliert zeige() nicht?","options":[{"text":"Sie läuft ohne Objekt – es gibt kein this, also keinen Kontostand.","correct":true,"feedback":"Genau. kontostand gehört zu einem Objekt; jedes Konto hat seinen eigenen. Eine statische Methode gehört zur Klasse – welches Konto sollte sie meinen?"},{"text":"static-Methoden sind automatisch private und sehen deshalb keine Felder.","feedback":"static sagt nichts über die Sichtbarkeit. main ist static und public."},{"text":"static-Methoden dürfen nur final-Felder, also Konstanten, lesen.","feedback":"Auch ein nicht finales static-Feld ist erreichbar. Entscheidend ist, ob das Feld zur Klasse oder zum Objekt gehört – nicht, ob es final ist."},{"text":"Felder entstehen erst nach main, static-Methoden laufen davor.","feedback":"Eine statische Methode kann jederzeit aufgerufen werden, auch wenn längst Objekte existieren. Es fehlt nicht die Zeit, sondern das Objekt."}]},{"context":"package bank;   public class Konto { double kontostand; }","question":"Wer darf auf das Feld kontostand zugreifen?","options":[{"text":"Alle Klassen im selben Package.","correct":true,"feedback":"Richtig. Ohne Vorsatz gilt Paketsichtbarkeit: Das Package ist die Grenze."},{"text":"Alle Klassen, wie bei public.","feedback":"Ohne Angabe ist es enger. Wer von überall erreichbar sein soll, muss public ausdrücklich dazuschreiben."},{"text":"Nur die Klasse selbst, wie bei private.","feedback":"So ist es etwa in C#. In Java ist der Standard eine Stufe offener: das ganze Package."},{"text":"Die Klasse und ihre Unterklassen.","feedback":"Das beschreibt eher protected. Ohne Angabe zählt nicht die Vererbung, sondern das Package."}]},{"context":"public class Konto { private final String iban; public Konto() { } }","question":"Was passiert beim Übersetzen?","options":[{"text":"Compilerfehler – iban muss im Konstruktor gesetzt werden.","correct":true,"feedback":"Richtig. Ein final-Feld muss spätestens am Ende jedes Konstruktors einen Wert haben. Genau daraus folgt der Konstruktor: Ein Konto ist ab dann gültig."},{"text":"iban bleibt null und lässt sich später einmal setzen.","feedback":"final heißt: genau einmal zuweisen – und zwar beim Erzeugen. Einen Setter kann es für ein final-Feld nicht geben."},{"text":"Es kompiliert; beim ersten Lesen kommt ein Laufzeitfehler.","feedback":"Das prüft der Compiler, nicht die Laufzeit. Ein vergessenes final-Feld fällt schon beim Übersetzen auf."},{"text":"Es kompiliert; final verhindert nur das Vererben.","feedback":"An einer Klasse verhindert final das Vererben. An einem Feld heißt es: Der Wert wird genau einmal gesetzt."}]},{"context":"class Konto { private final String iban; Konto(String iban) { this.iban = iban; } }   class Girokonto extends Konto { Girokonto(String iban) { } }","question":"Was passiert beim Übersetzen?","options":[{"text":"Compilerfehler – das implizite super() findet nichts.","correct":true,"feedback":"Richtig. Fehlt super(…), setzt Java ein super() ohne Argumente ein. Konto hat aber keinen solchen Konstruktor."},{"text":"Es kompiliert; das Feld iban bleibt im Girokonto einfach null.","feedback":"Ein Girokonto ohne gültigen Konto-Teil lässt Java gar nicht erst entstehen. Der Oberklassen-Konstruktor muss laufen."},{"text":"Es kompiliert; Java übergibt für iban null.","feedback":"Java erfindet keine Argumente. Das automatisch eingefügte super() hat keine – und passt deshalb nicht."},{"text":"Es kompiliert; der Konto-Teil wird danach erzeugt.","feedback":"Die Reihenfolge ist umgekehrt: Erst wird der Konto-Teil aufgebaut, dann der Girokonto-Teil. Deshalb steht super(…) ganz oben."}]},{"context":"class Konto { Konto(String iban) { … } }   class Girokonto extends Konto { … }   class Sparkonto extends Konto { … }   …   Konto k = new Girokonto(\"DE02\");","question":"Welche Zeile kompiliert?","options":[{"text":"Konto x = new Girokonto(\"DE01\");","correct":true,"feedback":"Richtig. Ein Girokonto ist ein Konto – also darf es überall stehen, wo ein Konto erwartet wird. Links darf allgemeiner sein als rechts."},{"text":"Girokonto x = new Konto(\"DE01\");","feedback":"Umgekehrt: Nicht jedes Konto ist ein Girokonto. Links darf nicht spezieller sein als rechts."},{"text":"Sparkonto x = new Girokonto(\"DE01\");","feedback":"Geschwister sind nicht verwandt: Ein Girokonto ist kein Sparkonto. Beide haben nur dieselbe Oberklasse."},{"text":"Girokonto x = k;","feedback":"Der Compiler sieht nur den deklarierten Typ Konto. Ob in k ein Girokonto steckt, weiß er nicht – also lehnt er ab."}]},{"context":"class Konto { double gebühr() { return 2; } }   class Girokonto extends Konto { @Override double gebühr() { return 5; } }   class Sparkonto extends Konto { @Override double gebühr() { return 0; } }   …   Konto[] konten = { new Girokonto(), new Sparkonto() };   double summe = 0;   for (Konto k : konten) { summe += k.gebühr(); }","question":"Welchen Wert hat summe danach?","options":[{"text":"5.0","correct":true,"feedback":"Richtig. Für jedes Element läuft die Methode des tatsächlichen Objekts: 5 für das Girokonto, 0 für das Sparkonto. Die Schleife muss die Kontoarten nicht kennen."},{"text":"4.0","feedback":"So wäre es, wenn der deklarierte Typ Konto entschiede. Er entscheidet nur, was aufgerufen werden darf – nicht, welche Implementierung läuft."},{"text":"9.0","feedback":"Eine überschriebene Methode ersetzt die der Oberklasse. Beide laufen nur, wenn die Unterklasse ausdrücklich super.gebühr() aufruft."},{"text":"Compilerfehler","feedback":"gebühr() ist in Konto deklariert – also darf man sie auf jeder Konto-Variablen aufrufen. Das kompiliert."}]},{"context":"class Konto { String art() { return \"Konto\"; }   String beschreibe() { return \"Ich bin \" + art(); } }   class Girokonto extends Konto { @Override String art() { return \"Giro\"; } }","question":"Was liefert new Girokonto().beschreibe()?","options":[{"text":"\"Ich bin Giro\"","correct":true,"feedback":"Richtig – und das ist der Kern der Polymorphie. beschreibe() steht zwar in Konto, aber art() wird am tatsächlichen Objekt aufgerufen, einem Girokonto."},{"text":"\"Ich bin Konto\"","feedback":"Naheliegend, weil beschreibe() in Konto steht. Aber welche art() läuft, entscheidet das Objekt, nicht die Klasse, in der der Aufruf steht."},{"text":"\"Ich bin KontoGiro\"","feedback":"Überschreiben heißt ersetzen, nicht ergänzen. Es läuft genau eine Implementierung von art()."},{"text":"Compilerfehler","feedback":"Girokonto erbt beschreibe() von Konto. Man muss sie nicht neu schreiben, um sie aufzurufen."}]},{"context":"class Konto { … }   class Girokonto extends Konto { void dispoSetzen(double betrag) { … } }   …   Konto k = new Girokonto(); k.dispoSetzen(500);","question":"Was passiert beim Übersetzen?","options":[{"text":"Compilerfehler – Konto kennt dispoSetzen nicht.","correct":true,"feedback":"Richtig. Was aufgerufen werden darf, prüft der Compiler am deklarierten Typ. Welche Implementierung läuft, entscheidet zur Laufzeit das Objekt."},{"text":"Es läuft – im Objekt steckt ja ein Girokonto.","feedback":"Zur Laufzeit wäre die Methode da. Aber der Compiler kennt nur den deklarierten Typ Konto – und dort fehlt sie."},{"text":"Es kompiliert; zur Laufzeit folgt ein Fehler.","feedback":"Bis zur Laufzeit kommt es gar nicht. Der Fehler fällt schon beim Übersetzen auf."},{"text":"Es kompiliert; der Aufruf wird still ignoriert.","feedback":"Java ignoriert keine Aufrufe. Entweder es gibt die Methode für den deklarierten Typ – oder es kompiliert nicht."}]},{"context":"class Girokonto extends Konto { @Override public String tostring() { return \"Girokonto\"; } }","question":"Was passiert beim Übersetzen?","options":[{"text":"Compilerfehler – tostring() überschreibt keine Methode.","correct":true,"feedback":"Richtig. Die geerbte Methode heißt toString(), mit großem S. @Override ist eine geprüfte Absichtserklärung: Der Compiler meldet, dass hier nichts überschrieben wird."},{"text":"Es kompiliert; tostring() wird eine zusätzliche Methode.","feedback":"Ohne @Override wäre das so – und genau das ist die Falle: Die neue Methode würde nie aufgerufen, wo toString() erwartet wird. Mit @Override fällt der Tippfehler sofort auf."},{"text":"Es kompiliert; Java ignoriert dabei Groß-/Kleinschreibung.","feedback":"Java unterscheidet Groß- und Kleinschreibung überall – tostring und toString sind zwei verschiedene Namen."},{"text":"Es kompiliert; der Fehler zeigt sich erst beim Aufruf.","feedback":"Genau das verhindert @Override: Der Fehler fällt beim Übersetzen auf, nicht erst irgendwann zur Laufzeit."}]},{"context":"public abstract class Konto { private double kontostand; public void einzahlen(double betrag) { kontostand += betrag; } }   class Girokonto extends Konto { … }","question":"Was bewirkt abstract hier?","options":[{"text":"new Konto(…) kompiliert nicht mehr.","correct":true,"feedback":"Richtig. Eine abstrakte Klasse lässt sich nicht instanziieren. Es gibt nur noch konkrete Kontoarten – genau das war das Ziel."},{"text":"Unterklassen müssen alle Methoden überschreiben.","feedback":"Überschreiben müssen sie nur abstrakte Methoden – und hier gibt es keine. Fertige Methoden werden ganz normal geerbt."},{"text":"Konto darf keinen Konstruktor mehr haben.","feedback":"Abstrakte Klassen haben Konstruktoren. Sie laufen, wenn ein Girokonto erzeugt wird – über super(…)."},{"text":"Konto darf keine Felder mehr haben.","feedback":"Das verwechselt die abstrakte Klasse mit dem Interface. Eine abstrakte Klasse darf Zustand haben – das ist einer ihrer Unterschiede."}]},{"context":"class Kunde { private String kundennummer; … }   class Girokonto extends Konto { … }   – beide sollen eine getId() anbieten und gemeinsam in einer Liste verwaltet werden.","question":"Welcher Weg passt?","options":[{"text":"Ein Interface Identifizierbar, das beide Klassen implementieren.","correct":true,"feedback":"Richtig. Ein Interface ist ein Vertrag ohne Zustand, und eine Klasse kann beliebig viele davon implementieren – neben ihrer Oberklasse."},{"text":"Eine abstrakte Klasse Identifizierbar als gemeinsame Oberklasse.","feedback":"Girokonto hat schon eine Oberklasse. In Java erbt eine Klasse von genau einer Klasse."},{"text":"Kunde erbt von Konto und bekommt so auch dessen getId().","feedback":"„Ein Kunde ist ein Konto“ – stimmt nicht. Vererbung nur, um eine Methode mitzunehmen, holt sich auch alles andere ins Haus."},{"text":"getId() in beiden Klassen – ganz ohne gemeinsamen Typ.","feedback":"Dann hat jede Klasse die Methode, aber nichts verbindet sie. Eine Liste „alles Identifizierbare“ ist so nicht möglich."}]},{"question":"Warum schreibt man List<Konto> konten = new ArrayList<>(); statt ArrayList<Konto> auf der linken Seite?","options":[{"text":"Die Implementierung bleibt austauschbar.","correct":true,"feedback":"Genau. Der übrige Code kennt nur den Vertrag List. Wird später eine andere Liste gebraucht, ändert sich nur die eine Zeile mit new."},{"text":"ArrayList ist abstrakt.","feedback":"ArrayList ist eine konkrete Klasse – sonst könnte rechts kein new ArrayList<>() stehen."},{"text":"Über List ist der Zugriff schneller.","feedback":"Der deklarierte Typ ändert nichts an der Geschwindigkeit. Es läuft dasselbe Objekt, dieselbe Implementierung."},{"text":"Links verlangt der Compiler ein Interface.","feedback":"ArrayList<Konto> konten = new ArrayList<>(); kompiliert genauso. Es koppelt den Code nur fester an eine Implementierung."}]},{"context":"class Rechteck { void setzeBreite(double b) { … }   void setzeHöhe(double h) { … } }   class Quadrat extends Rechteck { @Override void setzeBreite(double b) { super.setzeBreite(b); super.setzeHöhe(b); }   @Override void setzeHöhe(double h) { super.setzeBreite(h); super.setzeHöhe(h); } }","question":"Die Aussage „Ein Quadrat ist ein Rechteck“ stimmt. Warum ist dieser Entwurf trotzdem fragwürdig?","options":[{"text":"Code, der Breite und Höhe getrennt setzt, wird mit Quadraten falsch.","correct":true,"feedback":"Genau. Wer ein Rechteck erwartet, darf die Breite ändern, ohne dass sich die Höhe ändert. Ein Quadrat kann dieses Versprechen nicht halten – es zählt das Verhalten, nicht der Satz."},{"text":"Das Quadrat erbt ein überflüssiges Feld und verschwendet Speicher.","feedback":"Das wäre ein Schönheitsfehler, kein Entwurfsproblem. Der eigentliche Haken liegt im Verhalten der geerbten Setter."},{"text":"super.setzeBreite(b) landet wieder im Quadrat – eine Endlosschleife.","feedback":"super ruft ausdrücklich die Fassung der Oberklasse auf, hier also die von Rechteck. Eine Endlosschleife entsteht nicht – der Code läuft, nur eben anders, als ein Rechteck-Nutzer erwartet."},{"text":"Der Satz „ist ein“ stimmt fachlich nicht – darum passt der Pfeil nicht.","feedback":"Der Satz stimmt. Gerade das macht den Fall lehrreich: „ist ein“ ist notwendig, aber nicht hinreichend."}]},{"context":"public class KeineDeckungException extends Exception { … }   public class Konto { public void abheben(double betrag) throws KeineDeckungException { … } }","question":"Was folgt daraus für den Code, der abheben aufruft?","options":[{"text":"Er muss sie fangen oder per throws weitergeben.","correct":true,"feedback":"Richtig. Sie erbt von Exception, nicht von RuntimeException – sie ist checked. Der Compiler erzwingt, dass jemand sich darum kümmert."},{"text":"Nichts – der Compiler prüft Ausnahmen grundsätzlich nicht.","feedback":"Das gilt für unchecked Exceptions, also Unterklassen von RuntimeException. Bei checked Exceptions prüft der Compiler sehr wohl."},{"text":"Das Programm bricht beim Wurf in jedem Fall ab.","feedback":"Abgebrochen wird nur, wenn niemand die Ausnahme fängt. Wer sie fängt, kann reagieren – etwa mit einer Meldung an den Kunden."},{"text":"Sie muss schon in abheben(…) gefangen werden.","feedback":"Dann erführe der Aufrufer nie, dass das Abheben scheiterte. Geworfen wird gerade, damit der Aufrufer reagieren kann."}]},{"question":"Konten sollen schnell per IBAN nachgeschlagen werden. Welche Struktur passt?","options":[{"text":"Map<String, Konto>","correct":true,"feedback":"Richtig. Zugriff per Schlüssel ist genau die Stärke einer Map: IBAN als Schlüssel, Konto als Wert."},{"text":"ArrayList<Konto>","feedback":"Eine List greift per Index zu – 0, 1, 2. Um ein Konto per IBAN zu finden, müsste man sie durchlaufen."},{"text":"LinkedHashSet<Konto>","feedback":"Ein Set verhindert Duplikate, und dieses hält sogar die Reihenfolge – einen Zugriff über einen Schlüssel bietet es trotzdem nicht."},{"text":"Konto[]","feedback":"Ein Array hat dieselbe Schwäche wie die ArrayList – Index statt Schlüssel – und dazu eine feste Größe."}]},{"context":"class Konto { private String iban;   @Override public boolean equals(Object o) { if (!(o instanceof Konto)) return false; return iban.equals(((Konto) o).iban); } }   …   Set<Konto> konten = new HashSet<>(); konten.add(new Konto(\"DE01\")); konten.add(new Konto(\"DE01\"));","question":"Was passiert in aller Regel – hashCode ist nicht überschrieben?","options":[{"text":"Beide landen im Set.","correct":true,"feedback":"Richtig. Das HashSet sucht zuerst über hashCode – und der unterscheidet sich, weil er von Object stammt. equals wird gar nicht erst befragt. Deshalb: gleich nach equals heißt gleicher hashCode."},{"text":"Nur eines landet im Set.","feedback":"So wäre es mit passendem hashCode. Ohne ihn sucht das HashSet am falschen Ort und findet das erste Konto nicht."},{"text":"Es gibt einen Compilerfehler.","feedback":"Der Compiler prüft den Vertrag zwischen equals und hashCode nicht. Gerade deshalb ist der Fehler tückisch."},{"text":"Es gibt eine Exception.","feedback":"Es gibt keine Meldung – das Set verhält sich still falsch. Das macht den Fehler so schwer zu finden."}]},{"context":"public interface Identifizierbar { String getId(); }   public class Repository<T extends Identifizierbar> { private final Map<String, T> elemente = new HashMap<>();   public void save(T element) { … } }","question":"Wozu dient die Schranke extends Identifizierbar?","options":[{"text":"Innen ist getId() auf T aufrufbar.","correct":true,"feedback":"Richtig. Ohne Schranke weiß der Compiler über T nur, dass es ein Object ist. Mit ihr garantiert jeder Typ, der eingesetzt wird, eine getId()."},{"text":"Der Aufrufer kommt ohne Casts aus.","feedback":"Das leisten Generics schon ohne Schranke: Ein Repository<Kunde> liefert Kunden. Die Schranke wirkt nach innen."},{"text":"Für T ist nur noch Konto erlaubt.","feedback":"Erlaubt ist jeder Typ, der Identifizierbar implementiert – Konto genauso wie Kunde. Genau so entfällt der doppelte Code."},{"text":"T wird zur Laufzeit geprüft.","feedback":"Die Schranke prüft der Compiler. Zur Laufzeit ist von T nichts mehr übrig."}]}],"verdicts":[{"min":0.85,"title":"Sitzt.","text":"Die Grundlagen tragen – Du bist gut gerüstet für alles, was jetzt darauf aufbaut."},{"min":0.6,"title":"Gute Basis.","text":"Das meiste sitzt. Wo es hakte, helfen die Visualisierungen „Objektorientierung mit Java (Vererbung)“ und „Objektorientierung mit Java (Kapselung)“ – und die Begründungen oben noch einmal in Ruhe."},{"min":0,"title":"Noch Luft – ganz normal nach einer solchen Woche.","text":"Nimm Dir zuerst die Simulation „Referenztypen“ und die Visualisierung „Objektorientierung mit Java (einfach)“ vor: Wer sicher weiß, was eine Variable enthält, versteht Vererbung und Polymorphie viel leichter. Dann den Check noch einmal."}]}
+</script>
+
+  <div class="avd-academy-quiz__bar">
+    <span data-avd-academy-quiz-counter></span>
+    <span data-avd-academy-quiz-score></span>
+  </div><div class="avd-academy-quiz__progress" data-avd-academy-quiz-bar
+       role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+       aria-label="Fortschritt">
+    <div class="avd-academy-quiz__progress-fill" data-avd-academy-quiz-progress></div>
+  </div>
+
+  <div class="avd-academy-quiz__card" data-avd-academy-quiz-card>
+    <p class="avd-academy-quiz__context" data-avd-academy-quiz-context></p>
+    <h2 class="avd-academy-quiz__question" id="avd-academy-quiz-frage" tabindex="-1"
+        data-avd-academy-quiz-question></h2>
+    <div class="avd-academy-quiz__options" role="group"
+         aria-labelledby="avd-academy-quiz-frage" data-avd-academy-quiz-options></div>
+    <div class="avd-academy-quiz__feedback" role="status" data-avd-academy-quiz-feedback hidden></div>
+    <button type="button" class="avd-academy-quiz__next" data-avd-academy-quiz-next hidden></button>
+  </div>
+
+  <div class="avd-academy-quiz__result" data-avd-academy-quiz-result hidden>
+    <h2 data-avd-academy-quiz-result-title></h2>
+    <p class="avd-academy-quiz__score" data-avd-academy-quiz-result-score></p>
+    <p class="avd-academy-quiz__verdict" data-avd-academy-quiz-result-verdict></p>
+    <button type="button" class="avd-academy-quiz__next" data-avd-academy-quiz-restart></button>
+  </div><div class="avd-academy-quiz__fallback">
+    <ol>
+      <li>
+        <strong>Was macht „Write once, run anywhere“ technisch möglich?</strong>
+        <ul>
+          <li>Der Compiler erzeugt Bytecode, den die JVM der Plattform ausführt.</li>
+          <li>Der Quellcode wird auf jedem Zielrechner vor dem Start neu kompiliert.</li>
+          <li>Java wird ohne Compiler direkt aus dem Quelltext interpretiert.</li>
+          <li>Der Compiler erzeugt Maschinencode für alle Systeme zugleich.</li>
+        </ul>
+      </li>
+      <li><em>int a = 7; int b = 2; double d = a / b;</em><br>
+        <strong>Welchen Wert hat d danach?</strong>
+        <ul>
+          <li>3.0</li>
+          <li>3.5</li>
+          <li>3</li>
+          <li>Compilerfehler</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Warum kann die IDE ein laufendes Programm an einem Breakpoint anhalten?</strong>
+        <ul>
+          <li>Die JVM läuft im Debug-Modus, die IDE steuert sie über einen Port.</li>
+          <li>Die IDE baut Haltebefehle in den Code ein und kompiliert neu.</li>
+          <li>Die IDE führt den Quelltext im Debug-Modus selbst Zeile für Zeile aus.</li>
+          <li>Das Betriebssystem friert den Prozess an der markierten Zeile ein.</li>
+        </ul>
+      </li>
+      <li><em>In der Anforderung steht: „Ein Kunde kann mehrere Konten besitzen.“</em><br>
+        <strong>Wie hältst Du das im Klassendiagramm fest?</strong>
+        <ul>
+          <li>Als Linie zwischen Kunde und Konto, am Konto-Ende ein *.</li>
+          <li>Als Vererbungspfeil von Konto zu Kunde: Konto erbt von Kunde.</li>
+          <li>Als Eigenschaft konten: String in der Klasse Kunde.</li>
+          <li>Als Fähigkeit besitzen() in der Klasse Kunde.</li>
+        </ul>
+      </li>
+      <li><em>class Konto { private String iban; Konto(String iban) { this.iban = iban; } }   …   Konto a = new Konto("DE01"); Konto b = new Konto("DE01");</em><br>
+        <strong>Was liefert a.equals(b)?</strong>
+        <ul>
+          <li>false – das geerbte equals prüft die Identität.</li>
+          <li>true – beide Konto-Objekte haben dieselbe IBAN.</li>
+          <li>true – equals vergleicht alle Felder einzeln.</li>
+          <li>Compilerfehler – Konto hat gar kein equals.</li>
+        </ul>
+      </li>
+      <li><em>class Konto { private double kontostand; void einzahlen(double betrag) { kontostand += betrag; } }   …   Konto a = new Konto(); Konto b = a; b.einzahlen(100);</em><br>
+        <strong>Was gilt danach für a?</strong>
+        <ul>
+          <li>Auch a hat 100 mehr – a und b zeigen auf dasselbe Objekt.</li>
+          <li>a ist unverändert – b ist eine Kopie von a.</li>
+          <li>a ist unverändert – Änderungen über b sind lokal.</li>
+          <li>Compilerfehler – ein Objekt darf nur eine Variable haben.</li>
+        </ul>
+      </li>
+      <li><em>class Konto { private double kontostand; static void zeige() { System.out.println(kontostand); } }</em><br>
+        <strong>Warum kompiliert zeige() nicht?</strong>
+        <ul>
+          <li>Sie läuft ohne Objekt – es gibt kein this, also keinen Kontostand.</li>
+          <li>static-Methoden sind automatisch private und sehen deshalb keine Felder.</li>
+          <li>static-Methoden dürfen nur final-Felder, also Konstanten, lesen.</li>
+          <li>Felder entstehen erst nach main, static-Methoden laufen davor.</li>
+        </ul>
+      </li>
+      <li><em>package bank;   public class Konto { double kontostand; }</em><br>
+        <strong>Wer darf auf das Feld kontostand zugreifen?</strong>
+        <ul>
+          <li>Alle Klassen im selben Package.</li>
+          <li>Alle Klassen, wie bei public.</li>
+          <li>Nur die Klasse selbst, wie bei private.</li>
+          <li>Die Klasse und ihre Unterklassen.</li>
+        </ul>
+      </li>
+      <li><em>public class Konto { private final String iban; public Konto() { } }</em><br>
+        <strong>Was passiert beim Übersetzen?</strong>
+        <ul>
+          <li>Compilerfehler – iban muss im Konstruktor gesetzt werden.</li>
+          <li>iban bleibt null und lässt sich später einmal setzen.</li>
+          <li>Es kompiliert; beim ersten Lesen kommt ein Laufzeitfehler.</li>
+          <li>Es kompiliert; final verhindert nur das Vererben.</li>
+        </ul>
+      </li>
+      <li><em>class Konto { private final String iban; Konto(String iban) { this.iban = iban; } }   class Girokonto extends Konto { Girokonto(String iban) { } }</em><br>
+        <strong>Was passiert beim Übersetzen?</strong>
+        <ul>
+          <li>Compilerfehler – das implizite super() findet nichts.</li>
+          <li>Es kompiliert; das Feld iban bleibt im Girokonto einfach null.</li>
+          <li>Es kompiliert; Java übergibt für iban null.</li>
+          <li>Es kompiliert; der Konto-Teil wird danach erzeugt.</li>
+        </ul>
+      </li>
+      <li><em>class Konto { Konto(String iban) { … } }   class Girokonto extends Konto { … }   class Sparkonto extends Konto { … }   …   Konto k = new Girokonto("DE02");</em><br>
+        <strong>Welche Zeile kompiliert?</strong>
+        <ul>
+          <li>Konto x = new Girokonto("DE01");</li>
+          <li>Girokonto x = new Konto("DE01");</li>
+          <li>Sparkonto x = new Girokonto("DE01");</li>
+          <li>Girokonto x = k;</li>
+        </ul>
+      </li>
+      <li><em>class Konto { double gebühr() { return 2; } }   class Girokonto extends Konto { @Override double gebühr() { return 5; } }   class Sparkonto extends Konto { @Override double gebühr() { return 0; } }   …   Konto[] konten = { new Girokonto(), new Sparkonto() };   double summe = 0;   for (Konto k : konten) { summe += k.gebühr(); }</em><br>
+        <strong>Welchen Wert hat summe danach?</strong>
+        <ul>
+          <li>5.0</li>
+          <li>4.0</li>
+          <li>9.0</li>
+          <li>Compilerfehler</li>
+        </ul>
+      </li>
+      <li><em>class Konto { String art() { return "Konto"; }   String beschreibe() { return "Ich bin " + art(); } }   class Girokonto extends Konto { @Override String art() { return "Giro"; } }</em><br>
+        <strong>Was liefert new Girokonto().beschreibe()?</strong>
+        <ul>
+          <li>"Ich bin Giro"</li>
+          <li>"Ich bin Konto"</li>
+          <li>"Ich bin KontoGiro"</li>
+          <li>Compilerfehler</li>
+        </ul>
+      </li>
+      <li><em>class Konto { … }   class Girokonto extends Konto { void dispoSetzen(double betrag) { … } }   …   Konto k = new Girokonto(); k.dispoSetzen(500);</em><br>
+        <strong>Was passiert beim Übersetzen?</strong>
+        <ul>
+          <li>Compilerfehler – Konto kennt dispoSetzen nicht.</li>
+          <li>Es läuft – im Objekt steckt ja ein Girokonto.</li>
+          <li>Es kompiliert; zur Laufzeit folgt ein Fehler.</li>
+          <li>Es kompiliert; der Aufruf wird still ignoriert.</li>
+        </ul>
+      </li>
+      <li><em>class Girokonto extends Konto { @Override public String tostring() { return "Girokonto"; } }</em><br>
+        <strong>Was passiert beim Übersetzen?</strong>
+        <ul>
+          <li>Compilerfehler – tostring() überschreibt keine Methode.</li>
+          <li>Es kompiliert; tostring() wird eine zusätzliche Methode.</li>
+          <li>Es kompiliert; Java ignoriert dabei Groß-/Kleinschreibung.</li>
+          <li>Es kompiliert; der Fehler zeigt sich erst beim Aufruf.</li>
+        </ul>
+      </li>
+      <li><em>public abstract class Konto { private double kontostand; public void einzahlen(double betrag) { kontostand += betrag; } }   class Girokonto extends Konto { … }</em><br>
+        <strong>Was bewirkt abstract hier?</strong>
+        <ul>
+          <li>new Konto(…) kompiliert nicht mehr.</li>
+          <li>Unterklassen müssen alle Methoden überschreiben.</li>
+          <li>Konto darf keinen Konstruktor mehr haben.</li>
+          <li>Konto darf keine Felder mehr haben.</li>
+        </ul>
+      </li>
+      <li><em>class Kunde { private String kundennummer; … }   class Girokonto extends Konto { … }   – beide sollen eine getId() anbieten und gemeinsam in einer Liste verwaltet werden.</em><br>
+        <strong>Welcher Weg passt?</strong>
+        <ul>
+          <li>Ein Interface Identifizierbar, das beide Klassen implementieren.</li>
+          <li>Eine abstrakte Klasse Identifizierbar als gemeinsame Oberklasse.</li>
+          <li>Kunde erbt von Konto und bekommt so auch dessen getId().</li>
+          <li>getId() in beiden Klassen – ganz ohne gemeinsamen Typ.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Warum schreibt man List<Konto> konten = new ArrayList<>(); statt ArrayList<Konto> auf der linken Seite?</strong>
+        <ul>
+          <li>Die Implementierung bleibt austauschbar.</li>
+          <li>ArrayList ist abstrakt.</li>
+          <li>Über List ist der Zugriff schneller.</li>
+          <li>Links verlangt der Compiler ein Interface.</li>
+        </ul>
+      </li>
+      <li><em>class Rechteck { void setzeBreite(double b) { … }   void setzeHöhe(double h) { … } }   class Quadrat extends Rechteck { @Override void setzeBreite(double b) { super.setzeBreite(b); super.setzeHöhe(b); }   @Override void setzeHöhe(double h) { super.setzeBreite(h); super.setzeHöhe(h); } }</em><br>
+        <strong>Die Aussage „Ein Quadrat ist ein Rechteck“ stimmt. Warum ist dieser Entwurf trotzdem fragwürdig?</strong>
+        <ul>
+          <li>Code, der Breite und Höhe getrennt setzt, wird mit Quadraten falsch.</li>
+          <li>Das Quadrat erbt ein überflüssiges Feld und verschwendet Speicher.</li>
+          <li>super.setzeBreite(b) landet wieder im Quadrat – eine Endlosschleife.</li>
+          <li>Der Satz „ist ein“ stimmt fachlich nicht – darum passt der Pfeil nicht.</li>
+        </ul>
+      </li>
+      <li><em>public class KeineDeckungException extends Exception { … }   public class Konto { public void abheben(double betrag) throws KeineDeckungException { … } }</em><br>
+        <strong>Was folgt daraus für den Code, der abheben aufruft?</strong>
+        <ul>
+          <li>Er muss sie fangen oder per throws weitergeben.</li>
+          <li>Nichts – der Compiler prüft Ausnahmen grundsätzlich nicht.</li>
+          <li>Das Programm bricht beim Wurf in jedem Fall ab.</li>
+          <li>Sie muss schon in abheben(…) gefangen werden.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Konten sollen schnell per IBAN nachgeschlagen werden. Welche Struktur passt?</strong>
+        <ul>
+          <li>Map<String, Konto></li>
+          <li>ArrayList<Konto></li>
+          <li>LinkedHashSet<Konto></li>
+          <li>Konto[]</li>
+        </ul>
+      </li>
+      <li><em>class Konto { private String iban;   @Override public boolean equals(Object o) { if (!(o instanceof Konto)) return false; return iban.equals(((Konto) o).iban); } }   …   Set<Konto> konten = new HashSet<>(); konten.add(new Konto("DE01")); konten.add(new Konto("DE01"));</em><br>
+        <strong>Was passiert in aller Regel – hashCode ist nicht überschrieben?</strong>
+        <ul>
+          <li>Beide landen im Set.</li>
+          <li>Nur eines landet im Set.</li>
+          <li>Es gibt einen Compilerfehler.</li>
+          <li>Es gibt eine Exception.</li>
+        </ul>
+      </li>
+      <li><em>public interface Identifizierbar { String getId(); }   public class Repository<T extends Identifizierbar> { private final Map<String, T> elemente = new HashMap<>();   public void save(T element) { … } }</em><br>
+        <strong>Wozu dient die Schranke extends Identifizierbar?</strong>
+        <ul>
+          <li>Innen ist getId() auf T aufrufbar.</li>
+          <li>Der Aufrufer kommt ohne Casts aus.</li>
+          <li>Für T ist nur noch Konto erlaubt.</li>
+          <li>T wird zur Laufzeit geprüft.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+</div>
+
+
+    </main>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
