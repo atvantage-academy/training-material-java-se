@@ -1,0 +1,836 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Exceptions in Java · ATVANTAGE Academy</title><meta name="description" content="Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Exceptions in Java">
+<meta property="og:description" content="Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions.">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=36db4c3a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=3813ae91"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.4.3">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.4.3","schemas":{"config":"1.2.0","frontmatter":"1.0.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-basics/shared/ausnahmebehandlung/exceptions.html","title":"Exceptions in Java","layout":"visualization","description":"Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=ad4b504d" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791525097" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
+           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags">
+      </div>
+      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
+                data-avd-academy-print
+                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Exceptions in Java</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung
+     - Ort: java-basics/shared/ausnahmebehandlung/ – eingebunden in die
+       Materialübersicht („Zum Nachschlagen“) von „OOP mit Java“ (Thema „Robuste
+       Programme“) und „Java für OO-Umsteiger“ (Thema „Robuste Programme & Daten“),
+       jeweils am ENDE der Liste, in index.md und index-trainer.md; dazu in der
+       Zeile „Ressourcen“ der Kapitel im Modul ausnahmebehandlung/index.md.
+     - Inhalte laut Auftrag (2026-10-09), in dieser Reihenfolge:
+       1. KLASSENDIAGRAMM: Throwable, Error, Exception, RuntimeException besonders
+          hervorgehoben, Beispiele DARUNTER. Object nur als leiser Anker oben.
+       2. Exceptions sind AUCH OBJEKTE – aber es gibt einen MECHANISMUS NEBEN den
+          Rückgabewerten von Methoden (zweiter Ausgang: return vs. throw).
+       3. WERFEN UND FANGEN als Skizze mit Männchen: werfend, sich bückend,
+          fangend – angelehnt an die Skizze aus „Java ist auch eine Insel“ (nur die
+          Idee, keine Übernahme). Die JVM fängt als Letzte (eigener Reiter).
+       4. CHECKED EXCEPTIONS: was der Compiler prüft, die zwei Auswege.
+       5. try-catch, Multi-Catch, Reihenfolge der catch-Blöcke, try-finally,
+          try-with-resources (mit Hinweis auf AutoCloseable), Exception Wrapping.
+       6. EIGENE EXCEPTIONS deklarieren, mit Feldern – und zwar FINAL.
+     - Entscheidung des Auftraggebers: try-with-resources und Wrapping werden
+       OHNE Ausblick-Kennzeichnung gezeigt, obwohl die Abgrenzung des Moduls sie dem
+       Java-Aufbau zuordnet. Die Visualisierung ist Nachschlagewerk; die Abgrenzung
+       im Modul bleibt unverändert.
+     - Durchgängiges Beispiel ist die Bank aus der Übung (issue.md): Beträge in Cent
+       (long, 150_00), KeineDeckungException als checked Exception. Bezeichner mit
+       Umlauten (AGENTS.md, A-006): überweisen, fänger …
+     - ALLE AUSGABEN SIND ECHT: jedes Beispiel mit OpenJDK 25.0.2 ausgeführt
+       (2026-10-09); Compilermeldungen aus javac mit deutscher Locale
+       (-J-Duser.language=de). Gekürzt ist nur der Stacktrace beim Wrapping: die
+       inneren Zeilen aus java.base, mit Hinweis in der Ausgabe. Zeilennummern in
+       Stacktraces passen zu den GEZEIGTEN Dateien – wer Code ändert, führt neu aus.
+     - Farben ausschließlich aus Theme-Tokens: Throwable ink (neutral), Error danger,
+       Exception (checked) accent, RuntimeException warning – dieselbe Zuordnung in
+       Diagramm, Legende und Tabelle.
+     - Bewegung: Nur der fliegende Ball in der Wurf-Skizze; Schmuck, abgeschaltet
+       bei prefers-reduced-motion und im Druck. Die Aussage trägt die gestrichelte
+       Flugbahn.
+-->
+
+<style>
+/* Präfix exc-. Farben ausschließlich aus den Theme-Tokens – damit stimmt die Seite in
+   Light und Dark ohne zweiten Regelsatz. Keine eigene Breitenbegrenzung: die gibt das
+   Layout vor. */
+.exc-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.5rem;}
+.exc-sec{margin:1.6rem 0 2.4rem;}
+.exc-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.4rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border);padding-bottom:.5rem;}
+.exc-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-primary);color:var(--avd-academy-color-primary-contrast);font-size:.9rem;font-weight:700;}
+.exc-sec h3{font-size:1.02rem;margin:1.1rem 0 .45rem;}
+.exc-sec p,.exc-sec li{font-size:.95rem;}
+
+.exc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(36rem,100%),1fr));gap:1.1rem;margin:.6rem 0;}
+.exc-card{min-width:0;background:var(--avd-academy-color-bg-subtle);border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius);padding:1rem 1.15rem;}
+.exc-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
+.exc-card p{margin:0 0 .6rem;font-size:.9rem;}
+.exc-card p:last-child{margin-bottom:0;}
+.exc-card pre{margin:0;overflow-x:auto;}
+.exc-card pre + p{margin-top:.6rem;}
+.exc-card--gut{border-left:4px solid var(--avd-academy-color-success);}
+.exc-card--schlecht{border-left:4px solid var(--avd-academy-color-warning);}
+.exc-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-accent-ink);margin:0 0 .3rem;}
+.exc-root pre{overflow-x:auto;}
+.exc-root pre code.hljs{border-radius:var(--avd-academy-radius-lg);font-size:.8rem;line-height:1.5;}
+.exc-reiter{margin:.6rem 0 1rem;}
+.exc-reiter__inhalt > :first-child{margin-top:0;}
+.exc-reiter__inhalt > :last-child{margin-bottom:0;}
+
+/* Ausgaben: Konsole und Compiler. Bewusst KEIN Java-Highlighting – es ist Text. */
+.exc-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-bg);border:1px dashed var(--avd-academy-color-border);font-family:var(--avd-academy-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
+.exc-konsole::before{content:attr(data-titel);display:block;font-family:var(--avd-academy-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);margin-bottom:.3rem;}
+.exc-konsole mark{background:var(--avd-academy-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
+
+/* Grafiken: breiter als ein Telefon – sie schrumpfen mit, und wo das nicht reicht,
+   scrollt nur der Rahmen, nie die Seite. */
+.exc-bild{overflow-x:auto;margin:.8rem 0 .4rem;}
+.exc-svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--avd-academy-color-ink);}
+.exc-t{fill:currentColor;font-family:var(--avd-academy-font-sans);font-size:16px;white-space:pre;}
+.exc-t--mono{font-family:var(--avd-academy-font-mono);font-size:15px;}
+.exc-t--klein{font-size:13px;}
+.exc-t--bsp{font-size:14px;}
+.exc-t--gross{font-size:19px;}
+.exc-t--fett{font-weight:700;}
+.exc-t--muted{fill:var(--avd-academy-color-ink-muted);}
+.exc-t--sperr{letter-spacing:.08em;font-weight:700;font-size:11px;}
+.exc-t--gut{fill:var(--avd-academy-color-success-ink);font-weight:700;}
+.exc-t--wurf{fill:var(--avd-academy-color-danger-ink);font-weight:700;}
+.exc-kasten{fill:var(--avd-academy-color-bg-subtle);stroke:var(--avd-academy-color-border);stroke-width:1.5;}
+.exc-kasten--kern{fill:color-mix(in srgb,var(--exc-farbe) 14%,var(--avd-academy-color-bg));stroke:var(--exc-farbe);stroke-width:2.5;}
+.exc-kasten--leise{fill:var(--avd-academy-color-bg);stroke-dasharray:5 4;}
+.exc-beispiele{fill:var(--avd-academy-color-bg);stroke:var(--exc-farbe);stroke-width:1.5;stroke-dasharray:6 4;}
+.exc-trenner{stroke:var(--exc-farbe);stroke-width:1.5;}
+.exc-erbt,.exc-einzug{fill:none;stroke:var(--avd-academy-color-ink-muted);stroke-width:2;}
+.exc-einzug{stroke-width:1.5;}
+.exc-dreieck{fill:var(--avd-academy-color-bg);stroke:var(--avd-academy-color-ink-muted);stroke-width:2;stroke-linejoin:round;}
+.exc-figur{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
+.exc-kopf{fill:var(--avd-academy-color-bg);}
+.exc-ball{fill:var(--avd-academy-color-danger);stroke:none;}
+.exc-bahn{fill:none;stroke:var(--avd-academy-color-danger);stroke-width:2;stroke-dasharray:6 6;}
+.exc-boden{stroke:var(--avd-academy-color-border);stroke-width:2;}
+.exc-jvm-schild{fill:var(--avd-academy-color-accent-soft);stroke:var(--avd-academy-color-accent);stroke-width:1.5;}
+.exc-ruft{stroke:var(--avd-academy-color-ink-muted);stroke-width:1.5;}
+.exc-spitze{fill:var(--avd-academy-color-ink-muted);}
+.exc-spitze--gut{fill:var(--avd-academy-color-success);}
+.exc-spitze--wurf{fill:var(--avd-academy-color-danger);}
+.exc-weg{fill:none;stroke-width:2.5;}
+.exc-weg--gut{stroke:var(--avd-academy-color-success);}
+.exc-weg--wurf{stroke:var(--avd-academy-color-danger);stroke-dasharray:7 5;}
+
+/* Legende zum Diagramm – dieselben Farben wie die Kästen */
+.exc-legende{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:.4rem 0 0;padding:0;list-style:none;font-size:.88rem;}
+.exc-legende li{display:flex;align-items:center;gap:.45rem;}
+.exc-legende li::before{content:"";width:.95rem;height:.95rem;border-radius:3px;border:2px solid var(--exc-farbe);background:color-mix(in srgb,var(--exc-farbe) 14%,var(--avd-academy-color-bg));}
+
+/* Merksatz und Hinweise */
+.exc-merke{margin:1.2rem 0 0;padding:.7rem 1rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-accent-soft);}
+.exc-note{margin:.8rem 0 0;font-size:.9rem;color:var(--avd-academy-color-ink-muted);}
+
+/* Vergleichstabelle checked / unchecked */
+.exc-tabelle-rahmen{overflow-x:auto;margin:.8rem 0;}
+.exc-tabelle{width:100%;border-collapse:collapse;font-size:.9rem;}
+.exc-tabelle th,.exc-tabelle td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--avd-academy-color-border);}
+.exc-tabelle thead th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);white-space:nowrap;}
+.exc-tabelle tbody th{font-weight:700;white-space:nowrap;}
+.exc-tabelle thead th:nth-child(2){border-bottom:3px solid var(--avd-academy-color-accent);}
+.exc-tabelle thead th:nth-child(3){border-bottom:3px solid var(--avd-academy-color-warning);}
+
+@media (max-width:30rem){
+  .exc-grid{grid-template-columns:minmax(0,1fr);}
+}
+/* Bewegung ist Schmuck: Wer reduzierte Bewegung eingestellt hat, sieht nur die Bahn. */
+@media (prefers-reduced-motion: reduce){
+  .exc-flug{display:none;}
+}
+@media print{
+  .exc-flug{display:none;}
+  .exc-card{break-inside:avoid;background:transparent !important;}
+  .exc-bild{break-inside:avoid;}
+  .exc-root pre,.exc-root pre code,.exc-root pre code *,.exc-konsole{color:#000 !important;background:transparent !important;}
+  .exc-root pre,.exc-konsole{white-space:pre-wrap;word-break:break-word;font-size:8pt;}
+}
+</style>
+
+<div class="exc-root">
+
+<p class="exc-lead">Wenn etwas schiefgeht, hat eine Methode in Java einen <strong>zweiten Ausgang</strong>: Sie wirft ein Exception-Objekt, und das fliegt den Aufrufstapel zurück, bis es jemand fängt. Diese Seite zeigt, welche Arten es gibt, wie das Werfen und Fangen abläuft, was der Compiler dabei prüft – und wie man es im Code schreibt. Alle Ausgaben stammen aus echten Läufen mit Java 25.</p>
+
+<!-- =======================================================================
+     1 – TYPHIERARCHIE. Die vier Kerntypen groß und farbig, Beispiele darunter.
+     ======================================================================= -->
+<section class="exc-sec">
+<h2><span class="exc-num">1</span>Die Familie der Ausnahmen</h2>
+<p>Jede Ausnahme ist ein Objekt einer Klasse, die von <code>Throwable</code> erbt. Nur solche Objekte lassen sich mit <code>throw</code> werfen und mit <code>catch</code> fangen. Darunter teilt sich die Familie in drei Zweige – und an der Stelle im Baum entscheidet sich, ob der Compiler auf die Ausnahme achtet.</p>
+<div class="exc-bild">
+<svg class="exc-svg" viewBox="0 0 980 660" width="980" height="660" role="img" aria-label="Klassendiagramm der Ausnahmen: Object ist die Oberklasse von Throwable. Von Throwable erben Error (unchecked, nicht behandeln) und Exception (checked, der Compiler prüft). Von Exception erbt RuntimeException (unchecked, Programmierfehler). Beispiele für Error: OutOfMemoryError, StackOverflowError. Für Exception: IOException mit FileNotFoundException, InterruptedException und die eigene KeineDeckungException. Für RuntimeException: NullPointerException, IllegalArgumentException mit NumberFormatException, IllegalStateException, ArithmeticException, ArrayIndexOutOfBoundsException.">
+<rect class="exc-kasten exc-kasten--leise" x="400" y="10" width="180" height="40" rx="8" />
+<text x="490" y="36" text-anchor="middle" class="exc-t exc-t--mono exc-t--muted">Object</text>
+<path class="exc-erbt" d="M490 90 V64" /><polygon class="exc-dreieck" points="490,50 482,64 498,64" />
+<g style="--exc-farbe:var(--avd-academy-color-ink)">
+<rect class="exc-kasten exc-kasten--kern" x="350" y="90" width="280" height="124" rx="8" />
+<text x="490" y="120" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Throwable</text>
+<line class="exc-trenner" x1="350" y1="132" x2="630" y2="132" />
+<text x="372" y="156" text-anchor="start" class="exc-t exc-t--mono exc-t--klein">getMessage() : String</text>
+<text x="372" y="176" text-anchor="start" class="exc-t exc-t--mono exc-t--klein">getCause() : Throwable</text>
+<text x="372" y="196" text-anchor="start" class="exc-t exc-t--mono exc-t--klein">printStackTrace()</text>
+</g>
+<path class="exc-erbt" d="M490 270 V228 M180 270 V248 H490" /><polygon class="exc-dreieck" points="490,214 482,228 498,228" />
+<g style="--exc-farbe:var(--avd-academy-color-danger)"><rect class="exc-kasten exc-kasten--kern" x="40" y="270" width="280" height="70" rx="8" /><text x="180.0" y="300" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Error</text><text x="180.0" y="324" text-anchor="middle" class="exc-t exc-t--klein">unchecked · nicht behandeln</text></g>
+<g style="--exc-farbe:var(--avd-academy-color-accent)"><rect class="exc-kasten exc-kasten--kern" x="350" y="270" width="280" height="70" rx="8" /><text x="490.0" y="300" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Exception</text><text x="490.0" y="324" text-anchor="middle" class="exc-t exc-t--klein">checked · der Compiler prüft</text></g>
+<path class="exc-erbt" d="M800 370 V305 H644" /><polygon class="exc-dreieck" points="630,305 644,297 644,313" />
+<g style="--exc-farbe:var(--avd-academy-color-warning)"><rect class="exc-kasten exc-kasten--kern" x="660" y="370" width="280" height="70" rx="8" /><text x="800.0" y="400" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">RuntimeException</text><text x="800.0" y="424" text-anchor="middle" class="exc-t exc-t--klein">unchecked · Programmierfehler</text></g>
+<path class="exc-erbt" d="M180 470 V354" /><polygon class="exc-dreieck" points="180,340 172,354 188,354" />
+<path class="exc-erbt" d="M490 470 V354" /><polygon class="exc-dreieck" points="490,340 482,354 498,354" />
+<path class="exc-erbt" d="M800 470 V454" /><polygon class="exc-dreieck" points="800,440 792,454 808,454" />
+<g style="--exc-farbe:var(--avd-academy-color-danger)">
+<rect class="exc-beispiele" x="40" y="470" width="280" height="92" rx="8" />
+<text x="56" y="496" text-anchor="start" class="exc-t exc-t--klein exc-t--muted exc-t--sperr">BEISPIELE</text>
+<text x="56" y="522" class="exc-t exc-t--mono exc-t--bsp">OutOfMemoryError</text>
+<text x="56" y="546" class="exc-t exc-t--mono exc-t--bsp">StackOverflowError</text>
+</g>
+<g style="--exc-farbe:var(--avd-academy-color-accent)">
+<rect class="exc-beispiele" x="350" y="470" width="280" height="140" rx="8" />
+<text x="366" y="496" text-anchor="start" class="exc-t exc-t--klein exc-t--muted exc-t--sperr">BEISPIELE</text>
+<text x="366" y="522" class="exc-t exc-t--mono exc-t--bsp">IOException</text>
+<text x="388" y="546" class="exc-t exc-t--mono exc-t--bsp">FileNotFoundException</text>
+<path class="exc-einzug" d="M374 528 V541 H384" />
+<text x="366" y="570" class="exc-t exc-t--mono exc-t--bsp">InterruptedException</text>
+<text x="366" y="594" class="exc-t exc-t--mono exc-t--bsp">KeineDeckungException<tspan class="exc-t--muted exc-t--klein"> (eigene)</tspan></text>
+</g>
+<g style="--exc-farbe:var(--avd-academy-color-warning)">
+<rect class="exc-beispiele" x="660" y="470" width="280" height="188" rx="8" />
+<text x="676" y="496" text-anchor="start" class="exc-t exc-t--klein exc-t--muted exc-t--sperr">BEISPIELE</text>
+<text x="676" y="522" class="exc-t exc-t--mono exc-t--bsp">NullPointerException</text>
+<text x="676" y="546" class="exc-t exc-t--mono exc-t--bsp">IllegalArgumentException</text>
+<text x="698" y="570" class="exc-t exc-t--mono exc-t--bsp">NumberFormatException</text>
+<path class="exc-einzug" d="M684 552 V565 H694" />
+<text x="676" y="594" class="exc-t exc-t--mono exc-t--bsp">IllegalStateException</text>
+<text x="676" y="618" class="exc-t exc-t--mono exc-t--bsp">ArithmeticException</text>
+<text x="676" y="642" class="exc-t exc-t--mono exc-t--bsp">ArrayIndexOutOfBounds…</text>
+</g>
+</svg>
+</div>
+<ul class="exc-legende">
+<li style="--exc-farbe:var(--avd-academy-color-danger)"><span><strong>Error</strong> – Probleme der JVM selbst. Nicht fangen: Das Programm kann sie nicht sinnvoll beheben.</span></li>
+<li style="--exc-farbe:var(--avd-academy-color-accent)"><span><strong>Exception</strong> – erwartbare Fehlerfälle. <em>Checked:</em> Der Compiler verlangt, dass jemand sich kümmert.</span></li>
+<li style="--exc-farbe:var(--avd-academy-color-warning)"><span><strong>RuntimeException</strong> – meist Programmierfehler. <em>Unchecked:</em> Der Compiler prüft nichts.</span></li>
+</ul>
+<p class="exc-note">Ob eine Ausnahme checked ist, hängt allein an der Oberklasse: Erbt sie von <code>Exception</code>, aber <strong>nicht</strong> von <code>RuntimeException</code>, ist sie checked. Alles unter <code>RuntimeException</code> und unter <code>Error</code> ist unchecked.</p>
+</section>
+
+<!-- =======================================================================
+     2 – OBJEKT UND ZWEITER AUSGANG. Auftrag: „Exceptions sind auch Objekte, aber
+     es gibt einen Mechanismus neben Rückgabewerten von Methoden.“
+     ======================================================================= -->
+<section class="exc-sec">
+<h2><span class="exc-num">2</span>Ein Objekt – mit eigenem Ausgang</h2>
+<p>Eine Exception ist zunächst ein ganz gewöhnliches Objekt: mit <code>new</code> erzeugt, mit Feldern und Methoden. Besonders wird sie erst durch <code>throw</code>. Dann verlässt die Methode nicht über <code>return</code>, sondern über einen <strong>zweiten Ausgang</strong> – und der Aufrufer landet nicht in der nächsten Zeile, sondern im passenden <code>catch</code>.</p>
+<div class="exc-bild">
+<svg class="exc-svg" viewBox="0 0 780 250" width="780" height="250" role="img" aria-label="Zwei Ausgänge einer Methode: Der Aufrufer ruft konto.abheben auf. Endet abheben mit return, geht es beim Aufrufer in der nächsten Zeile weiter. Endet abheben mit throw, überspringt der Ablauf den Rest des try-Blocks und landet im passenden catch-Block.">
+<defs>
+<marker id="exc-spitze-gut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze exc-spitze--gut" /></marker>
+<marker id="exc-spitze-wurf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze exc-spitze--wurf" /></marker>
+<marker id="exc-spitze-ruft2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze" /></marker>
+</defs>
+<rect class="exc-kasten exc-kasten--leise" x="10" y="20" width="420" height="210" rx="8" />
+<text x="30" y="54" text-anchor="start" class="exc-t exc-t--mono">try {</text>
+<text x="30" y="84" text-anchor="start" class="exc-t exc-t--mono">    konto.abheben(150_00);</text>
+<text x="30" y="114" text-anchor="start" class="exc-t exc-t--mono">    nach.einzahlen(150_00);</text>
+<text x="30" y="144" text-anchor="start" class="exc-t exc-t--mono">} catch (KeineDeckungException e) {</text>
+<text x="30" y="174" text-anchor="start" class="exc-t exc-t--mono">    System.out.println(…);</text>
+<text x="30" y="204" text-anchor="start" class="exc-t exc-t--mono">}</text>
+<g style="--exc-farbe:var(--avd-academy-color-ink)">
+<rect class="exc-kasten exc-kasten--kern" x="516" y="60" width="256" height="84" rx="8" />
+<text x="644" y="94" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">abheben(betrag)</text>
+<text x="644" y="120" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein">throws KeineDeckungException</text>
+</g>
+<line class="exc-ruft" x1="260" y1="78" x2="512" y2="78" marker-end="url(#exc-spitze-ruft2)" />
+<text x="460" y="70" text-anchor="middle" class="exc-t exc-t--klein exc-t--muted">ruft auf</text>
+<path class="exc-weg exc-weg--gut" d="M516 118 C450 118 370 112 296 110" marker-end="url(#exc-spitze-gut)" />
+<text x="440" y="140" text-anchor="middle" class="exc-t exc-t--klein exc-t--gut">return: nächste Zeile</text>
+<path class="exc-weg exc-weg--wurf" d="M644 144 C644 200 520 172 300 170" marker-end="url(#exc-spitze-wurf)" />
+<text x="600" y="200" text-anchor="middle" class="exc-t exc-t--klein exc-t--wurf">throw: weiter im passenden catch</text>
+</svg>
+</div>
+<div class="exc-grid">
+<div class="exc-card">
+<span class="exc-etikett">Nur ein Objekt</span>
+<pre><code class="language-java">KeineDeckungException e = new KeineDeckungException("DE01", 50_00);
+System.out.println(e.getMessage());
+System.out.println(e.getFehlbetrag());
+System.out.println(e instanceof Exception);</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">Konto DE01: es fehlen 5000 Cent
+5000
+true</div>
+<p>Ohne <code>throw</code> passiert nichts Besonderes – das Objekt wird erzeugt und benutzt wie jedes andere.</p>
+</div>
+<div class="exc-card exc-card--schlecht">
+<span class="exc-etikett">Statt Fehlercode</span>
+<pre><code class="language-java">// Fehlercode als Rückgabewert:
+boolean ok = konto.abheben(150_00);
+// … und wenn niemand ok prüft?
+nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
+<p>Einen Rückgabewert kann man übersehen. Eine geworfene Ausnahme nicht: Der normale Ablauf bricht ab, bis jemand sie fängt. Und der Rückgabewert bleibt frei für das, was die Methode eigentlich liefert.</p>
+</div>
+</div>
+</section>
+
+<!-- =======================================================================
+     3 – WERFEN UND FANGEN. Männchen-Skizze (Idee aus „Java ist auch eine Insel“):
+     werfend, sich bückend, fangend. Zweiter Reiter: Die JVM fängt als Letzte.
+     Reiter = Theme-Baustein avd-academy-tabs → Zustand ohne eigenes Skript in der
+     Adresse (#/?open=niemand-faengt).
+     ======================================================================= -->
+<section class="exc-sec">
+<h2><span class="exc-num">3</span>Werfen, ducken, fangen</h2>
+<p>Methoden rufen einander auf: <code>main</code> ruft <code>überweisen</code>, <code>überweisen</code> ruft <code>abheben</code>. Wirft <code>abheben</code>, fliegt die Ausnahme <strong>diesen Weg zurück</strong>. Wer kein passendes <code>catch</code> hat, duckt sich – seine Methode endet sofort, und die Ausnahme fliegt weiter. Der Erste mit passendem <code>catch</code> fängt sie.</p>
+<div class="avd-academy-tabs exc-reiter">
+<details class="avd-academy-tabs__panel" name="exc-wurf" id="jemand-faengt" open="">
+<summary>Jemand fängt</summary>
+<div class="exc-reiter__inhalt">
+<div class="exc-bild">
+<svg class="exc-svg" viewBox="0 0 820 300" width="820" height="300" role="img" aria-label="Werfen und Fangen: konto.abheben wirft eine KeineDeckungException. Bank.überweisen hat kein passendes catch und duckt sich weg, die Ausnahme fliegt über sie hinweg. main fängt sie mit catch (KeineDeckungException e) und läuft danach normal weiter.">
+<defs><marker id="exc-spitze-ruft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze" /></marker></defs>
+<text x="410" y="18" text-anchor="middle" class="exc-t exc-t--klein exc-t--muted">das Exception-Objekt fliegt den Aufrufstapel zurück – bis zum ersten passenden catch</text>
+<path id="exc-bahn-1" class="exc-bahn" d="M640 98 Q410 0 188 122" /><circle class="exc-ball exc-flug" r="8"><animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.55;1" calcMode="linear"><mpath href="#exc-bahn-1" /></animateMotion></circle>
+<line class="exc-boden" x1="40" y1="210" x2="780" y2="210" />
+<g class="exc-figur" transform="translate(150 210) scale(1.0)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-14 0 M0 -42 L14 0 M0 -78 L18 -84 L30 -92 M0 -74 L20 -72 L32 -82" /><circle class="exc-ball" cx="38" cy="-88" r="8" /></g><g class="exc-figur" transform="translate(410 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88" /><circle class="exc-kopf" cx="-20" cy="-66" r="11" /></g><g class="exc-figur" transform="translate(670 210)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-16 0 M0 -42 L14 0 M0 -78 L-16 -90 L-24 -106 M0 -78 L14 -66 L26 -60" /></g>
+<text x="150" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">main(…)</text><text x="150" y="260" text-anchor="middle" class="exc-t exc-t--klein">fängt</text><text x="150" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">catch (KeineDeckungException e)</text>
+<text x="410" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">Bank.überweisen(…)</text><text x="410" y="260" text-anchor="middle" class="exc-t exc-t--klein">duckt sich – kein passendes catch</text><text x="410" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throws KeineDeckungException</text>
+<text x="670" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">konto.abheben(…)</text><text x="670" y="260" text-anchor="middle" class="exc-t exc-t--klein">wirft</text><text x="670" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throw new KeineDeckungException(…)</text>
+</svg>
+</div>
+<div class="exc-grid">
+<div class="exc-card">
+<span class="exc-etikett">Konto.java – wirft</span>
+<pre><code class="language-java">public void abheben(long betrag) throws KeineDeckungException {
+    if (betrag &lt;= 0) {
+        throw new IllegalArgumentException("Betrag muss positiv sein: " + betrag);
+    }
+    if (betrag &gt; kontostand) {
+        throw new KeineDeckungException(iban, betrag - kontostand);
+    }
+    kontostand -= betrag;
+}</code></pre>
+</div>
+<div class="exc-card">
+<span class="exc-etikett">Bank.java – duckt sich</span>
+<pre><code class="language-java">public class Bank {
+
+    public static void überweisen(Konto von, Konto nach, long betrag)
+            throws KeineDeckungException {
+        von.abheben(betrag);
+        nach.einzahlen(betrag);
+    }
+}</code></pre>
+</div>
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">Main.java – fängt</span>
+<pre><code class="language-java">public static void main(String[] args) {
+    Konto giro = new Konto("DE01", 100_00);
+    Konto spar = new Konto("DE02", 0);
+    try {
+        Bank.überweisen(giro, spar, 150_00);
+        System.out.println("Überwiesen.");
+    } catch (KeineDeckungException e) {
+        System.out.println("Überweisung abgelehnt – " + e.getMessage());
+    }
+    System.out.println("Weiter geht's.");
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">Überweisung abgelehnt – Konto DE01: es fehlen 5000 Cent
+<mark>Weiter geht's.</mark></div>
+<p>Nach dem <code>catch</code> läuft das Programm normal weiter. <code>einzahlen</code> wurde nie aufgerufen – kein Geld aus dem Nichts.</p>
+</div>
+</div>
+</div>
+</details>
+<details class="avd-academy-tabs__panel" name="exc-wurf" id="niemand-faengt">
+<summary>Niemand fängt – die JVM</summary>
+<div class="exc-reiter__inhalt">
+<div class="exc-bild">
+<svg class="exc-svg" viewBox="0 0 1090 320" width="1090" height="320" role="img" aria-label="Niemand fängt: konto.abheben wirft, Bank.überweisen und main ducken sich beide weg, weil sie die Ausnahme nur mit throws weitergeben. Ganz am Ende fängt die JVM sie, gibt den Stacktrace aus und beendet das Programm.">
+<defs><marker id="exc-spitze-ruft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze" /></marker></defs>
+<text x="545" y="18" text-anchor="middle" class="exc-t exc-t--klein exc-t--muted">kein catch auf dem ganzen Weg – am Ende fängt die JVM</text>
+<path id="exc-bahn-2" class="exc-bahn" d="M920 98 Q560 10 192 98" /><circle class="exc-ball exc-flug" r="8"><animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.55;1" calcMode="linear"><mpath href="#exc-bahn-2" /></animateMotion></circle>
+<line class="exc-boden" x1="30" y1="210" x2="1060" y2="210" />
+<g class="exc-figur" transform="translate(140 210) scale(1.3)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-14 0 M0 -42 L14 0 M0 -78 L18 -84 L30 -92 M0 -74 L20 -72 L32 -82" /><circle class="exc-ball" cx="38" cy="-88" r="8" /></g>
+<rect class="exc-jvm-schild" x="118" y="128" width="44" height="22" rx="4" /><text x="140" y="144" text-anchor="middle" class="exc-t exc-t--fett exc-t--klein">JVM</text>
+<g class="exc-figur" transform="translate(410 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88" /><circle class="exc-kopf" cx="-20" cy="-66" r="11" /></g><g class="exc-figur" transform="translate(680 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88" /><circle class="exc-kopf" cx="-20" cy="-66" r="11" /></g><g class="exc-figur" transform="translate(950 210)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-16 0 M0 -42 L14 0 M0 -78 L-16 -90 L-24 -106 M0 -78 L14 -66 L26 -60" /></g>
+<text x="140" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">JVM</text><text x="140" y="260" text-anchor="middle" class="exc-t exc-t--klein">fängt als Letzte</text><text x="140" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">Stacktrace, Programmende</text>
+<text x="410" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">main(…)</text><text x="410" y="260" text-anchor="middle" class="exc-t exc-t--klein">duckt sich</text><text x="410" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throws KeineDeckungException</text>
+<text x="680" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">Bank.überweisen(…)</text><text x="680" y="260" text-anchor="middle" class="exc-t exc-t--klein">duckt sich</text><text x="680" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throws KeineDeckungException</text>
+<text x="950" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">konto.abheben(…)</text><text x="950" y="260" text-anchor="middle" class="exc-t exc-t--klein">wirft</text><text x="950" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throw new KeineDeckungException(…)</text>
+</svg>
+</div>
+<div class="exc-grid">
+<div class="exc-card exc-card--schlecht">
+<span class="exc-etikett">MainOhneCatch.java – duckt sich auch</span>
+<pre><code class="language-java">public class MainOhneCatch {
+
+    public static void main(String[] args) throws KeineDeckungException {
+        Konto giro = new Konto("DE01", 100_00);
+        Konto spar = new Konto("DE02", 0);
+        Bank.überweisen(giro, spar, 150_00);
+        System.out.println("Weiter geht's.");
+    }
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe (System.err), Exit-Code 1"><mark>Exception in thread "main"</mark> KeineDeckungException: Konto DE01: es fehlen 5000 Cent
+    at Konto.abheben(Konto.java:16)
+    at Bank.überweisen(Bank.java:5)
+    at MainOhneCatch.main(MainOhneCatch.java:6)</div>
+</div>
+<div class="exc-card">
+<span class="exc-etikett">Den Stacktrace lesen</span>
+<p>Die JVM fängt, was niemand sonst fängt: Sie gibt den <strong>Stacktrace</strong> aus und beendet das Programm. „Weiter geht's.“ erscheint nie.</p>
+<p>Der Stacktrace ist die Flugbahn, von oben nach unten gelesen: <strong>oben</strong> die Stelle, an der geworfen wurde (<code>Konto.java:16</code>), darunter jede Methode, die sich geduckt hat – bis <code>main</code>.</p>
+<p>Die oberste Zeile nennt Klasse und Nachricht der Ausnahme – genau das, was <code>getMessage()</code> liefert.</p>
+</div>
+</div>
+</div>
+</details>
+</div>
+</section>
+
+<!-- =======================================================================
+     4 – CHECKED EXCEPTIONS. Echte javac-Meldung, die zwei Auswege, Faustregel wie
+     in der Übung (erwartbare Geschäftssituation → checked, Programmierfehler →
+     unchecked).
+     ======================================================================= -->
+<section class="exc-sec">
+<h2><span class="exc-num">4</span>Checked: Der Compiler passt auf</h2>
+<p>Bei einer <strong>checked Exception</strong> prüft der Compiler jeden Aufruf: Steht in der Signatur <code>throws KeineDeckungException</code>, muss der Aufrufer sie fangen oder selbst weitergeben. Wer das vergisst, bekommt kein Programm.</p>
+<div class="exc-card exc-card--schlecht">
+<span class="exc-etikett">Vergessen</span>
+<pre><code class="language-java">public class MainVergessen {
+
+    public static void main(String[] args) {
+        Konto giro = new Konto("DE01", 100_00);
+        giro.abheben(150_00);
+    }
+}</code></pre>
+<div class="exc-konsole" data-titel="javac">MainVergessen.java:5: Fehler: <mark>Nicht gemeldete Ausnahme KeineDeckungException</mark>. Muss abgefangen oder deklariert werden, um ausgelöst zu werden
+        giro.abheben(150_00);
+                    ^
+1 Fehler</div>
+</div>
+<div class="exc-grid">
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">Ausweg 1: fangen</span>
+<pre><code class="language-java">try {
+    giro.abheben(150_00);
+} catch (KeineDeckungException e) {
+    System.out.println("Abgelehnt – " + e.getMessage());
+}</code></pre>
+<p>Wenn diese Stelle weiß, was zu tun ist: eine Meldung zeigen, einen anderen Weg gehen.</p>
+</div>
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">Ausweg 2: weitergeben</span>
+<pre><code class="language-java">public static void überweisen(Konto von, Konto nach, long betrag)
+        throws KeineDeckungException {
+    von.abheben(betrag);
+    nach.einzahlen(betrag);
+}</code></pre>
+<p>Wenn erst ein Aufrufer weiter oben weiß, was zu tun ist. Die Pflicht wandert mit nach oben.</p>
+</div>
+</div>
+<div class="exc-tabelle-rahmen">
+<table class="exc-tabelle">
+<thead><tr><th></th><th>Checked</th><th>Unchecked</th></tr></thead>
+<tbody>
+<tr><th>Erbt von</th><td><code>Exception</code>, nicht von <code>RuntimeException</code></td><td><code>RuntimeException</code> (oder <code>Error</code>)</td></tr>
+<tr><th>Der Compiler</th><td>verlangt <code>catch</code> oder <code>throws</code></td><td>prüft nichts</td></tr>
+<tr><th>Typischer Anlass</th><td>erwartbare Situation, auf die der Aufrufer sinnvoll reagieren kann</td><td>Programmierfehler, den man beheben statt behandeln sollte</td></tr>
+<tr><th>Beispiel</th><td>zu wenig Guthaben, Datei fehlt</td><td>negativer Betrag, <code>null</code> übergeben, Division durch 0</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- =======================================================================
+     5 – FANGEN IM DETAIL. Sechs Reiter laut Auftrag; jeweils Code + echte Ausgabe.
+     ======================================================================= -->
+<section class="exc-sec">
+<h2><span class="exc-num">5</span>Die Formen von <code>try</code></h2>
+<div class="avd-academy-tabs exc-reiter">
+
+<details class="avd-academy-tabs__panel" name="exc-try" id="try-catch" open="">
+<summary>try-catch</summary>
+<div class="exc-reiter__inhalt">
+<p>Was schiefgehen kann, steht im <code>try</code>-Block. Fliegt dort eine Ausnahme, wird der Rest des Blocks übersprungen und der <code>catch</code>-Block ausgeführt, dessen Typ passt – auch für Unterklassen dieses Typs.</p>
+<div class="exc-card">
+<pre><code class="language-java">String eingabe = "12a";
+try {
+    int betrag = Integer.parseInt(eingabe);
+    System.out.println("Betrag: " + betrag);
+} catch (NumberFormatException e) {
+    System.out.println("Keine Zahl: " + e.getMessage());
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">Keine Zahl: For input string: "12a"</div>
+</div>
+</div>
+</details>
+
+<details class="avd-academy-tabs__panel" name="exc-try" id="multi-catch">
+<summary>Multi-Catch</summary>
+<div class="exc-reiter__inhalt">
+<p>Sollen mehrere Ausnahmen <strong>gleich behandelt</strong> werden, stehen sie mit <code>|</code> in einem einzigen <code>catch</code>. Das spart doppelten Code. Die Typen dürfen nicht voneinander erben – sonst wäre einer überflüssig, und der Compiler lehnt ab.</p>
+<div class="exc-card">
+<pre><code class="language-java">public class MultiCatch {
+
+    static int anteil(String gesamt, String personen) {
+        try {
+            return Integer.parseInt(gesamt) / Integer.parseInt(personen);
+        } catch (NumberFormatException | ArithmeticException e) {
+            System.out.println("Ungültige Eingabe: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(anteil("90", "3"));
+        System.out.println(anteil("90", "0"));
+        System.out.println(anteil("90", "drei"));
+    }
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">30
+Ungültige Eingabe: / by zero
+0
+Ungültige Eingabe: For input string: "drei"
+0</div>
+</div>
+</div>
+</details>
+
+<details class="avd-academy-tabs__panel" name="exc-try" id="reihenfolge">
+<summary>Reihenfolge</summary>
+<div class="exc-reiter__inhalt">
+<p>Die <code>catch</code>-Blöcke werden <strong>von oben nach unten</strong> geprüft; der erste passende gewinnt. Deshalb gilt: <strong>speziell vor allgemein</strong>. <code>FileNotFoundException</code> ist eine Unterklasse von <code>IOException</code> – steht <code>IOException</code> oben, käme der zweite Block nie zum Zug. Der Compiler erkennt das.</p>
+<div class="exc-grid">
+<div class="exc-card exc-card--schlecht">
+<span class="exc-etikett">Allgemein zuerst</span>
+<pre><code class="language-java">try {
+    FileReader leser = new FileReader("konten.csv");
+    System.out.println((char) leser.read());
+} catch (IOException e) {
+    System.out.println("Lesefehler: " + e.getMessage());
+} catch (FileNotFoundException e) {
+    System.out.println("Datei fehlt: " + e.getMessage());
+}</code></pre>
+<div class="exc-konsole" data-titel="javac">Reihenfolge.java:13: Fehler: Ausnahme FileNotFoundException <mark>wurde bereits abgefangen</mark>
+        } catch (FileNotFoundException e) {
+          ^
+1 Fehler</div>
+</div>
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">Speziell zuerst</span>
+<pre><code class="language-java">try {
+    FileReader leser = new FileReader("konten.csv");
+    System.out.println((char) leser.read());
+} catch (FileNotFoundException e) {
+    System.out.println("Datei fehlt: " + e.getMessage());
+} catch (IOException e) {
+    System.out.println("Lesefehler: " + e.getMessage());
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">Datei fehlt: konten.csv (No such file or directory)</div>
+</div>
+</div>
+</div>
+</details>
+
+<details class="avd-academy-tabs__panel" name="exc-try" id="try-finally">
+<summary>finally</summary>
+<div class="exc-reiter__inhalt">
+<p>Der <code>finally</code>-Block läuft <strong>immer</strong>: nach normalem Ende, nach <code>return</code> und auch, wenn eine Ausnahme hinausfliegt. Dort gehört hin, was in jedem Fall passieren muss – typischerweise Aufräumen. Ein <code>catch</code> braucht es dafür nicht.</p>
+<div class="exc-card">
+<pre><code class="language-java">public class TryFinally {
+
+    static String abfragen(boolean gestört) {
+        System.out.println("Verbindung öffnen");
+        try {
+            System.out.println("Kontostand lesen");
+            if (gestört) {
+                throw new IllegalStateException("Leitung gestört");
+            }
+            return "100,00 €";
+        } finally {
+            System.out.println("Verbindung schließen");
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Ergebnis: " + abfragen(false));
+        try {
+            System.out.println("Ergebnis: " + abfragen(true));
+        } catch (IllegalStateException e) {
+            System.out.println("Fehler: " + e.getMessage());
+        }
+    }
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">Verbindung öffnen
+Kontostand lesen
+<mark>Verbindung schließen</mark>
+Ergebnis: 100,00 €
+Verbindung öffnen
+Kontostand lesen
+<mark>Verbindung schließen</mark>
+Fehler: Leitung gestört</div>
+</div>
+</div>
+</details>
+
+<details class="avd-academy-tabs__panel" name="exc-try" id="try-with-resources">
+<summary>try-with-resources</summary>
+<div class="exc-reiter__inhalt">
+<p>Für das häufigste <code>finally</code> – eine Ressource schließen – gibt es eine Kurzform. Was in den runden Klammern nach <code>try</code> geöffnet wird, schließt Java selbst: am Ende des Blocks, auch bei einer Ausnahme, und zwar in <strong>umgekehrter Reihenfolge</strong> und <strong>vor</strong> dem <code>catch</code>.</p>
+<p><strong>Voraussetzung:</strong> Die Klasse implementiert das Interface <code>java.lang.AutoCloseable</code> mit seiner einzigen Methode <code>close()</code>. Dateien, Datenbankverbindungen und Streams tun das bereits.</p>
+<div class="exc-grid">
+<div class="exc-card">
+<span class="exc-etikett">Verbindung.java</span>
+<pre><code class="language-java">public class Verbindung implements AutoCloseable {
+
+    private final String name;
+
+    public Verbindung(String name) {
+        this.name = name;
+        System.out.println(name + " geöffnet");
+    }
+
+    public void senden(String text) {
+        if (text.isEmpty()) {
+            throw new IllegalArgumentException("Leere Nachricht an " + name);
+        }
+        System.out.println(name + " sendet: " + text);
+    }
+
+    @Override
+    public void close() {
+        System.out.println(name + " geschlossen");
+    }
+}</code></pre>
+</div>
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">Benutzen</span>
+<pre><code class="language-java">try (Verbindung bank = new Verbindung("Bank");
+     Verbindung archiv = new Verbindung("Archiv")) {
+    bank.senden("Kontostand?");
+    archiv.senden("");
+} catch (IllegalArgumentException e) {
+    System.out.println("Fehler: " + e.getMessage());
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe">Bank geöffnet
+Archiv geöffnet
+Bank sendet: Kontostand?
+<mark>Archiv geschlossen</mark>
+<mark>Bank geschlossen</mark>
+Fehler: Leere Nachricht an Archiv</div>
+</div>
+</div>
+</div>
+</details>
+
+<details class="avd-academy-tabs__panel" name="exc-try" id="wrapping">
+<summary>Wrapping</summary>
+<div class="exc-reiter__inhalt">
+<p>Eine Methode sollte Ausnahmen werfen, die zu <strong>ihrer</strong> Aufgabe passen. Wer ein Konto lädt, will „Konto nicht gefunden“ hören, nicht „Datei fehlt“. Also fängt man die technische Ausnahme und wirft eine fachliche – und gibt die alte als <strong>Ursache</strong> (<code>cause</code>) mit. So geht nichts verloren: Der Stacktrace zeigt sie unter „Caused by“.</p>
+<div class="exc-grid">
+<div class="exc-card">
+<span class="exc-etikett">KontoNichtGefundenException.java</span>
+<pre><code class="language-java">public class KontoNichtGefundenException extends Exception {
+
+    private final String iban;
+
+    public KontoNichtGefundenException(String iban, Throwable ursache) {
+        super("Kein Konto mit IBAN " + iban, ursache);
+        this.iban = iban;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+}</code></pre>
+</div>
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">KontoArchiv.java – einpacken</span>
+<pre><code class="language-java">import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class KontoArchiv {
+
+    public static String laden(String iban) throws KontoNichtGefundenException {
+        try {
+            return Files.readString(Path.of("konten", iban + ".txt"));
+        } catch (IOException e) {
+            throw new KontoNichtGefundenException(iban, e);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="exc-card">
+<span class="exc-etikett">Main.java</span>
+<pre><code class="language-java">public class Main {
+
+    public static void main(String[] args) throws KontoNichtGefundenException {
+        System.out.println(KontoArchiv.laden("DE99"));
+    }
+}</code></pre>
+<div class="exc-konsole" data-titel="Ausgabe (System.err)">Exception in thread "main" KontoNichtGefundenException: Kein Konto mit IBAN DE99
+    at KontoArchiv.laden(KontoArchiv.java:11)
+    at Main.main(Main.java:4)
+<mark>Caused by:</mark> java.nio.file.NoSuchFileException: konten/DE99.txt
+    at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+    … (9 weitere Zeilen aus java.base – hier gekürzt)
+    at KontoArchiv.laden(KontoArchiv.java:9)
+    ... 1 more</div>
+</div>
+<p class="exc-note">Nie die Ursache weglassen: Ein <code>new KontoNichtGefundenException(iban)</code> ohne <code>e</code> verschluckt, <em>warum</em> das Laden scheiterte.</p>
+</div>
+</details>
+
+</div>
+</section>
+
+<!-- =======================================================================
+     6 – EIGENE EXCEPTIONS. Auftrag: mit Feldern – FINAL. Begründung: Eine Exception
+     ist ein Bericht über einen vergangenen Moment; sie wandert über viele Ebenen und
+     darf sich unterwegs nicht ändern.
+     ======================================================================= -->
+<section class="exc-sec">
+<h2><span class="exc-num">6</span>Eigene Exceptions</h2>
+<p>Eine eigene Exception ist eine gewöhnliche Klasse, die von <code>Exception</code> (checked) oder <code>RuntimeException</code> (unchecked) erbt. Sie bekommt einen <strong>fachlichen Namen</strong> und <strong>Felder</strong> für alles, was der Fänger wissen muss – nicht nur einen Text.</p>
+<div class="exc-grid">
+<div class="exc-card exc-card--gut">
+<span class="exc-etikett">KeineDeckungException.java</span>
+<pre><code class="language-java">public class KeineDeckungException extends Exception {
+
+    private final String iban;
+    private final long fehlbetrag;   // in Cent
+
+    public KeineDeckungException(String iban, long fehlbetrag) {
+        super("Konto " + iban + ": es fehlen " + fehlbetrag + " Cent");
+        this.iban = iban;
+        this.fehlbetrag = fehlbetrag;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public long getFehlbetrag() {
+        return fehlbetrag;
+    }
+}</code></pre>
+</div>
+<div class="exc-card">
+<h3>Darauf kommt es an</h3>
+<ul>
+<li><strong>Name endet auf <code>Exception</code></strong> und sagt, was fachlich passiert ist.</li>
+<li><strong>Oberklasse bewusst wählen:</strong> checked für erwartbare Situationen, unchecked für Programmierfehler (siehe 4).</li>
+<li><strong>Konstruktor ruft <code>super(…)</code></strong> mit der Nachricht – und, beim Einpacken, mit der Ursache (siehe Wrapping).</li>
+<li><strong>Felder <code>private final</code>, nur Getter.</strong> Eine Exception ist ein <em>Bericht über einen vergangenen Moment</em>: Sie wird geworfen, wandert über viele Ebenen und wird dort gelesen. Unterwegs darf niemand den Fehlbetrag ändern – sonst erzählt sie, was nie passiert ist.</li>
+</ul>
+</div>
+</div>
+<div class="exc-card">
+<span class="exc-etikett">Der Fänger nutzt die Felder</span>
+<pre><code class="language-java">try {
+    Bank.überweisen(giro, spar, 150_00);
+} catch (KeineDeckungException e) {
+    System.out.println("Bitte zahle noch " + e.getFehlbetrag() + " Cent ein.");
+}</code></pre>
+</div>
+<p class="exc-merke"><strong>Merksatz:</strong> Eine Ausnahme ist ein Objekt, das über einen zweiten Ausgang zurückfliegt – bis zum ersten passenden <code>catch</code>, und wenn es keines gibt, bis zur JVM.</p>
+</section>
+
+</div>
+
+
+    </main>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
