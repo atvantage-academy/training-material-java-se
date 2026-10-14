@@ -22,15 +22,15 @@
 <link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
 <link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
 <link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=158ed649">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
 <link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.2">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.2","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/shared/visualisierungen/java-lts-evolution.html","title":"Java-LTS-Evolution","layout":"visualization","description":"Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/shared/visualisierungen/java-lts-evolution.html","title":"Java-LTS-Evolution","layout":"visualization","description":"Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
 <script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
 <script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
 <script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791545541" defer></script>
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1791977795" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
@@ -260,7 +260,7 @@ body.jev-modal-open{overflow:hidden;}
                 ]
             },
             {
-                ver: "1.11 (11)", date: "25. September 2018", year: 2018, features: [
+                ver: "11", date: "25. September 2018", year: 2018, features: [
                     { title: "var", desc: "Lokale Typ-Inferenz für weniger Schreibarbeit bei eindeutigen Zuweisungen.", code: "public void varDemo() {\n    var message = \"Java 11\";\n    var liste = new ArrayList<String>();\n    liste.add(message);\n    System.out.println(liste.get(0));\n}" },
                     { title: "Collection Factories", desc: "Kompakte Erzeugung von unveränderlichen Listen, Sets und Maps (seit Java 9).", code: "public void init() {\n    // Unveränderliche Liste\n    List<String> list = List.of(\"A\", \"B\", \"C\");\n    // Unveränderliche Map\n    Map<String, Integer> map = Map.of(\"K1\", 1, \"K2\", 2);\n}" },
                     { title: "HTTP Client", desc: "Moderner, nicht-blockierender HTTP Client mit Support für HTTP/2 und WebSockets.", code: "public void fetch() throws Exception {\n    HttpClient client = HttpClient.newHttpClient();\n    HttpRequest req = HttpRequest.newBuilder()\n        .uri(URI.create(\"https://api.test.com\"))\n        .build();\n    var resp = client.send(req, BodyHandlers.ofString());\n    System.out.println(resp.body());\n}" },
@@ -268,7 +268,7 @@ body.jev-modal-open{overflow:hidden;}
                 ]
             },
             {
-                ver: "1.17 (17)", date: "14. September 2021", year: 2021, features: [
+                ver: "17", date: "14. September 2021", year: 2021, features: [
                     { title: "Records", desc: "Unveränderliche Datenklassen, die automatisch Konstruktor, Getter und Co. generieren.", code: "public record User(int id, String name) {\n    // Einzeiler für Daten-Container\n}\n\nUser u = new User(1, \"Tom\");\nSystem.out.println(u.name());" },
                     { title: "Text Blocks", desc: "Mehrzeilige Strings ohne Concatenation-Chaos – ideal für JSON, SQL oder HTML (seit Java 15).", code: 'String html = """\n    <html>\n        <body>\n            <h1>Hallo Welt</h1>\n        </body>\n    </html>\n    """;' },
                     { title: "Switch Expr.", desc: "Switch als Ausdruck, der einen Wert zurückgibt (kein break nötig, exhaustiveness check).", code: "var result = switch(day) {\n    case MONDAY, FRIDAY -> \"Homeoffice\";\n    case TUESDAY        -> \"Büro\";\n    default             -> \"Frei\";\n};\nSystem.out.println(result);" },
@@ -277,7 +277,7 @@ body.jev-modal-open{overflow:hidden;}
                 ]
             },
             {
-                ver: "1.21 (21)", date: "19. September 2023", year: 2023, features: [
+                ver: "21", date: "19. September 2023", year: 2023, features: [
                     { title: "Virtual Threads", desc: "Leichtgewichtige Threads (Project Loom) für massive Skalierbarkeit bei minimalem Overhead.", code: "public void runAsync() {\n    try (var exec = Executors.newVirtualThreadPerTaskExecutor()) {\n        exec.submit(() -> {\n            System.out.println(\"Running in Virtual Thread\");\n        });\n    }\n}" },
                     { title: "Sequenced Collections", desc: "Einheitlicher Zugriff auf erstes und letztes Element (List, Deque, SortedSet).", code: "public void firstLast(List<String> list) {\n    // Einheitlicher Zugriff\n    System.out.println(list.getFirst());\n    System.out.println(list.getLast());\n    // Rückwärts\n    for (var s : list.reversed()) { /* ... */ }\n}" },
                     { title: "Switch Patterns", desc: "Fallunterscheidung basierend auf dem Datentyp direkt im Switch.", code: "return switch (obj) {\n    case Integer i -> \"Zahl: \" + i;\n    case String s  -> \"Text: \" + s;\n    default        -> \"Andere\";\n};" },
@@ -285,7 +285,7 @@ body.jev-modal-open{overflow:hidden;}
                 ]
             },
             {
-                ver: "1.25 (25)", date: "16. September 2025", year: 2025, features: [
+                ver: "25", date: "16. September 2025", year: 2025, features: [
                     { title: "Stream Gather.", desc: "Benutzerdefinierte Zwischenoperationen für komplexe Transformationen in Streams.", code: "public void groups() {\n    var res = Stream.of(1,2,3,4,5)\n        .gather(Gatherers.windowFixed(3))\n        .toList();\n    // Result: [[1,2,3], [4,5]]\n}" },
                     { title: "Class File API", desc: "Standardisierte API zum Parsen, Generieren und Transformieren von Java Class-Files.", code: "public void parse(byte[] bytes) {\n    ClassFile cf = ClassFile.of();\n    ClassModel cm = cf.parse(bytes);\n    System.out.println(\"Class: \" + cm.thisClass().asSymbol());\n}" },
                     { title: "Flexible Constr.", desc: "Erlaubt Code-Ausführung im Konstruktor *vor* dem super()-Aufruf.", code: "public class Sub extends Base {\n    public Sub(int value) {\n        // Validierung VOR super() möglich\n        if (value < 0) throw new IllegalArgumentException();\n        super(value);\n    }\n}" }
@@ -318,7 +318,7 @@ body.jev-modal-open{overflow:hidden;}
 
         function jevEsc(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
         function jevSlug(ver){ return 'java-' + ver.toLowerCase().replace(/[^0-9a-z]+/g, '-').replace(/^-+|-+$/g, ''); }
-        function jevMajor(ver){ var m = ver.match(/\((\d+)\)/); if (m) return +m[1]; var m2 = ver.match(/^1\.(\d+)/); return m2 ? +m2[1] : 0; }
+        function jevMajor(ver){ var m = ver.match(/\((\d+)\)/); if (m) return +m[1]; var m2 = ver.match(/^1\.(\d+)/); if (m2) return +m2[1]; var m3 = ver.match(/^(\d+)$/); return m3 ? +m3[1] : 0; }
         function jevIsLts(ver){ return JEV_LTS.indexOf(jevMajor(ver)) !== -1; }
 
         function jevInit(){
