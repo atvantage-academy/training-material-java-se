@@ -1,0 +1,513 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Bruchstellen auf Java 21 heben · ATVANTAGE Academy</title><meta name="description" content="Hebe Bruchstellen-Module des Übungsprojekts von Java 8 auf Release 21, finde die Ursache jedes Bruchs und behebe ihn dort – und hebe dann den Altbestand."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Bruchstellen auf Java 21 heben">
+<meta property="og:description" content="Hebe Bruchstellen-Module des Übungsprojekts von Java 8 auf Release 21, finde die Ursache jedes Bruchs und behebe ihn dort – und hebe dann den Altbestand.">
+<meta property="og:type" content="article"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/kompatibilitaet/issue.html","title":"Bruchstellen auf Java 21 heben","layout":"guide","description":"Hebe Bruchstellen-Module des Übungsprojekts von Java 8 auf Release 21, finde die Ursache jedes Bruchs und behebe ihn dort – und hebe dann den Altbestand.","duration":40,"topics":["--release","Starke Kapselung","jdeps und jdeprscan","Kompatibilitätsschalter"],"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792078549" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header"
+        data-avd-academy-menu-visible="7" data-avd-academy-menu-speed="1.0" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><img class="avd-academy-header__mark" src="/training-material-java-se/theme/atvantage/assets/icon-180.png" alt="">
+  </a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/java-update/">Java-Update</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1792078549"
+             data-base="/training-material-java-se/">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=4b72be9e" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-update/">Java-Update</a><span>/</span><span aria-current="page">Bruchstellen auf Java 21 heben</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 40 Minuten</span><span class="avd-academy-tag">--release</span><span class="avd-academy-tag">Starke Kapselung</span><span class="avd-academy-tag">jdeps und jdeprscan</span><span class="avd-academy-tag">Kompatibilitätsschalter</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Bruchstellen auf Java 21 heben</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in in einem Team, das eine Java-8-Anwendung auf Java 21 heben soll,
+möchte ich wissen, was dabei bricht und wie ich es behebe, damit ich den Aufwand
+einschätzen kann und kein Bruch erst in Produktion auffällt.</p>
+
+<p>Im Ordner <code>kompatibilitaet/</code> des Übungsprojekts liegt <strong>je Bruchstelle ein Modul</strong>.
+Jedes lief auf Java 8 und bricht genau einmal – beim Übersetzen, wenn Du das Release
+hochstellst, oder zur Laufzeit auf Deinem neuen JDK. Ihr arbeitet zu zweit an einem
+<strong>Paket</strong> aus ein oder zwei Modulen.</p>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du …</p>
+
+<ul>
+  <li>stellst das Release eines Maven-Moduls hoch und übersetzt es so neu, dass der Bruch sichtbar wird.</li>
+  <li>unterscheidest einen Bruch beim Übersetzen von einem Bruch zur Laufzeit und ordnest jeden einer Änderung im JDK zu.</li>
+  <li>behebst einen Bruch an seiner Ursache – oder kennzeichnest eine Notlösung als solche und nennst, wie lange sie trägt.</li>
+  <li>prüfst mit <code>jdeprscan</code> und <code>jdeps</code>, ob ein Werkzeug den Bruch vorher gefunden hätte.</li>
+  <li>hebst den Altbestand auf Release 21 und wertest die neuen Warnungen des Compilers aus.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Die Module Deines Pakets übersetzen mit <code>--release 21</code>, und <code>./mvnw clean verify</code> ist für sie auf Deinem JDK grün.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Zu jedem Bruch Deines Pakets steht ein Steckbrief im gemeinsamen Board.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Der Altbestand übersetzt mit <code>--release 21</code>, seine Tests sind grün, und der Compiler meldet keine veraltete API mehr.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="dein-paket-übernehmen">Dein Paket übernehmen</h3>
+
+<p>Welches Paket Ihr bearbeitet, sagt Euch der Trainer:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paket</th>
+      <th>Module</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td><code>jaxb</code>, <code>zeitstempel</code></td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td><code>unterstrich</code>, <code>zeichensatz</code></td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td><code>sequenced</code>, <code>reflection</code></td>
+    </tr>
+    <tr>
+      <td>D</td>
+      <td><code>eingeschraenkte-bezeichner</code>, <code>datumsformat</code></td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td><code>security-manager</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Wechselt Euch ab: Eine Person tippt, die andere liest die Meldungen und sucht die
+Ursache. Nach dem ersten Modul tauscht Ihr.</p>
+
+<h3 id="den-bruch-sichtbar-machen">Den Bruch sichtbar machen</h3>
+
+<p>Lass das Modul zuerst <strong>unverändert</strong> auf Deinem JDK laufen – noch übersetzt für
+Java 8:</p>
+
+<pre><code class="language-shell">./mvnw clean verify -pl kompatibilitaet/jaxb
+</code></pre>
+
+<p>Ist der Test rot, hast Du einen Bruch <strong>zur Laufzeit</strong> gefunden. Ist er grün, stell
+das Release in der <code>pom.xml</code> des Moduls hoch – die Stelle ist markiert – und
+übersetze erneut. Bricht es jetzt, ist es ein Bruch <strong>beim Übersetzen</strong>. Finde
+heraus, <strong>ab welchem Release</strong> er auftritt; probier dafür auf der Kommandozeile
+einzelne Werte aus:</p>
+
+<pre><code class="language-shell">./mvnw clean verify -pl kompatibilitaet/jaxb -Dmaven.compiler.release=11
+</code></pre>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Immer mit <code>clean</code>. Ändert sich nur das Release, hält Maven die
+übersetzten Klassen für aktuell – und der Bruch bleibt unsichtbar.</p>
+</blockquote>
+
+<h3 id="prüfen-ob-ein-werkzeug-es-vorher-gesagt-hätte">Prüfen, ob ein Werkzeug es vorher gesagt hätte</h3>
+
+<p>Das JDK bringt zwei Werkzeuge mit, die übersetzte Klassen untersuchen, ohne sie
+auszuführen. Wende beide auf den Startstand Deiner Module an – übersetzt für Java 8,
+vor jeder Änderung am Code:</p>
+
+<pre><code class="language-shell">./mvnw clean package -DskipTests -pl kompatibilitaet/jaxb -Dmaven.compiler.release=8
+jdeprscan --release 21 --for-removal kompatibilitaet/jaxb/target/classes
+jdeps -verbose:package kompatibilitaet/jaxb/target/classes
+</code></pre>
+
+<p><code>jdeprscan</code> meldet, was zur Entfernung vorgesehen ist, <code>jdeps</code>, wovon die Klassen
+abhängen – und was es im JDK nicht gibt. Notiere, ob eines der beiden Deinen Bruch
+gefunden hätte.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Beide liegen im <code>bin</code>-Ordner Deines JDK. Findet die Kommandozeile sie
+nicht, rufe sie mit vollem Pfad auf.</p>
+</blockquote>
+
+<h3 id="die-ursache-finden">Die Ursache finden</h3>
+
+<p>Lies die Meldung genau und finde die Änderung im JDK, die dahintersteckt: Wie heißt
+sie, welcher JEP gehört dazu, in welchem Release kam sie, und zu welchem LTS-Release
+gehört sie damit? Der JEP-Index und die LTS-Evolution helfen dabei (siehe Ressourcen).</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Ein Test kann nach der ersten Korrektur aus einem zweiten Grund rot
+bleiben. Vergleiche erwarteten und tatsächlichen Wert zeichengenau.</p>
+</blockquote>
+
+<h3 id="den-bruch-beheben">Den Bruch beheben</h3>
+
+<p>Behebe den Bruch <strong>an seiner Ursache</strong>, nicht an seinem Symptom. Stell dann das
+Release in der <code>pom.xml</code> des Moduls auf <strong>21</strong> und prüfe, dass <code>./mvnw clean verify</code>
+grün ist.</p>
+
+<p>Für manche Brüche gibt es einen <strong>Kompatibilitätsschalter</strong> – eine JVM-Option, die
+das alte Verhalten zurückholt. Probier ihn aus, wenn es einen gibt. Er ist keine
+Behebung, sondern eine <strong>Notlösung</strong>: Notiere, wo er überall stehen müsste und ab
+welchem Release es ihn nicht mehr gibt.</p>
+
+<p>Lässt sich ein Bruch im Code nicht beheben, ist das ein legitimes Ergebnis. Dann
+setzt Ihr die Notlösung ein, kennzeichnet sie im Code als solche und haltet fest,
+wie man die Ursache stattdessen angehen müsste.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Wer JDK 25 hat, stellt zum Schluss eines der Module auf
+<code>--release 25</code>. Bei <code>unterstrich</code> lohnt sich das besonders: Was ist dort ab
+Java 22 wieder erlaubt, und was nicht?</p>
+</blockquote>
+
+<h3 id="den-steckbrief-schreiben">Den Steckbrief schreiben</h3>
+
+<p>Halte je Bruch im gemeinsamen Board fest:</p>
+
+<ul>
+  <li><strong>Symptom</strong> – die Meldung, wörtlich</li>
+  <li><strong>Wann</strong> – beim Übersetzen oder zur Laufzeit, ab welchem Release</li>
+  <li><strong>Ursache</strong> – die Änderung im JDK, mit JEP und LTS-Release</li>
+  <li><strong>Behebung</strong> – was Ihr geändert habt</li>
+  <li><strong>Notlösung</strong> – falls es eine gibt, und wie lange sie trägt</li>
+  <li><strong>Werkzeug</strong> – hätte <code>jdeps</code> oder <code>jdeprscan</code> es gefunden?</li>
+  <li><strong>Betrifft</strong> – welche Art von Anwendung am ehesten: REST-Microservice, Batch-Programm, Server-Anwendung</li>
+</ul>
+
+<h3 id="den-altbestand-hochstellen">Den Altbestand hochstellen</h3>
+
+<p>Der Altbestand – die Bestellabwicklung, an der Ihr ab dem nächsten Block arbeitet –
+übersetzt bisher ebenfalls für Java 8. Stell das Release in der <code>pom.xml</code> im
+<strong>Wurzelordner</strong> auf 21 und baue ihn neu:</p>
+
+<pre><code class="language-shell">./mvnw clean verify -f altbestand/pom.xml
+</code></pre>
+
+<p>Bricht etwas? Lies auch die <strong>Warnungen</strong> des Compilers: Was meldet er neu, und was
+kündigt er damit an? Behebe, was er als veraltet meldet.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Die Musterlösung liegt im Branch <code>loesung/kompatibilitaet</code>, den
+Unterschied zum Startstand zeigt ihr
+<a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/2">Pull Request</a>.
+Sieh erst nach, wenn Du es selbst versucht hast. Wirst Du mit dem Altbestand nicht
+fertig, checke den Branch aus – ab dem nächsten Block brauchst Du ihn auf Java 21.</p>
+</blockquote>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Sechs der neun Brüche zeigt erst die Laufzeit. Was heißt das für den Satz „Es kompiliert mit Java 21, also sind wir fertig“?</li>
+  <li>Wann ist ein Kompatibilitätsschalter wie <code>--add-opens</code> oder <code>-Dfile.encoding=COMPAT</code> vertretbar, und was muss dazu festgehalten werden?</li>
+  <li>Warum findet <code>jdeps</code> den Zugriff auf <code>ArrayList.elementData</code> im Modul <code>reflection</code> nicht?</li>
+  <li>Ist der Wechsel von <code>javax.xml.bind</code> auf <code>jakarta.xml.bind</code> eine Änderung von Java?</li>
+  <li>Welcher der neun Brüche hätte Deine eigene Anwendung getroffen – und wo hättet Ihr ihn bemerkt?</li>
+</ul>
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Bruchstellen auf Java 21 heben
+
+Als Entwickler:in in einem Team, das eine Java-8-Anwendung auf Java 21 heben soll,
+möchte ich wissen, was dabei bricht und wie ich es behebe, damit ich den Aufwand
+einschätzen kann und kein Bruch erst in Produktion auffällt.
+
+Im Ordner `kompatibilitaet/` des Übungsprojekts liegt **je Bruchstelle ein Modul**.
+Jedes lief auf Java 8 und bricht genau einmal – beim Übersetzen, wenn Du das Release
+hochstellst, oder zur Laufzeit auf Deinem neuen JDK. Ihr arbeitet zu zweit an einem
+**Paket** aus ein oder zwei Modulen.
+
+## Lernziele
+
+Du …
+
+- stellst das Release eines Maven-Moduls hoch und übersetzt es so neu, dass der Bruch sichtbar wird.
+- unterscheidest einen Bruch beim Übersetzen von einem Bruch zur Laufzeit und ordnest jeden einer Änderung im JDK zu.
+- behebst einen Bruch an seiner Ursache – oder kennzeichnest eine Notlösung als solche und nennst, wie lange sie trägt.
+- prüfst mit `jdeprscan` und `jdeps`, ob ein Werkzeug den Bruch vorher gefunden hätte.
+- hebst den Altbestand auf Release 21 und wertest die neuen Warnungen des Compilers aus.
+
+## Definition of Done
+
+* [ ] Die Module Deines Pakets übersetzen mit `--release 21`, und `./mvnw clean verify` ist für sie auf Deinem JDK grün.
+* [ ] Zu jedem Bruch Deines Pakets steht ein Steckbrief im gemeinsamen Board.
+* [ ] Der Altbestand übersetzt mit `--release 21`, seine Tests sind grün, und der Compiler meldet keine veraltete API mehr.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Arbeitsschritte
+
+### Dein Paket übernehmen
+
+Welches Paket Ihr bearbeitet, sagt Euch der Trainer:
+
+| Paket | Module |
+|-------|--------|
+| A | `jaxb`, `zeitstempel` |
+| B | `unterstrich`, `zeichensatz` |
+| C | `sequenced`, `reflection` |
+| D | `eingeschraenkte-bezeichner`, `datumsformat` |
+| E | `security-manager` |
+
+Wechselt Euch ab: Eine Person tippt, die andere liest die Meldungen und sucht die
+Ursache. Nach dem ersten Modul tauscht Ihr.
+
+### Den Bruch sichtbar machen
+
+Lass das Modul zuerst **unverändert** auf Deinem JDK laufen – noch übersetzt für
+Java 8:
+
+```shell
+./mvnw clean verify -pl kompatibilitaet/jaxb
+```
+
+Ist der Test rot, hast Du einen Bruch **zur Laufzeit** gefunden. Ist er grün, stell
+das Release in der `pom.xml` des Moduls hoch – die Stelle ist markiert – und
+übersetze erneut. Bricht es jetzt, ist es ein Bruch **beim Übersetzen**. Finde
+heraus, **ab welchem Release** er auftritt; probier dafür auf der Kommandozeile
+einzelne Werte aus:
+
+```shell
+./mvnw clean verify -pl kompatibilitaet/jaxb -Dmaven.compiler.release=11
+```
+
+&gt; **Hinweis:** Immer mit `clean`. Ändert sich nur das Release, hält Maven die
+&gt; übersetzten Klassen für aktuell – und der Bruch bleibt unsichtbar.
+
+### Prüfen, ob ein Werkzeug es vorher gesagt hätte
+
+Das JDK bringt zwei Werkzeuge mit, die übersetzte Klassen untersuchen, ohne sie
+auszuführen. Wende beide auf den Startstand Deiner Module an – übersetzt für Java 8,
+vor jeder Änderung am Code:
+
+```shell
+./mvnw clean package -DskipTests -pl kompatibilitaet/jaxb -Dmaven.compiler.release=8
+jdeprscan --release 21 --for-removal kompatibilitaet/jaxb/target/classes
+jdeps -verbose:package kompatibilitaet/jaxb/target/classes
+```
+
+`jdeprscan` meldet, was zur Entfernung vorgesehen ist, `jdeps`, wovon die Klassen
+abhängen – und was es im JDK nicht gibt. Notiere, ob eines der beiden Deinen Bruch
+gefunden hätte.
+
+&gt; **Hinweis:** Beide liegen im `bin`-Ordner Deines JDK. Findet die Kommandozeile sie
+&gt; nicht, rufe sie mit vollem Pfad auf.
+
+### Die Ursache finden
+
+Lies die Meldung genau und finde die Änderung im JDK, die dahintersteckt: Wie heißt
+sie, welcher JEP gehört dazu, in welchem Release kam sie, und zu welchem LTS-Release
+gehört sie damit? Der JEP-Index und die LTS-Evolution helfen dabei (siehe Ressourcen).
+
+&gt; **Hinweis:** Ein Test kann nach der ersten Korrektur aus einem zweiten Grund rot
+&gt; bleiben. Vergleiche erwarteten und tatsächlichen Wert zeichengenau.
+
+### Den Bruch beheben
+
+Behebe den Bruch **an seiner Ursache**, nicht an seinem Symptom. Stell dann das
+Release in der `pom.xml` des Moduls auf **21** und prüfe, dass `./mvnw clean verify`
+grün ist.
+
+Für manche Brüche gibt es einen **Kompatibilitätsschalter** – eine JVM-Option, die
+das alte Verhalten zurückholt. Probier ihn aus, wenn es einen gibt. Er ist keine
+Behebung, sondern eine **Notlösung**: Notiere, wo er überall stehen müsste und ab
+welchem Release es ihn nicht mehr gibt.
+
+Lässt sich ein Bruch im Code nicht beheben, ist das ein legitimes Ergebnis. Dann
+setzt Ihr die Notlösung ein, kennzeichnet sie im Code als solche und haltet fest,
+wie man die Ursache stattdessen angehen müsste.
+
+&gt; **Hinweis:** Wer JDK 25 hat, stellt zum Schluss eines der Module auf
+&gt; `--release 25`. Bei `unterstrich` lohnt sich das besonders: Was ist dort ab
+&gt; Java 22 wieder erlaubt, und was nicht?
+
+### Den Steckbrief schreiben
+
+Halte je Bruch im gemeinsamen Board fest:
+
+- **Symptom** – die Meldung, wörtlich
+- **Wann** – beim Übersetzen oder zur Laufzeit, ab welchem Release
+- **Ursache** – die Änderung im JDK, mit JEP und LTS-Release
+- **Behebung** – was Ihr geändert habt
+- **Notlösung** – falls es eine gibt, und wie lange sie trägt
+- **Werkzeug** – hätte `jdeps` oder `jdeprscan` es gefunden?
+- **Betrifft** – welche Art von Anwendung am ehesten: REST-Microservice, Batch-Programm, Server-Anwendung
+
+### Den Altbestand hochstellen
+
+Der Altbestand – die Bestellabwicklung, an der Ihr ab dem nächsten Block arbeitet –
+übersetzt bisher ebenfalls für Java 8. Stell das Release in der `pom.xml` im
+**Wurzelordner** auf 21 und baue ihn neu:
+
+```shell
+./mvnw clean verify -f altbestand/pom.xml
+```
+
+Bricht etwas? Lies auch die **Warnungen** des Compilers: Was meldet er neu, und was
+kündigt er damit an? Behebe, was er als veraltet meldet.
+
+&gt; **Hinweis:** Die Musterlösung liegt im Branch `loesung/kompatibilitaet`, den
+&gt; Unterschied zum Startstand zeigt ihr
+&gt; [Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/2).
+&gt; Sieh erst nach, wenn Du es selbst versucht hast. Wirst Du mit dem Altbestand nicht
+&gt; fertig, checke den Branch aus – ab dem nächsten Block brauchst Du ihn auf Java 21.
+
+## Reflexionsfragen
+
+- Sechs der neun Brüche zeigt erst die Laufzeit. Was heißt das für den Satz „Es kompiliert mit Java 21, also sind wir fertig“?
+- Wann ist ein Kompatibilitätsschalter wie `--add-opens` oder `-Dfile.encoding=COMPAT` vertretbar, und was muss dazu festgehalten werden?
+- Warum findet `jdeps` den Zugriff auf `ArrayList.elementData` im Modul `reflection` nicht?
+- Ist der Wechsel von `javax.xml.bind` auf `jakarta.xml.bind` eine Änderung von Java?
+- Welcher der neun Brüche hätte Deine eigene Anwendung getroffen – und wo hättet Ihr ihn bemerkt?
+
+## Weiterführende Informationen
+
+- [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
+- [JEP-Index des OpenJDK](https://openjdk.org/jeps/0)
+- [Java-LTS-Evolution](/shared/visualisierungen/java-lts-evolution.html)
+</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered">
+        <div class="avd-academy-guide-side__label">Weiterführende Informationen</div>
+        <div class="avd-academy-guide-side__links"><a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span><span class="avd-academy-linkicon avd-academy-linkicon--right avd-academy-linkicon--mark" style="--avd-academy-linkicon-src: url('/training-material-java-se/theme/academy/icons/icon-github.svg')" aria-hidden="true"></span></a><a href="https://openjdk.org/jeps/0" target="_blank" rel="noopener"><span>JEP-Index des OpenJDK</span></a><a href="/training-material-java-se/shared/visualisierungen/java-lts-evolution.html"><span>Java-LTS-Evolution</span></a>
+        </div></div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
