@@ -30,7 +30,7 @@
 <script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
 <script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
 <script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792094075" defer></script>
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792096178" defer></script>
 <link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
 <script type="module">
   const _hlbase = "/training-material-java-se/theme/academy/hljs/";
@@ -362,8 +362,13 @@ body.jev-modal-open{overflow:hidden;}
         function jevShow(v, updateHash){
             if (updateHash === undefined) updateHash = true;
             document.getElementById('jev-modal-title').textContent = 'Java ' + v.ver;
-            document.getElementById('jev-modal-date').textContent = v.date;
             document.getElementById('jev-badge').innerHTML = jevIsLts(v.ver) ? '<span class="jev-badge-lts">LTS Release</span>' : '';
+            // Verknüpfung mit der JEP-Landkarte: nur für die LTS-Releases, die dort eine
+            // Spalte haben (8→11 … 21→25). Keine Tabs hier – die Landkarte ist eine
+            // eigene Seite (Konzept: java-update/AGENTS.md).
+            var jevMaj = jevMajor(v.ver);
+            document.getElementById('jev-modal-date').innerHTML = jevEsc(v.date)
+                + ([11, 17, 21, 25].indexOf(jevMaj) !== -1 ? ' · <a href="jep-landkarte.html#/?lts=' + jevMaj + '">Alle JEPs dieser Version →</a>' : '');
             document.getElementById('jev-modal-tabs').innerHTML = v.features.map(function(f, i){
                 return '<button type="button" class="jev-tab' + (i === 0 ? ' active' : '') + '" onclick="jevTab(this,' + i + ')">' + jevEsc(f.title) + '</button>';
             }).join('');

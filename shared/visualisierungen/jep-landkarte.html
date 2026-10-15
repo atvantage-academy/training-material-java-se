@@ -1,0 +1,836 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>JEP-Landkarte · ATVANTAGE Academy</title><meta name="description" content="Rund 80 entwicklerrelevante JEPs von Java 9 bis 25, geordnet nach LTS-Sprung und Bereich – mit Erklärung, Kompatibilitätsrisiko und Relevanz je Anwendungsart."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="JEP-Landkarte">
+<meta property="og:description" content="Rund 80 entwicklerrelevante JEPs von Java 9 bis 25, geordnet nach LTS-Sprung und Bereich – mit Erklärung, Kompatibilitätsrisiko und Relevanz je Anwendungsart.">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/shared/visualisierungen/jep-landkarte.html","title":"JEP-Landkarte","layout":"visualization","description":"Rund 80 entwicklerrelevante JEPs von Java 9 bis 25, geordnet nach LTS-Sprung und Bereich – mit Erklärung, Kompatibilitätsrisiko und Relevanz je Anwendungsart.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792096178" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
+           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags">
+      </div>
+      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
+                data-avd-academy-print
+                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">JEP-Landkarte</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung (Konzept: java-update/AGENTS.md, „JEP-Landkarte“)
+     - Repo-weit unter shared/visualisierungen/, neben der LTS-Evolution, weil sie mit
+       ihr verknüpft wird und auch anderen Kursen nützt. NICHT als Tabs im Popup der
+       LTS-Evolution – die bekommt nur einen Link „Alle JEPs dieser Version →“ auf diese
+       Seite, gefiltert per #/?lts=«11|17|21|25».
+     - Spalten: LTS-Sprünge 8→11, 11→17, 17→21, 21→25 (ein JEP steht in der Spalte des
+       LTS-Release, das ihn als erstes final enthält). Zeilen: Sprache (JLS), API,
+       JVM und Laufzeit, Werkzeuge, Entfernt und verschärft.
+     - Je JEP ein Chip; Klick öffnet die Erklärung: worum es geht, warum es wichtig ist,
+       „betrifft Dich, wenn …“, Kompatibilitätsrisiko, Relevanz je Anwendungsart.
+     - Filter nach Anwendungsart (REST-Microservice, Batch-Programm, Server-Anwendung),
+       dazu nach LTS-Sprung und Bereich. Jeder Filter und der geöffnete JEP stehen in der
+       Adresse (AvdAcademyState): #/?art=…&lts=…&bereich=…&jep=…
+     - JEP-Ketten: Previews und Incubator als Spur bis zur finalen Fassung (im Chip
+       gezählt, im Fenster als Weg).
+     - KURATIERT, nicht vollständig: 78 JEPs. Preview-Features, die bis 25 nicht final
+       sind, gehören in den Ausblick (java-update/09-ausblick) – einzige Ausnahme die
+       String Templates als Beispiel für einen zurückgezogenen Preview.
+     - Quellen: openjdk.org/jeps/«nr» und openjdk.org/projects/jdk/«version», geprüft
+       2026-10-15. „Gemessen“ heißt: Temurin 21.0.12.1 und 25.0.4.1 in Docker
+       (Übungsprojekt atvantage-academy/code-template-java-se-java-update).
+     - Relevanz 0/1/2 = gering/mittel/hoch, Risiko 0/1/2 = gering/mittel/hoch – die
+       Einschätzung entspricht den Bewertungs-Kapiteln der Java-Update-Module. -->
+
+<style>
+.jl-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.25rem;}
+.jl-filter{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin:0 0 .75rem;align-items:center;}
+.jl-filter__label{font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);min-width:9.5rem;}
+.jl-filter__knoepfe{display:flex;flex-wrap:wrap;gap:.35rem;}
+.jl-knopf{font:inherit;font-size:.8rem;padding:.3rem .75rem;border-radius:999px;border:1px solid var(--avd-academy-color-border);background:var(--avd-academy-color-bg);color:var(--avd-academy-color-ink);cursor:pointer;}
+.jl-knopf:hover{border-color:var(--avd-academy-color-accent);}
+.jl-knopf[aria-pressed="true"]{background:var(--avd-academy-color-accent);border-color:var(--avd-academy-color-accent);color:var(--avd-academy-color-accent-contrast);font-weight:700;}
+.jl-legende{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin:1rem 0;font-size:.8rem;color:var(--avd-academy-color-ink-muted);}
+/* width:0 + min-width:100%: Die breite Karte zählt nicht zur Breite der Inhaltsspalte –
+   sonst schöbe sie auf dem Handy die ganze Seite seitlich auf. */
+.jl-scroll{overflow-x:auto;margin:0 0 1.5rem;width:0;min-width:100%;}
+.jl-karte{display:grid;grid-template-columns:8.5rem repeat(4,minmax(0,1fr));gap:.5rem;min-width:760px;}
+.jl-kopf{padding:.6rem .7rem;border-radius:var(--avd-academy-radius,6px);background:var(--avd-academy-color-bg-subtle);border:1px solid var(--avd-academy-color-border);}
+.jl-kopf b{display:block;font-size:1.05rem;color:var(--avd-academy-color-headline);}
+.jl-kopf span{font-size:.75rem;color:var(--avd-academy-color-ink-muted);}
+.jl-kopf.is-gewaehlt{border-color:var(--avd-academy-color-accent);box-shadow:inset 0 3px 0 var(--avd-academy-color-accent);}
+.jl-zeilenkopf{padding:.6rem .5rem;font-size:.85rem;font-weight:700;color:var(--avd-academy-color-headline);border-top:1px solid var(--avd-academy-color-border);}
+.jl-zeilenkopf.is-gewaehlt{box-shadow:inset 3px 0 0 var(--avd-academy-color-accent);}
+.jl-zelle{display:flex;flex-direction:column;gap:.35rem;padding:.5rem 0;border-top:1px solid var(--avd-academy-color-border);}
+.jl-chip{font:inherit;text-align:left;width:100%;padding:.4rem .55rem;border-radius:var(--avd-academy-radius,6px);border:1px solid var(--avd-academy-color-border);background:var(--avd-academy-color-bg-subtle);color:var(--avd-academy-color-ink);cursor:pointer;line-height:1.25;}
+.jl-chip:hover,.jl-chip:focus-visible{border-color:var(--avd-academy-color-accent);}
+.jl-chip__name{display:block;font-size:.85rem;font-weight:600;}
+.jl-chip__meta{display:block;font-size:.7rem;color:var(--avd-academy-color-ink-muted);margin-top:.1rem;}
+.jl-chip.is-wichtig{border:2px solid var(--avd-academy-color-accent);}
+.jl-chip.is-leise{background:transparent;border-style:dashed;color:var(--avd-academy-color-ink-muted);}
+.jl-chip.is-leise .jl-chip__name{font-weight:400;}
+.jl-chip.is-zurueckgezogen .jl-chip__name{text-decoration:line-through;}
+.jl-merksatz{margin-top:1.5rem;}
+
+.jl-dialog{width:min(94vw,720px);max-height:88vh;padding:0;border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius,8px);background:var(--avd-academy-color-bg);color:var(--avd-academy-color-ink);}
+.jl-dialog::backdrop{background:rgba(2,6,23,.6);}
+.jl-dialog__kopf{display:flex;justify-content:space-between;gap:1rem;padding:1.1rem 1.4rem;border-bottom:1px solid var(--avd-academy-color-border);}
+.jl-dialog__kopf h2{margin:0;font-size:1.5rem;line-height:1.15;color:var(--avd-academy-color-headline);}
+.jl-dialog__unter{margin:.35rem 0 0;font-size:.85rem;color:var(--avd-academy-color-ink-muted);}
+.jl-schliessen{flex:none;font:inherit;font-size:1.6rem;line-height:1;background:none;border:none;color:var(--avd-academy-color-ink);cursor:pointer;padding:.1rem .4rem;}
+.jl-dialog__inhalt{padding:1rem 1.4rem 1.4rem;overflow-y:auto;}
+.jl-dialog__inhalt h3{font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);margin:1rem 0 .3rem;}
+.jl-dialog__inhalt p{margin:0;}
+.jl-marke{display:inline-block;padding:.05rem .55rem;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid currentColor;margin-right:.4rem;}
+.jl-marke--0{color:var(--avd-academy-color-success-ink,var(--avd-academy-color-ink));}
+.jl-marke--1{color:var(--avd-academy-color-warning-ink,var(--avd-academy-color-ink));}
+.jl-marke--2{color:var(--avd-academy-color-danger-ink,var(--avd-academy-color-ink));}
+.jl-relevanz{display:grid;grid-template-columns:auto auto;gap:.25rem 1rem;justify-content:start;}
+.jl-weg{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;justify-content:flex-start;}
+.jl-schritt{font-size:.8rem;padding:.15rem .5rem;border:1px solid var(--avd-academy-color-border);border-radius:999px;}
+.jl-schritt.is-final{border-color:var(--avd-academy-color-accent);font-weight:700;}
+.jl-pfeil{color:var(--avd-academy-color-ink-muted);}
+.jl-druck{display:none;}
+@media print{
+  .jl-filter,.jl-legende,.jl-dialog{display:none !important;}
+  .jl-scroll{overflow:visible;}
+  .jl-karte{min-width:0;}
+  .jl-chip.is-leise{border-style:solid;}
+  .jl-druck{display:block;break-before:page;}
+  .jl-druck section{break-inside:avoid;margin:0 0 10pt;}
+  .jl-druck h3{font-size:11pt;margin:0 0 2pt;}
+  .jl-druck p{font-size:9.5pt;margin:0 0 2pt;}
+}
+</style>
+
+<p class="jl-lead">Rund 80 JEPs zwischen Java 9 und Java 25, die für Entwickler:innen zählen – geordnet nach dem LTS-Sprung, in dem sie final wurden, und nach Bereich. Ein Klick auf einen JEP erklärt, worum es geht, wen er betrifft und wie riskant er beim Umstieg ist. Die Filter heben hervor, was für Deine Art von Anwendung wichtig ist. Kuratiert, nicht vollständig: Manche Neuerung hat gar keinen JEP – etwa <code>String.isBlank()</code> oder die Container-Erkennung der JVM.</p>
+
+<div class="jl-filter" role="group" aria-labelledby="jl-f-art"><span class="jl-filter__label" id="jl-f-art">Anwendungsart</span><span class="jl-filter__knoepfe" id="jl-knoepfe-art"></span></div>
+<div class="jl-filter" role="group" aria-labelledby="jl-f-lts"><span class="jl-filter__label" id="jl-f-lts">LTS-Sprung</span><span class="jl-filter__knoepfe" id="jl-knoepfe-lts"></span></div>
+<div class="jl-filter" role="group" aria-labelledby="jl-f-bereich"><span class="jl-filter__label" id="jl-f-bereich">Bereich</span><span class="jl-filter__knoepfe" id="jl-knoepfe-bereich"></span></div>
+
+<p class="jl-legende"><span><b>Kräftiger Rahmen:</b> für diese Anwendungsart wichtig</span><span><b>Gestrichelt:</b> vom Filter ausgeblendet</span><span><b>Preview:</b> Zahl der Vorabfassungen bis final</span></p>
+
+<div class="jl-scroll"><div class="jl-karte" id="jl-karte"></div></div>
+
+<div class="jl-druck" id="jl-druck"></div>
+
+<div class="jl-merksatz">
+
+  <blockquote>
+    <p><strong>Merksatz:</strong> Fast alles, was beim Umstieg bricht, war vorher angekündigt – als
+Abkündigung, Warnung oder Preview. Wer die Zeile „Entfernt und verschärft“ liest,
+bevor er umsteigt, wird nicht überrascht.</p>
+  </blockquote>
+
+</div>
+
+<dialog class="jl-dialog" id="jl-dialog" aria-labelledby="jl-d-titel">
+  <div class="jl-dialog__kopf">
+    <div><h2 id="jl-d-titel">JEP</h2><p class="jl-dialog__unter" id="jl-d-unter"></p></div>
+    <button type="button" class="jl-schliessen" id="jl-d-zu" aria-label="Schließen">&times;</button>
+  </div>
+  <div class="jl-dialog__inhalt" id="jl-d-inhalt"></div>
+</dialog>
+
+<script>
+(function () {
+  // ---------------------------------------------------------------------------
+  // DATEN. v = Release, in dem der JEP final wurde; kette = Vorabfassungen
+  // [nr, release, art] (art fehlt = Preview); weg = ganzer Weg, wenn er nicht mit
+  // „final“ endet. risiko und r (Relevanz [REST, Batch, Server]) jeweils 0/1/2.
+  // ---------------------------------------------------------------------------
+  const jeps = [
+    // ===== 8 → 11 =====
+    { nr: 261, v: 9, b: "sprache", name: "Modulsystem", titel: "Module System",
+      worum: "`module-info.java` beschreibt, was ein Modul braucht (`requires`) und zeigt (`exports`); das JDK selbst besteht seither aus Modulen.",
+      warum: "Die Grundlage der starken Kapselung – auch wer keine eigenen Module schreibt, lebt mit ihren Folgen.",
+      betrifft: "Deine Anwendung oder eine Bibliothek per Reflection in JDK-Interna greift.",
+      risiko: 1, risikoText: "Eigene Module sind freiwillig, der Klassenpfad funktioniert weiter. Die Brüche kommen über die Kapselung (JEP 260, 396, 403).", r: [0, 0, 0] },
+    { nr: 213, v: 9, b: "sprache", name: "Project Coin, Feinschliff", titel: "Milling Project Coin",
+      worum: "Kleine Korrekturen: private Methoden in Interfaces, effektiv finale Variablen in try-with-resources, Diamant bei anonymen Klassen – und `_` ist kein Bezeichner mehr.",
+      warum: "Private Interface-Methoden räumen Default-Methoden auf; der Rest spart Zeilen.",
+      betrifft: "Du Default-Methoden mit gemeinsamer Logik schreibst – oder eine Variable `_` heißt.",
+      risiko: 1, risikoText: "`_` als Bezeichner übersetzt ab Release 9 nicht mehr (im Übungsprojekt: Modul `unterstrich`).", r: [1, 1, 1] },
+    { nr: 286, v: 10, b: "sprache", name: "var", titel: "Local-Variable Type Inference",
+      worum: "Lokale Variablen mit `var` – der Typ wird aus der rechten Seite abgeleitet und bleibt statisch.",
+      warum: "Weniger Wiederholung bei langen generischen Typen.",
+      betrifft: "Du lokale Variablen mit langen Typen deklarierst.",
+      risiko: 0, risikoText: "`var` ist ein eingeschränkter Typname: Eine Klasse namens `var` übersetzt nicht mehr – praktisch nie der Fall.", r: [1, 1, 1] },
+    { nr: 323, v: 11, b: "sprache", name: "var in Lambdas", titel: "Local-Variable Syntax for Lambda Parameters",
+      worum: "`var` auch für Lambda-Parameter – vor allem, um Annotationen anzubringen: `(@NonNull var s) -> …`.",
+      warum: "Annotationen an Lambda-Parametern ohne ausgeschriebenen Typ.",
+      betrifft: "Du Lambda-Parameter annotierst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 269, v: 9, b: "api", name: "List.of, Set.of, Map.of", titel: "Convenience Factory Methods for Collections",
+      worum: "Unveränderliche Collections in einer Zeile: `List.of(…)`, `Set.of(…)`, `Map.of(…)`.",
+      warum: "Ersetzt `Arrays.asList` und `Collections.unmodifiable…` – und verbietet `null`.",
+      betrifft: "Du Konstanten, Testdaten oder Rückgabewerte als Collection baust.",
+      risiko: 1, risikoText: "Still: `add` wirft `UnsupportedOperationException`, `contains(null)` eine `NullPointerException` – erst zur Laufzeit.", r: [2, 2, 2] },
+    { nr: 266, v: 9, b: "api", name: "CompletableFuture mit Zeitlimit", titel: "More Concurrency Updates",
+      worum: "`orTimeout`, `completeOnTimeout` und `delayedExecutor` für `CompletableFuture`, dazu die Reactive-Streams-Schnittstellen in `Flow`.",
+      warum: "Zeitlimits für asynchrone Aufrufe ohne eigenen Scheduler.",
+      betrifft: "Du andere Systeme asynchron aufrufst.",
+      risiko: 0, risikoText: "Keins.", r: [2, 1, 1] },
+    { nr: 102, v: 9, b: "api", name: "ProcessHandle", titel: "Process API Updates",
+      worum: "`ProcessHandle` liefert PID, Elternprozess und Kinder und meldet das Ende eines Prozesses.",
+      warum: "Prozesse steuern ohne plattformabhängige Kniffe.",
+      betrifft: "Dein Programm andere Programme startet oder überwacht.",
+      risiko: 0, risikoText: "Keins.", r: [0, 2, 0] },
+    { nr: 259, v: 9, b: "api", name: "StackWalker", titel: "Stack-Walking API",
+      worum: "`StackWalker` durchläuft den Aufrufstapel gezielt und günstig, statt eine Exception zu erzeugen.",
+      warum: "Für Logging und Frameworks, die den Aufrufer kennen müssen.",
+      betrifft: "Du den Aufrufer einer Methode ermittelst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 321, v: 11, b: "api", name: "HttpClient", titel: "HTTP Client (Standard)", kette: [[110, 9, "Incubator"]],
+      worum: "Ein HTTP-Client im JDK – synchron und asynchron, mit HTTP/2 und WebSockets.",
+      warum: "Ersetzt `HttpURLConnection` und oft eine Bibliothek.",
+      betrifft: "Dein Code andere Systeme per HTTP aufruft.",
+      risiko: 0, risikoText: "Keins; `HttpURLConnection` bleibt erhalten.", r: [2, 1, 1] },
+    { nr: 248, v: 9, b: "jvm", name: "G1 als Standard", titel: "Make G1 the Default Garbage Collector",
+      worum: "G1 löst den Parallel GC als Standard ab – kürzere Pausen bei fast gleichem Durchsatz.",
+      warum: "Wer keinen GC wählt, bekommt G1 – außer im kleinen Container: Mit einem Kern oder unter knapp 1,8 GB wählt die JVM bis 26 Serial.",
+      betrifft: "Deine Anwendung ohne GC-Option startet.",
+      risiko: 1, risikoText: "Andere Pausen und etwas weniger Durchsatz als Parallel – messen, nicht raten.", r: [2, 1, 2] },
+    { nr: 254, v: 9, b: "jvm", name: "Kompakte Strings", titel: "Compact Strings",
+      worum: "Strings mit nur Latin-1-Zeichen belegen ein Byte je Zeichen statt zwei.",
+      warum: "Weniger Heap ohne Codeänderung.",
+      betrifft: "Deine Anwendung viele Texte im Speicher hält.",
+      risiko: 0, risikoText: "Keins.", r: [1, 2, 1] },
+    { nr: 310, v: 10, b: "jvm", name: "AppCDS", titel: "Application Class-Data Sharing",
+      worum: "Auch Anwendungsklassen kommen ins Klassen-Archiv – der Start wird schneller.",
+      warum: "Der Vorläufer des AOT-Cache.",
+      betrifft: "Startzeit für Dich zählt.",
+      risiko: 0, risikoText: "Keins.", r: [2, 1, 0] },
+    { nr: 307, v: 10, b: "jvm", name: "Paralleler Full GC für G1", titel: "Parallel Full GC for G1",
+      worum: "Muss G1 doch einmal den ganzen Heap aufräumen, nutzt er dafür alle Kerne.",
+      warum: "Der schlimmste Fall von G1 wird deutlich kürzer.",
+      betrifft: "Deine Anwendung G1 nutzt und der Heap knapp wird.",
+      risiko: 0, risikoText: "Keins.", r: [1, 1, 1] },
+    { nr: 328, v: 11, b: "jvm", name: "Flight Recorder", titel: "Flight Recorder",
+      worum: "JFR zeichnet Ereignisse aus JVM und Anwendung auf – sparsam genug für den Dauerbetrieb.",
+      warum: "Messen statt raten, auch in Produktion; vorher ein kommerzielles Feature von Oracle.",
+      betrifft: "Du Leistung, GC-Pausen oder Pinning untersuchst.",
+      risiko: 0, risikoText: "Keins.", r: [2, 2, 2] },
+    { nr: 222, v: 9, b: "werkzeuge", name: "jshell", titel: "jshell: The Java Shell (Read-Eval-Print Loop)",
+      worum: "Java-Ausdrücke und Schnipsel interaktiv ausprobieren.",
+      warum: "Eine API ausprobieren, ohne ein Projekt anzulegen.",
+      betrifft: "Du schnell etwas ausprobieren willst.",
+      risiko: 0, risikoText: "Keins.", r: [1, 1, 1] },
+    { nr: 247, v: 9, b: "werkzeuge", name: "--release", titel: "Compile for Older Platform Versions",
+      worum: "`javac --release 8` übersetzt für ein älteres Release – und prüft, dass nur dessen API benutzt wird.",
+      warum: "Ein neues JDK im Build, ohne den Zielbetrieb zu ändern – der erste Schritt jeder Migration.",
+      betrifft: "Ihr das JDK im Build wechselt.",
+      risiko: 0, risikoText: "Keins – im Gegenteil: `-source` und `-target` prüfen die API nicht.", r: [2, 2, 2] },
+    { nr: 277, v: 9, b: "werkzeuge", name: "jdeprscan", titel: "Enhanced Deprecation",
+      worum: "`@Deprecated(forRemoval = true, since = …)` kündigt Entfernungen an; `jdeprscan` findet ihre Nutzung im eigenen Code.",
+      warum: "Was entfernt wird, wird vorher angekündigt – wer sucht, wird nicht überrascht.",
+      betrifft: "Ihr eine Migration plant.",
+      risiko: 0, risikoText: "Keins.", r: [2, 2, 2] },
+    { nr: 158, v: 9, b: "werkzeuge", name: "-Xlog", titel: "Unified JVM Logging",
+      worum: "Ein gemeinsames Logging für alle Bereiche der JVM: `-Xlog:gc`, `-Xlog:class+load` …",
+      warum: "Ersetzt die alten GC-Log-Optionen.",
+      betrifft: "Eure Startskripte GC-Logs schreiben.",
+      risiko: 2, risikoText: "Gemessen auf 21 und 25: `-XX:+PrintGCDetails` und `-Xloggc` warnen nur, `-XX:+PrintGCDateStamps` verhindert den Start („Unrecognized VM option“).", r: [1, 1, 2] },
+    { nr: 330, v: 11, b: "werkzeuge", name: "java Datei.java", titel: "Launch Single-File Source-Code Programs",
+      worum: "`java Datei.java` übersetzt und startet ein Programm in einem Schritt.",
+      warum: "Skripte und Spielwiesen in Java, ohne Build.",
+      betrifft: "Du kleine Werkzeuge oder Versuche schreibst.",
+      risiko: 0, risikoText: "Keins.", r: [1, 1, 0] },
+    { nr: 238, v: 9, b: "werkzeuge", name: "Multi-Release-JARs", titel: "Multi-Release JAR Files",
+      worum: "Ein JAR kann je Java-Release eigene Klassen mitbringen (`META-INF/versions/…`).",
+      warum: "Bibliotheken unterstützen alte und neue JDKs zugleich.",
+      betrifft: "Du Bibliotheken für mehrere Releases baust.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 282, v: 9, b: "werkzeuge", name: "jlink", titel: "jlink: The Java Linker",
+      worum: "Baut eine schlanke Laufzeitumgebung aus genau den Modulen, die eine Anwendung braucht.",
+      warum: "Kleinere Container-Images.",
+      betrifft: "Ihr Container-Images baut und jedes Megabyte zählt.",
+      risiko: 0, risikoText: "Keins.", r: [1, 0, 0] },
+    { nr: 260, v: 9, b: "entfernt", name: "Interna gekapselt", titel: "Encapsulate Most Internal APIs",
+      worum: "Die meisten `sun.*`- und `com.sun.*`-Interna sind nicht mehr zugänglich; kritische wie `sun.misc.Unsafe` bleiben vorerst.",
+      warum: "Der Anfang der starken Kapselung.",
+      betrifft: "Dein Code oder eine Bibliothek Klassen aus `sun.*` importiert.",
+      risiko: 1, risikoText: "Fehler beim Übersetzen, vorher zu finden mit `jdeps --jdk-internals`.", r: [1, 1, 1] },
+    { nr: 252, v: 9, b: "entfernt", name: "CLDR als Standard", titel: "Use CLDR Locale Data by Default",
+      worum: "Datums- und Zahlformate kommen aus dem Unicode-CLDR statt aus den JDK-eigenen Daten.",
+      warum: "Still geänderte Ausgaben: „Mo., 14. Sept. 2026“ statt „Mo, 14. Sep 2026“, ein geschütztes Leerzeichen vor dem €.",
+      betrifft: "Ihr formatierte Daten oder Beträge in Dateien oder Schnittstellen schreibt.",
+      risiko: 2, risikoText: "Still – kein Fehler, nur andere Zeichen (Modul `datumsformat`). `-Djava.locale.providers=COMPAT` half bis 22; heute das Format im Code festlegen.", r: [1, 2, 1] },
+    { nr: 291, v: 9, b: "entfernt", name: "CMS abgekündigt", titel: "Deprecate the Concurrent Mark Sweep (CMS) Garbage Collector",
+      worum: "Der CMS-Collector wird abgekündigt – entfernt mit 14 (JEP 363).",
+      warum: "Die Ankündigung, die viele überlesen haben.",
+      betrifft: "Eure Startskripte `-XX:+UseConcMarkSweepGC` enthalten.",
+      risiko: 1, risikoText: "Bis 13 eine Warnung, ab 14 startet die JVM nicht mehr.", r: [1, 1, 2] },
+    { nr: 320, v: 11, b: "entfernt", name: "Java EE und CORBA entfernt", titel: "Remove the Java EE and CORBA Modules",
+      worum: "JAXB, JAX-WS, JAF, `javax.annotation` und CORBA sind nicht mehr im JDK.",
+      warum: "Der häufigste Bruch beim Sprung von 8 auf 11.",
+      betrifft: "Ihr XML mit JAXB bindet oder SOAP-Dienste nutzt.",
+      risiko: 2, risikoText: "Bricht beim Übersetzen und zur Laufzeit (Modul `jaxb`). Abhilfe: die Jakarta-Bibliotheken als Abhängigkeit; in Server-Anwendungen bringt sie der Server mit.", r: [1, 2, 1] },
+    { nr: 335, v: 11, b: "entfernt", name: "Nashorn abgekündigt", titel: "Deprecate the Nashorn JavaScript Engine",
+      worum: "Die JavaScript-Engine im JDK wird abgekündigt – entfernt mit 15 (JEP 372).",
+      warum: "Wer Skripte per `ScriptEngine` ausführt, braucht eine Alternative.",
+      betrifft: "Ihr Regeln oder Formeln als JavaScript ausführt.",
+      risiko: 1, risikoText: "Bis 14 eine Warnung, ab 15 liefert `getEngineByName(\"nashorn\")` `null`.", r: [0, 1, 1] },
+
+    // ===== 11 → 17 =====
+    { nr: 361, v: 14, b: "sprache", name: "Switch-Expressions", titel: "Switch Expressions", kette: [[325, 12], [354, 13]],
+      worum: "`switch` als Ausdruck mit `case … ->`, ohne Durchfallen, mit `yield` für Blöcke.",
+      warum: "Kürzere, sichere Fallunterscheidungen; über Enums prüft der Compiler die Vollständigkeit.",
+      betrifft: "Du Fallunterscheidungen über Enums oder Konstanten schreibst.",
+      risiko: 1, risikoText: "`yield` ist eingeschränkt: Ein unqualifizierter Aufruf einer eigenen Methode `yield()` übersetzt nicht mehr (Modul `eingeschraenkte-bezeichner`).", r: [2, 2, 1] },
+    { nr: 378, v: 15, b: "sprache", name: "Text-Blöcke", titel: "Text Blocks", kette: [[355, 13], [368, 14]],
+      worum: "Mehrzeilige Zeichenketten zwischen `\"\"\"` – ohne `\\n` und Verkettung.",
+      warum: "SQL, JSON und Berichte lesbar im Code.",
+      betrifft: "Du mehrzeilige Texte im Code hast.",
+      risiko: 0, risikoText: "Keins; beim Umbau auf Einrückung und Zeilenende achten.", r: [2, 2, 2] },
+    { nr: 394, v: 16, b: "sprache", name: "Muster mit instanceof", titel: "Pattern Matching for instanceof", kette: [[305, 14], [375, 15]],
+      worum: "`if (o instanceof Kunde k)` – prüfen und binden in einem Schritt, ohne Cast.",
+      warum: "Der erste Schritt zu Mustern im `switch`.",
+      betrifft: "Dein Code `instanceof` mit Cast enthält.",
+      risiko: 0, risikoText: "Keins.", r: [1, 1, 2] },
+    { nr: 395, v: 16, b: "sprache", name: "Records", titel: "Records", kette: [[359, 14], [384, 15]],
+      worum: "`record Position(String artikel, int menge)` – Konstruktor, Zugriffsmethoden, `equals`, `hashCode` und `toString` vom Compiler.",
+      warum: "Unveränderliche Datenträger ohne Boilerplate.",
+      betrifft: "Du DTOs, Werte oder Ereignisse modellierst.",
+      risiko: 1, risikoText: "`toString` zeigt alle Komponenten, auch sensible; Frameworks, die JavaBeans-Getter erwarten, kennen `artikel()` nicht.", r: [2, 2, 1] },
+    { nr: 409, v: 17, b: "sprache", name: "Versiegelte Klassen", titel: "Sealed Classes", kette: [[360, 15], [397, 16]],
+      worum: "`sealed interface Zahlart permits Rechnung, Lastschrift, …` legt fest, wer erben darf.",
+      warum: "Der Compiler kennt alle Fälle – die Grundlage für vollständige `switch`.",
+      betrifft: "Du eine feste Menge von Varianten modellierst.",
+      risiko: 0, risikoText: "Keins.", r: [2, 2, 1] },
+    { nr: 356, v: 17, b: "api", name: "Zufallszahlen", titel: "Enhanced Pseudo-Random Number Generators",
+      worum: "`RandomGenerator` als gemeinsame Schnittstelle und neue Algorithmen, auch für Streams und parallele Arbeit.",
+      warum: "Austauschbare, bessere Zufallszahlen.",
+      betrifft: "Du Zufallszahlen für Simulationen oder Tests brauchst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 1, 0] },
+    { nr: 380, v: 16, b: "api", name: "Unix-Domain-Sockets", titel: "Unix-Domain Socket Channels",
+      worum: "`SocketChannel` und `ServerSocketChannel` auch über Unix-Domain-Sockets.",
+      warum: "Schnelle Verbindungen zwischen Prozessen auf demselben Rechner, etwa zu einem Sidecar.",
+      betrifft: "Prozesse auf demselben Rechner miteinander sprechen.",
+      risiko: 0, risikoText: "Keins.", r: [1, 0, 0] },
+    { nr: 358, v: 14, b: "jvm", name: "Hilfreiche NullPointerExceptions", titel: "Helpful NullPointerExceptions",
+      worum: "Die Meldung nennt, was `null` war: „because the return value of …getKunde() is null“.",
+      warum: "Fehler in Produktion schneller finden – ohne Codeänderung.",
+      betrifft: "Du jemals eine NullPointerException gesucht hast.",
+      risiko: 0, risikoText: "Keins; Tests, die auf den genauen Meldungstext prüfen, ändern sich.", r: [2, 2, 2] },
+    { nr: 377, v: 15, b: "jvm", name: "ZGC", titel: "ZGC: A Scalable Low-Latency Garbage Collector (Production)", kette: [[333, 11, "Experimentell"]],
+      worum: "Ein Collector mit Pausen unter einer Millisekunde, auch bei großen Heaps.",
+      warum: "Für Dienste mit engen Antwortzeiten. Gemessen am Übungsprojekt: längste Pause 0,04 ms statt 8,5 ms mit G1.",
+      betrifft: "Eure Antwortzeiten unter GC-Pausen leiden.",
+      risiko: 0, risikoText: "Keins; kostet mehr CPU und Speicher.", r: [2, 0, 1] },
+    { nr: 379, v: 15, b: "jvm", name: "Shenandoah", titel: "Shenandoah: A Low-Pause-Time Garbage Collector (Production)", kette: [[189, 12, "Experimentell"]],
+      worum: "Ein weiterer Collector mit kurzen Pausen.",
+      warum: "Eine Alternative zu ZGC – nicht in jeder Distribution enthalten.",
+      betrifft: "Eure Distribution ihn mitliefert und ZGC nicht passt.",
+      risiko: 0, risikoText: "Keins.", r: [1, 0, 0] },
+    { nr: 341, v: 12, b: "jvm", name: "CDS-Standardarchiv", titel: "Default CDS Archives",
+      worum: "Das JDK bringt ein Archiv seiner eigenen Klassen mit – jeder Start profitiert.",
+      warum: "Schnellerer Start ohne eine einzige Option.",
+      betrifft: "Startzeit zählt.",
+      risiko: 0, risikoText: "Keins.", r: [1, 1, 0] },
+    { nr: 350, v: 13, b: "jvm", name: "Dynamisches CDS-Archiv", titel: "Dynamic CDS Archives",
+      worum: "`-XX:ArchiveClassesAtExit` schreibt nach einem Lauf ein Archiv der Anwendungsklassen.",
+      warum: "AppCDS in einem Schritt. Gemessen: REST-Schnittstelle 311 → 218 ms Startzeit auf JDK 21.",
+      betrifft: "Startzeit zählt und Ihr noch auf 21 seid.",
+      risiko: 0, risikoText: "Keins.", r: [2, 1, 0] },
+    { nr: 346, v: 12, b: "jvm", name: "G1 gibt Speicher zurück", titel: "Promptly Return Unused Committed Memory from G1",
+      worum: "G1 gibt ungenutzten Heap auch im Leerlauf an das Betriebssystem zurück.",
+      warum: "Im Container und in der Cloud zählt belegter, nicht genutzter Speicher.",
+      betrifft: "Eure Anwendung lange Leerlaufphasen hat.",
+      risiko: 0, risikoText: "Keins.", r: [2, 1, 1] },
+    { nr: 349, v: 14, b: "jvm", name: "JFR-Streaming", titel: "JFR Event Streaming",
+      worum: "JFR-Ereignisse laufend lesen, statt erst eine Aufzeichnung auszuwerten.",
+      warum: "Überwachung im laufenden Betrieb.",
+      betrifft: "Ihr eigene Überwachung baut.",
+      risiko: 0, risikoText: "Keins.", r: [1, 0, 1] },
+    { nr: 392, v: 16, b: "werkzeuge", name: "jpackage", titel: "Packaging Tool", kette: [[343, 14, "Incubator"]],
+      worum: "Baut installierbare Pakete (`.msi`, `.dmg`, `.deb`) samt Laufzeit.",
+      warum: "Für Desktop-Anwendungen.",
+      betrifft: "Du Anwendungen zum Installieren auslieferst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 363, v: 14, b: "entfernt", name: "CMS entfernt", titel: "Remove the Concurrent Mark Sweep (CMS) Garbage Collector",
+      worum: "Der CMS-Collector ist nicht mehr im JDK.",
+      warum: "Alte Startskripte brechen – ein Bruch, der in keinem Quelltext steht.",
+      betrifft: "`-XX:+UseConcMarkSweepGC` in Startskript oder Dockerfile steht.",
+      risiko: 2, risikoText: "Gemessen auf 21 und 25: „Unrecognized VM option“ – die JVM startet nicht.", r: [1, 1, 2] },
+    { nr: 372, v: 15, b: "entfernt", name: "Nashorn entfernt", titel: "Remove the Nashorn JavaScript Engine",
+      worum: "Die JavaScript-Engine ist aus dem JDK entfernt.",
+      warum: "Skripte brauchen eine eigene Engine, etwa GraalJS.",
+      betrifft: "Ihr per `ScriptEngine` JavaScript ausführt.",
+      risiko: 2, risikoText: "`getEngineByName(\"nashorn\")` liefert `null` – erst zur Laufzeit.", r: [0, 1, 1] },
+    { nr: 390, v: 16, b: "entfernt", name: "Warnung bei Wertklassen", titel: "Warnings for Value-Based Classes",
+      worum: "Der Compiler warnt, wenn auf `Integer`, `LocalDate` und anderen wertbasierten Klassen synchronisiert wird; ihre Konstruktoren wie `new Integer(…)` sind zur Entfernung abgekündigt.",
+      warum: "Die Vorbereitung auf Valhalla (siehe Ausblick).",
+      betrifft: "Du `new Integer(…)` schreibst oder auf solchen Objekten synchronisierst.",
+      risiko: 1, risikoText: "Heute Warnungen, mit Valhalla Fehler.", r: [1, 1, 1] },
+    { nr: 396, v: 16, b: "entfernt", name: "Kapselung als Standard", titel: "Strongly Encapsulate JDK Internals by Default",
+      worum: "`--illegal-access=deny` wird Standard: Deep Reflection auf JDK-Interna scheitert zur Laufzeit.",
+      warum: "Der Bruch, der den Sprung von 8 auf 17 für viele Bibliotheken schmerzhaft machte.",
+      betrifft: "Dein Code oder eine Bibliothek per `setAccessible(true)` in JDK-Klassen greift.",
+      risiko: 2, risikoText: "`InaccessibleObjectException` zur Laufzeit; Notlösung `--add-opens` (Modul `reflection`).", r: [1, 1, 2] },
+    { nr: 403, v: 17, b: "entfernt", name: "Kapselung ohne Ausweg", titel: "Strongly Encapsulate JDK Internals",
+      worum: "`--illegal-access` ist wirkungslos; nur noch `--add-opens` öffnet einzelne Pakete.",
+      warum: "Ab 17 gibt es keinen Schalter mehr, der alles wieder öffnet.",
+      betrifft: "Ihr bisher mit `--illegal-access=permit` gestartet habt.",
+      risiko: 2, risikoText: "Startskripte und Bibliotheken müssen nachziehen.", r: [1, 1, 2] },
+    { nr: 411, v: 17, b: "entfernt", name: "Security Manager abgekündigt", titel: "Deprecate the Security Manager for Removal",
+      worum: "Der Security Manager wird zur Entfernung abgekündigt – abgeschaltet mit 24 (JEP 486).",
+      warum: "Wer damit Plugins oder fremden Code einsperrt, braucht ein anderes Konzept.",
+      betrifft: "Eure Anwendung oder Euer Server einen Security Manager installiert.",
+      risiko: 1, risikoText: "Ab 18 eine Warnung, ab 24 vorbei.", r: [0, 1, 2] },
+    { nr: 398, v: 17, b: "entfernt", name: "Applet-API abgekündigt", titel: "Deprecate the Applet API for Removal",
+      worum: "Die Applet-API wird zur Entfernung abgekündigt – entfernt mit 26 (JEP 504).",
+      warum: "Historisch; Browser führen seit Jahren keine Applets mehr aus.",
+      betrifft: "Noch Applet-Klassen im Code liegen.",
+      risiko: 0, risikoText: "Praktisch keins.", r: [0, 0, 0] },
+
+    // ===== 17 → 21 =====
+    { nr: 441, v: 21, b: "sprache", name: "Muster im switch", titel: "Pattern Matching for switch", kette: [[406, 17], [420, 18], [427, 19], [433, 20]],
+      worum: "`switch` über Typen mit Mustern, `when`-Wächtern und `case null`; über versiegelte Typen vollständig ohne `default`.",
+      warum: "Fallunterscheidungen, deren Vollständigkeit der Compiler prüft.",
+      betrifft: "Du Typen unterscheidest oder einen Visitor pflegst.",
+      risiko: 0, risikoText: "Keins.", r: [2, 2, 1] },
+    { nr: 440, v: 21, b: "sprache", name: "Record-Patterns", titel: "Record Patterns", kette: [[405, 19], [432, 20]],
+      worum: "Records im Muster zerlegen: `case Rechnung(var tage) -> …`.",
+      warum: "Daten und Fallunterscheidung passen zusammen – der Visitor wird überflüssig.",
+      betrifft: "Du Records nach ihrem Inhalt unterscheidest.",
+      risiko: 0, risikoText: "Keins.", r: [2, 2, 1] },
+    { nr: 430, v: 21, b: "sprache", name: "String Templates", titel: "String Templates (Preview)", zurückgezogen: true,
+      weg: [[430, 21, "Preview"], [459, 22, "Preview"], [465, 23, "zurückgezogen"]],
+      worum: "`STR.\"Hallo \\{name}\"` – Text mit eingebetteten Ausdrücken und Prozessoren, etwa für sicheres SQL.",
+      warum: "Das Lehrbeispiel für Preview: zweimal ausgeliefert, vor 23 zurückgezogen. Wer es nutzte, musste zurückbauen.",
+      betrifft: "Du Preview-Features in Produktion nutzen willst.",
+      risiko: 2, risikoText: "Preview-Code bricht beim nächsten Release – hier sogar ganz.", r: [0, 0, 0] },
+    { nr: 444, v: 21, b: "api", name: "Virtual Threads", titel: "Virtual Threads", kette: [[425, 19], [436, 20]],
+      worum: "Leichte Threads, die beim Blockieren ihren Träger freigeben – Hunderttausende sind möglich.",
+      warum: "Blockierender Code skaliert, ohne ihn reaktiv umzuschreiben. Gemessen: Batch-Import 1329 → 71 ms auf JDK 25.",
+      betrifft: "Deine Anwendung viel auf andere Systeme wartet.",
+      risiko: 1, risikoText: "Pinning bei `synchronized` bis 23 (behoben mit JEP 491); `ThreadLocal`-Caches vervielfachen sich.", r: [2, 2, 1] },
+    { nr: 431, v: 21, b: "api", name: "Sequenced Collections", titel: "Sequenced Collections",
+      worum: "`getFirst()`, `getLast()` und `reversed()` für Listen, Deques sowie sortierte Mengen und Maps.",
+      warum: "Ein gemeinsamer Zugriff auf Anfang und Ende.",
+      betrifft: "Du erste oder letzte Elemente liest – oder eigene Collections mit solchen Methoden hast.",
+      risiko: 1, risikoText: "Eigene Methoden `getFirst()` mit anderem Rückgabetyp übersetzen nicht mehr (Modul `sequenced`).", r: [1, 1, 1] },
+    { nr: 439, v: 21, b: "jvm", name: "Generational ZGC", titel: "Generational ZGC",
+      worum: "ZGC trennt junge und alte Objekte und räumt die jungen häufiger auf.",
+      warum: "Weniger CPU und Speicher für dieselben kurzen Pausen; ab 23 der Standard-Modus (JEP 474).",
+      betrifft: "Ihr ZGC nutzt.",
+      risiko: 0, risikoText: "Keins.", r: [2, 0, 1] },
+    { nr: 408, v: 18, b: "werkzeuge", name: "jwebserver", titel: "Simple Web Server",
+      worum: "`jwebserver` liefert ein Verzeichnis statischer Dateien aus.",
+      warum: "Zum Testen und Ausprobieren, nicht für Produktion.",
+      betrifft: "Du schnell Dateien per HTTP bereitstellen willst.",
+      risiko: 0, risikoText: "Keins.", r: [1, 0, 0] },
+    { nr: 413, v: 18, b: "werkzeuge", name: "@snippet in Javadoc", titel: "Code Snippets in Java API Documentation",
+      worum: "`{@snippet …}` bindet geprüfte Code-Beispiele in Javadoc ein.",
+      warum: "Beispiele, die nicht veralten.",
+      betrifft: "Du Bibliotheken dokumentierst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 400, v: 18, b: "entfernt", name: "UTF-8 als Standard", titel: "UTF-8 by Default",
+      worum: "Der Standard-Zeichensatz ist überall UTF-8, nicht mehr der des Betriebssystems.",
+      warum: "Unter Windows lesen und schreiben `FileReader` und Co. plötzlich anders.",
+      betrifft: "Ihr Dateien ohne ausdrücklichen Zeichensatz lest oder schreibt.",
+      risiko: 2, risikoText: "Still – Umlaute werden falsch, kein Fehler (Modul `zeichensatz`). Notlösung `-Dfile.encoding=COMPAT`; besser den Zeichensatz im Code nennen.", r: [1, 2, 1] },
+    { nr: 421, v: 18, b: "entfernt", name: "Finalisierung abgekündigt", titel: "Deprecate Finalization for Removal",
+      worum: "`finalize()` ist zur Entfernung abgekündigt; mit `--finalization=disabled` lässt sich ihr Fehlen schon testen.",
+      warum: "Aufräumen gehört in try-with-resources oder einen `Cleaner`.",
+      betrifft: "Eure Klassen oder alte Bibliotheken `finalize()` überschreiben.",
+      risiko: 1, risikoText: "Heute Warnungen; ist es entfernt, werden Ressourcen still nicht mehr freigegeben.", r: [1, 1, 1] },
+    { nr: 451, v: 21, b: "entfernt", name: "Agenten nur noch beim Start", titel: "Prepare to Disallow the Dynamic Loading of Agents",
+      worum: "Lädt sich ein Agent zur Laufzeit in eine JVM, gibt es eine Warnung; künftig braucht er `-XX:+EnableDynamicAgentLoading`.",
+      warum: "Betrifft Mocking-Bibliotheken und Überwachungswerkzeuge.",
+      betrifft: "Ihr Mockito, Byte Buddy oder einen APM-Agenten dynamisch ladet.",
+      risiko: 1, risikoText: "Warnungen in Testläufen; Agenten besser beim Start mit `-javaagent` laden.", r: [1, 1, 1] },
+
+    // ===== 21 → 25 =====
+    { nr: 456, v: 22, b: "sprache", name: "Unbenannte Variablen _", titel: "Unnamed Variables & Patterns", kette: [[443, 21]],
+      worum: "`_` für Variablen und Musterteile, die man nicht braucht: `catch (Exception _)`, `case Rechnung _`.",
+      warum: "Zeigt im Code, was bewusst ungenutzt bleibt.",
+      betrifft: "Du ungenutzte Variablen oder Musterteile hast.",
+      risiko: 0, risikoText: "Keins – `_` war seit 9 kein Bezeichner mehr.", r: [1, 1, 0] },
+    { nr: 513, v: 25, b: "sprache", name: "Flexible Konstruktoren", titel: "Flexible Constructor Bodies", kette: [[447, 22], [482, 23], [492, 24]],
+      worum: "Code vor `super(…)` und `this(…)`: Argumente prüfen und berechnen, bevor die Oberklasse läuft.",
+      warum: "Kein Umweg über statische Hilfsmethoden mehr für die Prüfung im Konstruktor.",
+      betrifft: "Du Konstruktorargumente prüfst, bevor Du sie weiterreichst.",
+      risiko: 0, risikoText: "Keins.", r: [1, 1, 1] },
+    { nr: 512, v: 25, b: "sprache", name: "Kompakte Quelldateien", titel: "Compact Source Files and Instance Main Methods", kette: [[445, 21], [463, 22], [477, 23], [495, 24]],
+      worum: "`void main() { … }` ohne Klasse und ohne `static`; `IO.println` für Ausgaben.",
+      warum: "Kleine Programme ohne Zeremonie – für Skripte und den Einstieg.",
+      betrifft: "Du kleine Werkzeuge in Java schreibst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 1, 0] },
+    { nr: 511, v: 25, b: "sprache", name: "Modul-Importe", titel: "Module Import Declarations", kette: [[476, 23], [494, 24]],
+      worum: "`import module java.base;` importiert alle exportierten Pakete eines Moduls.",
+      warum: "Kurze Importe für Skripte und kleine Programme.",
+      betrifft: "Du kleine Programme oder Skripte schreibst.",
+      risiko: 1, risikoText: "Mehrdeutige Namen (`List` aus `java.util` und `java.awt`) brauchen einen Einzelimport.", r: [0, 0, 0] },
+    { nr: 485, v: 24, b: "api", name: "Stream Gatherers", titel: "Stream Gatherers", kette: [[461, 22], [473, 23]],
+      worum: "Eigene Zwischenoperationen für Streams: `gather(Gatherers.windowFixed(100))` für Pakete, gleitende Fenster, Abbruch.",
+      warum: "Was mit Collectors nicht ging: Gruppen in der Reihenfolge des Streams.",
+      betrifft: "Du Daten in Paketen oder Fenstern verarbeitest.",
+      risiko: 0, risikoText: "Keins.", r: [1, 2, 0] },
+    { nr: 506, v: 25, b: "api", name: "Scoped Values", titel: "Scoped Values", kette: [[429, 20, "Incubator"], [446, 21], [464, 22], [481, 23], [487, 24]],
+      worum: "Ein Wert, der für einen Aufruf und alles darin gilt – unveränderlich und ohne Aufräumen.",
+      warum: "Der Nachfolger von `ThreadLocal` für Kontext wie Korrelations-IDs, passend zu virtuellen Threads.",
+      betrifft: "Ihr Kontext per `ThreadLocal` weiterreicht.",
+      risiko: 0, risikoText: "Keins.", r: [2, 1, 1] },
+    { nr: 454, v: 22, b: "api", name: "Foreign Function & Memory", titel: "Foreign Function & Memory API", kette: [[424, 19], [434, 20], [442, 21]],
+      worum: "Native Bibliotheken aufrufen und Speicher außerhalb des Heaps verwalten – ohne JNI.",
+      warum: "Der Nachfolger von JNI und den Speicherzugriffen in `sun.misc.Unsafe`.",
+      betrifft: "Ihr native Bibliotheken anbindet.",
+      risiko: 0, risikoText: "Keins.", r: [0, 1, 0] },
+    { nr: 484, v: 24, b: "api", name: "Class-File API", titel: "Class-File API", kette: [[457, 22], [466, 23]],
+      worum: "Klassendateien lesen, erzeugen und umbauen – mit dem JDK statt mit ASM.",
+      warum: "Frameworks und Werkzeuge hängen nicht mehr am Release einer Bytecode-Bibliothek.",
+      betrifft: "Du Bytecode erzeugst oder analysierst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 491, v: 24, b: "jvm", name: "Kein Pinning bei synchronized", titel: "Synchronize Virtual Threads without Pinning",
+      worum: "Ein virtueller Thread, der in `synchronized` blockiert, gibt seinen Träger frei.",
+      warum: "Der größte Vorbehalt gegen virtuelle Threads unter 21 entfällt. Gemessen: Batch-Import 893 ms auf 21, 71 ms auf 25.",
+      betrifft: "Ihr virtuelle Threads mit altem Code oder alten Treibern nutzt.",
+      risiko: 0, risikoText: "Keins.", r: [2, 2, 1] },
+    { nr: 483, v: 24, b: "jvm", name: "AOT-Cache", titel: "Ahead-of-Time Class Loading & Linking",
+      worum: "Ein Trainingslauf schreibt geladene und gelinkte Klassen in einen Cache; die nächsten Starts lesen ihn.",
+      warum: "Gemessen: REST-Schnittstelle 311 → 194 ms Startzeit.",
+      betrifft: "Startzeit zählt.",
+      risiko: 0, risikoText: "Keins; der Cache passt nur zu gleichem JDK und Klassenpfad.", r: [2, 1, 0] },
+    { nr: 514, v: 25, b: "jvm", name: "AOT in einem Schritt", titel: "Ahead-of-Time Command-Line Ergonomics",
+      worum: "`-XX:AOTCacheOutput` erzeugt den Cache in einem Lauf statt in zwei.",
+      warum: "Der AOT-Cache wird alltagstauglich.",
+      betrifft: "Ihr den AOT-Cache im Build erzeugt.",
+      risiko: 0, risikoText: "Keins.", r: [2, 1, 0] },
+    { nr: 515, v: 25, b: "jvm", name: "AOT-Profile", titel: "Ahead-of-Time Method Profiling",
+      worum: "Der Cache enthält auch Profile aus dem Trainingslauf – der JIT optimiert früher.",
+      warum: "Schneller auf voller Leistung nach dem Start.",
+      betrifft: "Eure Dienste kurz nach dem Start Last tragen müssen.",
+      risiko: 0, risikoText: "Keins.", r: [2, 0, 0] },
+    { nr: 519, v: 25, b: "jvm", name: "Kompakte Objekt-Header", titel: "Compact Object Headers", kette: [[450, 24, "Experimentell"]],
+      worum: "Objekt-Header schrumpfen auf 8 Byte; einschalten mit `-XX:+UseCompactObjectHeaders`.",
+      warum: "Weniger Heap bei vielen kleinen Objekten – ab 27 Standard.",
+      betrifft: "Eure Anwendung viele kleine Objekte hält.",
+      risiko: 0, risikoText: "Keins.", r: [1, 2, 1] },
+    { nr: 474, v: 23, b: "jvm", name: "ZGC nur generational", titel: "ZGC: Generational Mode by Default",
+      worum: "Generational ZGC wird Standard; mit 24 entfällt der alte Modus (JEP 490).",
+      warum: "Wer ZGC einschaltet, bekommt die bessere Variante.",
+      betrifft: "Eure Startskripte `-XX:-ZGenerational` setzen.",
+      risiko: 1, risikoText: "Gemessen auf 25: Die Option wird mit einer Warnung ignoriert.", r: [1, 0, 1] },
+    { nr: 458, v: 22, b: "werkzeuge", name: "Mehrere Quelldateien starten", titel: "Launch Multi-File Source-Code Programs",
+      worum: "`java Haupt.java` darf weitere Quelldateien im selben Ordner nutzen.",
+      warum: "Kleine Programme wachsen über eine Datei hinaus, ohne Build.",
+      betrifft: "Du Skripte in Java schreibst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 1, 0] },
+    { nr: 467, v: 23, b: "werkzeuge", name: "Javadoc in Markdown", titel: "Markdown Documentation Comments",
+      worum: "Javadoc-Kommentare mit `///` in Markdown statt HTML.",
+      warum: "Lesbare Dokumentation im Quelltext.",
+      betrifft: "Du Javadoc schreibst.",
+      risiko: 0, risikoText: "Keins.", r: [0, 0, 0] },
+    { nr: 486, v: 24, b: "entfernt", name: "Security Manager abgeschaltet", titel: "Permanently Disable the Security Manager",
+      worum: "Ein Security Manager lässt sich nicht mehr einschalten; `-Djava.security.manager=allow` hilft nicht mehr.",
+      warum: "Das Ende einer Ära – auch für Server, die ihn genutzt haben.",
+      betrifft: "Eure Anwendung `System.setSecurityManager` aufruft.",
+      risiko: 2, risikoText: "`UnsupportedOperationException` zur Laufzeit (Modul `security-manager`).", r: [0, 1, 2] },
+    { nr: 498, v: 24, b: "entfernt", name: "Warnung bei Unsafe", titel: "Warn upon Use of Memory-Access Methods in sun.misc.Unsafe", kette: [[471, 23, "Abkündigung"]],
+      worum: "Die Speicherzugriffe von `sun.misc.Unsafe` lösen eine Warnung aus – sie werden entfernt.",
+      warum: "Viele Bibliotheken nutzen sie noch; Maven selbst warnt auf 25.",
+      betrifft: "Beim Start eine Warnung zu `sun.misc.Unsafe` erscheint.",
+      risiko: 1, risikoText: "Heute Warnungen, künftig Fehler – Bibliotheken aktuell halten.", r: [1, 1, 1] },
+    { nr: 472, v: 24, b: "entfernt", name: "JNI eingeschränkt", titel: "Prepare to Restrict the Use of JNI",
+      worum: "Das Laden nativer Bibliotheken per JNI warnt; erlauben mit `--enable-native-access`.",
+      warum: "Wie bei der Kapselung: erst warnen, dann verbieten.",
+      betrifft: "Ihr oder eine Bibliothek native Bibliotheken ladet.",
+      risiko: 1, risikoText: "Warnungen, künftig Fehler ohne Erlaubnis.", r: [0, 1, 1] }
+  ];
+
+  const sprünge = [
+    { id: "11", titel: "8 → 11", unter: "Java 9–11 · LTS 2018", bis: 11 },
+    { id: "17", titel: "11 → 17", unter: "Java 12–17 · LTS 2021", bis: 17 },
+    { id: "21", titel: "17 → 21", unter: "Java 18–21 · LTS 2023", bis: 21 },
+    { id: "25", titel: "21 → 25", unter: "Java 22–25 · LTS 2025", bis: 25 }
+  ];
+  const bereiche = [
+    { id: "sprache", titel: "Sprache (JLS)" },
+    { id: "api", titel: "API" },
+    { id: "jvm", titel: "JVM und Laufzeit" },
+    { id: "werkzeuge", titel: "Werkzeuge" },
+    { id: "entfernt", titel: "Entfernt und verschärft" }
+  ];
+  const arten = [
+    { id: "rest", titel: "REST-Microservice" },
+    { id: "batch", titel: "Batch-Programm" },
+    { id: "server", titel: "Server-Anwendung" }
+  ];
+  const stufen = ["gering", "mittel", "hoch"];
+
+  function sprungVon(jep) {
+    for (const s of sprünge) if (jep.v <= s.bis) return s.id;
+    return "25";
+  }
+  function vorabzahl(jep) {
+    return (jep.kette || []).length;
+  }
+
+  // ---------------------------------------------------------------------------
+  // ZUSTAND – eine Wahrheit, eine Funktion macht ihn sichtbar (zeichnen).
+  // ---------------------------------------------------------------------------
+  const stand = { art: "", lts: "", bereich: "", jep: "" };
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  // `code` → <code>code</code>, nach dem Maskieren.
+  function text(s) {
+    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+  }
+  function finde(nr) {
+    return jeps.find(function (j) { return String(j.nr) === String(nr); });
+  }
+
+  function aufbauen() {
+    const karte = document.getElementById("jl-karte");
+    let html = '<div aria-hidden="true"></div>';
+    sprünge.forEach(function (s) {
+      html += '<div class="jl-kopf" data-lts="' + s.id + '"><b>' + esc(s.titel) + "</b><span>" + esc(s.unter) + "</span></div>";
+    });
+    bereiche.forEach(function (b) {
+      html += '<div class="jl-zeilenkopf" data-bereich="' + b.id + '">' + esc(b.titel) + "</div>";
+      sprünge.forEach(function (s) {
+        const drin = jeps.filter(function (j) { return j.b === b.id && sprungVon(j) === s.id; })
+                         .sort(function (x, y) { return x.v - y.v || x.nr - y.nr; });
+        html += '<div class="jl-zelle">';
+        drin.forEach(function (j) {
+          let meta = "JEP " + j.nr + " · " + (j.zurückgezogen ? "Preview 21 · zurückgezogen" : "Java " + j.v);
+          if (vorabzahl(j) && !j.zurückgezogen) meta += " · " + vorabzahl(j) + "× vorab";
+          html += '<button type="button" class="jl-chip' + (j.zurückgezogen ? " is-zurueckgezogen" : "")
+               + '" data-nr="' + j.nr + '"><span class="jl-chip__name">' + esc(j.name)
+               + '</span><span class="jl-chip__meta">' + esc(meta) + "</span></button>";
+        });
+        html += "</div>";
+      });
+    });
+    karte.innerHTML = html;
+    karte.addEventListener("click", function (e) {
+      const chip = e.target.closest(".jl-chip");
+      if (!chip) return;
+      stand.jep = chip.dataset.nr;
+      zeichnen();
+      melden();
+    });
+
+    knöpfe("jl-knoepfe-art", "art", [{ id: "", titel: "Alle" }].concat(arten));
+    knöpfe("jl-knoepfe-lts", "lts", [{ id: "", titel: "Alle" }].concat(sprünge));
+    knöpfe("jl-knoepfe-bereich", "bereich", [{ id: "", titel: "Alle" }].concat(bereiche));
+
+    druckfassung();
+
+    const dialog = document.getElementById("jl-dialog");
+    document.getElementById("jl-d-zu").addEventListener("click", function () { dialog.close(); });
+    dialog.addEventListener("click", function (e) { if (e.target === dialog) dialog.close(); });
+    dialog.addEventListener("close", function () {
+      if (stand.jep) { stand.jep = ""; melden(); }
+    });
+  }
+
+  function knöpfe(ziel, schlüssel, liste) {
+    const box = document.getElementById(ziel);
+    box.innerHTML = liste.map(function (x) {
+      return '<button type="button" class="jl-knopf" data-schluessel="' + schlüssel + '" data-wert="' + x.id + '">' + esc(x.titel) + "</button>";
+    }).join("");
+    box.addEventListener("click", function (e) {
+      const k = e.target.closest(".jl-knopf");
+      if (!k) return;
+      stand[schlüssel] = k.dataset.wert;
+      zeichnen();
+      melden();
+    });
+  }
+
+  function zeichnen() {
+    document.querySelectorAll(".jl-knopf").forEach(function (k) {
+      k.setAttribute("aria-pressed", String(stand[k.dataset.schluessel] === k.dataset.wert));
+    });
+    document.querySelectorAll(".jl-kopf").forEach(function (k) {
+      k.classList.toggle("is-gewaehlt", stand.lts === k.dataset.lts);
+    });
+    document.querySelectorAll(".jl-zeilenkopf").forEach(function (k) {
+      k.classList.toggle("is-gewaehlt", stand.bereich === k.dataset.bereich);
+    });
+    const artIndex = arten.findIndex(function (a) { return a.id === stand.art; });
+    document.querySelectorAll(".jl-chip").forEach(function (chip) {
+      const j = finde(chip.dataset.nr);
+      const leise = (stand.lts && sprungVon(j) !== stand.lts)
+                 || (stand.bereich && j.b !== stand.bereich)
+                 || (artIndex >= 0 && j.r[artIndex] === 0);
+      chip.classList.toggle("is-leise", Boolean(leise));
+      chip.classList.toggle("is-wichtig", !leise && artIndex >= 0 && j.r[artIndex] === 2);
+    });
+
+    const dialog = document.getElementById("jl-dialog");
+    const j = stand.jep ? finde(stand.jep) : null;
+    if (j) {
+      füllen(j);
+      if (!dialog.open) dialog.showModal();
+    } else if (dialog.open) {
+      dialog.close();
+    }
+  }
+
+  function weg(j) {
+    if (j.weg) return j.weg;
+    return (j.kette || []).map(function (k) { return [k[0], k[1], k[2] || "Preview"]; }).concat([[j.nr, j.v, "final"]]);
+  }
+
+  function füllen(j) {
+    document.getElementById("jl-d-titel").textContent = j.name;
+    const sprung = sprünge.find(function (s) { return s.id === sprungVon(j); });
+    document.getElementById("jl-d-unter").innerHTML = "JEP " + j.nr + " · „" + esc(j.titel) + "“ · "
+      + (j.zurückgezogen ? "Preview in Java 21, zurückgezogen" : "final in Java " + j.v + " · <b>LTS " + sprung.id + "</b>");
+    let html = "<h3>Worum es geht</h3><p>" + text(j.worum) + "</p>"
+      + "<h3>Warum das wichtig ist</h3><p>" + text(j.warum) + "</p>"
+      + "<h3>Betrifft Dich, wenn …</h3><p>… " + text(j.betrifft) + "</p>"
+      + '<h3>Kompatibilitätsrisiko</h3><p><span class="jl-marke jl-marke--' + j.risiko + '">' + stufen[j.risiko] + "</span>" + text(j.risikoText) + "</p>"
+      + '<h3>Relevanz je Anwendungsart</h3><div class="jl-relevanz">';
+    arten.forEach(function (a, i) {
+      html += "<span>" + esc(a.titel) + '</span><span><span class="jl-marke">' + stufen[j.r[i]] + "</span></span>";
+    });
+    html += "</div>";
+    const w = weg(j);
+    if (w.length > 1) {
+      html += '<h3>Weg zur finalen Fassung</h3><p class="jl-weg">' + w.map(function (s) {
+        return '<span class="jl-schritt' + (s[2] === "final" ? " is-final" : "") + '">JEP ' + s[0] + " · " + esc(s[2]) + " in " + s[1] + "</span>";
+      }).join('<span class="jl-pfeil" aria-hidden="true">→</span>') + "</p>";
+    }
+    html += '<p style="margin-top:1rem"><a href="https://openjdk.org/jeps/' + j.nr + '" rel="noopener">JEP ' + j.nr + " auf openjdk.org</a></p>";
+    document.getElementById("jl-d-inhalt").innerHTML = html;
+  }
+
+  function druckfassung() {
+    let html = "<h2>Alle JEPs im Einzelnen</h2>";
+    sprünge.forEach(function (s) {
+      html += "<h2>" + esc(s.titel) + "</h2>";
+      jeps.filter(function (j) { return sprungVon(j) === s.id; })
+          .sort(function (x, y) { return x.v - y.v || x.nr - y.nr; })
+          .forEach(function (j) {
+            html += "<section><h3>JEP " + j.nr + " · " + esc(j.name) + " (Java " + j.v + ")</h3><p>" + text(j.worum)
+                 + "</p><p><b>Betrifft Dich, wenn</b> " + text(j.betrifft) + "</p><p><b>Risiko " + stufen[j.risiko] + ":</b> " + text(j.risikoText) + "</p></section>";
+          });
+    });
+    document.getElementById("jl-druck").innerHTML = html;
+  }
+
+  // ---------------------------------------------------------------------------
+  // ADRESSE – über AvdAcademyState des Themes, nie selbst ins Fragment schreiben.
+  // Unbekannte Werte führen still in den Ausgangszustand.
+  // ---------------------------------------------------------------------------
+  function melden() {
+    if (window.AvdAcademyState) window.AvdAcademyState.update();
+  }
+  function gültig(schlüssel, wert) {
+    if (!wert) return "";
+    const listen = { art: arten, lts: sprünge, bereich: bereiche };
+    if (schlüssel === "jep") return finde(wert) ? String(wert) : "";
+    return listen[schlüssel].some(function (x) { return x.id === wert; }) ? wert : "";
+  }
+  function anmelden() {
+    if (!window.AvdAcademyState) return;
+    ["art", "lts", "bereich", "jep"].forEach(function (schlüssel) {
+      window.AvdAcademyState.register({
+        key: schlüssel,
+        read: function () { return stand[schlüssel]; },
+        apply: function (wert) { stand[schlüssel] = gültig(schlüssel, wert); zeichnen(); }
+      });
+    });
+  }
+
+  function start() {
+    aufbauen();
+    zeichnen();
+    anmelden();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+})();
+</script>
+
+
+
+    </main>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
