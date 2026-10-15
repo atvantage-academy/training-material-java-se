@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Ausblick: von Java 26 bis Java 29 · ATVANTAGE Academy</title><meta name="description" content="Was nach Java 25 kommt: Java 26 und 27, die Pläne für 28 und das nächste LTS-Release Java 29 – neue Sprachmittel, eine JVM, die von selbst besser wird, und was als Nächstes bricht."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Ausblick: von Java 26 bis Java 29">
+<meta property="og:description" content="Was nach Java 25 kommt: Java 26 und 27, die Pläne für 28 und das nächste LTS-Release Java 29 – neue Sprachmittel, eine JVM, die von selbst besser wird, und was als Nächstes bricht.">
+<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/ausblick/praesentation.html","title":"Ausblick: von Java 26 bis Java 29","layout":"presentation","description":"Was nach Java 25 kommt: Java 26 und 27, die Pläne für 28 und das nächste LTS-Release Java 29 – neue Sprachmittel, eine JVM, die von selbst besser wird, und was als Nächstes bricht.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792094075" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/presentation.css?v=42e076e9">
+  <script src="/training-material-java-se/theme/jekyll/presentation.js?v=b2cc2b42" defer></script>
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head>
+<body class="avd-academy-present" data-avd-academy-present data-avd-academy-present-title="Ausblick: von Java 26 bis Java 29">
+  <a class="avd-academy-skip-link" href="#avd-academy-deck">Zum Inhalt springen</a>
+
+  <header class="avd-academy-present__bar">
+    <img class="avd-academy-present__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-present__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><span class="avd-academy-present__title">Ausblick: von Java 26 bis Java 29</span>
+    <span class="avd-academy-present__counter" data-avd-academy-present-counter aria-live="off"></span>
+    <div class="avd-academy-present__tools"><button type="button" class="avd-academy-present__back" data-avd-academy-back hidden
+              title="Zurück" aria-label="Zurück">← Zurück</button><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
+                data-avd-academy-present-print
+                title="Drucken (alle Folien)" aria-label="Drucken (alle Folien)"></button><button type="button" class="avd-academy-tool avd-academy-tool--full"
+              data-avd-academy-present-full
+              title="Vollbild (Taste F)" aria-label="Vollbild">⛶</button></div>
+  </header><main class="avd-academy-deck" id="avd-academy-deck" data-avd-academy-deck>
+    <!-- ANFORDERUNGEN an diese Präsentation
+     - Ausblick Java 26/27 → 29 (Vorgabe der Konzept-AGENTS.md). Stand der JEPs frisch
+       geprüft am 2026-10-15 auf openjdk.org/projects/jdk/26, /27, /28. VOR JEDER
+       DURCHFÜHRUNG NACHZIEHEN: Die Liste für 28 ist bis zum Rampdown offen, und was in
+       29 final wird, entscheidet sich erst 2027.
+     - Folien-Anker, auf die das Trainer-Thema zeigt: #/2 Zeitstrahl, #/3 Sprache und
+       APIs, #/4 JVM, #/5 Was bricht, #/6 Valhalla, #/7 Abschluss.
+     - Gemessen (Docker, Temurin 25.0.4.1, 26.0.2.1, 27): JEP 500 warnt ab 26, deny
+       wirft IllegalAccessException; Container --cpus 1 -m 1g wählt auf 25 Serial, auf
+       27 G1; UseCompactObjectHeaders ist auf 27 Standard. Demos in spielwiese/ des
+       Übungsprojekts (FinalesFeld, PrimitiveMuster, Gleichzeitig).
+     - Preview-Features nur hier (Leitplanke). Keine Versprechen, was in 29 final
+       wird – nur, was auf dem Weg ist. -->
+
+<style>
+.avd-academy-slide { justify-content: center; justify-content: safe center; }
+.avd-academy-slide h2 { margin-bottom: var(--avd-academy-space-6); }
+.avd-academy-slide__inner > ul { margin-top: var(--avd-academy-space-6); }
+
+.grafik { width: 100%; height: auto; display: block; color: var(--avd-academy-color-ink); }
+.grafik text { fill: currentColor; font-family: inherit; }
+.grafik .leise { fill: var(--avd-academy-color-ink-muted); }
+.grafik .linie { stroke: var(--avd-academy-color-ink-muted); stroke-width: 4; }
+.grafik .punkt { fill: var(--avd-academy-color-bg); stroke: var(--avd-academy-color-ink-muted); stroke-width: 4; }
+.grafik .punkt--lts { fill: var(--avd-academy-color-accent); stroke: var(--avd-academy-color-accent); }
+.grafik .heute { stroke: var(--avd-academy-color-accent); stroke-width: 3; stroke-dasharray: 8 6; }
+.grafik .heute-text { fill: var(--avd-academy-color-accent); font-weight: 700; }
+
+.status { width: 100%; border-collapse: collapse; font-size: .8em; }
+.status th, .status td { padding: .45rem .7rem; border-bottom: 1px solid var(--avd-academy-color-border); text-align: left; vertical-align: top; }
+.status td:first-child { white-space: nowrap; }
+.marke { display: inline-block; padding: .05rem .5rem; border-radius: 999px; font-size: .85em; font-weight: 600; border: 1px solid var(--avd-academy-color-border); white-space: nowrap; }
+.marke--final { background: var(--avd-academy-color-accent); color: var(--avd-academy-color-accent-contrast); border-color: var(--avd-academy-color-accent); }
+.quelle { font-size: .55em; color: var(--avd-academy-color-ink-muted); margin-top: var(--avd-academy-space-4); }
+</style>
+
+<h1 id="ausblick-von-java-26-bis-java-29">Ausblick: von Java 26 bis Java 29</h1>
+
+<p>Was nach Java 25 kommt · Java-Update</p>
+
+<h2 id="der-zug-fährt-weiter">Der Zug fährt weiter</h2>
+
+<!-- Fünf Stationen im Abstand von 200 px; „heute“ zwischen 27 und 28 (Oktober 2026). -->
+<svg class="grafik" viewBox="0 0 1000 230" role="img" aria-label="Zeitstrahl: Java 25 LTS im September 2025, Java 26 im März 2026, Java 27 im September 2026, heute Oktober 2026, Java 28 im März 2027, Java 29 LTS im September 2027.">
+  <line class="linie" x1="100" y1="110" x2="900" y2="110" />
+  <line class="heute" x1="560" y1="40" x2="560" y2="180" />
+  <text class="heute-text" x="560" y="30" text-anchor="middle" font-size="18">heute</text>
+  <circle class="punkt punkt--lts" cx="100" cy="110" r="16" />
+  <circle class="punkt" cx="300" cy="110" r="12" />
+  <circle class="punkt" cx="500" cy="110" r="12" />
+  <circle class="punkt" cx="700" cy="110" r="12" />
+  <circle class="punkt punkt--lts" cx="900" cy="110" r="16" />
+  <g font-size="26" font-weight="700" text-anchor="middle">
+    <text x="100" y="78">25</text><text x="300" y="78">26</text><text x="500" y="78">27</text><text x="700" y="78">28</text><text x="900" y="78">29</text>
+  </g>
+  <g class="leise" font-size="18" text-anchor="middle">
+    <text x="100" y="152">Sept. 2025</text><text x="300" y="152">März 2026</text><text x="500" y="152">Sept. 2026</text><text x="700" y="152">März 2027</text><text x="900" y="152">Sept. 2027</text>
+  </g>
+  <g font-size="18" font-weight="700" text-anchor="middle">
+    <text x="100" y="186">LTS</text><text x="900" y="186">nächstes LTS</text>
+  </g>
+</svg>
+
+<ul>
+  <li>26 und 27 sind erschienen, die Liste für 28 füllt sich bis Dezember</li>
+  <li>Was bis 29 final wird, trägt die Marke <strong>LTS 29</strong> – alles andere frühestens LTS 33</li>
+</ul>
+
+<h2 id="auf-dem-weg-zu-29-sprache-und-apis">Auf dem Weg zu 29: Sprache und APIs</h2>
+
+<table class="status">
+<tr><th>Feature</th><th>Stand</th><th>Worum es geht</th></tr>
+<tr><td>Structured Concurrency</td><td><span class="marke marke--final">final in 28</span></td><td>Zusammengehörige Aufgaben als eine Einheit – mit virtuellen Threads</td></tr>
+<tr><td>Primitive Muster</td><td><span class="marke">5. Preview in 27</span></td><td><code>case int m when m &gt; 100</code>, <code>betrag instanceof int ganz</code></td></tr>
+<tr><td>Value Objects (Valhalla)</td><td><span class="marke">Preview in 28</span></td><td>Objekte ohne Identität – Daten, so kompakt wie <code>int</code></td></tr>
+<tr><td>Lazy Constants</td><td><span class="marke">3. Preview in 27</span></td><td>Konstanten, die erst beim ersten Zugriff berechnet werden</td></tr>
+<tr><td>HTTP/3 im <code>HttpClient</code></td><td><span class="marke marke--final">final in 26</span></td><td>Eine Option am Builder</td></tr>
+<tr><td>Simple JSON API</td><td><span class="marke">Incubator in 28</span></td><td>JSON lesen und schreiben ohne Bibliothek</td></tr>
+</table>
+
+<p class="quelle">Stand Oktober 2026 – JEP 543, 532, 401, 531, 517, 540</p>
+
+<h2 id="die-jvm-wird-von-selbst-besser">Die JVM wird von selbst besser</h2>
+
+<ul>
+  <li><strong>G1 überall Standard</strong> (27, JEP 523): Im Container mit einem Kern und 1 GB wählt 25 noch Serial, 27 den G1 – gemessen</li>
+  <li><strong>Kompakte Objekt-Header Standard</strong> (27, JEP 534): weniger Heap, ohne Code zu ändern</li>
+  <li><strong>AOT-Cache</strong> mit jedem GC, auch ZGC (26, JEP 516), und mit übersetztem Code (28, JEP 544)</li>
+  <li><strong>ZGC</strong> startet schneller und passt den Heap selbst an (28, JEP 545, 546)</li>
+</ul>
+
+<p class="quelle">Was in der JVM-Einheit Startskript und Dockerfile brauchten, erledigt das JDK zunehmend selbst</p>
+
+<h2 id="was-als-nächstes-bricht">Was als Nächstes bricht</h2>
+
+<pre><code class="language-text">$ java spielwiese/FinalesFeld.java              # JDK 26 und 27
+WARNING: Final field nummer in class FinalesFeld$Bestellung has been mutated reflectively …
+WARNING: Mutating final fields will be blocked in a future release …
+Nummer nach der Änderung: B-9999
+
+$ java --illegal-final-field-mutation=deny spielwiese/FinalesFeld.java
+Exception in thread "main" java.lang.IllegalAccessException: … not allowed to mutate final fields
+</code></pre>
+
+<ul>
+  <li><strong>„Final means final“</strong> (26, JEP 500): heute eine Warnung, künftig ein Verbot – betrifft Bibliotheken, die <code>final</code>-Felder per Reflection setzen</li>
+  <li><strong>Applet-API entfernt</strong> (26, JEP 504), <strong>macOS auf Intel</strong> zur Entfernung vorgesehen (28, JEP 541)</li>
+  <li>Dasselbe Muster wie bei der starken Kapselung: erst warnen, dann verbieten. Wer Warnungen liest, wird nicht überrascht</li>
+</ul>
+
+<h2 id="valhalla-objekte-ohne-identität">Valhalla: Objekte ohne Identität</h2>
+
+<pre><code class="language-java">value record Geldbetrag(long cent, String währung) {}
+
+var a = new Geldbetrag(1999, "EUR");
+var b = new Geldbetrag(1999, "EUR");
+a == b                    // true – gleich ist gleich
+synchronized (a) { … }    // scheitert: ein Wert hat keinen Monitor
+</code></pre>
+
+<ul>
+  <li>Preview in 28 (JEP 401) – Projekt Valhalla, an dem seit 2014 gearbeitet wird</li>
+  <li>Im Preview-Modus werden <code>Integer</code>, <code>Optional</code>, <code>LocalDate</code> und weitere zu Wertklassen: <code>synchronized</code> auf ihnen scheitert, <code>==</code> vergleicht den Wert</li>
+</ul>
+
+<h2 id="und-für-euch">Und für Euch?</h2>
+
+<ul>
+  <li>Was davon wartet Ihr bis 29 ab – und wo hilft schon 25?</li>
+  <li>Neue Warnungen in Build und Start ab sofort als Aufgabe lesen</li>
+</ul>
+
+  </main>
+
+  <nav class="avd-academy-present__controls" aria-label="Foliennavigation" hidden data-avd-academy-present-controls>
+    <button type="button" class="avd-academy-present__nav" data-avd-academy-present-prev
+            title="Vorherige Folie (←)" aria-label="Vorherige Folie">‹</button>
+    <button type="button" class="avd-academy-present__nav" data-avd-academy-present-next
+            title="Nächste Folie (→)" aria-label="Nächste Folie">›</button>
+  </nav>
+
+  <div class="avd-academy-present__progress" aria-hidden="true">
+    <div class="avd-academy-present__progress-fill" data-avd-academy-present-progress></div>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+</body>
+</html>
