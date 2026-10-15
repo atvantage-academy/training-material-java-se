@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Die Bestelldomäne modellieren · ATVANTAGE Academy</title><meta name="description" content="Mach Positionen, Kunden und Zahlarten des Altbestands zu Records, versiegle die Zahlarten – und entscheide, was keine Records werden darf."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Die Bestelldomäne modellieren">
+<meta property="og:description" content="Mach Positionen, Kunden und Zahlarten des Altbestands zu Records, versiegle die Zahlarten – und entscheide, was keine Records werden darf.">
+<meta property="og:type" content="article"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/records-und-sealed/issue.html","title":"Die Bestelldomäne modellieren","layout":"guide","description":"Mach Positionen, Kunden und Zahlarten des Altbestands zu Records, versiegle die Zahlarten – und entscheide, was keine Records werden darf.","duration":40,"topics":["Records","Versiegelte Typen","Domänenmodell"],"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792081688" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header"
+        data-avd-academy-menu-visible="7" data-avd-academy-menu-speed="1.0" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><img class="avd-academy-header__mark" src="/training-material-java-se/theme/atvantage/assets/icon-180.png" alt="">
+  </a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/java-update/">Java-Update</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1792081688"
+             data-base="/training-material-java-se/">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=4b72be9e" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-update/">Java-Update</a><span>/</span><span aria-current="page">Die Bestelldomäne modellieren</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 40 Minuten</span><span class="avd-academy-tag">Records</span><span class="avd-academy-tag">Versiegelte Typen</span><span class="avd-academy-tag">Domänenmodell</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Die Bestelldomäne modellieren</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in, die ein gewachsenes Datenmodell pflegt, möchte ich Wertklassen
+ohne Boilerplate schreiben und dem Compiler sagen können, welche Unterarten es gibt,
+damit das Modell kürzer wird und Fehler beim Übersetzen statt im Betrieb auffallen.</p>
+
+<p>Im Altbestand stecken in <code>altbestand/bestellung-domaene</code> Klassen, wie man sie mit
+Java 8 schrieb: <code>Position</code> und <code>Kunde</code> mit handgeschriebenem <code>equals</code>, <code>hashCode</code> und
+<code>toString</code>, dazu eine abstrakte Klasse <code>Zahlart</code> mit vier Unterklassen, deren
+Javadoc zugibt: „Sicherstellen lässt sich das mit Java 8 nicht.“ Ihr baut das Modell
+um – sein Verhalten bleibt gleich.</p>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du …</p>
+
+<ul>
+  <li>machst aus einer Wertklasse einen Record und verlegst ihre Prüfungen in den kompakten Konstruktor.</li>
+  <li>versiegelst eine Hierarchie mit <code>sealed</code> und <code>permits</code>.</li>
+  <li>erkennst, wo das automatisch erzeugte <code>toString</code> eines Records schadet, und schreibst es dort selbst.</li>
+  <li>begründest, warum eine Klasse mit Identität und veränderlichem Zustand kein Record wird.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Position</code>, <code>Kunde</code> und die vier Zahlarten sind Records.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Zahlart</code> ist versiegelt und erlaubt genau diese vier.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>DomänenmodellTest</code> und alle bisherigen Tests sind grün: <code>./mvnw clean verify</code>.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="ausgangsstand-und-absicherung">Ausgangsstand und Absicherung</h3>
+
+<p>Du arbeitest auf Deinem Stand nach „Bau Dein eigenes <code>STR</code>“ oder auf dem Branch
+<code>loesung/sprachmittel</code>. Leg zuerst einen Test an, der festhält, was das Modell
+zusagt – <code>DomänenmodellTest</code> in <code>altbestand/bestellung-domaene/src/test/java/bestellung/domaene/</code>:</p>
+
+<pre><code class="language-java">package bestellung.domaene;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.math.BigDecimal;
+import java.time.YearMonth;
+
+import org.junit.jupiter.api.Test;
+
+class DomänenmodellTest {
+
+    @Test
+    void positionenMitGleichenWertenSindGleich() {
+        var a = new Position("A-100", "Kaffeebohnen, 1 kg", 2, new BigDecimal("18.90"));
+        var b = new Position("A-100", "Kaffeebohnen, 1 kg", 2, new BigDecimal("18.90"));
+        assertEquals(a, b);
+        assertEquals(a.hashCode(), b.hashCode());
+    }
+
+    @Test
+    void einePositionOhneMengeGibtEsNicht() {
+        assertThrows(IllegalArgumentException.class,
+                () -&gt; new Position("A-100", "Kaffeebohnen, 1 kg", 0, new BigDecimal("18.90")));
+    }
+
+    @Test
+    void einenKundenOhneNamenGibtEsNicht() {
+        assertThrows(NullPointerException.class, () -&gt; new Kunde("K-1001", null, null));
+    }
+
+    @Test
+    void dieKreditkarteVerrätIhreNummerNicht() {
+        var karte = new Kreditkarte("4111 1111 1111 1111", YearMonth.of(2028, 3));
+        assertFalse(karte.toString().contains("4111 1111"), karte.toString());
+    }
+
+    @Test
+    void esGibtGenauVierZahlarten() {
+        assertTrue(Zahlart.class.isSealed());
+        assertEquals(4, Zahlart.class.getPermittedSubclasses().length);
+    }
+}
+</code></pre>
+
+<pre><code class="language-shell">./mvnw clean verify -pl altbestand/bestellung-domaene
+</code></pre>
+
+<p>Vier der fünf Tests sind grün. Der letzte ist rot – das ändert diese Übung.</p>
+
+<h3 id="positionen-und-kunden-als-records">Positionen und Kunden als Records</h3>
+
+<p>Mach aus <code>Position</code> einen Record. Die Prüfungen aus dem Konstruktor gehören in einen
+<strong>kompakten Konstruktor</strong>; <code>getSumme()</code> wird zu einer gewöhnlichen Methode
+<code>summe()</code>. Danach dasselbe für <code>Kunde</code>.</p>
+
+<p>Die Zugriffsmethoden eines Records heißen wie seine Komponenten – <code>artikelnummer()</code>,
+nicht <code>getArtikelnummer()</code>. Alle Aufrufer in Domäne, REST-Schnittstelle, Batch und
+Tests müssen nachziehen.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Lass die IDE die Arbeit machen. In IntelliJ IDEA wandelt „Convert to
+record class“ die Klasse um und benennt die Aufrufer gleich mit.</p>
+</blockquote>
+
+<h3 id="die-zahlarten-versiegeln">Die Zahlarten versiegeln</h3>
+
+<p>Mach aus der abstrakten Klasse <code>Zahlart</code> ein <strong>versiegeltes Interface</strong>, das genau
+<code>Rechnung</code>, <code>Lastschrift</code>, <code>Kreditkarte</code> und <code>PayPal</code> erlaubt, und aus den vier
+Unterklassen Records. Die Methode <code>accept</code> für den Visitor bleibt.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Ein Record kann keine Klasse erweitern, nur Interfaces umsetzen.</p>
+</blockquote>
+
+<p>Jetzt ist ein Test rot, der vorher grün war. Lies seine Meldung: Was hat der Record
+von sich aus anders gemacht als die alte Klasse? Behebe es.</p>
+
+<h3 id="ausprobieren-eine-fünfte-zahlart">Ausprobieren: eine fünfte Zahlart</h3>
+
+<p>Leg im Paket <code>bestellung.domaene</code> einen Record <code>Gutschein(String code)</code> an, der
+<code>Zahlart</code> umsetzt, und übersetze. Lies die Meldung des Compilers. Lösch den
+<code>Gutschein</code> danach wieder.</p>
+
+<h3 id="und-die-bestellung">Und die Bestellung?</h3>
+
+<p>Sieh Dir <code>Bestellung</code> an. Sollte sie auch ein Record werden? Probier es nicht aus –
+begründe Deine Antwort mit dem, was beim Stornieren passiert, und mit ihrem
+<code>equals</code>.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Die Musterlösung liegt im Branch <code>loesung/records-und-sealed</code>, den
+Unterschied zeigt ihr
+<a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/5">Pull Request</a>.
+Sieh erst nach, wenn Du es selbst versucht hast. Wirst Du nicht fertig, checke den
+Branch aus – die nächste Übung setzt darauf auf.</p>
+</blockquote>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Warum bleibt <code>Bestellung</code> eine Klasse?</li>
+  <li>Warum musste <code>Kreditkarte</code> ihr <code>toString</code> behalten?</li>
+  <li>Was hat die Versiegelung von <code>Zahlart</code> heute schon gebracht – und was könnte sie bringen, wenn man über die Zahlarten eine Fallunterscheidung schreibt?</li>
+  <li>Wo in Eurem Projekt würdet Ihr Records einsetzen – und wo auf keinen Fall?</li>
+</ul>
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Die Bestelldomäne modellieren
+
+Als Entwickler:in, die ein gewachsenes Datenmodell pflegt, möchte ich Wertklassen
+ohne Boilerplate schreiben und dem Compiler sagen können, welche Unterarten es gibt,
+damit das Modell kürzer wird und Fehler beim Übersetzen statt im Betrieb auffallen.
+
+Im Altbestand stecken in `altbestand/bestellung-domaene` Klassen, wie man sie mit
+Java 8 schrieb: `Position` und `Kunde` mit handgeschriebenem `equals`, `hashCode` und
+`toString`, dazu eine abstrakte Klasse `Zahlart` mit vier Unterklassen, deren
+Javadoc zugibt: „Sicherstellen lässt sich das mit Java 8 nicht.“ Ihr baut das Modell
+um – sein Verhalten bleibt gleich.
+
+## Lernziele
+
+Du …
+
+- machst aus einer Wertklasse einen Record und verlegst ihre Prüfungen in den kompakten Konstruktor.
+- versiegelst eine Hierarchie mit `sealed` und `permits`.
+- erkennst, wo das automatisch erzeugte `toString` eines Records schadet, und schreibst es dort selbst.
+- begründest, warum eine Klasse mit Identität und veränderlichem Zustand kein Record wird.
+
+## Definition of Done
+
+* [ ] `Position`, `Kunde` und die vier Zahlarten sind Records.
+* [ ] `Zahlart` ist versiegelt und erlaubt genau diese vier.
+* [ ] `DomänenmodellTest` und alle bisherigen Tests sind grün: `./mvnw clean verify`.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Arbeitsschritte
+
+### Ausgangsstand und Absicherung
+
+Du arbeitest auf Deinem Stand nach „Bau Dein eigenes `STR`“ oder auf dem Branch
+`loesung/sprachmittel`. Leg zuerst einen Test an, der festhält, was das Modell
+zusagt – `DomänenmodellTest` in `altbestand/bestellung-domaene/src/test/java/bestellung/domaene/`:
+
+```java
+package bestellung.domaene;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.math.BigDecimal;
+import java.time.YearMonth;
+
+import org.junit.jupiter.api.Test;
+
+class DomänenmodellTest {
+
+    @Test
+    void positionenMitGleichenWertenSindGleich() {
+        var a = new Position(&quot;A-100&quot;, &quot;Kaffeebohnen, 1 kg&quot;, 2, new BigDecimal(&quot;18.90&quot;));
+        var b = new Position(&quot;A-100&quot;, &quot;Kaffeebohnen, 1 kg&quot;, 2, new BigDecimal(&quot;18.90&quot;));
+        assertEquals(a, b);
+        assertEquals(a.hashCode(), b.hashCode());
+    }
+
+    @Test
+    void einePositionOhneMengeGibtEsNicht() {
+        assertThrows(IllegalArgumentException.class,
+                () -&gt; new Position(&quot;A-100&quot;, &quot;Kaffeebohnen, 1 kg&quot;, 0, new BigDecimal(&quot;18.90&quot;)));
+    }
+
+    @Test
+    void einenKundenOhneNamenGibtEsNicht() {
+        assertThrows(NullPointerException.class, () -&gt; new Kunde(&quot;K-1001&quot;, null, null));
+    }
+
+    @Test
+    void dieKreditkarteVerrätIhreNummerNicht() {
+        var karte = new Kreditkarte(&quot;4111 1111 1111 1111&quot;, YearMonth.of(2028, 3));
+        assertFalse(karte.toString().contains(&quot;4111 1111&quot;), karte.toString());
+    }
+
+    @Test
+    void esGibtGenauVierZahlarten() {
+        assertTrue(Zahlart.class.isSealed());
+        assertEquals(4, Zahlart.class.getPermittedSubclasses().length);
+    }
+}
+```
+
+```shell
+./mvnw clean verify -pl altbestand/bestellung-domaene
+```
+
+Vier der fünf Tests sind grün. Der letzte ist rot – das ändert diese Übung.
+
+### Positionen und Kunden als Records
+
+Mach aus `Position` einen Record. Die Prüfungen aus dem Konstruktor gehören in einen
+**kompakten Konstruktor**; `getSumme()` wird zu einer gewöhnlichen Methode
+`summe()`. Danach dasselbe für `Kunde`.
+
+Die Zugriffsmethoden eines Records heißen wie seine Komponenten – `artikelnummer()`,
+nicht `getArtikelnummer()`. Alle Aufrufer in Domäne, REST-Schnittstelle, Batch und
+Tests müssen nachziehen.
+
+&gt; **Hinweis:** Lass die IDE die Arbeit machen. In IntelliJ IDEA wandelt „Convert to
+&gt; record class“ die Klasse um und benennt die Aufrufer gleich mit.
+
+### Die Zahlarten versiegeln
+
+Mach aus der abstrakten Klasse `Zahlart` ein **versiegeltes Interface**, das genau
+`Rechnung`, `Lastschrift`, `Kreditkarte` und `PayPal` erlaubt, und aus den vier
+Unterklassen Records. Die Methode `accept` für den Visitor bleibt.
+
+&gt; **Hinweis:** Ein Record kann keine Klasse erweitern, nur Interfaces umsetzen.
+
+Jetzt ist ein Test rot, der vorher grün war. Lies seine Meldung: Was hat der Record
+von sich aus anders gemacht als die alte Klasse? Behebe es.
+
+### Ausprobieren: eine fünfte Zahlart
+
+Leg im Paket `bestellung.domaene` einen Record `Gutschein(String code)` an, der
+`Zahlart` umsetzt, und übersetze. Lies die Meldung des Compilers. Lösch den
+`Gutschein` danach wieder.
+
+### Und die Bestellung?
+
+Sieh Dir `Bestellung` an. Sollte sie auch ein Record werden? Probier es nicht aus –
+begründe Deine Antwort mit dem, was beim Stornieren passiert, und mit ihrem
+`equals`.
+
+&gt; **Hinweis:** Die Musterlösung liegt im Branch `loesung/records-und-sealed`, den
+&gt; Unterschied zeigt ihr
+&gt; [Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/5).
+&gt; Sieh erst nach, wenn Du es selbst versucht hast. Wirst Du nicht fertig, checke den
+&gt; Branch aus – die nächste Übung setzt darauf auf.
+
+## Reflexionsfragen
+
+- Warum bleibt `Bestellung` eine Klasse?
+- Warum musste `Kreditkarte` ihr `toString` behalten?
+- Was hat die Versiegelung von `Zahlart` heute schon gebracht – und was könnte sie bringen, wenn man über die Zahlarten eine Fallunterscheidung schreibt?
+- Wo in Eurem Projekt würdet Ihr Records einsetzen – und wo auf keinen Fall?
+
+## Weiterführende Informationen
+
+- [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
+- [JEP 395: Records](https://openjdk.org/jeps/395)
+- [JEP 409: Sealed Classes](https://openjdk.org/jeps/409)
+- [Java-LTS-Evolution](/shared/visualisierungen/java-lts-evolution.html)
+</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered">
+        <div class="avd-academy-guide-side__label">Weiterführende Informationen</div>
+        <div class="avd-academy-guide-side__links"><a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span><span class="avd-academy-linkicon avd-academy-linkicon--right avd-academy-linkicon--mark" style="--avd-academy-linkicon-src: url('/training-material-java-se/theme/academy/icons/icon-github.svg')" aria-hidden="true"></span></a><a href="https://openjdk.org/jeps/395" target="_blank" rel="noopener"><span>JEP 395: Records</span></a><a href="https://openjdk.org/jeps/409" target="_blank" rel="noopener"><span>JEP 409: Sealed Classes</span></a><a href="/training-material-java-se/shared/visualisierungen/java-lts-evolution.html"><span>Java-LTS-Evolution</span></a>
+        </div></div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
