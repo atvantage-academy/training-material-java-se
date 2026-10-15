@@ -1,0 +1,452 @@
+<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem("avd-academy-theme");
+    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
+  } catch (e) {}
+  addEventListener("unhandledrejection", function (e) {
+    var r = e.reason;
+    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
+  });
+})();
+</script><title>Umstellen und messen · ATVANTAGE Academy</title><meta name="description" content="Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Umstellen und messen">
+<meta property="og:description" content="Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.">
+<meta property="og:type" content="article"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
+<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
+<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
+<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/virtual-threads/issue.html","title":"Umstellen und messen","layout":"guide","description":"Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.","duration":40,"topics":["Virtual Threads","Pinning","Java Flight Recorder"],"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
+<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
+<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
+<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
+        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792086042" defer></script>
+<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
+<script type="module">
+  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
+  const _hlsprachen = ["java", "http", "json", "xml"];
+  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
+    .then(([core, ...grammatiken]) => {
+      const hljs = core.default;
+      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
+      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
+      const _faerben = (wurzel) => (wurzel || document)
+        .querySelectorAll(_auswahl)
+        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
+      _faerben(document);
+      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
+      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
+      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
+        const code = parseInt(el.textContent, 10);
+        if (code >= 100 && code <= 599) {
+          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
+        }
+      });
+    });
+</script>
+<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
+<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+
+  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
+<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
+  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
+<div class="avd-academy-reading-progress" aria-hidden="true"></div>
+  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
+  </div>
+
+  <header class="avd-academy-header"
+        data-avd-academy-menu-visible="7" data-avd-academy-menu-speed="1.0" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
+          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><img class="avd-academy-header__mark" src="/training-material-java-se/theme/atvantage/assets/icon-180.png" alt="">
+  </a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
+      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
+        <button type="button" class="avd-academy-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
+        <div class="avd-academy-header__submenu" role="menu">
+          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="/training-material-java-se/java-update/">Java-Update</a>
+          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
+             data-mode="expand" data-shortcut="double_shift"
+             data-index="/training-material-java-se/theme/search/de.json?v=1792086042"
+             data-base="/training-material-java-se/">
+          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
+                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
+                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
+            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
+                <span class="avd-academy-search__label">Bereich</span>
+                <select class="avd-academy-search__scope">
+                  <option value="">Alle</option>
+                </select>
+              </label>
+              <label class="avd-academy-search__field avd-academy-search__field--query">
+                <span class="avd-academy-search__label">Suchbegriff</span>
+                <input type="search" class="avd-academy-search__input"
+                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+                       aria-describedby="avd-academy-search-status">
+              </label>
+              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
+                      title="Suche schließen" aria-label="Suche schließen">✕</button>
+            </div>
+            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
+            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
+          </dialog>
+        </div>
+        <script src="/training-material-java-se/theme/jekyll/search.js?v=4b72be9e" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
+                title="Diese Seite auf Deinem Smartphone öffnen"
+                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
+              title="Farbschema umschalten (hell/dunkel)"
+              aria-label="Dunkles Farbschema">◐</button></div>
+</header>
+<section class="avd-academy-guide-hero"
+           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-update/">Java-Update</a><span>/</span><span aria-current="page">Umstellen und messen</span></nav><div class="avd-academy-guide-hero__meta">
+      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 40 Minuten</span><span class="avd-academy-tag">Virtual Threads</span><span class="avd-academy-tag">Pinning</span><span class="avd-academy-tag">Java Flight Recorder</span>
+      </div>
+      <div class="avd-academy-guide-hero__actions">
+        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
+                data-avd-academy-copy-md="#avd-academy-md-source"
+                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+      </div>
+    </div><h1 id="avd-academy-page-title">Umstellen und messen</h1>
+  </section><div class="avd-academy-guide-layout">
+    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+
+<p>Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme
+verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie
+bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann.</p>
+
+<p>Im Altbestand warten zwei Stellen auf Fremdsysteme: Der <strong>Batch-Import</strong> prüft jede
+Bestellung bei einer Auskunftei (50 ms), die <strong>REST-Schnittstelle</strong> fragt für jede
+neue Bestellung beim Lager nach (100 ms). Beide arbeiten mit einem festen
+Thread-Pool. Ihr stellt sie um und messt – auf Eurem JDK.</p>
+
+<h2 id="lernziele">Lernziele</h2>
+
+<p>Du …</p>
+
+<ul>
+  <li>misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.</li>
+  <li>stellst einen festen Thread-Pool auf virtuelle Threads um.</li>
+  <li>weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.</li>
+  <li>erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird.</li>
+</ul>
+
+<h2 id="definition-of-done">Definition of Done</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; <code>./mvnw clean verify</code> ist grün.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
+</ul>
+
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+
+<h3 id="ausgangsstand-messen">Ausgangsstand messen</h3>
+
+<p>Du arbeitest auf Deinem Stand nach „Den Visitor ablösen“ oder auf dem Branch
+<code>loesung/pattern-matching</code>. Bau beide Module und miss sie einmal so, wie sie sind:</p>
+
+<pre><code class="language-shell">./mvnw -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
+./mvnw -q -pl altbestand/bestellung-batch exec:java
+./mvnw -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
+</code></pre>
+
+<p>Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
+beide Werte mit Deiner JDK-Version in die Messtabelle ein:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JDK</th>
+      <th>Stand</th>
+      <th style="text-align: right">Batch</th>
+      <th style="text-align: right">REST</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td>fester Pool</td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>virtuelle Threads</td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>… und was Ihr danach noch ändert</td>
+      <td style="text-align: right"> </td>
+      <td style="text-align: right"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
+wärmt sich die JVM noch auf. Vor jeder Messung nach einer Änderung wieder
+<code>install</code> wie oben.</p>
+</blockquote>
+
+<h3 id="den-batch-import-umstellen">Den Batch-Import umstellen</h3>
+
+<p><code>BestellImport</code> erzeugt einen festen Pool mit <code>Executors.newFixedThreadPool(threads)</code>.
+Stell ihn so um, dass <strong>jede Bonitätsprüfung ihren eigenen virtuellen Thread</strong> bekommt.
+Die Poolgröße braucht dann niemand mehr – entferne sie aus dem Konstruktor und aus
+<code>BatchAnwendung</code> und <code>BestellImportTest</code>.</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Ein <code>ExecutorService</code> ist seit Java 19 <code>AutoCloseable</code>. Mit
+<code>try</code>-with-resources wartet <code>close()</code>, bis alle Aufgaben fertig sind.</p>
+</blockquote>
+
+<p>Miss erneut. Was hast Du erwartet, was kam heraus?</p>
+
+<h3 id="die-rest-schnittstelle-umstellen">Die REST-Schnittstelle umstellen</h3>
+
+<p><code>RestAnwendung</code> gibt dem Server einen festen Pool mit zehn Threads. Gib ihm stattdessen
+einen Executor, der für jede Anfrage einen virtuellen Thread startet, und miss mit dem
+Lasttest.</p>
+
+<p>Ist das Ergebnis so gut, wie die Rechnung verspricht – 200 Anfragen, die alle
+gleichzeitig 100 ms warten? Wenn nicht: Wo stehen die Anfragen jetzt an? Sieh Dir
+an, wie <code>RestAnwendung</code> den <code>HttpServer</code> erzeugt, und lies in der Javadoc von
+<code>HttpServer.create</code>, was der zweite Parameter bedeutet.</p>
+
+<h3 id="pinning-nachweisen">Pinning nachweisen</h3>
+
+<p>Lass den Batch-Import mit Java Flight Recorder laufen und such nach gepinnten
+virtuellen Threads:</p>
+
+<pre><code class="language-shell">MAVEN_OPTS="-XX:StartFlightRecording=filename=pinning.jfr" ./mvnw -q -pl altbestand/bestellung-batch exec:java
+jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
+</code></pre>
+
+<p>Gibt es Ereignisse? In welcher Methode? Sieh Dir diese Methode an und erkläre, warum
+der virtuelle Thread dort seinen Träger nicht freigibt. Die Simulation hilft (siehe
+Ressourcen).</p>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Unter Windows setzt Du die Variable in PowerShell mit
+<code>$env:MAVEN_OPTS="-XX:StartFlightRecording=filename=pinning.jfr"</code>. <code>jfr</code> liegt im
+<code>bin</code>-Ordner Deines JDK.</p>
+</blockquote>
+
+<p><strong>Mit JDK 21:</strong> Behebe das Pinning im eigenen Code – ohne <code>synchronized</code>, mit
+gleichem Schutz für den Zustand. Miss erneut und prüfe mit JFR, dass keine Ereignisse
+mehr kommen.</p>
+
+<p><strong>Mit JDK 25:</strong> Du findest keine Ereignisse. Warum nicht? Vergleicht Eure Zahlen mit
+einem Paar, das JDK 21 hat.</p>
+
+<h3 id="kür">Kür</h3>
+
+<ul>
+  <li><strong>Mit JDK 25:</strong> Schreib in <code>spielwiese/</code> ein Programm, das mehreren virtuellen
+Threads je eine Korrelations-ID über einen <code>ScopedValue</code> mitgibt und sie tief in
+einem Aufruf ausliest, ohne sie als Parameter durchzureichen.</li>
+  <li>Begrenze im Batch-Import die Zahl gleichzeitiger Anfragen an die Auskunftei auf 20,
+ohne zu einem festen Pool zurückzukehren.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Hinweis:</strong> Die Musterlösung liegt im Branch <code>loesung/virtual-threads</code>, den
+Unterschied und eine Messtabelle zeigt ihr
+<a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/8">Pull Request</a>.
+Sieh erst nach, wenn Du es selbst versucht hast.</p>
+</blockquote>
+
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+
+<ul>
+  <li>Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?</li>
+  <li>Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?</li>
+  <li>Würdet Ihr in Eurer Anwendung alle <code>synchronized</code> durch <code>ReentrantLock</code> ersetzen?</li>
+  <li>Wann bleibt Ihr bei reaktiver Programmierung?</li>
+</ul>
+
+
+<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Umstellen und messen
+
+Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme
+verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie
+bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann.
+
+Im Altbestand warten zwei Stellen auf Fremdsysteme: Der **Batch-Import** prüft jede
+Bestellung bei einer Auskunftei (50 ms), die **REST-Schnittstelle** fragt für jede
+neue Bestellung beim Lager nach (100 ms). Beide arbeiten mit einem festen
+Thread-Pool. Ihr stellt sie um und messt – auf Eurem JDK.
+
+## Lernziele
+
+Du …
+
+- misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.
+- stellst einen festen Thread-Pool auf virtuelle Threads um.
+- weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.
+- erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird.
+
+## Definition of Done
+
+* [ ] Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `./mvnw clean verify` ist grün.
+* [ ] Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.
+* [ ] Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.
+* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
+
+## Arbeitsschritte
+
+### Ausgangsstand messen
+
+Du arbeitest auf Deinem Stand nach „Den Visitor ablösen“ oder auf dem Branch
+`loesung/pattern-matching`. Bau beide Module und miss sie einmal so, wie sie sind:
+
+```shell
+./mvnw -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
+./mvnw -q -pl altbestand/bestellung-batch exec:java
+./mvnw -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
+```
+
+Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
+beide Werte mit Deiner JDK-Version in die Messtabelle ein:
+
+| JDK | Stand | Batch | REST |
+|-----|-------|------:|-----:|
+| | fester Pool | | |
+| | virtuelle Threads | | |
+| | … und was Ihr danach noch ändert | | |
+
+&gt; **Hinweis:** Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
+&gt; wärmt sich die JVM noch auf. Vor jeder Messung nach einer Änderung wieder
+&gt; `install` wie oben.
+
+### Den Batch-Import umstellen
+
+`BestellImport` erzeugt einen festen Pool mit `Executors.newFixedThreadPool(threads)`.
+Stell ihn so um, dass **jede Bonitätsprüfung ihren eigenen virtuellen Thread** bekommt.
+Die Poolgröße braucht dann niemand mehr – entferne sie aus dem Konstruktor und aus
+`BatchAnwendung` und `BestellImportTest`.
+
+&gt; **Hinweis:** Ein `ExecutorService` ist seit Java 19 `AutoCloseable`. Mit
+&gt; `try`-with-resources wartet `close()`, bis alle Aufgaben fertig sind.
+
+Miss erneut. Was hast Du erwartet, was kam heraus?
+
+### Die REST-Schnittstelle umstellen
+
+`RestAnwendung` gibt dem Server einen festen Pool mit zehn Threads. Gib ihm stattdessen
+einen Executor, der für jede Anfrage einen virtuellen Thread startet, und miss mit dem
+Lasttest.
+
+Ist das Ergebnis so gut, wie die Rechnung verspricht – 200 Anfragen, die alle
+gleichzeitig 100 ms warten? Wenn nicht: Wo stehen die Anfragen jetzt an? Sieh Dir
+an, wie `RestAnwendung` den `HttpServer` erzeugt, und lies in der Javadoc von
+`HttpServer.create`, was der zweite Parameter bedeutet.
+
+### Pinning nachweisen
+
+Lass den Batch-Import mit Java Flight Recorder laufen und such nach gepinnten
+virtuellen Threads:
+
+```shell
+MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot; ./mvnw -q -pl altbestand/bestellung-batch exec:java
+jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
+```
+
+Gibt es Ereignisse? In welcher Methode? Sieh Dir diese Methode an und erkläre, warum
+der virtuelle Thread dort seinen Träger nicht freigibt. Die Simulation hilft (siehe
+Ressourcen).
+
+&gt; **Hinweis:** Unter Windows setzt Du die Variable in PowerShell mit
+&gt; `$env:MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot;`. `jfr` liegt im
+&gt; `bin`-Ordner Deines JDK.
+
+**Mit JDK 21:** Behebe das Pinning im eigenen Code – ohne `synchronized`, mit
+gleichem Schutz für den Zustand. Miss erneut und prüfe mit JFR, dass keine Ereignisse
+mehr kommen.
+
+**Mit JDK 25:** Du findest keine Ereignisse. Warum nicht? Vergleicht Eure Zahlen mit
+einem Paar, das JDK 21 hat.
+
+### Kür
+
+- **Mit JDK 25:** Schreib in `spielwiese/` ein Programm, das mehreren virtuellen
+  Threads je eine Korrelations-ID über einen `ScopedValue` mitgibt und sie tief in
+  einem Aufruf ausliest, ohne sie als Parameter durchzureichen.
+- Begrenze im Batch-Import die Zahl gleichzeitiger Anfragen an die Auskunftei auf 20,
+  ohne zu einem festen Pool zurückzukehren.
+
+&gt; **Hinweis:** Die Musterlösung liegt im Branch `loesung/virtual-threads`, den
+&gt; Unterschied und eine Messtabelle zeigt ihr
+&gt; [Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/8).
+&gt; Sieh erst nach, wenn Du es selbst versucht hast.
+
+## Reflexionsfragen
+
+- Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?
+- Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?
+- Würdet Ihr in Eurer Anwendung alle `synchronized` durch `ReentrantLock` ersetzen?
+- Wann bleibt Ihr bei reaktiver Programmierung?
+
+## Weiterführende Informationen
+
+- [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
+- [Simulation: Plattform-Threads und virtuelle Threads](/java-update/virtual-threads/simulation.html)
+- [JEP 444: Virtual Threads](https://openjdk.org/jeps/444)
+- [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491)
+</textarea>
+    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
+               data-avd-academy-toc-grenze="12" open hidden>
+        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
+        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
+      </details>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
+        <div class="avd-academy-progress__text"></div>
+      </div>
+      <div class="avd-academy-guide-side avd-academy-guide-side--bordered">
+        <div class="avd-academy-guide-side__label">Weiterführende Informationen</div>
+        <div class="avd-academy-guide-side__links"><a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span><span class="avd-academy-linkicon avd-academy-linkicon--right avd-academy-linkicon--mark" style="--avd-academy-linkicon-src: url('/training-material-java-se/theme/academy/icons/icon-github.svg')" aria-hidden="true"></span></a><a href="/training-material-java-se/java-update/virtual-threads/simulation.html"><span>Simulation: Plattform-Threads und virtuelle Threads</span></a><a href="https://openjdk.org/jeps/444" target="_blank" rel="noopener"><span>JEP 444: Virtual Threads</span></a><a href="https://openjdk.org/jeps/491" target="_blank" rel="noopener"><span>JEP 491: Synchronize Virtual Threads without Pinning</span></a>
+        </div></div>
+    </aside>
+  </div><div class="avd-academy-print-contact" aria-hidden="true">
+    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
+    <span>academy@atvantage.com</span>
+  </div>
+
+  <footer class="avd-academy-footer">
+  <div class="avd-academy-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich 'Java SE'</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="avd-academy-footer__legal">
+    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
