@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.6.1">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.6.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.6.1"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.","duration":40,"fields":{"didaktikon":{"objectives":["Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.","Du stellst einen festen Thread-Pool auf virtuelle Threads um.","Du weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.","Du erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird."],"reflective_questions":["Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?","Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?","Würdet Ihr in Eurer Anwendung alle `synchronized` durch `ReentrantLock` ersetzen?","Wann bleibt Ihr bei reaktiver Programmierung?"],"user_story":"Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann."},"skriptorium":{"definition_of_done":["Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `./mvnw clean verify` ist grün.","Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.","Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Umstellen und messen","topics":["Virtual Threads","Pinning","Java Flight Recorder"],"url":"/java-update/virtual-threads/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.","duration":40,"fields":{"didaktikon":{"objectives":["Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.","Du stellst einen festen Thread-Pool auf virtuelle Threads um.","Du weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.","Du erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird."],"reflective_questions":["Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?","Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?","Würdet Ihr in Eurer Anwendung alle `synchronized` durch `ReentrantLock` ersetzen?","Wann bleibt Ihr bei reaktiver Programmierung?"],"user_story":"Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann."},"skriptorium":{"definition_of_done":["Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `mvn clean verify` ist grün.","Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.","Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Umstellen und messen","topics":["Virtual Threads","Pinning","Java Flight Recorder"],"url":"/java-update/virtual-threads/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=ee715b40" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=c0fe74ce" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../skriptorium/search/de.json?v=ee715b40"
+     data-index="../../skriptorium/search/de.json?v=c0fe74ce"
      data-base="../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -151,7 +151,7 @@
 <div class="skr-guide-done">
 <h2 id="definition-of-done">Definition of Done</h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; ./mvnw clean verify ist grün." disabled="disabled"> Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; <code>./mvnw clean verify</code> ist grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; mvn clean verify ist grün." disabled="disabled"> Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; <code>mvn clean verify</code> ist grün.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version." disabled="disabled"> Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen." disabled="disabled"> Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
@@ -164,10 +164,15 @@ Thread-Pool. Ihr stellt sie um und messt – auf Eurem JDK.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="ausgangsstand-messen">Ausgangsstand messen</h3>
 <p>Du arbeitest auf Deinem Stand nach „Den Visitor ablösen“ oder auf dem Branch
-<code>loesung/pattern-matching</code>. Bau beide Module und miss sie einmal so, wie sie sind:</p>
-<pre><code class="language-shell">./mvnw -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
-./mvnw -q -pl altbestand/bestellung-batch exec:java
-./mvnw -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
+<code>loesung/pattern-matching</code>. Bau beide Module und miss sie einmal so, wie sie sind.</p>
+<p>Bau die beiden Module samt Domäne:</p>
+<pre><code class="language-shell">mvn -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
+</code></pre>
+<p>Starte den Batch-Import:</p>
+<pre><code class="language-shell">mvn -q -pl altbestand/bestellung-batch exec:java
+</code></pre>
+<p>Starte den Lasttest gegen die REST-Schnittstelle:</p>
+<pre><code class="language-shell">mvn -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
 </code></pre>
 <p>Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
 beide Werte mit Deiner JDK-Version in die Messtabelle ein:</p>
@@ -225,10 +230,11 @@ gleichzeitig 100 ms warten? Wenn nicht: Wo stehen die Anfragen jetzt an? Sieh Di
 an, wie <code>RestAnwendung</code> den <code>HttpServer</code> erzeugt, und lies in der Javadoc von
 <code>HttpServer.create</code>, was der zweite Parameter bedeutet.</p>
 <h3 id="pinning-nachweisen">Pinning nachweisen</h3>
-<p>Lass den Batch-Import mit Java Flight Recorder laufen und such nach gepinnten
-virtuellen Threads:</p>
-<pre><code class="language-shell">MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot; ./mvnw -q -pl altbestand/bestellung-batch exec:java
-jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
+<p>Lass den Batch-Import mit Java Flight Recorder laufen:</p>
+<pre><code class="language-shell">MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot; mvn -q -pl altbestand/bestellung-batch exec:java
+</code></pre>
+<p>Such in der Aufzeichnung nach gepinnten virtuellen Threads:</p>
+<pre><code class="language-shell">jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
 </code></pre>
 <p>Gibt es Ereignisse? In welcher Methode? Sieh Dir diese Methode an und erkläre, warum
 der virtuelle Thread dort seinen Träger nicht freigibt. Die Simulation hilft (siehe
@@ -295,7 +301,7 @@ Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbr
 
 ## Definition of Done
 
-- [ ] Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `./mvnw clean verify` ist grün.
+- [ ] Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `mvn clean verify` ist grün.
 - [ ] Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.
 - [ ] Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.
 - [ ] Du hast die Kontrollfragen beantwortet
@@ -313,12 +319,24 @@ Thread-Pool. Ihr stellt sie um und messt – auf Eurem JDK.
 ### Ausgangsstand messen
 
 Du arbeitest auf Deinem Stand nach „Den Visitor ablösen“ oder auf dem Branch
-`loesung/pattern-matching`. Bau beide Module und miss sie einmal so, wie sie sind:
+`loesung/pattern-matching`. Bau beide Module und miss sie einmal so, wie sie sind.
+
+Bau die beiden Module samt Domäne:
 
 ```shell
-./mvnw -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
-./mvnw -q -pl altbestand/bestellung-batch exec:java
-./mvnw -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
+mvn -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
+```
+
+Starte den Batch-Import:
+
+```shell
+mvn -q -pl altbestand/bestellung-batch exec:java
+```
+
+Starte den Lasttest gegen die REST-Schnittstelle:
+
+```shell
+mvn -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
 ```
 
 Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
@@ -359,11 +377,15 @@ an, wie `RestAnwendung` den `HttpServer` erzeugt, und lies in der Javadoc von
 
 ### Pinning nachweisen
 
-Lass den Batch-Import mit Java Flight Recorder laufen und such nach gepinnten
-virtuellen Threads:
+Lass den Batch-Import mit Java Flight Recorder laufen:
 
 ```shell
-MAVEN_OPTS=&#34;-XX:StartFlightRecording=filename=pinning.jfr&#34; ./mvnw -q -pl altbestand/bestellung-batch exec:java
+MAVEN_OPTS=&#34;-XX:StartFlightRecording=filename=pinning.jfr&#34; mvn -q -pl altbestand/bestellung-batch exec:java
+```
+
+Such in der Aufzeichnung nach gepinnten virtuellen Threads:
+
+```shell
 jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
 ```
 
