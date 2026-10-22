@@ -167,8 +167,14 @@
             // Spalte haben (8→11 … 21→25). Keine Tabs hier – die Landkarte ist eine
             // eigene Seite (Konzept: java-update/AGENTS.md).
             var jevMaj = jevMajor(v.ver);
-            document.getElementById('jev-modal-date').innerHTML = jevEsc(v.date)
-                + ([11, 17, 21, 25].indexOf(jevMaj) !== -1 ? ' · <a href="jep-landkarte.md#/?lts=' + jevMaj + '">Alle JEPs dieser Version →</a>' : '');
+            // Die Adresse kommt aus dem Markup (vom Bau aufgelöst), das Skript hängt nur
+            // den Zustand an.
+            document.getElementById('jev-modal-date').textContent = v.date;
+            var jevJep = document.getElementById('jev-jep');
+            var jevJepLink = document.getElementById('jev-jep-link');
+            var jevJepBase = jevJepLink.getAttribute('href').split('#')[0];
+            jevJep.hidden = [11, 17, 21, 25].indexOf(jevMaj) === -1;
+            jevJepLink.setAttribute('href', jevJepBase + '#/?lts=' + jevMaj);
             document.getElementById('jev-modal-tabs').innerHTML = v.features.map(function(f, i){
                 return '<button type="button" class="jev-tab' + (i === 0 ? ' active' : '') + '" data-jev-tab="' + i + '">' + jevEsc(f.title) + '</button>';
             }).join('');
