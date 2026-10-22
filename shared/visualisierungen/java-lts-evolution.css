@@ -1,0 +1,69 @@
+/* Keine eigene Breitenbegrenzung: Die Breite der Inhaltsspalte gibt das Theme über
+   `--skr-guide-max` vor (bei `layout: visualization` 1040px). Derselbe Wert
+   steuert über den Gutter auch den Hero – eine eigene, engere max-width würde den
+   Inhalt gegenüber dem Hero-Titel einrücken. */
+.jev-lead{color:var(--skr-color-ink-muted,#5F5F5F);margin:0 0 1.5rem;}
+.jev-timeline{position:relative;margin-top:2.5rem;padding-bottom:120px;}
+.jev-axis{position:absolute;left:50%;top:0;bottom:0;width:3px;border-radius:3px;transform:translateX(-50%);background:linear-gradient(to bottom,var(--skr-color-accent,#FF5401),var(--skr-slate,#303E4F),var(--skr-color-accent,#FF5401));}
+.jev-year{position:absolute;left:50%;transform:translate(-50%,-50%);background:var(--skr-color-bg,var(--skr-color-bg,#fff));border:1px solid var(--skr-color-border,#d9d9d9);border-radius:999px;padding:3px 12px;font-size:.72rem;font-weight:800;opacity:.75;white-space:nowrap;z-index:5;}
+.jev-node{position:absolute;width:44%;cursor:pointer;z-index:10;transition:transform .25s ease;}
+.jev-node:hover{transform:translateY(-4px);}
+.jev-node.left{left:0;text-align:right;}
+.jev-node.right{right:0;text-align:left;}
+.jev-card{position:relative;background:var(--skr-color-bg-subtle,var(--skr-color-bg-subtle,#EDEDED));border:1px solid var(--skr-color-border,#e2e2e2);border-radius:var(--skr-radius,5px);padding:1.15rem 1.4rem;box-shadow:var(--skr-shadow-1,0 6px 20px rgba(0,0,0,.08));transition:border-color .2s,box-shadow .2s;}
+.jev-node:hover .jev-card{border-color:var(--skr-color-accent,#FF5401);box-shadow:0 8px 26px rgba(255,84,1,.18);}
+.jev-date{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--skr-color-accent,#FF5401);margin-bottom:.2rem;}
+.jev-card h3{margin:0;font-size:1.2rem;line-height:1.2;}
+.jev-lts-tag{display:inline-block;margin-left:.4rem;padding:.05rem .45rem;font-size:.6rem;font-weight:800;letter-spacing:.08em;vertical-align:middle;color:#fff;background:var(--skr-color-accent,#FF5401);border-radius:999px;}
+.jev-connector{position:absolute;top:2rem;width:2.5rem;height:2px;background:var(--skr-color-border,#ccc);}
+.jev-node.left .jev-connector{right:-2.5rem;}
+.jev-node.right .jev-connector{left:-2.5rem;}
+.jev-print-features{display:none;}
+@media (max-width:768px){
+  .jev-axis{left:1.25rem;transform:none;}
+  .jev-year{left:1.25rem;}
+  .jev-node{width:calc(100% - 2.75rem);left:2.75rem !important;right:auto;text-align:left !important;}
+  .jev-node.left,.jev-node.right{text-align:left;}
+  .jev-connector{left:-1.5rem !important;right:auto !important;width:1.5rem;}
+}
+.jev-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(2,6,23,.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .2s ease;}
+.jev-modal.open{opacity:1;pointer-events:auto;}
+.jev-modal-container{display:flex;flex-direction:column;width:min(96vw,960px);max-height:88vh;overflow:hidden;background:var(--skr-color-bg,var(--skr-color-bg,#fff));color:var(--skr-color-ink,inherit);border:1px solid var(--skr-color-border,#e2e2e2);border-radius:var(--skr-radius-lg,8px);box-shadow:0 24px 70px rgba(0,0,0,.45);}
+.jev-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--skr-color-border,#eee);}
+.jev-modal-head h2{margin:0;font-size:1.7rem;line-height:1.1;color:var(--skr-color-headline,inherit);}
+.jev-badge-lts{display:inline-block;margin-top:.45rem;padding:.15rem .6rem;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--skr-color-accent,#FF5401);border:1px solid var(--skr-color-accent,#FF5401);border-radius:999px;}
+.jev-modal-date{margin-top:.4rem;font-size:.85rem;opacity:.7;}
+.jev-close{flex:none;background:none;border:none;font-size:1.7rem;line-height:1;cursor:pointer;color:inherit;opacity:.55;padding:.1rem .45rem;border-radius:6px;}
+.jev-close:hover{opacity:1;color:var(--skr-color-danger,#EE1919);}
+.jev-tabs{display:flex;flex-wrap:wrap;gap:.5rem;padding:.9rem 1.5rem;border-bottom:1px solid var(--skr-color-border,#eee);}
+.jev-tab{padding:.4rem .95rem;font-size:.7rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:inherit;background:transparent;border:1px solid var(--skr-color-border,#ccc);border-radius:999px;cursor:pointer;transition:all .15s;}
+.jev-tab:hover{border-color:var(--skr-color-accent,#FF5401);}
+.jev-tab.active{color:#fff;background:var(--skr-color-accent,#FF5401);border-color:var(--skr-color-accent,#FF5401);}
+.jev-modal-body{padding:1.35rem 1.5rem;overflow-y:auto;}
+.jev-feature-title{margin:0 0 .5rem;font-size:1.25rem;color:var(--skr-color-headline,inherit);border-left:4px solid var(--skr-color-accent,#FF5401);padding-left:.7rem;}
+.jev-feature-desc{margin:0 0 1rem;opacity:.85;}
+.jev-modal-body pre{overflow-x:auto;margin:0;}
+body.jev-modal-open{overflow:hidden;}
+#jev-print-toc{display:none;}
+@media print{
+  .jev-axis,.jev-connector,.jev-year,#jev-modal,.jev-lts-tag{display:none !important;}
+  .jev-timeline{position:static;padding:0;margin:0;height:auto !important;}
+  .jev-node{position:static !important;left:0 !important;right:auto !important;width:100% !important;text-align:left !important;break-before:page;margin:0;}
+  .jev-node:first-of-type{break-before:auto;}
+  .jev-card{background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;}
+  .jev-card h3{color:#000 !important;font-size:20pt;margin:14pt 0 8pt;border-bottom:1px solid #ccc;padding-bottom:5pt;}
+  .jev-date{color:#000 !important;}
+  .jev-print-features{display:block !important;}
+  .jev-print-item{break-inside:avoid;margin-bottom:14pt;}
+  .jev-print-item h4{margin:0 0 3pt;font-size:12pt;text-transform:uppercase;}
+  .jev-print-item p{margin:0 0 5pt;font-size:10.5pt;}
+  .jev-print-item pre,.jev-print-item pre code,.jev-print-item pre code *{color:#000 !important;background:transparent !important;}
+  .jev-print-item pre{white-space:pre-wrap;word-break:break-word;font-size:8.5pt;border:none !important;padding:3pt 0 !important;}
+  #jev-print-toc{display:block !important;}
+  #jev-print-toc h2{font-size:16pt;border-bottom:2px solid var(--skr-color-accent,#FF5401);padding-bottom:5pt;}
+  #jev-print-toc ul{list-style:none;padding:0;}
+  #jev-print-toc li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dotted #bbb;padding:3pt 0;font-size:11pt;}
+}
+/* Farben für die Codeblöcke liefert das Theme (highlight.css, GitHub-Dark) – hier
+   nur die Feinabstimmung im Modal. */
+.jev-modal-body pre code.hljs{border-radius:var(--skr-radius-lg,8px);font-size:.82rem;line-height:1.5;}

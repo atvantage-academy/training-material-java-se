@@ -1,0 +1,39 @@
+  /* Bühnenbild: vier Tafeln in einer Reihe, im Pinning-Szenario darunter der Code.
+     Farben nur aus Academy-Tokens. */
+  .threads {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.75rem, 0.4rem + 1.2vw, 1.75rem);
+    align-items: start;
+    align-content: center;
+    min-height: 100%;
+  }
+  .threads--mit-code { grid-template-rows: auto auto; }
+  .threads__code { grid-column: 1 / -1; }
+  @media (max-width: 1000px) {
+    .threads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  /* Die Tafeln sind von Anfang an so hoch wie im vollsten Zustand (sechs Kästen),
+     damit nichts nachrutscht. */
+  .threads .skr-didaktikon-simulation-panel__body { min-height: 19rem; }
+  .threads--mit-code .skr-didaktikon-simulation-panel__body { min-height: 13rem; }
+
+  .anfrage { justify-content: center; font-weight: var(--skr-fw-bold); }
+
+  /* Ein Thread-Platz: oben der Thread, darunter, was er gerade tut. */
+  .platz { flex-direction: column; align-items: stretch; gap: var(--skr-space-1); }
+  .platz__kopf { display: flex; justify-content: space-between; gap: var(--skr-space-2); }
+  .platz__status { font-size: 0.8em; color: var(--skr-color-ink-muted); }
+  .platz--frei { opacity: 0.6; }
+  .platz--wartet { border-style: dashed; }
+  .platz--wartet .platz__status { color: var(--skr-color-warning-ink); font-weight: var(--skr-fw-medium); }
+  .platz--gepinnt .platz__status { color: var(--skr-color-danger-ink); font-weight: var(--skr-fw-bold); }
+  .jdk {
+    display: inline-block;
+    padding: 0.05em 0.6em;
+    border-radius: 999px;
+    background: var(--skr-color-accent);
+    color: var(--skr-color-accent-contrast);
+    font-weight: var(--skr-fw-bold);
+    letter-spacing: 0;
+  }

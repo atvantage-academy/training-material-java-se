@@ -1,0 +1,43 @@
+/* Eigene Bausteine dieser Präsentation. Farben ausschließlich aus Theme-Tokens;
+   Flächen per color-mix gegen --skr-color-bg, damit Light und Dark ohne
+   zweiten Regelsatz stimmen. Alle Grafiken sind inline-SVG, Text in currentColor. */
+.skr-slide { justify-content: center; justify-content: safe center; }
+.skr-slide h2 { margin-bottom: var(--skr-space-6); }
+
+.grafik { width: 100%; height: auto; display: block; color: var(--skr-color-ink); }
+.grafik text { fill: currentColor; font-family: inherit; }
+.grafik .leise { fill: var(--skr-color-ink-muted); }
+.grafik .achse { stroke: var(--skr-color-border); stroke-width: 3; }
+.grafik .alt { fill: var(--skr-color-ink-muted); }
+.grafik .lts { fill: var(--skr-color-accent); }
+.grafik .lts-text { fill: var(--skr-color-accent-contrast); font-weight: 700; }
+.grafik .geplant { fill: var(--skr-color-bg); stroke: var(--skr-color-accent); stroke-width: 3; stroke-dasharray: 6 4; }
+.grafik .heute { stroke: var(--skr-color-danger); stroke-width: 2; stroke-dasharray: 5 4; }
+.grafik .heute-text { fill: var(--skr-color-danger-ink); font-weight: 600; }
+.grafik .kasten { fill: color-mix(in srgb, var(--skr-color-primary) 12%, var(--skr-color-bg)); stroke: var(--skr-color-primary); stroke-width: 2; }
+.grafik .kasten--anbieter { fill: color-mix(in srgb, var(--skr-color-accent) 12%, var(--skr-color-bg)); stroke: var(--skr-color-accent); }
+.grafik .linie { stroke: var(--skr-color-border); stroke-width: 2; fill: none; }
+.grafik .balken { fill: var(--skr-color-accent); }
+.grafik .balken-text { fill: var(--skr-color-accent-contrast); font-weight: 600; }
+
+/* Versionsnummer: jede Stelle mit ihrer Bedeutung darunter */
+.version { display: flex; justify-content: center; align-items: flex-start; gap: .2em; font-size: 2.6em; font-weight: 700; margin: 0 0 var(--skr-space-6); }
+.version > span { display: flex; flex-direction: column; align-items: center; }
+.version small { font-size: .3em; font-weight: 400; color: var(--skr-color-ink-muted); margin-top: .3em; }
+.version .punkt { color: var(--skr-color-ink-muted); }
+.version .hervor { color: var(--skr-color-accent-ink); }
+
+/* Spuren: ein Feature je Zeile, seine Stationen als Chips */
+.spuren { display: grid; grid-template-columns: max-content 1fr; gap: .7rem 1.4rem; align-items: center; font-size: .9em; }
+.spuren > b { color: var(--skr-color-headline); }
+.spur { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.chip { padding: .15rem .6rem; border-radius: 999px; border: 1px solid var(--skr-color-border); white-space: nowrap; }
+.chip--inkubator { background: color-mix(in srgb, var(--skr-color-info) 14%, var(--skr-color-bg)); }
+.chip--preview { background: color-mix(in srgb, var(--skr-color-warning) 18%, var(--skr-color-bg)); }
+.chip--final { background: color-mix(in srgb, var(--skr-color-success) 18%, var(--skr-color-bg)); font-weight: 600; }
+.chip--weg { background: color-mix(in srgb, var(--skr-color-danger) 14%, var(--skr-color-bg)); text-decoration: line-through; }
+
+/* Die Merksätze unter Grafik, Tabelle oder Spuren brauchen Luft nach oben. */
+.skr-slide__inner > ul { margin-top: var(--skr-space-6); }
+
+.quelle { font-size: .55em; color: var(--skr-color-ink-muted); margin-top: var(--skr-space-4); }

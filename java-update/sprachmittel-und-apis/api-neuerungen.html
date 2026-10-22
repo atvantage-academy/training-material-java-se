@@ -1,83 +1,84 @@
-<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>API-Neuerungen · ATVANTAGE Academy</title><meta name="description" content="Neue Methoden von Java 9 bis 25, nach Klassen geordnet – String, Collections, Stream, Collectors, Gatherers, Optional, Dateien, HttpClient, Nebenläufigkeit – je mit Release, LTS-Marke und geprüftem Beispiel."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>API-Neuerungen · ATVANTAGE Academy</title>
+<meta name="description" content="Neue Methoden von Java 9 bis 25, nach Klassen geordnet – String, Collections, Stream, Collectors, Gatherers, Optional, Dateien, HttpClient, Nebenläufigkeit – je mit Release, LTS-Marke und geprüftem Beispiel.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="API-Neuerungen">
 <meta property="og:description" content="Neue Methoden von Java 9 bis 25, nach Klassen geordnet – String, Collections, Stream, Collectors, Gatherers, Optional, Dateien, HttpClient, Nebenläufigkeit – je mit Release, LTS-Marke und geprüftem Beispiel.">
-<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/sprachmittel-und-apis/api-neuerungen.html","title":"API-Neuerungen","layout":"visualization","description":"Neue Methoden von Java 9 bis 25, nach Klassen geordnet – String, Collections, Stream, Collectors, Gatherers, Optional, Dateien, HttpClient, Nebenläufigkeit – je mit Release, LTS-Marke und geprüftem Beispiel.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Neue Methoden von Java 9 bis 25, nach Klassen geordnet – String, Collections, Stream, Collectors, Gatherers, Optional, Dateien, HttpClient, Nebenläufigkeit – je mit Release, LTS-Marke und geprüftem Beispiel.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-update/sprachmittel-und-apis/api-neuerungen.css","src":"api-neuerungen.css","type":"style"},{"path":"java-update/sprachmittel-und-apis/api-neuerungen.js","src":"api-neuerungen.js","type":"script"}],"pageId":"java-update-sprachmittel-und-apis-api-neuerungen","runtimeFragments":["^/(\\?.*)?$","^/[A-Za-z0-9_-]+(\\?.*)?$"],"siteIndex":"/skriptorium/site.json","title":"API-Neuerungen","topics":null,"url":"/java-update/sprachmittel-und-apis/api-neuerungen.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
-<div class="avd-academy-reading-progress" aria-hidden="true"></div>
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
-           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
-      <div class="avd-academy-guide-hero__tags">
-      </div>
-      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
-                data-avd-academy-print
-                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
-      </div>
-    </div><h1 id="avd-academy-page-title">API-Neuerungen</h1>
-  </section><div class="avd-academy-guide-layout">
-    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung (Konzept: java-update/AGENTS.md, Block D + E)
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
+
+<link rel="stylesheet" href="../../java-update/sprachmittel-und-apis/api-neuerungen.css?v=39d245a8">
+<script src="../../java-update/sprachmittel-und-apis/api-neuerungen.js?v=f17b17e6" defer></script>
+
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+
+    </div>
+  </div><h1 id="skr-page-title">API-Neuerungen</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung (Konzept: java-update/AGENTS.md, Block D + E)
      - Nach Klasse geordnet (String, Collections/Sequenced, Stream, Collectors,
        Gatherers, Optional, Files und Ströme, HttpClient, Nebenläufigkeit, Weitere),
        LTS-Marke je Methode, Filter „seit Version“ (LTS-Sprung) – dazu „Mein JDK“
@@ -87,275 +88,24 @@
      - „seit“ = @since aus den Quellen von Temurin 25.0.4.1 (lib/src.zip), Stand
        2026-10-15. Jedes Beispiel und jedes Ergebnis im Kommentar mit jshell auf JDK 25
        geprüft; die HttpClient-Beispiele nur übersetzt (kein Netz).
-     - Geöffnete Methode, Filter und JDK stehen in der Adresse (AvdAcademyState):
+     - Geöffnete Methode, Filter und JDK stehen in der Adresse (skr.state):
        #/?lts=…&jdk=…&methode=… -->
-
-<style>
-.api-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.25rem;}
-.api-filter{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin:0 0 .75rem;align-items:center;}
-.api-filter__label{font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);min-width:9.5rem;}
-.api-filter__knoepfe{display:flex;flex-wrap:wrap;gap:.35rem;}
-.api-knopf{font:inherit;font-size:.8rem;padding:.3rem .75rem;border-radius:999px;border:1px solid var(--avd-academy-color-border);background:var(--avd-academy-color-bg);color:var(--avd-academy-color-ink);cursor:pointer;}
-.api-knopf:hover{border-color:var(--avd-academy-color-accent);}
-.api-knopf[aria-pressed="true"]{background:var(--avd-academy-color-accent);border-color:var(--avd-academy-color-accent);color:var(--avd-academy-color-accent-contrast);font-weight:700;}
-.api-anzahl{font-size:.85rem;color:var(--avd-academy-color-ink-muted);margin:.25rem 0 1rem;}
-.api-karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:1rem;align-items:start;}
-.api-karte{border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius,8px);background:var(--avd-academy-color-bg-subtle);padding:.75rem .9rem;}
-.api-karte h2{font-size:1.05rem;margin:0 0 .15rem;color:var(--avd-academy-color-headline);}
-.api-karte__unter{font-size:.75rem;color:var(--avd-academy-color-ink-muted);margin:0 0 .5rem;}
-.api-karte[hidden]{display:none;}
-.api-eintrag{border-top:1px solid var(--avd-academy-color-border);}
-.api-eintrag[hidden]{display:none;}
-.api-zeile{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;width:100%;font:inherit;text-align:left;padding:.45rem .15rem;background:none;border:none;color:var(--avd-academy-color-ink);cursor:pointer;}
-.api-zeile:hover .api-sig{text-decoration:underline;}
-.api-sig{font-family:var(--avd-academy-font-mono,ui-monospace,monospace);font-size:.82rem;overflow-wrap:anywhere;}
-.api-marken{display:flex;gap:.25rem;flex:none;}
-.api-marke{font-size:.68rem;font-weight:700;padding:.05rem .45rem;border-radius:999px;border:1px solid var(--avd-academy-color-border);white-space:nowrap;}
-.api-marke--lts{border-color:var(--avd-academy-color-accent);color:var(--avd-academy-color-accent-ink,var(--avd-academy-color-ink));}
-.api-eintrag.is-fehlt .api-zeile{color:var(--avd-academy-color-ink-muted);}
-.api-eintrag.is-fehlt .api-sig{text-decoration:line-through;}
-.api-detail{padding:.1rem .15rem .8rem;}
-.api-detail p{margin:0 0 .45rem;font-size:.9rem;}
-.api-detail pre{margin:.3rem 0 0;overflow-x:auto;font-size:.76rem;line-height:1.5;border-radius:var(--avd-academy-radius,6px);}
-.api-detail pre code{display:block;padding:.6rem .75rem;}
-.api-hinweis{font-size:.8rem;color:var(--avd-academy-color-ink-muted);}
-@media print{
-  .api-filter,.api-anzahl{display:none !important;}
-  .api-karte{break-inside:avoid;}
-  .api-detail[hidden]{display:block !important;}
-}
-</style>
-
 <p class="api-lead">Die kleinen Methoden, die seit Java 8 dazukamen und Java-8-Code im Alltag ersetzen – nach Klasse geordnet, mit Release und LTS-Marke. Ein Klick zeigt, was die Methode tut, was sie ersetzt, und ein Beispiel samt Ergebnis. Wähle Dein JDK, und durchgestrichen ist, was Dir noch fehlt. Kuratiert, nicht vollständig – die Javadoc nennt zu jeder Methode ihr „Since“.</p>
-
 <div class="api-filter" role="group" aria-labelledby="api-f-lts"><span class="api-filter__label" id="api-f-lts">Neu im LTS-Sprung</span><span class="api-filter__knoepfe" id="api-knoepfe-lts"></span></div>
 <div class="api-filter" role="group" aria-labelledby="api-f-jdk"><span class="api-filter__label" id="api-f-jdk">Mein JDK</span><span class="api-filter__knoepfe" id="api-knoepfe-jdk"></span></div>
 <p class="api-anzahl" id="api-anzahl" aria-live="polite"></p>
-
 <div class="api-karten" id="api-karten"></div>
-
-<script>
-  // highlight.js liegt im Academy-Theme; relativ zur Seite (zwei Ebenen hoch).
-  window.API_HLJS_BASE = new URL("../../theme/academy/hljs/", document.baseURI).href;
-</script>
-
-<script>
-(function () {
-  const karten = [
-    {"id": "text", "titel": "String und Text", "unter": "String, StringBuilder, HexFormat"},
-    {"id": "collections", "titel": "Collections", "unter": "List, Set, Map, Sequenced Collections"},
-    {"id": "stream", "titel": "Stream", "unter": "java.util.stream.Stream"},
-    {"id": "collectors", "titel": "Collectors", "unter": "java.util.stream.Collectors"},
-    {"id": "gatherers", "titel": "Gatherers", "unter": "java.util.stream.Gatherers – mit JDK 25"},
-    {"id": "optional", "titel": "Optional", "unter": "java.util.Optional"},
-    {"id": "io", "titel": "Dateien und Ströme", "unter": "Files, Path, InputStream, Reader"},
-    {"id": "http", "titel": "HttpClient", "unter": "java.net.http"},
-    {"id": "nebenlaeufig", "titel": "Nebenläufigkeit", "unter": "CompletableFuture, ExecutorService, Thread, ScopedValue"},
-    {"id": "weitere", "titel": "Weitere", "unter": "Objects, Predicate, Math, java.time, ProcessHandle, RandomGenerator, IO"}
-  ];
-  const einträge = [
-    {"id": "text-isblank", "k": "text", "sig": "isBlank()", "seit": 11, "was": "Prüft, ob ein Text leer ist oder nur aus Leerraum besteht – auch Unicode-Leerraum.", "bsp": "\"  \\t \".isBlank()          // true", "statt": "s.trim().isEmpty()"},
-    {"id": "text-strip-stripleading-striptrailing", "k": "text", "sig": "strip(), stripLeading(), stripTrailing()", "seit": 11, "was": "Entfernt Leerraum an den Rändern – anders als trim() auch Unicode-Leerzeichen.", "bsp": "\"\\u2003 Hallo \".strip()    // \"Hallo\"\n\"\\u2003 Hallo \".trim()     // \"\\u2003 Hallo\" – trim kennt nur Zeichen bis U+0020", "statt": "trim()"},
-    {"id": "text-lines", "k": "text", "sig": "lines()", "seit": 11, "was": "Zerlegt einen Text in einen Stream von Zeilen – mit jedem Zeilenende.", "bsp": "\"a\\nb\\r\\nc\".lines().toList()   // [a, b, c]", "statt": "split(\"\\\\R\")"},
-    {"id": "text-repeat-int", "k": "text", "sig": "repeat(int)", "seit": 11, "was": "Wiederholt einen Text.", "bsp": "\"=\".repeat(5)              // \"=====\"", "statt": "Schleife mit StringBuilder"},
-    {"id": "text-indent-int", "k": "text", "sig": "indent(int)", "seit": 12, "was": "Rückt jede Zeile ein (oder aus) und schließt mit einem Zeilenende ab.", "bsp": "\"a\\nb\".indent(2)            // \"  a\\n  b\\n\""},
-    {"id": "text-transform-function", "k": "text", "sig": "transform(Function)", "seit": 12, "was": "Wendet eine Funktion auf den Text an – für Ketten ohne Zwischenvariable.", "bsp": "\" 42 \".transform(String::strip).transform(Integer::parseInt)   // 42"},
-    {"id": "text-formatted-object", "k": "text", "sig": "formatted(Object...)", "seit": 15, "was": "String.format als Methode am Text – passt zu Text-Blöcken.", "bsp": "\"%s: %d Stück\".formatted(\"Tasse\", 3)   // \"Tasse: 3 Stück\"", "statt": "String.format(…)"},
-    {"id": "text-stripindent-translateescapes", "k": "text", "sig": "stripIndent(), translateEscapes()", "seit": 15, "was": "Was ein Text-Block beim Übersetzen tut, als Methode – für Texte, die erst zur Laufzeit entstehen.", "bsp": "\"  a\\n    b\".stripIndent()      // \"a\\n  b\"\n\"Tab:\\\\t!\".translateEscapes()   // \"Tab:\\t!\""},
-    {"id": "text-splitwithdelimiters-string-int", "k": "text", "sig": "splitWithDelimiters(String, int)", "seit": 21, "was": "Wie split, behält aber die Trennzeichen.", "bsp": "Arrays.toString(\"1+2-3\".splitWithDelimiters(\"[+-]\", 0))   // \"[1, +, 2, -, 3]\""},
-    {"id": "text-stringbuilder-repeat", "k": "text", "sig": "StringBuilder.repeat(…)", "seit": 21, "was": "Hängt einen Text oder ein Zeichen mehrfach an.", "bsp": "new StringBuilder(\"|\").repeat(\"-\", 3).append(\"|\").toString()   // \"|---|\""},
-    {"id": "text-hexformat", "k": "text", "sig": "HexFormat", "seit": 17, "was": "Bytes als Hexadezimaltext und zurück – ohne eigene Hilfsmethode.", "bsp": "HexFormat.of().formatHex(new byte[] {1, (byte) 0xAB})   // \"01ab\"", "statt": "Integer.toHexString in einer Schleife"},
-    {"id": "collections-list-of-set-of-map-of", "k": "collections", "sig": "List.of, Set.of, Map.of", "seit": 9, "was": "Unveränderliche Collections in einer Zeile. Verbieten null; add wirft eine Exception.", "bsp": "var farben = List.of(\"rot\", \"grün\")\nvar preise = Map.of(\"Tasse\", 9, \"Teller\", 12)", "statt": "Arrays.asList, Collections.unmodifiable…"},
-    {"id": "collections-map-ofentries-map-entry", "k": "collections", "sig": "Map.ofEntries, Map.entry", "seit": 9, "was": "Unveränderliche Maps mit mehr als zehn Einträgen.", "bsp": "Map.ofEntries(Map.entry(\"a\", 1), Map.entry(\"b\", 2)).size()   // 2"},
-    {"id": "collections-list-copyof-set-copyof-map-copyof", "k": "collections", "sig": "List.copyOf, Set.copyOf, Map.copyOf", "seit": 10, "was": "Unveränderliche Kopie – etwa für einen Parameter, den man behalten will.", "bsp": "var kopie = List.copyOf(new ArrayList<>(List.of(1, 2)))\nkopie.getClass().getSimpleName()   // \"List12\" – unveränderlich", "statt": "new ArrayList<>(…) plus unmodifiableList"},
-    {"id": "collections-getfirst-getlast-addfirst-removelast", "k": "collections", "sig": "getFirst(), getLast(), addFirst(…), removeLast() …", "seit": 21, "was": "Sequenced Collections: Anfang und Ende für List, Deque, LinkedHashSet und SortedSet einheitlich.", "bsp": "List.of(1, 2, 3).getLast()   // 3", "statt": "list.get(list.size() - 1)"},
-    {"id": "collections-reversed", "k": "collections", "sig": "reversed()", "seit": 21, "was": "Eine umgekehrte Sicht – keine Kopie.", "bsp": "List.of(1, 2, 3).reversed()   // [3, 2, 1]", "statt": "Kopie plus Collections.reverse"},
-    {"id": "collections-firstentry-lastentry-putfirst", "k": "collections", "sig": "firstEntry(), lastEntry(), putFirst(…) …", "seit": 21, "was": "Sequenced Maps: Anfang und Ende auch für LinkedHashMap.", "bsp": "var m = new LinkedHashMap<String, Integer>()\nm.put(\"a\", 1); m.put(\"b\", 2);\nm.lastEntry()   // b=2"},
-    {"id": "stream-takewhile-dropwhile", "k": "stream", "sig": "takeWhile, dropWhile", "seit": 9, "was": "Nimmt bzw. überspringt Elemente, solange eine Bedingung gilt.", "bsp": "Stream.of(1, 2, 5, 1).takeWhile(x -> x < 3).toList()   // [1, 2]"},
-    {"id": "stream-iterate-seed-hasnext-next", "k": "stream", "sig": "iterate(seed, hasNext, next)", "seit": 9, "was": "Eine for-Schleife als Stream – mit Abbruchbedingung.", "bsp": "Stream.iterate(1, i -> i <= 100, i -> i * 10).toList()   // [1, 10, 100]"},
-    {"id": "stream-ofnullable-t", "k": "stream", "sig": "ofNullable(T)", "seit": 9, "was": "Ein Stream mit einem Element – oder leer bei null.", "bsp": "Stream.ofNullable(null).count()   // 0"},
-    {"id": "stream-tolist", "k": "stream", "sig": "toList()", "seit": 16, "was": "Sammelt in eine unveränderliche Liste.", "bsp": "Stream.of(1, 2).toList()   // [1, 2] – add wirft UnsupportedOperationException", "statt": "collect(Collectors.toList())"},
-    {"id": "stream-mapmulti-biconsumer", "k": "stream", "sig": "mapMulti(BiConsumer)", "seit": 16, "was": "Bildet ein Element auf null, eines oder mehrere ab – ohne einen Stream je Element.", "bsp": "Stream.of(1, 2).<Integer>mapMulti((x, raus) -> { raus.accept(x); raus.accept(-x); }).toList()   // [1, -1, 2, -2]", "statt": "flatMap"},
-    {"id": "stream-gather-gatherer", "k": "stream", "sig": "gather(Gatherer)", "seit": 24, "was": "Eigene Zwischenoperationen – fertige liefert Gatherers.", "bsp": "Stream.of(1, 2, 3, 4, 5).gather(Gatherers.windowFixed(2)).toList()   // [[1, 2], [3, 4], [5]]"},
-    {"id": "collectors-filtering-flatmapping", "k": "collectors", "sig": "filtering, flatMapping", "seit": 9, "was": "Filtern und Abflachen innerhalb einer Gruppierung.", "bsp": "Stream.of(\"a\", \"bb\", \"cc\").collect(Collectors.groupingBy(String::length,\n        Collectors.filtering(s -> !s.equals(\"cc\"), Collectors.toList())))   // {1=[a], 2=[bb]}"},
-    {"id": "collectors-tounmodifiablelist-set-map", "k": "collectors", "sig": "toUnmodifiableList, …Set, …Map", "seit": 10, "was": "Sammelt in unveränderliche Collections.", "bsp": "Stream.of(\"a\", \"b\").collect(Collectors.toUnmodifiableSet()).size()   // 2"},
-    {"id": "collectors-teeing-c1-c2-merger", "k": "collectors", "sig": "teeing(c1, c2, merger)", "seit": 12, "was": "Zwei Collectors in einem Durchlauf, Ergebnisse zusammengeführt.", "bsp": "Stream.of(3, 1, 2).collect(Collectors.teeing(Collectors.counting(),\n        Collectors.summingInt(x -> x), (anzahl, summe) -> summe / anzahl))   // 2"},
-    {"id": "gatherers-windowfixed-int", "k": "gatherers", "sig": "windowFixed(int)", "seit": 24, "was": "Pakete fester Größe – etwa für Sammel-Inserts.", "bsp": "Stream.of(1, 2, 3, 4, 5).gather(Gatherers.windowFixed(2)).toList()   // [[1, 2], [3, 4], [5]]"},
-    {"id": "gatherers-windowsliding-int", "k": "gatherers", "sig": "windowSliding(int)", "seit": 24, "was": "Gleitende Fenster – etwa für gleitende Durchschnitte.", "bsp": "Stream.of(1, 2, 3).gather(Gatherers.windowSliding(2)).toList()   // [[1, 2], [2, 3]]"},
-    {"id": "gatherers-scan-fold", "k": "gatherers", "sig": "scan, fold", "seit": 24, "was": "Laufende Zwischenstände (scan) oder ein Endstand (fold) in Stream-Reihenfolge.", "bsp": "Stream.of(1, 2, 3).gather(Gatherers.scan(() -> 0, Integer::sum)).toList()   // [1, 3, 6]"},
-    {"id": "gatherers-mapconcurrent-int-function", "k": "gatherers", "sig": "mapConcurrent(int, Function)", "seit": 24, "was": "Bildet gleichzeitig auf virtuellen Threads ab – höchstens n auf einmal, Reihenfolge bleibt.", "bsp": "Stream.of(1, 2, 3).gather(Gatherers.mapConcurrent(2, x -> x * 10)).toList()   // [10, 20, 30]"},
-    {"id": "optional-ifpresentorelse", "k": "optional", "sig": "ifPresentOrElse(…)", "seit": 9, "was": "Ein Zweig für vorhanden, einer für leer.", "bsp": "Optional.empty().ifPresentOrElse(System.out::println, () -> System.out.println(\"leer\"))   // gibt \"leer\" aus", "statt": "isPresent() mit if/else"},
-    {"id": "optional-or-supplier", "k": "optional", "sig": "or(Supplier)", "seit": 9, "was": "Ersatz-Optional, wenn leer – die Kette bleibt ein Optional.", "bsp": "Optional.empty().or(() -> Optional.of(\"Ersatz\")).get()   // \"Ersatz\""},
-    {"id": "optional-stream", "k": "optional", "sig": "stream()", "seit": 9, "was": "Ein Optional als Stream mit null oder einem Element – gut in flatMap.", "bsp": "Stream.of(Optional.of(1), Optional.<Integer>empty()).flatMap(Optional::stream).toList()   // [1]"},
-    {"id": "optional-orelsethrow", "k": "optional", "sig": "orElseThrow()", "seit": 10, "was": "Wie get(), aber der Name sagt, was passiert.", "bsp": "Optional.of(\"x\").orElseThrow()   // \"x\"", "statt": "get()"},
-    {"id": "optional-isempty", "k": "optional", "sig": "isEmpty()", "seit": 11, "was": "Das Gegenstück zu isPresent().", "bsp": "Optional.empty().isEmpty()   // true", "statt": "!isPresent()"},
-    {"id": "io-files-readstring-files-writestring", "k": "io", "sig": "Files.readString, Files.writeString", "seit": 11, "was": "Eine Textdatei in einem Aufruf lesen oder schreiben – UTF-8, wenn nichts anderes gesagt ist.", "bsp": "var datei = Files.writeString(Files.createTempFile(\"x\", \".txt\"), \"Grüße\")\nFiles.readString(datei)   // \"Grüße\"", "statt": "new String(Files.readAllBytes(…), UTF_8)"},
-    {"id": "io-path-of", "k": "io", "sig": "Path.of(…)", "seit": 11, "was": "Erzeugt einen Pfad.", "bsp": "Path.of(\"daten\", \"bestellungen.csv\").toString()   // \"daten/bestellungen.csv\" (unter Unix)", "statt": "Paths.get(…)"},
-    {"id": "io-files-mismatch-path-path", "k": "io", "sig": "Files.mismatch(Path, Path)", "seit": 12, "was": "Vergleicht zwei Dateien; −1, wenn sie gleich sind, sonst die erste abweichende Position.", "bsp": "var a = Files.writeString(Files.createTempFile(\"a\", \"\"), \"abc\")\nvar b = Files.writeString(Files.createTempFile(\"b\", \"\"), \"abd\")\nFiles.mismatch(a, b)   // 2"},
-    {"id": "io-inputstream-transferto-readallbytes", "k": "io", "sig": "InputStream.transferTo, readAllBytes", "seit": 9, "was": "Einen Strom kopieren oder ganz lesen – ohne Puffer-Schleife.", "bsp": "new ByteArrayInputStream(\"abc\".getBytes()).readAllBytes().length   // 3", "statt": "Schleife mit byte[]-Puffer"},
-    {"id": "io-inputstream-readnbytes-int-nullinputstre", "k": "io", "sig": "InputStream.readNBytes(int), nullInputStream()", "seit": 11, "was": "Genau n Bytes lesen; ein leerer Strom für Tests.", "bsp": "new ByteArrayInputStream(\"abcdef\".getBytes()).readNBytes(2).length   // 2"},
-    {"id": "io-reader-of-charsequence", "k": "io", "sig": "Reader.of(CharSequence)", "seit": 24, "was": "Ein Reader über einen Text.", "bsp": "new BufferedReader(Reader.of(\"Zeile 1\\nZeile 2\")).lines().count()   // 2", "statt": "new StringReader(…)"},
-    {"id": "http-httpclient-httprequest-httpresponse", "k": "http", "sig": "HttpClient, HttpRequest, HttpResponse", "seit": 11, "was": "HTTP im JDK, mit HTTP/2 – synchron mit send, asynchron mit sendAsync.", "bsp": "var client = HttpClient.newHttpClient();\nvar anfrage = HttpRequest.newBuilder(URI.create(\"https://example.org\")).build();\nvar antwort = client.send(anfrage, HttpResponse.BodyHandlers.ofString());\nantwort.statusCode();", "statt": "HttpURLConnection oder eine Bibliothek"},
-    {"id": "http-httpclient-close", "k": "http", "sig": "HttpClient.close()", "seit": 21, "was": "HttpClient ist AutoCloseable – passt in try-with-resources.", "bsp": "try (var client = HttpClient.newHttpClient()) {\n    // Anfragen …\n}"},
-    {"id": "nebenlaeufig-completablefuture-ortimeout-completeonti", "k": "nebenlaeufig", "sig": "CompletableFuture.orTimeout, completeOnTimeout", "seit": 9, "was": "Zeitlimit für einen asynchronen Aufruf – mit Fehler oder Ersatzwert.", "bsp": "new CompletableFuture<String>().completeOnTimeout(\"zu spät\", 10, TimeUnit.MILLISECONDS).join()   // \"zu spät\""},
-    {"id": "nebenlaeufig-executorservice-close", "k": "nebenlaeufig", "sig": "ExecutorService.close()", "seit": 19, "was": "Wartet, bis alle Aufgaben fertig sind – ExecutorService passt in try-with-resources.", "bsp": "try (var executor = Executors.newFixedThreadPool(4)) {\n    executor.submit(() -> System.out.println(\"läuft\"));\n}   // wartet hier", "statt": "shutdown() plus awaitTermination(…)"},
-    {"id": "nebenlaeufig-executors-newvirtualthreadpertaskexecuto", "k": "nebenlaeufig", "sig": "Executors.newVirtualThreadPerTaskExecutor()", "seit": 21, "was": "Ein virtueller Thread je Aufgabe – keine Poolgröße mehr.", "bsp": "try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n    executor.submit(() -> System.out.println(Thread.currentThread().isVirtual()));   // true\n}"},
-    {"id": "nebenlaeufig-thread-ofvirtual-thread-startvirtualthre", "k": "nebenlaeufig", "sig": "Thread.ofVirtual(), Thread.startVirtualThread(…)", "seit": 21, "was": "Virtuelle Threads direkt erzeugen.", "bsp": "Thread.startVirtualThread(() -> System.out.println(\"virtuell\")).join()"},
-    {"id": "nebenlaeufig-scopedvalue", "k": "nebenlaeufig", "sig": "ScopedValue", "seit": 25, "was": "Ein unveränderlicher Wert für einen Aufruf und alles darin – Nachfolger von ThreadLocal für Kontext.", "bsp": "ScopedValue<String> ID = ScopedValue.newInstance();\nScopedValue.where(ID, \"anfrage-1\").run(() -> System.out.println(ID.get()));   // anfrage-1", "statt": "ThreadLocal"},
-    {"id": "weitere-objects-requirenonnullelse-elseget", "k": "weitere", "sig": "Objects.requireNonNullElse, …ElseGet", "seit": 9, "was": "Ein Standardwert für null.", "bsp": "Objects.requireNonNullElse(null, \"Standard\")   // \"Standard\"", "statt": "x != null ? x : standard"},
-    {"id": "weitere-predicate-not", "k": "weitere", "sig": "Predicate.not(…)", "seit": 11, "was": "Verneint eine Methodenreferenz.", "bsp": "Stream.of(\"a\", \"\", \"b\").filter(Predicate.not(String::isEmpty)).toList()   // [a, b]", "statt": "s -> !s.isEmpty()"},
-    {"id": "weitere-math-clamp", "k": "weitere", "sig": "Math.clamp(…)", "seit": 21, "was": "Begrenzt einen Wert auf einen Bereich.", "bsp": "Math.clamp(150, 0, 100)   // 100", "statt": "Math.max(min, Math.min(max, x))"},
-    {"id": "weitere-localdate-datesuntil-ofinstant", "k": "weitere", "sig": "LocalDate.datesUntil, ofInstant", "seit": 9, "was": "Alle Tage eines Zeitraums als Stream; ein Datum aus einem Zeitpunkt.", "bsp": "LocalDate.of(2026, 10, 1).datesUntil(LocalDate.of(2026, 10, 4)).count()   // 3"},
-    {"id": "weitere-duration-tohourspart-tominutespart", "k": "weitere", "sig": "Duration.toHoursPart(), toMinutesPart() …", "seit": 9, "was": "Die Teile einer Dauer für die Anzeige.", "bsp": "Duration.ofMinutes(135).toHoursPart() + \" h \" + Duration.ofMinutes(135).toMinutesPart() + \" min\"   // \"2 h 15 min\""},
-    {"id": "weitere-processhandle", "k": "weitere", "sig": "ProcessHandle", "seit": 9, "was": "PID, Elternprozess und Kinder eines Prozesses.", "bsp": "ProcessHandle.current().pid() > 0   // true"},
-    {"id": "weitere-randomgenerator", "k": "weitere", "sig": "RandomGenerator", "seit": 17, "was": "Gemeinsame Schnittstelle für Zufallsgeneratoren, Algorithmus wählbar.", "bsp": "RandomGenerator.of(\"L64X128MixRandom\").nextInt(1, 7) <= 6   // true"},
-    {"id": "weitere-io-println-io-readln", "k": "weitere", "sig": "IO.println(…), IO.readln(…)", "seit": 25, "was": "Ausgabe und Eingabe auf der Konsole ohne System.out – für kompakte Quelldateien.", "bsp": "IO.println(\"Hallo\")   // gibt \"Hallo\" aus", "statt": "System.out.println"}
-  ];
-
-  const sprünge = [
-    { id: "", titel: "Alle" },
-    { id: "11", titel: "8 → 11" }, { id: "17", titel: "11 → 17" },
-    { id: "21", titel: "17 → 21" }, { id: "25", titel: "21 → 25" }
-  ];
-  const jdks = [{ id: "", titel: "egal" }, { id: "21", titel: "JDK 21" }, { id: "25", titel: "JDK 25" }];
-  const stand = { lts: "", jdk: "", methode: "" };
-  let hljs = null;
-
-  function lts(seit) { return seit <= 11 ? 11 : seit <= 17 ? 17 : seit <= 21 ? 21 : 25; }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
-  function färben(code) {
-    return hljs ? hljs.highlight(code, { language: "java", ignoreIllegals: true }).value : esc(code);
-  }
-
-  function aufbauen() {
-    const box = document.getElementById("api-karten");
-    box.innerHTML = karten.map(function (k) {
-      const drin = einträge.filter(function (e) { return e.k === k.id; })
-                           .sort(function (a, b) { return a.seit - b.seit; });
-      return '<section class="api-karte" data-karte="' + k.id + '"><h2>' + esc(k.titel) + '</h2><p class="api-karte__unter">' + esc(k.unter) + "</p>"
-        + drin.map(function (e) {
-            return '<div class="api-eintrag" data-id="' + e.id + '">'
-              + '<button type="button" class="api-zeile" aria-expanded="false" aria-controls="api-d-' + e.id + '">'
-              + '<span class="api-sig">' + esc(e.sig) + '</span><span class="api-marken"><span class="api-marke">Java ' + e.seit
-              + '</span><span class="api-marke api-marke--lts">LTS ' + lts(e.seit) + "</span></span></button>"
-              + '<div class="api-detail" id="api-d-' + e.id + '" hidden></div></div>';
-          }).join("")
-        + "</section>";
-    }).join("");
-    box.addEventListener("click", function (ev) {
-      const z = ev.target.closest(".api-zeile");
-      if (!z) return;
-      const id = z.parentElement.dataset.id;
-      stand.methode = stand.methode === id ? "" : id;
-      zeichnen();
-      melden();
-    });
-    knöpfe("api-knoepfe-lts", "lts", sprünge);
-    knöpfe("api-knoepfe-jdk", "jdk", jdks);
-  }
-
-  function knöpfe(ziel, schlüssel, liste) {
-    const box = document.getElementById(ziel);
-    box.innerHTML = liste.map(function (x) {
-      return '<button type="button" class="api-knopf" data-schluessel="' + schlüssel + '" data-wert="' + x.id + '">' + esc(x.titel) + "</button>";
-    }).join("");
-    box.addEventListener("click", function (ev) {
-      const k = ev.target.closest(".api-knopf");
-      if (!k) return;
-      stand[schlüssel] = k.dataset.wert;
-      zeichnen();
-      melden();
-    });
-  }
-
-  function detail(e) {
-    let html = "<p>" + esc(e.was) + "</p>";
-    if (e.statt) html += '<p class="api-hinweis">Statt: <code>' + esc(e.statt) + "</code></p>";
-    if (stand.jdk && e.seit > Number(stand.jdk)) html += '<p class="api-hinweis"><b>Nicht auf JDK ' + stand.jdk + "</b> – erst ab Java " + e.seit + ".</p>";
-    html += '<pre><code class="hljs">' + färben(e.bsp) + "</code></pre>";
-    return html;
-  }
-
-  function zeichnen() {
-    document.querySelectorAll(".api-knopf").forEach(function (k) {
-      k.setAttribute("aria-pressed", String(stand[k.dataset.schluessel] === k.dataset.wert));
-    });
-    let sichtbar = 0, fehlt = 0;
-    document.querySelectorAll(".api-eintrag").forEach(function (el) {
-      const e = einträge.find(function (x) { return x.id === el.dataset.id; });
-      const zeigen = !stand.lts || String(lts(e.seit)) === stand.lts;
-      el.hidden = !zeigen;
-      const fehlend = Boolean(stand.jdk) && e.seit > Number(stand.jdk);
-      el.classList.toggle("is-fehlt", fehlend);
-      if (zeigen) { sichtbar++; if (fehlend) fehlt++; }
-      const offen = zeigen && stand.methode === e.id;
-      const d = el.querySelector(".api-detail");
-      el.querySelector(".api-zeile").setAttribute("aria-expanded", String(offen));
-      if (offen) d.innerHTML = detail(e);
-      d.hidden = !offen;
-    });
-    document.querySelectorAll(".api-karte").forEach(function (k) {
-      k.hidden = !k.querySelector(".api-eintrag:not([hidden])");
-    });
-    document.getElementById("api-anzahl").textContent = sichtbar + " Methoden"
-      + (stand.jdk ? (fehlt ? ", davon " + fehlt + " noch nicht auf JDK " + stand.jdk : ", alle auf JDK " + stand.jdk + " verfügbar") : "");
-  }
-
-  function melden() { if (window.AvdAcademyState) window.AvdAcademyState.update(); }
-  function anmelden() {
-    if (!window.AvdAcademyState) return;
-    const gültig = {
-      lts: function (w) { return sprünge.some(function (s) { return s.id === w; }) ? w : ""; },
-      jdk: function (w) { return jdks.some(function (s) { return s.id === w; }) ? w : ""; },
-      methode: function (w) { return einträge.some(function (e) { return e.id === w; }) ? w : ""; }
-    };
-    Object.keys(gültig).forEach(function (schlüssel) {
-      window.AvdAcademyState.register({
-        key: schlüssel,
-        read: function () { return stand[schlüssel]; },
-        apply: function (w) { stand[schlüssel] = gültig[schlüssel](w || ""); zeichnen(); }
-      });
-    });
-  }
-
-  function start() {
-    aufbauen();
-    zeichnen();
-    anmelden();
-    Promise.all([import(window.API_HLJS_BASE + "core.min.js"), import(window.API_HLJS_BASE + "java.min.js")])
-      .then(function (m) { hljs = m[0].default; hljs.registerLanguage("java", m[1].default); zeichnen(); })
-      .catch(function () { /* ohne Farben weiter */ });
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
-  else start();
-})();
-</script>
-
 <blockquote>
-  <p><strong>Merksatz:</strong> Bevor Du eine Hilfsmethode schreibst, sieh in der Javadoc nach – seit
+<p><strong>Merksatz:</strong> Bevor Du eine Hilfsmethode schreibst, sieh in der Javadoc nach – seit
 Java 8 sind viele davon ins JDK gewandert.</p>
 </blockquote>
 
-
     </main>
-  </div><div class="avd-academy-print-contact" aria-hidden="true">
-    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
-    <span>academy@atvantage.com</span>
   </div>
-
-  <footer class="avd-academy-footer">
-  <div class="avd-academy-footer__grid">
-    <div><strong>ATVANTAGE Academy</strong>
-      <p>Schulungen im Bereich 'Java SE'</p>
-    </div><div>
-      <strong>Kontakt</strong>
-      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
-      </p>
-    </div></div>
-  <div class="avd-academy-footer__legal">
-    © <span data-avd-academy-year>2026</span> ATVANTAGE
-  </div>
-</footer>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
 
 </body>
 </html>

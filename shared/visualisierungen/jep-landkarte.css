@@ -1,0 +1,58 @@
+.jl-lead{color:var(--skr-color-ink-muted);margin:0 0 1.25rem;}
+.jl-filter{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin:0 0 .75rem;align-items:center;}
+.jl-filter__label{font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--skr-color-ink-muted);min-width:9.5rem;}
+.jl-filter__knoepfe{display:flex;flex-wrap:wrap;gap:.35rem;}
+.jl-knopf{font:inherit;font-size:.8rem;padding:.3rem .75rem;border-radius:999px;border:1px solid var(--skr-color-border);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.jl-knopf:hover{border-color:var(--skr-color-accent);}
+.jl-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);font-weight:700;}
+.jl-legende{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin:1rem 0;font-size:.8rem;color:var(--skr-color-ink-muted);}
+/* width:0 + min-width:100%: Die breite Karte zählt nicht zur Breite der Inhaltsspalte –
+   sonst schöbe sie auf dem Handy die ganze Seite seitlich auf. */
+.jl-scroll{overflow-x:auto;margin:0 0 1.5rem;width:0;min-width:100%;}
+.jl-karte{display:grid;grid-template-columns:8.5rem repeat(4,minmax(0,1fr));gap:.5rem;min-width:760px;}
+.jl-kopf{padding:.6rem .7rem;border-radius:var(--skr-radius,6px);background:var(--skr-color-bg-subtle);border:1px solid var(--skr-color-border);}
+.jl-kopf b{display:block;font-size:1.05rem;color:var(--skr-color-headline);}
+.jl-kopf span{font-size:.75rem;color:var(--skr-color-ink-muted);}
+.jl-kopf.is-gewaehlt{border-color:var(--skr-color-accent);box-shadow:inset 0 3px 0 var(--skr-color-accent);}
+.jl-zeilenkopf{padding:.6rem .5rem;font-size:.85rem;font-weight:700;color:var(--skr-color-headline);border-top:1px solid var(--skr-color-border);}
+.jl-zeilenkopf.is-gewaehlt{box-shadow:inset 3px 0 0 var(--skr-color-accent);}
+.jl-zelle{display:flex;flex-direction:column;gap:.35rem;padding:.5rem 0;border-top:1px solid var(--skr-color-border);}
+.jl-chip{font:inherit;text-align:left;width:100%;padding:.4rem .55rem;border-radius:var(--skr-radius,6px);border:1px solid var(--skr-color-border);background:var(--skr-color-bg-subtle);color:var(--skr-color-ink);cursor:pointer;line-height:1.25;}
+.jl-chip:hover,.jl-chip:focus-visible{border-color:var(--skr-color-accent);}
+.jl-chip__name{display:block;font-size:.85rem;font-weight:600;}
+.jl-chip__meta{display:block;font-size:.7rem;color:var(--skr-color-ink-muted);margin-top:.1rem;}
+.jl-chip.is-wichtig{border:2px solid var(--skr-color-accent);}
+.jl-chip.is-leise{background:transparent;border-style:dashed;color:var(--skr-color-ink-muted);}
+.jl-chip.is-leise .jl-chip__name{font-weight:400;}
+.jl-chip.is-zurueckgezogen .jl-chip__name{text-decoration:line-through;}
+.jl-merksatz{margin-top:1.5rem;}
+
+.jl-dialog{width:min(94vw,720px);max-height:88vh;padding:0;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg);color:var(--skr-color-ink);}
+.jl-dialog::backdrop{background:rgba(2,6,23,.6);}
+.jl-dialog__kopf{display:flex;justify-content:space-between;gap:1rem;padding:1.1rem 1.4rem;border-bottom:1px solid var(--skr-color-border);}
+.jl-dialog__kopf h2{margin:0;font-size:1.5rem;line-height:1.15;color:var(--skr-color-headline);}
+.jl-dialog__unter{margin:.35rem 0 0;font-size:.85rem;color:var(--skr-color-ink-muted);}
+.jl-schliessen{flex:none;font:inherit;font-size:1.6rem;line-height:1;background:none;border:none;color:var(--skr-color-ink);cursor:pointer;padding:.1rem .4rem;}
+.jl-dialog__inhalt{padding:1rem 1.4rem 1.4rem;overflow-y:auto;}
+.jl-dialog__inhalt h3{font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:1rem 0 .3rem;}
+.jl-dialog__inhalt p{margin:0;}
+.jl-marke{display:inline-block;padding:.05rem .55rem;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid currentColor;margin-right:.4rem;}
+.jl-marke--0{color:var(--skr-color-success-ink,var(--skr-color-ink));}
+.jl-marke--1{color:var(--skr-color-warning-ink,var(--skr-color-ink));}
+.jl-marke--2{color:var(--skr-color-danger-ink,var(--skr-color-ink));}
+.jl-relevanz{display:grid;grid-template-columns:auto auto;gap:.25rem 1rem;justify-content:start;}
+.jl-weg{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;justify-content:flex-start;}
+.jl-schritt{font-size:.8rem;padding:.15rem .5rem;border:1px solid var(--skr-color-border);border-radius:999px;}
+.jl-schritt.is-final{border-color:var(--skr-color-accent);font-weight:700;}
+.jl-pfeil{color:var(--skr-color-ink-muted);}
+.jl-druck{display:none;}
+@media print{
+  .jl-filter,.jl-legende,.jl-dialog{display:none !important;}
+  .jl-scroll{overflow:visible;}
+  .jl-karte{min-width:0;}
+  .jl-chip.is-leise{border-style:solid;}
+  .jl-druck{display:block;break-before:page;}
+  .jl-druck section{break-inside:avoid;margin:0 0 10pt;}
+  .jl-druck h3{font-size:11pt;margin:0 0 2pt;}
+  .jl-druck p{font-size:9.5pt;margin:0 0 2pt;}
+}

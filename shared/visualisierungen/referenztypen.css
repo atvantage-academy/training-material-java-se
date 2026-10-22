@@ -1,0 +1,392 @@
+  /* Bühnenbild dieser Simulation. Nur Anordnung und Kleinkram – Farben, Radien und
+     Schatten kommen aus den Tokens des Skriptoriums bzw. den Bausteinen `skr-didaktikon-simulation-*`. */
+  .speicher {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(15rem, 21rem) minmax(0, 1fr);
+    gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    align-items: start;
+    /* Die Bühne ist höher als das Bühnenbild – die Tafeln stünden sonst oben und
+       ließen unten eine tote Fläche. `align-content` rückt die Reihe in die Mitte,
+       `align-items` hält die Tafeln darin auf gleicher Oberkante. */
+    align-content: center;
+    min-height: 100%;
+  }
+  @media (max-width: 1000px) {
+    .speicher { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* Die Speicherseite: die Thread Stacks NEBENEINANDER, der Heap DARUNTER. Das
+     ist keine Geschmacksfrage – die Anordnung trägt die Aussage: Jeder Thread hat
+     seinen eigenen Stack (drei stehen nebeneinander), der eine Heap darunter
+     gehört ihnen ALLEN gemeinsam. */
+  .speicher__speicher {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 1rem + 2vw, 3.5rem);
+  }
+  .speicher__stacks {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr 1fr;
+    gap: var(--skr-space-4);
+    align-items: stretch;
+  }
+
+  /* Angedeutete Nachbar-Stacks: gleiche Form, nur ausgegraut und gestrichelt.
+     Sie tragen keinen Zustand und werden von der Simulation nie angefasst – sie
+     sagen bloß „dieser hier ist einer von vielen“. */
+  .speicher__geist {
+    border-style: dashed;
+    opacity: 0.4;
+  }
+  .speicher__geist:last-child { opacity: 0.26; }
+  .speicher__geist-zelle {
+    height: 2.9rem;
+    border-radius: var(--skr-radius);
+    background: color-mix(in srgb, var(--skr-color-border) 65%, transparent);
+  }
+  /* Auf schmalen Bühnen fällt die Andeutung weg: Sie ist Kontext, nicht Inhalt –
+     und drei Spalten nebeneinander wären dort ohnehin unlesbar. */
+  @media (max-width: 1250px) {
+    .speicher__stacks { grid-template-columns: 1fr; }
+    .speicher__geist { display: none; }
+  }
+
+  .speicher__gruppe {
+    margin: 0 0 var(--skr-space-3) 0;
+    font-size: 0.7em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--skr-color-ink-muted);
+  }
+  .speicher__gruppe + .skr-didaktikon-simulation-code { margin-bottom: var(--skr-space-4); }
+
+  /* Die Pfeile liegen als eine SVG-Fläche über der ganzen Bühne. `pointer-events:none`,
+     damit sie nichts abfangen. */
+  .speicher__pfeile {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    /* VOR den Tafeln. Die Heap-Tafel ist `position: relative` (sie trägt den
+       Garbage Collector) und steht später im Baum – ohne z-index verschwände die
+       Pfeilspitze hinter ihrem Rand. */
+    z-index: 5;
+  }
+  /* Die Pfeile laufen jetzt SENKRECHT (Stack oben → Heap unten). Sie treten
+     rechts aus der Variablen aus, machen außen einen Bogen und kommen rechts am
+     Objekt wieder an – quer durch die Tafeln gezogen kreuzten sie sonst Zellen,
+     die gar nichts damit zu tun haben. */
+  .speicher__pfeil {
+    fill: none;
+    stroke: var(--skr-color-accent);
+    stroke-width: 2.5;
+    marker-end: url(#speicher-spitze);
+  }
+  /* Der Pfeil wird GEZEICHNET, statt einfach da zu sein: Die Verbindung entsteht
+     vor den Augen der Teilnehmenden – genau das ist der Lernmoment. */
+  @media (prefers-reduced-motion: no-preference) {
+    .speicher__pfeil.is-new { animation: speicher-ziehen 500ms ease-out; }
+  }
+  /* 900 statt der Pfadlänge: Der Wert muss nur GRÖSSER als jeder vorkommende Pfad
+     sein, dann läuft die Linie sichtbar von vorn nach hinten aus. */
+  @keyframes speicher-ziehen {
+    from { stroke-dasharray: 900; stroke-dashoffset: 900; }
+    to   { stroke-dasharray: 900; stroke-dashoffset: 0; }
+  }
+
+  .speicher__adresse {
+    font-family: var(--skr-font-mono);
+    font-size: 0.75em;
+    color: var(--skr-color-accent);
+  }
+
+  /* Das Objekt im Heap ist ein Kästchen wie im Objektdiagramm – Kopfzeile mit
+     unterstrichenem „instanz : Klasse“, darunter je Attribut eine Zeile. Es füllt
+     bewusst NICHT die Tafelbreite: Ein Objekt ist ein Ding an einer Stelle, keine
+     Zeile in einer Liste. Deshalb ist der Tafelkörper hier waagerecht. */
+  #speicher-heap { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+  .speicher__objekt {
+    min-width: 12rem;
+    border: 1px solid var(--skr-color-border);
+    border-radius: var(--skr-radius);
+    background: var(--skr-color-bg);
+    box-shadow: var(--skr-shadow-1);
+    overflow: hidden;
+    transition: border-color var(--skr-transition);
+  }
+  .speicher__objekt-kopf {
+    padding: var(--skr-space-2) var(--skr-space-3);
+    border-bottom: 1px solid var(--skr-color-border);
+    background: var(--skr-color-bg-subtle);
+    font-family: var(--skr-font-mono);
+    font-size: 0.8em;
+    text-align: center;
+    text-decoration: underline;   /* Objektdiagramm-Konvention */
+  }
+  .speicher__objekt-attr {
+    display: flex;
+    gap: 0.45em;
+    padding: var(--skr-space-2) var(--skr-space-3);
+    font-family: var(--skr-font-mono);
+    font-size: 0.9em;
+  }
+  .speicher__objekt-attr b { font-weight: var(--skr-fw-bold); }
+
+  /* Unerreichbar: Auf das Objekt zeigt kein Wegweiser mehr. Es ist noch DA –
+     gestrichelt und blass –, denn genau das ist der Punkt: Weg ist es erst,
+     wenn der Garbage Collector vorbeikommt. */
+  .speicher__objekt.is-unerreichbar {
+    border-style: dashed;
+    opacity: 0.5;
+  }
+  .speicher__objekt.is-gekehrt {
+    animation: speicher-weggekehrt 2.2s ease-in forwards;
+  }
+  /* Das Objekt geht erst weg, wenn er da ist – und dann in seine Kehrrichtung
+     (nach rechts), nicht in ihn hinein. */
+  @keyframes speicher-weggekehrt {
+    0%, 22% { opacity: 0.5; transform: none; }
+    55%     { opacity: 0.3; transform: translateX(30px) rotate(7deg); }
+    100%    { opacity: 0;   transform: translateX(120px) rotate(18deg); }
+  }
+
+  /* Der Reinigungsmann. Er kommt von rechts, kehrt einmal durch und geht wieder –
+     absichtlich mit Verzögerung: Der GC läuft nicht auf Kommando. */
+  .speicher__heap { position: relative; overflow: hidden; }
+  .speicher__gc {
+    position: absolute;
+    /* Von LINKS: Dort liegt das Objekt – der Heap füllt sich von links. */
+    left: var(--skr-space-3);
+    bottom: var(--skr-space-3);
+    display: flex;
+    align-items: flex-end;
+    gap: 0.1em;
+    font-size: clamp(1.8rem, 1.2rem + 1.5vw, 2.6rem);
+    line-height: 1;
+    pointer-events: none;
+    /* `forwards` ist hier kein Feinschliff: Ohne Fill-Mode springt das Element am
+       Ende der Animation auf seinen Ausgangszustand zurück – der Reinigungsmann
+       stünde also wieder da, nachdem er gegangen ist. */
+    animation: speicher-kommt 3.4s ease-in-out forwards;
+  }
+  .speicher__gc[hidden] { display: none; }
+  .speicher__gc-besen { display: inline-block; animation: speicher-kehrt 0.5s ease-in-out 6; }
+  /* Er kommt von links ins Bild, bleibt beim Objekt stehen, kehrt – und zieht
+     dann nach rechts weiter aus dem Bild. */
+  @keyframes speicher-kommt {
+    0%   { transform: translateX(-180px); opacity: 0; }
+    14%  { transform: translateX(0);      opacity: 1; }
+    46%  { transform: translateX(0);      opacity: 1; }
+    92%  { transform: translateX(320px);  opacity: 1; }
+    100% { transform: translateX(360px);  opacity: 0; }
+  }
+  @keyframes speicher-kehrt {
+    0%, 100% { transform: rotate(-18deg); }
+    50%      { transform: rotate(14deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .speicher__objekt.is-gekehrt { animation: none; opacity: 0; }
+    .speicher__gc, .speicher__gc-besen { animation: none; }
+  }
+  .speicher__null { color: var(--skr-color-danger); }
+  .speicher__unbelegt { color: var(--skr-color-ink-muted); opacity: 0.7; }
+  /* Schlussbild: die Merksätze auf der Bühne. Sie liegen ÜBER dem Aufbau, der
+     blass dahinter stehen bleibt – der Weg dorthin bleibt sichtbar, aber die
+     Aussage steht vorn. */
+  .speicher__final {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--skr-space-6);
+    padding: clamp(1.5rem, 1rem + 3vw, 4rem);
+    background: color-mix(in srgb, var(--skr-color-bg) 86%, transparent);
+    backdrop-filter: blur(3px);
+  }
+  .speicher__final[hidden] { display: none; }
+  .speicher__final-kopf {
+    margin: 0;
+    font-size: 0.75em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--skr-color-ink-muted);
+  }
+  .speicher__final-liste {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--skr-space-6);
+    max-width: 46rem;
+  }
+  .speicher__final-liste li {
+    padding-left: var(--skr-space-6);
+    border-left: 4px solid var(--skr-color-accent);
+    font-size: clamp(1.15rem, 0.9rem + 1.1vw, 1.9rem);
+    line-height: var(--skr-lh-heading);
+    color: var(--skr-color-headline);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .speicher__final-liste li { animation: speicher-merksatz 420ms ease-out backwards; }
+    .speicher__final-liste li:nth-child(2) { animation-delay: 260ms; }
+  }
+  @keyframes speicher-merksatz {
+    from { opacity: 0; transform: translateX(-0.75rem); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Gemeinsames Bühnenbild der Szenarien 2–4: Quelltext links, Stack rechts oben,
+     Heap darunter. Dieselben Bausteine wie in Szenario 1, nur schlanker – dort
+     geht es um die drei Thread Stacks, hier um die Beziehungen der Objekte. */
+  .szene {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr);
+    grid-template-areas: "code stack" "code heap";
+    gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    align-items: start;
+    align-content: center;
+    min-height: 100%;
+  }
+  .szene__code  { grid-area: code; }
+  .szene__meta  { grid-area: meta; }
+  /* „this und static“ hat eine dritte Tafel: den Bereich AUSSERHALB des Heaps,
+     in dem die geladenen Klassen samt ihrem Code liegen. */
+  .szene[data-skr-didaktikon-simulation-scene="this-static"] {
+    /* Der Metaspace steht NEBEN dem Thread Stack, nicht darunter: So bleibt der
+       Stack schmal, und alle drei Bereiche passen ohne Scrollen auf den Schirm. */
+    /* Die Quelltext-Spalte bleibt so breit, dass die längste Zeile
+       (`int größer = Math.max(3, 7);`) ohne Abschneiden hineinpasst. */
+    grid-template-columns: minmax(19rem, 25rem) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "code stack meta" "code heap heap";
+  }
+  @media (max-width: 1100px) {
+    .szene[data-skr-didaktikon-simulation-scene="this-static"] {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "code" "stack" "heap" "meta";
+    }
+  }
+  .szene__meta .skr-didaktikon-simulation-panel__body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    align-items: flex-start;
+  }
+  /* Klassen sind keine Objekte – gestrichelt und ohne Fläche, damit niemand sie
+     für Instanzen im Heap hält. */
+  .speicher__objekt.is-klasse {
+    border-style: dashed;
+    background: none;
+    box-shadow: none;
+  }
+  .speicher__objekt.is-klasse .speicher__objekt-kopf {
+    text-decoration: none;
+    background: none;
+  }
+  .szene__stack { grid-area: stack; }
+  .szene__heap  { grid-area: heap; }
+  @media (max-width: 1000px) {
+    .szene { grid-template-columns: minmax(0, 1fr); grid-template-areas: "code" "stack" "heap"; }
+  }
+  /* Im Objektgeflecht stehen alle drei Objekte in EINER Reihe: Konto 1 links,
+     die Kundin in der Mitte, Konto 2 rechts. Die Pfeile laufen dann von außen
+     nach innen und treffen die Kundin an der Seite, die ihnen zugewandt ist –
+     keiner kreuzt eine Karte. Die Reihenfolge im Zustand ist eine andere
+     (die Kundin entsteht zuerst), deshalb `order`. */
+  [data-skr-didaktikon-simulation-scene="objektgeflecht"] .szene__objekte {
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 1rem + 3vw, 4.5rem);
+  }
+
+  /* Objekte liegen im Heap nebeneinander – ein Objekt ist ein Ding an einer
+     Stelle, keine Zeile in einer Liste. */
+  .szene__objekte {
+    display: flex;
+    /* `row` ausdrücklich: Der Tafelkörper des Themes ist eine Spalte, und ohne
+       diese Zeile stünden die Objekte untereinander statt nebeneinander. */
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    align-items: flex-start;
+  }
+  /* Das Ergebnis eines Ausdrucks gehört an den CODE, nicht in den Heap: Es ist die
+     Antwort auf die Zeile, die gerade läuft – kein Objekt im Speicher. Es blendet
+     sich als Sprechblase direkt unter dem Codeblock ein, mit einer Spitze nach
+     oben, damit klar ist, worauf sie sich bezieht. */
+  .szene__popup {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--skr-space-2);
+    margin-top: var(--skr-space-4);
+    padding: var(--skr-space-3) var(--skr-space-4);
+    border: 1px solid var(--skr-color-accent);
+    border-radius: var(--skr-radius);
+    background: var(--skr-color-bg);
+    box-shadow: var(--skr-shadow-2);
+  }
+  .szene__popup[hidden] { display: none; }
+  /* Die Spitze: zwei gedrehte Quadrate übereinander – das obere in der
+     Hintergrundfarbe, damit die Rahmenlinie darunter verschwindet. */
+  .szene__popup::before,
+  .szene__popup::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: var(--skr-space-6);
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+  .szene__popup::before {
+    background: var(--skr-color-accent);
+  }
+  .szene__popup::after {
+    top: -4px;
+    background: var(--skr-color-bg);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .szene__popup { animation: speicher-merksatz 240ms ease-out; }
+  }
+
+  /* Ein Ergebnis (true/false) tritt als eigene Zeile auf, nicht als Fließtext. */
+  .szene__ergebnis {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6em;
+    font-family: var(--skr-font-mono);
+    font-size: 0.9em;
+  }
+  .szene__ergebnis b { font-size: 1.15em; }
+  .szene__ergebnis.is-wahr b   { color: var(--skr-color-success); }
+  .szene__ergebnis.is-falsch b { color: var(--skr-color-danger); }
+
+  /* PLATZ VON ANFANG AN RESERVIEREN.
+     Ohne das wächst eine Tafel mit jedem neuen Kasten, und alles darunter rutscht
+     nach – die frisch eingeblendete Karte scheint sich ein zweites Mal zu bewegen.
+     Die Werte sind der jeweils GRÖSSTE Zustand des Szenarios, einmal ausgemessen.
+     Kommt ein Schritt dazu, hier nachziehen. */
+  #speicher-stack               { min-height: 21rem; }   /* 4 Variablen */
+  #speicher-heap                { min-height: 5.5rem; }  /* 1 Objekt */
+  #objektgeflecht-stack         { min-height: 16rem; }   /* 3 Variablen */
+  #objektgeflecht-heap          { min-height: 8.5rem; }  /* 3 Objekte in einer Reihe */
+  #identitaet-stack             { min-height: 11rem; }   /* 2 Variablen */
+  #identitaet-heap              { min-height: 5.5rem; }  /* 2 Objekte nebeneinander */
+  #this-static-stack            { min-height: 16rem; }   /* 3 Variablen */
+  #this-static-heap             { min-height: 5.5rem; }  /* 2 Objekte nebeneinander */
+  #this-static-meta             { min-height: 7rem; }    /* Konto und Math */
+
+  .speicher__leer {
+    color: var(--skr-color-ink-muted);
+    font-size: 0.85em;
+    font-style: italic;
+  }

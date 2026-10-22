@@ -1,84 +1,86 @@
-<!DOCTYPE html><html lang="de">
+<!DOCTYPE html>
+<html lang="de">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>Plattform-Threads und virtuelle Threads · ATVANTAGE Academy</title><meta name="description" content="Drei Abläufe: ein fester Thread-Pool, der beim Warten blockiert, virtuelle Threads, die ihren Trägerthread freigeben – und das Pinning in synchronized unter Java 21, das Java 25 beendet."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Plattform-Threads und virtuelle Threads · ATVANTAGE Academy</title>
+<meta name="description" content="Drei Abläufe: ein fester Thread-Pool, der beim Warten blockiert, virtuelle Threads, die ihren Trägerthread freigeben – und das Pinning in synchronized unter Java 21, das Java 25 beendet.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Plattform-Threads und virtuelle Threads">
 <meta property="og:description" content="Drei Abläufe: ein fester Thread-Pool, der beim Warten blockiert, virtuelle Threads, die ihren Trägerthread freigeben – und das Pinning in synchronized unter Java 21, das Java 25 beendet.">
-<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/virtual-threads/simulation.html","title":"Plattform-Threads und virtuelle Threads","layout":"simulation","description":"Drei Abläufe: ein fester Thread-Pool, der beim Warten blockiert, virtuelle Threads, die ihren Trägerthread freigeben – und das Pinning in synchronized unter Java 21, das Java 25 beendet.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/simulation.css?v=af5c6650"><script src="/training-material-java-se/theme/jekyll/simulation.js?v=d7bb5e7e"></script>
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head>
-<body class="avd-academy-sim" data-avd-academy-sim data-avd-academy-sim-title="Plattform-Threads und virtuelle Threads"
-      data-avd-academy-sim-speed="1"
-      data-avd-academy-sim-step-interval="3200">
-  <a class="avd-academy-skip-link" href="#avd-academy-sim-stage">Zum Inhalt springen</a>
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Drei Abläufe: ein fester Thread-Pool, der beim Warten blockiert, virtuelle Threads, die ihren Trägerthread freigeben – und das Pinning in synchronized unter Java 21, das Java 25 beendet.","duration":null,"fields":{"didaktikon":{"simulation":{"intro":"Was passiert mit einem Thread, während er auf ein anderes System wartet? Drei Abläufe mit denselben Anfragen – jeder beginnt von vorn.","speed":1,"step":{"interval":3200}}}},"language":"de","languages":["de"],"layout":"didaktikon.simulation","pageAssets":[{"path":"java-update/virtual-threads/simulation.css","src":"simulation.css","type":"style"},{"path":"java-update/virtual-threads/simulation.js","src":"simulation.js","type":"script"}],"pageId":"java-update-virtual-threads-simulation","runtimeFragments":["^/\\d+$","^/[A-Za-z0-9_-]+/\\d+$","^/overview/?$"],"siteIndex":"/skriptorium/site.json","title":"Plattform-Threads und virtuelle Threads","topics":null,"url":"/java-update/virtual-threads/simulation.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <header class="avd-academy-sim__bar">
-    <img class="avd-academy-sim__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-sim__logo-mask" role="img" aria-label="ATVANTAGE Academy"
-          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><span class="avd-academy-sim__title">Plattform-Threads und virtuelle Threads</span>
-    <span class="avd-academy-sim__counter" data-avd-academy-sim-counter aria-live="off"></span>
-    <div class="avd-academy-sim__tools"><button type="button" class="avd-academy-sim__back" data-avd-academy-back hidden
-              title="Zurück" aria-label="Zurück">← Zurück</button><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--full"
-              data-avd-academy-sim-full
-              title="Vollbild (Taste F)" aria-label="Vollbild">⛶</button></div>
-  </header><nav class="avd-academy-sim__tabs" data-avd-academy-sim-tabs hidden aria-label="Szenarien"></nav>
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
 
-  <main class="avd-academy-sim__main"><div class="avd-academy-sim__stage" id="avd-academy-sim-stage" data-avd-academy-sim-stage>
+<link rel="stylesheet" href="../../extensions/didaktikon/simulation.css?v=d0d00574">
+<script src="../../extensions/didaktikon/simulation.js?v=4fc373c7"></script>
+
+<link rel="stylesheet" href="../../java-update/virtual-threads/simulation.css?v=1a3f67f1">
+<script src="../../java-update/virtual-threads/simulation.js?v=c1926dfc" defer></script>
+
+</head>
+<body class="skr-didaktikon-simulation" data-skr-layout="didaktikon.simulation" data-skr-layouts="didaktikon.simulation" data-skr-lang="de" data-skr-audience="learner" data-skr-didaktikon-simulation data-skr-didaktikon-simulation-title="Plattform-Threads und virtuelle Threads">
+  <a class="skr-skip-link" href="#skr-didaktikon-simulation-stage">Zum Inhalt springen</a>
+  <header class="skr-didaktikon-simulation__bar">
+    <img class="skr-logo skr-didaktikon-simulation__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-logo-mask skr-didaktikon-simulation__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-didaktikon-simulation__title">Plattform-Threads und virtuelle Threads</span>
+    <span class="skr-didaktikon-simulation__counter" data-skr-didaktikon-simulation-counter aria-live="off"></span>
+    <div class="skr-didaktikon-simulation__tools">
+      <button type="button" class="skr-didaktikon-simulation__back" data-skr-back hidden
+        title="Zurück" aria-label="Zurück"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Zurück</button>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-didaktikon-simulation-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  </header>
+  <nav class="skr-didaktikon-simulation__tabs" data-skr-didaktikon-simulation-tabs hidden aria-label="Szenarien"></nav>
+  <main class="skr-didaktikon-simulation__main">
+    <div class="skr-didaktikon-simulation__stage" id="skr-didaktikon-simulation-stage" data-skr-didaktikon-simulation-stage>
       <!-- ANFORDERUNGEN an diese Simulation
      - Muss zeigen: (1) fester Pool – Threads blockieren beim Warten, weitere Anfragen
        stehen in der Warteschlange; (2) virtuelle Threads – Aushängen beim Warten,
@@ -96,112 +98,67 @@
        den Engpass zu sehen, wenig genug, um jeden Kasten zu verfolgen.
      - Absicht: Die Lernenden sollen sehen, WO gewartet wird – im Thread des
        Betriebssystems oder auf dem Heap. -->
-
-<style>
-  /* Bühnenbild: vier Tafeln in einer Reihe, im Pinning-Szenario darunter der Code.
-     Farben nur aus Academy-Tokens. */
-  .threads {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(0.75rem, 0.4rem + 1.2vw, 1.75rem);
-    align-items: start;
-    align-content: center;
-    min-height: 100%;
-  }
-  .threads--mit-code { grid-template-rows: auto auto; }
-  .threads__code { grid-column: 1 / -1; }
-  @media (max-width: 1000px) {
-    .threads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  /* Die Tafeln sind von Anfang an so hoch wie im vollsten Zustand (sechs Kästen),
-     damit nichts nachrutscht. */
-  .threads .avd-academy-sim-panel__body { min-height: 19rem; }
-  .threads--mit-code .avd-academy-sim-panel__body { min-height: 13rem; }
-
-  .anfrage { justify-content: center; font-weight: var(--avd-academy-fw-bold); }
-
-  /* Ein Thread-Platz: oben der Thread, darunter, was er gerade tut. */
-  .platz { flex-direction: column; align-items: stretch; gap: var(--avd-academy-space-1); }
-  .platz__kopf { display: flex; justify-content: space-between; gap: var(--avd-academy-space-2); }
-  .platz__status { font-size: 0.8em; color: var(--avd-academy-color-ink-muted); }
-  .platz--frei { opacity: 0.6; }
-  .platz--wartet { border-style: dashed; }
-  .platz--wartet .platz__status { color: var(--avd-academy-color-warning-ink); font-weight: var(--avd-academy-fw-medium); }
-  .platz--gepinnt .platz__status { color: var(--avd-academy-color-danger-ink); font-weight: var(--avd-academy-fw-bold); }
-  .jdk {
-    display: inline-block;
-    padding: 0.05em 0.6em;
-    border-radius: 999px;
-    background: var(--avd-academy-color-accent);
-    color: var(--avd-academy-color-accent-contrast);
-    font-weight: var(--avd-academy-fw-bold);
-    letter-spacing: 0;
-  }
-</style>
-
 <!-- Szenario 1: fester Pool. Die dritte Tafel heißt „beim Lager“: Dort steht, wer
      gerade auf die Antwort wartet – der Thread wartet mit. -->
-<div class="threads" data-avd-academy-sim-scene="pool">
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-1">
-    <h2 class="avd-academy-sim-panel__title">Warteschlange <span class="avd-academy-sim-panel__hint">noch kein Thread</span></h2>
-    <div class="avd-academy-sim-panel__body" id="pool-bereit"></div>
+<div class="threads" data-skr-didaktikon-simulation-scene="pool">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Warteschlange <span class="skr-didaktikon-simulation-panel__hint">noch kein Thread</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-bereit"></div>
   </div>
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-3">
-    <h2 class="avd-academy-sim-panel__title">Thread-Pool <span class="avd-academy-sim-panel__hint">4 Threads des Betriebssystems</span></h2>
-    <div class="avd-academy-sim-panel__body" id="pool-plaetze"></div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Thread-Pool <span class="skr-didaktikon-simulation-panel__hint">4 Threads des Betriebssystems</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-plaetze"></div>
   </div>
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-4">
-    <h2 class="avd-academy-sim-panel__title">Beim Lager <span class="avd-academy-sim-panel__hint">100 ms Antwortzeit</span></h2>
-    <div class="avd-academy-sim-panel__body" id="pool-wartend"></div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Beim Lager <span class="skr-didaktikon-simulation-panel__hint">100 ms Antwortzeit</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-wartend"></div>
   </div>
-  <div class="avd-academy-sim-panel">
-    <h2 class="avd-academy-sim-panel__title">Erledigt</h2>
-    <div class="avd-academy-sim-panel__body" id="pool-fertig"></div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-fertig"></div>
   </div>
 </div>
-
 <!-- Szenario 2: virtuelle Threads auf zwei Trägerthreads. -->
-<div class="threads" data-avd-academy-sim-scene="virtuell">
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-1">
-    <h2 class="avd-academy-sim-panel__title">Bereit <span class="avd-academy-sim-panel__hint">virtuelle Threads</span></h2>
-    <div class="avd-academy-sim-panel__body" id="virtuell-bereit"></div>
+<div class="threads" data-skr-didaktikon-simulation-scene="virtuell">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Bereit <span class="skr-didaktikon-simulation-panel__hint">virtuelle Threads</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-bereit"></div>
   </div>
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-3">
-    <h2 class="avd-academy-sim-panel__title">Trägerthreads <span class="avd-academy-sim-panel__hint">so viele wie Kerne</span></h2>
-    <div class="avd-academy-sim-panel__body" id="virtuell-plaetze"></div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Trägerthreads <span class="skr-didaktikon-simulation-panel__hint">so viele wie Kerne</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-plaetze"></div>
   </div>
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-4">
-    <h2 class="avd-academy-sim-panel__title">Geparkt auf dem Heap <span class="avd-academy-sim-panel__hint">warten aufs Lager</span></h2>
-    <div class="avd-academy-sim-panel__body" id="virtuell-wartend"></div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Geparkt auf dem Heap <span class="skr-didaktikon-simulation-panel__hint">warten aufs Lager</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-wartend"></div>
   </div>
-  <div class="avd-academy-sim-panel">
-    <h2 class="avd-academy-sim-panel__title">Erledigt</h2>
-    <div class="avd-academy-sim-panel__body" id="virtuell-fertig"></div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-fertig"></div>
   </div>
 </div>
-
 <!-- Szenario 3: Pinning. Die Kennzeichnung „Java 21/25“ steht im Titel der
      Trägerthread-Tafel und wechselt im vorletzten Schritt. -->
-<div class="threads threads--mit-code" data-avd-academy-sim-scene="pinning">
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-1">
-    <h2 class="avd-academy-sim-panel__title">Bereit <span class="avd-academy-sim-panel__hint">virtuelle Threads</span></h2>
-    <div class="avd-academy-sim-panel__body" id="pinning-bereit"></div>
+<div class="threads threads--mit-code" data-skr-didaktikon-simulation-scene="pinning">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Bereit <span class="skr-didaktikon-simulation-panel__hint">virtuelle Threads</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-bereit"></div>
   </div>
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-3">
-    <h2 class="avd-academy-sim-panel__title">Trägerthreads <span class="avd-academy-sim-panel__hint" id="pinning-jdk"></span></h2>
-    <div class="avd-academy-sim-panel__body" id="pinning-plaetze"></div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Trägerthreads <span class="skr-didaktikon-simulation-panel__hint" id="pinning-jdk"></span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-plaetze"></div>
   </div>
-  <div class="avd-academy-sim-panel avd-academy-sim-panel--ton-4">
-    <h2 class="avd-academy-sim-panel__title">Geparkt auf dem Heap <span class="avd-academy-sim-panel__hint">warten im Monitor</span></h2>
-    <div class="avd-academy-sim-panel__body" id="pinning-wartend"></div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Geparkt auf dem Heap <span class="skr-didaktikon-simulation-panel__hint">warten im Monitor</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-wartend"></div>
   </div>
-  <div class="avd-academy-sim-panel">
-    <h2 class="avd-academy-sim-panel__title">Erledigt</h2>
-    <div class="avd-academy-sim-panel__body" id="pinning-fertig"></div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-fertig"></div>
   </div>
   <div class="threads__code">
-    <div class="avd-academy-sim-code__label">Verbindung.sende – wie im Altbestand</div>
-<pre class="avd-academy-sim-code"><code class="language-java">public synchronized String sende(String anfrage) {
+    <div class="skr-didaktikon-simulation-code__label">Verbindung.sende – wie im Altbestand</div>
+<pre class="skr-didaktikon-simulation-code"><code class="language-java">public synchronized String sende(String anfrage) {
     anfragen++;
     TimeUnit.MILLISECONDS.sleep(latenzMillis);   // wartet auf das Netz
     return "OK:" + anfrage;
@@ -209,331 +166,52 @@
   </div>
 </div>
 
-<script>
-(function () {
-  "use strict";
-  var sim = window.AvdSimulation;
-
-  /* ZUSTAND ------------------------------------------------------------------
-     bereit/wartend/fertig: Listen von Anfrage-Kennungen.
-     plaetze: die Threads des Pools bzw. die Trägerthreads, je mit Aufgabe und
-     Status (frei | läuft | wartet | gepinnt). */
-  function platz(id, name) { return { id: id, name: name, aufgabe: null, status: "frei" }; }
-  function ausgangslage(plaetze) {
-    return function () {
-      return { bereit: [], wartend: [], fertig: [], plaetze: plaetze(), zeile: null, jdk: "21" };
-    };
-  }
-  var vierThreads = ausgangslage(function () {
-    return [platz("t1", "Thread 1"), platz("t2", "Thread 2"), platz("t3", "Thread 3"), platz("t4", "Thread 4")];
-  });
-  var zweiTräger = ausgangslage(function () {
-    return [platz("c1", "Träger 1"), platz("c2", "Träger 2")];
-  });
-
-  /* Hilfen für apply – sie ändern nur den Zustand. */
-  function nimm(liste, id) { var i = liste.indexOf(id); if (i >= 0) { liste.splice(i, 1); } }
-  function belege(s, platzId, aufgabe, status) {
-    s.plaetze.forEach(function (p) {
-      if (p.id === platzId) { p.aufgabe = aufgabe; p.status = status; }
-    });
-    nimm(s.bereit, aufgabe);
-    nimm(s.wartend, aufgabe);
-  }
-  function setzeStatus(s, platzId, status) {
-    s.plaetze.forEach(function (p) { if (p.id === platzId) { p.status = status; } });
-  }
-  function gibFrei(s, platzId) {
-    s.plaetze.forEach(function (p) {
-      if (p.id === platzId) { p.aufgabe = null; p.status = "frei"; }
-    });
-  }
-  function erledige(s, platzId) {
-    s.plaetze.forEach(function (p) {
-      if (p.id === platzId && p.aufgabe) { s.fertig.push(p.aufgabe); }
-    });
-    gibFrei(s, platzId);
-  }
-  function hängeAus(s, platzId) {
-    s.plaetze.forEach(function (p) {
-      if (p.id === platzId && p.aufgabe) { s.wartend.push(p.aufgabe); }
-    });
-    gibFrei(s, platzId);
-  }
-
-  /* ZEICHNEN ------------------------------------------------------------------ */
-  var STATUS = { "frei": "frei", "läuft": "läuft", "wartet": "wartet – blockiert", "gepinnt": "gepinnt" };
-
-  function anfragen(container, ids, ctx) {
-    sim.list(container, ids, {
-      animated: ctx.animated,
-      key: function (id) { return id; },
-      create: function () {
-        var el = document.createElement("div");
-        el.className = "avd-academy-sim-cell anfrage";
-        return el;
-      },
-      update: function (el, id) { el.textContent = id; }
-    });
-  }
-
-  function zeichne(s, ctx) {
-    var szene = ctx.scenario;
-    anfragen(document.getElementById(szene + "-bereit"), s.bereit, ctx);
-    anfragen(document.getElementById(szene + "-wartend"), s.wartend, ctx);
-    anfragen(document.getElementById(szene + "-fertig"), s.fertig, ctx);
-
-    sim.list(document.getElementById(szene + "-plaetze"), s.plaetze, {
-      animated: ctx.animated,
-      key: function (p) { return p.id; },
-      create: function () {
-        var el = document.createElement("div");
-        el.className = "avd-academy-sim-cell platz";
-        el.innerHTML = '<span class="platz__kopf"><span class="avd-academy-sim-cell__name"></span>' +
-                       '<span class="avd-academy-sim-cell__value"></span></span>' +
-                       '<span class="platz__status"></span>';
-        return el;
-      },
-      update: function (el, p) {
-        var vorher = el.getAttribute("data-status");
-        el.querySelector(".avd-academy-sim-cell__name").textContent = p.name;
-        el.querySelector(".avd-academy-sim-cell__value").textContent = p.aufgabe || "–";
-        el.querySelector(".platz__status").textContent = STATUS[p.status];
-        // Nur die eigenen Klassen tauschen – is-new/is-gone gehören list().
-        ["frei", "laeuft", "wartet", "gepinnt"].forEach(function (k) { el.classList.remove("platz--" + k); });
-        el.classList.add("platz--" + (p.status === "läuft" ? "laeuft" : p.status));
-        el.classList.toggle("is-active", p.status === "läuft");
-        el.classList.toggle("is-error", p.status === "gepinnt");
-        el.setAttribute("data-status", p.status);
-        if (ctx.animated && vorher && vorher !== p.status) { sim.pulse(el); }
-      }
-    });
-
-    if (szene === "pinning") {
-      document.getElementById("pinning-jdk").innerHTML = '<span class="jdk">Java ' + s.jdk + "</span>";
-      sim.codeLine(document.querySelector('[data-avd-academy-sim-scene="pinning"] .avd-academy-sim-code'), s.zeile);
-    }
-  }
-
-  sim.setup({ state: vierThreads, render: zeichne });
-
-  /* SZENARIO 1: FESTER POOL --------------------------------------------------- */
-  sim.registerScenario({
-    id: "pool",
-    title: "Fester Thread-Pool",
-    description: "Vier Threads, sechs Anfragen: Wer auf das Lager wartet, hält seinen Thread fest – die übrigen Anfragen stehen an.",
-    state: vierThreads,
-    steps: [
-      {
-        title: "Ausgangslage",
-        text: "<p>Ein Server mit einem <b>festen Pool</b> aus vier Threads – so wie der Altbestand mit <code>Executors.newFixedThreadPool(10)</code>. Jeder davon ist ein Thread des Betriebssystems mit eigenem Stack.</p>",
-        apply: function () {}
-      },
-      {
-        title: "Sechs Anfragen kommen an",
-        text: "<p>Sechs Bestellungen treffen gleichzeitig ein. Noch hat keine einen Thread.</p>",
-        apply: function (s) { s.bereit = ["A1", "A2", "A3", "A4", "A5", "A6"]; }
-      },
-      {
-        title: "Der Pool verteilt",
-        text: "<p>Vier Anfragen bekommen je einen Thread. <b>A5 und A6 warten</b> in der Warteschlange des Pools.</p>",
-        apply: function (s) {
-          belege(s, "t1", "A1", "läuft"); belege(s, "t2", "A2", "läuft");
-          belege(s, "t3", "A3", "läuft"); belege(s, "t4", "A4", "läuft");
-        }
-      },
-      {
-        title: "Alle vier warten auf das Lager",
-        text: "<p>Jede Bestellung fragt beim Lager nach – 100 ms Antwortzeit. Der Thread <b>blockiert</b>: Er tut nichts, bleibt aber belegt.</p><p>Der Prozessor hätte Zeit für A5 und A6. Es ist nur <b>kein Thread frei</b>.</p>",
-        apply: function (s) {
-          ["t1", "t2", "t3", "t4"].forEach(function (t) { setzeStatus(s, t, "wartet"); });
-          s.wartend = ["A1", "A2", "A3", "A4"];
-        }
-      },
-      {
-        title: "Das Lager antwortet",
-        text: "<p>Nach 100 ms kommen die Antworten. Die vier Anfragen sind fertig, ihre Threads wieder frei.</p>",
-        apply: function (s) {
-          s.wartend = [];
-          ["t1", "t2", "t3", "t4"].forEach(function (t) { erledige(s, t); });
-        }
-      },
-      {
-        title: "Jetzt erst A5 und A6",
-        text: "<p>Die beiden letzten Anfragen kommen dran – <b>100 ms später</b>, als es der Prozessor erlaubt hätte.</p>",
-        apply: function (s) { belege(s, "t1", "A5", "läuft"); belege(s, "t2", "A6", "läuft"); }
-      },
-      {
-        title: "Merksatz",
-        text: "<p><b>Gleichzeitig bearbeitet wird höchstens so viel, wie Threads im Pool sind.</b></p><p>10 Threads und 100 ms Wartezeit heißt: höchstens 100 Anfragen je Sekunde. Gemessen im Altbestand: 200 Bestellungen in gut 2 Sekunden. Mehr Threads helfen – bis Speicher und Betriebssystem nicht mehr mitspielen.</p>",
-        apply: function () {},
-        duration: 5000
-      }
-    ]
-  });
-
-  /* SZENARIO 2: VIRTUELLE THREADS -------------------------------------------- */
-  sim.registerScenario({
-    id: "virtuell",
-    title: "Virtuelle Threads",
-    description: "Jede Anfrage bekommt einen virtuellen Thread. Wer wartet, wird ausgehängt und gibt seinen Trägerthread frei.",
-    state: zweiTräger,
-    steps: [
-      {
-        title: "Ausgangslage",
-        text: "<p>Zwei <b>Trägerthreads</b> – echte Threads des Betriebssystems, so viele wie Prozessorkerne. Die JVM verwaltet sie selbst.</p>",
-        apply: function () {}
-      },
-      {
-        title: "Je Anfrage ein virtueller Thread",
-        text: "<p>Jede der sechs Anfragen bekommt ihren eigenen <b>virtuellen Thread</b> – mit <code>Executors.newVirtualThreadPerTaskExecutor()</code>. Er ist ein Objekt auf dem Heap, kein Thread des Betriebssystems. Eine Million davon ist kein Problem.</p>",
-        apply: function (s) { s.bereit = ["V1", "V2", "V3", "V4", "V5", "V6"]; }
-      },
-      {
-        title: "Einhängen",
-        text: "<p>Zum Rechnen braucht ein virtueller Thread einen Träger: V1 und V2 werden <b>eingehängt</b> (<em>mount</em>).</p>",
-        apply: function (s) { belege(s, "c1", "V1", "läuft"); belege(s, "c2", "V2", "läuft"); }
-      },
-      {
-        title: "V1 wartet – und wird ausgehängt",
-        text: "<p>V1 fragt beim Lager nach. Statt den Träger zu blockieren, wird V1 <b>ausgehängt</b> (<em>unmount</em>): Sein Stack wandert auf den Heap, Träger 1 ist frei.</p>",
-        apply: function (s) { hängeAus(s, "c1"); }
-      },
-      {
-        title: "Der freie Träger nimmt den nächsten",
-        text: "<p>Auf Träger 1 läuft sofort V3.</p>",
-        apply: function (s) { belege(s, "c1", "V3", "läuft"); }
-      },
-      {
-        title: "Bis alle warten",
-        text: "<p>Das wiederholt sich, bis <b>alle sechs gleichzeitig</b> auf das Lager warten. Die Träger sind frei – für alles, was rechnen will.</p>",
-        apply: function (s) {
-          hängeAus(s, "c2"); hängeAus(s, "c1");
-          s.wartend = ["V1", "V2", "V3", "V4", "V5", "V6"];
-          s.bereit = [];
-        }
-      },
-      {
-        title: "Die Antworten kommen",
-        text: "<p>Nach 100 ms antwortet das Lager. Jeder virtuelle Thread wird wieder eingehängt – auf irgendeinem freien Träger – und macht dort weiter, wo er war.</p>",
-        apply: function (s) { belege(s, "c1", "V1", "läuft"); belege(s, "c2", "V2", "läuft"); }
-      },
-      {
-        title: "Alle fertig",
-        text: "<p>Die sechs Anfragen sind nach gut 100 ms erledigt – nicht nach 200 ms wie mit dem Pool.</p>",
-        apply: function (s) {
-          s.fertig = ["V1", "V2", "V3", "V4", "V5", "V6"];
-          s.wartend = [];
-          gibFrei(s, "c1"); gibFrei(s, "c2");
-        }
-      },
-      {
-        title: "Merksatz",
-        text: "<p><b>Warten kostet keinen Thread des Betriebssystems mehr.</b></p><p>Der Code bleibt blockierend und lesbar – nur der Thread ist ein anderer. Gemessen im Altbestand: 200 Bestellungen in rund 0,25 Sekunden statt 2,2.</p>",
-        apply: function () {},
-        duration: 5000
-      }
-    ]
-  });
-
-  /* SZENARIO 3: PINNING ------------------------------------------------------- */
-  sim.registerScenario({
-    id: "pinning",
-    title: "Pinning in synchronized",
-    description: "Wartet ein virtueller Thread in einem synchronized-Block, hält er unter Java 21 seinen Träger fest. Java 25 gibt ihn frei.",
-    state: zweiTräger,
-    steps: [
-      {
-        title: "Ausgangslage",
-        text: "<p>Dieselben zwei Träger, vier virtuelle Threads – und diesmal der Code, den sie ausführen: <code>Verbindung.sende</code> aus dem Altbestand, eine <code>synchronized</code>-Methode, wie sie viele Bibliotheken aus der Java-8-Zeit haben.</p>",
-        apply: function (s) { s.bereit = ["V1", "V2", "V3", "V4"]; }
-      },
-      {
-        title: "V1 betritt den Monitor",
-        text: "<p>V1 ruft <code>sende</code> auf und nimmt damit den <b>Monitor</b> dieser Verbindung. Umkämpft ist er nicht – jede Anfrage hat ihre eigene Verbindung.</p>",
-        apply: function (s) { belege(s, "c1", "V1", "läuft"); s.zeile = 0; }
-      },
-      {
-        title: "Warten im Monitor: Java 21 pinnt",
-        text: "<p>V1 wartet auf das Netz – <b>innerhalb</b> von <code>synchronized</code>. Unter Java 21 kann die JVM ihn dann nicht aushängen: Er ist an seinen Träger <b>gepinnt</b>. Träger 1 ist blockiert wie ein Thread im Pool.</p>",
-        apply: function (s) { setzeStatus(s, "c1", "gepinnt"); s.zeile = 2; }
-      },
-      {
-        title: "Der zweite Träger auch",
-        text: "<p>V2 macht dasselbe auf Träger 2. Jetzt sind <b>alle Träger gepinnt</b> – V3 und V4 warten, obwohl der Prozessor nichts tut.</p>",
-        apply: function (s) { belege(s, "c2", "V2", "gepinnt"); }
-      },
-      {
-        title: "Zurück beim festen Pool",
-        text: "<p>Erst wenn V1 und V2 fertig sind, kommen V3 und V4 dran – und pinnen wieder. Virtuelle Threads verhalten sich hier wie ein Pool <b>mit so vielen Threads wie Kernen</b>.</p><p>Gemessen im Batch-Import unter Java 21: 893 ms statt 61 ms.</p>",
-        apply: function (s) {
-          s.fertig = ["V1", "V2"];
-          belege(s, "c1", "V3", "gepinnt"); belege(s, "c2", "V4", "gepinnt");
-        }
-      },
-      {
-        title: "Dasselbe Programm unter Java 25",
-        text: "<p>Seit Java 24 (JEP 491, im Kurs <b>LTS 25</b>) kann ein virtueller Thread auch im Monitor ausgehängt werden – er behält den Monitor, gibt aber den Träger frei. Die Träger sind wieder frei.</p>",
-        apply: function (s) {
-          s.jdk = "25";
-          hängeAus(s, "c1"); hängeAus(s, "c2");
-        }
-      },
-      {
-        title: "Merksatz",
-        text: "<p><b>Unter Java 21 gehört kein blockierender Aufruf in <code>synchronized</code> – unter Java 25 darf er.</b></p><p>Wer auf 21 bleibt, nimmt einen <code>ReentrantLock</code> oder eine neuere Bibliothek. Sichtbar wird Pinning mit Java Flight Recorder, Ereignis <code>jdk.VirtualThreadPinned</code>.</p>",
-        apply: function (s) { s.zeile = null; },
-        duration: 5000
-      }
-    ]
-  });
-})();
-</script>
-
-
-    </div><div class="avd-academy-sim__intro" data-avd-academy-sim-intro hidden
-         data-lead="Was passiert mit einem Thread, während er auf ein anderes System wartet? Drei Abläufe mit denselben Anfragen – jeder beginnt von vorn."></div><div class="avd-academy-sim__caption" data-avd-academy-sim-caption hidden aria-hidden="true">
-      <p class="avd-academy-sim__caption-title" data-avd-academy-sim-caption-title></p>
-      <div class="avd-academy-sim__caption-text" data-avd-academy-sim-caption-text></div>
     </div>
-    <aside class="avd-academy-sim__aside" aria-label="Erklärung zum aktuellen Schritt">
-      <h2 class="avd-academy-sim__note-title" data-avd-academy-sim-note-title></h2>
-      <div class="avd-academy-sim__note" data-avd-academy-sim-note aria-live="polite"></div>
+    <div class="skr-didaktikon-simulation__intro" data-skr-didaktikon-simulation-intro hidden></div>
+    <div class="skr-didaktikon-simulation__caption" data-skr-didaktikon-simulation-caption hidden aria-hidden="true">
+      <p class="skr-didaktikon-simulation__caption-title" data-skr-didaktikon-simulation-caption-title></p>
+      <div class="skr-didaktikon-simulation__caption-text" data-skr-didaktikon-simulation-caption-text></div>
+    </div>
+    <aside class="skr-didaktikon-simulation__aside" aria-label="Erklärung zum aktuellen Schritt">
+      <h2 class="skr-didaktikon-simulation__note-title" data-skr-didaktikon-simulation-note-title></h2>
+      <div class="skr-didaktikon-simulation__note" data-skr-didaktikon-simulation-note aria-live="polite"></div>
     </aside>
   </main>
-
-  <div class="avd-academy-sim__progress" aria-hidden="true">
-    <div class="avd-academy-sim__progress-fill" data-avd-academy-sim-progress></div>
+  <div class="skr-didaktikon-simulation__progress" aria-hidden="true">
+    <div class="skr-didaktikon-simulation__progress-fill" data-skr-didaktikon-simulation-progress></div>
   </div>
-
-  <footer class="avd-academy-sim__controls" aria-label="Simulation steuern" data-avd-academy-sim-controls>
-    <button type="button" class="avd-academy-sim__btn" data-avd-academy-sim-reset
+  <footer class="skr-didaktikon-simulation__controls" aria-label="Simulation steuern" data-skr-didaktikon-simulation-controls>
+    <button type="button" class="skr-didaktikon-simulation__btn" data-skr-didaktikon-simulation-reset
             title="Zurück auf Anfang (Taste R)" aria-label="Zurück auf Anfang">⟲</button>
-    <button type="button" class="avd-academy-sim__btn" data-avd-academy-sim-prev
-            title="Schritt zurück (←)" aria-label="Schritt zurück">‹</button><div class="avd-academy-sim__play-group">
-      <button type="button" class="avd-academy-sim__btn avd-academy-sim__btn--play" data-avd-academy-sim-play
+    <button type="button" class="skr-didaktikon-simulation__btn" data-skr-didaktikon-simulation-prev
+            title="Schritt zurück (←)" aria-label="Schritt zurück">‹</button>
+    <div class="skr-didaktikon-simulation__play-group">
+      <button type="button" class="skr-didaktikon-simulation__btn skr-didaktikon-simulation__btn--play" data-skr-didaktikon-simulation-play
               title="Abspielen (Leertaste)" aria-label="Abspielen">
-        <span class="avd-academy-sim__btn-icon" data-avd-academy-sim-play-icon>▶</span>
-        <span class="avd-academy-sim__btn-text" data-avd-academy-sim-play-text>Abspielen</span>
+        <span class="skr-didaktikon-simulation__btn-icon" data-skr-didaktikon-simulation-play-icon>▶</span>
+        <span class="skr-didaktikon-simulation__btn-text" data-skr-didaktikon-simulation-play-text>Abspielen</span>
       </button>
-      <button type="button" class="avd-academy-sim__btn avd-academy-sim__btn--speed" data-avd-academy-sim-speed-toggle
+      <button type="button" class="skr-didaktikon-simulation__btn skr-didaktikon-simulation__btn--speed" data-skr-didaktikon-simulation-speed-toggle
               title="Tempo wählen (Taste T)" aria-label="Tempo wählen"
               aria-haspopup="true" aria-expanded="false">
-        <span data-avd-academy-sim-speed-label>1×</span>
-        <span class="avd-academy-sim__caret" aria-hidden="true">▴</span>
+        <span data-skr-didaktikon-simulation-speed-label></span>
+        <span class="skr-didaktikon-simulation__caret" aria-hidden="true">▴</span>
       </button>
-      <ul class="avd-academy-sim__speed-menu" data-avd-academy-sim-speed-menu hidden role="menu"
-          aria-label="Tempo"><li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-avd-academy-sim-speed-value="0.5">0,5×<span> langsam</span></button></li>
-        <li role="none"><button type="button" role="menuitemradio" aria-checked="true"  data-avd-academy-sim-speed-value="1">1×<span> normal</span></button></li>
-        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-avd-academy-sim-speed-value="2">2×<span> zügig</span></button></li>
-        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-avd-academy-sim-speed-value="5">5×<span> im Zeitraffer</span></button></li>
+      <ul class="skr-didaktikon-simulation__speed-menu" data-skr-didaktikon-simulation-speed-menu hidden role="menu"
+          aria-label="Tempo">
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-skr-didaktikon-simulation-speed-value="0.5"><span data-skr-didaktikon-simulation-speed-number></span><span> langsam</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="true"  data-skr-didaktikon-simulation-speed-value="1"><span data-skr-didaktikon-simulation-speed-number></span><span> normal</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-skr-didaktikon-simulation-speed-value="2"><span data-skr-didaktikon-simulation-speed-number></span><span> zügig</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-skr-didaktikon-simulation-speed-value="5"><span data-skr-didaktikon-simulation-speed-number></span><span> im Zeitraffer</span></button></li>
       </ul>
     </div>
-    <button type="button" class="avd-academy-sim__btn" data-avd-academy-sim-next
+    <button type="button" class="skr-didaktikon-simulation__btn" data-skr-didaktikon-simulation-next
             title="Schritt vor (→)" aria-label="Schritt vor">›</button>
-  </footer><p class="avd-academy-sim__capture-hint" data-avd-academy-sim-capture-hint hidden aria-hidden="true">
+  </footer>
+  <p class="skr-didaktikon-simulation__capture-hint" data-skr-didaktikon-simulation-capture-hint hidden aria-hidden="true">
     Capture-Modus · <b>C</b> beenden · <b>T</b> Text einblenden
-  </p><p class="avd-academy-sim__print-hint" aria-hidden="true">
+  </p>
+  <p class="skr-didaktikon-simulation__print-hint" aria-hidden="true">
     Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.
   </p>
 </body>

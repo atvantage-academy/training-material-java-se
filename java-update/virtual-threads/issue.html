@@ -1,319 +1,312 @@
-<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions translucent-header reading-progress">
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>Umstellen und messen · ATVANTAGE Academy</title><meta name="description" content="Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Umstellen und messen · ATVANTAGE Academy</title>
+<meta name="description" content="Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Umstellen und messen">
 <meta property="og:description" content="Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.">
-<meta property="og:type" content="article"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-update/virtual-threads/issue.html","title":"Umstellen und messen","layout":"guide","description":"Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.","duration":40,"topics":["Virtual Threads","Pinning","Java Flight Recorder"],"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Stelle Batch-Import und REST-Schnittstelle des Altbestands auf virtuelle Threads um, miss den Effekt auf Deinem JDK und finde, was ihn bremst.","duration":40,"fields":{"didaktikon":{"objectives":["Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.","Du stellst einen festen Thread-Pool auf virtuelle Threads um.","Du weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.","Du erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird."],"reflective_questions":["Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?","Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?","Würdet Ihr in Eurer Anwendung alle `synchronized` durch `ReentrantLock` ersetzen?","Wann bleibt Ihr bei reaktiver Programmierung?"],"user_story":"Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann."},"skriptorium":{"definition_of_done":["Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `./mvnw clean verify` ist grün.","Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.","Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Umstellen und messen","topics":["Virtual Threads","Pinning","Java Flight Recorder"],"url":"/java-update/virtual-threads/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide">
-<div class="avd-academy-reading-progress" aria-hidden="true"></div>
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><div class="avd-academy-metanav"><span>ATVANTAGE Academy</span>
-  </div>
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
 
-  <header class="avd-academy-header"
-        data-avd-academy-menu-visible="7" data-avd-academy-menu-speed="1.0" data-avd-academy-header><a class="avd-academy-header__brand" href="/training-material-java-se/" aria-label="Startseite"><img class="avd-academy-header__logo" src="/training-material-java-se/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="avd-academy-header__logo-mask" role="img" aria-label="ATVANTAGE Academy"
-          style="--avd-academy-logo-src: url('/training-material-java-se/assets/logo-schulung.svg'); --avd-academy-logo-ratio: 260 / 24;"></span><img class="avd-academy-header__mark" src="/training-material-java-se/theme/atvantage/assets/icon-180.png" alt="">
-  </a><button class="avd-academy-tool avd-academy-header__burger" data-avd-academy-nav-toggle="#avd-academy-main-nav"
-          aria-label="Navigation umschalten" aria-expanded="false">☰</button><nav class="avd-academy-header__nav" id="avd-academy-main-nav">
-      <a href="/training-material-java-se/">Start</a><div class="avd-academy-header__group" data-avd-academy-menu>
-        <button type="button" class="avd-academy-header__grouptoggle"
-                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="avd-academy-header__caret" aria-hidden="true">▾</span></button>
-        <div class="avd-academy-header__submenu" role="menu">
-          <a role="menuitem" href="/training-material-java-se/java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
-          <a role="menuitem" href="/training-material-java-se/java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
-          <a role="menuitem" href="/training-material-java-se/java-update/">Java-Update</a>
-          <a role="menuitem" href="/training-material-java-se/intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../skriptorium/guide-layout.css?v=04cc011a">
+<link rel="stylesheet" href="../../extensions/didaktikon/exercise.css?v=d44ba6e9">
+<script src="../../skriptorium/guide-layout.js?v=207db517" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header"
+        data-skr-menu-visible="7" data-skr-menu-speed="1" data-skr-header>
+  <a class="skr-header__brand" href="../../" aria-label="Startseite"><img class="skr-header__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><img class="skr-header__mark" src="../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
         </div>
       </div>
-  </nav><div class="avd-academy-header__tools"><div class="avd-academy-search" data-avd-academy-search hidden
-             data-mode="expand" data-shortcut="double_shift"
-             data-index="/training-material-java-se/theme/search/de.json?v=1792100131"
-             data-base="/training-material-java-se/">
-          <button type="button" class="avd-academy-tool avd-academy-tool--search" data-avd-academy-search-toggle
-                  aria-expanded="false" aria-controls="avd-academy-search-dialog"
-                  title="Suchen (zweimal Shift)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
-                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
-                  ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
-          <dialog class="avd-academy-search__dialog" id="avd-academy-search-dialog" aria-label="Suchen">
-            <div class="avd-academy-search__bar" role="search"><label class="avd-academy-search__field avd-academy-search__field--scope" hidden>
-                <span class="avd-academy-search__label">Bereich</span>
-                <select class="avd-academy-search__scope">
-                  <option value="">Alle</option>
-                </select>
-              </label>
-              <label class="avd-academy-search__field avd-academy-search__field--query">
-                <span class="avd-academy-search__label">Suchbegriff</span>
-                <input type="search" class="avd-academy-search__input"
-                       placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
-                       aria-describedby="avd-academy-search-status">
-              </label>
-              <button type="button" class="avd-academy-tool avd-academy-search__close" data-avd-academy-search-close
-                      title="Suche schließen" aria-label="Suche schließen">✕</button>
-            </div>
-            <p class="avd-academy-search__status" id="avd-academy-search-status" data-avd-academy-search-status role="status"></p>
-            <ul class="avd-academy-search__results" data-avd-academy-search-results aria-label="Suchergebnisse"></ul>
-          </dialog>
-        </div>
-        <script src="/training-material-java-se/theme/jekyll/search.js?v=4b72be9e" defer></script><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button></div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=0ef3f437"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=07b9ef3e" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
 </header>
-<section class="avd-academy-guide-hero"
-           aria-labelledby="avd-academy-page-title"><nav class="avd-academy-guide-hero__crumbs" aria-label="Brotkrumen"><a href="/training-material-java-se/java-update/">Java-Update</a><span>/</span><span aria-current="page">Umstellen und messen</span></nav><div class="avd-academy-guide-hero__meta">
-      <div class="avd-academy-guide-hero__tags"><span class="avd-academy-tag avd-academy-tag--time">ca. 40 Minuten</span><span class="avd-academy-tag">Virtual Threads</span><span class="avd-academy-tag">Pinning</span><span class="avd-academy-tag">Java Flight Recorder</span>
-      </div>
-      <div class="avd-academy-guide-hero__actions">
-        <button type="button" class="avd-academy-btn avd-academy-btn--ghost avd-academy-copy-md"
-                data-avd-academy-copy-md="#avd-academy-md-source"
-                title="Markdown kopieren" aria-label="Markdown kopieren"></button>
-      </div>
-    </div><h1 id="avd-academy-page-title">Umstellen und messen</h1>
-  </section><div class="avd-academy-guide-layout">
-    <main class="avd-academy-guide-main avd-academy-guide-main--numbered" id="avd-academy-content">
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../java-update/">Java-Update</a><span>/</span><span aria-current="page">Umstellen und messen</span></nav>
 
-<p>Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme
-verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie
-bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann.</p>
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 40 Minuten</span><span class="skr-tag">Virtual Threads</span><span class="skr-tag">Pinning</span><span class="skr-tag">Java Flight Recorder</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">Umstellen und messen</h1>
+</section>
 
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-didaktikon-content-top" data-skr-slot="content.top">
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann.</p>
+</div>
+<div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<h2 id="lernziele">Lernziele</h2>
+<ul>
+<li>Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.</li>
+<li>Du stellst einen festen Thread-Pool auf virtuelle Threads um.</li>
+<li>Du weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.</li>
+<li>Du erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird.</li>
+</ul>
+</div>
+</div>
+<div class="skr-guide-done">
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; ./mvnw clean verify ist grün." disabled="disabled"> Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; <code>./mvnw clean verify</code> ist grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version." disabled="disabled"> Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen." disabled="disabled"> Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
 <p>Im Altbestand warten zwei Stellen auf Fremdsysteme: Der <strong>Batch-Import</strong> prüft jede
 Bestellung bei einer Auskunftei (50 ms), die <strong>REST-Schnittstelle</strong> fragt für jede
 neue Bestellung beim Lager nach (100 ms). Beide arbeiten mit einem festen
 Thread-Pool. Ihr stellt sie um und messt – auf Eurem JDK.</p>
-
-<h2 id="lernziele">Lernziele</h2>
-
-<p>Du …</p>
-
-<ul>
-  <li>misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.</li>
-  <li>stellst einen festen Thread-Pool auf virtuelle Threads um.</li>
-  <li>weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.</li>
-  <li>erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird.</li>
-</ul>
-
-<h2 id="definition-of-done">Definition of Done</h2>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; <code>./mvnw clean verify</code> ist grün.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Du hast die Reflexionsfragen schriftlich beantwortet.</li>
-</ul>
-
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-
 <h3 id="ausgangsstand-messen">Ausgangsstand messen</h3>
-
 <p>Du arbeitest auf Deinem Stand nach „Den Visitor ablösen“ oder auf dem Branch
 <code>loesung/pattern-matching</code>. Bau beide Module und miss sie einmal so, wie sie sind:</p>
-
 <pre><code class="language-shell">./mvnw -q install -DskipTests -pl altbestand/bestellung-rest,altbestand/bestellung-batch -am
 ./mvnw -q -pl altbestand/bestellung-batch exec:java
 ./mvnw -q -pl altbestand/bestellung-rest exec:java -Dexec.mainClass=bestellung.rest.Lasttest
 </code></pre>
-
 <p>Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
 beide Werte mit Deiner JDK-Version in die Messtabelle ein:</p>
-
 <table>
-  <thead>
-    <tr>
-      <th>JDK</th>
-      <th>Stand</th>
-      <th style="text-align: right">Batch</th>
-      <th style="text-align: right">REST</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> </td>
-      <td>fester Pool</td>
-      <td style="text-align: right"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>virtuelle Threads</td>
-      <td style="text-align: right"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>… und was Ihr danach noch ändert</td>
-      <td style="text-align: right"> </td>
-      <td style="text-align: right"> </td>
-    </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>JDK</th>
+					<th>Stand</th>
+					<th style="text-align: right">Batch</th>
+					<th style="text-align: right">REST</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td></td>
+					<td>fester Pool</td>
+					<td style="text-align: right"></td>
+					<td style="text-align: right"></td>
+			</tr>
+			<tr>
+					<td></td>
+					<td>virtuelle Threads</td>
+					<td style="text-align: right"></td>
+					<td style="text-align: right"></td>
+			</tr>
+			<tr>
+					<td></td>
+					<td>… und was Ihr danach noch ändert</td>
+					<td style="text-align: right"></td>
+					<td style="text-align: right"></td>
+			</tr>
+	</tbody>
 </table>
-
 <blockquote>
-  <p><strong>Hinweis:</strong> Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
+<p><strong>Hinweis:</strong> Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
 wärmt sich die JVM noch auf. Vor jeder Messung nach einer Änderung wieder
 <code>install</code> wie oben.</p>
 </blockquote>
-
 <h3 id="den-batch-import-umstellen">Den Batch-Import umstellen</h3>
-
 <p><code>BestellImport</code> erzeugt einen festen Pool mit <code>Executors.newFixedThreadPool(threads)</code>.
 Stell ihn so um, dass <strong>jede Bonitätsprüfung ihren eigenen virtuellen Thread</strong> bekommt.
 Die Poolgröße braucht dann niemand mehr – entferne sie aus dem Konstruktor und aus
 <code>BatchAnwendung</code> und <code>BestellImportTest</code>.</p>
-
 <blockquote>
-  <p><strong>Hinweis:</strong> Ein <code>ExecutorService</code> ist seit Java 19 <code>AutoCloseable</code>. Mit
+<p><strong>Hinweis:</strong> Ein <code>ExecutorService</code> ist seit Java 19 <code>AutoCloseable</code>. Mit
 <code>try</code>-with-resources wartet <code>close()</code>, bis alle Aufgaben fertig sind.</p>
 </blockquote>
-
 <p>Miss erneut. Was hast Du erwartet, was kam heraus?</p>
-
 <h3 id="die-rest-schnittstelle-umstellen">Die REST-Schnittstelle umstellen</h3>
-
 <p><code>RestAnwendung</code> gibt dem Server einen festen Pool mit zehn Threads. Gib ihm stattdessen
 einen Executor, der für jede Anfrage einen virtuellen Thread startet, und miss mit dem
 Lasttest.</p>
-
 <p>Ist das Ergebnis so gut, wie die Rechnung verspricht – 200 Anfragen, die alle
 gleichzeitig 100 ms warten? Wenn nicht: Wo stehen die Anfragen jetzt an? Sieh Dir
 an, wie <code>RestAnwendung</code> den <code>HttpServer</code> erzeugt, und lies in der Javadoc von
 <code>HttpServer.create</code>, was der zweite Parameter bedeutet.</p>
-
 <h3 id="pinning-nachweisen">Pinning nachweisen</h3>
-
 <p>Lass den Batch-Import mit Java Flight Recorder laufen und such nach gepinnten
 virtuellen Threads:</p>
-
-<pre><code class="language-shell">MAVEN_OPTS="-XX:StartFlightRecording=filename=pinning.jfr" ./mvnw -q -pl altbestand/bestellung-batch exec:java
+<pre><code class="language-shell">MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot; ./mvnw -q -pl altbestand/bestellung-batch exec:java
 jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
 </code></pre>
-
 <p>Gibt es Ereignisse? In welcher Methode? Sieh Dir diese Methode an und erkläre, warum
 der virtuelle Thread dort seinen Träger nicht freigibt. Die Simulation hilft (siehe
 Ressourcen).</p>
-
 <blockquote>
-  <p><strong>Hinweis:</strong> Unter Windows setzt Du die Variable in PowerShell mit
-<code>$env:MAVEN_OPTS="-XX:StartFlightRecording=filename=pinning.jfr"</code>. <code>jfr</code> liegt im
+<p><strong>Hinweis:</strong> Unter Windows setzt Du die Variable in PowerShell mit
+<code>$env:MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot;</code>. <code>jfr</code> liegt im
 <code>bin</code>-Ordner Deines JDK.</p>
 </blockquote>
-
 <p><strong>Mit JDK 21:</strong> Behebe das Pinning im eigenen Code – ohne <code>synchronized</code>, mit
 gleichem Schutz für den Zustand. Miss erneut und prüfe mit JFR, dass keine Ereignisse
 mehr kommen.</p>
-
 <p><strong>Mit JDK 25:</strong> Du findest keine Ereignisse. Warum nicht? Vergleicht Eure Zahlen mit
 einem Paar, das JDK 21 hat.</p>
-
 <h3 id="kür">Kür</h3>
-
 <ul>
-  <li><strong>Mit JDK 25:</strong> Schreib in <code>spielwiese/</code> ein Programm, das mehreren virtuellen
+<li><strong>Mit JDK 25:</strong> Schreib in <code>spielwiese/</code> ein Programm, das mehreren virtuellen
 Threads je eine Korrelations-ID über einen <code>ScopedValue</code> mitgibt und sie tief in
 einem Aufruf ausliest, ohne sie als Parameter durchzureichen.</li>
-  <li>Begrenze im Batch-Import die Zahl gleichzeitiger Anfragen an die Auskunftei auf 20,
+<li>Begrenze im Batch-Import die Zahl gleichzeitiger Anfragen an die Auskunftei auf 20,
 ohne zu einem festen Pool zurückzukehren.</li>
 </ul>
-
 <blockquote>
-  <p><strong>Hinweis:</strong> Die Musterlösung liegt im Branch <code>loesung/virtual-threads</code>, den
+<p><strong>Hinweis:</strong> Die Musterlösung liegt im Branch <code>loesung/virtual-threads</code>, den
 Unterschied und eine Messtabelle zeigt ihr
 <a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/8">Pull Request</a>.
 Sieh erst nach, wenn Du es selbst versucht hast.</p>
 </blockquote>
-
+<div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
-
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-  <li>Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?</li>
-  <li>Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?</li>
-  <li>Würdet Ihr in Eurer Anwendung alle <code>synchronized</code> durch <code>ReentrantLock</code> ersetzen?</li>
-  <li>Wann bleibt Ihr bei reaktiver Programmierung?</li>
+<li>Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?</li>
+<li>Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?</li>
+<li>Würdet Ihr in Eurer Anwendung alle <code>synchronized</code> durch <code>ReentrantLock</code> ersetzen?</li>
+<li>Wann bleibt Ihr bei reaktiver Programmierung?</li>
 </ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># Umstellen und messen
 
+&lt;div class=&#34;skr-didaktikon-content-top&#34; data-skr-slot=&#34;content.top&#34; markdown=&#34;1&#34;&gt;
 
-<textarea id="avd-academy-md-source" hidden aria-hidden="true"># Umstellen und messen
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme
-verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie
-bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann.
+Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann.
+
+&lt;/div&gt;
+
+&lt;div class=&#34;skr-callout skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+## Lernziele
+
+- Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.
+- Du stellst einen festen Thread-Pool auf virtuelle Threads um.
+- Du weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.
+- Du erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird.
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+## Definition of Done
+
+- [ ] Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `./mvnw clean verify` ist grün.
+- [ ] Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.
+- [ ] Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
 
 Im Altbestand warten zwei Stellen auf Fremdsysteme: Der **Batch-Import** prüft jede
 Bestellung bei einer Auskunftei (50 ms), die **REST-Schnittstelle** fragt für jede
 neue Bestellung beim Lager nach (100 ms). Beide arbeiten mit einem festen
 Thread-Pool. Ihr stellt sie um und messt – auf Eurem JDK.
-
-## Lernziele
-
-Du …
-
-- misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.
-- stellst einen festen Thread-Pool auf virtuelle Threads um.
-- weist mit Java Flight Recorder nach, ob virtuelle Threads gepinnt werden, und behebst es unter Java 21.
-- erkennst, dass nach einem beseitigten Engpass der nächste sichtbar wird.
-
-## Definition of Done
-
-* [ ] Batch-Import und REST-Schnittstelle nutzen virtuelle Threads; `./mvnw clean verify` ist grün.
-* [ ] Eure Zeile in der Messtabelle im Board ist ausgefüllt – mit JDK-Version.
-* [ ] Ihr habt geprüft, ob Pinning auftritt, und könnt die Ursache benennen.
-* [ ] Du hast die Reflexionsfragen schriftlich beantwortet.
 
 ## Arbeitsschritte
 
@@ -370,7 +363,7 @@ Lass den Batch-Import mit Java Flight Recorder laufen und such nach gepinnten
 virtuellen Threads:
 
 ```shell
-MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot; ./mvnw -q -pl altbestand/bestellung-batch exec:java
+MAVEN_OPTS=&#34;-XX:StartFlightRecording=filename=pinning.jfr&#34; ./mvnw -q -pl altbestand/bestellung-batch exec:java
 jfr print --events jdk.VirtualThreadPinned --stack-depth 8 pinning.jfr
 ```
 
@@ -379,7 +372,7 @@ der virtuelle Thread dort seinen Träger nicht freigibt. Die Simulation hilft (s
 Ressourcen).
 
 &gt; **Hinweis:** Unter Windows setzt Du die Variable in PowerShell mit
-&gt; `$env:MAVEN_OPTS=&quot;-XX:StartFlightRecording=filename=pinning.jfr&quot;`. `jfr` liegt im
+&gt; `$env:MAVEN_OPTS=&#34;-XX:StartFlightRecording=filename=pinning.jfr&#34;`. `jfr` liegt im
 &gt; `bin`-Ordner Deines JDK.
 
 **Mit JDK 21:** Behebe das Pinning im eigenen Code – ohne `synchronized`, mit
@@ -402,49 +395,70 @@ einem Paar, das JDK 21 hat.
 &gt; [Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/8).
 &gt; Sieh erst nach, wenn Du es selbst versucht hast.
 
+
+&lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
+
 ## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
 - Warum hat das Umstellen auf virtuelle Threads unter JDK 21 im Batch zunächst wenig gebracht – und unter 25 viel?
 - Nach dem Umstellen war die REST-Schnittstelle immer noch nicht so schnell wie erwartet. Was lernt man daraus?
 - Würdet Ihr in Eurer Anwendung alle `synchronized` durch `ReentrantLock` ersetzen?
 - Wann bleibt Ihr bei reaktiver Programmierung?
 
-## Weiterführende Informationen
+&lt;/div&gt;
 
+&lt;/div&gt;
+## Weiterführende Informationen
 - [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
 - [Simulation: Plattform-Threads und virtuelle Threads](/java-update/virtual-threads/simulation.html)
 - [JEP 444: Virtual Threads](https://openjdk.org/jeps/444)
 - [JEP 491: Synchronize Virtual Threads without Pinning](https://openjdk.org/jeps/491)
 </textarea>
-    </main><aside class="avd-academy-guide-sidebar"><details class="avd-academy-guide-side avd-academy-guide-side--toc avd-academy-fold" data-avd-academy-toc-box
-               data-avd-academy-toc-grenze="12" open hidden>
-        <summary class="avd-academy-guide-side__label">Auf dieser Seite</summary>
-        <nav class="avd-academy-toc avd-academy-fold__body" data-avd-academy-toc aria-label="Inhaltsverzeichnis"></nav>
-      </details>
-      <div class="avd-academy-guide-side avd-academy-guide-side--bordered" data-avd-academy-progress hidden><div class="avd-academy-guide-side__label" id="avd-academy-progress-label">Fortschritt</div><div class="avd-academy-progress__bar" aria-labelledby="avd-academy-progress-label"><div class="avd-academy-progress__fill"></div></div>
-        <div class="avd-academy-progress__text"></div>
-      </div>
-      <div class="avd-academy-guide-side avd-academy-guide-side--bordered">
-        <div class="avd-academy-guide-side__label">Weiterführende Informationen</div>
-        <div class="avd-academy-guide-side__links"><a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span><span class="avd-academy-linkicon avd-academy-linkicon--right avd-academy-linkicon--mark" style="--avd-academy-linkicon-src: url('/training-material-java-se/theme/academy/icons/icon-github.svg')" aria-hidden="true"></span></a><a href="/training-material-java-se/java-update/virtual-threads/simulation.html"><span>Simulation: Plattform-Threads und virtuelle Threads</span></a><a href="https://openjdk.org/jeps/444" target="_blank" rel="noopener"><span>JEP 444: Virtual Threads</span></a><a href="https://openjdk.org/jeps/491" target="_blank" rel="noopener"><span>JEP 491: Synchronize Virtual Threads without Pinning</span></a>
-        </div></div>
-    </aside>
-  </div><div class="avd-academy-print-contact" aria-hidden="true">
-    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
-    <span>academy@atvantage.com</span>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#ausgangsstand-messen" class="skr-toc--h3">Ausgangsstand messen</a><a href="#den-batch-import-umstellen" class="skr-toc--h3">Den Batch-Import umstellen</a><a href="#die-rest-schnittstelle-umstellen" class="skr-toc--h3">Die REST-Schnittstelle umstellen</a><a href="#pinning-nachweisen" class="skr-toc--h3">Pinning nachweisen</a><a href="#kür" class="skr-toc--h3">Kür</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 4 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span></a>
+      <a href="../../java-update/virtual-threads/simulation.html"><span>Simulation: Plattform-Threads und virtuelle Threads</span></a>
+      <a href="https://openjdk.org/jeps/444" target="_blank" rel="noopener"><span>JEP 444: Virtual Threads</span></a>
+      <a href="https://openjdk.org/jeps/491" target="_blank" rel="noopener"><span>JEP 491: Synchronize Virtual Threads without Pinning</span></a>
+    </div>
   </div>
+</aside>
 
-  <footer class="avd-academy-footer">
-  <div class="avd-academy-footer__grid">
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
     <div><strong>ATVANTAGE Academy</strong>
-      <p>Schulungen im Bereich 'Java SE'</p>
+      <p>Schulungen im Bereich „Java SE“</p>
     </div><div>
       <strong>Kontakt</strong>
-      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
       </p>
     </div></div>
-  <div class="avd-academy-footer__legal">
-    © <span data-avd-academy-year>2026</span> ATVANTAGE
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
   </div>
 </footer>
 

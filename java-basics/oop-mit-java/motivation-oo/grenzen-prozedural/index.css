@@ -1,0 +1,52 @@
+/* Eigene Bausteine dieser Präsentation. Farben ausschließlich aus den
+   Theme-Tokens; Flächen entstehen per color-mix GEGEN die Seitenfläche
+   (--skr-color-bg) und stimmen damit in Light UND Dark. */
+
+.skr-slide { justify-content: center; justify-content: safe center; }
+.skr-slide h2 { margin-bottom: var(--skr-space-6); }
+.skr-slide li { margin-bottom: var(--skr-space-3); }
+
+/* --- Sparschwein: Bildmarke der Titelfolie -------------------------------- */
+.sparschwein { width: clamp(90px, 12vw, 150px); height: auto; display: block; margin: 0 auto; }
+.sparschwein__koerper { stroke: var(--skr-color-ink); }
+.sparschwein__muenze  { stroke: var(--skr-color-accent); }
+
+/* --- Karten: gleichrangige Punkte nebeneinander --------------------------- */
+.karten { list-style: none; display: grid; gap: var(--skr-space-4); padding: 0; margin: 0;
+          grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); font-size: .9em; }
+.karte  { display: flex; flex-direction: column; gap: .35rem; padding: var(--skr-space-4);
+          border: 1.5px solid var(--skr-color-border); border-radius: var(--skr-radius, 8px);
+          background: color-mix(in srgb, var(--skr-color-accent) 7%, var(--skr-color-bg)); }
+.karte b    { color: var(--skr-color-ink); }
+.karte span { color: var(--skr-color-ink-muted); font-size: .92em; }
+
+/* --- Leitfrage: eine Folie, eine Frage ------------------------------------ */
+.leitfrage { text-align: center; font-size: clamp(1.6rem, 1rem + 2.6vw, 3rem); font-weight: 600;
+             line-height: 1.25; color: var(--skr-color-ink);
+             border-left: 6px solid var(--skr-color-accent); padding: var(--skr-space-6);
+             background: color-mix(in srgb, var(--skr-color-accent) 8%, var(--skr-color-bg));
+             border-radius: var(--skr-radius, 8px); }
+.leitfrage--klein { font-size: clamp(1.05rem, .8rem + 1vw, 1.5rem); padding: var(--skr-space-4);
+                    margin-top: var(--skr-space-4); text-align: left; }
+.leitfrage + p { text-align: center; color: var(--skr-color-ink-muted); font-size: .85em;
+                 margin-top: var(--skr-space-4); }
+
+/* --- Schmerzpunkte: Symptom + Ursache in einer Zeile ---------------------- */
+.schmerz { list-style: none; padding: 0; margin: 0; font-size: .88em; }
+.schmerz li { display: grid; grid-template-columns: minmax(9rem, 14rem) 1fr; gap: .2rem 1.2rem;
+              padding: .55rem 0; border-bottom: 1px solid var(--skr-color-border); }
+.schmerz li:last-child { border-bottom: 0; }
+.schmerz b    { color: var(--skr-color-ink); }
+.schmerz span { color: var(--skr-color-ink-muted); }
+
+/* --- Kontoarten: gemeinsam vs. unterschiedlich ---------------------------- */
+.arten { width: 100%; border-collapse: collapse; font-size: .8em; }
+.arten th, .arten td { padding: .45rem .7rem; text-align: left; vertical-align: top;
+                       border-bottom: 1px solid var(--skr-color-border); }
+.arten thead th { color: var(--skr-color-ink-muted); font-weight: 500; }
+.arten tbody th { font-weight: 600; white-space: nowrap; }
+.arten .gemeinsam td, .arten .gemeinsam th {
+  background: color-mix(in srgb, var(--skr-color-accent) 10%, var(--skr-color-bg)); }
+
+/* Codeblöcke auf Folien etwas kompakter, damit sie ohne Scrollen passen. */
+.skr-slide pre { font-size: .72em; line-height: 1.45; }

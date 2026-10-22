@@ -1,83 +1,83 @@
-<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>Exceptions in Java · ATVANTAGE Academy</title><meta name="description" content="Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Exceptions in Java · ATVANTAGE Academy</title>
+<meta name="description" content="Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Exceptions in Java">
 <meta property="og:description" content="Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions.">
-<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-basics/shared/ausnahmebehandlung/exceptions.html","title":"Exceptions in Java","layout":"visualization","description":"Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Ausnahmen auf einen Blick – die Typhierarchie, der zweite Ausgang neben return, Werfen und Fangen entlang des Aufrufstapels, checked Exceptions, die Formen von try und eigene Exceptions.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-basics/shared/ausnahmebehandlung/exceptions.css","src":"exceptions.css","type":"style"}],"pageId":null,"runtimeFragments":["^/(\\?.*)?$","^/[A-Za-z0-9_-]+(\\?.*)?$"],"siteIndex":"/skriptorium/site.json","title":"Exceptions in Java","topics":null,"url":"/java-basics/shared/ausnahmebehandlung/exceptions.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
-<div class="avd-academy-reading-progress" aria-hidden="true"></div>
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
-           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
-      <div class="avd-academy-guide-hero__tags">
-      </div>
-      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
-                data-avd-academy-print
-                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
-      </div>
-    </div><h1 id="avd-academy-page-title">Exceptions in Java</h1>
-  </section><div class="avd-academy-guide-layout">
-    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung
+<script src="../../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+
+<link rel="stylesheet" href="../../../java-basics/shared/ausnahmebehandlung/exceptions.css?v=bfc2b3a9">
+
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+
+    </div>
+  </div><h1 id="skr-page-title">Exceptions in Java</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
      - Ort: java-basics/shared/ausnahmebehandlung/ – eingebunden in die
        Materialübersicht („Zum Nachschlagen“) von „OOP mit Java“ (Thema „Robuste
        Programme“) und „Java für OO-Umsteiger“ (Thema „Robuste Programme & Daten“),
@@ -114,113 +114,8 @@
        bei prefers-reduced-motion und im Druck. Die Aussage trägt die gestrichelte
        Flugbahn.
 -->
-
-<style>
-/* Präfix exc-. Farben ausschließlich aus den Theme-Tokens – damit stimmt die Seite in
-   Light und Dark ohne zweiten Regelsatz. Keine eigene Breitenbegrenzung: die gibt das
-   Layout vor. */
-.exc-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.5rem;}
-.exc-sec{margin:1.6rem 0 2.4rem;}
-.exc-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.4rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border);padding-bottom:.5rem;}
-.exc-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-primary);color:var(--avd-academy-color-primary-contrast);font-size:.9rem;font-weight:700;}
-.exc-sec h3{font-size:1.02rem;margin:1.1rem 0 .45rem;}
-.exc-sec p,.exc-sec li{font-size:.95rem;}
-
-.exc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(36rem,100%),1fr));gap:1.1rem;margin:.6rem 0;}
-.exc-card{min-width:0;background:var(--avd-academy-color-bg-subtle);border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius);padding:1rem 1.15rem;}
-.exc-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
-.exc-card p{margin:0 0 .6rem;font-size:.9rem;}
-.exc-card p:last-child{margin-bottom:0;}
-.exc-card pre{margin:0;overflow-x:auto;}
-.exc-card pre + p{margin-top:.6rem;}
-.exc-card--gut{border-left:4px solid var(--avd-academy-color-success);}
-.exc-card--schlecht{border-left:4px solid var(--avd-academy-color-warning);}
-.exc-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-accent-ink);margin:0 0 .3rem;}
-.exc-root pre{overflow-x:auto;}
-.exc-root pre code.hljs{border-radius:var(--avd-academy-radius-lg);font-size:.8rem;line-height:1.5;}
-.exc-reiter{margin:.6rem 0 1rem;}
-.exc-reiter__inhalt > :first-child{margin-top:0;}
-.exc-reiter__inhalt > :last-child{margin-bottom:0;}
-
-/* Ausgaben: Konsole und Compiler. Bewusst KEIN Java-Highlighting – es ist Text. */
-.exc-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-bg);border:1px dashed var(--avd-academy-color-border);font-family:var(--avd-academy-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
-.exc-konsole::before{content:attr(data-titel);display:block;font-family:var(--avd-academy-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);margin-bottom:.3rem;}
-.exc-konsole mark{background:var(--avd-academy-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
-
-/* Grafiken: breiter als ein Telefon – sie schrumpfen mit, und wo das nicht reicht,
-   scrollt nur der Rahmen, nie die Seite. */
-.exc-bild{overflow-x:auto;margin:.8rem 0 .4rem;}
-.exc-svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--avd-academy-color-ink);}
-.exc-t{fill:currentColor;font-family:var(--avd-academy-font-sans);font-size:16px;white-space:pre;}
-.exc-t--mono{font-family:var(--avd-academy-font-mono);font-size:15px;}
-.exc-t--klein{font-size:13px;}
-.exc-t--bsp{font-size:14px;}
-.exc-t--gross{font-size:19px;}
-.exc-t--fett{font-weight:700;}
-.exc-t--muted{fill:var(--avd-academy-color-ink-muted);}
-.exc-t--sperr{letter-spacing:.08em;font-weight:700;font-size:11px;}
-.exc-t--gut{fill:var(--avd-academy-color-success-ink);font-weight:700;}
-.exc-t--wurf{fill:var(--avd-academy-color-danger-ink);font-weight:700;}
-.exc-kasten{fill:var(--avd-academy-color-bg-subtle);stroke:var(--avd-academy-color-border);stroke-width:1.5;}
-.exc-kasten--kern{fill:color-mix(in srgb,var(--exc-farbe) 14%,var(--avd-academy-color-bg));stroke:var(--exc-farbe);stroke-width:2.5;}
-.exc-kasten--leise{fill:var(--avd-academy-color-bg);stroke-dasharray:5 4;}
-.exc-beispiele{fill:var(--avd-academy-color-bg);stroke:var(--exc-farbe);stroke-width:1.5;stroke-dasharray:6 4;}
-.exc-trenner{stroke:var(--exc-farbe);stroke-width:1.5;}
-.exc-erbt,.exc-einzug{fill:none;stroke:var(--avd-academy-color-ink-muted);stroke-width:2;}
-.exc-einzug{stroke-width:1.5;}
-.exc-dreieck{fill:var(--avd-academy-color-bg);stroke:var(--avd-academy-color-ink-muted);stroke-width:2;stroke-linejoin:round;}
-.exc-figur{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
-.exc-kopf{fill:var(--avd-academy-color-bg);}
-.exc-ball{fill:var(--avd-academy-color-danger);stroke:none;}
-.exc-bahn{fill:none;stroke:var(--avd-academy-color-danger);stroke-width:2;stroke-dasharray:6 6;}
-.exc-boden{stroke:var(--avd-academy-color-border);stroke-width:2;}
-.exc-jvm-schild{fill:var(--avd-academy-color-accent-soft);stroke:var(--avd-academy-color-accent);stroke-width:1.5;}
-.exc-ruft{stroke:var(--avd-academy-color-ink-muted);stroke-width:1.5;}
-.exc-spitze{fill:var(--avd-academy-color-ink-muted);}
-.exc-spitze--gut{fill:var(--avd-academy-color-success);}
-.exc-spitze--wurf{fill:var(--avd-academy-color-danger);}
-.exc-weg{fill:none;stroke-width:2.5;}
-.exc-weg--gut{stroke:var(--avd-academy-color-success);}
-.exc-weg--wurf{stroke:var(--avd-academy-color-danger);stroke-dasharray:7 5;}
-
-/* Legende zum Diagramm – dieselben Farben wie die Kästen */
-.exc-legende{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:.4rem 0 0;padding:0;list-style:none;font-size:.88rem;}
-.exc-legende li{display:flex;align-items:center;gap:.45rem;}
-.exc-legende li::before{content:"";width:.95rem;height:.95rem;border-radius:3px;border:2px solid var(--exc-farbe);background:color-mix(in srgb,var(--exc-farbe) 14%,var(--avd-academy-color-bg));}
-
-/* Merksatz und Hinweise */
-.exc-merke{margin:1.2rem 0 0;padding:.7rem 1rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-accent-soft);}
-.exc-note{margin:.8rem 0 0;font-size:.9rem;color:var(--avd-academy-color-ink-muted);}
-
-/* Vergleichstabelle checked / unchecked */
-.exc-tabelle-rahmen{overflow-x:auto;margin:.8rem 0;}
-.exc-tabelle{width:100%;border-collapse:collapse;font-size:.9rem;}
-.exc-tabelle th,.exc-tabelle td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--avd-academy-color-border);}
-.exc-tabelle thead th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);white-space:nowrap;}
-.exc-tabelle tbody th{font-weight:700;white-space:nowrap;}
-.exc-tabelle thead th:nth-child(2){border-bottom:3px solid var(--avd-academy-color-accent);}
-.exc-tabelle thead th:nth-child(3){border-bottom:3px solid var(--avd-academy-color-warning);}
-
-@media (max-width:30rem){
-  .exc-grid{grid-template-columns:minmax(0,1fr);}
-}
-/* Bewegung ist Schmuck: Wer reduzierte Bewegung eingestellt hat, sieht nur die Bahn. */
-@media (prefers-reduced-motion: reduce){
-  .exc-flug{display:none;}
-}
-@media print{
-  .exc-flug{display:none;}
-  .exc-card{break-inside:avoid;background:transparent !important;}
-  .exc-bild{break-inside:avoid;}
-  .exc-root pre,.exc-root pre code,.exc-root pre code *,.exc-konsole{color:#000 !important;background:transparent !important;}
-  .exc-root pre,.exc-konsole{white-space:pre-wrap;word-break:break-word;font-size:8pt;}
-}
-</style>
-
 <div class="exc-root">
-
 <p class="exc-lead">Wenn etwas schiefgeht, hat eine Methode in Java einen <strong>zweiten Ausgang</strong>: Sie wirft ein Exception-Objekt, und das fliegt den Aufrufstapel zurück, bis es jemand fängt. Diese Seite zeigt, welche Arten es gibt, wie das Werfen und Fangen abläuft, was der Compiler dabei prüft – und wie man es im Code schreibt. Alle Ausgaben stammen aus echten Läufen mit Java 25.</p>
-
 <!-- =======================================================================
      1 – TYPHIERARCHIE. Die vier Kerntypen groß und farbig, Beispiele darunter.
      ======================================================================= -->
@@ -229,47 +124,47 @@
 <p>Jede Ausnahme ist ein Objekt einer Klasse, die von <code>Throwable</code> erbt. Nur solche Objekte lassen sich mit <code>throw</code> werfen und mit <code>catch</code> fangen. Darunter teilt sich die Familie in drei Zweige – und an der Stelle im Baum entscheidet sich, ob der Compiler auf die Ausnahme achtet.</p>
 <div class="exc-bild">
 <svg class="exc-svg" viewBox="0 0 980 660" width="980" height="660" role="img" aria-label="Klassendiagramm der Ausnahmen: Object ist die Oberklasse von Throwable. Von Throwable erben Error (unchecked, nicht behandeln) und Exception (checked, der Compiler prüft). Von Exception erbt RuntimeException (unchecked, Programmierfehler). Beispiele für Error: OutOfMemoryError, StackOverflowError. Für Exception: IOException mit FileNotFoundException, InterruptedException und die eigene KeineDeckungException. Für RuntimeException: NullPointerException, IllegalArgumentException mit NumberFormatException, IllegalStateException, ArithmeticException, ArrayIndexOutOfBoundsException.">
-<rect class="exc-kasten exc-kasten--leise" x="400" y="10" width="180" height="40" rx="8" />
+<rect class="exc-kasten exc-kasten--leise" x="400" y="10" width="180" height="40" rx="8"/>
 <text x="490" y="36" text-anchor="middle" class="exc-t exc-t--mono exc-t--muted">Object</text>
-<path class="exc-erbt" d="M490 90 V64" /><polygon class="exc-dreieck" points="490,50 482,64 498,64" />
-<g style="--exc-farbe:var(--avd-academy-color-ink)">
-<rect class="exc-kasten exc-kasten--kern" x="350" y="90" width="280" height="124" rx="8" />
+<path class="exc-erbt" d="M490 90 V64"/><polygon class="exc-dreieck" points="490,50 482,64 498,64"/>
+<g style="--exc-farbe:var(--skr-color-ink)">
+<rect class="exc-kasten exc-kasten--kern" x="350" y="90" width="280" height="124" rx="8"/>
 <text x="490" y="120" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Throwable</text>
-<line class="exc-trenner" x1="350" y1="132" x2="630" y2="132" />
+<line class="exc-trenner" x1="350" y1="132" x2="630" y2="132"/>
 <text x="372" y="156" text-anchor="start" class="exc-t exc-t--mono exc-t--klein">getMessage() : String</text>
 <text x="372" y="176" text-anchor="start" class="exc-t exc-t--mono exc-t--klein">getCause() : Throwable</text>
 <text x="372" y="196" text-anchor="start" class="exc-t exc-t--mono exc-t--klein">printStackTrace()</text>
 </g>
-<path class="exc-erbt" d="M490 270 V228 M180 270 V248 H490" /><polygon class="exc-dreieck" points="490,214 482,228 498,228" />
-<g style="--exc-farbe:var(--avd-academy-color-danger)"><rect class="exc-kasten exc-kasten--kern" x="40" y="270" width="280" height="70" rx="8" /><text x="180.0" y="300" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Error</text><text x="180.0" y="324" text-anchor="middle" class="exc-t exc-t--klein">unchecked · nicht behandeln</text></g>
-<g style="--exc-farbe:var(--avd-academy-color-accent)"><rect class="exc-kasten exc-kasten--kern" x="350" y="270" width="280" height="70" rx="8" /><text x="490.0" y="300" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Exception</text><text x="490.0" y="324" text-anchor="middle" class="exc-t exc-t--klein">checked · der Compiler prüft</text></g>
-<path class="exc-erbt" d="M800 370 V305 H644" /><polygon class="exc-dreieck" points="630,305 644,297 644,313" />
-<g style="--exc-farbe:var(--avd-academy-color-warning)"><rect class="exc-kasten exc-kasten--kern" x="660" y="370" width="280" height="70" rx="8" /><text x="800.0" y="400" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">RuntimeException</text><text x="800.0" y="424" text-anchor="middle" class="exc-t exc-t--klein">unchecked · Programmierfehler</text></g>
-<path class="exc-erbt" d="M180 470 V354" /><polygon class="exc-dreieck" points="180,340 172,354 188,354" />
-<path class="exc-erbt" d="M490 470 V354" /><polygon class="exc-dreieck" points="490,340 482,354 498,354" />
-<path class="exc-erbt" d="M800 470 V454" /><polygon class="exc-dreieck" points="800,440 792,454 808,454" />
-<g style="--exc-farbe:var(--avd-academy-color-danger)">
-<rect class="exc-beispiele" x="40" y="470" width="280" height="92" rx="8" />
+<path class="exc-erbt" d="M490 270 V228 M180 270 V248 H490"/><polygon class="exc-dreieck" points="490,214 482,228 498,228"/>
+<g style="--exc-farbe:var(--skr-color-danger)"><rect class="exc-kasten exc-kasten--kern" x="40" y="270" width="280" height="70" rx="8"/><text x="180.0" y="300" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Error</text><text x="180.0" y="324" text-anchor="middle" class="exc-t exc-t--klein">unchecked · nicht behandeln</text></g>
+<g style="--exc-farbe:var(--skr-color-accent)"><rect class="exc-kasten exc-kasten--kern" x="350" y="270" width="280" height="70" rx="8"/><text x="490.0" y="300" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">Exception</text><text x="490.0" y="324" text-anchor="middle" class="exc-t exc-t--klein">checked · der Compiler prüft</text></g>
+<path class="exc-erbt" d="M800 370 V305 H644"/><polygon class="exc-dreieck" points="630,305 644,297 644,313"/>
+<g style="--exc-farbe:var(--skr-color-warning)"><rect class="exc-kasten exc-kasten--kern" x="660" y="370" width="280" height="70" rx="8"/><text x="800.0" y="400" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett exc-t--gross">RuntimeException</text><text x="800.0" y="424" text-anchor="middle" class="exc-t exc-t--klein">unchecked · Programmierfehler</text></g>
+<path class="exc-erbt" d="M180 470 V354"/><polygon class="exc-dreieck" points="180,340 172,354 188,354"/>
+<path class="exc-erbt" d="M490 470 V354"/><polygon class="exc-dreieck" points="490,340 482,354 498,354"/>
+<path class="exc-erbt" d="M800 470 V454"/><polygon class="exc-dreieck" points="800,440 792,454 808,454"/>
+<g style="--exc-farbe:var(--skr-color-danger)">
+<rect class="exc-beispiele" x="40" y="470" width="280" height="92" rx="8"/>
 <text x="56" y="496" text-anchor="start" class="exc-t exc-t--klein exc-t--muted exc-t--sperr">BEISPIELE</text>
 <text x="56" y="522" class="exc-t exc-t--mono exc-t--bsp">OutOfMemoryError</text>
 <text x="56" y="546" class="exc-t exc-t--mono exc-t--bsp">StackOverflowError</text>
 </g>
-<g style="--exc-farbe:var(--avd-academy-color-accent)">
-<rect class="exc-beispiele" x="350" y="470" width="280" height="140" rx="8" />
+<g style="--exc-farbe:var(--skr-color-accent)">
+<rect class="exc-beispiele" x="350" y="470" width="280" height="140" rx="8"/>
 <text x="366" y="496" text-anchor="start" class="exc-t exc-t--klein exc-t--muted exc-t--sperr">BEISPIELE</text>
 <text x="366" y="522" class="exc-t exc-t--mono exc-t--bsp">IOException</text>
 <text x="388" y="546" class="exc-t exc-t--mono exc-t--bsp">FileNotFoundException</text>
-<path class="exc-einzug" d="M374 528 V541 H384" />
+<path class="exc-einzug" d="M374 528 V541 H384"/>
 <text x="366" y="570" class="exc-t exc-t--mono exc-t--bsp">InterruptedException</text>
 <text x="366" y="594" class="exc-t exc-t--mono exc-t--bsp">KeineDeckungException<tspan class="exc-t--muted exc-t--klein"> (eigene)</tspan></text>
 </g>
-<g style="--exc-farbe:var(--avd-academy-color-warning)">
-<rect class="exc-beispiele" x="660" y="470" width="280" height="188" rx="8" />
+<g style="--exc-farbe:var(--skr-color-warning)">
+<rect class="exc-beispiele" x="660" y="470" width="280" height="188" rx="8"/>
 <text x="676" y="496" text-anchor="start" class="exc-t exc-t--klein exc-t--muted exc-t--sperr">BEISPIELE</text>
 <text x="676" y="522" class="exc-t exc-t--mono exc-t--bsp">NullPointerException</text>
 <text x="676" y="546" class="exc-t exc-t--mono exc-t--bsp">IllegalArgumentException</text>
 <text x="698" y="570" class="exc-t exc-t--mono exc-t--bsp">NumberFormatException</text>
-<path class="exc-einzug" d="M684 552 V565 H694" />
+<path class="exc-einzug" d="M684 552 V565 H694"/>
 <text x="676" y="594" class="exc-t exc-t--mono exc-t--bsp">IllegalStateException</text>
 <text x="676" y="618" class="exc-t exc-t--mono exc-t--bsp">ArithmeticException</text>
 <text x="676" y="642" class="exc-t exc-t--mono exc-t--bsp">ArrayIndexOutOfBounds…</text>
@@ -277,13 +172,12 @@
 </svg>
 </div>
 <ul class="exc-legende">
-<li style="--exc-farbe:var(--avd-academy-color-danger)"><span><strong>Error</strong> – Probleme der JVM selbst. Nicht fangen: Das Programm kann sie nicht sinnvoll beheben.</span></li>
-<li style="--exc-farbe:var(--avd-academy-color-accent)"><span><strong>Exception</strong> – erwartbare Fehlerfälle. <em>Checked:</em> Der Compiler verlangt, dass jemand sich kümmert.</span></li>
-<li style="--exc-farbe:var(--avd-academy-color-warning)"><span><strong>RuntimeException</strong> – meist Programmierfehler. <em>Unchecked:</em> Der Compiler prüft nichts.</span></li>
+<li style="--exc-farbe:var(--skr-color-danger)"><span><strong>Error</strong> – Probleme der JVM selbst. Nicht fangen: Das Programm kann sie nicht sinnvoll beheben.</span></li>
+<li style="--exc-farbe:var(--skr-color-accent)"><span><strong>Exception</strong> – erwartbare Fehlerfälle. <em>Checked:</em> Der Compiler verlangt, dass jemand sich kümmert.</span></li>
+<li style="--exc-farbe:var(--skr-color-warning)"><span><strong>RuntimeException</strong> – meist Programmierfehler. <em>Unchecked:</em> Der Compiler prüft nichts.</span></li>
 </ul>
 <p class="exc-note">Ob eine Ausnahme checked ist, hängt allein an der Oberklasse: Erbt sie von <code>Exception</code>, aber <strong>nicht</strong> von <code>RuntimeException</code>, ist sie checked. Alles unter <code>RuntimeException</code> und unter <code>Error</code> ist unchecked.</p>
 </section>
-
 <!-- =======================================================================
      2 – OBJEKT UND ZWEITER AUSGANG. Auftrag: „Exceptions sind auch Objekte, aber
      es gibt einen Mechanismus neben Rückgabewerten von Methoden.“
@@ -294,27 +188,27 @@
 <div class="exc-bild">
 <svg class="exc-svg" viewBox="0 0 780 250" width="780" height="250" role="img" aria-label="Zwei Ausgänge einer Methode: Der Aufrufer ruft konto.abheben auf. Endet abheben mit return, geht es beim Aufrufer in der nächsten Zeile weiter. Endet abheben mit throw, überspringt der Ablauf den Rest des try-Blocks und landet im passenden catch-Block.">
 <defs>
-<marker id="exc-spitze-gut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze exc-spitze--gut" /></marker>
-<marker id="exc-spitze-wurf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze exc-spitze--wurf" /></marker>
-<marker id="exc-spitze-ruft2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze" /></marker>
+<marker id="exc-spitze-gut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze exc-spitze--gut"/></marker>
+<marker id="exc-spitze-wurf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze exc-spitze--wurf"/></marker>
+<marker id="exc-spitze-ruft2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze"/></marker>
 </defs>
-<rect class="exc-kasten exc-kasten--leise" x="10" y="20" width="420" height="210" rx="8" />
+<rect class="exc-kasten exc-kasten--leise" x="10" y="20" width="420" height="210" rx="8"/>
 <text x="30" y="54" text-anchor="start" class="exc-t exc-t--mono">try {</text>
 <text x="30" y="84" text-anchor="start" class="exc-t exc-t--mono">    konto.abheben(150_00);</text>
 <text x="30" y="114" text-anchor="start" class="exc-t exc-t--mono">    nach.einzahlen(150_00);</text>
 <text x="30" y="144" text-anchor="start" class="exc-t exc-t--mono">} catch (KeineDeckungException e) {</text>
 <text x="30" y="174" text-anchor="start" class="exc-t exc-t--mono">    System.out.println(…);</text>
 <text x="30" y="204" text-anchor="start" class="exc-t exc-t--mono">}</text>
-<g style="--exc-farbe:var(--avd-academy-color-ink)">
-<rect class="exc-kasten exc-kasten--kern" x="516" y="60" width="256" height="84" rx="8" />
+<g style="--exc-farbe:var(--skr-color-ink)">
+<rect class="exc-kasten exc-kasten--kern" x="516" y="60" width="256" height="84" rx="8"/>
 <text x="644" y="94" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">abheben(betrag)</text>
 <text x="644" y="120" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein">throws KeineDeckungException</text>
 </g>
-<line class="exc-ruft" x1="260" y1="78" x2="512" y2="78" marker-end="url(#exc-spitze-ruft2)" />
+<line class="exc-ruft" x1="260" y1="78" x2="512" y2="78" marker-end="url(#exc-spitze-ruft2)"/>
 <text x="460" y="70" text-anchor="middle" class="exc-t exc-t--klein exc-t--muted">ruft auf</text>
-<path class="exc-weg exc-weg--gut" d="M516 118 C450 118 370 112 296 110" marker-end="url(#exc-spitze-gut)" />
+<path class="exc-weg exc-weg--gut" d="M516 118 C450 118 370 112 296 110" marker-end="url(#exc-spitze-gut)"/>
 <text x="440" y="140" text-anchor="middle" class="exc-t exc-t--klein exc-t--gut">return: nächste Zeile</text>
-<path class="exc-weg exc-weg--wurf" d="M644 144 C644 200 520 172 300 170" marker-end="url(#exc-spitze-wurf)" />
+<path class="exc-weg exc-weg--wurf" d="M644 144 C644 200 520 172 300 170" marker-end="url(#exc-spitze-wurf)"/>
 <text x="600" y="200" text-anchor="middle" class="exc-t exc-t--klein exc-t--wurf">throw: weiter im passenden catch</text>
 </svg>
 </div>
@@ -340,27 +234,26 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
 </div>
 </div>
 </section>
-
 <!-- =======================================================================
      3 – WERFEN UND FANGEN. Männchen-Skizze (Idee aus „Java ist auch eine Insel“):
      werfend, sich bückend, fangend. Zweiter Reiter: Die JVM fängt als Letzte.
-     Reiter = Theme-Baustein avd-academy-tabs → Zustand ohne eigenes Skript in der
+     Reiter = Theme-Baustein skr-tabs → Zustand ohne eigenes Skript in der
      Adresse (#/?open=niemand-faengt).
      ======================================================================= -->
 <section class="exc-sec">
 <h2><span class="exc-num">3</span>Werfen, ducken, fangen</h2>
 <p>Methoden rufen einander auf: <code>main</code> ruft <code>überweisen</code>, <code>überweisen</code> ruft <code>abheben</code>. Wirft <code>abheben</code>, fliegt die Ausnahme <strong>diesen Weg zurück</strong>. Wer kein passendes <code>catch</code> hat, duckt sich – seine Methode endet sofort, und die Ausnahme fliegt weiter. Der Erste mit passendem <code>catch</code> fängt sie.</p>
-<div class="avd-academy-tabs exc-reiter">
-<details class="avd-academy-tabs__panel" name="exc-wurf" id="jemand-faengt" open="">
+<div class="skr-tabs exc-reiter">
+<details class="skr-tabs__panel" name="exc-wurf" id="jemand-faengt" open>
 <summary>Jemand fängt</summary>
 <div class="exc-reiter__inhalt">
 <div class="exc-bild">
 <svg class="exc-svg" viewBox="0 0 820 300" width="820" height="300" role="img" aria-label="Werfen und Fangen: konto.abheben wirft eine KeineDeckungException. Bank.überweisen hat kein passendes catch und duckt sich weg, die Ausnahme fliegt über sie hinweg. main fängt sie mit catch (KeineDeckungException e) und läuft danach normal weiter.">
-<defs><marker id="exc-spitze-ruft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze" /></marker></defs>
+<defs><marker id="exc-spitze-ruft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze"/></marker></defs>
 <text x="410" y="18" text-anchor="middle" class="exc-t exc-t--klein exc-t--muted">das Exception-Objekt fliegt den Aufrufstapel zurück – bis zum ersten passenden catch</text>
-<path id="exc-bahn-1" class="exc-bahn" d="M640 98 Q410 0 188 122" /><circle class="exc-ball exc-flug" r="8"><animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.55;1" calcMode="linear"><mpath href="#exc-bahn-1" /></animateMotion></circle>
-<line class="exc-boden" x1="40" y1="210" x2="780" y2="210" />
-<g class="exc-figur" transform="translate(150 210) scale(1.0)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-14 0 M0 -42 L14 0 M0 -78 L18 -84 L30 -92 M0 -74 L20 -72 L32 -82" /><circle class="exc-ball" cx="38" cy="-88" r="8" /></g><g class="exc-figur" transform="translate(410 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88" /><circle class="exc-kopf" cx="-20" cy="-66" r="11" /></g><g class="exc-figur" transform="translate(670 210)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-16 0 M0 -42 L14 0 M0 -78 L-16 -90 L-24 -106 M0 -78 L14 -66 L26 -60" /></g>
+<path id="exc-bahn-1" class="exc-bahn" d="M640 98 Q410 0 188 122"/><circle class="exc-ball exc-flug" r="8"><animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.55;1" calcMode="linear"><mpath href="#exc-bahn-1"/></animateMotion></circle>
+<line class="exc-boden" x1="40" y1="210" x2="780" y2="210"/>
+<g class="exc-figur" transform="translate(150 210) scale(1.0)"><circle class="exc-kopf" cx="0" cy="-96" r="11"/><path d="M0 -85 V-42 M0 -42 L-14 0 M0 -42 L14 0 M0 -78 L18 -84 L30 -92 M0 -74 L20 -72 L32 -82"/><circle class="exc-ball" cx="38" cy="-88" r="8"/></g><g class="exc-figur" transform="translate(410 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88"/><circle class="exc-kopf" cx="-20" cy="-66" r="11"/></g><g class="exc-figur" transform="translate(670 210)"><circle class="exc-kopf" cx="0" cy="-96" r="11"/><path d="M0 -85 V-42 M0 -42 L-16 0 M0 -42 L14 0 M0 -78 L-16 -90 L-24 -106 M0 -78 L14 -66 L26 -60"/></g>
 <text x="150" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">main(…)</text><text x="150" y="260" text-anchor="middle" class="exc-t exc-t--klein">fängt</text><text x="150" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">catch (KeineDeckungException e)</text>
 <text x="410" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">Bank.überweisen(…)</text><text x="410" y="260" text-anchor="middle" class="exc-t exc-t--klein">duckt sich – kein passendes catch</text><text x="410" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throws KeineDeckungException</text>
 <text x="670" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">konto.abheben(…)</text><text x="670" y="260" text-anchor="middle" class="exc-t exc-t--klein">wirft</text><text x="670" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throw new KeineDeckungException(…)</text>
@@ -410,18 +303,18 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
 </div>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="exc-wurf" id="niemand-faengt">
+<details class="skr-tabs__panel" name="exc-wurf" id="niemand-faengt">
 <summary>Niemand fängt – die JVM</summary>
 <div class="exc-reiter__inhalt">
 <div class="exc-bild">
 <svg class="exc-svg" viewBox="0 0 1090 320" width="1090" height="320" role="img" aria-label="Niemand fängt: konto.abheben wirft, Bank.überweisen und main ducken sich beide weg, weil sie die Ausnahme nur mit throws weitergeben. Ganz am Ende fängt die JVM sie, gibt den Stacktrace aus und beendet das Programm.">
-<defs><marker id="exc-spitze-ruft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze" /></marker></defs>
+<defs><marker id="exc-spitze-ruft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="exc-spitze"/></marker></defs>
 <text x="545" y="18" text-anchor="middle" class="exc-t exc-t--klein exc-t--muted">kein catch auf dem ganzen Weg – am Ende fängt die JVM</text>
-<path id="exc-bahn-2" class="exc-bahn" d="M920 98 Q560 10 192 98" /><circle class="exc-ball exc-flug" r="8"><animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.55;1" calcMode="linear"><mpath href="#exc-bahn-2" /></animateMotion></circle>
-<line class="exc-boden" x1="30" y1="210" x2="1060" y2="210" />
-<g class="exc-figur" transform="translate(140 210) scale(1.3)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-14 0 M0 -42 L14 0 M0 -78 L18 -84 L30 -92 M0 -74 L20 -72 L32 -82" /><circle class="exc-ball" cx="38" cy="-88" r="8" /></g>
-<rect class="exc-jvm-schild" x="118" y="128" width="44" height="22" rx="4" /><text x="140" y="144" text-anchor="middle" class="exc-t exc-t--fett exc-t--klein">JVM</text>
-<g class="exc-figur" transform="translate(410 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88" /><circle class="exc-kopf" cx="-20" cy="-66" r="11" /></g><g class="exc-figur" transform="translate(680 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88" /><circle class="exc-kopf" cx="-20" cy="-66" r="11" /></g><g class="exc-figur" transform="translate(950 210)"><circle class="exc-kopf" cx="0" cy="-96" r="11" /><path d="M0 -85 V-42 M0 -42 L-16 0 M0 -42 L14 0 M0 -78 L-16 -90 L-24 -106 M0 -78 L14 -66 L26 -60" /></g>
+<path id="exc-bahn-2" class="exc-bahn" d="M920 98 Q560 10 192 98"/><circle class="exc-ball exc-flug" r="8"><animateMotion dur="3s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.55;1" calcMode="linear"><mpath href="#exc-bahn-2"/></animateMotion></circle>
+<line class="exc-boden" x1="30" y1="210" x2="1060" y2="210"/>
+<g class="exc-figur" transform="translate(140 210) scale(1.3)"><circle class="exc-kopf" cx="0" cy="-96" r="11"/><path d="M0 -85 V-42 M0 -42 L-14 0 M0 -42 L14 0 M0 -78 L18 -84 L30 -92 M0 -74 L20 -72 L32 -82"/><circle class="exc-ball" cx="38" cy="-88" r="8"/></g>
+<rect class="exc-jvm-schild" x="118" y="128" width="44" height="22" rx="4"/><text x="140" y="144" text-anchor="middle" class="exc-t exc-t--fett exc-t--klein">JVM</text>
+<g class="exc-figur" transform="translate(410 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88"/><circle class="exc-kopf" cx="-20" cy="-66" r="11"/></g><g class="exc-figur" transform="translate(680 210)"><path d="M-14 0 L-6 -20 L4 -34 M14 0 L16 -18 L4 -34 M4 -34 L-10 -58 M-6 -54 L-22 -80 L-34 -72 M-6 -54 L-14 -84 L-28 -88"/><circle class="exc-kopf" cx="-20" cy="-66" r="11"/></g><g class="exc-figur" transform="translate(950 210)"><circle class="exc-kopf" cx="0" cy="-96" r="11"/><path d="M0 -85 V-42 M0 -42 L-16 0 M0 -42 L14 0 M0 -78 L-16 -90 L-24 -106 M0 -78 L14 -66 L26 -60"/></g>
 <text x="140" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">JVM</text><text x="140" y="260" text-anchor="middle" class="exc-t exc-t--klein">fängt als Letzte</text><text x="140" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">Stacktrace, Programmende</text>
 <text x="410" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">main(…)</text><text x="410" y="260" text-anchor="middle" class="exc-t exc-t--klein">duckt sich</text><text x="410" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throws KeineDeckungException</text>
 <text x="680" y="238" text-anchor="middle" class="exc-t exc-t--mono exc-t--fett">Bank.überweisen(…)</text><text x="680" y="260" text-anchor="middle" class="exc-t exc-t--klein">duckt sich</text><text x="680" y="280" text-anchor="middle" class="exc-t exc-t--mono exc-t--klein exc-t--muted">throws KeineDeckungException</text>
@@ -456,7 +349,6 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
 </details>
 </div>
 </section>
-
 <!-- =======================================================================
      4 – CHECKED EXCEPTIONS. Echte javac-Meldung, die zwei Auswege, Faustregel wie
      in der Übung (erwartbare Geschäftssituation → checked, Programmierfehler →
@@ -511,15 +403,13 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
 </table>
 </div>
 </section>
-
 <!-- =======================================================================
      5 – FANGEN IM DETAIL. Sechs Reiter laut Auftrag; jeweils Code + echte Ausgabe.
      ======================================================================= -->
 <section class="exc-sec">
 <h2><span class="exc-num">5</span>Die Formen von <code>try</code></h2>
-<div class="avd-academy-tabs exc-reiter">
-
-<details class="avd-academy-tabs__panel" name="exc-try" id="try-catch" open="">
+<div class="skr-tabs exc-reiter">
+<details class="skr-tabs__panel" name="exc-try" id="try-catch" open>
 <summary>try-catch</summary>
 <div class="exc-reiter__inhalt">
 <p>Was schiefgehen kann, steht im <code>try</code>-Block. Fliegt dort eine Ausnahme, wird der Rest des Blocks übersprungen und der <code>catch</code>-Block ausgeführt, dessen Typ passt – auch für Unterklassen dieses Typs.</p>
@@ -535,8 +425,7 @@ try {
 </div>
 </div>
 </details>
-
-<details class="avd-academy-tabs__panel" name="exc-try" id="multi-catch">
+<details class="skr-tabs__panel" name="exc-try" id="multi-catch">
 <summary>Multi-Catch</summary>
 <div class="exc-reiter__inhalt">
 <p>Sollen mehrere Ausnahmen <strong>gleich behandelt</strong> werden, stehen sie mit <code>|</code> in einem einzigen <code>catch</code>. Das spart doppelten Code. Die Typen dürfen nicht voneinander erben – sonst wäre einer überflüssig, und der Compiler lehnt ab.</p>
@@ -566,8 +455,7 @@ Ungültige Eingabe: For input string: "drei"
 </div>
 </div>
 </details>
-
-<details class="avd-academy-tabs__panel" name="exc-try" id="reihenfolge">
+<details class="skr-tabs__panel" name="exc-try" id="reihenfolge">
 <summary>Reihenfolge</summary>
 <div class="exc-reiter__inhalt">
 <p>Die <code>catch</code>-Blöcke werden <strong>von oben nach unten</strong> geprüft; der erste passende gewinnt. Deshalb gilt: <strong>speziell vor allgemein</strong>. <code>FileNotFoundException</code> ist eine Unterklasse von <code>IOException</code> – steht <code>IOException</code> oben, käme der zweite Block nie zum Zug. Der Compiler erkennt das.</p>
@@ -602,8 +490,7 @@ Ungültige Eingabe: For input string: "drei"
 </div>
 </div>
 </details>
-
-<details class="avd-academy-tabs__panel" name="exc-try" id="try-finally">
+<details class="skr-tabs__panel" name="exc-try" id="try-finally">
 <summary>finally</summary>
 <div class="exc-reiter__inhalt">
 <p>Der <code>finally</code>-Block läuft <strong>immer</strong>: nach normalem Ende, nach <code>return</code> und auch, wenn eine Ausnahme hinausfliegt. Dort gehört hin, was in jedem Fall passieren muss – typischerweise Aufräumen. Ein <code>catch</code> braucht es dafür nicht.</p>
@@ -643,8 +530,7 @@ Fehler: Leitung gestört</div>
 </div>
 </div>
 </details>
-
-<details class="avd-academy-tabs__panel" name="exc-try" id="try-with-resources">
+<details class="skr-tabs__panel" name="exc-try" id="try-with-resources">
 <summary>try-with-resources</summary>
 <div class="exc-reiter__inhalt">
 <p>Für das häufigste <code>finally</code> – eine Ressource schließen – gibt es eine Kurzform. Was in den runden Klammern nach <code>try</code> geöffnet wird, schließt Java selbst: am Ende des Blocks, auch bei einer Ausnahme, und zwar in <strong>umgekehrter Reihenfolge</strong> und <strong>vor</strong> dem <code>catch</code>.</p>
@@ -693,8 +579,7 @@ Fehler: Leere Nachricht an Archiv</div>
 </div>
 </div>
 </details>
-
-<details class="avd-academy-tabs__panel" name="exc-try" id="wrapping">
+<details class="skr-tabs__panel" name="exc-try" id="wrapping">
 <summary>Wrapping</summary>
 <div class="exc-reiter__inhalt">
 <p>Eine Methode sollte Ausnahmen werfen, die zu <strong>ihrer</strong> Aufgabe passen. Wer ein Konto lädt, will „Konto nicht gefunden“ hören, nicht „Datei fehlt“. Also fängt man die technische Ausnahme und wirft eine fachliche – und gibt die alte als <strong>Ursache</strong> (<code>cause</code>) mit. So geht nichts verloren: Der Stacktrace zeigt sie unter „Caused by“.</p>
@@ -753,10 +638,8 @@ public class KontoArchiv {
 <p class="exc-note">Nie die Ursache weglassen: Ein <code>new KontoNichtGefundenException(iban)</code> ohne <code>e</code> verschluckt, <em>warum</em> das Laden scheiterte.</p>
 </div>
 </details>
-
 </div>
 </section>
-
 <!-- =======================================================================
      6 – EIGENE EXCEPTIONS. Auftrag: mit Feldern – FINAL. Begründung: Eine Exception
      ist ein Bericht über einen vergangenen Moment; sie wandert über viele Ebenen und
@@ -808,29 +691,14 @@ public class KontoArchiv {
 </div>
 <p class="exc-merke"><strong>Merksatz:</strong> Eine Ausnahme ist ein Objekt, das über einen zweiten Ausgang zurückfliegt – bis zum ersten passenden <code>catch</code>, und wenn es keines gibt, bis zur JVM.</p>
 </section>
-
 </div>
 
-
     </main>
-  </div><div class="avd-academy-print-contact" aria-hidden="true">
-    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
-    <span>academy@atvantage.com</span>
   </div>
-
-  <footer class="avd-academy-footer">
-  <div class="avd-academy-footer__grid">
-    <div><strong>ATVANTAGE Academy</strong>
-      <p>Schulungen im Bereich 'Java SE'</p>
-    </div><div>
-      <strong>Kontakt</strong>
-      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
-      </p>
-    </div></div>
-  <div class="avd-academy-footer__legal">
-    © <span data-avd-academy-year>2026</span> ATVANTAGE
-  </div>
-</footer>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,99 @@
+/* Präfix exc-. Farben ausschließlich aus den Theme-Tokens – damit stimmt die Seite in
+   Light und Dark ohne zweiten Regelsatz. Keine eigene Breitenbegrenzung: die gibt das
+   Layout vor. */
+.exc-lead{color:var(--skr-color-ink-muted);margin:0 0 1.5rem;}
+.exc-sec{margin:1.6rem 0 2.4rem;}
+.exc-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.4rem;line-height:1.2;border-bottom:1px solid var(--skr-color-border);padding-bottom:.5rem;}
+.exc-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--skr-radius);background:var(--skr-color-primary);color:var(--skr-color-primary-contrast);font-size:.9rem;font-weight:700;}
+.exc-sec h3{font-size:1.02rem;margin:1.1rem 0 .45rem;}
+.exc-sec p,.exc-sec li{font-size:.95rem;}
+
+.exc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(36rem,100%),1fr));gap:1.1rem;margin:.6rem 0;}
+.exc-card{min-width:0;background:var(--skr-color-bg-subtle);border:1px solid var(--skr-color-border);border-radius:var(--skr-radius);padding:1rem 1.15rem;}
+.exc-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
+.exc-card p{margin:0 0 .6rem;font-size:.9rem;}
+.exc-card p:last-child{margin-bottom:0;}
+.exc-card pre{margin:0;overflow-x:auto;}
+.exc-card pre + p{margin-top:.6rem;}
+.exc-card--gut{border-left:4px solid var(--skr-color-success);}
+.exc-card--schlecht{border-left:4px solid var(--skr-color-warning);}
+.exc-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-accent-ink);margin:0 0 .3rem;}
+.exc-root pre{overflow-x:auto;}
+.exc-root pre code.hljs{border-radius:var(--skr-radius-lg);font-size:.8rem;line-height:1.5;}
+.exc-reiter{margin:.6rem 0 1rem;}
+.exc-reiter__inhalt > :first-child{margin-top:0;}
+.exc-reiter__inhalt > :last-child{margin-bottom:0;}
+
+/* Ausgaben: Konsole und Compiler. Bewusst KEIN Java-Highlighting – es ist Text. */
+.exc-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-radius);background:var(--skr-color-bg);border:1px dashed var(--skr-color-border);font-family:var(--skr-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
+.exc-konsole::before{content:attr(data-titel);display:block;font-family:var(--skr-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin-bottom:.3rem;}
+.exc-konsole mark{background:var(--skr-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
+
+/* Grafiken: breiter als ein Telefon – sie schrumpfen mit, und wo das nicht reicht,
+   scrollt nur der Rahmen, nie die Seite. */
+.exc-bild{overflow-x:auto;margin:.8rem 0 .4rem;}
+.exc-svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--skr-color-ink);}
+.exc-t{fill:currentColor;font-family:var(--skr-font-sans);font-size:16px;white-space:pre;}
+.exc-t--mono{font-family:var(--skr-font-mono);font-size:15px;}
+.exc-t--klein{font-size:13px;}
+.exc-t--bsp{font-size:14px;}
+.exc-t--gross{font-size:19px;}
+.exc-t--fett{font-weight:700;}
+.exc-t--muted{fill:var(--skr-color-ink-muted);}
+.exc-t--sperr{letter-spacing:.08em;font-weight:700;font-size:11px;}
+.exc-t--gut{fill:var(--skr-color-success-ink);font-weight:700;}
+.exc-t--wurf{fill:var(--skr-color-danger-ink);font-weight:700;}
+.exc-kasten{fill:var(--skr-color-bg-subtle);stroke:var(--skr-color-border);stroke-width:1.5;}
+.exc-kasten--kern{fill:color-mix(in srgb,var(--exc-farbe) 14%,var(--skr-color-bg));stroke:var(--exc-farbe);stroke-width:2.5;}
+.exc-kasten--leise{fill:var(--skr-color-bg);stroke-dasharray:5 4;}
+.exc-beispiele{fill:var(--skr-color-bg);stroke:var(--exc-farbe);stroke-width:1.5;stroke-dasharray:6 4;}
+.exc-trenner{stroke:var(--exc-farbe);stroke-width:1.5;}
+.exc-erbt,.exc-einzug{fill:none;stroke:var(--skr-color-ink-muted);stroke-width:2;}
+.exc-einzug{stroke-width:1.5;}
+.exc-dreieck{fill:var(--skr-color-bg);stroke:var(--skr-color-ink-muted);stroke-width:2;stroke-linejoin:round;}
+.exc-figur{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;}
+.exc-kopf{fill:var(--skr-color-bg);}
+.exc-ball{fill:var(--skr-color-danger);stroke:none;}
+.exc-bahn{fill:none;stroke:var(--skr-color-danger);stroke-width:2;stroke-dasharray:6 6;}
+.exc-boden{stroke:var(--skr-color-border);stroke-width:2;}
+.exc-jvm-schild{fill:var(--skr-color-accent-soft);stroke:var(--skr-color-accent);stroke-width:1.5;}
+.exc-ruft{stroke:var(--skr-color-ink-muted);stroke-width:1.5;}
+.exc-spitze{fill:var(--skr-color-ink-muted);}
+.exc-spitze--gut{fill:var(--skr-color-success);}
+.exc-spitze--wurf{fill:var(--skr-color-danger);}
+.exc-weg{fill:none;stroke-width:2.5;}
+.exc-weg--gut{stroke:var(--skr-color-success);}
+.exc-weg--wurf{stroke:var(--skr-color-danger);stroke-dasharray:7 5;}
+
+/* Legende zum Diagramm – dieselben Farben wie die Kästen */
+.exc-legende{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:.4rem 0 0;padding:0;list-style:none;font-size:.88rem;}
+.exc-legende li{display:flex;align-items:center;gap:.45rem;}
+.exc-legende li::before{content:"";width:.95rem;height:.95rem;border-radius:3px;border:2px solid var(--exc-farbe);background:color-mix(in srgb,var(--exc-farbe) 14%,var(--skr-color-bg));}
+
+/* Merksatz und Hinweise */
+.exc-merke{margin:1.2rem 0 0;padding:.7rem 1rem;border-radius:var(--skr-radius);background:var(--skr-color-accent-soft);}
+.exc-note{margin:.8rem 0 0;font-size:.9rem;color:var(--skr-color-ink-muted);}
+
+/* Vergleichstabelle checked / unchecked */
+.exc-tabelle-rahmen{overflow-x:auto;margin:.8rem 0;}
+.exc-tabelle{width:100%;border-collapse:collapse;font-size:.9rem;}
+.exc-tabelle th,.exc-tabelle td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--skr-color-border);}
+.exc-tabelle thead th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--skr-color-ink-muted);white-space:nowrap;}
+.exc-tabelle tbody th{font-weight:700;white-space:nowrap;}
+.exc-tabelle thead th:nth-child(2){border-bottom:3px solid var(--skr-color-accent);}
+.exc-tabelle thead th:nth-child(3){border-bottom:3px solid var(--skr-color-warning);}
+
+@media (max-width:30rem){
+  .exc-grid{grid-template-columns:minmax(0,1fr);}
+}
+/* Bewegung ist Schmuck: Wer reduzierte Bewegung eingestellt hat, sieht nur die Bahn. */
+@media (prefers-reduced-motion: reduce){
+  .exc-flug{display:none;}
+}
+@media print{
+  .exc-flug{display:none;}
+  .exc-card{break-inside:avoid;background:transparent !important;}
+  .exc-bild{break-inside:avoid;}
+  .exc-root pre,.exc-root pre code,.exc-root pre code *,.exc-konsole{color:#000 !important;background:transparent !important;}
+  .exc-root pre,.exc-konsole{white-space:pre-wrap;word-break:break-word;font-size:8pt;}
+}

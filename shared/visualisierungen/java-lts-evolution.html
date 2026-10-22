@@ -1,455 +1,114 @@
-<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>Java-LTS-Evolution · ATVANTAGE Academy</title><meta name="description" content="Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Java-LTS-Evolution · ATVANTAGE Academy</title>
+<meta name="description" content="Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Java-LTS-Evolution">
 <meta property="og:description" content="Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.">
-<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/shared/visualisierungen/java-lts-evolution.html","title":"Java-LTS-Evolution","layout":"visualization","description":"Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Interaktive Zeitleiste der Java-LTS-Versionen und ihrer wichtigsten Features.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/visualisierungen/java-lts-evolution.css","src":"java-lts-evolution.css","type":"style"},{"path":"shared/visualisierungen/java-lts-evolution.js","src":"java-lts-evolution.js","type":"script"}],"pageId":"shared-visualisierungen-java-lts-evolution","runtimeFragments":["^/(\\?.*)?$","^/[A-Za-z0-9_-]+(\\?.*)?$"],"siteIndex":"/skriptorium/site.json","title":"Java-LTS-Evolution","topics":null,"url":"/shared/visualisierungen/java-lts-evolution.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
-<div class="avd-academy-reading-progress" aria-hidden="true"></div>
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
-           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
-      <div class="avd-academy-guide-hero__tags">
-      </div>
-      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
-                data-avd-academy-print
-                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
-      </div>
-    </div><h1 id="avd-academy-page-title">Java-LTS-Evolution</h1>
-  </section><div class="avd-academy-guide-layout">
-    <main class="avd-academy-guide-main" id="avd-academy-content"><style>
-/* Keine eigene Breitenbegrenzung: Die Breite der Inhaltsspalte gibt das Theme über
-   `--avd-academy-guide-max` vor (bei `layout: visualization` 1040px). Derselbe Wert
-   steuert über den Gutter auch den Hero – eine eigene, engere max-width würde den
-   Inhalt gegenüber dem Hero-Titel einrücken. */
-.jev-lead{color:var(--avd-academy-color-ink-muted,#5F5F5F);margin:0 0 1.5rem;}
-.jev-timeline{position:relative;margin-top:2.5rem;padding-bottom:120px;}
-.jev-axis{position:absolute;left:50%;top:0;bottom:0;width:3px;border-radius:3px;transform:translateX(-50%);background:linear-gradient(to bottom,var(--color-orange,#FF5401),var(--avd-slate,#303E4F),var(--color-orange,#FF5401));}
-.jev-year{position:absolute;left:50%;transform:translate(-50%,-50%);background:var(--avd-academy-color-bg,var(--color-background,#fff));border:1px solid var(--avd-academy-color-border,#d9d9d9);border-radius:999px;padding:3px 12px;font-size:.72rem;font-weight:800;opacity:.75;white-space:nowrap;z-index:5;}
-.jev-node{position:absolute;width:44%;cursor:pointer;z-index:10;transition:transform .25s ease;}
-.jev-node:hover{transform:translateY(-4px);}
-.jev-node.left{left:0;text-align:right;}
-.jev-node.right{right:0;text-align:left;}
-.jev-card{position:relative;background:var(--avd-academy-color-bg-subtle,var(--color-surface-card,#EDEDED));border:1px solid var(--avd-academy-color-border,#e2e2e2);border-radius:var(--radius,5px);padding:1.15rem 1.4rem;box-shadow:var(--shadow,0 6px 20px rgba(0,0,0,.08));transition:border-color .2s,box-shadow .2s;}
-.jev-node:hover .jev-card{border-color:var(--color-orange,#FF5401);box-shadow:0 8px 26px rgba(255,84,1,.18);}
-.jev-date{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--color-orange,#FF5401);margin-bottom:.2rem;}
-.jev-card h3{margin:0;font-size:1.2rem;line-height:1.2;}
-.jev-lts-tag{display:inline-block;margin-left:.4rem;padding:.05rem .45rem;font-size:.6rem;font-weight:800;letter-spacing:.08em;vertical-align:middle;color:#fff;background:var(--color-orange,#FF5401);border-radius:999px;}
-.jev-connector{position:absolute;top:2rem;width:2.5rem;height:2px;background:var(--avd-academy-color-border,#ccc);}
-.jev-node.left .jev-connector{right:-2.5rem;}
-.jev-node.right .jev-connector{left:-2.5rem;}
-.jev-print-features{display:none;}
-@media (max-width:768px){
-  .jev-axis{left:1.25rem;transform:none;}
-  .jev-year{left:1.25rem;}
-  .jev-node{width:calc(100% - 2.75rem);left:2.75rem !important;right:auto;text-align:left !important;}
-  .jev-node.left,.jev-node.right{text-align:left;}
-  .jev-connector{left:-1.5rem !important;right:auto !important;width:1.5rem;}
-}
-.jev-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(2,6,23,.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .2s ease;}
-.jev-modal.open{opacity:1;pointer-events:auto;}
-.jev-modal-container{display:flex;flex-direction:column;width:min(96vw,960px);max-height:88vh;overflow:hidden;background:var(--avd-academy-color-bg,var(--color-background,#fff));color:var(--avd-academy-color-text,inherit);border:1px solid var(--avd-academy-color-border,#e2e2e2);border-radius:var(--radius-dark,8px);box-shadow:0 24px 70px rgba(0,0,0,.45);}
-.jev-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--avd-academy-color-border,#eee);}
-.jev-modal-head h2{margin:0;font-size:1.7rem;line-height:1.1;color:var(--avd-academy-color-headline,inherit);}
-.jev-badge-lts{display:inline-block;margin-top:.45rem;padding:.15rem .6rem;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-orange,#FF5401);border:1px solid var(--color-orange,#FF5401);border-radius:999px;}
-.jev-modal-date{margin-top:.4rem;font-size:.85rem;opacity:.7;}
-.jev-close{flex:none;background:none;border:none;font-size:1.7rem;line-height:1;cursor:pointer;color:inherit;opacity:.55;padding:.1rem .45rem;border-radius:6px;}
-.jev-close:hover{opacity:1;color:var(--color-danger,#EE1919);}
-.jev-tabs{display:flex;flex-wrap:wrap;gap:.5rem;padding:.9rem 1.5rem;border-bottom:1px solid var(--avd-academy-color-border,#eee);}
-.jev-tab{padding:.4rem .95rem;font-size:.7rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:inherit;background:transparent;border:1px solid var(--avd-academy-color-border,#ccc);border-radius:999px;cursor:pointer;transition:all .15s;}
-.jev-tab:hover{border-color:var(--color-orange,#FF5401);}
-.jev-tab.active{color:#fff;background:var(--color-orange,#FF5401);border-color:var(--color-orange,#FF5401);}
-.jev-modal-body{padding:1.35rem 1.5rem;overflow-y:auto;}
-.jev-feature-title{margin:0 0 .5rem;font-size:1.25rem;color:var(--avd-academy-color-headline,inherit);border-left:4px solid var(--color-orange,#FF5401);padding-left:.7rem;}
-.jev-feature-desc{margin:0 0 1rem;opacity:.85;}
-.jev-modal-body pre{overflow-x:auto;margin:0;}
-body.jev-modal-open{overflow:hidden;}
-#jev-print-toc{display:none;}
-@media print{
-  .jev-axis,.jev-connector,.jev-year,#jev-modal,.jev-lts-tag{display:none !important;}
-  .jev-timeline{position:static;padding:0;margin:0;height:auto !important;}
-  .jev-node{position:static !important;left:0 !important;right:auto !important;width:100% !important;text-align:left !important;break-before:page;margin:0;}
-  .jev-node:first-of-type{break-before:auto;}
-  .jev-card{background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;}
-  .jev-card h3{color:#000 !important;font-size:20pt;margin:14pt 0 8pt;border-bottom:1px solid #ccc;padding-bottom:5pt;}
-  .jev-date{color:#000 !important;}
-  .jev-print-features{display:block !important;}
-  .jev-print-item{break-inside:avoid;margin-bottom:14pt;}
-  .jev-print-item h4{margin:0 0 3pt;font-size:12pt;text-transform:uppercase;}
-  .jev-print-item p{margin:0 0 5pt;font-size:10.5pt;}
-  .jev-print-item pre,.jev-print-item pre code,.jev-print-item pre code *{color:#000 !important;background:transparent !important;}
-  .jev-print-item pre{white-space:pre-wrap;word-break:break-word;font-size:8.5pt;border:none !important;padding:3pt 0 !important;}
-  #jev-print-toc{display:block !important;}
-  #jev-print-toc h2{font-size:16pt;border-bottom:2px solid var(--color-orange,#FF5401);padding-bottom:5pt;}
-  #jev-print-toc ul{list-style:none;padding:0;}
-  #jev-print-toc li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dotted #bbb;padding:3pt 0;font-size:11pt;}
-}
-/* Farben für die Codeblöcke liefert das Theme (highlight.css, GitHub-Dark) – hier
-   nur die Feinabstimmung im Modal. */
-.jev-modal-body pre code.hljs{border-radius:var(--radius-dark,8px);font-size:.82rem;line-height:1.5;}
-</style>
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
 
-<div class="jev-root">
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
 
+<link rel="stylesheet" href="../../shared/visualisierungen/java-lts-evolution.css?v=b9825843">
+<script src="../../shared/visualisierungen/java-lts-evolution.js?v=5ad24afb" defer></script>
+
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+
+    </div>
+  </div><h1 id="skr-page-title">Java-LTS-Evolution</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><div class="jev-root">
 <p class="jev-lead">Eine interaktive Zeitleiste der Java-Versionen von 1.0 bis 25. Klicke eine Version an, um ihre wichtigsten Sprach- und API-Features samt kurzem Code-Beispiel zu sehen. LTS-Versionen sind markiert. Über das Druckersymbol oben rechts entsteht eine lineare Übersicht aller Versionen (auch als PDF).</p>
-
 <section id="jev-print-toc">
   <h2>Java-Versionen im Überblick</h2>
   <ul id="jev-toc-list"></ul>
 </section>
-
 <div id="jev-timeline" class="jev-timeline">
   <div class="jev-axis"></div>
 </div>
-
 </div>
-
-<div id="jev-modal" class="jev-modal" aria-hidden="true" inert="" onclick="jevCloseOnExternal(event)">
-  <div id="jev-modal-container" class="jev-modal-container" role="dialog" aria-modal="true" aria-labelledby="jev-modal-title" onclick="event.stopPropagation()">
+<div id="jev-modal" class="jev-modal" aria-hidden="true" inert>
+  <div id="jev-modal-container" class="jev-modal-container" role="dialog" aria-modal="true" aria-labelledby="jev-modal-title">
     <div class="jev-modal-head">
       <div>
         <h2 id="jev-modal-title">Java</h2>
         <div id="jev-badge"></div>
         <div class="jev-modal-date" id="jev-modal-date"></div>
       </div>
-      <button type="button" class="jev-close" aria-label="Schließen" onclick="jevCloseModal()">&times;</button>
+      <button type="button" class="jev-close" aria-label="Schließen">&times;</button>
     </div>
     <div id="jev-modal-tabs" class="jev-tabs"></div>
     <div id="jev-modal-body" class="jev-modal-body"></div>
   </div>
 </div>
 
-<script>
-    // highlight.js liegt im Academy-Theme (nur Core + Java) – keine Kopie im Repo.
-    // Das Theme färbt die beim Laden vorhandenen ```java-Blöcke selbst; die
-    // Codeblöcke dieser Seite entstehen erst per JavaScript (Zeitleiste, Modal),
-    // daher lädt die Seite dieselben Module noch einmal (der Browser cached sie)
-    // und färbt nach dem Rendern selbst nach.
-    // RELATIV ZUR SEITE, nicht über `relative_url`: Diese Unterlage wird ohne
-    // Liquid gerendert (ATLAS nimmt eingereichte Quellen so an), der Filter liefe
-    // also nicht – der Ausdruck stünde wörtlich in der Adresse. Ein relativer
-    // Pfad trägt jeden Basispfad von selbst, weil der Browser ihn gegen die
-    // Adresse DIESER Seite auflöst. Zwei Ebenen hoch: /shared/visualisierungen/.
-    window.JEV_HLJS_BASE = new URL("../../theme/academy/hljs/", document.baseURI).href;
-</script>
-
-<script>
-        const javaVersions = [
-            {
-                ver: "1.0", date: "23. Januar 1996", year: 1996, features: [
-                    { title: "Basis-Syntax", desc: "Die Geburtsstunde von Java. Einführung der objektorientierten Struktur mit Klassen, Attributen und Methoden.", code: "public class Grundlagen {\n    private String msg = \"Atvantage Training\";\n    \n    public void sagHallo() {\n        // Objektorientierte Kapselung\n        System.out.println(this.msg);\n    }\n    \n    public static void main(String[] args) {\n        new Grundlagen().sagHallo();\n    }\n}" },
-                    { title: "Applets", desc: "Client-seitige Java-Programme, die direkt im Webbrowser ausgeführt wurden (heute historisch).", code: "import java.applet.Applet;\nimport java.awt.Graphics;\n\npublic class MeinApplet extends Applet {\n    public void paint(Graphics g) {\n        // Grafische Ausgabe im Browserfenster\n        g.drawString(\"Java Applet läuft\", 20, 20);\n    }\n}" },
-                    { title: "AWT", desc: "Das Abstract Window Toolkit war das erste Grafik-Framework für native Benutzeroberflächen.", code: "import java.awt.*;\n\npublic void initUI() {\n    Frame f = new Frame(\"Java 1.0\");\n    Button b = new Button(\"Absenden\");\n    f.add(b);\n    f.setSize(300, 200);\n    f.setVisible(true);\n}" }
-                ]
-            },
-            {
-                ver: "1.1", date: "19. Februar 1997", year: 1997, features: [
-                    { title: "Calendar API", desc: "API für komplexe Datumsberechnungen und Zeitzonen-Management.", code: "import java.util.*;\n\npublic void checkDate() {\n    Calendar cal = Calendar.getInstance();\n    cal.set(2026, Calendar.JANUARY, 20);\n    Date d = cal.getTime();\n    System.out.println(\"Zieldatum: \" + d);\n}" },
-                    { title: "Inner Classes", desc: "Klassen innerhalb von Klassen für eine bessere Datenkapselung und Event-Handling.", code: "public class Outer {\n    private String secret = \"123\";\n    \n    class Inner {\n        void print() {\n            // Zugriff auf private Member der Outer-Class\n            System.out.println(\"Geheimnis: \" + secret);\n        }\n    }\n}" },
-                    { title: "JDBC", desc: "Standardisierte Schnittstelle für die Verbindung zu SQL-Datenbanken.", code: "public void connect() throws SQLException {\n    String url = \"jdbc:mysql://localhost/db\";\n    Connection c = DriverManager.getConnection(url, \"user\", \"pass\");\n    Statement s = c.createStatement();\n    s.execute(\"SELECT * FROM kunden\");\n}" }
-                ]
-            },
-            {
-                ver: "1.2", date: "08. Dezember 1998", year: 1998, features: [
-                    { title: "Collections", desc: "Standard-Datenstrukturen wie ArrayList, HashMap und HashSet für effizientes Daten-Handling.", code: "import java.util.*;\n\npublic void demo() {\n    List<String> l = new ArrayList<>();\n    l.add(\"Java Evolution\");\n    l.add(\"LTS Roadmap\");\n    for (String s : l) {\n        System.out.println(s);\n    }\n}" },
-                    { title: "Swing UI", desc: "Modernes, plattformunabhängiges UI-Framework (JFC) mit 'Pluggable Look and Feel'.", code: "import javax.swing.*;\n\npublic void showFrame() {\n    JFrame f = new JFrame(\"Swing App\");\n    JButton b = new JButton(\"Klick mich\");\n    f.add(b);\n    f.pack();\n    f.setVisible(true);\n}" },
-                    { title: "JIT Compiler", desc: "Just-in-Time Compiler für native Performance durch Laufzeit-Optimierung des Bytecodes.", code: "// Automatische Optimierung im Hintergrund:\n// 1. HotSpot-Erkennung\n// 2. Inlining von Methoden\n// 3. Loop Unrolling\n// 4. Dead Code Elimination" }
-                ]
-            },
-            {
-                ver: "1.3", date: "08. Mai 2000", year: 2000, features: [
-                    { title: "HotSpot JVM", desc: "Adaptive Optimierung zur Laufzeit durch Profiling und Just-In-Time-Kompilierung.", code: "// JVM Performance Engine\n// - Profiling des laufenden Codes\n// - Identifikation von 'Hot Spots'\n// - Maschinencode-Generierung\n// - Inlining von Methoden" },
-                    { title: "JNDI", desc: "Java Naming and Directory Interface zum Zugriff auf Verzeichnisdienste wie LDAP.", code: "public void lookup(String name) throws NamingException {\n    Context ctx = new InitialContext();\n    DataSource ds = (DataSource) ctx.lookup(name);\n    System.out.println(\"Gefunden: \" + ds);\n}" }
-                ]
-            },
-            {
-                ver: "1.4", date: "06. Februar 2002", year: 2002, features: [
-                    { title: "assert", desc: "Prüfung von Programm-Annahmen zur Qualitätssicherung während der Entwicklung.", code: "public void checkValue(int v) {\n    // Nur aktiv mit -ea Flag\n    assert v > 0 : \"Wert muss positiv sein\";\n    this.value = v;\n    System.out.println(\"Wert ok: \" + v);\n}" },
-                    { title: "NIO", desc: "New I/O System für schnellen, blockierungsfreien Dateizugriff über Buffer und Channels.", code: "FileInputStream fis = new FileInputStream(\"file.txt\");\nFileChannel ch = fis.getChannel();\nByteBuffer buf = ByteBuffer.allocate(1024);\nch.read(buf);\nbuf.flip();" },
-                    { title: "Util Logging", desc: "Das Standard-Logging-Framework von Java – kein externer Logger nötig.", code: "import java.util.logging.*;\n\npublic void log() {\n    Logger logger = Logger.getLogger(\"MyApp\");\n    logger.info(\"Anwendung gestartet\");\n    logger.warning(\"Achtung: Low Memory\");\n}" }
-                ]
-            },
-            {
-                ver: "1.5 (5)", date: "30. September 2004", year: 2004, features: [
-                    { title: "Generics", desc: "Typsicherheit für Container-Klassen zur Vermeidung von Casts und Laufzeitfehlern.", code: "public void generics() {\n    List<Integer> zahlen = new ArrayList<>();\n    zahlen.add(42);\n    // Typsicheres Auslesen ohne Cast\n    int x = zahlen.get(0);\n    System.out.println(\"Ergebnis: \" + x);\n}" },
-                    { title: "Annotations", desc: "Metadaten im Code, die Frameworks wie Spring, Hibernate und JUnit erst möglich machen.", code: "@interface Info {\n    String author();\n}\n\n@Info(author = \"JavaDev\")\npublic class Demo {\n    @Override\n    public String toString() { return \"Demo\"; }\n}" },
-                    { title: "Varargs", desc: "Methoden-Definition mit variabler Anzahl an Argumenten desselben Typs.", code: "public void log(String level, String... msgs) {\n    System.out.print(level + \": \");\n    for (String s : msgs) {\n        System.out.print(s + \" \");\n    }\n    System.out.println();\n}" },
-                    { title: "Enums", desc: "Typsichere Aufzählungsklassen statt statischer Konstanten.", code: "public enum Status { START, RUNNING, STOPPED }\n\nStatus s = Status.START;\nif(s == Status.START) { /* ... */ }" }
-                ]
-            },
-            {
-                ver: "1.6 (6)", date: "11. Dezember 2006", year: 2006, features: [
-                    { title: "Scripting API", desc: "Integration von Skriptsprachen wie JavaScript (Rhino) in Java-Anwendungen.", code: "import javax.script.*;\n\npublic void runJS() throws Exception {\n    ScriptEngineManager m = new ScriptEngineManager();\n    ScriptEngine e = m.getEngineByName(\"JavaScript\");\n    e.eval(\"print('Skripting in Java!')\");\n}" },
-                    { title: "WebServices", desc: "Integrierte Unterstützung für SOAP-Webservices (JAX-WS) und XML-Binding (JAXB).", code: "@WebService\npublic class MeinService {\n    @WebMethod\n    public String sagHallo(String name) {\n        return \"Hallo \" + name;\n    }\n}" }
-                ]
-            },
-            {
-                ver: "1.7 (7)", date: "28. Juli 2011", year: 2011, features: [
-                    { title: "try-with-resources", desc: "Sicheres Ressourcen-Management: Dateien werden am Ende des Blocks automatisch geschlossen.", code: "public void read(File f) throws IOException {\n    try (FileReader reader = new FileReader(f)) {\n        int data = reader.read();\n        System.out.println(\"Content: \" + data);\n    } // reader wird hier automatisch geschlossen\n}" },
-                    { title: "NIO.2 (Files)", desc: "Moderne Datei-Operationen mit Path und Files – mächtiger und einfacher als java.io.File.", code: "public void copy(Path src, Path dest) throws IOException {\n    // Einzeiler für Kopier-Vorgänge\n    Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING);\n    // Alle Zeilen lesen\n    List<String> lines = Files.readAllLines(src);\n}" },
-                    { title: "Diamond Op.", desc: "Kürzere Schreibweise bei der Deklaration von Generics durch Typ-Inferenz.", code: "public void diamond() {\n    // Typ auf rechter Seite wird automatisch erkannt\n    Map<String, List<Integer>> map = new HashMap<>();\n    map.put(\"Key\", new ArrayList<>());\n    System.out.println(\"Map init\");\n}" }
-                ]
-            },
-            {
-                ver: "1.8 (8)", date: "18. März 2014", year: 2014, features: [
-                    { title: "Lambdas", desc: "Funktionaler Programmierstil durch Code-Blöcke, die als Parameter übergeben werden.", code: "public void sort(List<String> l) {\n    // Kompakte Sortier-Logik\n    l.sort((a, b) -> a.length() - b.length());\n    l.forEach(s -> System.out.println(s));\n}" },
-                    { title: "Streams API", desc: "Deklarative Verarbeitung von Datenmenge in Pipelines (Filter, Map, Reduce).", code: "public void process(List<Integer> list) {\n    long result = list.stream()\n        .filter(x -> x > 10)\n        .map(x -> x * 2)\n        .count();\n    System.out.println(\"Gezählt: \" + result);\n}" },
-                    { title: "Date/Time API", desc: "Moderne, unveränderliche Datums-Klassen (java.time) lösen Date und Calendar ab.", code: "public void time() {\n    LocalDate heute = LocalDate.now();\n    LocalDate nextWeek = heute.plusWeeks(1);\n    System.out.println(\"Nächste Woche: \" + nextWeek);\n}" },
-                    { title: "Optional", desc: "Container-Objekt zur Vermeidung von NullPointerExceptions und für saubere APIs.", code: "public void printUser(User u) {\n    String name = Optional.ofNullable(u)\n        .map(User::getName)\n        .orElse(\"Unbekannt\");\n    System.out.println(\"User: \" + name);\n}" },
-                    { title: "Default Methods", desc: "Methoden in Interfaces mit Standard-Implementierung, um Rückwärtskompatibilität zu wahren (z.B. in Collection-Interfaces für Streams).", code: "interface Vehicle {\n    // Implementierung im Interface\n    default void honk() {\n        System.out.println(\"Beep!\");\n    }\n}\n\nclass Car implements Vehicle { }\nnew Car().honk(); // Nutzt Default-Methode" }
-                ]
-            },
-            {
-                ver: "11", date: "25. September 2018", year: 2018, features: [
-                    { title: "var", desc: "Lokale Typ-Inferenz für weniger Schreibarbeit bei eindeutigen Zuweisungen.", code: "public void varDemo() {\n    var message = \"Java 11\";\n    var liste = new ArrayList<String>();\n    liste.add(message);\n    System.out.println(liste.get(0));\n}" },
-                    { title: "Collection Factories", desc: "Kompakte Erzeugung von unveränderlichen Listen, Sets und Maps (seit Java 9).", code: "public void init() {\n    // Unveränderliche Liste\n    List<String> list = List.of(\"A\", \"B\", \"C\");\n    // Unveränderliche Map\n    Map<String, Integer> map = Map.of(\"K1\", 1, \"K2\", 2);\n}" },
-                    { title: "HTTP Client", desc: "Moderner, nicht-blockierender HTTP Client mit Support für HTTP/2 und WebSockets.", code: "public void fetch() throws Exception {\n    HttpClient client = HttpClient.newHttpClient();\n    HttpRequest req = HttpRequest.newBuilder()\n        .uri(URI.create(\"https://api.test.com\"))\n        .build();\n    var resp = client.send(req, BodyHandlers.ofString());\n    System.out.println(resp.body());\n}" },
-                    { title: "Modules", desc: "Project Jigsaw: Modularisierung des JDKs und eigener Anwendungen (module-info.java).", code: "// module-info.java\nmodule com.myapp {\n    requires java.sql;\n    exports com.myapp.api;\n}" }
-                ]
-            },
-            {
-                ver: "17", date: "14. September 2021", year: 2021, features: [
-                    { title: "Records", desc: "Unveränderliche Datenklassen, die automatisch Konstruktor, Getter und Co. generieren.", code: "public record User(int id, String name) {\n    // Einzeiler für Daten-Container\n}\n\nUser u = new User(1, \"Tom\");\nSystem.out.println(u.name());" },
-                    { title: "Text Blocks", desc: "Mehrzeilige Strings ohne Concatenation-Chaos – ideal für JSON, SQL oder HTML (seit Java 15).", code: 'String html = """\n    <html>\n        <body>\n            <h1>Hallo Welt</h1>\n        </body>\n    </html>\n    """;' },
-                    { title: "Switch Expr.", desc: "Switch als Ausdruck, der einen Wert zurückgibt (kein break nötig, exhaustiveness check).", code: "var result = switch(day) {\n    case MONDAY, FRIDAY -> \"Homeoffice\";\n    case TUESDAY        -> \"Büro\";\n    default             -> \"Frei\";\n};\nSystem.out.println(result);" },
-                    { title: "Pattern Matching", desc: "instanceof mit direkter Variablen-Zuweisung erspart unsichere Casts (seit Java 16).", code: "public void check(Object obj) {\n    // Variable 's' ist direkt nutzbar\n    if (obj instanceof String s && s.length() > 5) {\n        System.out.println(s.toUpperCase());\n    }\n}" },
-                    { title: "Sealed Classes", desc: "Präzise Steuerung der Vererbungshierarchie durch explizite Freigabe von Unterklassen.", code: "public sealed class Form permits Kreis, Eck {\n    // Nur definierte Klassen dürfen erben\n}\n\nfinal class Kreis extends Form { }" }
-                ]
-            },
-            {
-                ver: "21", date: "19. September 2023", year: 2023, features: [
-                    { title: "Virtual Threads", desc: "Leichtgewichtige Threads (Project Loom) für massive Skalierbarkeit bei minimalem Overhead.", code: "public void runAsync() {\n    try (var exec = Executors.newVirtualThreadPerTaskExecutor()) {\n        exec.submit(() -> {\n            System.out.println(\"Running in Virtual Thread\");\n        });\n    }\n}" },
-                    { title: "Sequenced Collections", desc: "Einheitlicher Zugriff auf erstes und letztes Element (List, Deque, SortedSet).", code: "public void firstLast(List<String> list) {\n    // Einheitlicher Zugriff\n    System.out.println(list.getFirst());\n    System.out.println(list.getLast());\n    // Rückwärts\n    for (var s : list.reversed()) { /* ... */ }\n}" },
-                    { title: "Switch Patterns", desc: "Fallunterscheidung basierend auf dem Datentyp direkt im Switch.", code: "return switch (obj) {\n    case Integer i -> \"Zahl: \" + i;\n    case String s  -> \"Text: \" + s;\n    default        -> \"Andere\";\n};" },
-                    { title: "Classless Main", desc: "Vereinfachter Einstieg in Java (JEP 445 Preview): Keine explizite Klasse oder `public static` mehr nötig.", code: "// Kein Klassengerüst nötig\nvoid main() {\n    System.out.println(\"Hello, World!\");\n}" }
-                ]
-            },
-            {
-                ver: "25", date: "16. September 2025", year: 2025, features: [
-                    { title: "Stream Gather.", desc: "Benutzerdefinierte Zwischenoperationen für komplexe Transformationen in Streams.", code: "public void groups() {\n    var res = Stream.of(1,2,3,4,5)\n        .gather(Gatherers.windowFixed(3))\n        .toList();\n    // Result: [[1,2,3], [4,5]]\n}" },
-                    { title: "Class File API", desc: "Standardisierte API zum Parsen, Generieren und Transformieren von Java Class-Files.", code: "public void parse(byte[] bytes) {\n    ClassFile cf = ClassFile.of();\n    ClassModel cm = cf.parse(bytes);\n    System.out.println(\"Class: \" + cm.thisClass().asSymbol());\n}" },
-                    { title: "Flexible Constr.", desc: "Erlaubt Code-Ausführung im Konstruktor *vor* dem super()-Aufruf.", code: "public class Sub extends Base {\n    public Sub(int value) {\n        // Validierung VOR super() möglich\n        if (value < 0) throw new IllegalArgumentException();\n        super(value);\n    }\n}" }
-                ]
-            }
-        ];
-
-        const JEV_START = 1996, JEV_END = 2026, JEV_YH = 120;
-        const JEV_LTS = [8, 11, 17, 21, 25];
-        let jevTimeline, jevModal, jevCurrent = [];
-
-        // highlight.js einmalig aus dem Theme laden (Core + Java-Grammatik) und
-        // für alle dynamisch erzeugten Codeblöcke wiederverwenden. Schlägt das
-        // Laden fehl, bleibt der Code schlicht ungefärbt.
-        const jevHljs = Promise.all([
-            import(window.JEV_HLJS_BASE + 'core.min.js'),
-            import(window.JEV_HLJS_BASE + 'java.min.js')
-        ]).then(function(mods){
-            const hljs = mods[0].default;
-            hljs.registerLanguage('java', mods[1].default);
-            return hljs;
-        }).catch(function(){ return null; });
-
-        function jevHighlight(selector){
-            jevHljs.then(function(hljs){
-                if (!hljs) return;
-                document.querySelectorAll(selector).forEach(function(el){ hljs.highlightElement(el); });
-            });
-        }
-
-        function jevEsc(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
-        function jevSlug(ver){ return 'java-' + ver.toLowerCase().replace(/[^0-9a-z]+/g, '-').replace(/^-+|-+$/g, ''); }
-        function jevMajor(ver){ var m = ver.match(/\((\d+)\)/); if (m) return +m[1]; var m2 = ver.match(/^1\.(\d+)/); if (m2) return +m2[1]; var m3 = ver.match(/^(\d+)$/); return m3 ? +m3[1] : 0; }
-        function jevIsLts(ver){ return JEV_LTS.indexOf(jevMajor(ver)) !== -1; }
-
-        function jevInit(){
-            jevTimeline = document.getElementById('jev-timeline');
-            jevModal = document.getElementById('jev-modal');
-            var toc = document.getElementById('jev-toc-list');
-            for (var y = JEV_START; y <= JEV_END; y++){
-                var mk = document.createElement('div');
-                mk.className = 'jev-year';
-                mk.style.top = ((y - JEV_START) * JEV_YH) + 'px';
-                mk.textContent = y;
-                jevTimeline.appendChild(mk);
-            }
-            jevTimeline.style.height = ((JEV_END - JEV_START) * JEV_YH) + 'px';
-            javaVersions.forEach(function(v, i){
-                var lts = jevIsLts(v.ver);
-                var n = document.createElement('div');
-                n.className = 'jev-node ' + (i % 2 === 0 ? 'left' : 'right');
-                n.style.top = ((v.year - JEV_START) * JEV_YH) + 'px';
-                n.id = jevSlug(v.ver);
-                if (toc){
-                    var li = document.createElement('li');
-                    li.innerHTML = '<span>Java ' + jevEsc(v.ver) + (lts ? ' (LTS)' : '') + ' &ndash; ' + jevEsc(v.date) + '</span><span>' + v.year + '</span>';
-                    toc.appendChild(li);
-                }
-                var pf = '';
-                v.features.forEach(function(f){
-                    pf += '<div class="jev-print-item"><h4>' + jevEsc(f.title) + '</h4><p>' + jevEsc(f.desc) + '</p><pre><code class="language-java">' + jevEsc(f.code) + '</code></pre></div>';
-                });
-                n.innerHTML = '<div class="jev-card"><div class="jev-connector"></div>'
-                    + '<div class="jev-date">' + jevEsc(v.date) + '</div>'
-                    + '<h3>Java ' + jevEsc(v.ver) + (lts ? ' <span class="jev-lts-tag">LTS</span>' : '') + '</h3>'
-                    + '<div class="jev-print-features">' + pf + '</div></div>';
-                n.addEventListener('click', function(){ jevShow(v); });
-                jevTimeline.appendChild(n);
-            });
-            jevHighlight('#jev-timeline pre code');
-            jevCheckHash();
-        }
-
-        function jevShow(v, updateHash){
-            if (updateHash === undefined) updateHash = true;
-            document.getElementById('jev-modal-title').textContent = 'Java ' + v.ver;
-            document.getElementById('jev-badge').innerHTML = jevIsLts(v.ver) ? '<span class="jev-badge-lts">LTS Release</span>' : '';
-            // Verknüpfung mit der JEP-Landkarte: nur für die LTS-Releases, die dort eine
-            // Spalte haben (8→11 … 21→25). Keine Tabs hier – die Landkarte ist eine
-            // eigene Seite (Konzept: java-update/AGENTS.md).
-            var jevMaj = jevMajor(v.ver);
-            document.getElementById('jev-modal-date').innerHTML = jevEsc(v.date)
-                + ([11, 17, 21, 25].indexOf(jevMaj) !== -1 ? ' · <a href="jep-landkarte.html#/?lts=' + jevMaj + '">Alle JEPs dieser Version →</a>' : '');
-            document.getElementById('jev-modal-tabs').innerHTML = v.features.map(function(f, i){
-                return '<button type="button" class="jev-tab' + (i === 0 ? ' active' : '') + '" onclick="jevTab(this,' + i + ')">' + jevEsc(f.title) + '</button>';
-            }).join('');
-            jevCurrent = v.features;
-            jevRender(v.features[0]);
-            document.body.classList.add('jev-modal-open');
-            jevModal.classList.add('open');
-            jevModal.setAttribute('aria-hidden', 'false');
-            jevModal.removeAttribute('inert');
-            if (updateHash){ try { history.replaceState(null, '', '#' + jevSlug(v.ver)); } catch (e){ location.hash = jevSlug(v.ver); } }
-        }
-
-        function jevTab(btn, idx){
-            var tabs = document.querySelectorAll('#jev-modal-tabs .jev-tab');
-            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-            btn.classList.add('active');
-            jevRender(jevCurrent[idx]);
-        }
-
-        function jevRender(f){
-            document.getElementById('jev-modal-body').innerHTML =
-                '<h3 class="jev-feature-title">' + jevEsc(f.title) + '</h3>'
-                + '<p class="jev-feature-desc">' + jevEsc(f.desc) + '</p>'
-                + '<pre><code class="language-java">' + jevEsc(f.code) + '</code></pre>';
-            jevHighlight('#jev-modal-body pre code');
-        }
-
-        function jevCloseModal(){
-            var y = window.scrollY;
-            jevModal.classList.remove('open');
-            jevModal.setAttribute('aria-hidden', 'true');
-            // `inert` ZUSAETZLICH zu aria-hidden: Das Fenster bleibt im Dokument
-            // stehen (nur durchsichtig und ohne Zeigerereignisse), seine Knoepfe
-            // und Verweise blieben damit in der Tabulatorreihenfolge - der Fokus
-            // wanderte in etwas, das niemand sieht und keine Vorlesehilfe ansagt.
-            jevModal.setAttribute('inert', '');
-            document.body.classList.remove('jev-modal-open');
-            try { history.replaceState(null, '', location.pathname + location.search); } catch (e){ location.hash = ''; }
-            window.scrollTo(0, y);
-        }
-
-        function jevCloseOnExternal(e){ if (e.target === jevModal) jevCloseModal(); }
-
-        function jevCheckHash(){
-            var h = location.hash.slice(1);
-            if (!h) return;
-            var v = null;
-            for (var i = 0; i < javaVersions.length; i++){ if (jevSlug(javaVersions[i].ver) === h){ v = javaVersions[i]; break; } }
-            if (v){
-                jevShow(v, false);
-                var el = document.getElementById(jevSlug(v.ver));
-                if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
-            }
-        }
-
-        document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && jevModal && jevModal.classList.contains('open')) jevCloseModal(); });
-        window.addEventListener('hashchange', jevCheckHash);
-        if (document.readyState !== 'loading') jevInit(); else document.addEventListener('DOMContentLoaded', jevInit);
-</script>
-
-
-
     </main>
-  </div><div class="avd-academy-print-contact" aria-hidden="true">
-    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
-    <span>academy@atvantage.com</span>
   </div>
-
-  <footer class="avd-academy-footer">
-  <div class="avd-academy-footer__grid">
-    <div><strong>ATVANTAGE Academy</strong>
-      <p>Schulungen im Bereich 'Java SE'</p>
-    </div><div>
-      <strong>Kontakt</strong>
-      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
-      </p>
-    </div></div>
-  <div class="avd-academy-footer__legal">
-    © <span data-avd-academy-year>2026</span> ATVANTAGE
-  </div>
-</footer>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
 
 </body>
 </html>

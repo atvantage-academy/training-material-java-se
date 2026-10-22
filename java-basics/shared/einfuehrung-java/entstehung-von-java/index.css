@@ -1,0 +1,174 @@
+/* Eigene Bausteine dieser Präsentation. Farben aus den Theme-Tokens; Flächen
+   entstehen per color-mix GEGEN die Seitenfläche (--skr-color-bg) und
+   stimmen damit in Light UND Dark ohne zweiten Regelsatz. Grafiken sind selbst
+   gezeichnet; das einzige Foto ist unten auf der Zeitstrahl-Folie ausgewiesen. */
+
+/* Folien vertikal mittig und luftiger als die Theme-Vorgabe (dort oben bündig).
+   `safe` verhindert, dass langer Inhalt oben abgeschnitten wird. */
+.skr-slide { justify-content: center; justify-content: safe center; }
+.skr-slide h2 { margin-bottom: var(--skr-space-8); }
+/* Die Diagramm-Folie braucht jede Zeile Höhe – dort Polsterung und Überschrift
+   knapper halten, damit der Stammbaum ohne Scrollen auf die Folie passt. */
+.skr-slide:has(.stammbaum) { padding-top: clamp(1rem, .5rem + 1.5vw, 2.25rem); padding-bottom: clamp(.75rem, .5rem + 1vw, 1.5rem); }
+.skr-slide:has(.stammbaum) h2 { font-size: var(--skr-fs-lg); margin-bottom: var(--skr-space-4); }
+.skr-slide li { margin-bottom: var(--skr-space-3); }
+
+/* --- Kaffeetasse: Bildmarke der Titelfolie und Motiv zur Namensherkunft ---- */
+.tasse { width: clamp(90px, 12vw, 150px); height: auto; display: block; margin: 0 auto; }
+.tasse--gross { width: clamp(130px, 20vw, 230px); }
+.tasse__koerper { stroke: var(--skr-color-ink); }
+.tasse__dampf   { stroke: var(--skr-color-accent); opacity: .85; }
+
+/* --- Zeitstrahl: Jahr als Pille, verbunden durch eine senkrechte Linie ------
+   Die Pille ist IMMER eine Zeile hoch und gleich breit (align-self: start);
+   längerer Text daneben verlängert nur die Linie. */
+.zeitstrahl { list-style: none; margin: 0; padding: 0; font-size: .82em; }
+.zeitstrahl li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+.zeitstrahl li::before {          /* Verbindungslinie zwischen den Jahres-Pillen */
+  content: "";
+  position: absolute;
+  left: 3.25rem;
+  top: 1.9rem;
+  bottom: 0;
+  width: 2px;
+  background: var(--skr-color-border);
+}
+.zeitstrahl li:last-child::before { display: none; }
+.zeitstrahl__jahr {
+  position: relative;
+  z-index: 1;
+  align-self: start;              /* eine Zeilenhöhe, egal wie lang der Text ist */
+  text-align: center;
+  padding: .15rem .4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: .9em;
+  line-height: 1.35;
+  color: var(--skr-color-headline);
+  background: color-mix(in srgb, var(--skr-color-accent) 16%, var(--skr-color-bg));
+  border: 1px solid color-mix(in srgb, var(--skr-color-accent) 45%, var(--skr-color-bg));
+}
+
+/* --- Bild mit Nachweis ----------------------------------------------------- */
+.bildnis { margin: 0; align-self: center; max-width: 260px; }
+.bildnis img {
+  width: 100%;
+  border-radius: var(--skr-radius-lg);
+  display: block;
+}
+/* Duke ist für helle Flächen gezeichnet – im Dark Mode ginge sein schwarzer
+   Körper sonst im Hintergrund unter. Deshalb steht er auf hellem Karton. */
+.bildnis--hell img {
+  background: #fff;
+  padding: 1.2rem 2rem;
+  max-height: 42vh;
+  width: auto;
+  margin: 0 auto;
+}
+.bildnis figcaption {
+  margin-top: .5rem;
+  font-size: .6em;
+  line-height: 1.4;
+  color: var(--skr-color-ink-muted);
+}
+
+/* --- Karten: Aufzählungen, die als Fläche statt als Liste wirken ----------- */
+.karten {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+}
+.karte {
+  margin: 0;
+  padding: 1.1rem 1.2rem;
+  font-size: .92em;
+  line-height: 1.55;
+  border: 1px solid var(--skr-color-border);
+  border-left: 4px solid var(--skr-color-accent);
+  border-radius: var(--skr-radius);
+  background: color-mix(in srgb, var(--skr-color-bg-subtle) 65%, var(--skr-color-bg));
+}
+.karte > b:first-child { display: block; margin-bottom: .35rem; color: var(--skr-color-headline); }
+.karte span { color: var(--skr-color-ink-muted); }
+
+/* --- Zwei Spalten: Text und Motiv nebeneinander ---------------------------- */
+.zweispalt { display: grid; grid-template-columns: 1.5fr .5fr; gap: 2.5rem; align-items: center; }
+@media (max-width: 800px) { .zweispalt { grid-template-columns: 1fr; } }
+
+/* --- Weggelassen-Liste ----------------------------------------------------- */
+.ohne { list-style: none; margin: 0 0 1rem; padding: 0; }
+.ohne li { display: flex; gap: .7rem; align-items: baseline; margin-bottom: .9rem; }
+.ohne li::before { content: "✗"; color: var(--skr-color-danger); font-weight: 700; }
+
+/* --- Stammbaum (Diagramm-Folie) --------------------------------------------
+   Das Diagramm darf aus der Textspalte ausbrechen und die volle Folienbreite
+   nutzen – nur so werden die Sprachnamen groß genug für die Projektion. */
+.stammbaum {
+  --pg-proz: var(--skr-fill-1);
+  --pg-oo:   var(--skr-fill-2);
+  --pg-fun:  var(--skr-fill-3);
+  --pg-log:  var(--skr-fill-4);
+  /* Fünfte kategoriale Farbe im Stil von fill-3/fill-4 (das Theme kennt nur vier);
+     bewusst ein eigener Farbton, damit „multiparadigmatisch“ nicht mit dem Grün
+     der objektorientierten Sprachen verschwimmt. */
+  --pg-multi: #b5566f;
+  /* Das Diagramm bleibt links an der Textspalte (bündig mit Überschrift und
+     Legende) und dehnt sich nur nach rechts über die Spalte hinaus – nur so
+     werden die Sprachnamen groß genug für die Projektion. */
+  margin: 0 calc(50% - 50vw + 3rem) 0 0;
+  max-width: 1600px;
+}
+.stammbaum__bild {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 62vh;
+  color: var(--skr-color-ink-muted); /* Pfeilfarbe (currentColor) */
+}
+.stammbaum__band      { fill: var(--skr-color-bg-subtle); }
+.stammbaum__achse     { stroke: var(--skr-color-border); stroke-width: 1.5; fill: none; }
+.stammbaum__dekade    { fill: var(--skr-color-ink-muted); font-size: 19px; font-weight: 500; }
+.stammbaum__pfeil     { stroke: currentColor; stroke-width: 1.8; fill: none; opacity: .85; }
+.stammbaum__name      { fill: var(--skr-color-ink); font-size: 21px; font-weight: 500; }
+.stammbaum__jahr      { fill: var(--skr-color-ink-muted); font-size: 16px; font-weight: 400; }
+.stammbaum g rect     { stroke-width: 1.5; }
+.stammbaum .pg--proz  rect { fill: color-mix(in srgb, var(--pg-proz)  30%, var(--skr-color-bg)); stroke: color-mix(in srgb, var(--pg-proz)  70%, var(--skr-color-bg)); }
+.stammbaum .pg--oo    rect { fill: color-mix(in srgb, var(--pg-oo)    22%, var(--skr-color-bg)); stroke: color-mix(in srgb, var(--pg-oo)    65%, var(--skr-color-bg)); }
+.stammbaum .pg--fun   rect { fill: color-mix(in srgb, var(--pg-fun)   22%, var(--skr-color-bg)); stroke: color-mix(in srgb, var(--pg-fun)   65%, var(--skr-color-bg)); }
+.stammbaum .pg--log   rect { fill: color-mix(in srgb, var(--pg-log)   22%, var(--skr-color-bg)); stroke: color-mix(in srgb, var(--pg-log)   65%, var(--skr-color-bg)); }
+.stammbaum .pg--multi rect { fill: color-mix(in srgb, var(--pg-multi) 26%, var(--skr-color-bg)); stroke: color-mix(in srgb, var(--pg-multi) 70%, var(--skr-color-bg)); }
+.stammbaum .ist-java  rect { fill: color-mix(in srgb, var(--pg-oo) 34%, var(--skr-color-bg)); stroke: var(--skr-color-accent); stroke-width: 3.5; }
+.stammbaum .ist-java .stammbaum__name { font-weight: 600; }
+.stammbaum__plattform      { fill: none; stroke: var(--skr-color-ink-muted); stroke-width: 1.5; stroke-dasharray: 7 5; opacity: .75; }
+.stammbaum__plattform-text { fill: var(--skr-color-ink-muted); font-size: 19px; font-weight: 500; }
+
+.stammbaum__legende {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem 1.3rem;
+  margin: .5rem 0 0 0;
+  padding: 0;
+  font-size: .66em;
+  color: var(--skr-color-ink-muted);
+}
+.stammbaum__legende li { display: flex; align-items: center; gap: .45rem; margin: 0; }
+.stammbaum__punkt {
+  width: 1rem; height: 1rem; border-radius: 3px; display: inline-block;
+  border: 1.5px solid currentColor;
+}
+.stammbaum__punkt--proz  { background: color-mix(in srgb, var(--pg-proz)  30%, var(--skr-color-bg)); color: color-mix(in srgb, var(--pg-proz)  70%, var(--skr-color-bg)); }
+.stammbaum__punkt--oo    { background: color-mix(in srgb, var(--pg-oo)    22%, var(--skr-color-bg)); color: color-mix(in srgb, var(--pg-oo)    65%, var(--skr-color-bg)); }
+.stammbaum__punkt--fun   { background: color-mix(in srgb, var(--pg-fun)   22%, var(--skr-color-bg)); color: color-mix(in srgb, var(--pg-fun)   65%, var(--skr-color-bg)); }
+.stammbaum__punkt--log   { background: color-mix(in srgb, var(--pg-log)   22%, var(--skr-color-bg)); color: color-mix(in srgb, var(--pg-log)   65%, var(--skr-color-bg)); }
+.stammbaum__punkt--multi { background: color-mix(in srgb, var(--pg-multi) 26%, var(--skr-color-bg)); color: color-mix(in srgb, var(--pg-multi) 70%, var(--skr-color-bg)); }
+.stammbaum__punkt--plattform { background: none; border-style: dashed; color: var(--skr-color-ink-muted); }

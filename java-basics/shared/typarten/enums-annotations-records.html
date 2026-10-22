@@ -1,88 +1,89 @@
-<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>Enums, Annotations und Records · ATVANTAGE Academy</title><meta name="description" content="Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Enums, Annotations und Records · ATVANTAGE Academy</title>
+<meta name="description" content="Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Enums, Annotations und Records">
 <meta property="og:description" content="Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden.">
-<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/java-basics/shared/typarten/enums-annotations-records.html","title":"Enums, Annotations und Records","layout":"visualization","description":"Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Drei besondere Typarten von Java in je einem Reiter – Zweck, Syntax, was der Compiler daraus macht und wie sie sich von ihren Vorgängern unterscheiden.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-basics/shared/typarten/enums-annotations-records.css","src":"enums-annotations-records.css","type":"style"},{"path":"java-basics/shared/typarten/enums-annotations-records.js","src":"enums-annotations-records.js","type":"script"}],"pageId":null,"runtimeFragments":["^/(\\?.*)?$","^/[A-Za-z0-9_-]+(\\?.*)?$"],"siteIndex":"/skriptorium/site.json","title":"Enums, Annotations und Records","topics":null,"url":"/java-basics/shared/typarten/enums-annotations-records.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
-<div class="avd-academy-reading-progress" aria-hidden="true"></div>
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
-           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
-      <div class="avd-academy-guide-hero__tags">
-      </div>
-      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
-                data-avd-academy-print
-                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
-      </div>
-    </div><h1 id="avd-academy-page-title">Enums, Annotations und Records</h1>
-  </section><div class="avd-academy-guide-layout">
-    <main class="avd-academy-guide-main" id="avd-academy-content"><!-- ANFORDERUNGEN an diese Visualisierung
+<script src="../../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+
+<link rel="stylesheet" href="../../../java-basics/shared/typarten/enums-annotations-records.css?v=0e685e4c">
+<script src="../../../java-basics/shared/typarten/enums-annotations-records.js?v=ad1947ae" defer></script>
+
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+
+    </div>
+  </div><h1 id="skr-page-title">Enums, Annotations und Records</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
      - Ort: java-basics/shared/typarten/ – eingebunden in die Materialübersicht
        („Zum Nachschlagen“) von „OOP mit Java“ (Thema „Robuste Programme“) und
        „Java für OO-Umsteiger“ (Thema „Robuste Programme & Daten“), jeweils am ENDE
        der Liste, in index.md und index-trainer.md.
-     - Eine Seite mit DREI REITERN, einer je Typart (Theme-Baustein avd-academy-tabs;
+     - Eine Seite mit DREI REITERN, einer je Typart (Theme-Baustein skr-tabs;
        der Reiter steht damit ohne eigenes Skript in der Adresse, z. B. #/?open=records).
      - ENUMS: Zweck, Syntax, Beispiel „Kartenfarbe“ einmal einfach und einmal mit
        Instanzvariable `wert` (Skat-Grundwerte Kreuz 12, Pik 11, Herz 10, Karo 9).
@@ -125,100 +126,14 @@
      - Bezeichner mit Umlauten (AGENTS.md, A-006): Geprüft, Vorläufig, istRot …
        Packages bleiben ASCII (de.bank.annotationen), weil sie Ordnernamen sind.
 -->
-
-<style>
-/* Präfix ear- („Enums, Annotations, Records“). Farben ausschließlich aus den
-   Theme-Tokens – damit stimmt die Seite in Light und Dark ohne zweiten Regelsatz.
-   Keine eigene Breitenbegrenzung: die gibt das Layout vor. */
-.ear-lead{color:var(--avd-academy-color-ink-muted);margin:0 0 1.5rem;}
-
-/* Abschnitte je Reiter: Nummer + Überschrift, wie in den übrigen Nachschlagewerken */
-.ear-sec{margin:1.6rem 0 2.4rem;}
-.ear-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.4rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border);padding-bottom:.5rem;}
-.ear-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-primary);color:var(--avd-academy-color-primary-contrast);font-size:.9rem;font-weight:700;}
-.ear-sec h3{font-size:1.02rem;margin:1.1rem 0 .45rem;}
-.ear-sec p,.ear-sec li{font-size:.95rem;}
-
-/* Karten im Raster – nebeneinander, auf schmalen Geräten untereinander */
-.ear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(21rem,1fr));gap:1.1rem;margin:.6rem 0;}
-
-/* Reiter auf voller Breite statt enger Spalten (Enum-Vergleich, Annotation-Formen,
-   Annotation-Ebenen). Alle Reiter einer Gruppe sind gleich hoch: Das Skript am Ende
-   misst den höchsten Inhalt und setzt ihn als min-height – beim Umschalten springt
-   nichts. Ohne Skript bleibt nur die Höhe je Reiter, sonst nichts. */
-.ear-reiter{margin:.6rem 0 1rem;}
-.ear-reiter__inhalt > :first-child{margin-top:0;}
-.ear-reiter__inhalt > :last-child{margin-bottom:0;}
-.ear-reiter__inhalt pre{margin:.2rem 0 .8rem;}
-.ear-root .ear-reiter pre code.hljs{font-size:.92rem;line-height:1.5;}
-.ear-root .ear-reiter .ear-konsole{font-size:.88rem;}
-.ear-reiter__mess{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;}
-.ear-card{min-width:0;background:var(--avd-academy-color-bg-subtle);border:1px solid var(--avd-academy-color-border);border-radius:var(--avd-academy-radius);padding:1rem 1.15rem;}
-.ear-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
-.ear-card p{margin:0 0 .6rem;font-size:.9rem;}
-.ear-card p:last-child{margin-bottom:0;}
-.ear-card pre{margin:0;overflow-x:auto;}
-.ear-card pre + p{margin-top:.6rem;}
-.ear-card--gut{border-left:4px solid var(--avd-academy-color-success);}
-.ear-card--schlecht{border-left:4px solid var(--avd-academy-color-warning);}
-.ear-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-accent-ink);margin:0 0 .3rem;}
-.ear-root pre{overflow-x:auto;}
-.ear-root pre code.hljs{border-radius:var(--avd-academy-radius-lg);font-size:.8rem;line-height:1.5;}
-
-/* Ausgaben: Konsole und javap. Bewusst KEIN Java-Highlighting – es ist Text. */
-.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-bg);border:1px dashed var(--avd-academy-color-border);font-family:var(--avd-academy-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
-.ear-konsole::before{content:attr(data-titel);display:block;font-family:var(--avd-academy-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);margin-bottom:.3rem;}
-.ear-konsole mark{background:var(--avd-academy-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
-
-/* Merksatz und Hinweise */
-.ear-merke{margin:1.2rem 0 0;padding:.7rem 1rem;border-radius:var(--avd-academy-radius);background:var(--avd-academy-color-accent-soft);}
-.ear-note{margin:.8rem 0 0;font-size:.9rem;color:var(--avd-academy-color-ink-muted);}
-
-
-/* Zitate der offiziellen Begründung: Original + deutsche Wiedergabe */
-.ear-zitat{margin:.8rem 0;padding:.75rem 1rem;border-left:4px solid var(--avd-academy-color-accent);background:var(--avd-academy-color-bg-subtle);border-radius:0 var(--avd-academy-radius) var(--avd-academy-radius) 0;}
-.ear-zitat blockquote{margin:0;padding:0;border:none;font-style:italic;}
-.ear-zitat p{margin:0 0 .4rem;}
-.ear-zitat .ear-de{font-style:normal;}
-.ear-zitat cite{display:block;font-style:normal;font-size:.8rem;color:var(--avd-academy-color-ink-muted);}
-.ear-gruende{counter-reset:grund;list-style:none;padding:0;margin:.6rem 0;}
-.ear-gruende > li{counter-increment:grund;position:relative;padding:0 0 0 2.4rem;margin:0 0 1.1rem;}
-.ear-gruende > li::before{content:counter(grund);position:absolute;left:0;top:.05rem;width:1.7rem;height:1.7rem;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--avd-academy-color-accent-soft);font-weight:700;font-size:.85rem;}
-
-/* Vergleichstabelle */
-.ear-tabelle-rahmen{overflow-x:auto;margin:.6rem 0;}
-.ear-tabelle{width:100%;border-collapse:collapse;font-size:.9rem;}
-.ear-tabelle th,.ear-tabelle td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--avd-academy-color-border);}
-.ear-tabelle thead th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--avd-academy-color-ink-muted);white-space:nowrap;}
-.ear-tabelle tbody th{font-weight:700;white-space:nowrap;}
-.ear-tabelle td:last-child{background:color-mix(in srgb,var(--avd-academy-color-accent-soft) 55%,transparent);}
-
-@media (max-width:30rem){
-  .ear-grid{grid-template-columns:minmax(0,1fr);}
-  .ear-root .ear-reiter pre code.hljs{font-size:.8rem;}
-}
-
-/* Druck: Die Theme-Reiter klappen vor dem Druck selbst alle auf. */
-@media print{
-  .ear-reiter__inhalt{min-height:0 !important;}
-  .ear-card,.ear-zitat{break-inside:avoid;background:transparent !important;}
-  .ear-root pre,.ear-root pre code,.ear-root pre code *,.ear-konsole{color:#000 !important;background:transparent !important;}
-  .ear-root pre,.ear-konsole{white-space:pre-wrap;word-break:break-word;font-size:8pt;}
-}
-</style>
-
 <div class="ear-root">
-
 <p class="ear-lead">Drei Typarten, die mehr können als eine gewöhnliche Klasse – oder bewusst weniger. Jede hat einen Reiter: <strong>wozu</strong> es sie gibt, <strong>wie</strong> man sie schreibt und <strong>was der Compiler daraus macht</strong>. Alle Ausgaben auf dieser Seite stammen aus echten Läufen mit Java 25.</p>
-
-<div class="avd-academy-tabs">
-
+<div class="skr-tabs">
 <!-- =======================================================================
      REITER 1 – ENUMS
      ======================================================================= -->
-<details class="avd-academy-tabs__panel" name="ear-typart" id="enums" open="">
+<details class="skr-tabs__panel" name="ear-typart" id="enums" open>
 <summary>Enums</summary>
-
 <section class="ear-sec">
 <h2><span class="ear-num">1</span>Wozu ein Enum?</h2>
 <p>Manche Werte stehen <strong>von vornherein fest</strong>: die vier Farben eines Kartenspiels, die Wochentage, die Zustände einer Bestellung. Ein <code>enum</code> (seit Java 5) ist ein Typ mit <strong>genau diesen Werten und keinem anderen</strong>. Der Compiler prüft das – ein Tippfehler oder eine erfundene Zahl fällt beim Übersetzen auf, nicht erst beim Kunden.</p>
@@ -252,7 +167,6 @@ System.out.println(Kartenfarbe.HERZ);   // HERZ</code></pre>
 </div>
 </div>
 </section>
-
 <section class="ear-sec">
 <h2><span class="ear-num">2</span>Syntax: das einfache Enum</h2>
 <p>Das Schlüsselwort <code>enum</code> steht dort, wo sonst <code>class</code> steht; dahinter folgen die Konstanten, durch Komma getrennt. Konstanten schreibt man in GROSSBUCHSTABEN. Jedes Enum bringt ein paar Methoden fertig mit:</p>
@@ -294,7 +208,6 @@ rot</div>
 </div>
 </div>
 </section>
-
 <section class="ear-sec">
 <h2><span class="ear-num">3</span>Syntax: Enum mit Instanzvariable</h2>
 <p>Ein Enum ist eine Klasse – es darf Felder, Konstruktoren und Methoden haben. Beim Skat hat jede Farbe einen <strong>Grundwert</strong>. Den gibt man jeder Konstante in Klammern mit; die Klammern rufen den Konstruktor auf.</p>
@@ -334,7 +247,6 @@ KARO = 9
 <li>Felder macht man <code>final</code>. Eine Konstante, deren Wert sich ändert, wäre keine.</li>
 </ul>
 </section>
-
 <section class="ear-sec" id="ohne-enum">
 <h2><span class="ear-num">4</span>Dasselbe ohne Enum – was der Compiler daraus macht</h2>
 <p>Ein Enum ist <strong>Kurzschrift für eine Klasse</strong>. Der erste Reiter zeigt, was Du schreibst; der zweite, was der Compiler daraus erzeugt – als Java-Code ausgeschrieben, damit man es lesen kann.</p>
@@ -343,8 +255,8 @@ KARO = 9
      damit beim Umschalten nichts springt. Die Klasse folgt dem echten Bytecode
      (javap -c, 2026-10-08): extends Enum, super(name, ordinal), $VALUES.clone(),
      Enum.valueOf(Kartenfarbe.class, name). -->
-<div class="avd-academy-tabs ear-reiter ear-reiter--code">
-<details class="avd-academy-tabs__panel" name="ear-umsetzung" id="enum-quelltext" open="">
+<div class="skr-tabs ear-reiter ear-reiter--code">
+<details class="skr-tabs__panel" name="ear-umsetzung" id="enum-quelltext" open>
 <summary>Das schreibst Du</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">public enum Kartenfarbe {
@@ -362,7 +274,7 @@ KARO = 9
 }</code></pre>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-umsetzung" id="enum-compiler">
+<details class="skr-tabs__panel" name="ear-umsetzung" id="enum-compiler">
 <summary>Das macht der Compiler daraus</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">public final class Kartenfarbe extends Enum&lt;Kartenfarbe&gt; {   // final: keine Unterklassen
@@ -416,7 +328,6 @@ KARO = 9
 <h3>Warum dann nicht gleich selbst schreiben?</h3>
 <p>Weil man es nicht darf: Diese Klasse kann nur der Compiler erzeugen. Schreibt man sie selbst, meldet <code>javac</code>: „Klassen können java.lang.Enum nicht direkt erweitern“. Und es ist gut so – über die Oberklasse <code>Enum</code> bekommt ein echtes Enum <code>compareTo</code> in Deklarationsreihenfolge, ein <code>equals</code>, das niemand überschreiben kann, Schutz davor, dass beim Serialisieren eine fünfte „Kreuz“-Instanz entsteht, die Unterstützung im <code>switch</code> und die schnellen Sammlungen <code>EnumSet</code> und <code>EnumMap</code>.</p>
 </section>
-
 <section class="ear-sec" id="vertiefung">
 <h2><span class="ear-num">5</span>Vertiefung: abstrakte Methoden und Interfaces</h2>
 <p>Weil ein Enum eine Klasse ist, darf es <strong>Interfaces implementieren</strong> und <strong>abstrakte Methoden</strong> deklarieren. Dann bekommt <em>jede Konstante einen eigenen Rumpf</em> in geschweiften Klammern – das Verhalten unterscheidet sich je Konstante, ohne <code>switch</code>.</p>
@@ -485,31 +396,26 @@ class Kartenfarbe</div>
 </div>
 <p><strong>Interface oder abstrakte Methode?</strong> Ein <em>Interface</em> lohnt sich, wenn auch andere Typen dieselbe Fähigkeit haben sollen (eine <code>Symbol</code>-Methode haben auch Spielfiguren). Eine <em>abstrakte Methode</em> reicht, wenn nur dieses Enum sie braucht. Beides lässt sich, wie oben, kombinieren. Ist das Verhalten nur ein anderer <em>Wert</em>, genügt ein Feld wie <code>wert</code> – ein eigener Rumpf je Konstante lohnt erst bei echt unterschiedlicher Logik.</p>
 </section>
-
 <p class="ear-merke"><strong>Merksatz:</strong> Ein Enum ist eine Klasse mit einer festen, vom Compiler bewachten Liste von Instanzen – mit Feldern, Methoden und sogar eigenem Verhalten je Konstante.</p>
-
 </details>
-
 <!-- =======================================================================
      REITER 2 – ANNOTATIONS
      Vorgabe: Wer sie ausliest, nur als HINWEIS – keine Reflection-API, kein
      Annotation Processing. @Retention nur in einem Satz.
      ======================================================================= -->
-<details class="avd-academy-tabs__panel" name="ear-typart" id="annotations">
+<details class="skr-tabs__panel" name="ear-typart" id="annotations">
 <summary>Annotations</summary>
-
 <section class="ear-sec">
 <h2><span class="ear-num">1</span>Wozu Annotations?</h2>
 <p>Eine Annotation (seit Java 5) ist eine <strong>Markierung am Code</strong> – an einer Klasse, einer Methode, einem Feld, einem Parameter. Sie heftet eine Information an, <strong>verändert aber selbst nichts</strong>: Kein Befehl wird durch eine Annotation ausgeführt. Sie wirkt erst, wenn jemand sie <strong>ausliest</strong> – der Compiler oder ein Framework (siehe <a href="#wer-liest">unten</a>).</p>
 <p>Man kann sie sich wie einen Klebezettel vorstellen: „Diese Methode soll eine geerbte überschreiben.“ – „Diese Methode beantwortet HTTP-GET-Anfragen.“ Der Zettel tut nichts; wer ihn liest, handelt danach.</p>
 </section>
-
 <section class="ear-sec">
 <h2><span class="ear-num">2</span>Syntax: drei Formen</h2>
 <p>Eine Annotation beginnt mit <code>@</code> und steht <strong>vor</strong> dem, was sie markiert. Je nachdem, ob sie Attribute hat, gibt es drei Schreibweisen:</p>
 <!-- Vorgabe: die drei Formen als Reiter auf voller Breite (drei Spalten waren zu eng). -->
-<div class="avd-academy-tabs ear-reiter">
-<details class="avd-academy-tabs__panel" name="ear-formen" id="form-marker" open="">
+<div class="skr-tabs ear-reiter">
+<details class="skr-tabs__panel" name="ear-formen" id="form-marker" open>
 <summary>Marker – ohne Attribute</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">@Override
@@ -524,7 +430,7 @@ interface Prüfer {
 <p>Die bloße Anwesenheit ist die Information.</p>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-formen" id="form-value">
+<details class="skr-tabs__panel" name="ear-formen" id="form-value">
 <summary>Mit dem Attribut value</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">@SuppressWarnings("unchecked")
@@ -535,7 +441,7 @@ static List&lt;String&gt; roh() { … }
 <p>Heißt das einzige angegebene Attribut <code>value</code>, darf man <code>value =</code> weglassen. Mehrere Werte stehen in geschweiften Klammern: <code>@SuppressWarnings({"unchecked", "removal"})</code>.</p>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-formen" id="form-attribute">
+<details class="skr-tabs__panel" name="ear-formen" id="form-attribute">
 <summary>Mit mehreren Attributen</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">@Deprecated(since = "2.0", forRemoval = true)
@@ -545,13 +451,12 @@ public static void altesVerfahren() { … }</code></pre>
 </details>
 </div>
 </section>
-
 <section class="ear-sec" id="typen">
 <h2><span class="ear-num">3</span>Annotations sind auch nur Typen</h2>
 <p><code>@Override</code> ist kein Schlüsselwort und keine Magie, sondern ein <strong>Typ</strong> – genau wie eine Klasse oder ein Interface. Man kann eigene deklarieren: mit <code>@interface</code>. Die Attribute sind Methoden ohne Parameter, <code>default</code> gibt den Standardwert.</p>
 <!-- Vorgabe: die drei Ebenen als Reiter auf voller Breite, analog zu den drei Formen. -->
-<div class="avd-academy-tabs ear-reiter">
-<details class="avd-academy-tabs__panel" name="ear-ebenen" id="typ-java-code" open="">
+<div class="skr-tabs ear-reiter">
+<details class="skr-tabs__panel" name="ear-ebenen" id="typ-java-code" open>
 <summary>Java-Code</summary>
 <div class="ear-reiter__inhalt">
 <p>Eine eigene Datei, ein eigener Name, ein Package:</p>
@@ -568,7 +473,7 @@ public @interface Vorläufig {
 }</code></pre>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-ebenen" id="typ-bytecode">
+<details class="skr-tabs__panel" name="ear-ebenen" id="typ-bytecode">
 <summary>Bytecode</summary>
 <div class="ear-reiter__inhalt">
 <p>Der Compiler macht daraus eine <code>.class</code>-Datei – und zwar ein <strong>Interface</strong>, das <code>java.lang.annotation.Annotation</code> erweitert:</p>
@@ -582,7 +487,7 @@ public @interface Vorläufig {
 <p class="ear-note">Ein Marker wie <code>Vorläufig</code> ist ein Interface ohne Methoden.</p>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-ebenen" id="typ-packages">
+<details class="skr-tabs__panel" name="ear-ebenen" id="typ-packages">
 <summary>Packages</summary>
 <div class="ear-reiter__inhalt">
 <p>Wer sie verwendet, muss sie <strong>importieren</strong> – wie jeden anderen Typ:</p>
@@ -606,7 +511,6 @@ out/de/bank/annotationen/Vorläufig.class</div>
 </div>
 <p>Auch die eingebauten liegen in Packages: <code>@Override</code>, <code>@Deprecated</code>, <code>@SuppressWarnings</code> und <code>@FunctionalInterface</code> stehen in <code>java.lang</code> – deshalb braucht man für sie keinen <code>import</code>.</p>
 </section>
-
 <section class="ear-sec" id="wer-liest">
 <h2><span class="ear-num">4</span>Wer liest sie aus?</h2>
 <p>Eine Annotation ohne Leser ist ein Kommentar mit Syntaxprüfung. Gelesen wird sie <strong>entweder vom Compiler oder von einem Framework</strong>.</p>
@@ -659,19 +563,15 @@ public class KontoRessource {
 </div>
 <p class="ear-note">Wie lange eine Annotation erhalten bleibt, legt ihre Deklaration mit <code>@Retention</code> fest: nur im Quelltext (für den Compiler) oder bis zur Laufzeit (für Frameworks). Wie man sie selbst ausliest, ist nicht Thema dieser Seite.</p>
 </section>
-
 <p class="ear-merke"><strong>Merksatz:</strong> Eine Annotation ist ein Typ – im Code mit <code>@interface</code> deklariert, im Bytecode ein Interface, in einem Package zu Hause. Sie markiert nur; wirken lässt sie erst ein Leser: der Compiler oder ein Framework.</p>
-
 </details>
-
 <!-- =======================================================================
      REITER 3 – RECORDS
      Reihenfolge vorgegeben: Zweck → Syntax → Hintergrund (offizielle Begründung
      für x() statt getX()) → daraus abgeleitet die Vergleichstabelle.
      ======================================================================= -->
-<details class="avd-academy-tabs__panel" name="ear-typart" id="records">
+<details class="skr-tabs__panel" name="ear-typart" id="records">
 <summary>Records</summary>
-
 <section class="ear-sec">
 <h2><span class="ear-num">1</span>Wozu Records?</h2>
 <p>Viele Klassen sind nichts als ein <strong>Behälter für ein paar Werte</strong>: eine Spielkarte aus Farbe und Bild, ein Punkt aus x und y, eine Adresse. Für so eine Klasse schreibt man von Hand Felder, Konstruktor, Zugriffsmethoden, <code>equals</code>, <code>hashCode</code> und <code>toString</code> – viel Code, in dem sich leicht ein Fehler versteckt. Ein <code>record</code> (seit Java 16) erklärt nur noch <strong>die Daten</strong>; den Rest leitet der Compiler daraus ab.</p>
@@ -681,13 +581,12 @@ public class KontoRessource {
 <cite>JEP 395, „Records“ (JDK 16) – Summary</cite>
 </div>
 </section>
-
 <section class="ear-sec">
 <h2><span class="ear-num">2</span>Syntax am Beispiel</h2>
 <p>Hinter dem Namen stehen in Klammern die <strong>Komponenten</strong> – Typ und Name, wie Parameter. Ein Rumpf darf eigene Methoden und einen <strong>kompakten Konstruktor</strong> zur Prüfung enthalten (ohne Parameterliste; die Zuweisung an die Felder ergänzt der Compiler).</p>
 <!-- Vorgabe: Beispiel und Compiler-Sicht als zwei Reiter auf voller Breite (zwei Spalten waren zu schmal). -->
-<div class="avd-academy-tabs ear-reiter">
-<details class="avd-academy-tabs__panel" name="ear-record-syntax" id="record-beispiel" open="">
+<div class="skr-tabs ear-reiter">
+<details class="skr-tabs__panel" name="ear-record-syntax" id="record-beispiel" open>
 <summary>Beispiel</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">public record Spielkarte(Kartenfarbe farbe, String bild) {
@@ -721,7 +620,7 @@ false
 Bild fehlt</div>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-record-syntax" id="record-compiler">
+<details class="skr-tabs__panel" name="ear-record-syntax" id="record-compiler">
 <summary>Was der Compiler daraus macht</summary>
 <div class="ear-reiter__inhalt">
 <p>Aus <strong>einer Zeile Komponenten</strong> wird eine vollständige Klasse:</p>
@@ -747,7 +646,6 @@ Bild fehlt</div>
 </details>
 </div>
 </section>
-
 <section class="ear-sec" id="warum-kein-get">
 <h2><span class="ear-num">3</span><span>Hintergrund: Warum heißt es <code>farbe()</code> und nicht <code>getFarbe()</code>?</span></h2>
 <p>Die Frage kam schon während der Vorschauphase auf: Fast jede Java-Klasse mit Daten hat Getter nach dem Muster <code>getX()</code>, viele Frameworks erwarten sie – warum also nicht auch Records? Die Antwort der Sprachdesigner bei Oracle (Projekt Amber, federführend Brian Goetz) steht in der JEP, in einem Designpapier und auf der Mailingliste <em>amber-dev</em>. Sie hat vier Teile:</p>
@@ -787,13 +685,12 @@ Bild fehlt</div>
 </ol>
 <p class="ear-note">Die Folge für Frameworks, die nach <code>get</code> suchen, hat Goetz in Kauf genommen: Sie müssten Records eben kennenlernen – „frameworks (and there are only a few of them) will have to update to recognize the new conventions (and it's easy for them to do so.)“ Die gängigen haben das inzwischen getan; manche – etwa JPA für Entitäten – brauchen aber weiterhin eine veränderliche Bean.</p>
 </section>
-
 <section class="ear-sec" id="vergleich">
 <h2><span class="ear-num">4</span>Daraus folgt: Java Bean und Record im Vergleich</h2>
 <p>Die Begründung zeigt: Die beiden lösen <strong>verschiedene Aufgaben</strong>. Dieselbe Spielkarte einmal als Bean und einmal als Record – darunter der Vergleich Punkt für Punkt:</p>
 <!-- Vorgabe: Bean und Record als zwei Reiter auf voller Breite, die Tabelle darunter. -->
-<div class="avd-academy-tabs ear-reiter">
-<details class="avd-academy-tabs__panel" name="ear-bean-record" id="vergleich-bean" open="">
+<div class="skr-tabs ear-reiter">
+<details class="skr-tabs__panel" name="ear-bean-record" id="vergleich-bean" open>
 <summary>Java Bean</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">public class SpielkarteBean {
@@ -819,7 +716,7 @@ HERZ</div>
 <p class="ear-note">Ohne eigenes <code>toString</code> nur Klassenname und Hashwert (er wechselt je Lauf); <code>equals</code> vergleicht die Identität.</p>
 </div>
 </details>
-<details class="avd-academy-tabs__panel" name="ear-bean-record" id="vergleich-record">
+<details class="skr-tabs__panel" name="ear-bean-record" id="vergleich-record">
 <summary>Record</summary>
 <div class="ear-reiter__inhalt">
 <pre><code class="language-java">public record Spielkarte(Kartenfarbe farbe, String bild) { }
@@ -851,91 +748,17 @@ HERZ</div>
 </table>
 </div>
 </section>
-
 <p class="ear-merke"><strong>Merksatz:</strong> Ein Record ist kein kürzer geschriebenes Bean, sondern ein anderes Versprechen: „Ich bin genau diese Daten – unveränderlich und durchsichtig.“ Deshalb heißt der Zugriff wie die Komponente, und deshalb gibt es keine Setter.</p>
-
 </details>
-
 </div>
-
 </div>
-
-<script>
-/* Gleich hohe Reiter: Je Gruppe (.ear-reiter) wird jeder Inhalt als unsichtbare Kopie
-   in der Breite des offenen Reiters gemessen; der höchste Wert wird min-height aller
-   Inhalte. Die Kopie ist kein <details> und trägt keine ids – sie löst also keine
-   Reiter-Ereignisse aus und gerät nicht in die Adresse. */
-(function () {
-  "use strict";
-  var gruppen = Array.prototype.slice.call(document.querySelectorAll(".ear-reiter"));
-
-  function angleichen(gruppe) {
-    var inhalte = Array.prototype.slice.call(gruppe.querySelectorAll(".ear-reiter__inhalt"));
-    /* Maßgeblich ist der OFFENE Reiter: Geschlossene haben im Theme eine Breite, aber
-       ohne den Innenabstand des Reiters – dort gemessen fiele die Höhe zu klein aus. */
-    var sichtbar = inhalte.filter(function (i) { return i.parentElement.open && i.offsetWidth > 0; })[0];
-    if (!sichtbar) return;
-    var breite = sichtbar.clientWidth;
-    var höhe = 0;
-    inhalte.forEach(function (inhalt) {
-      var kopie = inhalt.cloneNode(true);
-      kopie.removeAttribute("style");
-      kopie.querySelectorAll("[id]").forEach(function (e) { e.removeAttribute("id"); });
-      kopie.classList.add("ear-reiter__mess");
-      kopie.style.width = breite + "px";
-      gruppe.appendChild(kopie);
-      höhe = Math.max(höhe, kopie.offsetHeight);
-      gruppe.removeChild(kopie);
-    });
-    inhalte.forEach(function (inhalt) { inhalt.style.minHeight = höhe + "px"; });
-  }
-
-  function alleAngleichen() { gruppen.forEach(angleichen); }
-
-  gruppen.forEach(function (g) { g.style.position = "relative"; });
-  alleAngleichen();
-  window.addEventListener("load", alleAngleichen);
-  window.addEventListener("resize", alleAngleichen);
-  /* Ein Reiter in einem bisher verborgenen äußeren Reiter hat erst nach dem
-     Umschalten eine Breite – deshalb auch nach jedem Öffnen eines Reiters. */
-  document.addEventListener("toggle", function (e) { if (e.target.open) alleAngleichen(); }, true);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alleAngleichen);
-  /* Das Theme färbt den Code erst nachträglich ein (highlight.js, Klasse „hljs“) – danach
-     ist er kleiner gesetzt. Deshalb neu messen, sobald sich an einem <code> die Klasse
-     ändert; gebündelt auf einen Durchgang je Bild. */
-  var geplant = false;
-  if ("MutationObserver" in window) {
-    new MutationObserver(function (änderungen) {
-      var betrifftCode = änderungen.some(function (ä) { return ä.target.tagName === "CODE"; });
-      if (!betrifftCode || geplant) return;
-      geplant = true;
-      requestAnimationFrame(function () { geplant = false; alleAngleichen(); });
-    }).observe(document.querySelector(".ear-root"), { attributes: true, attributeFilter: ["class"], subtree: true });
-  }
-})();
-</script>
-
-
 
     </main>
-  </div><div class="avd-academy-print-contact" aria-hidden="true">
-    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
-    <span>academy@atvantage.com</span>
   </div>
-
-  <footer class="avd-academy-footer">
-  <div class="avd-academy-footer__grid">
-    <div><strong>ATVANTAGE Academy</strong>
-      <p>Schulungen im Bereich 'Java SE'</p>
-    </div><div>
-      <strong>Kontakt</strong>
-      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
-      </p>
-    </div></div>
-  <div class="avd-academy-footer__legal">
-    © <span data-avd-academy-year>2026</span> ATVANTAGE
-  </div>
-</footer>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
 
 </body>
 </html>

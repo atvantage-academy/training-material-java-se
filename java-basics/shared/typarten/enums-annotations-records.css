@@ -1,0 +1,78 @@
+/* Präfix ear- („Enums, Annotations, Records“). Farben ausschließlich aus den
+   Theme-Tokens – damit stimmt die Seite in Light und Dark ohne zweiten Regelsatz.
+   Keine eigene Breitenbegrenzung: die gibt das Layout vor. */
+.ear-lead{color:var(--skr-color-ink-muted);margin:0 0 1.5rem;}
+
+/* Abschnitte je Reiter: Nummer + Überschrift, wie in den übrigen Nachschlagewerken */
+.ear-sec{margin:1.6rem 0 2.4rem;}
+.ear-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.4rem;line-height:1.2;border-bottom:1px solid var(--skr-color-border);padding-bottom:.5rem;}
+.ear-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--skr-radius);background:var(--skr-color-primary);color:var(--skr-color-primary-contrast);font-size:.9rem;font-weight:700;}
+.ear-sec h3{font-size:1.02rem;margin:1.1rem 0 .45rem;}
+.ear-sec p,.ear-sec li{font-size:.95rem;}
+
+/* Karten im Raster – nebeneinander, auf schmalen Geräten untereinander */
+.ear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(21rem,1fr));gap:1.1rem;margin:.6rem 0;}
+
+/* Reiter auf voller Breite statt enger Spalten (Enum-Vergleich, Annotation-Formen,
+   Annotation-Ebenen). Alle Reiter einer Gruppe sind gleich hoch: Das Skript am Ende
+   misst den höchsten Inhalt und setzt ihn als min-height – beim Umschalten springt
+   nichts. Ohne Skript bleibt nur die Höhe je Reiter, sonst nichts. */
+.ear-reiter{margin:.6rem 0 1rem;}
+.ear-reiter__inhalt > :first-child{margin-top:0;}
+.ear-reiter__inhalt > :last-child{margin-bottom:0;}
+.ear-reiter__inhalt pre{margin:.2rem 0 .8rem;}
+.ear-root .ear-reiter pre code.hljs{font-size:.92rem;line-height:1.5;}
+.ear-root .ear-reiter .ear-konsole{font-size:.88rem;}
+.ear-reiter__mess{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;}
+.ear-card{min-width:0;background:var(--skr-color-bg-subtle);border:1px solid var(--skr-color-border);border-radius:var(--skr-radius);padding:1rem 1.15rem;}
+.ear-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
+.ear-card p{margin:0 0 .6rem;font-size:.9rem;}
+.ear-card p:last-child{margin-bottom:0;}
+.ear-card pre{margin:0;overflow-x:auto;}
+.ear-card pre + p{margin-top:.6rem;}
+.ear-card--gut{border-left:4px solid var(--skr-color-success);}
+.ear-card--schlecht{border-left:4px solid var(--skr-color-warning);}
+.ear-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-accent-ink);margin:0 0 .3rem;}
+.ear-root pre{overflow-x:auto;}
+.ear-root pre code.hljs{border-radius:var(--skr-radius-lg);font-size:.8rem;line-height:1.5;}
+
+/* Ausgaben: Konsole und javap. Bewusst KEIN Java-Highlighting – es ist Text. */
+.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-radius);background:var(--skr-color-bg);border:1px dashed var(--skr-color-border);font-family:var(--skr-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
+.ear-konsole::before{content:attr(data-titel);display:block;font-family:var(--skr-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin-bottom:.3rem;}
+.ear-konsole mark{background:var(--skr-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
+
+/* Merksatz und Hinweise */
+.ear-merke{margin:1.2rem 0 0;padding:.7rem 1rem;border-radius:var(--skr-radius);background:var(--skr-color-accent-soft);}
+.ear-note{margin:.8rem 0 0;font-size:.9rem;color:var(--skr-color-ink-muted);}
+
+
+/* Zitate der offiziellen Begründung: Original + deutsche Wiedergabe */
+.ear-zitat{margin:.8rem 0;padding:.75rem 1rem;border-left:4px solid var(--skr-color-accent);background:var(--skr-color-bg-subtle);border-radius:0 var(--skr-radius) var(--skr-radius) 0;}
+.ear-zitat blockquote{margin:0;padding:0;border:none;font-style:italic;}
+.ear-zitat p{margin:0 0 .4rem;}
+.ear-zitat .ear-de{font-style:normal;}
+.ear-zitat cite{display:block;font-style:normal;font-size:.8rem;color:var(--skr-color-ink-muted);}
+.ear-gruende{counter-reset:grund;list-style:none;padding:0;margin:.6rem 0;}
+.ear-gruende > li{counter-increment:grund;position:relative;padding:0 0 0 2.4rem;margin:0 0 1.1rem;}
+.ear-gruende > li::before{content:counter(grund);position:absolute;left:0;top:.05rem;width:1.7rem;height:1.7rem;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--skr-color-accent-soft);font-weight:700;font-size:.85rem;}
+
+/* Vergleichstabelle */
+.ear-tabelle-rahmen{overflow-x:auto;margin:.6rem 0;}
+.ear-tabelle{width:100%;border-collapse:collapse;font-size:.9rem;}
+.ear-tabelle th,.ear-tabelle td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--skr-color-border);}
+.ear-tabelle thead th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--skr-color-ink-muted);white-space:nowrap;}
+.ear-tabelle tbody th{font-weight:700;white-space:nowrap;}
+.ear-tabelle td:last-child{background:color-mix(in srgb,var(--skr-color-accent-soft) 55%,transparent);}
+
+@media (max-width:30rem){
+  .ear-grid{grid-template-columns:minmax(0,1fr);}
+  .ear-root .ear-reiter pre code.hljs{font-size:.8rem;}
+}
+
+/* Druck: Die Theme-Reiter klappen vor dem Druck selbst alle auf. */
+@media print{
+  .ear-reiter__inhalt{min-height:0 !important;}
+  .ear-card,.ear-zitat{break-inside:avoid;background:transparent !important;}
+  .ear-root pre,.ear-root pre code,.ear-root pre code *,.ear-konsole{color:#000 !important;background:transparent !important;}
+  .ear-root pre,.ear-konsole{white-space:pre-wrap;word-break:break-word;font-size:8pt;}
+}

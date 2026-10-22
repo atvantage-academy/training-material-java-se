@@ -1,157 +1,86 @@
-<!DOCTYPE html><html lang="de" data-avd-academy-effects="page-transitions reading-progress">
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-(function () {
-  try {
-    var t = localStorage.getItem("avd-academy-theme");
-    if (t === "dark" || t === "light") document.documentElement.setAttribute("data-avd-academy-theme", t);
-  } catch (e) {}
-  addEventListener("unhandledrejection", function (e) {
-    var r = e.reason;
-    if (r && r.name === "InvalidStateError" && /ViewTransition opt-in disabled/.test(r.message || "")) e.preventDefault();
-  });
-})();
-</script><title>Objektorientierung mit Java (Kapselung) · ATVANTAGE Academy</title><meta name="description" content="Packages, Imports, Sichtbarkeiten, final und Konstruktoren – die Fortsetzung von „Objektorientierung mit Java (einfach)“ am selben Buch-und-Autor-Beispiel."><meta property="og:site_name" content="ATVANTAGE Academy">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Objektorientierung mit Java (Kapselung) · ATVANTAGE Academy</title>
+<meta name="description" content="Packages, Imports, Sichtbarkeiten, final und Konstruktoren – die Fortsetzung von „Objektorientierung mit Java (einfach)“ am selben Buch-und-Autor-Beispiel.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Objektorientierung mit Java (Kapselung)">
 <meta property="og:description" content="Packages, Imports, Sichtbarkeiten, final und Konstruktoren – die Fortsetzung von „Objektorientierung mit Java (einfach)“ am selben Buch-und-Autor-Beispiel.">
-<meta property="og:type" content="website"><link rel="preload" href="/training-material-java-se/theme/academy/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/fonts.css?v=d37c8ecb"><link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/colors.css?v=b0afc83e">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/typography.css?v=1b512d1a">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/spacing.css?v=ffc57a80">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/components.css?v=fb3020a8">
-<link rel="stylesheet" href="/training-material-java-se/theme/atvantage/tokens/base.css?v=01ad66fa"><link rel="stylesheet" href="/training-material-java-se/theme/academy/tokens.css?v=e7c08f24">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/base.css?v=32c1897e">
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/components.css?v=60856a0a">
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/site.css?v=63868197"><link rel="stylesheet" media="print" href="/training-material-java-se/theme/academy/print.css?v=fa38b084">
-<meta name="generator" content="ATVANTAGE Academy Theme 4.5.4">
-<script type="application/json" id="avd-academy-build-info">{"theme":"4.5.4","schemas":{"config":"1.3.0","frontmatter":"1.1.0","layout":"1.0.0"},"audience":"learner","languages":["de"],"internal":false}</script><script type="application/json" id="avd-academy-page-info">{"pageId":null,"language":"de","url":"/training-material-java-se/shared/visualisierungen/objektorientierung-java-kapselung.html","title":"Objektorientierung mit Java (Kapselung)","layout":"visualization","description":"Packages, Imports, Sichtbarkeiten, final und Konstruktoren – die Fortsetzung von „Objektorientierung mit Java (einfach)“ am selben Buch-und-Autor-Beispiel.","duration":null,"topics":null,"languages":["de"],"clientApi":"full","defaultLanguage":"de","siteIndex":"/training-material-java-se/theme/site.json"}</script>
-<script src="/training-material-java-se/theme/academy/atvantage.js?v=b1738f9e" defer></script>
-<script src="/training-material-java-se/theme/jekyll/site.js?v=514cf6b3" defer></script>
-<script src="/training-material-java-se/theme/jekyll/search-trail.js?v=c7eb3d26" data-avd-academy-search-trail
-        data-base="/training-material-java-se/" data-index="/training-material-java-se/theme/search/de.json?v=1792100131" defer></script>
-<link rel="stylesheet" href="/training-material-java-se/theme/academy/highlight.css?v=2b412283">
-<script type="module">
-  const _hlbase = "/training-material-java-se/theme/academy/hljs/";
-  const _hlsprachen = ["java", "http", "json", "xml"];
-  Promise.all([import(_hlbase + "core.min.js"), ..._hlsprachen.map((s) => import(_hlbase + s + ".min.js"))])
-    .then(([core, ...grammatiken]) => {
-      const hljs = core.default;
-      _hlsprachen.forEach((s, i) => hljs.registerLanguage(s, grammatiken[i].default));
-      const _auswahl = _hlsprachen.map((s) => "pre code.language-" + s).join(",");
-      const _faerben = (wurzel) => (wurzel || document)
-        .querySelectorAll(_auswahl)
-        .forEach((el) => { if (!el.dataset.highlighted) { hljs.highlightElement(el); } });
-      _faerben(document);
-      window.AvdHighlight = { hljs, apply: _faerben, languages: _hlsprachen.slice() };
-      document.dispatchEvent(new CustomEvent("avd-academy-highlight-ready"));
-      document.querySelectorAll("pre code.language-http .hljs-number").forEach((el) => {
-        const code = parseInt(el.textContent, 10);
-        if (code >= 100 && code <= 599) {
-          el.classList.add("avd-academy-http-status--" + Math.floor(code / 100) + "xx");
-        }
-      });
-    });
-</script>
-<link rel="apple-touch-icon" sizes="180x180" href="/training-material-java-se/theme/atvantage/assets/icon-180.png">
-<link rel="icon" href="/training-material-java-se/theme/atvantage/assets/icon-32.png">
-<link rel="icon" sizes="16x16" href="/training-material-java-se/theme/atvantage/assets/icon-16.png">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.5.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Packages, Imports, Sichtbarkeiten, final und Konstruktoren – die Fortsetzung von „Objektorientierung mit Java (einfach)“ am selben Buch-und-Autor-Beispiel.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/visualisierungen/objektorientierung-java-kapselung.css","src":"objektorientierung-java-kapselung.css","type":"style"}],"pageId":"shared-visualisierungen-objektorientierung-java-kapselung","runtimeFragments":["^/(\\?.*)?$","^/[A-Za-z0-9_-]+(\\?.*)?$"],"siteIndex":"/skriptorium/site.json","title":"Objektorientierung mit Java (Kapselung)","topics":null,"url":"/shared/visualisierungen/objektorientierung-java-kapselung.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
-  <link rel="stylesheet" href="/training-material-java-se/theme/academy/guide.css?v=590fafce">
-<style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
-<link rel="stylesheet" href="/training-material-java-se/theme/jekyll/page-transitions.css?v=83436606">
-  <link rel="stylesheet" href="/training-material-java-se/assets/custom.css?v=4a155a65"></head><body class="avd-academy-guide avd-academy-guide--viz">
-<div class="avd-academy-reading-progress" aria-hidden="true"></div>
-  <a class="avd-academy-skip-link" href="#avd-academy-content">Zum Inhalt springen</a><section class="avd-academy-guide-hero avd-academy-guide-hero--slim"
-           aria-labelledby="avd-academy-page-title"><div class="avd-academy-guide-hero__meta">
-      <div class="avd-academy-guide-hero__tags">
-      </div>
-      <div class="avd-academy-guide-hero__actions"><button type="button" class="avd-academy-qr" data-avd-academy-qr hidden
-                title="Diese Seite auf Deinem Smartphone öffnen"
-                aria-label="Diese Seite auf Deinem Smartphone öffnen"></button><button type="button" class="avd-academy-tool avd-academy-tool--theme" data-avd-academy-theme-toggle
-              title="Farbschema umschalten (hell/dunkel)"
-              aria-label="Dunkles Farbschema">◐</button><button type="button" class="avd-academy-tool avd-academy-tool--print"
-                data-avd-academy-print
-                title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
-      </div>
-    </div><h1 id="avd-academy-page-title">Objektorientierung mit Java (Kapselung)</h1>
-  </section><div class="avd-academy-guide-layout">
-    <main class="avd-academy-guide-main" id="avd-academy-content"><style>
-/* Aufbau und Klassennamen bewusst analog zu „Objektorientierung mit Java
-   (einfach)“ (Präfix dort oje-, hier ojk-): Diese Seite führt dasselbe
-   Buch-und-Autor-Beispiel fort und muss deshalb gleich aussehen. Keine eigene Breitenbegrenzung: Die Breite der
-   Inhaltsspalte gibt das Theme über `--avd-academy-guide-max` vor. */
-.ojk-lead{color:var(--avd-academy-color-ink-muted,#5F5F5F);margin:0 0 2rem;}
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
 
-.ojk-sec{margin:0 0 2.75rem;}
-.ojk-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.45rem;line-height:1.2;border-bottom:1px solid var(--avd-academy-color-border,#e2e2e2);padding-bottom:.5rem;}
-.ojk-num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.9rem;height:1.9rem;border-radius:var(--radius,5px);background:var(--avd-slate,#303E4F);color:#fff;font-size:.9rem;font-weight:700;}
-/* KEINE DECKKRAFT FUER ZURUECKGENOMMENEN TEXT. `opacity` wirkt auf die ganze
-   Gruppe: Sie zieht auch das hervorgehobene Wort darin herunter, und der
-   Akzent landete dadurch bei 4,21:1 statt der geforderten 4,5 - gemessen.
-   Ein gedaempfter FARBWERT tut dasselbe, ohne den Rest mitzunehmen. */
-.ojk-note{margin:.9rem 0 0;font-size:.92rem;color:var(--avd-academy-color-ink-muted,#5F5F5F);}
-.ojk-note strong{color:var(--color-orange,#FF5401);}
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
 
-.ojk-table-wrap{overflow-x:auto;}
-.ojk-table{width:100%;border-collapse:collapse;font-size:.88rem;}
-.ojk-table th,.ojk-table td{text-align:left;vertical-align:top;padding:.5rem .7rem;border-bottom:1px solid var(--avd-academy-color-border,#e2e2e2);}
-.ojk-table th{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.75;white-space:nowrap;}
-.ojk-table td:first-child{white-space:nowrap;font-weight:700;color:var(--color-orange,#FF5401);}
+<link rel="stylesheet" href="../../shared/visualisierungen/objektorientierung-java-kapselung.css?v=a7d76bc0">
 
-.ojk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(24rem,1fr));gap:1.1rem;}
-.ojk-card{background:var(--avd-academy-color-bg-subtle,var(--color-surface-card,#EDEDED));border:1px solid var(--avd-academy-color-border,#e2e2e2);border-radius:var(--radius,5px);padding:1rem 1.15rem;}
-.ojk-card--wide{grid-column:1/-1;}
-.ojk-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
-.ojk-card p{margin:0 0 .6rem;font-size:.88rem;opacity:.85;}
-.ojk-card p:last-child{margin-bottom:0;}
-.ojk-card pre{margin:0;overflow-x:auto;}
-.ojk-card pre + p{margin-top:.6rem;}
-.ojk-root pre code.hljs{border-radius:var(--radius-dark,8px);font-size:.8rem;line-height:1.5;}
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
 
-/* Gegenüberstellung richtig/falsch – für die Assoziations-Falle */
-.ojk-card--good{border-left:4px solid var(--color-orange,#FF5401);}
-.ojk-card--bad{border-left:4px solid var(--avd-academy-color-ink-muted,#707173);}
-.ojk-flag{display:inline-block;margin-right:.4rem;font-weight:800;}
-.ojk-card--good .ojk-flag{color:var(--color-orange,#FF5401);}
+    </div>
+  </div><h1 id="skr-page-title">Objektorientierung mit Java (Kapselung)</h1>
+</section>
 
-/* Diagramm-zu-Code-Skizze: zwei Kästchen mit Verbindungslinie */
-.ojk-uml{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin:.2rem 0 .8rem;}
-.ojk-box{border:2px solid var(--avd-academy-color-ink,#343E3F);border-radius:var(--radius,5px);min-width:9.5rem;font-size:.82rem;background:var(--avd-academy-color-bg,#fff);}
-.ojk-box b{display:block;padding:.35rem .6rem;border-bottom:1px solid var(--avd-academy-color-ink,#343E3F);text-align:center;}
-.ojk-box span{display:block;padding:.3rem .6rem;font-family:var(--avd-academy-font-mono,monospace);}
-.ojk-line{flex:none;width:4.5rem;border-top:2px solid var(--avd-academy-color-ink,#343E3F);position:relative;}
-.ojk-line em{position:absolute;top:-1.5rem;left:50%;transform:translateX(-50%);font-size:.7rem;font-style:normal;opacity:.75;white-space:nowrap;}
-.ojk-mult{font-size:.72rem;opacity:.75;padding:0 .3rem;}
-
-@media print{
-  .ojk-lead{font-size:10.5pt;}
-  .ojk-sec{break-inside:auto;margin:0 0 14pt;}
-  .ojk-sec > h2{font-size:14pt;margin:0 0 6pt;padding-bottom:3pt;border-bottom:2px solid var(--color-orange,#FF5401);break-after:avoid;}
-  .ojk-num{width:auto;height:auto;background:transparent !important;color:#000 !important;font-size:14pt;}
-  .ojk-table{font-size:8.5pt;}
-  .ojk-table th,.ojk-table td{padding:2pt 4pt;}
-  .ojk-table td:first-child{color:#000 !important;}
-  .ojk-grid{display:block;}
-  .ojk-card{break-inside:avoid;background:transparent !important;border:none !important;padding:0 !important;margin:0 0 9pt;}
-  .ojk-card--good,.ojk-card--bad{border-left:2pt solid #000 !important;padding-left:6pt !important;}
-  .ojk-card h3{font-size:10.5pt;margin:0 0 2pt;}
-  .ojk-card p{font-size:9pt;margin:0 0 3pt;opacity:1;}
-  .ojk-note{font-size:9pt;margin-top:5pt;}
-  .ojk-note strong{color:#000 !important;}
-  .ojk-root pre,.ojk-root pre code,.ojk-root pre code *{color:#000 !important;background:transparent !important;}
-  .ojk-root pre{white-space:pre-wrap;word-break:break-word;font-size:8pt;border:none !important;padding:2pt 0 !important;margin:0;break-inside:avoid;}
-}
-</style>
-
-<div class="ojk-root">
-
-<p class="ojk-lead">Die Fortsetzung von <a href="objektorientierung-java-einfach.html">Objektorientierung mit Java (einfach)</a> – am selben Beispiel: aus offenen Klassen werden Objekte, die ihren Zustand schützen. Packages und Imports, die Sichtbarkeiten, <code>final</code> und der Konstruktor. Ausnahmen kommen später im Kurs; geprüft wird hier mit einem <code>if</code>.</p>
-
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><div class="ojk-root">
+<p class="ojk-lead">Die Fortsetzung von <a href="../../shared/visualisierungen/objektorientierung-java-einfach.html">Objektorientierung mit Java (einfach)</a> – am selben Beispiel: aus offenen Klassen werden Objekte, die ihren Zustand schützen. Packages und Imports, die Sichtbarkeiten, <code>final</code> und der Konstruktor. Ausnahmen kommen später im Kurs; geprüft wird hier mit einem <code>if</code>.</p>
 <section class="ojk-sec" id="packages">
 <h2><span class="ojk-num">1</span> Packages: Ordnung im Projekt</h2>
-
 <div class="ojk-grid">
 <div class="ojk-card">
 <h3>Eine Zeile, ein Ordner</h3>
@@ -172,10 +101,8 @@ class Buch {
 </div>
 <p class="ojk-note">In echten Projekten ist der Paketname die <strong>umgedrehte Internet-Adresse</strong> der Organisation, damit er weltweit eindeutig bleibt: <code>com.example.bibliothek</code>. Für Übungen genügt ein einfacher Name.</p>
 </section>
-
 <section class="ojk-sec" id="imports">
 <h2><span class="ojk-num">2</span> Imports: wann Du sie brauchst</h2>
-
 <div class="ojk-table-wrap">
 <table class="ojk-table">
 <thead>
@@ -189,7 +116,6 @@ class Buch {
 </tbody>
 </table>
 </div>
-
 <div class="ojk-card ojk-card--wide" style="margin-top:1.1rem">
 <h3>So sieht es im Programm aus</h3>
 <pre><code class="language-java">// Datei: anwendung/Main.java
@@ -207,12 +133,9 @@ class Main {
 <p>Ein <code>import</code> holt nichts herbei und kostet nichts zur Laufzeit – er sagt dem Compiler nur, welches <code>Buch</code> gemeint ist.</p>
 </div>
 </section>
-
 <section class="ojk-sec" id="sichtbarkeit">
 <h2><span class="ojk-num">3</span> Sichtbarkeit: die Grenze ziehen</h2>
-
 <p class="ojk-note" style="margin-top:0">Der objektorientierte Gedanke dahinter ist älter als Java: Ein Objekt zeigt nach außen, <strong>was</strong> es kann – nicht, <strong>wie</strong> es innen aussieht. Was innen liegt, darf sich ändern, ohne dass der Rest des Programms davon weiß. Java macht daraus vier Stufen.</p>
-
 <div class="ojk-table-wrap" style="margin-top:1.1rem">
 <table class="ojk-table">
 <thead>
@@ -228,10 +151,8 @@ class Main {
 </div>
 <p class="ojk-note"><strong>Die Faustregel:</strong> so eng wie möglich. Fang mit <code>private</code> an und öffne einzeln, was gebraucht wird – nicht umgekehrt. Was einmal <code>public</code> ist, benutzt irgendwann jemand.</p>
 </section>
-
 <section class="ojk-sec" id="zugriff">
 <h2><span class="ojk-num">4</span> Kontrollierter Zugriff statt offener Felder</h2>
-
 <div class="ojk-grid">
 <div class="ojk-card ojk-card--bad">
 <h3><span class="ojk-flag">✗</span> Offen</h3>
@@ -260,15 +181,11 @@ erdsee.seiten = -100;</code></pre>
 <p>Jede Änderung läuft durch Deinen Code – und damit durch Deine Regeln.</p>
 </div>
 </div>
-
 <p class="ojk-note"><strong>Nicht jedes Feld braucht einen Setter.</strong> Frag zweimal: Muss man den Wert von außen <em>lesen</em> können? Und muss man ihn von außen <em>ändern</em> können? Die zweite Frage wird seltener mit Ja beantwortet, als man denkt – manche Werte ändern sich nur über fachliche Methoden, andere gar nicht.</p>
-
 <p class="ojk-note"><strong>Zwei offene Enden – bewusst.</strong> Erstens erfährt der Aufrufer nichts davon, wenn sein Wert abgelehnt wurde; das saubere Werkzeug dafür sind <strong>Ausnahmen</strong>, die später im Kurs kommen. Zweitens: Was steht eigentlich in einem Feld, das nie gesetzt wurde? Bei Zahlen die <code>0</code>, bei Referenzen <code>null</code> – der Wegweiser ins Nichts, an dem jeder Zugriff mit einer <code>NullPointerException</code> scheitert.</p>
 </section>
-
 <section class="ojk-sec" id="final">
 <h2><span class="ojk-num">5</span> <code>final</code>: was sich nie ändern darf</h2>
-
 <div class="ojk-grid">
 <div class="ojk-card">
 <h3>Einmal gesetzt, nie wieder</h3>
@@ -287,10 +204,8 @@ erdsee.isbn = "978-…";   // geht nicht mehr</code></pre>
 </div>
 </div>
 </section>
-
 <section class="ojk-sec" id="konstruktor">
 <h2><span class="ojk-num">6</span> Der Konstruktor</h2>
-
 <div class="ojk-grid">
 <div class="ojk-card ojk-card--wide">
 <h3>Pflichtwerte kommen beim Erzeugen mit</h3>
@@ -308,7 +223,6 @@ Buch erdsee = new Buch("978-3-453-52581-6", "Erdsee");</code></pre>
 <p>Der Konstruktor läuft genau einmal – beim <code>new</code>. Danach ist das Objekt vollständig; ein halbfertiges Buch kann es nicht mehr geben.</p>
 </div>
 </div>
-
 <div class="ojk-grid" style="margin-top:1.1rem">
 <div class="ojk-card">
 <h3>Der geschenkte Konstruktor verschwindet</h3>
@@ -329,29 +243,14 @@ Buch erdsee = new Buch("978-3-453-52581-6", "Erdsee");</code></pre>
 </div>
 <p class="ojk-note"><strong>Der Satz, um den es hier geht:</strong> Ein Objekt ist <em>ab dem Konstruktor</em> gültig. Wer eines in die Hand bekommt, muss nicht mehr prüfen, ob es benutzbar ist.</p>
 </section>
-
 </div>
 
-
     </main>
-  </div><div class="avd-academy-print-contact" aria-hidden="true">
-    <span>Kontakt: https://academy.atvantage-academy.workers.dev/</span>
-    <span>academy@atvantage.com</span>
   </div>
-
-  <footer class="avd-academy-footer">
-  <div class="avd-academy-footer__grid">
-    <div><strong>ATVANTAGE Academy</strong>
-      <p>Schulungen im Bereich 'Java SE'</p>
-    </div><div>
-      <strong>Kontakt</strong>
-      <p><a href="https://academy.atvantage-academy.workers.dev/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
-      </p>
-    </div></div>
-  <div class="avd-academy-footer__legal">
-    © <span data-avd-academy-year>2026</span> ATVANTAGE
-  </div>
-</footer>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
 
 </body>
 </html>
