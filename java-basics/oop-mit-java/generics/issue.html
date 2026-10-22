@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
-<title>Fehlerfälle mit Ausnahmen behandeln · ATVANTAGE Academy</title>
-<meta name="description" content="Behandle unzureichendes Guthaben mit einer eigenen checked Exception.">
+<title>Ein generisches Repository bauen · ATVANTAGE Academy</title>
+<meta name="description" content="Ersetze doppelte Repository-Klassen durch ein typsicheres, generisches Repository.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Fehlerfälle mit Ausnahmen behandeln">
-<meta property="og:description" content="Behandle unzureichendes Guthaben mit einer eigenen checked Exception.">
+<meta property="og:title" content="Ein generisches Repository bauen">
+<meta property="og:description" content="Ersetze doppelte Repository-Klassen durch ein typsicheres, generisches Repository.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.5.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Behandle unzureichendes Guthaben mit einer eigenen checked Exception.","duration":75,"fields":{"didaktikon":{"objectives":["Du definierst eine eigene Exception-Klasse.","Du wirfst eine Ausnahme an der passenden Stelle und behandelst sie mit `try`/`catch`.","Du begründest, ob eine Ausnahme checked oder unchecked sein sollte."],"reflective_questions":["Warum ist „unzureichendes Guthaben“ eine checked, ein negativer Betrag aber eine unchecked Exception?","Was wäre der Nachteil, den Fehlerfall über einen `boolean`-Rückgabewert zu lösen?","Wozu dient `finally`, und was gehört dort typischerweise hinein?"],"user_story":"Als Entwickler:in möchte ich, dass eine unmögliche Abhebung nicht stillschweigend passiert, sondern klar signalisiert wird, damit aufrufender Code den Fehler bewusst behandeln muss."},"skriptorium":{"definition_of_done":["Es gibt eine Exception `KeineDeckungException` (checked).","`abheben` wirft diese Exception, wenn der Betrag nicht verfügbar ist.","Der Aufrufer in `Main` fängt die Exception mit `try`/`catch` und gibt eine sinnvolle Meldung aus.","Ein Programmierfehler (z. B. ein negativer Betrag) wird über eine *unchecked* Exception abgelehnt."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Fehlerfälle mit Ausnahmen behandeln","topics":["Exceptions","Banking"],"url":"/java-basics/shared/ausnahmebehandlung/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Ersetze doppelte Repository-Klassen durch ein typsicheres, generisches Repository.","duration":60,"fields":{"didaktikon":{"objectives":["Du definierst eine generische Klasse/ein Interface mit Typparameter.","Du schränkst einen Typparameter mit `extends` ein.","Du verwendest das generische Repository typsicher für zwei Typen."],"reflective_questions":["Was wäre der Nachteil eines Repositories, das intern `Object` speichert?","Warum brauchst Du die Typschranke `extends Identifizierbar` – was ginge ohne sie nicht?","An welcher anderen Stelle im Banking-System würde sich ein generischer Typ noch lohnen?"],"user_story":"Als Entwickler:in möchte ich Kunden und Konten mit derselben, typsicheren Verwaltungslogik ablegen, damit ich Speicher-Code nicht für jeden Typ dupliziere."},"skriptorium":{"definition_of_done":["Es gibt ein generisches `Repository\u003cT extends Identifizierbar\u003e` mit `save(T)` und `findById(String)`.","Intern speichert es die Elemente in einer `Map\u003cString, T\u003e` (ID → Element).","Es existieren ein `Repository\u003cKunde\u003e` und ein `Repository\u003cKonto\u003e` ohne duplizierten Code.","Die Verwendung kommt ohne explizite Casts aus."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Ein generisches Repository bauen","topics":["Generics","Banking"],"url":"/java-basics/oop-mit-java/generics/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=72f4dc4d" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=0ef3f437"
+     data-index="../../../skriptorium/search/de.json?v=72f4dc4d"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -119,86 +119,88 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/shared/">Gemeinsame Module</a><span>/</span><span aria-current="page">Fehlerfälle mit Ausnahmen behandeln</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/oop-mit-java/">OOP mit Java</a><span>/</span><span aria-current="page">Ein generisches Repository bauen</span></nav>
 
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 75 Minuten</span><span class="skr-tag">Exceptions</span><span class="skr-tag">Banking</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 60 Minuten</span><span class="skr-tag">Generics</span><span class="skr-tag">Banking</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Fehlerfälle mit Ausnahmen behandeln</h1>
+  </div><h1 id="skr-page-title">Ein generisches Repository bauen</h1>
 </section>
 
   <div class="skr-guide-layout">
     <main class="skr-guide-main" id="skr-content">
 <div class="skr-didaktikon-content-top" data-skr-slot="content.top">
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Entwickler:in möchte ich, dass eine unmögliche Abhebung nicht stillschweigend passiert, sondern klar signalisiert wird, damit aufrufender Code den Fehler bewusst behandeln muss.</p>
+<p>Als Entwickler:in möchte ich Kunden und Konten mit derselben, typsicheren Verwaltungslogik ablegen, damit ich Speicher-Code nicht für jeden Typ dupliziere.</p>
 </div>
 <div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <h2 id="lernziele">Lernziele</h2>
 <ul>
-<li>Du definierst eine eigene Exception-Klasse.</li>
-<li>Du wirfst eine Ausnahme an der passenden Stelle und behandelst sie mit <code>try</code>/<code>catch</code>.</li>
-<li>Du begründest, ob eine Ausnahme checked oder unchecked sein sollte.</li>
+<li>Du definierst eine generische Klasse/ein Interface mit Typparameter.</li>
+<li>Du schränkst einen Typparameter mit <code>extends</code> ein.</li>
+<li>Du verwendest das generische Repository typsicher für zwei Typen.</li>
 </ul>
 </div>
 </div>
 <div class="skr-guide-done">
 <h2 id="definition-of-done">Definition of Done</h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Es gibt eine Exception KeineDeckungException (checked)." disabled="disabled"> Es gibt eine Exception <code>KeineDeckungException</code> (checked).</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="abheben wirft diese Exception, wenn der Betrag nicht verfügbar ist." disabled="disabled"> <code>abheben</code> wirft diese Exception, wenn der Betrag nicht verfügbar ist.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Aufrufer in Main fängt die Exception mit try/catch und gibt eine sinnvolle Meldung aus." disabled="disabled"> Der Aufrufer in <code>Main</code> fängt die Exception mit <code>try</code>/<code>catch</code> und gibt eine sinnvolle Meldung aus.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ein Programmierfehler (z. B. ein negativer Betrag) wird über eine unchecked Exception abgelehnt." disabled="disabled"> Ein Programmierfehler (z. B. ein negativer Betrag) wird über eine <em>unchecked</em> Exception abgelehnt.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Es gibt ein generisches Repository&lt;T extends Identifizierbar&gt; mit save(T) und findById(String)." disabled="disabled"> Es gibt ein generisches <code>Repository&lt;T extends Identifizierbar&gt;</code> mit <code>save(T)</code> und <code>findById(String)</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Intern speichert es die Elemente in einer Map&lt;String, T&gt; (ID → Element)." disabled="disabled"> Intern speichert es die Elemente in einer <code>Map&lt;String, T&gt;</code> (ID → Element).</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Es existieren ein Repository&lt;Kunde&gt; und ein Repository&lt;Konto&gt; ohne duplizierten Code." disabled="disabled"> Es existieren ein <code>Repository&lt;Kunde&gt;</code> und ein <code>Repository&lt;Konto&gt;</code> ohne duplizierten Code.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Verwendung kommt ohne explizite Casts aus." disabled="disabled"> Die Verwendung kommt ohne explizite Casts aus.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="eine-fachliche-exception-definieren">Eine fachliche Exception definieren</h3>
-<p>Lege eine checked Exception an (erbt von <code>Exception</code>).</p>
-<pre><code class="language-java">public class KeineDeckungException extends Exception {
-  public KeineDeckungException(String message) {
-    super(message);
+<h3 id="das-generische-repository-definieren">Das generische Repository definieren</h3>
+<p>Führe einen Typparameter <code>T</code> ein und schränke ihn auf <code>Identifizierbar</code> ein.</p>
+<pre><code class="language-java">public class Repository&lt;T extends Identifizierbar&gt; {
+  private final Map&lt;String, T&gt; elemente = new HashMap&lt;&gt;();
+
+  public void save(T element) {
+    elemente.put(element.getId(), element);
+  }
+
+  public T findById(String id) {
+    return elemente.get(id);
   }
 }
 </code></pre>
 <blockquote>
-<p><strong>Hinweis:</strong> „Checked“ = erbt von <code>Exception</code> (nicht <code>RuntimeException</code>). Der Compiler erzwingt dann die Behandlung.</p>
+<p><strong>Hinweis:</strong> Nur wegen der Schranke <code>extends Identifizierbar</code> darfst Du innen <code>element.getId()</code> aufrufen.</p>
 </blockquote>
-<h3 id="die-ausnahme-werfen">Die Ausnahme werfen</h3>
-<p>Lass <code>abheben</code> die Ausnahme werfen, wenn <code>istGedeckt</code> <code>false</code> liefert. Deklariere sie mit <code>throws</code>.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Prüfe zuerst die Vorbedingung; erst wenn sie erfüllt ist, verändere den Kontostand – sonst bleibt das Konto im gültigen Zustand.</p>
-</blockquote>
-<h3 id="den-fehler-behandeln">Den Fehler behandeln</h3>
-<p>Rufe <code>abheben</code> in <code>Main</code> in einem <code>try</code>/<code>catch</code> auf und reagiere sinnvoll.</p>
-<pre><code class="language-java">try {
-  konto.abheben(100_00);
-} catch (KeineDeckungException e) {
-  System.out.println(&quot;Abhebung nicht möglich: &quot; + e.getMessage());
-}
+<h3 id="für-zwei-typen-verwenden">Für zwei Typen verwenden</h3>
+<p>Erzeuge je ein Repository für Kunden und Konten und speichere/lies Objekte.</p>
+<pre><code class="language-java">Repository&lt;Kunde&gt; kunden = new Repository&lt;&gt;();
+kunden.save(anna);
+Kunde gefunden = kunden.findById(anna.getId()); // kein Cast nötig
 </code></pre>
+<blockquote>
+<p><strong>Hinweis:</strong> Beobachte, wie die IDE beim falschen Typ (<code>kunden.save(konto)</code>) schon vor dem Ausführen meckert – das ist Typsicherheit zur Compile-Zeit.</p>
+</blockquote>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>Warum ist „unzureichendes Guthaben“ eine checked, ein negativer Betrag aber eine unchecked Exception?</li>
-<li>Was wäre der Nachteil, den Fehlerfall über einen <code>boolean</code>-Rückgabewert zu lösen?</li>
-<li>Wozu dient <code>finally</code>, und was gehört dort typischerweise hinein?</li>
+<li>Was wäre der Nachteil eines Repositories, das intern <code>Object</code> speichert?</li>
+<li>Warum brauchst Du die Typschranke <code>extends Identifizierbar</code> – was ginge ohne sie nicht?</li>
+<li>An welcher anderen Stelle im Banking-System würde sich ein generischer Typ noch lohnen?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Fehlerfälle mit Ausnahmen behandeln
+<textarea id="skr-md-source" hidden aria-hidden="true"># Ein generisches Repository bauen
 
 &lt;div class=&#34;skr-didaktikon-content-top&#34; data-skr-slot=&#34;content.top&#34; markdown=&#34;1&#34;&gt;
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in möchte ich, dass eine unmögliche Abhebung nicht stillschweigend passiert, sondern klar signalisiert wird, damit aufrufender Code den Fehler bewusst behandeln muss.
+Als Entwickler:in möchte ich Kunden und Konten mit derselben, typsicheren Verwaltungslogik ablegen, damit ich Speicher-Code nicht für jeden Typ dupliziere.
 
 &lt;/div&gt;
 
@@ -206,9 +208,9 @@ Als Entwickler:in möchte ich, dass eine unmögliche Abhebung nicht stillschweig
 
 ## Lernziele
 
-- Du definierst eine eigene Exception-Klasse.
-- Du wirfst eine Ausnahme an der passenden Stelle und behandelst sie mit `try`/`catch`.
-- Du begründest, ob eine Ausnahme checked oder unchecked sein sollte.
+- Du definierst eine generische Klasse/ein Interface mit Typparameter.
+- Du schränkst einen Typparameter mit `extends` ein.
+- Du verwendest das generische Repository typsicher für zwei Typen.
 
 &lt;/div&gt;
 
@@ -218,10 +220,10 @@ Als Entwickler:in möchte ich, dass eine unmögliche Abhebung nicht stillschweig
 
 ## Definition of Done
 
-- [ ] Es gibt eine Exception `KeineDeckungException` (checked).
-- [ ] `abheben` wirft diese Exception, wenn der Betrag nicht verfügbar ist.
-- [ ] Der Aufrufer in `Main` fängt die Exception mit `try`/`catch` und gibt eine sinnvolle Meldung aus.
-- [ ] Ein Programmierfehler (z. B. ein negativer Betrag) wird über eine *unchecked* Exception abgelehnt.
+- [ ] Es gibt ein generisches `Repository&lt;T extends Identifizierbar&gt;` mit `save(T)` und `findById(String)`.
+- [ ] Intern speichert es die Elemente in einer `Map&lt;String, T&gt;` (ID → Element).
+- [ ] Es existieren ein `Repository&lt;Kunde&gt;` und ein `Repository&lt;Konto&gt;` ohne duplizierten Code.
+- [ ] Die Verwendung kommt ohne explizite Casts aus.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -230,37 +232,37 @@ Als Entwickler:in möchte ich, dass eine unmögliche Abhebung nicht stillschweig
 
 ## Arbeitsschritte
 
-### Eine fachliche Exception definieren
+### Das generische Repository definieren
 
-Lege eine checked Exception an (erbt von `Exception`).
+Führe einen Typparameter `T` ein und schränke ihn auf `Identifizierbar` ein.
 
 ```java
-public class KeineDeckungException extends Exception {
-  public KeineDeckungException(String message) {
-    super(message);
+public class Repository&lt;T extends Identifizierbar&gt; {
+  private final Map&lt;String, T&gt; elemente = new HashMap&lt;&gt;();
+
+  public void save(T element) {
+    elemente.put(element.getId(), element);
+  }
+
+  public T findById(String id) {
+    return elemente.get(id);
   }
 }
 ```
 
-&gt; **Hinweis:** „Checked“ = erbt von `Exception` (nicht `RuntimeException`). Der Compiler erzwingt dann die Behandlung.
+&gt; **Hinweis:** Nur wegen der Schranke `extends Identifizierbar` darfst Du innen `element.getId()` aufrufen.
 
-### Die Ausnahme werfen
+### Für zwei Typen verwenden
 
-Lass `abheben` die Ausnahme werfen, wenn `istGedeckt` `false` liefert. Deklariere sie mit `throws`.
-
-&gt; **Hinweis:** Prüfe zuerst die Vorbedingung; erst wenn sie erfüllt ist, verändere den Kontostand – sonst bleibt das Konto im gültigen Zustand.
-
-### Den Fehler behandeln
-
-Rufe `abheben` in `Main` in einem `try`/`catch` auf und reagiere sinnvoll.
+Erzeuge je ein Repository für Kunden und Konten und speichere/lies Objekte.
 
 ```java
-try {
-  konto.abheben(100_00);
-} catch (KeineDeckungException e) {
-  System.out.println(&#34;Abhebung nicht möglich: &#34; &#43; e.getMessage());
-}
+Repository&lt;Kunde&gt; kunden = new Repository&lt;&gt;();
+kunden.save(anna);
+Kunde gefunden = kunden.findById(anna.getId()); // kein Cast nötig
 ```
+
+&gt; **Hinweis:** Beobachte, wie die IDE beim falschen Typ (`kunden.save(konto)`) schon vor dem Ausführen meckert – das ist Typsicherheit zur Compile-Zeit.
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
@@ -269,9 +271,9 @@ try {
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- Warum ist „unzureichendes Guthaben“ eine checked, ein negativer Betrag aber eine unchecked Exception?
-- Was wäre der Nachteil, den Fehlerfall über einen `boolean`-Rückgabewert zu lösen?
-- Wozu dient `finally`, und was gehört dort typischerweise hinein?
+- Was wäre der Nachteil eines Repositories, das intern `Object` speichert?
+- Warum brauchst Du die Typschranke `extends Identifizierbar` – was ginge ohne sie nicht?
+- An welcher anderen Stelle im Banking-System würde sich ein generischer Typ noch lohnen?
 
 &lt;/div&gt;
 
@@ -280,7 +282,7 @@ try {
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#eine-fachliche-exception-definieren" class="skr-toc--h3">Eine fachliche Exception definieren</a><a href="#die-ausnahme-werfen" class="skr-toc--h3">Die Ausnahme werfen</a><a href="#den-fehler-behandeln" class="skr-toc--h3">Den Fehler behandeln</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-generische-repository-definieren" class="skr-toc--h3">Das generische Repository definieren</a><a href="#für-zwei-typen-verwenden" class="skr-toc--h3">Für zwei Typen verwenden</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">

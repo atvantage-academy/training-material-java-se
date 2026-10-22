@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
-<title>Transaktionen und Konten in Collections verwalten · ATVANTAGE Academy</title>
-<meta name="description" content="Verwalte Buchungen und Konten in passenden Collections, schütze die interne Liste und lege fest, wann zwei Kunden gleich sind.">
+<title>Das erste Projekt in der IDE anlegen und starten · ATVANTAGE Academy</title>
+<meta name="description" content="Lege ein eigenes Java-Projekt in der IDE an, bring den Code aus der ersten Übung hinein und starte ihn.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Transaktionen und Konten in Collections verwalten">
-<meta property="og:description" content="Verwalte Buchungen und Konten in passenden Collections, schütze die interne Liste und lege fest, wann zwei Kunden gleich sind.">
+<meta property="og:title" content="Das erste Projekt in der IDE anlegen und starten">
+<meta property="og:description" content="Lege ein eigenes Java-Projekt in der IDE an, bring den Code aus der ersten Übung hinein und starte ihn.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.5.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Verwalte Buchungen und Konten in passenden Collections, schütze die interne Liste und lege fest, wann zwei Kunden gleich sind.","duration":90,"fields":{"didaktikon":{"objectives":["Du wählst eine passende Collection (`List`/`Set`/`Map`) für eine Aufgabe aus.","Du fügst Elemente hinzu und iterierst über die Collection.","Du gibst eine interne Liste als unveränderbare Sicht heraus.","Du legst fest, wann zwei Objekte fachlich gleich sind, und machst das für hash-basierte Strukturen nutzbar."],"reflective_questions":["Warum ist die IBAN ein guter Schlüssel für eine `Map` der Konten?","Welche Gefahr bestünde, wenn `getBuchungen()` die echte, veränderbare Liste zurückgäbe?","Für die Menge aller Kunden-IDs – welche Collection passt und warum?","Warum genügt es nicht, nur `equals` zu überschreiben?","Warum sollte in die Gleichheit ein Feld einfließen, das sich nicht mehr ändert?"],"user_story":"Als Entwickler:in möchte ich die Transaktionen eines Kontos geordnet festhalten und Konten nachschlagen können, damit die Domäne mehrere Objekte sauber verwaltet."},"skriptorium":{"definition_of_done":["Ein `Konto` führt seine Transaktionen in einer `List\u003cBuchung\u003e`.","Jede Ein-/Auszahlung ergänzt die Liste.","`getBuchungen()` liefert eine **unveränderbare** Sicht (kein direkter Schreibzugriff von außen).","Konten werden in einer `Map\u003cString, Konto\u003e` (IBAN → Konto) nachschlagbar gehalten.","Zwei `Kunde`-Objekte mit derselben Kundennummer gelten in einem `HashSet` als **ein** Element."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Transaktionen und Konten in Collections verwalten","topics":["Collections","equals/hashCode","Banking"],"url":"/java-basics/shared/collections/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lege ein eigenes Java-Projekt in der IDE an, bring den Code aus der ersten Übung hinein und starte ihn.","duration":35,"fields":{"didaktikon":{"objectives":["Du legst ein neues Java-Projekt in der IDE an und wählst dabei ein JDK aus.","Du übernimmst vorhandenen Quellcode in das Projekt und benennst, was die IDE gegenüber dem einfachen Texteditor zusätzlich leistet.","Du startest das Programm aus der IDE und findest die Ausgabe wieder.","Du liest eine Compiler-Fehlermeldung in der IDE und behebst den Fehler."],"reflective_questions":["Welche Funktionen bietet Dir die IDE – wie unterstützt sie Dich bei der Java-Entwicklung?","Ist sie ein vollwertiger Ersatz für die Arbeit mit der Kommandozeile (CLI)?"],"user_story":"Als Entwickler:in möchte ich mein erstes eigenes Projekt in einer IDE anlegen und starten, damit ich für den Rest der Woche komfortabel arbeiten kann, statt jeden Schritt von Hand auf der Kommandozeile zu tippen."},"skriptorium":{"definition_of_done":["Das Projekt `my-first-project` ist in der IDE angelegt und ein JDK ist zugeordnet.","Die Klasse `HelloWorld` aus der ersten Übung liegt im Projekt.","Das Programm läuft aus der IDE und gibt „Hello, World!“ aus.","Du hast bewusst einen kleinen Fehler (z. B. fehlendes Semikolon) erzeugt, die Meldung gelesen und ihn behoben."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das erste Projekt in der IDE anlegen und starten","topics":["Werkzeuge","IDE"],"url":"/java-basics/oop-mit-java/werkzeuge-erstes-programm/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=72f4dc4d" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=0ef3f437"
+     data-index="../../../skriptorium/search/de.json?v=72f4dc4d"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -119,99 +119,93 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/shared/">Gemeinsame Module</a><span>/</span><span aria-current="page">Transaktionen und Konten in Collections verwalten</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/oop-mit-java/">OOP mit Java</a><span>/</span><span aria-current="page">Das erste Projekt in der IDE anlegen und starten</span></nav>
 
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 90 Minuten</span><span class="skr-tag">Collections</span><span class="skr-tag">equals/hashCode</span><span class="skr-tag">Banking</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 35 Minuten</span><span class="skr-tag">Werkzeuge</span><span class="skr-tag">IDE</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Transaktionen und Konten in Collections verwalten</h1>
+  </div><h1 id="skr-page-title">Das erste Projekt in der IDE anlegen und starten</h1>
 </section>
 
   <div class="skr-guide-layout">
     <main class="skr-guide-main" id="skr-content">
 <div class="skr-didaktikon-content-top" data-skr-slot="content.top">
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Entwickler:in möchte ich die Transaktionen eines Kontos geordnet festhalten und Konten nachschlagen können, damit die Domäne mehrere Objekte sauber verwaltet.</p>
+<p>Als Entwickler:in möchte ich mein erstes eigenes Projekt in einer IDE anlegen und starten, damit ich für den Rest der Woche komfortabel arbeiten kann, statt jeden Schritt von Hand auf der Kommandozeile zu tippen.</p>
 </div>
 <div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <h2 id="lernziele">Lernziele</h2>
 <ul>
-<li>Du wählst eine passende Collection (<code>List</code>/<code>Set</code>/<code>Map</code>) für eine Aufgabe aus.</li>
-<li>Du fügst Elemente hinzu und iterierst über die Collection.</li>
-<li>Du gibst eine interne Liste als unveränderbare Sicht heraus.</li>
-<li>Du legst fest, wann zwei Objekte fachlich gleich sind, und machst das für hash-basierte Strukturen nutzbar.</li>
+<li>Du legst ein neues Java-Projekt in der IDE an und wählst dabei ein JDK aus.</li>
+<li>Du übernimmst vorhandenen Quellcode in das Projekt und benennst, was die IDE gegenüber dem einfachen Texteditor zusätzlich leistet.</li>
+<li>Du startest das Programm aus der IDE und findest die Ausgabe wieder.</li>
+<li>Du liest eine Compiler-Fehlermeldung in der IDE und behebst den Fehler.</li>
 </ul>
 </div>
 </div>
 <div class="skr-guide-done">
 <h2 id="definition-of-done">Definition of Done</h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ein Konto führt seine Transaktionen in einer List&lt;Buchung&gt;." disabled="disabled"> Ein <code>Konto</code> führt seine Transaktionen in einer <code>List&lt;Buchung&gt;</code>.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Jede Ein-/Auszahlung ergänzt die Liste." disabled="disabled"> Jede Ein-/Auszahlung ergänzt die Liste.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="getBuchungen() liefert eine unveränderbare Sicht (kein direkter Schreibzugriff von außen)." disabled="disabled"> <code>getBuchungen()</code> liefert eine <strong>unveränderbare</strong> Sicht (kein direkter Schreibzugriff von außen).</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Konten werden in einer Map&lt;String, Konto&gt; (IBAN → Konto) nachschlagbar gehalten." disabled="disabled"> Konten werden in einer <code>Map&lt;String, Konto&gt;</code> (IBAN → Konto) nachschlagbar gehalten.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Zwei Kunde-Objekte mit derselben Kundennummer gelten in einem HashSet als ein Element." disabled="disabled"> Zwei <code>Kunde</code>-Objekte mit derselben Kundennummer gelten in einem <code>HashSet</code> als <strong>ein</strong> Element.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Projekt my-first-project ist in der IDE angelegt und ein JDK ist zugeordnet." disabled="disabled"> Das Projekt <code>my-first-project</code> ist in der IDE angelegt und ein JDK ist zugeordnet.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Klasse HelloWorld aus der ersten Übung liegt im Projekt." disabled="disabled"> Die Klasse <code>HelloWorld</code> aus der ersten Übung liegt im Projekt.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Programm läuft aus der IDE und gibt „Hello, World!“ aus." disabled="disabled"> Das Programm läuft aus der IDE und gibt „Hello, World!“ aus.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast bewusst einen kleinen Fehler (z. B. fehlendes Semikolon) erzeugt, die Meldung gelesen und ihn behoben." disabled="disabled"> Du hast bewusst einen kleinen Fehler (z. B. fehlendes Semikolon) erzeugt, die Meldung gelesen und ihn behoben.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
+<blockquote>
+<p><strong>Hinweis:</strong> Diese Übung machst Du <strong>gemeinsam mit der Trainerin bzw. dem Trainer</strong>:
+Jeder Schritt wird vorgemacht, Du machst ihn direkt an Deinem Rechner mit. Diese Seite
+ist Deine Mitschrift zum Mitlesen und Nacharbeiten – bleib im Tempo der Gruppe und sag
+Bescheid, wenn etwas hakt.</p>
+</blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="transaktionen-als-liste-führen">Transaktionen als Liste führen</h3>
-<p>Gib <code>Konto</code> ein Feld <code>List&lt;Buchung&gt;</code> und ergänze es bei jeder Buchung.</p>
+<h3 id="ein-neues-projekt-anlegen">Ein neues Projekt anlegen</h3>
+<p>Lege in der IDE ein neues Java-Projekt mit dem Namen <code>my-first-project</code> an und wähle das installierte JDK aus.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Eine <code>ArrayList</code> bewahrt die Reihenfolge – passend für einen chronologischen Buchungsverlauf.</p>
+<p><strong>Hinweis:</strong> Ein Build-Werkzeug brauchst Du dafür noch nicht – nimm die einfachste
+Variante, die Deine IDE anbietet. Gradle und Maven kommen später im Kurs.</p>
 </blockquote>
-<h3 id="die-liste-schützen">Die Liste schützen</h3>
-<p>Gib die Liste nur als unveränderbare Sicht zurück.</p>
-<pre><code class="language-java">public List&lt;Buchung&gt; getBuchungen() {
-  return Collections.unmodifiableList(buchungen);
-}
-</code></pre>
+<h3 id="den-code-aus-der-ersten-übung-übernehmen">Den Code aus der ersten Übung übernehmen</h3>
+<p>Lege im Projekt eine Klasse <code>HelloWorld</code> an und bring den Quellcode der ersten Übung hinein. Tippe ihn dabei bewusst selbst, statt ihn zu kopieren, und schau der IDE zu:</p>
+<ul>
+<li>Wie färbt sie Schlüsselwörter, Typen und Zeichenketten ein?</li>
+<li>Was schlägt sie Dir beim Tippen von <code>System.out.</code> vor?</li>
+<li>Was passiert, wenn Du eine Zeile unvollständig lässt?</li>
+</ul>
+<h3 id="das-programm-starten">Das Programm starten</h3>
+<p>Starte das Programm aus der IDE und finde die Ausgabe im Ausgabefenster wieder.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> So kann außen niemand <code>add</code>/<code>remove</code> aufrufen; Buchungen laufen ausschließlich über die Konto-Methoden.</p>
+<p><strong>Hinweis:</strong> Vergleiche mit der ersten Übung: <code>javac</code> und <code>java</code> hast Du dort selbst
+aufgerufen – die IDE nimmt Dir genau diese Schritte ab.</p>
 </blockquote>
-<h3 id="konten-nachschlagbar-machen">Konten nachschlagbar machen</h3>
-<p>Verwalte Konten in einer <code>Map&lt;String, Konto&gt;</code> und schlage per IBAN nach.</p>
+<h3 id="einen-fehler-provozieren-und-lesen">Einen Fehler provozieren und lesen</h3>
+<p>Entferne testweise ein Semikolon. Sieh nach, wann die IDE den Fehler anzeigt, lies die Meldung und stelle den Zustand danach wieder her.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Frage Dich: brauche ich Reihenfolge (List), Eindeutigkeit (Set) oder schnellen Zugriff per Schlüssel (Map)?</p>
-</blockquote>
-<h3 id="festlegen-wann-zwei-kunden-gleich-sind">Festlegen, wann zwei Kunden gleich sind</h3>
-<p>Leg zwei <code>Kunde</code>-Objekte mit <strong>derselben Kundennummer</strong> an, steck sie in ein
-<code>HashSet</code> und gib dessen Größe aus. Das Ergebnis wird Dich zunächst überraschen –
-sorg dafür, dass am Ende <strong>1</strong> herauskommt.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Ohne eigenes Zutun vergleicht Java Objekte über ihre Identität, so
-wie Du es bei den Referenztypen gesehen hast. Welche zwei Methoden musst Du überschreiben,
-damit stattdessen die fachliche Gleichheit zählt – und warum reicht eine davon
-allein nicht?</p>
-</blockquote>
-<blockquote>
-<p><strong>Hinweis:</strong> Nimm als Grundlage das Feld, das den Kunden <strong>eindeutig und
-dauerhaft</strong> ausmacht – nicht eines, das sich ändern kann.</p>
+<p><strong>Hinweis:</strong> Achte auf Datei, Zeile und die eigentliche Ursache in der Meldung –
+nicht nur auf die erste rote Markierung.</p>
 </blockquote>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>Warum ist die IBAN ein guter Schlüssel für eine <code>Map</code> der Konten?</li>
-<li>Welche Gefahr bestünde, wenn <code>getBuchungen()</code> die echte, veränderbare Liste zurückgäbe?</li>
-<li>Für die Menge aller Kunden-IDs – welche Collection passt und warum?</li>
-<li>Warum genügt es nicht, nur <code>equals</code> zu überschreiben?</li>
-<li>Warum sollte in die Gleichheit ein Feld einfließen, das sich nicht mehr ändert?</li>
+<li>Welche Funktionen bietet Dir die IDE – wie unterstützt sie Dich bei der Java-Entwicklung?</li>
+<li>Ist sie ein vollwertiger Ersatz für die Arbeit mit der Kommandozeile (CLI)?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Transaktionen und Konten in Collections verwalten
+<textarea id="skr-md-source" hidden aria-hidden="true"># Das erste Projekt in der IDE anlegen und starten
 
 &lt;div class=&#34;skr-didaktikon-content-top&#34; data-skr-slot=&#34;content.top&#34; markdown=&#34;1&#34;&gt;
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in möchte ich die Transaktionen eines Kontos geordnet festhalten und Konten nachschlagen können, damit die Domäne mehrere Objekte sauber verwaltet.
+Als Entwickler:in möchte ich mein erstes eigenes Projekt in einer IDE anlegen und starten, damit ich für den Rest der Woche komfortabel arbeiten kann, statt jeden Schritt von Hand auf der Kommandozeile zu tippen.
 
 &lt;/div&gt;
 
@@ -219,10 +213,10 @@ Als Entwickler:in möchte ich die Transaktionen eines Kontos geordnet festhalten
 
 ## Lernziele
 
-- Du wählst eine passende Collection (`List`/`Set`/`Map`) für eine Aufgabe aus.
-- Du fügst Elemente hinzu und iterierst über die Collection.
-- Du gibst eine interne Liste als unveränderbare Sicht heraus.
-- Du legst fest, wann zwei Objekte fachlich gleich sind, und machst das für hash-basierte Strukturen nutzbar.
+- Du legst ein neues Java-Projekt in der IDE an und wählst dabei ein JDK aus.
+- Du übernimmst vorhandenen Quellcode in das Projekt und benennst, was die IDE gegenüber dem einfachen Texteditor zusätzlich leistet.
+- Du startest das Programm aus der IDE und findest die Ausgabe wieder.
+- Du liest eine Compiler-Fehlermeldung in der IDE und behebst den Fehler.
 
 &lt;/div&gt;
 
@@ -232,56 +226,50 @@ Als Entwickler:in möchte ich die Transaktionen eines Kontos geordnet festhalten
 
 ## Definition of Done
 
-- [ ] Ein `Konto` führt seine Transaktionen in einer `List&lt;Buchung&gt;`.
-- [ ] Jede Ein-/Auszahlung ergänzt die Liste.
-- [ ] `getBuchungen()` liefert eine **unveränderbare** Sicht (kein direkter Schreibzugriff von außen).
-- [ ] Konten werden in einer `Map&lt;String, Konto&gt;` (IBAN → Konto) nachschlagbar gehalten.
-- [ ] Zwei `Kunde`-Objekte mit derselben Kundennummer gelten in einem `HashSet` als **ein** Element.
+- [ ] Das Projekt `my-first-project` ist in der IDE angelegt und ein JDK ist zugeordnet.
+- [ ] Die Klasse `HelloWorld` aus der ersten Übung liegt im Projekt.
+- [ ] Das Programm läuft aus der IDE und gibt „Hello, World!“ aus.
+- [ ] Du hast bewusst einen kleinen Fehler (z. B. fehlendes Semikolon) erzeugt, die Meldung gelesen und ihn behoben.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
 
 
+&gt; **Hinweis:** Diese Übung machst Du **gemeinsam mit der Trainerin bzw. dem Trainer**:
+&gt; Jeder Schritt wird vorgemacht, Du machst ihn direkt an Deinem Rechner mit. Diese Seite
+&gt; ist Deine Mitschrift zum Mitlesen und Nacharbeiten – bleib im Tempo der Gruppe und sag
+&gt; Bescheid, wenn etwas hakt.
 
 ## Arbeitsschritte
 
-### Transaktionen als Liste führen
+### Ein neues Projekt anlegen
 
-Gib `Konto` ein Feld `List&lt;Buchung&gt;` und ergänze es bei jeder Buchung.
+Lege in der IDE ein neues Java-Projekt mit dem Namen `my-first-project` an und wähle das installierte JDK aus.
 
-&gt; **Hinweis:** Eine `ArrayList` bewahrt die Reihenfolge – passend für einen chronologischen Buchungsverlauf.
+&gt; **Hinweis:** Ein Build-Werkzeug brauchst Du dafür noch nicht – nimm die einfachste
+&gt; Variante, die Deine IDE anbietet. Gradle und Maven kommen später im Kurs.
 
-### Die Liste schützen
+### Den Code aus der ersten Übung übernehmen
 
-Gib die Liste nur als unveränderbare Sicht zurück.
+Lege im Projekt eine Klasse `HelloWorld` an und bring den Quellcode der ersten Übung hinein. Tippe ihn dabei bewusst selbst, statt ihn zu kopieren, und schau der IDE zu:
 
-```java
-public List&lt;Buchung&gt; getBuchungen() {
-  return Collections.unmodifiableList(buchungen);
-}
-```
+* Wie färbt sie Schlüsselwörter, Typen und Zeichenketten ein?
+* Was schlägt sie Dir beim Tippen von `System.out.` vor?
+* Was passiert, wenn Du eine Zeile unvollständig lässt?
 
-&gt; **Hinweis:** So kann außen niemand `add`/`remove` aufrufen; Buchungen laufen ausschließlich über die Konto-Methoden.
+### Das Programm starten
 
-### Konten nachschlagbar machen
+Starte das Programm aus der IDE und finde die Ausgabe im Ausgabefenster wieder.
 
-Verwalte Konten in einer `Map&lt;String, Konto&gt;` und schlage per IBAN nach.
+&gt; **Hinweis:** Vergleiche mit der ersten Übung: `javac` und `java` hast Du dort selbst
+&gt; aufgerufen – die IDE nimmt Dir genau diese Schritte ab.
 
-&gt; **Hinweis:** Frage Dich: brauche ich Reihenfolge (List), Eindeutigkeit (Set) oder schnellen Zugriff per Schlüssel (Map)?
+### Einen Fehler provozieren und lesen
 
-### Festlegen, wann zwei Kunden gleich sind
+Entferne testweise ein Semikolon. Sieh nach, wann die IDE den Fehler anzeigt, lies die Meldung und stelle den Zustand danach wieder her.
 
-Leg zwei `Kunde`-Objekte mit **derselben Kundennummer** an, steck sie in ein
-`HashSet` und gib dessen Größe aus. Das Ergebnis wird Dich zunächst überraschen –
-sorg dafür, dass am Ende **1** herauskommt.
-
-&gt; **Hinweis:** Ohne eigenes Zutun vergleicht Java Objekte über ihre Identität, so
-&gt; wie Du es bei den Referenztypen gesehen hast. Welche zwei Methoden musst Du überschreiben,
-&gt; damit stattdessen die fachliche Gleichheit zählt – und warum reicht eine davon
-&gt; allein nicht?
-
-&gt; **Hinweis:** Nimm als Grundlage das Feld, das den Kunden **eindeutig und
-&gt; dauerhaft** ausmacht – nicht eines, das sich ändern kann.
+&gt; **Hinweis:** Achte auf Datei, Zeile und die eigentliche Ursache in der Meldung –
+&gt; nicht nur auf die erste rote Markierung.
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
@@ -290,11 +278,8 @@ sorg dafür, dass am Ende **1** herauskommt.
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- Warum ist die IBAN ein guter Schlüssel für eine `Map` der Konten?
-- Welche Gefahr bestünde, wenn `getBuchungen()` die echte, veränderbare Liste zurückgäbe?
-- Für die Menge aller Kunden-IDs – welche Collection passt und warum?
-- Warum genügt es nicht, nur `equals` zu überschreiben?
-- Warum sollte in die Gleichheit ein Feld einfließen, das sich nicht mehr ändert?
+- Welche Funktionen bietet Dir die IDE – wie unterstützt sie Dich bei der Java-Entwicklung?
+- Ist sie ein vollwertiger Ersatz für die Arbeit mit der Kommandozeile (CLI)?
 
 &lt;/div&gt;
 
@@ -303,14 +288,14 @@ sorg dafür, dass am Ende **1** herauskommt.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#transaktionen-als-liste-führen" class="skr-toc--h3">Transaktionen als Liste führen</a><a href="#die-liste-schützen" class="skr-toc--h3">Die Liste schützen</a><a href="#konten-nachschlagbar-machen" class="skr-toc--h3">Konten nachschlagbar machen</a><a href="#festlegen-wann-zwei-kunden-gleich-sind" class="skr-toc--h3">Festlegen, wann zwei Kunden gleich sind</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#ein-neues-projekt-anlegen" class="skr-toc--h3">Ein neues Projekt anlegen</a><a href="#den-code-aus-der-ersten-übung-übernehmen" class="skr-toc--h3">Den Code aus der ersten Übung übernehmen</a><a href="#das-programm-starten" class="skr-toc--h3">Das Programm starten</a><a href="#einen-fehler-provozieren-und-lesen" class="skr-toc--h3">Einen Fehler provozieren und lesen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>

@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
-<title>Das Projekt mit Gradle anlegen und eine Bibliothek einbinden · ATVANTAGE Academy</title>
-<meta name="description" content="Lege für Deinen Code ein Gradle-Projekt an, baue es reproduzierbar und binde eine externe Bibliothek ein.">
+<title>Die Java-Plattform erkunden · ATVANTAGE Academy</title>
+<meta name="description" content="Kompiliere eine vorgegebene Java-Klasse und sieh Dir den Bytecode an, um die Plattform zu verstehen.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Das Projekt mit Gradle anlegen und eine Bibliothek einbinden">
-<meta property="og:description" content="Lege für Deinen Code ein Gradle-Projekt an, baue es reproduzierbar und binde eine externe Bibliothek ein.">
+<meta property="og:title" content="Die Java-Plattform erkunden">
+<meta property="og:description" content="Kompiliere eine vorgegebene Java-Klasse und sieh Dir den Bytecode an, um die Plattform zu verstehen.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.5.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.5.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.5.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lege für Deinen Code ein Gradle-Projekt an, baue es reproduzierbar und binde eine externe Bibliothek ein.","duration":50,"fields":{"didaktikon":{"objectives":["Du legst ein Java-Projekt mit Gradle an und ordnest dessen Standard-Verzeichnisstruktur ein.","Du baust das Projekt mit einem einzigen Befehl reproduzierbar.","Du deklarierst eine externe Abhängigkeit in der Build-Datei.","Du nutzt eine Klasse der eingebundenen Bibliothek im eigenen Code."],"reflective_questions":["Warum ist es besser, Abhängigkeiten zu deklarieren, statt `.jar`-Dateien manuell abzulegen?","Was gehört in die Versionsverwaltung – die Bibliotheken selbst oder die Build-Beschreibung?","Was könnte passieren, wenn zwei Bibliotheken unterschiedliche Versionen derselben Abhängigkeit verlangen?"],"user_story":"Als Entwickler:in möchte ich mein Projekt von einem Build-Werkzeug verwalten lassen, damit der Build reproduzierbar ist und ich fremde Bibliotheken ohne manuelles Kopieren nutzen kann."},"skriptorium":{"definition_of_done":["Es gibt ein Gradle-Projekt mit Build-Datei, Wrapper (`gradlew`) und dem Ordner `src/main/java`.","Der bisherige Banking-Code liegt im Projekt und wird mitgebaut.","Das Projekt baut mit einem einzigen Befehl fehlerfrei.","In der Build-Datei ist eine neue Abhängigkeit deklariert.","Eine Klasse der Bibliothek wird im Code verwendet und das Programm läuft."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das Projekt mit Gradle anlegen und eine Bibliothek einbinden","topics":["Build \u0026 Ökosystem","Banking"],"url":"/java-basics/shared/build-oekosystem/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Kompiliere eine vorgegebene Java-Klasse und sieh Dir den Bytecode an, um die Plattform zu verstehen.","duration":20,"fields":{"didaktikon":{"objectives":["Du kompilierst eine vorgegebene `.java`-Datei mit `javac` zu einer `.class`-Datei.","Du betrachtest den erzeugten Bytecode mit `javap` und ordnest die Rolle der JVM ein.","Du erklärst am Beispiel das Prinzip „Write once, run anywhere“.","Du benennst, wozu der Classpath dient."],"reflective_questions":["Warum übersetzt Java den Quellcode in Bytecode und nicht direkt in ein nativ ausführbares Format?","Worauf musst Du beim Entwickeln achten, damit Deine Anwendung wirklich plattformunabhängig bleibt?","Was ist der sogenannte „Classpath“?"],"user_story":"Als Entwickler:in möchte ich sehen, was zwischen meinem Quellcode und der laufenden Anwendung passiert, damit ich verstehe, warum dasselbe Java-Programm auf jedem Betriebssystem läuft."},"skriptorium":{"definition_of_done":["Die vorgegebene Klasse `HelloWorld` liegt als Datei `HelloWorld.java` vor.","Die Klasse ist mit `javac` zu einer `.class`-Datei kompiliert.","Du hast Dir den Bytecode mit `javap -c` angesehen.","Das Programm läuft mit `java HelloWorld` und gibt „Hello, World!“ aus."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die Java-Plattform erkunden","topics":["Java-Plattform"],"url":"/java-basics/oop-mit-java/einfuehrung-java/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0ef3f437" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=72f4dc4d" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=0ef3f437"
+     data-index="../../../skriptorium/search/de.json?v=72f4dc4d"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -119,105 +119,97 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/shared/">Gemeinsame Module</a><span>/</span><span aria-current="page">Das Projekt mit Gradle anlegen und eine Bibliothek einbinden</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/oop-mit-java/">OOP mit Java</a><span>/</span><span aria-current="page">Die Java-Plattform erkunden</span></nav>
 
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 50 Minuten</span><span class="skr-tag">Build &amp; Ökosystem</span><span class="skr-tag">Banking</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 20 Minuten</span><span class="skr-tag">Java-Plattform</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Das Projekt mit Gradle anlegen und eine Bibliothek einbinden</h1>
+  </div><h1 id="skr-page-title">Die Java-Plattform erkunden</h1>
 </section>
 
   <div class="skr-guide-layout">
     <main class="skr-guide-main" id="skr-content">
 <div class="skr-didaktikon-content-top" data-skr-slot="content.top">
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Entwickler:in möchte ich mein Projekt von einem Build-Werkzeug verwalten lassen, damit der Build reproduzierbar ist und ich fremde Bibliotheken ohne manuelles Kopieren nutzen kann.</p>
+<p>Als Entwickler:in möchte ich sehen, was zwischen meinem Quellcode und der laufenden Anwendung passiert, damit ich verstehe, warum dasselbe Java-Programm auf jedem Betriebssystem läuft.</p>
 </div>
 <div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <h2 id="lernziele">Lernziele</h2>
 <ul>
-<li>Du legst ein Java-Projekt mit Gradle an und ordnest dessen Standard-Verzeichnisstruktur ein.</li>
-<li>Du baust das Projekt mit einem einzigen Befehl reproduzierbar.</li>
-<li>Du deklarierst eine externe Abhängigkeit in der Build-Datei.</li>
-<li>Du nutzt eine Klasse der eingebundenen Bibliothek im eigenen Code.</li>
+<li>Du kompilierst eine vorgegebene <code>.java</code>-Datei mit <code>javac</code> zu einer <code>.class</code>-Datei.</li>
+<li>Du betrachtest den erzeugten Bytecode mit <code>javap</code> und ordnest die Rolle der JVM ein.</li>
+<li>Du erklärst am Beispiel das Prinzip „Write once, run anywhere“.</li>
+<li>Du benennst, wozu der Classpath dient.</li>
 </ul>
 </div>
 </div>
 <div class="skr-guide-done">
 <h2 id="definition-of-done">Definition of Done</h2>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Es gibt ein Gradle-Projekt mit Build-Datei, Wrapper (gradlew) und dem Ordner src/main/java." disabled="disabled"> Es gibt ein Gradle-Projekt mit Build-Datei, Wrapper (<code>gradlew</code>) und dem Ordner <code>src/main/java</code>.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der bisherige Banking-Code liegt im Projekt und wird mitgebaut." disabled="disabled"> Der bisherige Banking-Code liegt im Projekt und wird mitgebaut.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Projekt baut mit einem einzigen Befehl fehlerfrei." disabled="disabled"> Das Projekt baut mit einem einzigen Befehl fehlerfrei.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In der Build-Datei ist eine neue Abhängigkeit deklariert." disabled="disabled"> In der Build-Datei ist eine neue Abhängigkeit deklariert.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eine Klasse der Bibliothek wird im Code verwendet und das Programm läuft." disabled="disabled"> Eine Klasse der Bibliothek wird im Code verwendet und das Programm läuft.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die vorgegebene Klasse HelloWorld liegt als Datei HelloWorld.java vor." disabled="disabled"> Die vorgegebene Klasse <code>HelloWorld</code> liegt als Datei <code>HelloWorld.java</code> vor.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Klasse ist mit javac zu einer .class-Datei kompiliert." disabled="disabled"> Die Klasse ist mit <code>javac</code> zu einer <code>.class</code>-Datei kompiliert.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast Dir den Bytecode mit javap -c angesehen." disabled="disabled"> Du hast Dir den Bytecode mit <code>javap -c</code> angesehen.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Programm läuft mit java HelloWorld und gibt „Hello, World!“ aus." disabled="disabled"> Das Programm läuft mit <code>java HelloWorld</code> und gibt „Hello, World!“ aus.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
+<blockquote>
+<p><strong>Hinweis:</strong> Arbeite in dieser Übung bewusst mit einem <strong>einfachen Texteditor</strong> und
+der <strong>Kommandozeile</strong> – ohne IDE. So machst Du jeden Schritt selbst, den Dir die IDE
+später abnimmt. Die IDE kommt im nächsten Modul.</p>
+</blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="ein-gradle-projekt-anlegen">Ein Gradle-Projekt anlegen</h3>
-<p>Lege ein neues Projekt mit dem Build-System <strong>Gradle</strong> an – über den Projekt-Assistenten Deiner IDE oder auf der Kommandozeile:</p>
-<pre><code class="language-bash">gradle init --type java-application
-</code></pre>
-<blockquote>
-<p><strong>Hinweis:</strong> Beide Wege erzeugen dasselbe Gerüst: eine Build-Datei
-(<code>build.gradle</code> bzw. <code>build.gradle.kts</code>), den Wrapper (<code>gradlew</code>) und die
-Standard-Ordner <code>src/main/java</code> und <code>src/test/java</code>.</p>
-</blockquote>
-<h3 id="den-bisherigen-code-übernehmen">Den bisherigen Code übernehmen</h3>
-<p>Bring Deine Klassen aus dem bisherigen Projekt nach <code>src/main/java</code> – die Paketstruktur behältst Du bei.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Dass der Code genau dort liegt, ist Konvention: Gradle findet ihn
-ohne eine einzige Zeile Konfiguration.</p>
-</blockquote>
-<h3 id="das-projekt-bauen">Das Projekt bauen</h3>
-<p>Baue das Projekt und stelle sicher, dass der Build grün ist.</p>
-<pre><code class="language-bash">./gradlew build
-</code></pre>
-<blockquote>
-<p><strong>Hinweis:</strong> Der Wrapper lädt beim ersten Aufruf die passende Gradle-Version aus
-dem Netz – deshalb dauert der erste Build länger. Genau dadurch bauen alle im
-Team mit derselben Version.</p>
-</blockquote>
-<h3 id="die-build-datei-ansehen">Die Build-Datei ansehen</h3>
-<p>Sieh Dir die erzeugte Build-Datei an und finde die Java-Version, den <code>repositories</code>- und den <code>dependencies</code>-Block.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Eine Abhängigkeit steht schon drin – die Test-Bibliothek. Die
-brauchst Du im nächsten Modul.</p>
-</blockquote>
-<h3 id="eine-abhängigkeit-deklarieren">Eine Abhängigkeit deklarieren</h3>
-<p>Ergänze im <code>dependencies</code>-Block eine kleine, nützliche Bibliothek (z. B. Apache Commons Lang).</p>
-<pre><code class="language-groovy">dependencies {
-    implementation 'org.apache.commons:commons-lang3:3.14.0'
+<h3 id="die-vorgegebene-klasse-anlegen">Die vorgegebene Klasse anlegen</h3>
+<p>Übernimm den folgenden Quellcode unverändert mit einem einfachen Texteditor in eine Datei <code>HelloWorld.java</code>.</p>
+<pre><code class="language-java">public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println(&quot;Hello, World!&quot;);
+    }
 }
 </code></pre>
 <blockquote>
-<p><strong>Hinweis:</strong> Nach dem Ändern der Build-Datei muss das Projekt neu synchronisiert/gebaut werden, damit die IDE die Bibliothek kennt.</p>
+<p><strong>Hinweis:</strong> Der Dateiname muss zum Klassennamen passen (<code>HelloWorld.java</code> → <code>class HelloWorld</code>).</p>
 </blockquote>
-<h3 id="die-bibliothek-verwenden">Die Bibliothek verwenden</h3>
-<p>Nutze eine Methode der Bibliothek an einer sinnvollen Stelle (z. B. <code>StringUtils.isBlank(...)</code> bei der Kunden-Validierung).</p>
+<h3 id="kompilieren-und-den-bytecode-ansehen">Kompilieren und den Bytecode ansehen</h3>
+<p>Übersetze die Datei und wirf einen Blick auf den erzeugten Bytecode.</p>
+<pre><code class="language-bash">javac HelloWorld.java
+javap -c HelloWorld
+</code></pre>
+<blockquote>
+<p><strong>Hinweis:</strong> <code>javap -c</code> zeigt den plattformunabhängigen Bytecode – genau das, was die JVM ausführt (nicht Maschinencode Deiner CPU).</p>
+</blockquote>
+<h3 id="ausführen">Ausführen</h3>
+<p>Starte das Programm über die JVM.</p>
+<pre><code class="language-bash">java HelloWorld
+</code></pre>
+<blockquote>
+<p><strong>Hinweis:</strong> Die JVM findet <code>HelloWorld</code>, weil sie im aktuellen Verzeichnis sucht.
+Wo sie überhaupt nach Klassen sucht, steuert der Classpath – probier zum
+Vergleich einen Start aus einem anderen Verzeichnis, einmal ohne und einmal mit
+<code>java -cp &lt;Verzeichnis&gt; HelloWorld</code>.</p>
+</blockquote>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>Warum ist es besser, Abhängigkeiten zu deklarieren, statt <code>.jar</code>-Dateien manuell abzulegen?</li>
-<li>Was gehört in die Versionsverwaltung – die Bibliotheken selbst oder die Build-Beschreibung?</li>
-<li>Was könnte passieren, wenn zwei Bibliotheken unterschiedliche Versionen derselben Abhängigkeit verlangen?</li>
+<li>Warum übersetzt Java den Quellcode in Bytecode und nicht direkt in ein nativ ausführbares Format?</li>
+<li>Worauf musst Du beim Entwickeln achten, damit Deine Anwendung wirklich plattformunabhängig bleibt?</li>
+<li>Was ist der sogenannte „Classpath“?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Das Projekt mit Gradle anlegen und eine Bibliothek einbinden
+<textarea id="skr-md-source" hidden aria-hidden="true"># Die Java-Plattform erkunden
 
 &lt;div class=&#34;skr-didaktikon-content-top&#34; data-skr-slot=&#34;content.top&#34; markdown=&#34;1&#34;&gt;
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in möchte ich mein Projekt von einem Build-Werkzeug verwalten lassen, damit der Build reproduzierbar ist und ich fremde Bibliotheken ohne manuelles Kopieren nutzen kann.
+Als Entwickler:in möchte ich sehen, was zwischen meinem Quellcode und der laufenden Anwendung passiert, damit ich verstehe, warum dasselbe Java-Programm auf jedem Betriebssystem läuft.
 
 &lt;/div&gt;
 
@@ -225,10 +217,10 @@ Als Entwickler:in möchte ich mein Projekt von einem Build-Werkzeug verwalten la
 
 ## Lernziele
 
-- Du legst ein Java-Projekt mit Gradle an und ordnest dessen Standard-Verzeichnisstruktur ein.
-- Du baust das Projekt mit einem einzigen Befehl reproduzierbar.
-- Du deklarierst eine externe Abhängigkeit in der Build-Datei.
-- Du nutzt eine Klasse der eingebundenen Bibliothek im eigenen Code.
+- Du kompilierst eine vorgegebene `.java`-Datei mit `javac` zu einer `.class`-Datei.
+- Du betrachtest den erzeugten Bytecode mit `javap` und ordnest die Rolle der JVM ein.
+- Du erklärst am Beispiel das Prinzip „Write once, run anywhere“.
+- Du benennst, wozu der Classpath dient.
 
 &lt;/div&gt;
 
@@ -238,72 +230,58 @@ Als Entwickler:in möchte ich mein Projekt von einem Build-Werkzeug verwalten la
 
 ## Definition of Done
 
-- [ ] Es gibt ein Gradle-Projekt mit Build-Datei, Wrapper (`gradlew`) und dem Ordner `src/main/java`.
-- [ ] Der bisherige Banking-Code liegt im Projekt und wird mitgebaut.
-- [ ] Das Projekt baut mit einem einzigen Befehl fehlerfrei.
-- [ ] In der Build-Datei ist eine neue Abhängigkeit deklariert.
-- [ ] Eine Klasse der Bibliothek wird im Code verwendet und das Programm läuft.
+- [ ] Die vorgegebene Klasse `HelloWorld` liegt als Datei `HelloWorld.java` vor.
+- [ ] Die Klasse ist mit `javac` zu einer `.class`-Datei kompiliert.
+- [ ] Du hast Dir den Bytecode mit `javap -c` angesehen.
+- [ ] Das Programm läuft mit `java HelloWorld` und gibt „Hello, World!“ aus.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
 
 
+&gt; **Hinweis:** Arbeite in dieser Übung bewusst mit einem **einfachen Texteditor** und
+&gt; der **Kommandozeile** – ohne IDE. So machst Du jeden Schritt selbst, den Dir die IDE
+&gt; später abnimmt. Die IDE kommt im nächsten Modul.
 
 ## Arbeitsschritte
 
-### Ein Gradle-Projekt anlegen
+### Die vorgegebene Klasse anlegen
 
-Lege ein neues Projekt mit dem Build-System **Gradle** an – über den Projekt-Assistenten Deiner IDE oder auf der Kommandozeile:
+Übernimm den folgenden Quellcode unverändert mit einem einfachen Texteditor in eine Datei `HelloWorld.java`.
 
-```bash
-gradle init --type java-application
-```
-
-&gt; **Hinweis:** Beide Wege erzeugen dasselbe Gerüst: eine Build-Datei
-&gt; (`build.gradle` bzw. `build.gradle.kts`), den Wrapper (`gradlew`) und die
-&gt; Standard-Ordner `src/main/java` und `src/test/java`.
-
-### Den bisherigen Code übernehmen
-
-Bring Deine Klassen aus dem bisherigen Projekt nach `src/main/java` – die Paketstruktur behältst Du bei.
-
-&gt; **Hinweis:** Dass der Code genau dort liegt, ist Konvention: Gradle findet ihn
-&gt; ohne eine einzige Zeile Konfiguration.
-
-### Das Projekt bauen
-
-Baue das Projekt und stelle sicher, dass der Build grün ist.
-
-```bash
-./gradlew build
-```
-
-&gt; **Hinweis:** Der Wrapper lädt beim ersten Aufruf die passende Gradle-Version aus
-&gt; dem Netz – deshalb dauert der erste Build länger. Genau dadurch bauen alle im
-&gt; Team mit derselben Version.
-
-### Die Build-Datei ansehen
-
-Sieh Dir die erzeugte Build-Datei an und finde die Java-Version, den `repositories`- und den `dependencies`-Block.
-
-&gt; **Hinweis:** Eine Abhängigkeit steht schon drin – die Test-Bibliothek. Die
-&gt; brauchst Du im nächsten Modul.
-
-### Eine Abhängigkeit deklarieren
-
-Ergänze im `dependencies`-Block eine kleine, nützliche Bibliothek (z. B. Apache Commons Lang).
-
-```groovy
-dependencies {
-    implementation &#39;org.apache.commons:commons-lang3:3.14.0&#39;
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println(&#34;Hello, World!&#34;);
+    }
 }
 ```
 
-&gt; **Hinweis:** Nach dem Ändern der Build-Datei muss das Projekt neu synchronisiert/gebaut werden, damit die IDE die Bibliothek kennt.
+&gt; **Hinweis:** Der Dateiname muss zum Klassennamen passen (`HelloWorld.java` → `class HelloWorld`).
 
-### Die Bibliothek verwenden
+### Kompilieren und den Bytecode ansehen
 
-Nutze eine Methode der Bibliothek an einer sinnvollen Stelle (z. B. `StringUtils.isBlank(...)` bei der Kunden-Validierung).
+Übersetze die Datei und wirf einen Blick auf den erzeugten Bytecode.
+
+```bash
+javac HelloWorld.java
+javap -c HelloWorld
+```
+
+&gt; **Hinweis:** `javap -c` zeigt den plattformunabhängigen Bytecode – genau das, was die JVM ausführt (nicht Maschinencode Deiner CPU).
+
+### Ausführen
+
+Starte das Programm über die JVM.
+
+```bash
+java HelloWorld
+```
+
+&gt; **Hinweis:** Die JVM findet `HelloWorld`, weil sie im aktuellen Verzeichnis sucht.
+&gt; Wo sie überhaupt nach Klassen sucht, steuert der Classpath – probier zum
+&gt; Vergleich einen Start aus einem anderen Verzeichnis, einmal ohne und einmal mit
+&gt; `java -cp &lt;Verzeichnis&gt; HelloWorld`.
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
@@ -312,28 +290,37 @@ Nutze eine Methode der Bibliothek an einer sinnvollen Stelle (z. B. `StringUtils
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- Warum ist es besser, Abhängigkeiten zu deklarieren, statt `.jar`-Dateien manuell abzulegen?
-- Was gehört in die Versionsverwaltung – die Bibliotheken selbst oder die Build-Beschreibung?
-- Was könnte passieren, wenn zwei Bibliotheken unterschiedliche Versionen derselben Abhängigkeit verlangen?
+- Warum übersetzt Java den Quellcode in Bytecode und nicht direkt in ein nativ ausführbares Format?
+- Worauf musst Du beim Entwickeln achten, damit Deine Anwendung wirklich plattformunabhängig bleibt?
+- Was ist der sogenannte „Classpath“?
 
 &lt;/div&gt;
 
-&lt;/div&gt;</textarea>
+&lt;/div&gt;
+## Weiterführende Informationen
+- [Visualisierung: Java-LTS-Evolution](/shared/visualisierungen/java-lts-evolution.html)
+</textarea>
     </main><aside class="skr-guide-sidebar">
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#ein-gradle-projekt-anlegen" class="skr-toc--h3">Ein Gradle-Projekt anlegen</a><a href="#den-bisherigen-code-übernehmen" class="skr-toc--h3">Den bisherigen Code übernehmen</a><a href="#das-projekt-bauen" class="skr-toc--h3">Das Projekt bauen</a><a href="#die-build-datei-ansehen" class="skr-toc--h3">Die Build-Datei ansehen</a><a href="#eine-abhängigkeit-deklarieren" class="skr-toc--h3">Eine Abhängigkeit deklarieren</a><a href="#die-bibliothek-verwenden" class="skr-toc--h3">Die Bibliothek verwenden</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#die-vorgegebene-klasse-anlegen" class="skr-toc--h3">Die vorgegebene Klasse anlegen</a><a href="#kompilieren-und-den-bytecode-ansehen" class="skr-toc--h3">Kompilieren und den Bytecode ansehen</a><a href="#ausführen" class="skr-toc--h3">Ausführen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="../../../shared/visualisierungen/java-lts-evolution.html"><span>Visualisierung: Java-LTS-Evolution</span></a>
+    </div>
+  </div>
 </aside>
 
   </div>
