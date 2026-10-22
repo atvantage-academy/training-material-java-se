@@ -36,6 +36,7 @@
 .chip--preview { background: color-mix(in srgb, var(--skr-color-warning) 18%, var(--skr-color-bg)); }
 .chip--final { background: color-mix(in srgb, var(--skr-color-success) 18%, var(--skr-color-bg)); font-weight: 600; }
 .chip--weg { background: color-mix(in srgb, var(--skr-color-danger) 14%, var(--skr-color-bg)); text-decoration: line-through; }
+.pfeil { color: var(--skr-color-ink-muted); }
 
 /* Die Merksätze unter Grafik, Tabelle oder Spuren brauchen Luft nach oben. */
 .skr-slide__inner > ul { margin-top: var(--skr-space-6); }

@@ -39,7 +39,7 @@
 <script src="../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=d7eb9b54" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=33a52043" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -49,7 +49,7 @@
 <link rel="stylesheet" href="../../skriptorium/presentation.css?v=fc13e38e">
 <script src="../../skriptorium/presentation.js?v=59ada18d" defer></script>
 
-<link rel="stylesheet" href="../../java-update/plattform-und-release-modell/praesentation.css?v=ce482380">
+<link rel="stylesheet" href="../../java-update/plattform-und-release-modell/praesentation.css?v=41d413c7">
 
 </head>
 <body class="skr-present" data-skr-layout="skriptorium.presentation" data-skr-layouts="skriptorium.presentation" data-skr-lang="de" data-skr-audience="learner" data-skr-present data-skr-present-title="Plattform und Release-Modell">
@@ -83,17 +83,25 @@
   <main class="skr-deck" id="skr-deck" data-skr-deck>
     <!-- ANFORDERUNGEN an diese Präsentation
      - Stützt das Trainer-Thema „Plattform und Release-Modell“ (Java-Update). Folie 2–4
-       Release-Zug, 5–6 Anbieter, 7–8 Feature-Stufen, 9 Einführung der Übung, 10 Frage
-       für die Bewertungsmatrix. Die Kapitel des Moduls verlinken mit Folien-Ankern
-       (#/5, #/7, #/9, #/10) – Reihenfolge nicht ändern, ohne die Anker nachzuziehen.
-     - Stand aller Fristen und Versionen: 2026-10-15. Quellen: adoptium.net/support
+       Release-Zug, 5–6 Anbieter, 7–9 JEP-Lebenszyklus, Feature-Stufen und Preview,
+       10 `--release` (Live-Demo des Trainers), 11 Einführung der Übung und die beiden
+       Nachschlage-Visualisierungen, 12 Frage für die Bewertungsmatrix. Die Kapitel des
+       Moduls verlinken mit Folien-Ankern (#/5, #/7, #/10, #/12) – Reihenfolge nicht
+       ändern, ohne die Anker nachzuziehen.
+     - Stand aller Fristen und Versionen: 2026-10-23. Quellen: adoptium.net/support   durable-ok
        (Temurin), Oracle Java SE Support Roadmap (Oracle 21/25), openjdk.org/projects/jdk
-       (27 freigegeben am 2026-09-15, 28 in Entwicklung). Vor jeder Durchführung prüfen.
-     - Meldungen auf Folie 8 und 9 gemessen auf Temurin 8, 21.0.12.1 und 25.0.4.1.
+       (27 freigegeben am 2026-09-15, 28 in Entwicklung). Vor jeder Durchführung prüfen.   durable-ok
+     - JEP-Lebenszyklus nach dem Prozess „JEP 2.0“ (cr.openjdk.org/~mr/jep/jep-2.0-02.html),
+       vereinfacht auf die Zustände, die man im JEP-Index sieht.
+     - Meldungen auf Folie 10 gemessen auf Temurin 8, 21 und 25.
      - Bewusst NICHT: Lizenzberatung, Empfehlung für einen Anbieter, Oracle-Fristen für
        8/11/17 (nicht nachgeprüft). Keine Verortung im Kursablauf (kein „Tag 1“).
      - Preview-Beispiel sind ausschließlich die String Templates (Vorgabe der
-       Konzept-AGENTS.md); sie verbinden diese Einheit mit der Übung „Bau Dein eigenes STR“.
+       Konzept-AGENTS.md). Ihre Geschichte erklärt die Visualisierung
+       „Die Geschichte der String-Interpolation in Java“; Folie 9 verweist nur darauf
+       und wiederholt sie nicht.
+     - LTS-Evolution und JEP-Landkarte werden auf Folie 11 verlinkt – in diesem Modul
+       ist das ihr Ort, in der Materialübersicht stehen sie im Block „Überblick“.
      - Absicht: Die Gruppe soll den Takt SEHEN (dicht gegen dünn), nicht Daten lernen. -->
 <h1 id="plattform-und-release-modell">Plattform und Release-Modell</h1>
 <p>Wie Java heute erscheint – und was das für Deinen Umstieg heißt · Java-Update</p>
@@ -199,7 +207,7 @@
 <li>„Oracle JDK“ ist nicht „OpenJDK“: eigene Lizenz, kostenfrei nur auf Zeit</li>
 </ul>
 <h2 id="wie-lange-es-updates-gibt-entscheidet-dein-anbieter">Wie lange es Updates gibt, entscheidet Dein Anbieter</h2>
-<!-- Temurin „at least until“, Stand 2026-10-15 (adoptium.net/support).
+<!-- Temurin „at least until“, Stand 2026-10-23 (adoptium.net/support).   durable-ok
      x = 120 + (Jahr − 2014) · 45; Beginn = GA-Monat, Ende = Monat der Zusage. -->
 <svg class="grafik" viewBox="0 0 1000 270" role="img" aria-label="Updates von Eclipse Temurin, Stand Oktober 2026: Java 8 bis mindestens Dezember 2030, Java 11 und 17 bis mindestens Oktober 2027, Java 21 bis mindestens Dezember 2029, Java 25 bis mindestens September 2031.">
   <g font-size="20" font-weight="700" text-anchor="end">
@@ -225,6 +233,22 @@
 <li>Builds von <code>jdk.java.net</code>: nur bis zum <strong>nächsten Feature-Release</strong></li>
 </ul>
 <p class="quelle">Stand Oktober 2026 · adoptium.net/support · Oracle Java SE Support Roadmap</p>
+<h2 id="ein-jep-ist-der-fahrplan-für-ein-feature">Ein JEP ist der Fahrplan für ein Feature</h2>
+<div class="spuren">
+<b>Vorschlag</b>
+<div class="spur"><span class="chip">Draft</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Submitted</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Candidate</span></div>
+<b>Für ein Release</b>
+<div class="spur"><span class="chip">Proposed to Target</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Targeted</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Integrated</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Complete</span></div>
+<b>Ausgeliefert</b>
+<div class="spur"><span class="chip chip--final">Closed / Delivered</span></div>
+<b>Aufgegeben</b>
+<div class="spur"><span class="chip chip--weg">Closed / Withdrawn</span></div>
+</div>
+<ul>
+<li><strong>JDK Enhancement Proposal:</strong> Nummer, Begründung, Ziel-Release</li>
+<li>„Candidate“ ist eine Idee, keine Zusage – fest wird es erst mit <strong>Targeted</strong></li>
+<li>Der Schlüssel zum Nachschlagen: die <strong>JEP-Nummer</strong></li>
+</ul>
 <h2 id="ein-feature-reift-in-stufen--und-kann-unterwegs-verschwinden">Ein Feature reift in Stufen – und kann unterwegs verschwinden</h2>
 <div class="spuren">
 <b>HTTP-Client</b>
@@ -239,39 +263,15 @@
 <ul>
 <li><strong>Incubator:</strong> neue API im Modul <code>jdk.incubator.*</code></li>
 <li><strong>Preview:</strong> fertig spezifiziert, aber nur mit <code>--enable-preview</code> – und nur auf genau diesem JDK</li>
-<li>Der Schlüssel zu allem: die <strong>JEP-Nummer</strong></li>
+<li>Erst die <strong>finale</strong> Fassung gehört in Produktion</li>
 </ul>
 <h2 id="preview-heißt-probefahrt">Preview heißt Probefahrt</h2>
 <pre><code class="language-java">String gruss = STR.&quot;Hallo \{name}!&quot;;
 </code></pre>
-<table>
-	<thead>
-			<tr>
-					<th>JDK</th>
-					<th>Ergebnis</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>21</td>
-					<td><code>string templates are a preview feature and are disabled by default</code></td>
-			</tr>
-			<tr>
-					<td>21 mit <code>--enable-preview</code></td>
-					<td><code>Hallo Jana!</code></td>
-			</tr>
-			<tr>
-					<td>25</td>
-					<td><code>illegal escape character</code></td>
-			</tr>
-			<tr>
-					<td>25, Klasse aus 21</td>
-					<td><code>UnsupportedClassVersionError … 65.65535</code></td>
-			</tr>
-	</tbody>
-</table>
 <ul>
-<li>Wer Preview in Produktion nimmt, migriert bei <strong>jedem</strong> Release</li>
+<li>Die String Templates waren <strong>Preview</strong> in 21 und 22 – und sind in 23 <strong>ersatzlos zurückgezogen</strong></li>
+<li>Code, der sie nutzt, übersetzt mit <strong>keinem</strong> JDK mehr</li>
+<li>Warum, und was es stattdessen gibt: <a href="../../shared/string-interpolation/string-interpolation.html">Die Geschichte der String-Interpolation in Java</a></li>
 </ul>
 <h2 id="nur---release-prüft-auch-die-api">Nur <code>--release</code> prüft auch die API</h2>
 <pre><code class="language-java">boolean leer = zeile.isBlank();   // seit Java 11
@@ -298,8 +298,18 @@
 	</tbody>
 </table>
 <ul>
-<li>In Maven: <code>maven.compiler.release</code></li>
-<li>In der Übung: Baue den Altbestand auf <strong>Deinem</strong> JDK – für Java 8</li>
+<li>In Maven: <code>maven.compiler.release</code> – im Übungsprojekt steht es auf <strong>8</strong></li>
+</ul>
+<h2 id="in-der-übung-das-übungsprojekt-kennenlernen">In der Übung: das Übungsprojekt kennenlernen</h2>
+<ul>
+<li>Öffnen, einmal ganz bauen, den Aufbau sichten – auf <strong>Deinem</strong> JDK, für Java 8</li>
+<li>Ein erstes Feature: <code>java Datei.java</code> startet ohne <code>javac</code> (JEP 330, LTS 11)</li>
+<li>Zum Nachschlagen im ganzen Kurs:
+<ul>
+<li><a href="../../shared/java-lts-evolution/java-lts-evolution.html">Java-LTS-Evolution</a> – was mit jedem LTS-Release dazukam</li>
+<li><a href="../../shared/jep-landkarte/jep-landkarte.html">JEP-Landkarte</a> – jeder JEP mit seinem Weg vom Vorschlag bis final</li>
+</ul>
+</li>
 </ul>
 <h2 id="wie-oft-könnt-ihr-das-jdk-wechseln--und-wer-entscheidet-das">Wie oft könnt Ihr das JDK wechseln – und wer entscheidet das?</h2>
 <ul>
