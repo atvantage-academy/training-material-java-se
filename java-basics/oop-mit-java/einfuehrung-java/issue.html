@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=c0fe74ce" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b9fb0e64" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=c0fe74ce"
+     data-index="../../../skriptorium/search/de.json?v=b9fb0e64"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -176,15 +176,17 @@ später abnimmt. Die IDE kommt im nächsten Modul.</p>
 <p><strong>Hinweis:</strong> Der Dateiname muss zum Klassennamen passen (<code>HelloWorld.java</code> → <code>class HelloWorld</code>).</p>
 </blockquote>
 <h3 id="kompilieren-und-den-bytecode-ansehen">Kompilieren und den Bytecode ansehen</h3>
-<p>Übersetze die Datei und wirf einen Blick auf den erzeugten Bytecode.</p>
+<p>Übersetze die Datei:</p>
 <pre><code class="language-bash">javac HelloWorld.java
-javap -c HelloWorld
+</code></pre>
+<p>Wirf einen Blick auf den erzeugten Bytecode:</p>
+<pre><code class="language-bash">javap -c HelloWorld
 </code></pre>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>javap -c</code> zeigt den plattformunabhängigen Bytecode – genau das, was die JVM ausführt (nicht Maschinencode Deiner CPU).</p>
 </blockquote>
 <h3 id="ausführen">Ausführen</h3>
-<p>Starte das Programm über die JVM.</p>
+<p>Starte das Programm über die JVM:</p>
 <pre><code class="language-bash">java HelloWorld
 </code></pre>
 <blockquote>
@@ -261,10 +263,15 @@ public class HelloWorld {
 
 ### Kompilieren und den Bytecode ansehen
 
-Übersetze die Datei und wirf einen Blick auf den erzeugten Bytecode.
+Übersetze die Datei:
 
 ```bash
 javac HelloWorld.java
+```
+
+Wirf einen Blick auf den erzeugten Bytecode:
+
+```bash
 javap -c HelloWorld
 ```
 
@@ -272,7 +279,7 @@ javap -c HelloWorld
 
 ### Ausführen
 
-Starte das Programm über die JVM.
+Starte das Programm über die JVM:
 
 ```bash
 java HelloWorld

@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.6.1">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.6.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.6.1"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Ergänze Dein Gradle-Projekt um eine pom.xml, baue es mit Maven und stelle beide Werkzeuge gegenüber.","duration":35,"fields":{"didaktikon":{"objectives":["Du ergänzt ein bestehendes Projekt um eine `pom.xml` und baust es mit Maven.","Du deklarierst dieselbe Abhängigkeit in Maven und in Gradle.","Du ordnest Maven-Phasen und Gradle-Tasks einander zu.","Du erkennst an einem Projekt, welches Build-Werkzeug es benutzt."],"reflective_questions":["Warum musstest Du keine Datei verschieben, als Maven dazukam?","Woher holen beide Werkzeuge die Bibliothek – und was haben die Koordinaten damit zu tun?","Warum gibt es in einem echten Projekt trotzdem nur eine Build-Datei?","Wie bindet Deine bisherige Plattform eine Bibliothek ein, und wo steht dort die Version?"],"user_story":"Als Entwickler:in möchte ich ein Java-Projekt mit Maven genauso bauen können wie mit Gradle, damit mich in einem neuen Projekt keines der beiden Werkzeuge aufhält."},"skriptorium":{"definition_of_done":["Im Gradle-Projekt aus *Build \u0026 Ökosystem* liegt zusätzlich eine `pom.xml`.","Die Bibliothek aus *Build \u0026 Ökosystem* ist auch in der `pom.xml` deklariert.","`mvn package` (oder der Maven-Wrapper) baut das Projekt ohne Fehler.","Die Vergleichstabelle unten ist ausgefüllt."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Dasselbe Projekt mit Maven bauen","topics":["Maven","Gradle","Build"],"url":"/java-basics/oo-umsteiger/maven-und-gradle/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Ergänze Dein Gradle-Projekt um eine pom.xml, baue es mit Maven und stelle beide Werkzeuge gegenüber.","duration":35,"fields":{"didaktikon":{"objectives":["Du ergänzt ein bestehendes Projekt um eine `pom.xml` und baust es mit Maven.","Du deklarierst dieselbe Abhängigkeit in Maven und in Gradle.","Du ordnest Maven-Phasen und Gradle-Tasks einander zu.","Du erkennst an einem Projekt, welches Build-Werkzeug es benutzt."],"reflective_questions":["Warum musstest Du keine Datei verschieben, als Maven dazukam?","Woher holen beide Werkzeuge die Bibliothek – und was haben die Koordinaten damit zu tun?","Warum gibt es in einem echten Projekt trotzdem nur eine Build-Datei?","Wie bindet Deine bisherige Plattform eine Bibliothek ein, und wo steht dort die Version?"],"user_story":"Als Entwickler:in möchte ich ein Java-Projekt mit Maven genauso bauen können wie mit Gradle, damit mich in einem neuen Projekt keines der beiden Werkzeuge aufhält."},"skriptorium":{"definition_of_done":["Im Gradle-Projekt aus *Build \u0026 Ökosystem* liegt zusätzlich eine `pom.xml`.","Die Bibliothek aus *Build \u0026 Ökosystem* ist auch in der `pom.xml` deklariert.","`mvn package` baut das Projekt ohne Fehler.","Die Vergleichstabelle unten ist ausgefüllt."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Dasselbe Projekt mit Maven bauen","topics":["Maven","Gradle","Build"],"url":"/java-basics/oo-umsteiger/maven-und-gradle/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=c0fe74ce" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b9fb0e64" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=c0fe74ce"
+     data-index="../../../skriptorium/search/de.json?v=b9fb0e64"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -153,7 +153,7 @@
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Im Gradle-Projekt aus Build &amp; Ökosystem liegt zusätzlich eine pom.xml." disabled="disabled"> Im Gradle-Projekt aus <em>Build &amp; Ökosystem</em> liegt zusätzlich eine <code>pom.xml</code>.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Bibliothek aus Build &amp; Ökosystem ist auch in der pom.xml deklariert." disabled="disabled"> Die Bibliothek aus <em>Build &amp; Ökosystem</em> ist auch in der <code>pom.xml</code> deklariert.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn package (oder der Maven-Wrapper) baut das Projekt ohne Fehler." disabled="disabled"> <code>mvn package</code> (oder der Maven-Wrapper) baut das Projekt ohne Fehler.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn package baut das Projekt ohne Fehler." disabled="disabled"> <code>mvn package</code> baut das Projekt ohne Fehler.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Vergleichstabelle unten ist ausgefüllt." disabled="disabled"> Die Vergleichstabelle unten ist ausgefüllt.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
@@ -182,8 +182,11 @@ die Java-Version auf die, mit der Du arbeitest.</p>
 <p><strong>Hinweis:</strong> Das Encoding ist wichtig: Deine Bezeichner enthalten Umlaute.</p>
 </blockquote>
 <h3 id="bauen">Bauen</h3>
-<p>Bau das Projekt mit <code>mvn package</code> – oder über die Maven-Unterstützung Deiner IDE.
-Sieh Dir an, wohin Maven das Ergebnis schreibt.</p>
+<p>Bau das Projekt mit Maven – auf der Kommandozeile oder über die
+Maven-Unterstützung Deiner IDE:</p>
+<pre><code class="language-bash">mvn package
+</code></pre>
+<p>Sieh Dir an, wohin Maven das Ergebnis schreibt.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Du hast keine einzige Datei verschoben. Warum findet Maven Deinen
 Code trotzdem?</p>
@@ -240,9 +243,19 @@ in Maven als drei Elemente. Es sind dieselben drei Angaben.</p>
 </table>
 <h3 id="für-schnelle">Für Schnelle</h3>
 <ul>
-<li>Ergänze JUnit als Test-Abhängigkeit in der <code>pom.xml</code> und führ die Tests mit <code>mvn test</code> aus.</li>
-<li>Erzeug den Maven-Wrapper (<code>mvn wrapper:wrapper</code>) und bau damit. Wozu ist der Wrapper gut?</li>
-<li>Lass Dir mit <code>mvn dependency:tree</code> und <code>gradle dependencies</code> die Abhängigkeiten anzeigen und vergleich die Ausgaben.</li>
+<li>
+<p>Ergänze JUnit als Test-Abhängigkeit in der <code>pom.xml</code> und führ die Tests aus:</p>
+<pre><code class="language-bash">mvn test
+</code></pre>
+</li>
+<li>
+<p>Lass Dir die Abhängigkeiten von Maven anzeigen:</p>
+<pre><code class="language-bash">mvn dependency:tree
+</code></pre>
+<p>Lass sie Dir dann von Gradle anzeigen und vergleich die Ausgaben:</p>
+<pre><code class="language-bash">gradle dependencies
+</code></pre>
+</li>
 </ul>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
@@ -284,7 +297,7 @@ Als Entwickler:in möchte ich ein Java-Projekt mit Maven genauso bauen können w
 
 - [ ] Im Gradle-Projekt aus *Build &amp; Ökosystem* liegt zusätzlich eine `pom.xml`.
 - [ ] Die Bibliothek aus *Build &amp; Ökosystem* ist auch in der `pom.xml` deklariert.
-- [ ] `mvn package` (oder der Maven-Wrapper) baut das Projekt ohne Fehler.
+- [ ] `mvn package` baut das Projekt ohne Fehler.
 - [ ] Die Vergleichstabelle unten ist ausgefüllt.
 - [ ] Du hast die Kontrollfragen beantwortet
 
@@ -320,7 +333,13 @@ Gerüst:
 
 ### Bauen
 
-Bau das Projekt mit `mvn package` – oder über die Maven-Unterstützung Deiner IDE.
+Bau das Projekt mit Maven – auf der Kommandozeile oder über die
+Maven-Unterstützung Deiner IDE:
+
+```bash
+mvn package
+```
+
 Sieh Dir an, wohin Maven das Ergebnis schreibt.
 
 &gt; **Hinweis:** Du hast keine einzige Datei verschoben. Warum findet Maven Deinen
@@ -349,9 +368,23 @@ Füll die Tabelle aus – aus dem, was Du gerade gemacht hast:
 
 ### Für Schnelle
 
-* Ergänze JUnit als Test-Abhängigkeit in der `pom.xml` und führ die Tests mit `mvn test` aus.
-* Erzeug den Maven-Wrapper (`mvn wrapper:wrapper`) und bau damit. Wozu ist der Wrapper gut?
-* Lass Dir mit `mvn dependency:tree` und `gradle dependencies` die Abhängigkeiten anzeigen und vergleich die Ausgaben.
+* Ergänze JUnit als Test-Abhängigkeit in der `pom.xml` und führ die Tests aus:
+
+  ```bash
+  mvn test
+  ```
+
+* Lass Dir die Abhängigkeiten von Maven anzeigen:
+
+  ```bash
+  mvn dependency:tree
+  ```
+
+  Lass sie Dir dann von Gradle anzeigen und vergleich die Ausgaben:
+
+  ```bash
+  gradle dependencies
+  ```
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
