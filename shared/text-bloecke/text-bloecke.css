@@ -1,0 +1,20 @@
+.tb-lead{color:var(--skr-color-ink-muted);margin:0 0 .75rem;}
+.tb-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.25rem;}
+.tb-steuerung{display:flex;flex-wrap:wrap;gap:.5rem 2rem;margin:0 0 1rem;}
+.tb-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
+.tb-titel code{text-transform:none;letter-spacing:0;}
+.tb-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .75rem;}
+.tb-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.tb-knopf:hover{border-color:var(--skr-color-accent);}
+.tb-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.tb-buehne{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.25rem;align-items:start;}
+@media (max-width:860px){.tb-buehne{grid-template-columns:minmax(0,1fr);}}
+.tb-code{margin:0 0 1rem;overflow-x:auto;font-size:.8rem;line-height:1.55;border-radius:var(--skr-radius,8px);}
+.tb-code code{display:block;padding:.8rem 1rem;white-space:pre;min-width:max-content;}
+.tb-ergebnis{margin:0 0 1rem;padding:.8rem 1rem;overflow-x:auto;font-size:.85rem;line-height:1.55;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);color:var(--skr-color-ink);white-space:pre;}
+.tb-z{color:var(--skr-color-accent-ink);font-weight:700;}
+.tb-erklaerung{margin:0 0 1.5rem;padding:.8rem 1rem;border-left:4px solid var(--skr-color-accent);background:var(--skr-color-bg-subtle);border-radius:var(--skr-radius,6px);}
+.tb-erklaerung p{margin:.3rem 0;}
+.tb-regeln{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin:0 0 1rem;}
+.tb-regel{padding:.8rem .9rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
+.tb-regel p{margin:.3rem 0;}

@@ -40,7 +40,7 @@
 <script src="../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../" data-index="../skriptorium/search/de.json?v=6cb43775" defer></script>
+        data-base="../" data-index="../skriptorium/search/de.json?v=d7eb9b54" defer></script>
 <link rel="stylesheet" href="../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../themes/atvantage/assets/icon-180.png">
@@ -77,7 +77,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../skriptorium/search/de.json?v=6cb43775"
+     data-index="../skriptorium/search/de.json?v=d7eb9b54"
      data-base="../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -141,6 +141,30 @@ Bildschirm erkunden und über „Als PDF drucken“ als Handout ausgeben.</p>
 <div class="skr-card">
 <h3 id="jep-landkarte"><a href="../shared/jep-landkarte/jep-landkarte.html">JEP-Landkarte</a></h3>
 <p>Entwicklerrelevante Neuerungen von Java 9 bis zum Ausblick auf Java 29 als Gantt-Ansicht: je Release eine Spalte, je JEP eine Zeile mit seinem Weg vom Vorschlag über Incubator und Preview bis zur finalen Fassung – gruppiert nach Sprache, API, JVM, Werkzeugen und dem, was entfernt oder verschärft wurde, samt Project Valhalla. Ein Klick erklärt jeden JEP in vier Reitern – worum es geht, wie er umgesetzt ist, ein Beispiel und seine Evolution –, und ein Filter hebt hervor, was für REST-Microservices, Batch-Programme oder Server-Anwendungen zählt.</p>
+</div>
+<div class="skr-card">
+<h3 id="records"><a href="../shared/records/records.html">Records</a></h3>
+<p>Ab LTS 17. Was der Compiler aus einem <code>record</code> erzeugt – und was er bewusst weglässt: Setter, parameterlosen Konstruktor, weitere Felder, eine eigene Oberklasse. Daraus folgt, wo Records passen (Werte, DTOs, Abfrageergebnisse) und wo eine Klasse bleibt (JPA-Entitäten, CDI-Beans). Alle Ausgaben und Compilermeldungen sind gemessen.</p>
+</div>
+<div class="skr-card">
+<h3 id="sealed-classes"><a href="../shared/sealed-classes/sealed-classes.html">Sealed Classes</a></h3>
+<p>Ab LTS 17. Eine abgeschlossene Hierarchie zum Ausprobieren: <code>permits</code>, <code>final</code>, <code>sealed</code> und <code>non-sealed</code>, was der Compiler bei einer neuen Unterart meldet und warum ein <code>switch</code> darüber ab Java 21 ohne <code>default</code> auskommt – mit den Regeln, wo die Unterarten liegen dürfen.</p>
+</div>
+<div class="skr-card">
+<h3 id="switch-expressions"><a href="../shared/switch-expressions/switch-expressions.html">Switch Expressions</a></h3>
+<p>Ab LTS 17. Derselbe <code>switch</code> über einen Bestellstatus in fünf Stufen: klassisch mit <code>break</code>, der Fehler durch Durchfallen, die Pfeil-Syntax als Ausdruck, Blöcke mit <code>yield</code> und die Vollständigkeitsprüfung des Compilers.</p>
+</div>
+<div class="skr-card">
+<h3 id="text-blcke"><a href="../shared/text-bloecke/text-bloecke.html">Text-Blöcke</a></h3>
+<p>Ab LTS 17. Quelltext links, Zeichenkette rechts, Leerzeichen und Zeilenumbrüche sichtbar: wie die Lage der schließenden Anführungszeichen den Einzug bestimmt und wozu <code>\</code> und <code>\s</code> am Zeilenende da sind.</p>
+</div>
+<div class="skr-card">
+<h3 id="pattern-matching-evolution"><a href="../shared/pattern-matching-evolution/pattern-matching-evolution.html">Pattern-Matching-Evolution</a></h3>
+<p>Ab LTS 17, vollständig ab LTS 21. Dieselbe Fallunterscheidung in sieben Stufen von Java 8 bis zum Ausblick: von der <code>instanceof</code>-Kette mit Casts über Muster und versiegelte Typen bis zum <code>switch</code> mit Record-Patterns – was jede Stufe bringt und was der Compiler prüft.</p>
+</div>
+<div class="skr-card">
+<h3 id="die-geschichte-der-string-interpolation-in-java"><a href="../shared/string-interpolation/string-interpolation.html">Die Geschichte der String-Interpolation in Java</a></h3>
+<p>Von der Verkettung mit <code>+</code> über <code>String.format</code> und Text-Blöcke bis zu den String Templates, die in Java 21 und 22 als Preview kamen und in 23 wieder gingen – warum, und was heute verfügbar ist. Dazu ein Exkurs, warum <code>formatted()</code> auf jedem Rechner anders formatieren kann.</p>
 </div>
 <div class="skr-card">
 <h3 id="java-syntax-auf-einen-blick"><a href="../shared/java-syntax-grundlagen/java-syntax-grundlagen.html">Java-Syntax auf einen Blick</a></h3>
