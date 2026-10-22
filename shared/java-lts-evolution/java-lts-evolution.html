@@ -40,7 +40,7 @@
 <script src="../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=6f5b3196" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=6cb43775" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -50,8 +50,8 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
 
-<link rel="stylesheet" href="../../shared/java-lts-evolution/java-lts-evolution.css?v=b9825843">
-<script src="../../shared/java-lts-evolution/java-lts-evolution.js?v=6fabe0f2" defer></script>
+<link rel="stylesheet" href="../../shared/java-lts-evolution/java-lts-evolution.css?v=3b7d25eb">
+<script src="../../shared/java-lts-evolution/java-lts-evolution.js?v=407127ca" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -78,8 +78,18 @@
 </section>
 
   <div class="skr-guide-layout">
-    <main class="skr-guide-main" id="skr-content"><div class="jev-root">
-<p class="jev-lead">Eine interaktive Zeitleiste der Java-Versionen von 1.0 bis 25. Klicke eine Version an, um ihre wichtigsten Sprach- und API-Features samt kurzem Code-Beispiel zu sehen. LTS-Versionen sind markiert. Über das Druckersymbol oben rechts entsteht eine lineare Übersicht aller Versionen (auch als PDF).</p>
+    <main class="skr-guide-main" id="skr-content"><!-- Anforderungen (verbindlich bei jeder Pflege):
+     - Je Version die wichtigsten Sprach- und API-Features mit kurzer Beschreibung und
+       lauffähigem Codebeispiel; Bezeichner in Beispielen und im Skript mit Umlauten (A-006).
+     - Ein Feature steht bei dem LTS-Release, das es als erstes final enthält – auch wenn
+       es in einer Zwischenversion erschien (die Beschreibung nennt dann „seit Java N“).
+       Preview-Features gehören nicht hierher, sondern in den Ausblick.
+     - Ab Java 8 trägt jedes Feature die Nummern seiner JEPs als Marke (`jeps` im Skript,
+       Badge des Skriptoriums, Verweis auf openjdk.org/jeps/«nr»); vor Java 8 gibt es
+       keine JEPs, dort entfällt die Marke. Auch in der Druckansicht.
+     - Die Seite dient Grundlagenkursen und dem Java-Update – kursneutral formulieren. -->
+<div class="jev-root">
+<p class="jev-lead">Eine interaktive Zeitleiste der Java-Versionen von 1.0 bis 25. Klicke eine Version an, um ihre wichtigsten Sprach- und API-Features samt kurzem Code-Beispiel zu sehen. LTS-Versionen sind markiert, und ab Java 8 nennt jedes Feature seine JEPs – ein Klick auf die Nummer führt zur Beschreibung bei openjdk.org. Über das Druckersymbol oben rechts entsteht eine lineare Übersicht aller Versionen (auch als PDF).</p>
 <section id="jev-print-toc">
   <h2>Java-Versionen im Überblick</h2>
   <ul id="jev-toc-list"></ul>
