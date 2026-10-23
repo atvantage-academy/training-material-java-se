@@ -9,7 +9,7 @@
   function platz(id, name) { return { id: id, name: name, aufgabe: null, status: "frei" }; }
   function ausgangslage(plaetze) {
     return function () {
-      return { bereit: [], wartend: [], fertig: [], plaetze: plaetze(), zeile: null, jdk: "21" };
+      return { bereit: [], wartend: [], fertig: [], plaetze: plaetze(), zeile: null, jdk: "21", zeilen: [] };
     };
   }
   var vierThreads = ausgangslage(function () {
@@ -18,6 +18,19 @@
   var zweiTräger = ausgangslage(function () {
     return [platz("c1", "Träger 1"), platz("c2", "Träger 2")];
   });
+  var ereignisschleife = ausgangslage(function () {
+    return [platz("e1", "Schleife 1"), platz("e2", "Schleife 2")];
+  });
+  var leereBühne = ausgangslage(function () { return []; });
+
+  /* Das Entscheidungsbild: je Kriterium eine Zeile mit drei Antworten. */
+  var KRITERIEN = {
+    modell: { name: "Programmiermodell", werte: ["blockierend, von oben nach unten", "Fortsetzungen statt Ablauf", "blockierend, von oben nach unten"] },
+    warten: { name: "Wer wartet", werte: ["ein Thread des Betriebssystems", "nur eine Fortsetzung auf dem Heap", "ein virtueller Thread auf dem Heap"] },
+    fehler: { name: "Fehlersuche", werte: ["vollständiger Stacktrace", "Stacktrace der Ereignisschleife", "vollständiger Stacktrace"] },
+    strom: { name: "Datenströme, Backpressure", werte: ["selbst bauen", "eingebaut", "selbst bauen (Semaphore, Queue)"] },
+    quarkus: { name: "In Quarkus", werte: ["Worker-Pool (blockierende Endpunkte)", "Mutiny, Vert.x", "@RunOnVirtualThread"] }
+  };
 
   /* Hilfen für apply – sie ändern nur den Zustand. */
   function nimm(liste, id) { var i = liste.indexOf(id); if (i >= 0) { liste.splice(i, 1); } }
@@ -65,8 +78,40 @@
     });
   }
 
+  var SPALTEN = ["Fester Pool", "Reaktiv", "Virtuelle Threads"];
+
+  function zeichneVergleich(s, ctx) {
+    sim.list(document.getElementById("entscheidung-zeilen"), s.zeilen, {
+      animated: ctx.animated,
+      key: function (k) { return k; },
+      create: function () {
+        var el = document.createElement("div");
+        el.className = "skr-didaktikon-simulation-cell vergleich__zeile";
+        return el;
+      },
+      update: function (el, k) {
+        var kriterium = KRITERIEN[k];
+        el.textContent = "";
+        var name = document.createElement("strong");
+        name.textContent = kriterium.name;
+        el.appendChild(name);
+        kriterium.werte.forEach(function (wert, i) {
+          var zelle = document.createElement("span");
+          var spalte = document.createElement("span");
+          spalte.className = "skr-visually-hidden";
+          spalte.textContent = SPALTEN[i] + ": ";
+          zelle.appendChild(spalte);
+          zelle.appendChild(document.createTextNode(wert));
+          el.appendChild(zelle);
+        });
+        el.classList.toggle("is-active", k === s.zeilen[s.zeilen.length - 1]);
+      }
+    });
+  }
+
   function zeichne(s, ctx) {
     var szene = ctx.scenario;
+    if (szene === "entscheidung") { zeichneVergleich(s, ctx); return; }
     anfragen(document.getElementById(szene + "-bereit"), s.bereit, ctx);
     anfragen(document.getElementById(szene + "-wartend"), s.wartend, ctx);
     anfragen(document.getElementById(szene + "-fertig"), s.fertig, ctx);
@@ -99,8 +144,8 @@
 
     if (szene === "pinning") {
       document.getElementById("pinning-jdk").innerHTML = '<span class="jdk">Java ' + s.jdk + "</span>";
-      sim.codeLine(document.querySelector('[data-skr-didaktikon-simulation-scene="pinning"] .skr-didaktikon-simulation-code'), s.zeile);
     }
+    sim.codeLine(document.querySelector('[data-skr-didaktikon-simulation-scene="' + szene + '"] .skr-didaktikon-simulation-code'), s.zeile);
   }
 
   sim.setup({ state: vierThreads, render: zeichne });
@@ -160,7 +205,73 @@
     ]
   });
 
-  /* SZENARIO 2: VIRTUELLE THREADS -------------------------------------------- */
+  /* SZENARIO 2: REAKTIV ------------------------------------------------------- */
+  sim.registerScenario({
+    id: "reaktiv",
+    title: "Reaktiv",
+    description: "Wenige Threads, die nie warten: Wer auf das Lager wartet, ist nur noch eine Fortsetzung. Der Preis ist das Programmiermodell.",
+    state: ereignisschleife,
+    steps: [
+      {
+        title: "Ausgangslage",
+        text: "<p>Die erste Antwort auf das Problem des festen Pools, lange vor Java 21: eine <b>Ereignisschleife</b> mit so wenigen Threads, wie es Kerne gibt – so arbeiten Vert.x, Netty und damit die reaktive Seite von Quarkus.</p><p>Die Regel dort: <b>Kein Thread der Schleife darf blockieren.</b></p>",
+        apply: function () {}
+      },
+      {
+        title: "Sechs Anfragen kommen an",
+        text: "<p>Dieselben sechs Bestellungen wie beim festen Pool.</p>",
+        apply: function (s) { s.bereit = ["A1", "A2", "A3", "A4", "A5", "A6"]; }
+      },
+      {
+        title: "Fragen – und sofort weiter",
+        text: "<p>Schleife 1 nimmt A1, schickt die Anfrage ans Lager und wartet <b>nicht</b> auf die Antwort. Sie hinterlegt nur, was danach geschehen soll: die <b>Fortsetzung</b> in <code>thenApply</code>. Dann ist sie frei.</p>",
+        apply: function (s) {
+          belege(s, "e1", "A1", "läuft");
+          s.zeile = 0;
+        }
+      },
+      {
+        title: "Bis alle ausstehen",
+        text: "<p>So geht es mit allen sechs. Nach wenigen Mikrosekunden stehen <b>alle gleichzeitig</b> beim Lager aus – ohne dass ein Thread wartet.</p><p>Für das Warten ist das so gut wie virtuelle Threads.</p>",
+        apply: function (s) {
+          gibFrei(s, "e1");
+          s.bereit = [];
+          s.wartend = ["A1", "A2", "A3", "A4", "A5", "A6"];
+        }
+      },
+      {
+        title: "Die Antworten kommen",
+        text: "<p>Nach 100 ms antwortet das Lager. Die Schleife führt die Fortsetzungen aus – auf irgendeinem ihrer Threads, nicht unbedingt dem, der gefragt hat.</p>",
+        apply: function (s) {
+          belege(s, "e1", "A1", "läuft"); belege(s, "e2", "A2", "läuft");
+          s.zeile = 1;
+        }
+      },
+      {
+        title: "Alle fertig",
+        text: "<p>Die sechs Anfragen sind nach gut 100 ms erledigt.</p>",
+        apply: function (s) {
+          s.wartend = [];
+          s.fertig = ["A1", "A2", "A3", "A4", "A5", "A6"];
+          gibFrei(s, "e1"); gibFrei(s, "e2");
+          s.zeile = null;
+        }
+      },
+      {
+        title: "Der Preis",
+        text: "<p>Der Code ist kein Ablauf mehr, sondern eine Kette von <b>Fortsetzungen</b>. Ein Fehler zeigt im Stacktrace die Ereignisschleife, nicht den Aufrufer. Ein <code>try</code>/<code>catch</code> um die Kette fängt nichts. Und ein einziger blockierender Aufruf – ein alter JDBC-Treiber, ein <code>synchronized</code> – legt die <b>ganze Schleife</b> lahm.</p>",
+        apply: function (s) { s.zeile = 2; }
+      },
+      {
+        title: "Merksatz",
+        text: "<p><b>Reaktiv löst das Warten – mit einem anderen Programmiermodell.</b></p><p>Seine Stärken jenseits des Wartens: Datenströme, Backpressure, Ereignisse. Für Request/Response war das Warten oft der einzige Grund.</p>",
+        apply: function (s) { s.zeile = null; },
+        duration: 5000
+      }
+    ]
+  });
+
+  /* SZENARIO 3: VIRTUELLE THREADS -------------------------------------------- */
   sim.registerScenario({
     id: "virtuell",
     title: "Virtuelle Threads",
@@ -217,14 +328,14 @@
       },
       {
         title: "Merksatz",
-        text: "<p><b>Warten kostet keinen Thread des Betriebssystems mehr.</b></p><p>Der Code bleibt blockierend und lesbar – nur der Thread ist ein anderer. Gemessen im Altbestand: 200 Bestellungen in rund 0,25 Sekunden statt 2,2.</p>",
+        text: "<p><b>Warten kostet keinen Thread des Betriebssystems mehr.</b></p><p>Der Code bleibt blockierend und lesbar – anders als reaktiv. Nur der Thread ist ein anderer. Gemessen im Altbestand: 200 Bestellungen in gut 0,2 Sekunden statt 2,2.</p>",
         apply: function () {},
         duration: 5000
       }
     ]
   });
 
-  /* SZENARIO 3: PINNING ------------------------------------------------------- */
+  /* SZENARIO 4: PINNING ------------------------------------------------------- */
   sim.registerScenario({
     id: "pinning",
     title: "Pinning in synchronized",
@@ -253,7 +364,7 @@
       },
       {
         title: "Zurück beim festen Pool",
-        text: "<p>Erst wenn V1 und V2 fertig sind, kommen V3 und V4 dran – und pinnen wieder. Virtuelle Threads verhalten sich hier wie ein Pool <b>mit so vielen Threads wie Kernen</b>.</p><p>Gemessen im Batch-Import unter Java 21: 893 ms statt 61 ms.</p>",
+        text: "<p>Erst wenn V1 und V2 fertig sind, kommen V3 und V4 dran – und pinnen wieder. Virtuelle Threads verhalten sich hier wie ein Pool <b>mit so vielen Threads wie Kernen</b>.</p><p>Gemessen im Batch-Import unter Java 21: 906 ms statt 63 ms.</p>",
         apply: function (s) {
           s.fertig = ["V1", "V2"];
           belege(s, "c1", "V3", "gepinnt"); belege(s, "c2", "V4", "gepinnt");
@@ -271,6 +382,51 @@
         title: "Merksatz",
         text: "<p><b>Unter Java 21 gehört kein blockierender Aufruf in <code>synchronized</code> – unter Java 25 darf er.</b></p><p>Wer auf 21 bleibt, nimmt einen <code>ReentrantLock</code> oder eine neuere Bibliothek. Sichtbar wird Pinning mit Java Flight Recorder, Ereignis <code>jdk.VirtualThreadPinned</code>.</p>",
         apply: function (s) { s.zeile = null; },
+        duration: 5000
+      }
+    ]
+  });
+  /* SZENARIO 5: ENTSCHEIDUNGSBILD --------------------------------------------- */
+  sim.registerScenario({
+    id: "entscheidung",
+    title: "Was passt wann?",
+    description: "Fester Pool, reaktiv oder virtuelle Threads – Kriterium für Kriterium.",
+    state: leereBühne,
+    steps: [
+      {
+        title: "Ausgangslage",
+        text: "<p>Drei Wege, mit Anfragen umzugehen, die auf andere Systeme warten. Kriterium für Kriterium – welcher passt wann?</p>",
+        apply: function () {}
+      },
+      {
+        title: "Programmiermodell",
+        text: "<p>Fester Pool und virtuelle Threads schreiben denselben Code: <b>blockierend</b>, von oben nach unten. Reaktiv zerlegt ihn in Fortsetzungen.</p>",
+        apply: function (s) { s.zeilen.push("modell"); }
+      },
+      {
+        title: "Wer wartet",
+        text: "<p>Nur beim festen Pool hält ein <b>Thread des Betriebssystems</b> das Warten aus – deshalb ist er der Engpass.</p>",
+        apply: function (s) { s.zeilen.push("warten"); }
+      },
+      {
+        title: "Fehlersuche",
+        text: "<p>Ein virtueller Thread hat einen gewöhnlichen Stack: Stacktrace, Debugger und Profiler zeigen den Aufrufer. Reaktiv zeigt der Stacktrace die Ereignisschleife.</p>",
+        apply: function (s) { s.zeilen.push("fehler"); }
+      },
+      {
+        title: "Datenströme und Backpressure",
+        text: "<p>Hier bleibt reaktiv stark: Ein Strom, dessen Empfänger langsamer ist als der Sender, braucht Backpressure – reaktive Bibliotheken bringen sie mit. Mit virtuellen Threads begrenzt man selbst, etwa mit einer <code>Semaphore</code>.</p>",
+        apply: function (s) { s.zeilen.push("strom"); }
+      },
+      {
+        title: "In Quarkus",
+        text: "<p>Quarkus bietet alle drei: blockierende Endpunkte auf einem <b>Worker-Pool</b>, reaktive mit <b>Mutiny</b> auf Vert.x – und <code>@RunOnVirtualThread</code>, das einen blockierenden Endpunkt auf einem neuen virtuellen Thread ausführt. Ausdrücklich je Endpunkt, nicht für die ganze Anwendung.</p>",
+        apply: function (s) { s.zeilen.push("quarkus"); }
+      },
+      {
+        title: "Merksatz",
+        text: "<p><b>Für Request/Response mit viel Warten: virtuelle Threads. Für Datenströme, Backpressure und Ereignisse: reaktiv.</b></p><p>Der feste Pool bleibt, wo kaum gewartet wird – oder wo der Server ihn verwaltet.</p>",
+        apply: function () {},
         duration: 5000
       }
     ]

@@ -37,3 +37,33 @@
     font-weight: var(--skr-fw-bold);
     letter-spacing: 0;
   }
+
+  /* Entscheidungsbild: Kopfzeile und je Kriterium eine Zeile mit vier Spalten. */
+  .vergleich {
+    display: grid;
+    gap: var(--skr-space-2);
+    align-content: center;
+    min-height: 100%;
+  }
+  .vergleich__kopf,
+  .vergleich__zeile {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) repeat(3, minmax(0, 1.4fr));
+    gap: var(--skr-space-3);
+    align-items: start;
+  }
+  .vergleich__kopf {
+    padding: 0 var(--skr-space-3);
+    font-weight: var(--skr-fw-bold);
+    color: var(--skr-color-ink-muted);
+  }
+  .vergleich__zeilen { display: grid; gap: var(--skr-space-2); min-height: 22rem; align-content: start; }
+  .vergleich__zeile { justify-content: stretch; }
+  @media (max-width: 1000px) {
+    .vergleich__kopf { display: none; }
+    .vergleich__zeile { grid-template-columns: 1fr; }
+    .vergleich__zeile .skr-visually-hidden {
+      position: static; width: auto; height: auto; margin: 0; clip: auto; clip-path: none;
+      overflow: visible; white-space: normal; font-weight: var(--skr-fw-medium);
+    }
+  }
