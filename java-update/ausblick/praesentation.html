@@ -39,7 +39,7 @@
 <script src="../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=7b75e293" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fd7f969a" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -83,14 +83,15 @@
   <main class="skr-deck" id="skr-deck" data-skr-deck>
     <!-- ANFORDERUNGEN an diese Präsentation
      - Ausblick Java 26/27 → 29 (Vorgabe der Konzept-AGENTS.md). Stand der JEPs frisch
-       geprüft am 2026-10-15 auf openjdk.org/projects/jdk/26, /27, /28. VOR JEDER
+       geprüft am 2026-10-23 auf openjdk.org/projects/jdk/26, /27, /28. VOR JEDER   durable-ok
        DURCHFÜHRUNG NACHZIEHEN: Die Liste für 28 ist bis zum Rampdown offen, und was in
        29 final wird, entscheidet sich erst 2027.
      - Folien-Anker, auf die das Trainer-Thema zeigt: #/2 Zeitstrahl, #/3 Sprache und
        APIs, #/4 JVM, #/5 Was bricht, #/6 Valhalla, #/7 Abschluss.
-     - Gemessen (Docker, Temurin 25.0.4.1, 26.0.2.1, 27): JEP 500 warnt ab 26, deny
-       wirft IllegalAccessException; Container --cpus 1 -m 1g wählt auf 25 Serial, auf
-       27 G1; UseCompactObjectHeaders ist auf 27 Standard. Demos in spielwiese/ des
+     - Gemessen (Docker, Temurin 25.0.4.1, 26.0.2.1, 27, openjdk:28-ea-jdk 28-ea+20):
+       JEP 500 warnt ab 26, deny wirft IllegalAccessException (25 kennt den Schalter
+       nicht); Container --cpus 1 -m 1g wählt auf 25 Serial, auf 27 und 28 G1;
+       UseCompactObjectHeaders ist auf 27 Standard. Demos in spielwiese/ des
        Übungsprojekts (FinalesFeld, PrimitiveMuster, Gleichzeitig).
      - Preview-Features nur hier (Leitplanke). Keine Versprechen, was in 29 final
        wird – nur, was auf dem Weg ist. -->
@@ -131,15 +132,16 @@
 <tr><td>HTTP/3 im <code>HttpClient</code></td><td><span class="marke marke--final">final in 26</span></td><td>Eine Option am Builder</td></tr>
 <tr><td>Simple JSON API</td><td><span class="marke">Incubator in 28</span></td><td>JSON lesen und schreiben ohne Bibliothek</td></tr>
 </table>
-<p class="quelle">Stand Oktober 2026 – JEP 543, 532, 401, 531, 517, 540</p>
+<p class="quelle">Stand Oktober 2026 – JEP 543, 532, 401, 531, 517, 540</p> <!-- durable-ok -->
 <h2 id="die-jvm-wird-von-selbst-besser">Die JVM wird von selbst besser</h2>
 <ul>
 <li><strong>G1 überall Standard</strong> (27, JEP 523): Im Container mit einem Kern und 1 GB wählt 25 noch Serial, 27 den G1 – gemessen</li>
 <li><strong>Kompakte Objekt-Header Standard</strong> (27, JEP 534): weniger Heap, ohne Code zu ändern</li>
 <li><strong>AOT-Cache</strong> mit jedem GC, auch ZGC (26, JEP 516), und mit übersetztem Code (28, JEP 544)</li>
 <li><strong>ZGC</strong> startet schneller und passt den Heap selbst an (28, JEP 545, 546)</li>
+<li><strong>Shenandoah</strong> läuft generational als Standard (28, JEP 535)</li>
 </ul>
-<p class="quelle">Was in der JVM-Einheit Startskript und Dockerfile brauchten, erledigt das JDK zunehmend selbst</p>
+<p class="quelle">Was im Schwerpunkt Runtime Startskript und Dockerfile brauchten, erledigt das JDK zunehmend selbst</p>
 <h2 id="was-als-nächstes-bricht">Was als Nächstes bricht</h2>
 <pre><code class="language-text">$ java spielwiese/FinalesFeld.java              # JDK 26 und 27
 WARNING: Final field nummer in class FinalesFeld$Bestellung has been mutated reflectively …
