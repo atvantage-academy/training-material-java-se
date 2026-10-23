@@ -964,10 +964,10 @@
       warum: "Die Vorbereitung auf Valhalla: Diese Klassen werden Value-Klassen ohne Identität.",
       betrifft: "Du `new Integer(…)` schreibst oder auf solchen Objekten synchronisierst.",
       risiko: 1, risikoText: "Heute Warnungen; mit Value Objects (Preview in 28) scheitert `synchronized` mit `IdentityException`.", r: [1, 1, 1],
-      umsetzung: "Die Annotation `@jdk.internal.ValueBased` markiert die Klassen; `javac -Xlint:synchronization` warnt, `-XX:DiagnoseSyncOnValueBasedClasses` meldet es zur Laufzeit.",
+      umsetzung: "Die Annotation `@jdk.internal.ValueBased` markiert die Klassen. `javac` warnt ohne weitere Option (Kategorie `synchronization`, ab JDK 25 `identity` – dann auch bei `WeakReference` und `WeakHashMap`); zur Laufzeit meldet `-XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2` jede Sperre und schreibt das JFR-Ereignis `jdk.SyncOnValueBasedClass`.",
       beispiel: ["java", [
         "Integer sperre = 42;",
-        "synchronized (sperre) { … }   // warning: [synchronization] attempt to synchronize on an instance of a value-based class",
+        "synchronized (sperre) { … }   // JDK 25: warning: [identity] attempt to synchronize on an instance of a value-based class",
         "Integer alt = new Integer(42); // warning: [removal]"]],
       bezug: [[401, "Value Objects (Preview in 28)"]] },
     { nr: 396, v: 16, b: "entfernt", projekt: "Jigsaw", name: "Kapselung als Standard", titel: "Strongly Encapsulate JDK Internals by Default",

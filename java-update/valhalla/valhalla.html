@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Project Valhalla: Objekte ohne Identität · ATVANTAGE Academy</title>
+<meta name="description" content="Was Identität ein Objekt kostet, wie Wertobjekte flach im Speicher liegen, was davon schon in Java 28 als Preview steckt und was Du heute in Deinem Code dafür tun kannst.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Project Valhalla: Objekte ohne Identität">
+<meta property="og:description" content="Was Identität ein Objekt kostet, wie Wertobjekte flach im Speicher liegen, was davon schon in Java 28 als Preview steckt und was Du heute in Deinem Code dafür tun kannst.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.6.1">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.6.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.6.1"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Was Identität ein Objekt kostet, wie Wertobjekte flach im Speicher liegen, was davon schon in Java 28 als Preview steckt und was Du heute in Deinem Code dafür tun kannst.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-update/valhalla/valhalla.css","src":"valhalla.css","type":"style"},{"path":"java-update/valhalla/valhalla.js","src":"valhalla.js","type":"script"}],"pageId":"java-update-valhalla","runtimeFragments":["^/(\\?.*)?$","^/[A-Za-z0-9_-]+(\\?.*)?$"],"siteIndex":"/skriptorium/site.json","title":"Project Valhalla: Objekte ohne Identität","topics":null,"url":"/java-update/valhalla/valhalla.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=7b75e293" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
+
+<link rel="stylesheet" href="../../java-update/valhalla/valhalla.css?v=089eb215">
+<script src="../../java-update/valhalla/valhalla.js?v=caa8078b" defer></script>
+
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+
+    </div>
+  </div><h1 id="skr-page-title">Project Valhalla: Objekte ohne Identität</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
+     - Input des optionalen Schwerpunkts Valhalla im Java-Update (Entscheidung:
+       Visualisierung statt Präsentation). Drei Fragen: Was bedeutet Identität (==,
+       synchronized, Identitäts-Hash, schwache Referenzen)? Wie liegen Werte im Speicher
+       (Zeiger auf verstreute Objekte gegen flaches Array, Cache-Lokalität)? Was hängt
+       davon ab (JEP 390, 513, 401, 539, null-restricted Typen, 402, 218, Vector API,
+       kompakte Objekt-Header)? Dazu: Was kannst Du heute tun?
+     - Liegt im Modulordner: Die Grundkurse behandeln Valhalla nicht.
+     - STAND GEPRÜFT 2026-10-23 auf openjdk.org/jeps/401, /539, /390, jeps/8303099 und   durable-ok
+       openjdk.org/projects/jdk/28 (JEP 401 und 539 integriert, Preview in 28); EA-Build
+       jdk.java.net/28 (28-ea+20). VOR JEDER DURCHFÜHRUNG NACHZIEHEN.
+     - ALLE ERGEBNISSE GEMESSEN (2026-10-23, macOS, 28-ea+20, bestätigt in Docker   durable-ok
+       openjdk:28-ea-20-jdk): Abschnitt 1 mit spielwiese/Wertbasiert.java und kleinen
+       Proben; Abschnitt 2 mit spielwiese/Wertklassen.java (fünf Millionen Plätze,
+       Array gemischt, bester von zehn Durchläufen). Die Ansicht „null-restricted“ ist
+       ein Entwurf und schematisch – das steht auch auf der Seite.
+     - Abgrenzung zum Ausblick (31-ausblick): Dort nur die Zeile „Value Objects“ in der
+       Liste für 28 und ein Verweis hierher.
+     - Jeder Zustand steht in der Adresse (#/?objekt=…&layout=…&jep=…), über skr.state.
+       Nicht nur über Farbe: Ergebnisse tragen Text, Knöpfe aria-pressed.
+     - Bezeichner mit Umlauten (A-006), Farben aus den Tokens, kein eigenes Breiten-CSS. -->
+<p class="vh-lead">Jedes Objekt in Java hat heute eine Identität: Zwei Objekte mit gleichem Inhalt sind trotzdem zwei. Für einen Geldbetrag, einen Zeitpunkt oder eine Koordinate ist das überflüssig – und es kostet Speicher und Zeit. Project Valhalla gibt Java Objekte ohne Identität. Seit Java 28 stecken sie als Preview im JDK.</p>
+<p class="vh-marken"><span class="skr-badge">Preview in 28 · JEP 401</span> <span class="skr-badge">Vorbereitung seit 16 · JEP 390 · LTS 17</span> <span class="skr-badge">Ausblick: LTS 29 oder später</span></p>
+<h2 id="identitaet">1 · Was Identität bedeutet</h2>
+<p>Nimm zwei Objekte mit demselben Inhalt, etwa <code>LocalDate.of(2026, 10, 23)</code> zweimal. Was geschieht mit ihnen – heute und als Wertobjekt mit <code>--enable-preview</code> auf JDK 28?</p>
+<div class="vh-knoepfe" role="group" aria-label="Art des Objekts" id="vh-objekte"></div>
+<div class="vh-tabelle" id="vh-identitaet" aria-live="polite"></div>
+<pre><code class="language-java">value record Betrag(long cent, String währung) {}   // JDK 28, --enable-preview
+
+var a = new Betrag(1999, &quot;EUR&quot;);
+var b = new Betrag(1999, &quot;EUR&quot;);
+IO.println(a == b);                    // true – gleicher Inhalt
+IO.println(Objects.hasIdentity(a));    // false
+</code></pre>
+<h2 id="speicher">2 · Wie Werte im Speicher liegen</h2>
+<p>Ein Array von Objekten enthält heute nur Zeiger; die Objekte selbst liegen irgendwo im Heap, jedes mit einem Header. Ohne Identität darf die JVM die Felder direkt ins Array legen. Wähle eine Ansicht – gezeigt sind vier Lagerplätze, gemessen wurde mit fünf Millionen.</p>
+<div class="vh-knoepfe" role="group" aria-label="Ansicht des Speichers" id="vh-layouts"></div>
+<div class="vh-bild" id="vh-bild"></div>
+<div class="vh-karte" id="vh-layout-karte" aria-live="polite"></div>
+<p class="vh-fussnote">Gemessen mit <code>spielwiese/Wertklassen.java</code> auf JDK 28 Early Access (28-ea+20): fünf Millionen Plätze, Reihenfolge gemischt, bester von zehn Durchläufen. Die Anordnung im Bild ist schematisch.</p>
+<h2 id="abhaengigkeiten">3 · Was davon abhängt</h2>
+<p>Valhalla ist kein einzelnes Feature, sondern eine Kette. Manches liegt schon im JDK, manches ist Preview, manches erst ein Entwurf. Wähle einen Schritt:</p>
+<ol class="vh-kette" id="vh-kette"></ol>
+<div class="vh-karte" id="vh-jep-karte" aria-live="polite"></div>
+<h2 id="heute">4 · Was Du heute tun kannst</h2>
+<p>Value Objects sind Preview – in Produktionscode gehören sie noch nicht. Aber der Code, der
+heute schon auf die Identität von <code>Integer</code>, <code>LocalDate</code> oder <code>Optional</code> setzt, ist morgen
+ein Bruch, und manchmal schon heute ein Fehler:</p>
+<ul>
+<li><strong>Die Warnungen des Compilers lesen.</strong> Seit Java 16 warnt <code>javac</code> beim <code>synchronized</code>
+auf einer wertbasierten Klasse (Kategorie <code>synchronization</code>, ab JDK 25 <code>identity</code>), ab
+JDK 25 auch bei <code>WeakReference</code> und <code>WeakHashMap</code> auf solchen Klassen.</li>
+<li><strong>Zur Laufzeit nachsehen.</strong> <code>-XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2</code> meldet jede Sperre auf einer wertbasierten
+Klasse, auch wo der Compiler den Typ nicht kennt; der Flight Recorder hält sie als
+<code>jdk.SyncOnValueBasedClass</code> fest.</li>
+<li><strong><code>equals</code> statt <code>==</code></strong> für <code>Integer</code>, <code>Long</code>, <code>LocalDate</code> und Co. – <code>==</code> ist schon
+heute ein Fehler, sobald der Wert außerhalb von −128 bis 127 liegt.</li>
+<li><strong>Werte als Records modellieren</strong>, unveränderlich, ohne Identität im Gebrauch: Ein
+Record ohne Sperren und ohne <code>==</code> wird später mit einem Wort zum Wert-Record.</li>
+</ul>
+<blockquote>
+<p><strong>Merksatz:</strong> Ein Wert hat keine Identität. Wer heute schon so programmiert, gewinnt
+mit Valhalla Speicher und Tempo – wer auf <code>==</code> und <code>synchronized</code> setzt, bekommt einen
+Bruch.</p>
+</blockquote>
+
+    </main>
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

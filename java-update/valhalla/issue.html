@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Valhalla heute schon vorbereiten · ATVANTAGE Academy</title>
+<meta name="description" content="Finde im Code die Stellen, die auf die Identität von Integer, LocalDate und Co. setzen – mit den Warnungen des Compilers und der Diagnose der JVM –, probiere mit einem Early-Access-Build von JDK 28 aus, was Valhalla daraus macht, und bewerte, was Ihr heute schon tun könnt.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Valhalla heute schon vorbereiten">
+<meta property="og:description" content="Finde im Code die Stellen, die auf die Identität von Integer, LocalDate und Co. setzen – mit den Warnungen des Compilers und der Diagnose der JVM –, probiere mit einem Early-Access-Build von JDK 28 aus, was Valhalla daraus macht, und bewerte, was Ihr heute schon tun könnt.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=b86ac9ad">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=d11b6ac6">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.6.1">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.6.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.6.1"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Finde im Code die Stellen, die auf die Identität von Integer, LocalDate und Co. setzen – mit den Warnungen des Compilers und der Diagnose der JVM –, probiere mit einem Early-Access-Build von JDK 28 aus, was Valhalla daraus macht, und bewerte, was Ihr heute schon tun könnt.","duration":40,"fields":{"didaktikon":{"objectives":["Du erklärst, was ein Objekt ohne Identität von einem Objekt mit Identität unterscheidet.","Du findest mit den Warnungen des Compilers und der Diagnose der JVM die Stellen, die auf die Identität wertbasierter Klassen setzen.","Du behebst diese Stellen so, dass sie heute und mit Valhalla richtig arbeiten.","Du begründest, warum flach abgelegte Werte Speicher und Zeit sparen – und wann die JVM sie nicht flach ablegen kann.","Du bewertest, was Valhalla für Eure Anwendungen bedeutet und was Ihr heute schon tun könnt."],"reflective_questions":["Euer Code vergleicht an einer Stelle zwei `Integer` mit `==`, und alle Tests sind grün. Warum ist das trotzdem ein Fehler – heute und mit Valhalla?","Welche Frameworks oder Bibliotheken in Eurem Bestand könnten auf die Identität von Objekten setzen – Caches, Sperren, Proxys, ORM?","Wo in Eurer Domäne stecken Werte, die heute Klassen mit Identität sind – Geldbeträge, Zeiträume, Adressen?","Value Objects sind Preview. Was müsste geschehen, bevor Ihr sie in Produktionscode einsetzt?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, wo unser Code auf die Identität von Werten setzt und was Project Valhalla daran ändert, damit ich heute schon so programmiere, dass es später kein Bruch wird."},"skriptorium":{"definition_of_done":[{"items":["Du kannst für jede der vier Stellen in `Wertbasiert` sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.","Du hast die Stellen behoben, und `java spielwiese/Wertbasiert.java` übersetzt ohne Warnung."],"title":"Den Bestand prüfen"},{"items":["Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Valhalla heute schon vorbereiten","topics":["Project Valhalla","Wertbasierte Klassen","JEP 401","JEP 390"],"url":"/java-update/valhalla/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../skriptorium/client.js?v=82492cae" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=7b75e293" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../skriptorium/guide-layout.css?v=04cc011a">
+<link rel="stylesheet" href="../../extensions/didaktikon/exercise.css?v=d44ba6e9">
+<script src="../../skriptorium/guide-layout.js?v=207db517" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header"
+        data-skr-menu-visible="7" data-skr-menu-speed="1" data-skr-header>
+  <a class="skr-header__brand" href="../../" aria-label="Startseite"><img class="skr-header__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><img class="skr-header__mark" src="../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=7b75e293"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=07b9ef3e" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../java-update/">Java-Update</a><span>/</span><span aria-current="page">Valhalla heute schon vorbereiten</span></nav>
+
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 40 Minuten</span><span class="skr-tag">Project Valhalla</span><span class="skr-tag">Wertbasierte Klassen</span><span class="skr-tag">JEP 401</span><span class="skr-tag">JEP 390</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">Valhalla heute schon vorbereiten</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-didaktikon-content-top" data-skr-slot="content.top">
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, wo unser Code auf die Identität von Werten setzt und was Project Valhalla daran ändert, damit ich heute schon so programmiere, dass es später kein Bruch wird.</p>
+</div>
+<div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<h2 id="lernziele">Lernziele</h2>
+<ul>
+<li>Du erklärst, was ein Objekt ohne Identität von einem Objekt mit Identität unterscheidet.</li>
+<li>Du findest mit den Warnungen des Compilers und der Diagnose der JVM die Stellen, die auf die Identität wertbasierter Klassen setzen.</li>
+<li>Du behebst diese Stellen so, dass sie heute und mit Valhalla richtig arbeiten.</li>
+<li>Du begründest, warum flach abgelegte Werte Speicher und Zeit sparen – und wann die JVM sie nicht flach ablegen kann.</li>
+<li>Du bewertest, was Valhalla für Eure Anwendungen bedeutet und was Ihr heute schon tun könnt.</li>
+</ul>
+</div>
+</div>
+<div class="skr-guide-done">
+<h2 id="definition-of-done">Definition of Done</h2>
+<h3 id="den-bestand-prfen">Den Bestand prüfen</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du kannst für jede der vier Stellen in Wertbasiert sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt." disabled="disabled"> Du kannst für jede der vier Stellen in <code>Wertbasiert</code> sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Stellen behoben, und java spielwiese/Wertbasiert.java übersetzt ohne Warnung." disabled="disabled"> Du hast die Stellen behoben, und <code>java spielwiese/Wertbasiert.java</code> übersetzt ohne Warnung.</li>
+</ul>
+<h3 id="bewertung">Bewertung</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert." disabled="disabled"> Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert.</li>
+</ul>
+<h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
+<p>Value Objects sind Preview und gehören noch nicht in Produktionscode. Aber jeder Code,
+der heute auf die Identität von <code>Integer</code>, <code>LocalDate</code> oder <code>Optional</code> setzt, bekommt mit
+Valhalla einen Bruch – und manchmal ist er schon heute falsch. Du suchst solche Stellen
+und behebst sie. Wer will, probiert mit einem Early-Access-Build von JDK 28 aus, was
+Valhalla daraus macht.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Für die Pflicht reicht <strong>JDK 21 oder 25</strong>. Die beiden Kür-Schritte
+brauchen einen <strong>Early-Access-Build von JDK 28</strong> – nur, wenn Du ihn installieren darfst
+oder Docker hast. Die Befehle laufen im Terminal – in IntelliJ über <em>View → Tool
+Windows → Terminal</em>, in Eclipse über <em>Window → Show View → Terminal</em>, jeweils im
+Wurzelordner des Übungsprojekts.</p>
+</blockquote>
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+<h3 id="worum-es-geht">Worum es geht</h3>
+<p>Ein Objekt mit <strong>Identität</strong> ist mehr als sein Inhalt: Zwei Objekte mit gleichen Feldern
+sind trotzdem zwei, man kann auf jedem sperren, und es braucht einen Header im Speicher.
+Ein <strong>Wertobjekt</strong> ist nur sein Inhalt (JEP 401, <strong>Preview in Java 28</strong>). Vorbereitet ist
+das seit <strong>Java 16</strong> (JEP 390, LTS-Marke <strong>17</strong>): <code>Integer</code>, <code>LocalDate</code>, <code>Optional</code> und
+weitere sind als <em>wertbasiert</em> markiert, und der Compiler warnt, wo Code auf ihre
+Identität setzt. Was das im Speicher bedeutet und was davon abhängt, zeigt die
+Visualisierung <a href="../../java-update/valhalla/valhalla.html">Project Valhalla: Objekte ohne Identität</a>.</p>
+<h3 id="den-bestand-prüfen-1">Den Bestand prüfen</h3>
+<p><code>spielwiese/Wertbasiert.java</code> enthält vier Stellen aus einem Bestellsystem, wie sie in
+echtem Code vorkommen: ein Lager, das auf seinem Zähler sperrt, einen Cache für
+Tageskurse, einen Vergleich zweier Mengen und einen Zähler je Artikelnummer. Starte das
+Programm:</p>
+<pre><code class="language-shell">java spielwiese/Wertbasiert.java
+</code></pre>
+<p>Lies zuerst die Warnungen des Compilers über der Ausgabe: Welche Stellen meldet er, und
+welche nicht? Lies dann die Ausgabe: Welches der vier Ergebnisse ist schon heute falsch?
+Starte das Programm mehrmals – bleibt der Bestand gleich?</p>
+<blockquote>
+<p><strong>Hinweis:</strong> JDK 21 meldet die Kategorie <code>synchronization</code>, JDK 25 <code>identity</code> und
+warnt dort bei mehr Stellen.</p>
+</blockquote>
+<h3 id="zur-laufzeit-nachsehen">Zur Laufzeit nachsehen</h3>
+<p>Der Compiler sieht nur Typen. Wo auf einer Variablen vom Typ <code>Object</code> gesperrt wird, die
+zur Laufzeit ein <code>Integer</code> hält, schweigt er. Die JVM meldet jede solche Sperre, und der
+Flight Recorder zeichnet sie auf. Starte das Programm mit Diagnose und Aufzeichnung:</p>
+<pre><code class="language-shell">java -XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 -XX:StartFlightRecording=filename=wert.jfr spielwiese/Wertbasiert.java
+</code></pre>
+<p>Die Konsole läuft dabei voll – je Sperre ein Eintrag. Lies die Aufzeichnung als Tabelle:</p>
+<pre><code class="language-shell">jfr view SyncOnValueBasedClass wert.jfr
+</code></pre>
+<p>In welcher Methode wird gesperrt, und auf welcher Klasse? Wie würdet Ihr so etwas in
+Eurem Bestand finden, etwa in einem Lasttest?</p>
+<h3 id="die-stellen-beheben">Die Stellen beheben</h3>
+<p>Behebe alle vier Stellen in <code>spielwiese/Wertbasiert.java</code> so, dass sie heute richtig
+arbeiten und mit Valhalla nicht brechen. Starte danach wieder:</p>
+<pre><code class="language-shell">java spielwiese/Wertbasiert.java
+</code></pre>
+<p>Erst wenn keine Warnung mehr kommt und die Ausgabe stimmt, bist Du fertig.</p>
+<details class="skr-reveal">
+<summary>Lösungsweg aufdecken</summary>
+<ul>
+<li><strong>Lager:</strong> Eine eigene Sperre, die sich nie ändert – <code>private final Object sperre = new Object();</code> und <code>synchronized (sperre)</code>. Der Zähler <code>bestand = bestand + menge</code>
+erzeugt bei jeder Buchung ein neues <code>Integer</code>; wer darauf sperrt, sperrt jedes Mal auf
+etwas anderem und verliert Buchungen. Alternative: ein <code>AtomicInteger</code>.</li>
+<li><strong>Kurse:</strong> Eine <code>WeakHashMap</code> hält ihre Schlüssel über ihre Identität fest. Für Werte
+wie <code>LocalDate</code> passt eine gewöhnliche Map (<code>HashMap</code>, <code>ConcurrentHashMap</code>) mit einer
+ausdrücklichen Regel, wann Einträge entfallen.</li>
+<li><strong>Mengen:</strong> <code>a.equals(b)</code> statt <code>a == b</code> – oder gleich <code>int</code>. <code>==</code> auf <code>Integer</code>
+stimmt nur, solange der Cache für −128 bis 127 hilft.</li>
+<li><strong>Aufrufe:</strong> Eine <code>HashMap</code> statt der <code>IdentityHashMap</code> – gezählt werden soll je
+Artikelnummer, nicht je Objekt.</li>
+</ul>
+</details>
+<h3 id="kür-valhalla-ausprobieren-jdk-28-early-access">Kür: Valhalla ausprobieren (JDK 28 Early Access)</h3>
+<p>Lade einen Early-Access-Build von JDK 28 von <a href="https://jdk.java.net/28/">jdk.java.net/28</a>,
+entpacke ihn in einen eigenen Ordner und rufe dessen <code>bin/java</code> mit dem vollen Pfad auf
+– er ersetzt Dein JDK nicht. Mit Docker geht es ohne Installation, im Wurzelordner des
+Übungsprojekts:</p>
+<pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertbasiert.java
+</code></pre>
+<p>Starte zuerst den <strong>unveränderten</strong> Stand (<code>git stash</code>, danach <code>git stash pop</code>), dann
+Deine behobene Fassung, jeweils mit <code>--enable-preview</code>. Was geschieht mit den vier
+Stellen? Welche bricht beim Übersetzen, welche zur Laufzeit, und welche liefert plötzlich
+ein anderes Ergebnis?</p>
+<h3 id="kür-werte-im-speicher-jdk-28-early-access">Kür: Werte im Speicher (JDK 28 Early Access)</h3>
+<p><code>spielwiese/Wertklassen.java</code> legt fünf Millionen Lagerplätze an – als gewöhnlichen
+Record und als Wert-Record – und misst Speicher und Durchlaufzeit. Starte es mit dem
+Early-Access-Build:</p>
+<pre><code class="language-shell">java --enable-preview spielwiese/Wertklassen.java
+</code></pre>
+<p>Mit Docker:</p>
+<pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertklassen.java
+</code></pre>
+<p>Wie viel Speicher und Zeit spart der Wert-Record? Warum ist <code>GroßerWertPlatz</code> mit zwei
+<code>int</code> nicht kleiner, sondern größer? Die Visualisierung gibt die Antwort.</p>
+<h3 id="bewerten">Bewerten</h3>
+<p>Halte in Stichworten fest:</p>
+<ul>
+<li><strong>Voraussetzungen:</strong> Was braucht es, bis Ihr Value Objects nutzen könnt – JDK, Ende
+der Preview, Frameworks, Werkzeuge?</li>
+<li><strong>Vorteile:</strong> Wo spart es bei Euch Speicher oder Zeit, wo bildet es die Domäne genauer
+ab?</li>
+<li><strong>Herausforderungen:</strong> Welche Stellen in Eurem Code oder Euren Bibliotheken setzen auf
+Identität?</li>
+<li><strong>Betrifft mich das?</strong> Nutzen gering, mittel oder hoch – für einen REST-Microservice,
+ein Batch-Programm, eine Server-Anwendung. Und was davon tut Ihr schon heute?</li>
+</ul>
+<div class="skr-didaktikon-content-after" data-skr-slot="content.after">
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
+<ul>
+<li>Euer Code vergleicht an einer Stelle zwei <code>Integer</code> mit <code>==</code>, und alle Tests sind grün. Warum ist das trotzdem ein Fehler – heute und mit Valhalla?</li>
+<li>Welche Frameworks oder Bibliotheken in Eurem Bestand könnten auf die Identität von Objekten setzen – Caches, Sperren, Proxys, ORM?</li>
+<li>Wo in Eurer Domäne stecken Werte, die heute Klassen mit Identität sind – Geldbeträge, Zeiträume, Adressen?</li>
+<li>Value Objects sind Preview. Was müsste geschehen, bevor Ihr sie in Produktionscode einsetzt?</li>
+</ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># Valhalla heute schon vorbereiten
+
+&lt;div class=&#34;skr-didaktikon-content-top&#34; data-skr-slot=&#34;content.top&#34; markdown=&#34;1&#34;&gt;
+
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
+
+Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, wo unser Code auf die Identität von Werten setzt und was Project Valhalla daran ändert, damit ich heute schon so programmiere, dass es später kein Bruch wird.
+
+&lt;/div&gt;
+
+&lt;div class=&#34;skr-callout skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+## Lernziele
+
+- Du erklärst, was ein Objekt ohne Identität von einem Objekt mit Identität unterscheidet.
+- Du findest mit den Warnungen des Compilers und der Diagnose der JVM die Stellen, die auf die Identität wertbasierter Klassen setzen.
+- Du behebst diese Stellen so, dass sie heute und mit Valhalla richtig arbeiten.
+- Du begründest, warum flach abgelegte Werte Speicher und Zeit sparen – und wann die JVM sie nicht flach ablegen kann.
+- Du bewertest, was Valhalla für Eure Anwendungen bedeutet und was Ihr heute schon tun könnt.
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+## Definition of Done
+
+### Den Bestand prüfen
+
+- [ ] Du kannst für jede der vier Stellen in `Wertbasiert` sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.
+- [ ] Du hast die Stellen behoben, und `java spielwiese/Wertbasiert.java` übersetzt ohne Warnung.
+
+### Bewertung
+
+- [ ] Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert.
+
+### Für die ganze Seite
+
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+
+Value Objects sind Preview und gehören noch nicht in Produktionscode. Aber jeder Code,
+der heute auf die Identität von `Integer`, `LocalDate` oder `Optional` setzt, bekommt mit
+Valhalla einen Bruch – und manchmal ist er schon heute falsch. Du suchst solche Stellen
+und behebst sie. Wer will, probiert mit einem Early-Access-Build von JDK 28 aus, was
+Valhalla daraus macht.
+
+&gt; **Hinweis:** Für die Pflicht reicht **JDK 21 oder 25**. Die beiden Kür-Schritte
+&gt; brauchen einen **Early-Access-Build von JDK 28** – nur, wenn Du ihn installieren darfst
+&gt; oder Docker hast. Die Befehle laufen im Terminal – in IntelliJ über *View → Tool
+&gt; Windows → Terminal*, in Eclipse über *Window → Show View → Terminal*, jeweils im
+&gt; Wurzelordner des Übungsprojekts.
+
+## Arbeitsschritte
+
+### Worum es geht
+
+Ein Objekt mit **Identität** ist mehr als sein Inhalt: Zwei Objekte mit gleichen Feldern
+sind trotzdem zwei, man kann auf jedem sperren, und es braucht einen Header im Speicher.
+Ein **Wertobjekt** ist nur sein Inhalt (JEP 401, **Preview in Java 28**). Vorbereitet ist
+das seit **Java 16** (JEP 390, LTS-Marke **17**): `Integer`, `LocalDate`, `Optional` und
+weitere sind als *wertbasiert* markiert, und der Compiler warnt, wo Code auf ihre
+Identität setzt. Was das im Speicher bedeutet und was davon abhängt, zeigt die
+Visualisierung [Project Valhalla: Objekte ohne Identität](valhalla.md).
+
+### Den Bestand prüfen
+
+`spielwiese/Wertbasiert.java` enthält vier Stellen aus einem Bestellsystem, wie sie in
+echtem Code vorkommen: ein Lager, das auf seinem Zähler sperrt, einen Cache für
+Tageskurse, einen Vergleich zweier Mengen und einen Zähler je Artikelnummer. Starte das
+Programm:
+
+```shell
+java spielwiese/Wertbasiert.java
+```
+
+Lies zuerst die Warnungen des Compilers über der Ausgabe: Welche Stellen meldet er, und
+welche nicht? Lies dann die Ausgabe: Welches der vier Ergebnisse ist schon heute falsch?
+Starte das Programm mehrmals – bleibt der Bestand gleich?
+
+&gt; **Hinweis:** JDK 21 meldet die Kategorie `synchronization`, JDK 25 `identity` und
+&gt; warnt dort bei mehr Stellen.
+
+### Zur Laufzeit nachsehen
+
+Der Compiler sieht nur Typen. Wo auf einer Variablen vom Typ `Object` gesperrt wird, die
+zur Laufzeit ein `Integer` hält, schweigt er. Die JVM meldet jede solche Sperre, und der
+Flight Recorder zeichnet sie auf. Starte das Programm mit Diagnose und Aufzeichnung:
+
+```shell
+java -XX:&#43;UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 -XX:StartFlightRecording=filename=wert.jfr spielwiese/Wertbasiert.java
+```
+
+Die Konsole läuft dabei voll – je Sperre ein Eintrag. Lies die Aufzeichnung als Tabelle:
+
+```shell
+jfr view SyncOnValueBasedClass wert.jfr
+```
+
+In welcher Methode wird gesperrt, und auf welcher Klasse? Wie würdet Ihr so etwas in
+Eurem Bestand finden, etwa in einem Lasttest?
+
+### Die Stellen beheben
+
+Behebe alle vier Stellen in `spielwiese/Wertbasiert.java` so, dass sie heute richtig
+arbeiten und mit Valhalla nicht brechen. Starte danach wieder:
+
+```shell
+java spielwiese/Wertbasiert.java
+```
+
+Erst wenn keine Warnung mehr kommt und die Ausgabe stimmt, bist Du fertig.
+
+&lt;details class=&#34;skr-reveal&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Lösungsweg aufdecken&lt;/summary&gt;
+
+- **Lager:** Eine eigene Sperre, die sich nie ändert – `private final Object sperre =
+  new Object();` und `synchronized (sperre)`. Der Zähler `bestand = bestand &#43; menge`
+  erzeugt bei jeder Buchung ein neues `Integer`; wer darauf sperrt, sperrt jedes Mal auf
+  etwas anderem und verliert Buchungen. Alternative: ein `AtomicInteger`.
+- **Kurse:** Eine `WeakHashMap` hält ihre Schlüssel über ihre Identität fest. Für Werte
+  wie `LocalDate` passt eine gewöhnliche Map (`HashMap`, `ConcurrentHashMap`) mit einer
+  ausdrücklichen Regel, wann Einträge entfallen.
+- **Mengen:** `a.equals(b)` statt `a == b` – oder gleich `int`. `==` auf `Integer`
+  stimmt nur, solange der Cache für −128 bis 127 hilft.
+- **Aufrufe:** Eine `HashMap` statt der `IdentityHashMap` – gezählt werden soll je
+  Artikelnummer, nicht je Objekt.
+
+&lt;/details&gt;
+
+### Kür: Valhalla ausprobieren (JDK 28 Early Access)
+
+Lade einen Early-Access-Build von JDK 28 von [jdk.java.net/28](https://jdk.java.net/28/),
+entpacke ihn in einen eigenen Ordner und rufe dessen `bin/java` mit dem vollen Pfad auf
+– er ersetzt Dein JDK nicht. Mit Docker geht es ohne Installation, im Wurzelordner des
+Übungsprojekts:
+
+```shell
+docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertbasiert.java
+```
+
+Starte zuerst den **unveränderten** Stand (`git stash`, danach `git stash pop`), dann
+Deine behobene Fassung, jeweils mit `--enable-preview`. Was geschieht mit den vier
+Stellen? Welche bricht beim Übersetzen, welche zur Laufzeit, und welche liefert plötzlich
+ein anderes Ergebnis?
+
+### Kür: Werte im Speicher (JDK 28 Early Access)
+
+`spielwiese/Wertklassen.java` legt fünf Millionen Lagerplätze an – als gewöhnlichen
+Record und als Wert-Record – und misst Speicher und Durchlaufzeit. Starte es mit dem
+Early-Access-Build:
+
+```shell
+java --enable-preview spielwiese/Wertklassen.java
+```
+
+Mit Docker:
+
+```shell
+docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertklassen.java
+```
+
+Wie viel Speicher und Zeit spart der Wert-Record? Warum ist `GroßerWertPlatz` mit zwei
+`int` nicht kleiner, sondern größer? Die Visualisierung gibt die Antwort.
+
+### Bewerten
+
+Halte in Stichworten fest:
+
+- **Voraussetzungen:** Was braucht es, bis Ihr Value Objects nutzen könnt – JDK, Ende
+  der Preview, Frameworks, Werkzeuge?
+- **Vorteile:** Wo spart es bei Euch Speicher oder Zeit, wo bildet es die Domäne genauer
+  ab?
+- **Herausforderungen:** Welche Stellen in Eurem Code oder Euren Bibliotheken setzen auf
+  Identität?
+- **Betrifft mich das?** Nutzen gering, mittel oder hoch – für einen REST-Microservice,
+  ein Batch-Programm, eine Server-Anwendung. Und was davon tut Ihr schon heute?
+
+
+&lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
+
+## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
+
+- Euer Code vergleicht an einer Stelle zwei `Integer` mit `==`, und alle Tests sind grün. Warum ist das trotzdem ein Fehler – heute und mit Valhalla?
+- Welche Frameworks oder Bibliotheken in Eurem Bestand könnten auf die Identität von Objekten setzen – Caches, Sperren, Proxys, ORM?
+- Wo in Eurer Domäne stecken Werte, die heute Klassen mit Identität sind – Geldbeträge, Zeiträume, Adressen?
+- Value Objects sind Preview. Was müsste geschehen, bevor Ihr sie in Produktionscode einsetzt?
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+## Weiterführende Informationen
+- [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
+- [JEP 401: Value Objects (Preview)](https://openjdk.org/jeps/401)
+- [JEP 390: Warnings for Value-Based Classes](https://openjdk.org/jeps/390)
+- [JDK 28 Early-Access Builds](https://jdk.java.net/28/)
+- [Project Valhalla](https://openjdk.org/projects/valhalla/)
+</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12">
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#den-bestand-prfen" class="skr-toc--h3">Den Bestand prüfen</a><a href="#bewertung" class="skr-toc--h3">Bewertung</a><a href="#fr-die-ganze-seite" class="skr-toc--h3">Für die ganze Seite</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#worum-es-geht" class="skr-toc--h3">Worum es geht</a><a href="#den-bestand-prüfen-1" class="skr-toc--h3">Den Bestand prüfen</a><a href="#zur-laufzeit-nachsehen" class="skr-toc--h3">Zur Laufzeit nachsehen</a><a href="#die-stellen-beheben" class="skr-toc--h3">Die Stellen beheben</a><a href="#kür-valhalla-ausprobieren-jdk-28-early-access" class="skr-toc--h3">Kür: Valhalla ausprobieren (JDK 28 Early Access)</a><a href="#kür-werte-im-speicher-jdk-28-early-access" class="skr-toc--h3">Kür: Werte im Speicher (JDK 28 Early Access)</a><a href="#bewerten" class="skr-toc--h3">Bewerten</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 4 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span></a>
+      <a href="https://openjdk.org/jeps/401" target="_blank" rel="noopener"><span>JEP 401: Value Objects (Preview)</span></a>
+      <a href="https://openjdk.org/jeps/390" target="_blank" rel="noopener"><span>JEP 390: Warnings for Value-Based Classes</span></a>
+      <a href="https://jdk.java.net/28/" target="_blank" rel="noopener"><span>JDK 28 Early-Access Builds</span></a>
+      <a href="https://openjdk.org/projects/valhalla/" target="_blank" rel="noopener"><span>Project Valhalla</span></a>
+    </div>
+  </div>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

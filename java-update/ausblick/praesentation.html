@@ -39,7 +39,7 @@
 <script src="../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=79eb5075" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=7b75e293" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -155,16 +155,10 @@ Exception in thread &quot;main&quot; java.lang.IllegalAccessException: … not a
 <li>Dasselbe Muster wie bei der starken Kapselung: erst warnen, dann verbieten. Wer Warnungen liest, wird nicht überrascht</li>
 </ul>
 <h2 id="valhalla-objekte-ohne-identität">Valhalla: Objekte ohne Identität</h2>
-<pre><code class="language-java">value record Geldbetrag(long cent, String währung) {}
-
-var a = new Geldbetrag(1999, &quot;EUR&quot;);
-var b = new Geldbetrag(1999, &quot;EUR&quot;);
-a == b                    // true – gleich ist gleich
-synchronized (a) { … }    // scheitert: ein Wert hat keinen Monitor
-</code></pre>
 <ul>
-<li>Preview in 28 (JEP 401) – Projekt Valhalla, an dem seit 2014 gearbeitet wird</li>
-<li>Im Preview-Modus werden <code>Integer</code>, <code>Optional</code>, <code>LocalDate</code> und weitere zu Wertklassen: <code>synchronized</code> auf ihnen scheitert, <code>==</code> vergleicht den Wert</li>
+<li>Value Objects sind <strong>Preview in 28</strong> (JEP 401): Objekte, die nur ihr Inhalt sind – <code>==</code> vergleicht den Wert, <code>synchronized</code> geht nicht mehr</li>
+<li>Mit Preview werden <code>Integer</code>, <code>Optional</code>, <code>LocalDate</code> und weitere zu Wertklassen – wer heute auf ihnen sperrt oder sie mit <code>==</code> vergleicht, bekommt einen Bruch</li>
+<li>Mehr dazu im Schwerpunkt Valhalla: <a href="../../java-update/valhalla/valhalla.html">Project Valhalla: Objekte ohne Identität</a></li>
 </ul>
 <h2 id="und-für-euch">Und für Euch?</h2>
 <ul>

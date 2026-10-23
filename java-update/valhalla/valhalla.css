@@ -1,0 +1,33 @@
+.vh-lead{color:var(--skr-color-ink-muted);margin:0 0 1rem;}
+.vh-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
+.vh-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;}
+.vh-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.vh-knopf:hover{border-color:var(--skr-color-accent);}
+.vh-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.vh-tabelle table{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 1rem;}
+.vh-tabelle th,.vh-tabelle td{text-align:left;vertical-align:top;padding:.45rem .6rem;border-bottom:1px solid var(--skr-color-border);}
+.vh-tabelle th[scope="row"] small{display:block;margin-top:.15rem;font-weight:400;color:var(--skr-color-ink-muted);}
+.vh-geht .vh-zeichen{color:var(--skr-color-success-ink);font-weight:700;}
+.vh-geht-nicht .vh-zeichen{color:var(--skr-color-danger-ink);font-weight:700;}
+.vh-anders .vh-zeichen{color:var(--skr-color-ink-muted);font-weight:700;}
+.vh-bild svg{display:block;width:100%;height:auto;}
+.vh-bild-text{font-size:15px;fill:var(--skr-color-ink);}
+.vh-bild-text--klein{font-size:13px;fill:var(--skr-color-ink-muted);}
+.vh-feld{fill:var(--skr-color-bg-subtle);stroke:var(--skr-color-border);}
+.vh-objekt{fill:var(--skr-color-bg);stroke:var(--skr-color-border);}
+.vh-kopf{fill:color-mix(in srgb,var(--skr-color-accent) 30%,var(--skr-color-bg));stroke:var(--skr-color-border);}
+.vh-pfeil{stroke:var(--skr-color-ink-muted);stroke-width:1.5;}
+.vh-karte{padding:.8rem 1rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);font-size:.92rem;margin:0 0 1rem;}
+.vh-karte p{margin:.35rem 0;}
+.vh-kennzahlen{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;}
+.vh-balken{height:1rem;background:var(--skr-color-bg);border-radius:3px;margin:.4rem 0;}
+.vh-balken span{display:block;height:100%;background:var(--skr-color-accent);border-radius:3px;}
+.vh-fussnote{font-size:.8rem;color:var(--skr-color-ink-muted);margin:.25rem 0 1rem;}
+.vh-kette{list-style:none;margin:0 0 1rem;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));gap:.5rem;}
+.vh-schritt{font:inherit;width:100%;height:100%;text-align:left;display:flex;flex-direction:column;gap:.15rem;padding:.5rem .65rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.vh-schritt:hover{border-color:var(--skr-color-accent);}
+.vh-schritt[aria-pressed="true"]{border-color:var(--skr-color-accent);box-shadow:inset 0 0 0 2px var(--skr-color-accent);}
+.vh-schritt--entwurf,.vh-schritt--wartet{border-style:dashed;}
+.vh-schritt__jep{font-size:.78rem;color:var(--skr-color-ink-muted);font-weight:700;}
+.vh-schritt__name{font-weight:700;font-size:.9rem;}
+.vh-schritt__stand{font-size:.8rem;color:var(--skr-color-ink-muted);}
