@@ -51,6 +51,11 @@
   let aktuell = 0;
 
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  // Neu eingesetzte Codeblöcke meldet die Seite dem Skriptorium (`skr-content-added`):
+  // Läuft einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+  function inhaltMelden(id) {
+    document.getElementById(id).dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
+  }
   function text(s) {
     return esc(s).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/`([^`]+)`/g, "<code>$1</code>");
   }
@@ -90,6 +95,7 @@
       + "<p>" + text(t.text) + "</p>"
       + "<pre><code>" + esc(t.code) + "</code></pre>"
       + '<p class="rec-art">' + esc(t.quelle) + "</p>";
+    inhaltMelden("rec-erklaerung");
   }
 
   function anmelden() {

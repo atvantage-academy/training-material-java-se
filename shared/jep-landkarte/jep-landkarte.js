@@ -1450,6 +1450,9 @@
     html += '<p class="jl-quelle"><a href="https://openjdk.org/jeps/' + j.nr + '" rel="noopener">JEP ' + j.nr + " auf openjdk.org</a></p>";
     inhalt.innerHTML = html;
     if (aktiv === "beispiel") färben(inhalt);
+    // Neu eingesetzte Codeblöcke dem Skriptorium melden (`skr-content-added`): Läuft
+    // einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+    inhalt.dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
   }
   function verweisAufStation(nr) {
     return '<a href="https://openjdk.org/jeps/' + nr + '" rel="noopener">JEP ' + nr + "</a>";

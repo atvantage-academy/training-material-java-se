@@ -80,6 +80,11 @@
 
   function lts(seit) { return seit <= 11 ? 11 : seit <= 17 ? 17 : seit <= 21 ? 21 : 25; }
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  // Neu eingesetzte Codeblöcke meldet die Seite dem Skriptorium (`skr-content-added`):
+  // Läuft einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+  function inhaltMelden(element) {
+    element.dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
+  }
   // Gefärbt wird über die Hervorhebung des Skriptoriums (`skr.highlight`): Sie färbt jedes
   // `pre code.language-java`, das noch nicht gefärbt ist. Steht sie noch nicht bereit,
   // meldet sie sich mit `skr-highlight-ready`; ohne sie bleibt der Code ungefärbt.
@@ -156,6 +161,7 @@
       el.querySelector(".api-zeile").setAttribute("aria-expanded", String(offen));
       if (offen) d.innerHTML = detail(e);
       d.hidden = !offen;
+      if (offen) inhaltMelden(d);
     });
     document.querySelectorAll(".api-karte").forEach(function (k) {
       k.hidden = !k.querySelector(".api-eintrag:not([hidden])");

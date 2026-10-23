@@ -217,6 +217,9 @@
                 + '<p class="jev-feature-desc">' + jevEsc(f.desc) + '</p>'
                 + '<pre><code class="language-java">' + jevEsc(f.code) + '</code></pre>';
             jevHighlight('#jev-modal-body');
+            // Neu eingesetzte Codeblöcke dem Skriptorium melden (`skr-content-added`): Läuft
+            // einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+            document.getElementById('jev-modal-body').dispatchEvent(new CustomEvent('skr-content-added', { bubbles: true }));
         }
 
         function jevCloseModal(){

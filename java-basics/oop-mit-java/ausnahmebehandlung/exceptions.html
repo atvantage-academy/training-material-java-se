@@ -50,7 +50,7 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
-<link rel="stylesheet" href="../../../java-basics/oop-mit-java/ausnahmebehandlung/exceptions.css?v=bfc2b3a9">
+<link rel="stylesheet" href="../../../java-basics/oop-mit-java/ausnahmebehandlung/exceptions.css?v=3d8da688">
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -219,9 +219,9 @@
 System.out.println(e.getMessage());
 System.out.println(e.getFehlbetrag());
 System.out.println(e instanceof Exception);</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">Konto DE01: es fehlen 5000 Cent
+<pre class="exc-konsole" data-titel="Ausgabe">Konto DE01: es fehlen 5000 Cent
 5000
-true</div>
+true</pre>
 <p>Ohne <code>throw</code> passiert nichts Besonderes – das Objekt wird erzeugt und benutzt wie jedes andere.</p>
 </div>
 <div class="exc-card exc-card--schlecht">
@@ -296,8 +296,8 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
     }
     System.out.println("Weiter geht's.");
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">Überweisung abgelehnt – Konto DE01: es fehlen 5000 Cent
-<mark>Weiter geht's.</mark></div>
+<pre class="exc-konsole" data-titel="Ausgabe">Überweisung abgelehnt – Konto DE01: es fehlen 5000 Cent
+<mark>Weiter geht's.</mark></pre>
 <p>Nach dem <code>catch</code> läuft das Programm normal weiter. <code>einzahlen</code> wurde nie aufgerufen – kein Geld aus dem Nichts.</p>
 </div>
 </div>
@@ -333,10 +333,10 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
         System.out.println("Weiter geht's.");
     }
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe (System.err), Exit-Code 1"><mark>Exception in thread "main"</mark> KeineDeckungException: Konto DE01: es fehlen 5000 Cent
+<pre class="exc-konsole" data-titel="Ausgabe (System.err), Exit-Code 1"><mark>Exception in thread "main"</mark> KeineDeckungException: Konto DE01: es fehlen 5000 Cent
     at Konto.abheben(Konto.java:16)
     at Bank.überweisen(Bank.java:5)
-    at MainOhneCatch.main(MainOhneCatch.java:6)</div>
+    at MainOhneCatch.main(MainOhneCatch.java:6)</pre>
 </div>
 <div class="exc-card">
 <span class="exc-etikett">Den Stacktrace lesen</span>
@@ -366,10 +366,10 @@ nach.einzahlen(150_00);   // Geld aus dem Nichts</code></pre>
         giro.abheben(150_00);
     }
 }</code></pre>
-<div class="exc-konsole" data-titel="javac">MainVergessen.java:5: Fehler: <mark>Nicht gemeldete Ausnahme KeineDeckungException</mark>. Muss abgefangen oder deklariert werden, um ausgelöst zu werden
+<pre class="exc-konsole" data-titel="javac">MainVergessen.java:5: Fehler: <mark>Nicht gemeldete Ausnahme KeineDeckungException</mark>. Muss abgefangen oder deklariert werden, um ausgelöst zu werden
         giro.abheben(150_00);
                     ^
-1 Fehler</div>
+1 Fehler</pre>
 </div>
 <div class="exc-grid">
 <div class="exc-card exc-card--gut">
@@ -421,7 +421,7 @@ try {
 } catch (NumberFormatException e) {
     System.out.println("Keine Zahl: " + e.getMessage());
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">Keine Zahl: For input string: "12a"</div>
+<pre class="exc-konsole" data-titel="Ausgabe">Keine Zahl: For input string: "12a"</pre>
 </div>
 </div>
 </details>
@@ -447,11 +447,11 @@ try {
         System.out.println(anteil("90", "drei"));
     }
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">30
+<pre class="exc-konsole" data-titel="Ausgabe">30
 Ungültige Eingabe: / by zero
 0
 Ungültige Eingabe: For input string: "drei"
-0</div>
+0</pre>
 </div>
 </div>
 </details>
@@ -470,10 +470,10 @@ Ungültige Eingabe: For input string: "drei"
 } catch (FileNotFoundException e) {
     System.out.println("Datei fehlt: " + e.getMessage());
 }</code></pre>
-<div class="exc-konsole" data-titel="javac">Reihenfolge.java:13: Fehler: Ausnahme FileNotFoundException <mark>wurde bereits abgefangen</mark>
+<pre class="exc-konsole" data-titel="javac">Reihenfolge.java:13: Fehler: Ausnahme FileNotFoundException <mark>wurde bereits abgefangen</mark>
         } catch (FileNotFoundException e) {
           ^
-1 Fehler</div>
+1 Fehler</pre>
 </div>
 <div class="exc-card exc-card--gut">
 <span class="exc-etikett">Speziell zuerst</span>
@@ -485,7 +485,7 @@ Ungültige Eingabe: For input string: "drei"
 } catch (IOException e) {
     System.out.println("Lesefehler: " + e.getMessage());
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">Datei fehlt: konten.csv (No such file or directory)</div>
+<pre class="exc-konsole" data-titel="Ausgabe">Datei fehlt: konten.csv (No such file or directory)</pre>
 </div>
 </div>
 </div>
@@ -519,14 +519,14 @@ Ungültige Eingabe: For input string: "drei"
         }
     }
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">Verbindung öffnen
+<pre class="exc-konsole" data-titel="Ausgabe">Verbindung öffnen
 Kontostand lesen
 <mark>Verbindung schließen</mark>
 Ergebnis: 100,00 €
 Verbindung öffnen
 Kontostand lesen
 <mark>Verbindung schließen</mark>
-Fehler: Leitung gestört</div>
+Fehler: Leitung gestört</pre>
 </div>
 </div>
 </details>
@@ -569,12 +569,12 @@ Fehler: Leitung gestört</div>
 } catch (IllegalArgumentException e) {
     System.out.println("Fehler: " + e.getMessage());
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe">Bank geöffnet
+<pre class="exc-konsole" data-titel="Ausgabe">Bank geöffnet
 Archiv geöffnet
 Bank sendet: Kontostand?
 <mark>Archiv geschlossen</mark>
 <mark>Bank geschlossen</mark>
-Fehler: Leere Nachricht an Archiv</div>
+Fehler: Leere Nachricht an Archiv</pre>
 </div>
 </div>
 </div>
@@ -626,14 +626,14 @@ public class KontoArchiv {
         System.out.println(KontoArchiv.laden("DE99"));
     }
 }</code></pre>
-<div class="exc-konsole" data-titel="Ausgabe (System.err)">Exception in thread "main" KontoNichtGefundenException: Kein Konto mit IBAN DE99
+<pre class="exc-konsole" data-titel="Ausgabe (System.err)">Exception in thread "main" KontoNichtGefundenException: Kein Konto mit IBAN DE99
     at KontoArchiv.laden(KontoArchiv.java:11)
     at Main.main(Main.java:4)
 <mark>Caused by:</mark> java.nio.file.NoSuchFileException: konten/DE99.txt
     at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
     … (9 weitere Zeilen aus java.base – hier gekürzt)
     at KontoArchiv.laden(KontoArchiv.java:9)
-    ... 1 more</div>
+    ... 1 more</pre>
 </div>
 <p class="exc-note">Nie die Ursache weglassen: Ein <code>new KontoNichtGefundenException(iban)</code> ohne <code>e</code> verschluckt, <em>warum</em> das Laden scheiterte.</p>
 </div>

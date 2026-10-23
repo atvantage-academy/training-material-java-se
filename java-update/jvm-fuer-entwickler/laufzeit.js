@@ -64,6 +64,11 @@
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
+  // Neu eingesetzte Codeblöcke meldet die Seite dem Skriptorium (`skr-content-added`):
+  // Läuft einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+  function inhaltMelden(id) {
+    document.getElementById(id).dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
+  }
   function zahl(x) {
     if (x >= 10) return String(Math.round(x * 10) / 10).replace(".", ",");
     if (x >= 0.1) return String(Math.round(x * 100) / 100).replace(".", ",");
@@ -150,6 +155,7 @@
       '<p class="lz-kennzahlen"><span>Collector <b>' + gc + "</b></span><span>Heap höchstens <b>" + heapText + "</b></span></p>" +
       "<p>" + esc(urteil) + "</p><p>" + heapUrteil + "</p>" +
       '<pre class="lz-befehl"><code>docker run --rm --cpus ' + k + " -m " + (mb >= 1024 ? mb / 1024 + "g" : mb + "m") + " eclipse-temurin:" + zustand.jdk + " java" + option + " -Xlog:gc,gc+init -version</code></pre>";
+    inhaltMelden("lz-container");
     knöpfe("lz-jdk", jdks, function (id) { return id === zustand.jdk; }, function (id) { setzen("jdk", id); });
     knöpfe("lz-kerne", kerne, function (id) { return id === zustand.kerne; }, function (id) { setzen("kerne", id); });
     knöpfe("lz-speicher", speicher, function (id) { return id === zustand.speicher; }, function (id) { setzen("speicher", id); });

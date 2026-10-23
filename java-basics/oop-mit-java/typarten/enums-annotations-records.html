@@ -50,7 +50,7 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
-<link rel="stylesheet" href="../../../java-basics/oop-mit-java/typarten/enums-annotations-records.css?v=0e685e4c">
+<link rel="stylesheet" href="../../../java-basics/oop-mit-java/typarten/enums-annotations-records.css?v=e753ffde">
 <script src="../../../java-basics/oop-mit-java/typarten/enums-annotations-records.js?v=ad1947ae" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
@@ -187,13 +187,13 @@ switch (trumpf) {
     case KREUZ, PIK -&gt; System.out.println("schwarz");
     case HERZ, KARO -&gt; System.out.println("rot");
 }</code></pre>
-<div class="ear-konsole" data-titel="Ausgabe">HERZ
+<pre class="ear-konsole" data-titel="Ausgabe">HERZ
 HERZ
 2
 true
 PIK
 KREUZ PIK HERZ KARO
-rot</div>
+rot</pre>
 </div>
 <div class="ear-card">
 <h3>Was Du mitbekommst</h3>
@@ -233,11 +233,11 @@ rot</div>
 }
 int spielwert = Kartenfarbe.KREUZ.getWert() * 2;
 System.out.println(spielwert);</code></pre>
-<div class="ear-konsole" data-titel="Ausgabe">KREUZ = 12
+<pre class="ear-konsole" data-titel="Ausgabe">KREUZ = 12
 PIK = 11
 HERZ = 10
 KARO = 9
-24</div>
+24</pre>
 </div>
 </div>
 <h3>Die Regeln dazu</h3>
@@ -309,7 +309,7 @@ KARO = 9
 </details>
 </div>
 <p>Der Beleg: <code>javap -p</code> zeigt, was wirklich in der <code>Kartenfarbe.class</code> steht. Jede Konstante ist ein <code>public static final</code>-Feld, die Klasse ist <code>final</code> und erbt von <code>java.lang.Enum</code>, <code>values()</code> und <code>valueOf()</code> hat der Compiler ergänzt.</p>
-<div class="ear-konsole" data-titel="javap -p Kartenfarbe.class">Compiled from "Kartenfarbe.java"
+<pre class="ear-konsole" data-titel="javap -p Kartenfarbe.class">Compiled from "Kartenfarbe.java"
 <mark>public final class Kartenfarbe extends java.lang.Enum&lt;Kartenfarbe&gt;</mark> {
   <mark>public static final Kartenfarbe KREUZ;</mark>
   public static final Kartenfarbe PIK;
@@ -323,7 +323,7 @@ KARO = 9
   public int getWert();
   private static Kartenfarbe[] $values();
   static {};
-}</div>
+}</pre>
 <p class="ear-note">Der Konstruktor heißt dort nur scheinbar <code>Kartenfarbe(int)</code>: Seine echte Signatur ist <code>(String, int, int)</code> – Name und Position reicht der Compiler unsichtbar mit durch. Im statischen Initialisierer steht dann <code>new Kartenfarbe("KREUZ", 0, 12)</code>, genau wie im zweiten Reiter oben.</p>
 <h3>Warum dann nicht gleich selbst schreiben?</h3>
 <p>Weil man es nicht darf: Diese Klasse kann nur der Compiler erzeugen. Schreibt man sie selbst, meldet <code>javac</code>: „Klassen können java.lang.Enum nicht direkt erweitern“. Und es ist gut so – über die Oberklasse <code>Enum</code> bekommt ein echtes Enum <code>compareTo</code> in Deklarationsreihenfolge, ein <code>equals</code>, das niemand überschreiben kann, Schutz davor, dass beim Serialisieren eine fünfte „Kreuz“-Instanz entsteht, die Unterstützung im <code>switch</code> und die schnellen Sammlungen <code>EnumSet</code> und <code>EnumMap</code>.</p>
@@ -376,21 +376,21 @@ Symbol s = Kartenfarbe.PIK;           // über das Interface ansprechbar
 System.out.println(s.symbol());
 System.out.println(Kartenfarbe.HERZ.getClass());
 System.out.println(Kartenfarbe.HERZ.getDeclaringClass());</code></pre>
-<div class="ear-konsole" data-titel="Ausgabe">♣ KREUZ rot? false
+<pre class="ear-konsole" data-titel="Ausgabe">♣ KREUZ rot? false
 ♠ PIK rot? false
 ♥ HERZ rot? true
 ♦ KARO rot? true
 ♠
 class Kartenfarbe$3
-class Kartenfarbe</div>
+class Kartenfarbe</pre>
 <h3>Was der Compiler daraus macht</h3>
 <p>Jeder Konstantenrumpf wird eine <strong>anonyme Unterklasse</strong>: Neben <code>Kartenfarbe.class</code> liegen <code>Kartenfarbe$1.class</code> bis <code>Kartenfarbe$4.class</code>. Die Enum-Klasse selbst ist jetzt <code>abstract</code> statt <code>final</code>:</p>
-<div class="ear-konsole" data-titel="javap -p Kartenfarbe.class (Auszug)"><mark>public abstract class Kartenfarbe extends java.lang.Enum&lt;Kartenfarbe&gt; implements Symbol</mark> {
+<pre class="ear-konsole" data-titel="javap -p Kartenfarbe.class (Auszug)"><mark>public abstract class Kartenfarbe extends java.lang.Enum&lt;Kartenfarbe&gt; implements Symbol</mark> {
   public static final Kartenfarbe KREUZ;
   …
   public abstract boolean istRot();
   …
-}</div>
+}</pre>
 <p class="ear-note">Deshalb liefert <code>getClass()</code> für <code>HERZ</code> die Unterklasse <code>Kartenfarbe$3</code>. Wer die Enum-Klasse braucht – etwa für einen Vergleich –, nimmt <code>getDeclaringClass()</code>.</p>
 </div>
 </div>
@@ -477,13 +477,13 @@ public @interface Vorläufig {
 <summary>Bytecode</summary>
 <div class="ear-reiter__inhalt">
 <p>Der Compiler macht daraus eine <code>.class</code>-Datei – und zwar ein <strong>Interface</strong>, das <code>java.lang.annotation.Annotation</code> erweitert:</p>
-<div class="ear-konsole" data-titel="javap Geprüft.class">Compiled from "Geprüft.java"
+<pre class="ear-konsole" data-titel="javap Geprüft.class">Compiled from "Geprüft.java"
 <mark>public interface</mark> de.bank.annotationen.Geprüft
     <mark>extends java.lang.annotation.Annotation</mark> {
   public abstract java.lang.String value();
   public abstract java.lang.String von();
   public abstract int stufe();
-}</div>
+}</pre>
 <p class="ear-note">Ein Marker wie <code>Vorläufig</code> ist ein Interface ohne Methoden.</p>
 </div>
 </details>
@@ -503,9 +503,9 @@ public class Konto {
     @Geprüft(value = "2026-10-01", von = "Mia", stufe = 2)
     public void einzahlen(double betrag) { }
 }</code></pre>
-<div class="ear-konsole" data-titel="Nach javac">out/de/bank/Konto.class
+<pre class="ear-konsole" data-titel="Nach javac">out/de/bank/Konto.class
 out/de/bank/annotationen/Geprüft.class
-out/de/bank/annotationen/Vorläufig.class</div>
+out/de/bank/annotationen/Vorläufig.class</pre>
 </div>
 </details>
 </div>
@@ -526,15 +526,15 @@ out/de/bank/annotationen/Vorläufig.class</div>
         return "Konto[" + saldo + "]";
     }
 }</code></pre>
-<div class="ear-konsole" data-titel="javac">Konto.java:4: Fehler: Methode überschreibt oder implementiert keine Methode aus einem Supertyp
+<pre class="ear-konsole" data-titel="javac">Konto.java:4: Fehler: Methode überschreibt oder implementiert keine Methode aus einem Supertyp
     @Override
     ^
-1 Fehler</div>
+1 Fehler</pre>
 <p>Und wer eine mit <code>@Deprecated(since = "2.0", forRemoval = true)</code> markierte Methode aufruft, bekommt eine Warnung:</p>
-<div class="ear-konsole" data-titel="javac">Nutzer.java:3: Warnung: [removal] altesVerfahren() in Alt ist veraltet und wurde zum Entfernen markiert
+<pre class="ear-konsole" data-titel="javac">Nutzer.java:3: Warnung: [removal] altesVerfahren() in Alt ist veraltet und wurde zum Entfernen markiert
         Alt.altesVerfahren();
            ^
-1 Warnung</div>
+1 Warnung</pre>
 </div>
 <div class="ear-card">
 <span class="ear-etikett">Ein Framework – mit eigenen Annotations</span>
@@ -556,9 +556,9 @@ public class KontoRessource {
     }
 }</code></pre>
 <p>Eine Anfrage <code>GET /konten/DE89…</code> landet in <code>finde</code>, das Stück hinter <code>/konten/</code> im Parameter <code>iban</code>, und die Antwort geht als JSON zurück. Und auch hier: <code>jakarta.ws.rs.Path</code> ist nur ein Typ aus einer Bibliothek –</p>
-<div class="ear-konsole" data-titel="javap jakarta.ws.rs.Path">public interface jakarta.ws.rs.Path extends java.lang.annotation.Annotation {
+<pre class="ear-konsole" data-titel="javap jakarta.ws.rs.Path">public interface jakarta.ws.rs.Path extends java.lang.annotation.Annotation {
   public abstract java.lang.String value();
-}</div>
+}</pre>
 </div>
 </div>
 <p class="ear-note">Wie lange eine Annotation erhalten bleibt, legt ihre Deklaration mit <code>@Retention</code> fest: nur im Quelltext (für den Compiler) oder bis zur Laufzeit (für Frameworks). Wie man sie selbst ausliest, ist nicht Thema dieser Seite.</p>
@@ -611,20 +611,20 @@ System.out.println(a == b);               // zwei Objekte
 System.out.println(a.hashCode() == b.hashCode());
 System.out.println(a.istTrumpf(Kartenfarbe.KREUZ));
 new Spielkarte(Kartenfarbe.PIK, " ");     // wirft</code></pre>
-<div class="ear-konsole" data-titel="Ausgabe">Spielkarte[farbe=HERZ, bild=Dame]
+<pre class="ear-konsole" data-titel="Ausgabe">Spielkarte[farbe=HERZ, bild=Dame]
 HERZ
 true
 false
 true
 false
-Bild fehlt</div>
+Bild fehlt</pre>
 </div>
 </details>
 <details class="skr-tabs__panel" name="ear-record-syntax" id="record-compiler">
 <summary>Was der Compiler daraus macht</summary>
 <div class="ear-reiter__inhalt">
 <p>Aus <strong>einer Zeile Komponenten</strong> wird eine vollständige Klasse:</p>
-<div class="ear-konsole" data-titel="javap -p Spielkarte.class"><mark>public final class Spielkarte extends java.lang.Record</mark> {
+<pre class="ear-konsole" data-titel="javap -p Spielkarte.class"><mark>public final class Spielkarte extends java.lang.Record</mark> {
   <mark>private final Kartenfarbe farbe;</mark>
   <mark>private final java.lang.String bild;</mark>
   <mark>public Spielkarte(Kartenfarbe, java.lang.String);</mark>
@@ -634,7 +634,7 @@ Bild fehlt</div>
   <mark>public final boolean equals(java.lang.Object);</mark>
   <mark>public Kartenfarbe farbe();</mark>
   <mark>public java.lang.String bild();</mark>
-}</div>
+}</pre>
 <ul>
 <li>je Komponente ein <code>private final</code>-Feld – <strong>keine Setter</strong>;</li>
 <li>ein Konstruktor mit allen Komponenten (der „kanonische“);</li>
@@ -711,8 +711,8 @@ bean.setFarbe(Kartenfarbe.HERZ);
 bean.setBild("Dame");
 System.out.println(bean);
 System.out.println(bean.getFarbe());</code></pre>
-<div class="ear-konsole" data-titel="Ausgabe">SpielkarteBean@33909752
-HERZ</div>
+<pre class="ear-konsole" data-titel="Ausgabe">SpielkarteBean@33909752
+HERZ</pre>
 <p class="ear-note">Ohne eigenes <code>toString</code> nur Klassenname und Hashwert (er wechselt je Lauf); <code>equals</code> vergleicht die Identität.</p>
 </div>
 </details>
@@ -724,8 +724,8 @@ HERZ</div>
 Spielkarte karte = new Spielkarte(Kartenfarbe.HERZ, "Dame");
 System.out.println(karte);
 System.out.println(karte.farbe());</code></pre>
-<div class="ear-konsole" data-titel="Ausgabe">Spielkarte[farbe=HERZ, bild=Dame]
-HERZ</div>
+<pre class="ear-konsole" data-titel="Ausgabe">Spielkarte[farbe=HERZ, bild=Dame]
+HERZ</pre>
 <p class="ear-note">Fertig erzeugt und vollständig befüllt in einem Schritt – danach unveränderlich.</p>
 </div>
 </details>

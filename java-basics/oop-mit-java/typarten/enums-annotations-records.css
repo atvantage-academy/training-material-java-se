@@ -37,7 +37,7 @@
 .ear-root pre code.hljs{border-radius:var(--skr-radius-lg);font-size:.8rem;line-height:1.5;}
 
 /* Ausgaben: Konsole und javap. Bewusst KEIN Java-Highlighting – es ist Text. */
-.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-radius);background:var(--skr-color-bg);border:1px dashed var(--skr-color-border);font-family:var(--skr-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
+pre.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-radius);background:var(--skr-color-bg);color:var(--skr-color-ink);border:1px dashed var(--skr-color-border);font-family:var(--skr-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
 .ear-konsole::before{content:attr(data-titel);display:block;font-family:var(--skr-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin-bottom:.3rem;}
 .ear-konsole mark{background:var(--skr-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
 

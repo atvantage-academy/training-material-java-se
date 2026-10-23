@@ -123,6 +123,11 @@
     return esc(zeile);
   }
   function meldung(m) { return m ? "<pre><code>" + esc(m) + "</code></pre>" : ""; }
+  // Neu eingesetzte Codeblöcke meldet die Seite dem Skriptorium (`skr-content-added`):
+  // Läuft einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+  function inhaltMelden(id) {
+    document.getElementById(id).dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
+  }
   function urteil(gut, inhalt) {
     return '<p class="mx-ergebnis mx-ergebnis--' + (gut ? "gut" : "schlecht") + '">' + (gut ? "✓ fällt sofort auf" : "✗ fällt spät oder gar nicht auf") + "</p>" + inhalt;
   }
@@ -142,6 +147,8 @@
     const p = pannen.find(function (x) { return x.id === zustand.panne; });
     document.getElementById("mx-klassenpfad").innerHTML = urteil(p.klassenpfad.gut, "<p>" + text(p.klassenpfad.text) + "</p>" + meldung(p.klassenpfad.meldung));
     document.getElementById("mx-modulpfad").innerHTML = urteil(p.modulpfad.gut, "<p>" + text(p.modulpfad.text) + "</p>" + meldung(p.modulpfad.meldung));
+    inhaltMelden("mx-klassenpfad");
+    inhaltMelden("mx-modulpfad");
     knöpfe("mx-pannen", pannen, function (id) { return id === zustand.panne; }, function (id) { setzen("panne", id); });
   }
 
@@ -192,6 +199,7 @@
       return z[1] === dir.id ? '<span class="mx-zeile--aktiv">' + html + "</span>" : html;
     }).join("\n");
     document.getElementById("mx-erklaerung").innerHTML = "<p>" + text(dir.text) + "</p>" + (dir.ohne ? "<p>" + text(dir.ohne) + "</p>" : "") + meldung(dir.meldung);
+    inhaltMelden("mx-erklaerung");
     graphZeichnen();
     knöpfe("mx-direktiven", direktiven, function (id) { return id === zustand.direktive; }, function (id) { setzen("direktive", id); });
   }

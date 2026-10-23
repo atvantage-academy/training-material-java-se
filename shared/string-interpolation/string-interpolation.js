@@ -53,6 +53,11 @@
   const zustand = { station: 0, locale: "de" };
 
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  // Neu eingesetzte Codeblöcke meldet die Seite dem Skriptorium (`skr-content-added`):
+  // Läuft einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+  function inhaltMelden(id) {
+    document.getElementById(id).dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
+  }
   function text(s) {
     return esc(s).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/\*([^*]+)\*/g, "<i>$1</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
   }
@@ -110,6 +115,7 @@
       + "<p>" + text(s.text) + "</p></div>"
       + '<div><pre class="si-code"><code class="hljs">' + färben(s.code) + "</code></pre>"
       + '<p class="si-titel">Ausgabe</p><pre class="si-ausgabe">' + esc(s.ausgabe) + "</pre></div>";
+    inhaltMelden("si-station");
   }
 
   function localeZeichnen() {
