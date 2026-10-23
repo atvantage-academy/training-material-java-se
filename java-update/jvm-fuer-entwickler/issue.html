@@ -6,11 +6,11 @@
 <meta name="skr-root" content="../../">
 <script src="../../skriptorium/skr.js?v=dfcd09dd"></script>
 <title>Die JVM unter die Lupe nehmen · ATVANTAGE Academy</title>
-<meta name="description" content="Sieh nach, was die JVM auf Deinem Rechner und unter knappen Ressourcen wählt, verkürze die Startzeit mit einem AOT-Cache und werte eine Flight-Recorder-Aufzeichnung aus.">
+<meta name="description" content="Sieh nach, was die JVM auf Deinem Rechner und im kleinen Container wählt, vergleiche die Garbage Collectors, verkürze den Start mit CDS oder AOT-Cache, werte eine Flight-Recorder-Aufzeichnung aus und bewerte, was davon in Eure Startskripte gehört.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Die JVM unter die Lupe nehmen">
-<meta property="og:description" content="Sieh nach, was die JVM auf Deinem Rechner und unter knappen Ressourcen wählt, verkürze die Startzeit mit einem AOT-Cache und werte eine Flight-Recorder-Aufzeichnung aus.">
+<meta property="og:description" content="Sieh nach, was die JVM auf Deinem Rechner und im kleinen Container wählt, vergleiche die Garbage Collectors, verkürze den Start mit CDS oder AOT-Cache, werte eine Flight-Recorder-Aufzeichnung aus und bewerte, was davon in Eure Startskripte gehört.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.6.1">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.0.0"}],"internal":false,"languages":["de"],"skriptorium":"1.6.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.6.1"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Sieh nach, was die JVM auf Deinem Rechner und unter knappen Ressourcen wählt, verkürze die Startzeit mit einem AOT-Cache und werte eine Flight-Recorder-Aufzeichnung aus.","duration":20,"fields":{"didaktikon":{"objectives":["Du liest ab, welchen Garbage Collector und wie viel Heap die JVM wählt – ohne und mit knappen Ressourcen.","Du erzeugst einen AOT-Cache (JDK 25) bzw. ein CDS-Archiv (JDK 21) und misst den Unterschied beim Start.","Du zeichnest einen Lasttest mit Java Flight Recorder auf und wertest ihn mit `jfr view` aus."],"reflective_questions":["Eure Anwendung läuft im Container mit einem Kern und 1 GB. Was wählt die JVM – und ist das gut?","Wann lohnt ein AOT-Cache, und wo gehört der Trainingslauf hin?","Warum ist `-Xmx2g` im Dockerfile eine schlechte Idee?"],"user_story":"Als Entwickler:in, deren Anwendung im Container und unter Last läuft, möchte ich wissen, was die JVM von selbst entscheidet und wie ich ihr beim Starten und Messen helfe, damit ich die Optionen in Startskript und Dockerfile begründen kann."},"skriptorium":{"definition_of_done":["Du kannst sagen, welchen GC und welche Heap-Größe die JVM mit einem Kern und 1 GB wählt.","Du hast die Startzeit mit und ohne Cache gemessen.","Du hast eine JFR-Aufzeichnung mit mindestens zwei Ansichten von `jfr view` ausgewertet."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die JVM unter die Lupe nehmen","topics":["Garbage Collector","Container","AOT-Cache","Java Flight Recorder"],"url":"/java-update/jvm-fuer-entwickler/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Sieh nach, was die JVM auf Deinem Rechner und im kleinen Container wählt, vergleiche die Garbage Collectors, verkürze den Start mit CDS oder AOT-Cache, werte eine Flight-Recorder-Aufzeichnung aus und bewerte, was davon in Eure Startskripte gehört.","duration":50,"fields":{"didaktikon":{"objectives":["Du liest ab, welchen Garbage Collector und wie viel Heap die JVM wählt – ohne und mit knappen Ressourcen.","Du vergleichst die Garbage Collectors an Pausen und Laufzeit und begründest, welcher zu Deiner Anwendungsart passt.","Du erzeugst einen AOT-Cache (JDK 25) bzw. ein CDS-Archiv (JDK 21) und misst den Unterschied beim Start.","Du zeichnest einen Lasttest mit Java Flight Recorder auf und wertest ihn mit `jfr view` aus.","Du bewertest, welche JVM-Einstellungen in Eure Startskripte gehören."],"reflective_questions":["Eure Anwendung läuft im Container mit einem Kern und 1 GB. Was wählt die JVM – und ist das gut?","Warum nehmt Ihr nicht immer ZGC?","Wann lohnt ein AOT-Cache, und wo gehört der Trainingslauf hin?","Warum ist `-Xmx2g` im Dockerfile eine schlechte Idee?","Welche JVM-Optionen in Euren Startskripten stammen aus einer JVM, die es so nicht mehr gibt?"],"user_story":"Als Entwickler:in, deren Anwendung im Container und unter Last läuft, möchte ich wissen, was die JVM von selbst entscheidet und wie ich ihr beim Starten und Messen helfe, damit ich die Optionen in Startskript und Dockerfile begründen kann."},"skriptorium":{"definition_of_done":[{"items":["Du kannst sagen, welchen GC und welche Heap-Größe die JVM mit einem Kern und 1 GB wählt.","Du hast mindestens drei Collectors an längster Pause und Laufzeit verglichen und einen für Deine Anwendungsart begründet gewählt."],"title":"Ergonomie und Garbage Collector"},{"items":["Du hast die Startzeit mit und ohne Archiv bzw. Cache gemessen.","Du hast eine JFR-Aufzeichnung mit mindestens zwei Ansichten von `jfr view` ausgewertet."],"title":"Start und Flight Recorder"},{"items":["Du hast notiert, welche Optionen Ihr in Startskript oder Dockerfile setzen würdet – und welche Ihr streicht."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die JVM unter die Lupe nehmen","topics":["Garbage Collector","Container","AOT-Cache","Java Flight Recorder"],"url":"/java-update/jvm-fuer-entwickler/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../skriptorium/client.js?v=82492cae" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=3be06d79" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=79eb5075" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../skriptorium/search/de.json?v=3be06d79"
+     data-index="../../skriptorium/search/de.json?v=79eb5075"
      data-base="../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -122,7 +122,7 @@
          aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../java-update/">Java-Update</a><span>/</span><span aria-current="page">Die JVM unter die Lupe nehmen</span></nav>
 
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 20 Minuten</span><span class="skr-tag">Garbage Collector</span><span class="skr-tag">Container</span><span class="skr-tag">AOT-Cache</span><span class="skr-tag">Java Flight Recorder</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 50 Minuten</span><span class="skr-tag">Garbage Collector</span><span class="skr-tag">Container</span><span class="skr-tag">AOT-Cache</span><span class="skr-tag">Java Flight Recorder</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
@@ -142,87 +142,172 @@
 <h2 id="lernziele">Lernziele</h2>
 <ul>
 <li>Du liest ab, welchen Garbage Collector und wie viel Heap die JVM wählt – ohne und mit knappen Ressourcen.</li>
+<li>Du vergleichst die Garbage Collectors an Pausen und Laufzeit und begründest, welcher zu Deiner Anwendungsart passt.</li>
 <li>Du erzeugst einen AOT-Cache (JDK 25) bzw. ein CDS-Archiv (JDK 21) und misst den Unterschied beim Start.</li>
 <li>Du zeichnest einen Lasttest mit Java Flight Recorder auf und wertest ihn mit <code>jfr view</code> aus.</li>
+<li>Du bewertest, welche JVM-Einstellungen in Eure Startskripte gehören.</li>
 </ul>
 </div>
 </div>
 <div class="skr-guide-done">
 <h2 id="definition-of-done">Definition of Done</h2>
+<h3 id="ergonomie-und-garbage-collector">Ergonomie und Garbage Collector</h3>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du kannst sagen, welchen GC und welche Heap-Größe die JVM mit einem Kern und 1 GB wählt." disabled="disabled"> Du kannst sagen, welchen GC und welche Heap-Größe die JVM mit einem Kern und 1 GB wählt.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Startzeit mit und ohne Cache gemessen." disabled="disabled"> Du hast die Startzeit mit und ohne Cache gemessen.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast mindestens drei Collectors an längster Pause und Laufzeit verglichen und einen für Deine Anwendungsart begründet gewählt." disabled="disabled"> Du hast mindestens drei Collectors an längster Pause und Laufzeit verglichen und einen für Deine Anwendungsart begründet gewählt.</li>
+</ul>
+<h3 id="start-und-flight-recorder">Start und Flight Recorder</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Startzeit mit und ohne Archiv bzw. Cache gemessen." disabled="disabled"> Du hast die Startzeit mit und ohne Archiv bzw. Cache gemessen.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast eine JFR-Aufzeichnung mit mindestens zwei Ansichten von jfr view ausgewertet." disabled="disabled"> Du hast eine JFR-Aufzeichnung mit mindestens zwei Ansichten von <code>jfr view</code> ausgewertet.</li>
+</ul>
+<h3 id="bewertung">Bewertung</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast notiert, welche Optionen Ihr in Startskript oder Dockerfile setzen würdet – und welche Ihr streicht." disabled="disabled"> Du hast notiert, welche Optionen Ihr in Startskript oder Dockerfile setzen würdet – und welche Ihr streicht.</li>
+</ul>
+<h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
+<ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
-<p>Du arbeitest allein, am eigenen Rechner, und änderst keinen Code – Du startest den
-Altbestand nur mit anderen JVM-Optionen.</p>
+<p>Du änderst keinen Code – Du startest den Altbestand und zwei Programme aus der
+Spielwiese mit anderen JVM-Optionen und misst, was sich ändert. Wie die Collectors
+arbeiten, was die JVM im Container wählt und was CDS und AOT-Cache tun, zeigt die
+Visualisierung <a href="../../java-update/jvm-fuer-entwickler/laufzeit.html">Die Laufzeitumgebung seit Java 8</a>.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Du brauchst <strong>JDK 21 oder 25</strong>. Wo ein Schritt nur mit einem der beiden
+geht, steht es dabei. Die Befehle mit JVM-Optionen laufen im Terminal – in IntelliJ
+über <em>View → Tool Windows → Terminal</em>, in Eclipse über <em>Window → Show View →
+Terminal</em>, jeweils im Wurzelordner des Übungsprojekts.</p>
+</blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="bauen">Bauen</h3>
-<p>Du arbeitest auf Deinem Stand nach „Umstellen und messen“ oder auf dem Branch
-<code>loesung/virtual-threads</code>. Bau das Projekt – danach liegen die Anwendungen als
-startbare JARs bereit:</p>
-<pre><code class="language-shell">mvn -q clean package -DskipTests
+<h3 id="den-altbestand-bauen">Den Altbestand bauen</h3>
+<p>Danach liegen die Anwendungen als startbare JARs bereit, die REST-Schnittstelle in
+<code>altbestand/bestellung-rest/target/bestellung-rest.jar</code>.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="bauen" open>
+<summary>Kommandozeile</summary>
+<p>Baue im Wurzelordner des Übungsprojekts:</p>
+<pre><code class="language-shell">mvn clean verify -f altbestand/pom.xml
 </code></pre>
-<p>Die REST-Schnittstelle liegt dann in <code>altbestand/bestellung-rest/target/bestellung-rest.jar</code>,
-ihre Abhängigkeiten in <code>target/lib</code> daneben.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>altbestand</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>altbestand</code></strong>.</p>
+</details>
+</div>
 <h3 id="was-wählt-die-jvm">Was wählt die JVM?</h3>
+<p>Lass die JVM zeigen, wie sie sich eingerichtet hat:</p>
 <pre><code class="language-shell">java -Xlog:gc,gc+init -version
 </code></pre>
 <p>Lies ab: Welcher GC? Wie viele Prozessoren? Wie groß darf der Heap werden – und
 welcher Anteil Deines Arbeitsspeichers ist das?</p>
-<p>Jetzt stell einen kleinen Container nach – ein Kern, 1 GB:</p>
+<p>Stell einen kleinen Container nach, mit einem Kern und 1 GB:</p>
 <pre><code class="language-shell">java -XX:ActiveProcessorCount=1 -XX:MaxRAM=1g -Xlog:gc,gc+init -version
 </code></pre>
 <p>Was hat sich geändert, und warum?</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Wer Docker hat, probiert es echt:
-<code>docker run --rm --cpus 1 -m 1g eclipse-temurin:25 java -Xlog:gc,gc+init -version</code></p>
+<p><strong>Hinweis:</strong> Wer Docker hat, probiert es im echten Container:
+<code>docker run --rm --cpus 1 -m 1g eclipse-temurin:25 java -Xlog:gc,gc+init -version</code>.
+Mit <code>eclipse-temurin:27</code> sieht das Ergebnis anders aus.</p>
 </blockquote>
-<h3 id="die-startzeit-verkürzen">Die Startzeit verkürzen</h3>
-<p>Als Messlatte dient der Lasttest mit <strong>einer</strong> Bestellung – er startet den Server,
-schickt eine Anfrage und endet. Miss ihn mehrmals:</p>
+<h3 id="die-garbage-collectors-vergleichen">Die Garbage Collectors vergleichen</h3>
+<p><code>spielwiese/Speicherlast.java</code> hält drei Millionen Bestellpositionen im Speicher und
+erzeugt daneben viele kurzlebige – Arbeit für den Garbage Collector. Starte sie mit
+G1 und zeichne den Lauf mit dem Flight Recorder auf:</p>
+<pre><code class="language-shell">java -XX:+UseG1GC -Xmx1g -XX:StartFlightRecording=filename=gc.jfr spielwiese/Speicherlast.java
+</code></pre>
+<p>Sieh Dir die Pausen an:</p>
+<pre><code class="language-shell">jfr view gc-pauses gc.jfr
+</code></pre>
+<p>Wiederhole beides mit <code>-XX:+UseSerialGC</code>, <code>-XX:+UseParallelGC</code> und <code>-XX:+UseZGC</code>
+anstelle von <code>-XX:+UseG1GC</code>. Halte je Collector die Laufzeit, die Zahl der Pausen und
+die längste Pause fest.</p>
+<p>Recherchiere dann in der Visualisierung und im <em>Garbage Collection Tuning Guide</em> (unter
+den Ressourcen): Wie arbeitet jeder Collector, was kostet er, wann ist er sinnvoll?
+Welchen würdest Du für Eure Anwendung wählen?</p>
+<blockquote>
+<p><strong>Hinweis:</strong> <code>jfr</code> liegt im <code>bin</code>-Ordner Deines JDK. Shenandoah fehlt in den Builds von
+Oracle; mit Temurin kannst Du ihn mit <code>-XX:+UseShenandoahGC</code> dazunehmen.</p>
+</blockquote>
+<h3 id="den-start-verkürzen">Den Start verkürzen</h3>
+<p>Als Messlatte dient der Lasttest mit <strong>einer</strong> Bestellung – er startet die
+REST-Schnittstelle, schickt eine Anfrage und endet. 100 ms davon wartet die Anfrage
+aufs Lager. Miss ihn mehrmals:</p>
 <pre><code class="language-shell">time java -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
 </code></pre>
-<p><strong>Mit JDK 25:</strong> Lass einen Trainingslauf einen AOT-Cache schreiben, und starte dann
-mit dem Cache:</p>
+<p><strong>Mit JDK 25</strong> lässt Du einen Trainingslauf einen AOT-Cache schreiben:</p>
 <pre><code class="language-shell">java -XX:AOTCacheOutput=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
-time java -XX:AOTCache=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
 </code></pre>
-<p><strong>Mit JDK 21:</strong> Dasselbe mit einem CDS-Archiv:</p>
+<p>Starte dann mit dem Cache und miss wieder:</p>
+<pre><code class="language-shell">time java -XX:AOTCache=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+</code></pre>
+<p><strong>Mit JDK 21</strong> schreibt der erste Lauf ein CDS-Archiv:</p>
 <pre><code class="language-shell">java -XX:ArchiveClassesAtExit=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
-time java -XX:SharedArchiveFile=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
 </code></pre>
-<p>Wie viel schneller ist der Start? Bedenke: 100 ms davon wartet die Anfrage aufs Lager.</p>
+<p>Starte dann mit dem Archiv und miss wieder:</p>
+<pre><code class="language-shell">time java -XX:SharedArchiveFile=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+</code></pre>
+<p>Wie viel schneller ist der Start? Und was müsste geschehen, damit Eure Anwendung beim
+Kunden mit genau diesem Cache startet?</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Unter Windows misst Du in PowerShell mit
-<code>Measure-Command { java … }</code>. Miss jeden Fall mehrmals; der erste Lauf nach dem
-Bauen ist immer langsamer.</p>
+<p><strong>Hinweis:</strong> Unter Windows misst Du in PowerShell mit <code>Measure-Command { java … }</code>.
+Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer langsamer.</p>
 </blockquote>
 <h3 id="mit-dem-flight-recorder-messen">Mit dem Flight Recorder messen</h3>
-<p>Zeichne einen größeren Lasttest auf und sieh Dir drei Ansichten an:</p>
-<pre><code class="language-shell">java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 10000
-jfr view hot-methods last.jfr
-jfr view gc-pauses last.jfr
-jfr view allocation-by-class last.jfr
+<p>Zeichne einen größeren Lasttest auf; er dauert gut zehn Sekunden:</p>
+<pre><code class="language-shell">java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1000
 </code></pre>
-<p>Was belegt den meisten Speicher? Findest Du in <code>allocation-by-class</code> eine Spur der
-virtuellen Threads aus der vorigen Übung? Wie lang war die längste GC-Pause?</p>
-<blockquote>
-<p><strong>Hinweis:</strong> <code>jfr</code> liegt im <code>bin</code>-Ordner Deines JDK; <code>jfr help view</code> listet alle
-Ansichten.</p>
-</blockquote>
-<h3 id="kür-einen-anderen-gc-wählen">Kür: einen anderen GC wählen</h3>
-<p>Wiederhole die Aufzeichnung mit <code>-XX:+UseZGC</code> und mit <code>-XX:+UseSerialGC</code> und
-vergleiche jeweils <code>jfr view gc-pauses</code> und die Dauer des Lasttests.</p>
+<p>Sieh nach, wo die Rechenzeit hingeht:</p>
+<pre><code class="language-shell">jfr view hot-methods last.jfr
+</code></pre>
+<p>Sieh nach, welche Klassen den meisten Speicher anlegen:</p>
+<pre><code class="language-shell">jfr view allocation-by-class last.jfr
+</code></pre>
+<p>Was überrascht Dich? <code>jfr help view</code> listet alle Ansichten – probiere eine weitere,
+etwa <code>container-configuration</code> im Container oder <code>thread-count</code>.</p>
+<h3 id="kür-kompakte-objekt-header-jdk-25">Kür: kompakte Objekt-Header (JDK 25)</h3>
+<p>Starte die Speicherlast mit und ohne kompakte Header und vergleiche, wie viel Speicher
+der Bestand belegt (letzte Zeile der Ausgabe):</p>
+<pre><code class="language-shell">java -XX:+UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+</code></pre>
+<p>Starte sie zum Vergleich ohne:</p>
+<pre><code class="language-shell">java -XX:-UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+</code></pre>
+<p>Wie viel spart es? Für welche Eurer Anwendungen zählt das?</p>
+<h3 id="kür-pinning-nachweisen-jdk-21-und-25">Kür: Pinning nachweisen (JDK 21 und 25)</h3>
+<p><code>spielwiese/Angeheftet.java</code> lässt 200 virtuelle Threads in einem <code>synchronized</code>-Block
+warten – wie die Fremdsysteme im Altbestand. Zeichne den Lauf auf:</p>
+<pre><code class="language-shell">java -XX:StartFlightRecording=filename=angeheftet.jfr spielwiese/Angeheftet.java
+</code></pre>
+<p>Sieh nach, welche virtuellen Threads ihren Träger festgehalten haben:</p>
+<pre><code class="language-shell">jfr view pinned-threads angeheftet.jfr
+</code></pre>
+<p>Vergleicht die Ausgabe und die Laufzeit auf JDK 21 und 25 – mit einem Paar, das das
+andere JDK hat. Was zeigt der Flight Recorder, und in welcher Methode?</p>
+<h3 id="bewerten">Bewerten</h3>
+<p>Halte in Stichworten fest:</p>
+<ul>
+<li><strong>Ergonomie:</strong> Was wählt die JVM in Eurem Container – und würdet Ihr das so lassen?</li>
+<li><strong>Garbage Collector:</strong> Welchen nehmt Ihr für einen REST-Microservice, ein
+Batch-Programm, eine Server-Anwendung?</li>
+<li><strong>Start:</strong> Lohnt ein AOT-Cache bzw. ein CDS-Archiv bei Euch, und wo entstünde er?</li>
+<li><strong>Startskripte:</strong> Welche Optionen würdet Ihr setzen – und welche streichen?</li>
+</ul>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
 <li>Eure Anwendung läuft im Container mit einem Kern und 1 GB. Was wählt die JVM – und ist das gut?</li>
+<li>Warum nehmt Ihr nicht immer ZGC?</li>
 <li>Wann lohnt ein AOT-Cache, und wo gehört der Trainingslauf hin?</li>
 <li>Warum ist <code>-Xmx2g</code> im Dockerfile eine schlechte Idee?</li>
+<li>Welche JVM-Optionen in Euren Startskripten stammen aus einer JVM, die es so nicht mehr gibt?</li>
 </ul>
 </div>
 </div>
@@ -241,8 +326,10 @@ Als Entwickler:in, deren Anwendung im Container und unter Last läuft, möchte i
 ## Lernziele
 
 - Du liest ab, welchen Garbage Collector und wie viel Heap die JVM wählt – ohne und mit knappen Ressourcen.
+- Du vergleichst die Garbage Collectors an Pausen und Laufzeit und begründest, welcher zu Deiner Anwendungsart passt.
 - Du erzeugst einen AOT-Cache (JDK 25) bzw. ein CDS-Archiv (JDK 21) und misst den Unterschied beim Start.
 - Du zeichnest einen Lasttest mit Java Flight Recorder auf und wertest ihn mit `jfr view` aus.
+- Du bewertest, welche JVM-Einstellungen in Eure Startskripte gehören.
 
 &lt;/div&gt;
 
@@ -252,33 +339,77 @@ Als Entwickler:in, deren Anwendung im Container und unter Last läuft, möchte i
 
 ## Definition of Done
 
+### Ergonomie und Garbage Collector
+
 - [ ] Du kannst sagen, welchen GC und welche Heap-Größe die JVM mit einem Kern und 1 GB wählt.
-- [ ] Du hast die Startzeit mit und ohne Cache gemessen.
+- [ ] Du hast mindestens drei Collectors an längster Pause und Laufzeit verglichen und einen für Deine Anwendungsart begründet gewählt.
+
+### Start und Flight Recorder
+
+- [ ] Du hast die Startzeit mit und ohne Archiv bzw. Cache gemessen.
 - [ ] Du hast eine JFR-Aufzeichnung mit mindestens zwei Ansichten von `jfr view` ausgewertet.
+
+### Bewertung
+
+- [ ] Du hast notiert, welche Optionen Ihr in Startskript oder Dockerfile setzen würdet – und welche Ihr streicht.
+
+### Für die ganze Seite
+
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
 
 
-Du arbeitest allein, am eigenen Rechner, und änderst keinen Code – Du startest den
-Altbestand nur mit anderen JVM-Optionen.
+Du änderst keinen Code – Du startest den Altbestand und zwei Programme aus der
+Spielwiese mit anderen JVM-Optionen und misst, was sich ändert. Wie die Collectors
+arbeiten, was die JVM im Container wählt und was CDS und AOT-Cache tun, zeigt die
+Visualisierung [Die Laufzeitumgebung seit Java 8](laufzeit.md).
+
+&gt; **Hinweis:** Du brauchst **JDK 21 oder 25**. Wo ein Schritt nur mit einem der beiden
+&gt; geht, steht es dabei. Die Befehle mit JVM-Optionen laufen im Terminal – in IntelliJ
+&gt; über *View → Tool Windows → Terminal*, in Eclipse über *Window → Show View →
+&gt; Terminal*, jeweils im Wurzelordner des Übungsprojekts.
 
 ## Arbeitsschritte
 
-### Bauen
+### Den Altbestand bauen
 
-Du arbeitest auf Deinem Stand nach „Umstellen und messen“ oder auf dem Branch
-`loesung/virtual-threads`. Bau das Projekt – danach liegen die Anwendungen als
-startbare JARs bereit:
+Danach liegen die Anwendungen als startbare JARs bereit, die REST-Schnittstelle in
+`altbestand/bestellung-rest/target/bestellung-rest.jar`.
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Baue im Wurzelordner des Übungsprojekts:
 
 ```shell
-mvn -q clean package -DskipTests
+mvn clean verify -f altbestand/pom.xml
 ```
 
-Die REST-Schnittstelle liegt dann in `altbestand/bestellung-rest/target/bestellung-rest.jar`,
-ihre Abhängigkeiten in `target/lib` daneben.
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`altbestand`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`altbestand`**.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 ### Was wählt die JVM?
+
+Lass die JVM zeigen, wie sie sich eingerichtet hat:
 
 ```shell
 java -Xlog:gc,gc&#43;init -version
@@ -287,7 +418,7 @@ java -Xlog:gc,gc&#43;init -version
 Lies ab: Welcher GC? Wie viele Prozessoren? Wie groß darf der Heap werden – und
 welcher Anteil Deines Arbeitsspeichers ist das?
 
-Jetzt stell einen kleinen Container nach – ein Kern, 1 GB:
+Stell einen kleinen Container nach, mit einem Kern und 1 GB:
 
 ```shell
 java -XX:ActiveProcessorCount=1 -XX:MaxRAM=1g -Xlog:gc,gc&#43;init -version
@@ -295,60 +426,144 @@ java -XX:ActiveProcessorCount=1 -XX:MaxRAM=1g -Xlog:gc,gc&#43;init -version
 
 Was hat sich geändert, und warum?
 
-&gt; **Hinweis:** Wer Docker hat, probiert es echt:
-&gt; `docker run --rm --cpus 1 -m 1g eclipse-temurin:25 java -Xlog:gc,gc&#43;init -version`
+&gt; **Hinweis:** Wer Docker hat, probiert es im echten Container:
+&gt; `docker run --rm --cpus 1 -m 1g eclipse-temurin:25 java -Xlog:gc,gc&#43;init -version`.
+&gt; Mit `eclipse-temurin:27` sieht das Ergebnis anders aus.
 
-### Die Startzeit verkürzen
+### Die Garbage Collectors vergleichen
 
-Als Messlatte dient der Lasttest mit **einer** Bestellung – er startet den Server,
-schickt eine Anfrage und endet. Miss ihn mehrmals:
+`spielwiese/Speicherlast.java` hält drei Millionen Bestellpositionen im Speicher und
+erzeugt daneben viele kurzlebige – Arbeit für den Garbage Collector. Starte sie mit
+G1 und zeichne den Lauf mit dem Flight Recorder auf:
+
+```shell
+java -XX:&#43;UseG1GC -Xmx1g -XX:StartFlightRecording=filename=gc.jfr spielwiese/Speicherlast.java
+```
+
+Sieh Dir die Pausen an:
+
+```shell
+jfr view gc-pauses gc.jfr
+```
+
+Wiederhole beides mit `-XX:&#43;UseSerialGC`, `-XX:&#43;UseParallelGC` und `-XX:&#43;UseZGC`
+anstelle von `-XX:&#43;UseG1GC`. Halte je Collector die Laufzeit, die Zahl der Pausen und
+die längste Pause fest.
+
+Recherchiere dann in der Visualisierung und im *Garbage Collection Tuning Guide* (unter
+den Ressourcen): Wie arbeitet jeder Collector, was kostet er, wann ist er sinnvoll?
+Welchen würdest Du für Eure Anwendung wählen?
+
+&gt; **Hinweis:** `jfr` liegt im `bin`-Ordner Deines JDK. Shenandoah fehlt in den Builds von
+&gt; Oracle; mit Temurin kannst Du ihn mit `-XX:&#43;UseShenandoahGC` dazunehmen.
+
+### Den Start verkürzen
+
+Als Messlatte dient der Lasttest mit **einer** Bestellung – er startet die
+REST-Schnittstelle, schickt eine Anfrage und endet. 100 ms davon wartet die Anfrage
+aufs Lager. Miss ihn mehrmals:
 
 ```shell
 time java -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
 ```
 
-**Mit JDK 25:** Lass einen Trainingslauf einen AOT-Cache schreiben, und starte dann
-mit dem Cache:
+**Mit JDK 25** lässt Du einen Trainingslauf einen AOT-Cache schreiben:
 
 ```shell
 java -XX:AOTCacheOutput=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+```
+
+Starte dann mit dem Cache und miss wieder:
+
+```shell
 time java -XX:AOTCache=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
 ```
 
-**Mit JDK 21:** Dasselbe mit einem CDS-Archiv:
+**Mit JDK 21** schreibt der erste Lauf ein CDS-Archiv:
 
 ```shell
 java -XX:ArchiveClassesAtExit=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+```
+
+Starte dann mit dem Archiv und miss wieder:
+
+```shell
 time java -XX:SharedArchiveFile=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
 ```
 
-Wie viel schneller ist der Start? Bedenke: 100 ms davon wartet die Anfrage aufs Lager.
+Wie viel schneller ist der Start? Und was müsste geschehen, damit Eure Anwendung beim
+Kunden mit genau diesem Cache startet?
 
-&gt; **Hinweis:** Unter Windows misst Du in PowerShell mit
-&gt; `Measure-Command { java … }`. Miss jeden Fall mehrmals; der erste Lauf nach dem
-&gt; Bauen ist immer langsamer.
+&gt; **Hinweis:** Unter Windows misst Du in PowerShell mit `Measure-Command { java … }`.
+&gt; Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer langsamer.
 
 ### Mit dem Flight Recorder messen
 
-Zeichne einen größeren Lasttest auf und sieh Dir drei Ansichten an:
+Zeichne einen größeren Lasttest auf; er dauert gut zehn Sekunden:
 
 ```shell
-java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 10000
+java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1000
+```
+
+Sieh nach, wo die Rechenzeit hingeht:
+
+```shell
 jfr view hot-methods last.jfr
-jfr view gc-pauses last.jfr
+```
+
+Sieh nach, welche Klassen den meisten Speicher anlegen:
+
+```shell
 jfr view allocation-by-class last.jfr
 ```
 
-Was belegt den meisten Speicher? Findest Du in `allocation-by-class` eine Spur der
-virtuellen Threads aus der vorigen Übung? Wie lang war die längste GC-Pause?
+Was überrascht Dich? `jfr help view` listet alle Ansichten – probiere eine weitere,
+etwa `container-configuration` im Container oder `thread-count`.
 
-&gt; **Hinweis:** `jfr` liegt im `bin`-Ordner Deines JDK; `jfr help view` listet alle
-&gt; Ansichten.
+### Kür: kompakte Objekt-Header (JDK 25)
 
-### Kür: einen anderen GC wählen
+Starte die Speicherlast mit und ohne kompakte Header und vergleiche, wie viel Speicher
+der Bestand belegt (letzte Zeile der Ausgabe):
 
-Wiederhole die Aufzeichnung mit `-XX:&#43;UseZGC` und mit `-XX:&#43;UseSerialGC` und
-vergleiche jeweils `jfr view gc-pauses` und die Dauer des Lasttests.
+```shell
+java -XX:&#43;UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+```
+
+Starte sie zum Vergleich ohne:
+
+```shell
+java -XX:-UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+```
+
+Wie viel spart es? Für welche Eurer Anwendungen zählt das?
+
+### Kür: Pinning nachweisen (JDK 21 und 25)
+
+`spielwiese/Angeheftet.java` lässt 200 virtuelle Threads in einem `synchronized`-Block
+warten – wie die Fremdsysteme im Altbestand. Zeichne den Lauf auf:
+
+```shell
+java -XX:StartFlightRecording=filename=angeheftet.jfr spielwiese/Angeheftet.java
+```
+
+Sieh nach, welche virtuellen Threads ihren Träger festgehalten haben:
+
+```shell
+jfr view pinned-threads angeheftet.jfr
+```
+
+Vergleicht die Ausgabe und die Laufzeit auf JDK 21 und 25 – mit einem Paar, das das
+andere JDK hat. Was zeigt der Flight Recorder, und in welcher Methode?
+
+### Bewerten
+
+Halte in Stichworten fest:
+
+- **Ergonomie:** Was wählt die JVM in Eurem Container – und würdet Ihr das so lassen?
+- **Garbage Collector:** Welchen nehmt Ihr für einen REST-Microservice, ein
+  Batch-Programm, eine Server-Anwendung?
+- **Start:** Lohnt ein AOT-Cache bzw. ein CDS-Archiv bei Euch, und wo entstünde er?
+- **Startskripte:** Welche Optionen würdet Ihr setzen – und welche streichen?
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
@@ -358,30 +573,33 @@ vergleiche jeweils `jfr view gc-pauses` und die Dauer des Lasttests.
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
 - Eure Anwendung läuft im Container mit einem Kern und 1 GB. Was wählt die JVM – und ist das gut?
+- Warum nehmt Ihr nicht immer ZGC?
 - Wann lohnt ein AOT-Cache, und wo gehört der Trainingslauf hin?
 - Warum ist `-Xmx2g` im Dockerfile eine schlechte Idee?
+- Welche JVM-Optionen in Euren Startskripten stammen aus einer JVM, die es so nicht mehr gibt?
 
 &lt;/div&gt;
 
 &lt;/div&gt;
 ## Weiterführende Informationen
 - [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
-- [Präsentation: Die JVM für Entwickler:innen](/java-update/jvm-fuer-entwickler/praesentation.html)
+- [HotSpot Virtual Machine Garbage Collection Tuning Guide (Java 25)](https://docs.oracle.com/en/java/javase/25/gctuning/)
 - [JEP 483: Ahead-of-Time Class Loading &amp; Linking](https://openjdk.org/jeps/483)
 - [JEP 514: Ahead-of-Time Command-Line Ergonomics](https://openjdk.org/jeps/514)
+- [JEP 519: Compact Object Headers](https://openjdk.org/jeps/519)
 </textarea>
     </main><aside class="skr-guide-sidebar">
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
-           data-skr-toc-limit="12" open>
+           data-skr-toc-limit="12">
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#bauen" class="skr-toc--h3">Bauen</a><a href="#was-wählt-die-jvm" class="skr-toc--h3">Was wählt die JVM?</a><a href="#die-startzeit-verkürzen" class="skr-toc--h3">Die Startzeit verkürzen</a><a href="#mit-dem-flight-recorder-messen" class="skr-toc--h3">Mit dem Flight Recorder messen</a><a href="#kür-einen-anderen-gc-wählen" class="skr-toc--h3">Kür: einen anderen GC wählen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#ergonomie-und-garbage-collector" class="skr-toc--h3">Ergonomie und Garbage Collector</a><a href="#start-und-flight-recorder" class="skr-toc--h3">Start und Flight Recorder</a><a href="#bewertung" class="skr-toc--h3">Bewertung</a><a href="#fr-die-ganze-seite" class="skr-toc--h3">Für die ganze Seite</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-altbestand-bauen" class="skr-toc--h3">Den Altbestand bauen</a><a href="#was-wählt-die-jvm" class="skr-toc--h3">Was wählt die JVM?</a><a href="#die-garbage-collectors-vergleichen" class="skr-toc--h3">Die Garbage Collectors vergleichen</a><a href="#den-start-verkürzen" class="skr-toc--h3">Den Start verkürzen</a><a href="#mit-dem-flight-recorder-messen" class="skr-toc--h3">Mit dem Flight Recorder messen</a><a href="#kür-kompakte-objekt-header-jdk-25" class="skr-toc--h3">Kür: kompakte Objekt-Header (JDK 25)</a><a href="#kür-pinning-nachweisen-jdk-21-und-25" class="skr-toc--h3">Kür: Pinning nachweisen (JDK 21 und 25)</a><a href="#bewerten" class="skr-toc--h3">Bewerten</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 4 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>
@@ -389,9 +607,10 @@ vergleiche jeweils `jfr view gc-pauses` und die Dauer des Lasttests.
     <div class="skr-guide-side__label">Weiterführende Informationen</div>
     <div class="skr-guide-side__links">
       <a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span></a>
-      <a href="../../java-update/jvm-fuer-entwickler/praesentation.html"><span>Präsentation: Die JVM für Entwickler:innen</span></a>
+      <a href="https://docs.oracle.com/en/java/javase/25/gctuning/" target="_blank" rel="noopener"><span>HotSpot Virtual Machine Garbage Collection Tuning Guide (Java 25)</span></a>
       <a href="https://openjdk.org/jeps/483" target="_blank" rel="noopener"><span>JEP 483: Ahead-of-Time Class Loading &amp; Linking</span></a>
       <a href="https://openjdk.org/jeps/514" target="_blank" rel="noopener"><span>JEP 514: Ahead-of-Time Command-Line Ergonomics</span></a>
+      <a href="https://openjdk.org/jeps/519" target="_blank" rel="noopener"><span>JEP 519: Compact Object Headers</span></a>
     </div>
   </div>
 </aside>
