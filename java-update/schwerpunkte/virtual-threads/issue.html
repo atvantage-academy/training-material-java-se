@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=6624fb27" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=5bbd02fd" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=6624fb27"
+     data-index="../../../skriptorium/search/de.json?v=5bbd02fd"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -222,13 +222,14 @@ Bestellungen:</p>
 </details>
 <details class="skr-tabs__panel" name="messen">
 <summary>IntelliJ</summary>
-<p>Starte die Run Configurations <strong><code>BatchAnwendung</code></strong> und <strong><code>Lasttest</code></strong>. Der Lasttest
+<p>Starte die Run Configurations <strong><code>altbestand-batch-messen</code></strong> und
+<strong><code>altbestand-rest-lasttest</code></strong>. Der Lasttest
 startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.</p>
 </details>
 <details class="skr-tabs__panel" name="messen">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Java Application</em> die Konfigurationen
-<strong><code>BatchAnwendung</code></strong> und <strong><code>Lasttest</code></strong>. Der Lasttest startet die REST-Schnittstelle
+<strong><code>altbestand-batch-messen</code></strong> und <strong><code>altbestand-rest-lasttest</code></strong>. Der Lasttest startet die REST-Schnittstelle
 selbst und schickt ihr 200 Bestellungen.</p>
 </details>
 </div>
@@ -475,7 +476,8 @@ java -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.L
 &lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen&#34; markdown=&#34;1&#34;&gt;
 &lt;summary&gt;IntelliJ&lt;/summary&gt;
 
-Starte die Run Configurations **`BatchAnwendung`** und **`Lasttest`**. Der Lasttest
+Starte die Run Configurations **`altbestand-batch-messen`** und
+**`altbestand-rest-lasttest`**. Der Lasttest
 startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.
 
 &lt;/details&gt;
@@ -484,7 +486,7 @@ startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
 Starte unter *Run → Run Configurations… → Java Application* die Konfigurationen
-**`BatchAnwendung`** und **`Lasttest`**. Der Lasttest startet die REST-Schnittstelle
+**`altbestand-batch-messen`** und **`altbestand-rest-lasttest`**. Der Lasttest startet die REST-Schnittstelle
 selbst und schickt ihr 200 Bestellungen.
 
 &lt;/details&gt;
