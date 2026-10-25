@@ -27,7 +27,7 @@
 .swx-zahl span{font-size:.72rem;color:var(--skr-color-ink-muted);}
 .swx-probe{margin-top:1rem;padding:.6rem .8rem;border-left:4px solid var(--skr-color-accent);background:var(--skr-color-bg-subtle);font-size:.9rem;}
 .swx-probe code{white-space:normal;}
-.swx-code{margin:0;overflow-x:auto;font-size:.8rem;line-height:1.55;border-radius:var(--skr-radius,8px);}
+.swx-code{margin:0;overflow-x:auto;line-height:1.55;border-radius:var(--skr-radius,8px);}
 .swx-code code{display:block;padding:.8rem 0;min-width:max-content;}
 .swx-zeile{display:block;padding:0 1rem 0 .75rem;border-left:4px solid transparent;white-space:pre;}
 .swx-zeile.is-neu{border-left-color:var(--skr-color-accent);background:color-mix(in srgb,var(--skr-color-accent) 16%,transparent);}

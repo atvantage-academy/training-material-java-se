@@ -1,0 +1,45 @@
+.lz-lead{color:var(--skr-color-ink-muted);margin:0 0 1.5rem;}
+.lz-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0 1rem;}
+.lz-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
+.lz-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;}
+.lz-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.lz-knopf:hover{border-color:var(--skr-color-accent);}
+.lz-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.lz-zeitleiste svg{display:block;width:100%;height:auto;}
+.lz-zl-text{font-size:14px;fill:var(--skr-color-ink-muted);}
+.lz-zl-text--stark{fill:var(--skr-color-ink);font-weight:700;}
+.lz-zl-lauf{fill:color-mix(in srgb,var(--skr-color-success-ink) 30%,var(--skr-color-bg));}
+.lz-zl-pause{fill:var(--skr-color-danger-ink);}
+.lz-zl-nebenher{fill:color-mix(in srgb,var(--skr-color-accent) 45%,var(--skr-color-bg));}
+.lz-fussnote{font-size:.8rem;color:var(--skr-color-ink-muted);margin:.25rem 0 1rem;}
+.lz-karte,.lz-ergebnis{padding:.8rem 1rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);font-size:.92rem;margin:0 0 1rem;}
+.lz-karte p,.lz-ergebnis p{margin:.35rem 0;}
+.lz-kennzahlen{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;}
+.lz-steckbrief{display:grid;grid-template-columns:minmax(8rem,auto) minmax(0,1fr);gap:.35rem 1rem;margin:.5rem 0 0;}
+.lz-steckbrief dt{font-weight:700;}
+.lz-steckbrief dd{margin:0;}
+.lz-steckbrief ul{margin:0;padding-left:1.1rem;}
+@media (max-width:640px){.lz-steckbrief{grid-template-columns:minmax(0,1fr);}.lz-steckbrief dd{margin-bottom:.4rem;}}
+.lz-regler{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:.5rem 1rem;}
+.lz-befehl{margin:.5rem 0 0;overflow-x:auto;}
+.lz-stufe{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:1rem;align-items:start;}
+@media (max-width:760px){.lz-stufe{grid-template-columns:minmax(0,1fr);}}
+.lz-schritte{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.4rem;}
+.lz-schritt{display:flex;justify-content:space-between;gap:.75rem;padding:.45rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);}
+.lz-schritt--vorab{border-style:dashed;color:var(--skr-color-ink-muted);}
+.lz-schritt__wann{font-size:.85rem;}
+.lz-schritt--vorab .lz-schritt__wann{color:var(--skr-color-success-ink);font-weight:700;}
+.lz-balken{display:grid;gap:.35rem;margin:0 0 .25rem;}
+.lz-balkenzeile{display:grid;grid-template-columns:minmax(7rem,11rem) minmax(0,1fr) 4.5rem;gap:.6rem;align-items:center;font-size:.9rem;}
+.lz-balkenzeile__spur{display:block;height:1.1rem;background:var(--skr-color-bg-subtle);border-radius:3px;}
+.lz-balkenzeile__balken{display:block;height:100%;background:color-mix(in srgb,var(--skr-color-accent) 45%,var(--skr-color-bg));border-radius:3px;}
+.lz-balkenzeile--gewählt .lz-balkenzeile__balken{background:var(--skr-color-accent);}
+.lz-balkenzeile--gewählt{font-weight:700;}
+.lz-balkenzeile__wert{text-align:right;font-variant-numeric:tabular-nums;}
+.lz-header{display:grid;gap:.75rem;margin:0 0 .75rem;}
+.lz-bytes{display:flex;}
+.lz-byte{flex:var(--n) 0 0;min-width:0;padding:.35rem .25rem;border:1px solid var(--skr-color-border);background:var(--skr-color-bg);font-size:.78rem;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lz-byte--kopf{background:color-mix(in srgb,var(--skr-color-accent) 30%,var(--skr-color-bg));font-weight:700;}
+.lz-byte--luecke{background:repeating-linear-gradient(45deg,var(--skr-color-bg-subtle),var(--skr-color-bg-subtle) 4px,var(--skr-color-bg) 4px,var(--skr-color-bg) 8px);color:var(--skr-color-ink-muted);}
+.lz-objekt:last-child .lz-bytes{width:75%;}
+.lz-hinweis{font-size:.92rem;}

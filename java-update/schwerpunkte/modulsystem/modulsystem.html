@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Das Modulsystem · ATVANTAGE Academy</title>
+<meta name="description" content="Was der Klassenpfad nicht merkt und der Modulpfad beim Start meldet, was in module-info.java steht, welche Arten von Modulen es gibt – und wie jlink daraus eine eigene Laufzeitumgebung baut.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Das Modulsystem">
+<meta property="og:description" content="Was der Klassenpfad nicht merkt und der Modulpfad beim Start meldet, was in module-info.java steht, welche Arten von Modulen es gibt – und wie jlink daraus eine eigene Laufzeitumgebung baut.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=76b431ec">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.16.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Was der Klassenpfad nicht merkt und der Modulpfad beim Start meldet, was in module-info.java steht, welche Arten von Modulen es gibt – und wie jlink daraus eine eigene Laufzeitumgebung baut.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-update/schwerpunkte/modulsystem/modulsystem.css","src":"modulsystem.css","type":"style"},{"path":"java-update/schwerpunkte/modulsystem/modulsystem.js","src":"modulsystem.js","type":"script"}],"pageId":"java-update-modulsystem","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das Modulsystem","topics":null,"untranslated":null,"url":"/java-update/schwerpunkte/modulsystem/modulsystem.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+
+<link rel="stylesheet" href="../../../java-update/schwerpunkte/modulsystem/modulsystem.css?v=eeabdd98">
+<script src="../../../java-update/schwerpunkte/modulsystem/modulsystem.js?v=cfdbf175" defer></script>
+
+</head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a><section class="skr-guide-hero skr-guide-hero--slim"
+         aria-labelledby="skr-page-title">
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags">
+    </div>
+    <div class="skr-guide-hero__actions">
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+
+    </div>
+  </div><h1 id="skr-page-title">Das Modulsystem</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
+     - Input des Schwerpunkts Modulsystem im Java-Update (Entscheidung: Visualisierung,
+       keine Präsentation). Drei Fragen: Motivation (was der Klassenpfad nicht merkt),
+       Umsetzung (die Direktiven in module-info.java), optionale Verwendung (drei Arten
+       von Modulen, starke Kapselung des JDK für alle). Dazu jlink und als Hinweis die
+       Modul-Importe (JEP 511, Java 25).
+     - Liegt im Modulordner, nicht unter shared/: Die Grundkurse schließen das
+       Modulsystem ausdrücklich aus. Braucht es ein weiterer Kurs, zieht die Seite nach
+       shared/ um (wie die Pattern-Matching-Evolution).
+     - Beispiel-Domäne „shop“ (Katalog, PDF-Export, Anwendung) – bewusst NICHT die
+       Module der Übung (bestellwesen.*), damit die Seite die Musterlösung nicht vorwegnimmt.
+     - ALLE MELDUNGEN GEMESSEN mit Temurin 25 (Docker, englische Meldungen) an
+       gleichwertigem Code; hier mit den Namen der Beispiel-Domäne. Größen des Images:
+       Temurin 25 und 21 in Docker, jlink mit --strip-debug --no-header-files
+       --no-man-pages.
+     - Jeder Zustand steht in der Adresse (#/?panne=…&direktive=…&pfad=…&deskriptor=…),
+       über skr.state. Gut/schlecht nicht nur über Farbe (Zeichen ✓/✗ und Text), der
+       Graph markiert die gewählte Direktive auch über Strichstärke und Beschriftung.
+     - Bezeichner mit Umlauten (A-006), Farben aus den Tokens des Skriptoriums, kein
+       eigenes Breiten-CSS. -->
+<p class="mx-lead">Seit Java 9 kann ein JAR sagen, <strong>was es braucht</strong> und <strong>was es zeigt</strong>. Die JVM prüft das beim Start – statt mitten im Betrieb festzustellen, dass etwas fehlt. Das Modulsystem ist freiwillig; seine Kapselung des JDK betrifft trotzdem alle.</p>
+<p class="mx-marken"><span class="skr-badge">seit Java 9</span> <span class="skr-badge">LTS 11</span> <span class="skr-badge">JEP 261</span> <span class="skr-badge">jlink: JEP 282</span> <span class="skr-badge">Modul-Importe: LTS 25, JEP 511</span></p>
+<h2 id="warum">1 · Warum: was der Klassenpfad nicht merkt</h2>
+<p>Auf dem Klassenpfad liegen JARs einfach hintereinander. Java sucht eine Klasse erst, wenn sie gebraucht wird, und nimmt die erste, die es findet. Wähle eine Panne und vergleiche:</p>
+<div class="mx-knoepfe" role="group" aria-label="Panne" id="mx-pannen"></div>
+<div class="mx-vergleich">
+<div class="mx-spalte">
+<p class="mx-titel">Klassenpfad (<code>-cp</code>)</p>
+<div class="mx-urteil" id="mx-klassenpfad" aria-live="polite"></div>
+</div>
+<div class="mx-spalte">
+<p class="mx-titel">Modulpfad (<code>--module-path</code>)</p>
+<div class="mx-urteil" id="mx-modulpfad" aria-live="polite"></div>
+</div>
+</div>
+<h2 id="wie">2 · Wie: der Vertrag in module-info.java</h2>
+<p>Jedes Modul beschreibt sich in einer Datei <code>module-info.java</code> im Wurzelordner seiner Quellen. Wähle eine Direktive – der Graph zeigt, welche Beziehung sie stiftet, der Code, wo sie steht.</p>
+<div class="mx-knoepfe" role="group" aria-label="Direktive" id="mx-direktiven"></div>
+<div class="mx-buehne">
+<div class="mx-graph" id="mx-graph"></div>
+<div>
+<pre class="mx-code"><code class="hljs" id="mx-code"></code></pre>
+<div class="mx-urteil" id="mx-erklaerung" aria-live="polite"></div>
+</div>
+</div>
+<h2 id="arten">3 · Freiwillig: drei Arten von Modulen</h2>
+<p>Wer keine Module schreibt, muss nichts ändern. Was ein JAR ist, hängt von zwei Fragen ab:</p>
+<div class="mx-buehne mx-buehne--schmal">
+<div>
+<p class="mx-titel" id="mx-pfad-titel">Wo liegt das JAR?</p>
+<div class="mx-knoepfe" role="group" aria-labelledby="mx-pfad-titel" id="mx-pfad"></div>
+<p class="mx-titel" id="mx-deskriptor-titel">Enthält es eine <code>module-info.class</code>?</p>
+<div class="mx-knoepfe" role="group" aria-labelledby="mx-deskriptor-titel" id="mx-deskriptor"></div>
+</div>
+<div class="mx-urteil" id="mx-art" aria-live="polite"></div>
+</div>
+<div class="skr-callout skr-callout--warning">
+<p><strong>Für alle gilt: Das JDK ist gekapselt.</strong> Seit Java 9 besteht es selbst aus Modulen
+(JEP 200, 220). Seine Interna wie <code>sun.misc</code> oder die privaten Felder von
+<code>java.util.ArrayList</code> waren zuerst nur mit Warnung erreichbar (JEP 260), seit Java 16
+standardmäßig gesperrt (JEP 396) und seit Java 17 ohne globalen Ausweg (JEP 403). Wer
+per Reflection hineingreift – oft eine Bibliothek, nicht der eigene Code –, braucht
+den Schalter <code>--add-opens java.base/java.util=ALL-UNNAMED</code>, auch ganz ohne eigene Module.</p>
+</div>
+<h2 id="jlink">4 · Das eigene Laufzeit-Image: jlink</h2>
+<p><code>jlink</code> (JEP 282) baut aus Modulen eine Laufzeitumgebung, die nur enthält, was die Anwendung braucht – samt Startskript:</p>
+<pre><code class="language-shell">jlink --module-path target/module --add-modules shop.app,shop.pdf --strip-debug --no-header-files --no-man-pages --launcher shop=shop.app/shop.app.Start --output target/bild
+</code></pre>
+<div class="mx-regeln">
+<div class="mx-regel">
+<p class="mx-titel">Klein</p>
+<p>Gemessen mit Temurin 25: das ganze JDK 253&nbsp;MB, ein Image aus <code>java.base</code> und drei eigenen Modulen 54&nbsp;MB.</p>
+</div>
+<div class="mx-regel">
+<p class="mx-titel">Nur benannte Module</p>
+<p>Ein automatisches Modul nimmt jlink nicht:</p>
+<pre><code>Error: automatic module cannot be used with jlink:
+       shop.pdf from file:///…/shop-pdf.jar</code></pre>
+</div>
+<div class="mx-regel">
+<p class="mx-titel">Dienste nur auf Zuruf</p>
+<p><code>--add-modules shop.app</code> nimmt nur, was <code>shop.app</code> mit <code>requires</code> erreicht. Ein Anbieter über <code>provides</code> fehlt im Image – ihn nennt man mit, oder <code>--bind-services</code> holt alle Anbieter, auch die des JDK.</p>
+</div>
+<div class="mx-regel">
+<p class="mx-titel">JDK ohne jmods</p>
+<p>Seit Java 24 darf ein JDK ohne seine <code>jmods</code> ausgeliefert werden (JEP 493); Temurin 25 tut das. jlink funktioniert trotzdem – nur das Modul <code>jdk.jlink</code> selbst lässt sich dann nicht ins Image nehmen, und daran scheitert <code>--bind-services</code>:</p>
+<pre><code>Error: This JDK does not contain packaged modules and cannot
+       be used to create another image with the jdk.jlink module</code></pre>
+</div>
+</div>
+<h2 id="import">5 · Seit Java 25: ein ganzes Modul importieren</h2>
+<p>Die <strong>Modul-Importe</strong> (JEP 511, final in Java 25, LTS 25) holen alle Pakete, die ein Modul exportiert, mit einer Zeile – auch in Code, der selbst kein Modul ist:</p>
+<pre><code class="language-java">import module java.base;      // java.util, java.time, java.io, …
+
+class Bericht {
+    List&lt;LocalDate&gt; tage = new ArrayList&lt;&gt;();
+}
+</code></pre>
+<blockquote>
+<p><strong>Merksatz:</strong> Der Klassenpfad vertraut und scheitert spät. Der Modulpfad prüft beim
+Start, was fehlt, was doppelt ist und wer worauf zugreifen darf. Eigene Module sind
+freiwillig – die Kapselung des JDK ist es nicht.</p>
+</blockquote>
+
+    </main>
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

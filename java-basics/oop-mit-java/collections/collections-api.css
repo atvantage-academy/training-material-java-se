@@ -125,7 +125,7 @@ html:has(.cap-dialog[open]){overflow:hidden;}
 .cap-card p:last-child{margin-bottom:0;}
 .cap-card pre{margin:0;overflow-x:auto;}
 .cap-card pre + p{margin-top:.6rem;}
-.cap-root pre code.hljs{border-radius:var(--skr-radius-lg);font-size:.8rem;line-height:1.5;}
+.cap-root pre code.hljs{border-radius:var(--skr-radius-lg);line-height:1.5;}
 .cap-note{margin:.9rem 0 0;font-size:.92rem;color:var(--skr-color-ink-muted);}
 
 @media (max-width:30rem){

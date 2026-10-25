@@ -8,6 +8,8 @@
   //   danach   Stationen nach der finalen Fassung (Standard, Ausbau, entfernt).
   //   weg      ganzer Weg, wenn die Kette (noch) nicht final ist; release null =
   //            ohne Release, art „Entwurf“ oder „Kandidat“.
+  //   stichworte  Begriffe für die Suche, zusätzlich zu Name, Titel und Projekt –
+  //            Schlüsselwörter, APIs, Schalter und gängige Schlagworte, kein Fließtext.
   //   umsetzung, beispiel [sprache, zeilen], bezug [[nr, text]] – Reiter 2 bis 4.
   //   risiko und r (Relevanz [REST, Batch, Server]) jeweils 0/1/2.
   // Stand: openjdk.org/jeps/0 und openjdk.org/projects/jdk/26 … 28, geprüft am
@@ -16,6 +18,7 @@
   const jeps = [
     // ===== Sprache =====
     { nr: 261, v: 9, b: "sprache", projekt: "Jigsaw", name: "Modulsystem", titel: "Module System",
+      stichworte: ["module-info", "requires", "exports", "Modul", "JPMS", "Modulpfad"],
       worum: "`module-info.java` beschreibt, was ein Modul braucht (`requires`) und zeigt (`exports`); das JDK selbst besteht seither aus Modulen.",
       warum: "Die Grundlage der starken Kapselung – auch wer keine eigenen Module schreibt, lebt mit ihren Folgen.",
       betrifft: "Deine Anwendung oder eine Bibliothek per Reflection in JDK-Interna greift.",
@@ -31,6 +34,7 @@
         "}"]],
       bezug: [[200, "das JDK in Modulen"], [282, "jlink baut darauf auf"], [260, "Kapselung der Interna"], [511, "Modul-Importe (25)"]] },
     { nr: 213, v: 9, b: "sprache", projekt: "Coin", name: "Project Coin, Feinschliff", titel: "Milling Project Coin",
+      stichworte: ["Diamond", "try-with-resources", "private Interface-Methoden", "Unterstrich", "@SafeVarargs"],
       worum: "Kleine Korrekturen: private Methoden in Interfaces, effektiv finale Variablen in try-with-resources, Diamant bei anonymen Klassen – und `_` ist kein Bezeichner mehr.",
       warum: "Private Interface-Methoden räumen Default-Methoden auf; der Rest spart Zeilen.",
       betrifft: "Du Default-Methoden mit gemeinsamer Logik schreibst – oder eine Variable `_` heißt.",
@@ -47,6 +51,7 @@
         "}"]],
       bezug: [[456, "`_` wird mit 22 zum Sprachmittel"]] },
     { nr: 286, v: 10, b: "sprache", projekt: "Amber", name: "var", titel: "Local-Variable Type Inference",
+      stichworte: ["var", "Typinferenz", "type inference"],
       worum: "Lokale Variablen mit `var` – der Typ wird aus der rechten Seite abgeleitet und bleibt statisch.",
       warum: "Weniger Wiederholung bei langen generischen Typen.",
       betrifft: "Du lokale Variablen mit langen Typen deklarierst.",
@@ -60,6 +65,7 @@
         "// var leer = null;      // Fehler: Typ nicht ableitbar"]],
       bezug: [[323, "var in Lambda-Parametern (11)"]] },
     { nr: 323, v: 11, b: "sprache", projekt: "Amber", name: "var in Lambdas", titel: "Local-Variable Syntax for Lambda Parameters",
+      stichworte: ["var", "Lambda", "Lambda-Parameter", "Annotation"],
       worum: "`var` auch für Lambda-Parameter – vor allem, um Annotationen anzubringen: `(@NonNull var s) -> …`.",
       warum: "Annotationen an Lambda-Parametern ohne ausgeschriebenen Typ.",
       betrifft: "Du Lambda-Parameter annotierst.",
@@ -70,7 +76,8 @@
         "    (@NonNull var text, var anzahl) -> text.repeat(anzahl);",
         "// (var text, anzahl) -> …   // Fehler: gemischt"]],
       bezug: [[286, "var für lokale Variablen (10)"]] },
-    { nr: 361, v: 14, b: "sprache", projekt: "Amber", name: "Switch-Expressions", titel: "Switch Expressions", kette: [[325, 12], [354, 13]],
+    { nr: 361, v: 14, b: "sprache", projekt: "Amber", name: "Switch-Expressions", titel: "Switch Expressions",
+      stichworte: ["switch", "yield", "case", "Pfeil"], kette: [[325, 12], [354, 13]],
       worum: "`switch` als Ausdruck mit `case … ->`, ohne Durchfallen, mit `yield` für Blöcke.",
       warum: "Kürzere, sichere Fallunterscheidungen; über Enums prüft der Compiler die Vollständigkeit.",
       betrifft: "Du Fallunterscheidungen über Enums oder Konstanten schreibst.",
@@ -86,7 +93,8 @@
         "    }",
         "};"]],
       bezug: [[441, "Muster im switch (21)"]] },
-    { nr: 378, v: 15, b: "sprache", projekt: "Amber", name: "Text-Blöcke", titel: "Text Blocks", kette: [[355, 13], [368, 14]],
+    { nr: 378, v: 15, b: "sprache", projekt: "Amber", name: "Text-Blöcke", titel: "Text Blocks",
+      stichworte: ["Text-Block", "text block", "mehrzeilig", "multiline", "String"], kette: [[355, 13], [368, 14]],
       worum: "Mehrzeilige Zeichenketten zwischen `\"\"\"` – ohne `\\n` und Verkettung.",
       warum: "SQL, JSON und Berichte lesbar im Code.",
       betrifft: "Du mehrzeilige Texte im Code hast.",
@@ -102,7 +110,8 @@
         "    Hallo %s, \\",
         "    Deine Bestellung ist da.\"\"\".formatted(name);"]],
       bezug: [[430, "String Templates sollten darauf aufbauen"]] },
-    { nr: 394, v: 16, b: "sprache", projekt: "Amber", name: "Muster mit instanceof", titel: "Pattern Matching for instanceof", kette: [[305, 14], [375, 15]],
+    { nr: 394, v: 16, b: "sprache", projekt: "Amber", name: "Muster mit instanceof", titel: "Pattern Matching for instanceof",
+      stichworte: ["instanceof", "Pattern Matching", "Muster", "Cast"], kette: [[305, 14], [375, 15]],
       worum: "`if (o instanceof Kunde k)` – prüfen und binden in einem Schritt, ohne Cast.",
       warum: "Der erste Schritt zu Mustern im `switch`.",
       betrifft: "Dein Code `instanceof` mit Cast enthält.",
@@ -115,7 +124,8 @@
         "if (!(o instanceof Bestellung b)) return false;",
         "return nummer.equals(b.nummer());"]],
       bezug: [[441, "Muster im switch (21)"], [440, "Record-Patterns (21)"]] },
-    { nr: 395, v: 16, b: "sprache", projekt: "Amber", name: "Records", titel: "Records", kette: [[359, 14], [384, 15]],
+    { nr: 395, v: 16, b: "sprache", projekt: "Amber", name: "Records", titel: "Records",
+      stichworte: ["record", "Datenklasse", "DTO", "equals", "hashCode", "toString", "unveränderlich", "immutable"], kette: [[359, 14], [384, 15]],
       worum: "`record Position(String artikel, int menge)` – Konstruktor, Zugriffsmethoden, `equals`, `hashCode` und `toString` vom Compiler.",
       warum: "Unveränderliche Datenträger ohne Boilerplate.",
       betrifft: "Du DTOs, Werte oder Ereignisse modellierst.",
@@ -131,7 +141,8 @@
         "p.menge();                 // 2 – ohne get",
         "p.equals(new Position(\"Tasse\", 2));   // true"]],
       bezug: [[440, "Record-Patterns zerlegen sie (21)"], [401, "Value Objects – Werte ohne Identität"]] },
-    { nr: 409, v: 17, b: "sprache", projekt: "Amber", name: "Versiegelte Klassen", titel: "Sealed Classes", kette: [[360, 15], [397, 16]],
+    { nr: 409, v: 17, b: "sprache", projekt: "Amber", name: "Versiegelte Klassen", titel: "Sealed Classes",
+      stichworte: ["sealed", "permits", "non-sealed", "versiegelt"], kette: [[360, 15], [397, 16]],
       worum: "`sealed interface Zahlart permits Rechnung, Lastschrift, …` legt fest, wer erben darf.",
       warum: "Der Compiler kennt alle Fälle – die Grundlage für vollständige `switch`.",
       betrifft: "Du eine feste Menge von Varianten modellierst.",
@@ -143,7 +154,8 @@
         "record Lastschrift(String iban) implements Zahlart {}",
         "non-sealed class Kreditkarte implements Zahlart {}"]],
       bezug: [[441, "vollständiger switch ohne default (21)"]] },
-    { nr: 441, v: 21, b: "sprache", projekt: "Amber", name: "Muster im switch", titel: "Pattern Matching for switch", kette: [[406, 17], [420, 18], [427, 19], [433, 20]],
+    { nr: 441, v: 21, b: "sprache", projekt: "Amber", name: "Muster im switch", titel: "Pattern Matching for switch",
+      stichworte: ["switch", "Pattern Matching", "Muster", "when", "case null"], kette: [[406, 17], [420, 18], [427, 19], [433, 20]],
       worum: "`switch` über Typen mit Mustern, `when`-Wächtern und `case null`; über versiegelte Typen vollständig ohne `default`.",
       warum: "Fallunterscheidungen, deren Vollständigkeit der Compiler prüft.",
       betrifft: "Du Typen unterscheidest oder einen Visitor pflegst.",
@@ -157,7 +169,8 @@
         "    case Kreditkarte k   -> \"Karte \" + k.maskiert();",
         "};   // kein default: Zahlart ist sealed"]],
       bezug: [[409, "versiegelte Typen (17)"], [440, "Record-Patterns (21)"], [455, "primitive Typen im Muster (Preview)"]] },
-    { nr: 440, v: 21, b: "sprache", projekt: "Amber", name: "Record-Patterns", titel: "Record Patterns", kette: [[405, 19], [432, 20]],
+    { nr: 440, v: 21, b: "sprache", projekt: "Amber", name: "Record-Patterns", titel: "Record Patterns",
+      stichworte: ["record", "Record Pattern", "Dekonstruktion", "Pattern Matching", "Muster"], kette: [[405, 19], [432, 20]],
       worum: "Records im Muster zerlegen: `case Rechnung(var tage) -> …`.",
       warum: "Daten und Fallunterscheidung passen zusammen – der Visitor wird überflüssig.",
       betrifft: "Du Records nach ihrem Inhalt unterscheidest.",
@@ -171,7 +184,8 @@
         "    IO.println(name + \" aus \" + ort);",
         "}"]],
       bezug: [[395, "Records (16)"], [441, "Muster im switch (21)"], [456, "`_` für ungenutzte Teile (22)"]] },
-    { nr: 430, v: 21, b: "sprache", projekt: "Amber", name: "String Templates", titel: "String Templates (Preview)", zurückgezogen: true,
+    { nr: 430, v: 21, b: "sprache", projekt: "Amber", name: "String Templates", titel: "String Templates (Preview)",
+      stichworte: ["String Templates", "STR", "Interpolation", "Preview"], zurückgezogen: true,
       weg: [[430, 21, "Preview"], [459, 22, "Preview"], [465, 23, "zurückgezogen"]],
       worum: "`STR.\"Hallo \\{name}\"` – Text mit eingebetteten Ausdrücken und Prozessoren, etwa für sicheres SQL.",
       warum: "Das Lehrbeispiel für Preview: zweimal ausgeliefert, vor 23 zurückgezogen. Wer es nutzte, musste zurückbauen.",
@@ -185,7 +199,8 @@
         "// heute",
         "String gruß = \"Hallo %s, Summe %s €\".formatted(kunde.name(), summe);"]],
       bezug: [[378, "Text-Blöcke (15)"]] },
-    { nr: 456, v: 22, b: "sprache", projekt: "Amber", name: "Unbenannte Variablen _", titel: "Unnamed Variables & Patterns", kette: [[443, 21]],
+    { nr: 456, v: 22, b: "sprache", projekt: "Amber", name: "Unbenannte Variablen _", titel: "Unnamed Variables & Patterns",
+      stichworte: ["_", "Unterstrich", "unnamed", "unbenannt"], kette: [[443, 21]],
       worum: "`_` für Variablen und Musterteile, die man nicht braucht: `catch (Exception _)`, `case Rechnung _`.",
       warum: "Zeigt im Code, was bewusst ungenutzt bleibt.",
       betrifft: "Du ungenutzte Variablen oder Musterteile hast.",
@@ -196,7 +211,8 @@
         "map.forEach((_, wert) -> summe += wert);",
         "if (o instanceof Kunde(var name, _)) { … }"]],
       bezug: [[213, "`_` ab 9 kein Bezeichner"], [440, "Record-Patterns (21)"]] },
-    { nr: 513, v: 25, b: "sprache", projekt: "Amber", name: "Flexible Konstruktoren", titel: "Flexible Constructor Bodies", kette: [[447, 22], [482, 23], [492, 24]],
+    { nr: 513, v: 25, b: "sprache", projekt: "Amber", name: "Flexible Konstruktoren", titel: "Flexible Constructor Bodies",
+      stichworte: ["Konstruktor", "constructor", "super", "this", "Validierung"], kette: [[447, 22], [482, 23], [492, 24]],
       worum: "Code vor `super(…)` und `this(…)`: Argumente prüfen und berechnen, bevor die Oberklasse läuft.",
       warum: "Kein Umweg über statische Hilfsmethoden mehr für die Prüfung im Konstruktor.",
       betrifft: "Du Konstruktorargumente prüfst, bevor Du sie weiterreichst.",
@@ -211,7 +227,8 @@
         "    }",
         "}"]],
       bezug: [[401, "Value Objects nutzen den Prolog"]] },
-    { nr: 512, v: 25, b: "sprache", projekt: "Amber", name: "Kompakte Quelldateien", titel: "Compact Source Files and Instance Main Methods", kette: [[445, 21], [463, 22], [477, 23], [495, 24]],
+    { nr: 512, v: 25, b: "sprache", projekt: "Amber", name: "Kompakte Quelldateien", titel: "Compact Source Files and Instance Main Methods",
+      stichworte: ["main", "void main", "IO", "println", "Skript", "Instance Main"], kette: [[445, 21], [463, 22], [477, 23], [495, 24]],
       worum: "`void main() { … }` ohne Klasse und ohne `static`; `IO.println` für Ausgaben.",
       warum: "Kleine Programme ohne Zeremonie – für Skripte und den Einstieg.",
       betrifft: "Du kleine Werkzeuge in Java schreibst.",
@@ -224,7 +241,8 @@
         "    IO.println(\"Hallo \" + name);",
         "}"]],
       bezug: [[330, "java Datei.java (11)"], [458, "mehrere Quelldateien (22)"], [511, "Modul-Importe (25)"]] },
-    { nr: 511, v: 25, b: "sprache", projekt: "Amber", name: "Modul-Importe", titel: "Module Import Declarations", kette: [[476, 23], [494, 24]],
+    { nr: 511, v: 25, b: "sprache", projekt: "Amber", name: "Modul-Importe", titel: "Module Import Declarations",
+      stichworte: ["import module", "import", "Modul"], kette: [[476, 23], [494, 24]],
       worum: "`import module java.base;` importiert alle exportierten Pakete eines Moduls.",
       warum: "Kurze Importe für Skripte und kleine Programme.",
       betrifft: "Du kleine Programme oder Skripte schreibst.",
@@ -235,7 +253,8 @@
         "import module java.sql;",
         "import java.util.List;        // löst den Konflikt mit java.awt.List"]],
       bezug: [[261, "Modulsystem (9)"], [512, "kompakte Quelldateien importieren java.base"]] },
-    { nr: 455, b: "sprache", projekt: "Amber", name: "Primitive Typen im Muster", titel: "Primitive Types in Patterns, instanceof, and switch", offen: true,
+    { nr: 455, b: "sprache", projekt: "Amber", name: "Primitive Typen im Muster", titel: "Primitive Types in Patterns, instanceof, and switch",
+      stichworte: ["primitive", "int", "instanceof", "switch", "Pattern Matching"], offen: true,
       weg: [[455, 23, "Preview"], [488, 24, "Preview"], [507, 25, "Preview"], [530, 26, "Preview"], [532, 27, "Preview"], [8393282, 28, "Entwurf"]],
       worum: "Muster, `instanceof` und `switch` auch über `int`, `long`, `double`, `boolean` – mit Prüfung, ob eine Umwandlung verlustfrei ist.",
       warum: "Schließt die letzte Lücke im Pattern Matching; `switch` über `long` oder `double` wird möglich.",
@@ -253,7 +272,8 @@
         "    case double d -> \"groß\";",
         "};"]],
       bezug: [[441, "Muster im switch (21)"], [401, "Valhalla vereinheitlicht primitive Typen und Klassen"]] },
-    { nr: 401, b: "sprache", projekt: "Valhalla", name: "Value Objects", titel: "Value Objects (Preview)", offen: true,
+    { nr: 401, b: "sprache", projekt: "Valhalla", name: "Value Objects", titel: "Value Objects (Preview)",
+      stichworte: ["value class", "value record", "Wertklasse", "Wertobjekt", "Identität"], offen: true,
       weg: [[401, 28, "Preview"]],
       worum: "Objekte ohne Identität: `value class` und `value record` unterscheiden sich nur über ihre Felder; `==` vergleicht den Inhalt.",
       warum: "Die JVM darf Werte flach in Felder und Arrays legen statt über Zeiger – weniger Speicher, bessere Cache-Lokalität. `Integer`, `LocalDate` und `Optional` werden in der Preview selbst zu Value-Klassen.",
@@ -270,7 +290,8 @@
         "    IO.println(Objects.hasIdentity(a));         // false",
         "}"]],
       bezug: [[390, "Vorbereitung: Warnungen für wertbasierte Klassen (16)"], [539, "strikte Feldinitialisierung in der JVM"], [8303099, "null-restricted Typen erlauben flache Ablage"], [338, "die Vector API wartet darauf"], [519, "kompakte Objekt-Header"]] },
-    { nr: 8303099, b: "sprache", projekt: "Valhalla", name: "Null-restricted Typen", titel: "Null-Restricted and Nullable Types (Preview)", offen: true,
+    { nr: 8303099, b: "sprache", projekt: "Valhalla", name: "Null-restricted Typen", titel: "Null-Restricted and Nullable Types (Preview)",
+      stichworte: ["null", "Nullability", "String!", "null-restricted", "NullPointerException"], offen: true,
       weg: [[8303099, null, "Entwurf"], [8316779, null, "Entwurf"]],
       worum: "`String!` schließt `null` aus, `String?` erlaubt es ausdrücklich; für Value-Klassen (`Punkt!`) braucht die JVM dann kein Bit für `null`.",
       warum: "Erst ohne `null` kann die JVM Value Objects vollständig flach in Felder und Arrays legen. Nebenbei findet der Compiler unerwartete `null`-Werte.",
@@ -283,7 +304,8 @@
         "String? zweitname = kunde.zweitname(); // darf null sein",
         "Punkt![] pfad = new Punkt![1000];     // flach im Speicher, ohne Zeiger"]],
       bezug: [[401, "Value Objects (Preview in 28)"]] },
-    { nr: 402, b: "sprache", projekt: "Valhalla", name: "Primitive als Objekte", titel: "Enhanced Primitive Boxing (Preview)", offen: true,
+    { nr: 402, b: "sprache", projekt: "Valhalla", name: "Primitive als Objekte", titel: "Enhanced Primitive Boxing (Preview)",
+      stichworte: ["Boxing", "Autoboxing", "Integer", "int"], offen: true,
       weg: [[402, null, "Entwurf"]],
       worum: "`int` und `Integer` rücken zusammen: Methoden auf primitiven Werten aufrufen, `List<int>`-ähnliche Schreibweisen über Boxing.",
       warum: "Der erste Schritt, primitive Typen und Klassen zu vereinheitlichen – ohne die Kosten heutiger Wrapper, sobald `Integer` eine Value-Klasse ist.",
@@ -296,7 +318,8 @@
         "String text = menge.toString();",
         "List<int> mengen = List.of(1, 2, 3);"]],
       bezug: [[401, "Value Objects"], [218, "Generics über primitive Typen"]] },
-    { nr: 218, b: "sprache", projekt: "Valhalla", name: "Generics über primitive Typen", titel: "Generics over Primitive Types", offen: true,
+    { nr: 218, b: "sprache", projekt: "Valhalla", name: "Generics über primitive Typen", titel: "Generics over Primitive Types",
+      stichworte: ["Generics", "List<int>", "primitive"], offen: true,
       weg: [[218, null, "Kandidat"]],
       worum: "`ArrayList<int>` ohne Boxing – generischer Code, der für primitive Typen spezialisiert wird.",
       warum: "Das Fernziel von Valhalla seit 2014: Collections von Zahlen ohne Wrapper-Objekte.",
@@ -311,6 +334,7 @@
 
     // ===== API =====
     { nr: 269, v: 9, b: "api", name: "List.of, Set.of, Map.of", titel: "Convenience Factory Methods for Collections",
+      stichworte: ["List.of", "Set.of", "Map.of", "Collection Factory", "unveränderlich", "immutable"],
       worum: "Unveränderliche Collections in einer Zeile: `List.of(…)`, `Set.of(…)`, `Map.of(…)`.",
       warum: "Ersetzt `Arrays.asList` und `Collections.unmodifiable…` – und verbietet `null`.",
       betrifft: "Du Konstanten, Testdaten oder Rückgabewerte als Collection baust.",
@@ -323,6 +347,7 @@
         "Set.of(\"a\", \"a\");               // IllegalArgumentException: duplicate element"]],
       bezug: [[431, "Sequenced Collections (21)"]] },
     { nr: 266, v: 9, b: "api", name: "CompletableFuture mit Zeitlimit", titel: "More Concurrency Updates",
+      stichworte: ["CompletableFuture", "orTimeout", "Timeout", "Flow", "Reactive Streams"],
       worum: "`orTimeout`, `completeOnTimeout` und `delayedExecutor` für `CompletableFuture`, dazu die Reactive-Streams-Schnittstellen in `Flow`.",
       warum: "Zeitlimits für asynchrone Aufrufe ohne eigenen Scheduler.",
       betrifft: "Du andere Systeme asynchron aufrufst.",
@@ -334,6 +359,7 @@
         "    .thenAccept(bestand -> anzeigen(bestand));"]],
       bezug: [[444, "Virtual Threads – blockierend statt asynchron (21)"]] },
     { nr: 102, v: 9, b: "api", name: "ProcessHandle", titel: "Process API Updates",
+      stichworte: ["ProcessHandle", "Process", "Prozess", "PID"],
       worum: "`ProcessHandle` liefert PID, Elternprozess und Kinder und meldet das Ende eines Prozesses.",
       warum: "Prozesse steuern ohne plattformabhängige Kniffe.",
       betrifft: "Dein Programm andere Programme startet oder überwacht.",
@@ -344,6 +370,7 @@
         "IO.println(\"PID \" + p.pid());",
         "p.toHandle().onExit().thenRun(() -> IO.println(\"fertig\"));"]] },
     { nr: 259, v: 9, b: "api", name: "StackWalker", titel: "Stack-Walking API",
+      stichworte: ["StackWalker", "Stacktrace"],
       worum: "`StackWalker` durchläuft den Aufrufstapel gezielt und günstig, statt eine Exception zu erzeugen.",
       warum: "Für Logging und Frameworks, die den Aufrufer kennen müssen.",
       betrifft: "Du den Aufrufer einer Methode ermittelst.",
@@ -354,7 +381,8 @@
         "    .walk(rahmen -> rahmen.skip(1).findFirst())",
         "    .map(StackWalker.StackFrame::getMethodName)",
         "    .orElse(\"?\");"]] },
-    { nr: 321, v: 11, b: "api", name: "HttpClient", titel: "HTTP Client (Standard)", kette: [[110, 9, "Incubator"]], danach: [[517, 26, "Ausbau"]],
+    { nr: 321, v: 11, b: "api", name: "HttpClient", titel: "HTTP Client (Standard)",
+      stichworte: ["HttpClient", "HTTP", "HTTP/2", "REST-Client", "WebSocket"], kette: [[110, 9, "Incubator"]], danach: [[517, 26, "Ausbau"]],
       worum: "Ein HTTP-Client im JDK – synchron und asynchron, mit HTTP/2 und WebSockets; seit 26 auch HTTP/3.",
       warum: "Ersetzt `HttpURLConnection` und oft eine Bibliothek.",
       betrifft: "Dein Code andere Systeme per HTTP aufruft.",
@@ -366,6 +394,7 @@
         "HttpResponse<String> antwort = client.send(anfrage, HttpResponse.BodyHandlers.ofString());",
         "IO.println(antwort.statusCode() + \" \" + antwort.body());"]] },
     { nr: 380, v: 16, b: "api", name: "Unix-Domain-Sockets", titel: "Unix-Domain Socket Channels",
+      stichworte: ["Unix-Domain-Socket", "Socket", "SocketChannel"],
       worum: "`SocketChannel` und `ServerSocketChannel` auch über Unix-Domain-Sockets.",
       warum: "Schnelle Verbindungen zwischen Prozessen auf demselben Rechner, etwa zu einem Sidecar.",
       betrifft: "Prozesse auf demselben Rechner miteinander sprechen.",
@@ -377,6 +406,7 @@
         "    kanal.connect(adresse);",
         "}"]] },
     { nr: 356, v: 17, b: "api", name: "Zufallszahlen", titel: "Enhanced Pseudo-Random Number Generators",
+      stichworte: ["Random", "RandomGenerator", "Zufall"],
       worum: "`RandomGenerator` als gemeinsame Schnittstelle und neue Algorithmen, auch für Streams und parallele Arbeit.",
       warum: "Austauschbare, bessere Zufallszahlen.",
       betrifft: "Du Zufallszahlen für Simulationen oder Tests brauchst.",
@@ -385,7 +415,8 @@
       beispiel: ["java", [
         "RandomGenerator zufall = RandomGenerator.of(\"L64X128MixRandom\");",
         "int würfel = zufall.nextInt(1, 7);"]] },
-    { nr: 444, v: 21, b: "api", projekt: "Loom", name: "Virtual Threads", titel: "Virtual Threads", kette: [[425, 19], [436, 20]],
+    { nr: 444, v: 21, b: "api", projekt: "Loom", name: "Virtual Threads", titel: "Virtual Threads",
+      stichworte: ["Virtual Threads", "virtuelle Threads", "Thread", "Nebenläufigkeit", "concurrency"], kette: [[425, 19], [436, 20]],
       worum: "Leichte Threads, die beim Blockieren ihren Träger freigeben – Hunderttausende sind möglich.",
       warum: "Blockierender Code skaliert, ohne ihn reaktiv umzuschreiben. Gemessen: Batch-Import 1355 → 60 ms auf JDK 25.",
       betrifft: "Deine Anwendung viel auf andere Systeme wartet.",
@@ -399,6 +430,7 @@
         "}   // close() wartet auf alle"]],
       bezug: [[491, "kein Pinning bei synchronized (24)"], [506, "Scoped Values (25)"], [543, "Structured Concurrency (28)"]] },
     { nr: 431, v: 21, b: "api", name: "Sequenced Collections", titel: "Sequenced Collections",
+      stichworte: ["Sequenced", "getFirst", "getLast", "reversed", "List", "Collection"],
       worum: "`getFirst()`, `getLast()` und `reversed()` für Listen, Deques sowie sortierte Mengen und Maps.",
       warum: "Ein gemeinsamer Zugriff auf Anfang und Ende.",
       betrifft: "Du erste oder letzte Elemente liest – oder eigene Collections mit solchen Methoden hast.",
@@ -409,7 +441,8 @@
         "Bestellung neueste = liste.getLast();       // statt liste.get(liste.size() - 1)",
         "for (var b : liste.reversed()) { … }"]],
       bezug: [[269, "List.of und Co. (9)"]] },
-    { nr: 454, v: 22, b: "api", projekt: "Panama", name: "Foreign Function & Memory", titel: "Foreign Function & Memory API", kette: [[412, 17, "Incubator"], [419, 18, "Incubator"], [424, 19], [434, 20], [442, 21]],
+    { nr: 454, v: 22, b: "api", projekt: "Panama", name: "Foreign Function & Memory", titel: "Foreign Function & Memory API",
+      stichworte: ["FFM", "Foreign Function", "native", "JNI", "MemorySegment", "off-heap"], kette: [[412, 17, "Incubator"], [419, 18, "Incubator"], [424, 19], [434, 20], [442, 21]],
       worum: "Native Bibliotheken aufrufen und Speicher außerhalb des Heaps verwalten – ohne JNI.",
       warum: "Der Nachfolger von JNI und den Speicherzugriffen in `sun.misc.Unsafe`.",
       betrifft: "Ihr native Bibliotheken anbindet.",
@@ -424,7 +457,8 @@
         "    long länge = (long) strlen.invokeExact(arena.allocateFrom(\"Bestellung\"));",
         "}"]],
       bezug: [[472, "JNI wird eingeschränkt (24)"], [498, "Unsafe warnt (24)"]] },
-    { nr: 485, v: 24, b: "api", name: "Stream Gatherers", titel: "Stream Gatherers", kette: [[461, 22], [473, 23]],
+    { nr: 485, v: 24, b: "api", name: "Stream Gatherers", titel: "Stream Gatherers",
+      stichworte: ["Gatherer", "Stream", "gather", "windowFixed"], kette: [[461, 22], [473, 23]],
       worum: "Eigene Zwischenoperationen für Streams: `gather(Gatherers.windowFixed(100))` für Pakete, gleitende Fenster, Abbruch.",
       warum: "Was mit Collectors nicht ging: Gruppen in der Reihenfolge des Streams.",
       betrifft: "Du Daten in Paketen oder Fenstern verarbeitest.",
@@ -434,7 +468,8 @@
         "zeilen.stream()",
         "    .gather(Gatherers.windowFixed(100))        // Listen zu je 100 Zeilen",
         "    .forEach(paket -> datenbank.speichereAlle(paket));"]] },
-    { nr: 484, v: 24, b: "api", name: "Class-File API", titel: "Class-File API", kette: [[457, 22], [466, 23]],
+    { nr: 484, v: 24, b: "api", name: "Class-File API", titel: "Class-File API",
+      stichworte: ["Class-File", "Bytecode", "ASM"], kette: [[457, 22], [466, 23]],
       worum: "Klassendateien lesen, erzeugen und umbauen – mit dem JDK statt mit ASM.",
       warum: "Frameworks und Werkzeuge hängen nicht mehr am Release einer Bytecode-Bibliothek.",
       betrifft: "Du Bytecode erzeugst oder analysierst.",
@@ -445,7 +480,8 @@
         "for (MethodModel m : klasse.methods()) {",
         "    IO.println(m.methodName().stringValue());",
         "}"]] },
-    { nr: 506, v: 25, b: "api", projekt: "Loom", name: "Scoped Values", titel: "Scoped Values", kette: [[429, 20, "Incubator"], [446, 21], [464, 22], [481, 23], [487, 24]],
+    { nr: 506, v: 25, b: "api", projekt: "Loom", name: "Scoped Values", titel: "Scoped Values",
+      stichworte: ["ScopedValue", "ThreadLocal", "Kontext"], kette: [[429, 20, "Incubator"], [446, 21], [464, 22], [481, 23], [487, 24]],
       worum: "Ein Wert, der für einen Aufruf und alles darin gilt – unveränderlich und ohne Aufräumen.",
       warum: "Der Nachfolger von `ThreadLocal` für Kontext wie Korrelations-IDs, passend zu virtuellen Threads.",
       betrifft: "Ihr Kontext per `ThreadLocal` weiterreicht.",
@@ -461,6 +497,7 @@
         "log.info(KORRELATION.get() + \": bestellt\");"]],
       bezug: [[444, "Virtual Threads (21)"], [543, "Structured Concurrency (28)"]] },
     { nr: 543, v: 28, b: "api", projekt: "Loom", name: "Structured Concurrency", titel: "Structured Concurrency",
+      stichworte: ["StructuredTaskScope", "Structured Concurrency", "Nebenläufigkeit", "Virtual Threads"],
       kette: [[428, 19, "Incubator"], [437, 20, "Incubator"], [453, 21], [462, 22], [480, 23], [499, 24], [505, 25], [525, 26], [533, 27]],
       worum: "Zusammengehörige Teilaufgaben in einem Block starten, gemeinsam abwarten und bei einem Fehler gemeinsam abbrechen.",
       warum: "Nebenläufigkeit mit der Struktur eines Methodenaufrufs: keine verwaisten Threads, klare Fehlerbehandlung, lesbare Thread-Dumps.",
@@ -476,7 +513,8 @@
         "    return new Angebot(kunde.get(), bestand.get());",
         "}"]],
       bezug: [[444, "Virtual Threads (21)"], [506, "Scoped Values werden vererbt"]] },
-    { nr: 502, b: "api", name: "Lazy Constants", titel: "Lazy Constants (Preview)", offen: true,
+    { nr: 502, b: "api", name: "Lazy Constants", titel: "Lazy Constants (Preview)",
+      stichworte: ["Lazy", "StableValue", "Konstante", "lazy initialization"], offen: true,
       weg: [[502, 25, "Preview"], [526, 26, "Preview"], [531, 27, "Preview"], [547, null, "Kandidat"]],
       worum: "Ein Wert, der erst beim ersten Zugriff berechnet wird und danach als echte Konstante gilt.",
       warum: "Schnellerer Start ohne doppelt geprüftes Sperren: Teures wird erst gebaut, wenn es gebraucht wird, und die JVM optimiert es wie ein `final`-Feld.",
@@ -489,7 +527,8 @@
         "    LazyConstant.of(() -> Logger.getLogger(\"bestellung\"));",
         "",
         "void bestelle() { log.get().info(\"bestellt\"); }"]] },
-    { nr: 542, v: 28, b: "api", name: "PEM-Kodierung", titel: "PEM Encodings of Cryptographic Objects", kette: [[470, 25], [524, 26], [538, 27]],
+    { nr: 542, v: 28, b: "api", name: "PEM-Kodierung", titel: "PEM Encodings of Cryptographic Objects",
+      stichworte: ["PEM", "Zertifikat", "Schlüssel", "Kryptografie"], kette: [[470, 25], [524, 26], [538, 27]],
       worum: "Schlüssel und Zertifikate aus PEM-Text lesen und als PEM schreiben – mit `PEMDecoder` und `PEMEncoder`.",
       warum: "Bisher brauchte das eigenes Base64-Parsen oder Bouncy Castle.",
       betrifft: "Ihr TLS-Schlüssel oder Zertifikate aus Dateien oder Secrets ladet.",
@@ -502,7 +541,19 @@
         "    case X509Certificate zertifikat -> vertraue(zertifikat);",
         "    default -> throw new IllegalArgumentException(\"unbekannt\");",
         "}"]] },
-    { nr: 540, b: "api", name: "JSON-API", titel: "Simple JSON API (Incubator)", offen: true,
+    { nr: 527, v: 27, b: "api", name: "Post-Quanten-TLS", titel: "Post-Quantum Hybrid Key Exchange for TLS 1.3",
+      stichworte: ["TLS", "ML-KEM", "Post-Quanten", "Kryptografie", "X25519MLKEM768", "jdk.tls.namedGroups"],
+      worum: "TLS 1.3 handelt den Schlüssel hybrid aus: ML-KEM, das auch gegen Quantenrechner hält, kombiniert mit dem klassischen ECDHE.",
+      warum: "Wer heute verschlüsselten Verkehr mitschneidet, könnte ihn später mit einem Quantenrechner entschlüsseln („jetzt speichern, später entschlüsseln“).",
+      betrifft: "Eure Anwendung über `javax.net.ssl` TLS spricht – und erst recht, wenn Ihr die Schlüsselaustausch-Gruppen fest einstellt.",
+      risiko: 0, risikoText: "Gering, ohne Codeänderung. Wer die Gruppen mit `jdk.tls.namedGroups` oder `SSLParameters.setNamedGroups` festlegt, bekommt die hybriden nur, wenn er sie in die Liste aufnimmt.", r: [1, 0, 1],
+      umsetzung: "Drei neue Gruppen: `X25519MLKEM768` (Standard und an erster Stelle), `SecP256r1MLKEM768` und `SecP384r1MLKEM1024` (nicht voreingestellt). Ein TLS-1.3-Client schickt standardmäßig Schlüsselanteile für `X25519MLKEM768` und `x25519`. Andere TLS-Versionen und reines ML-KEM sind nicht Teil des JEP.",
+      beispiel: ["bash", [
+        "# ab JDK 27: Reihenfolge der Gruppen selbst festlegen",
+        "java -Djdk.tls.namedGroups=X25519MLKEM768,x25519,secp256r1 -jar target/bestellung-rest.jar"]],
+      bezug: [[542, "PEM-Kodierung"]] },
+    { nr: 540, b: "api", name: "JSON-API", titel: "Simple JSON API (Incubator)",
+      stichworte: ["JSON", "Json.parse"], offen: true,
       weg: [[540, 28, "Incubator"]],
       worum: "JSON lesen und schreiben mit dem JDK: `Json.parse(text)` und ein kleines Objektmodell.",
       warum: "Für kleine Werkzeuge und Skripte ohne Jackson oder JSON-B.",
@@ -513,7 +564,8 @@
         "// JDK 28: --add-modules jdk.incubator.json",
         "JsonValue json = Json.parse(antwort.body());",
         "int menge = json.get(\"menge\").asInt();"]] },
-    { nr: 338, b: "api", projekt: "Panama", name: "Vector API", titel: "Vector API (Incubator)", offen: true,
+    { nr: 338, b: "api", projekt: "Panama", name: "Vector API", titel: "Vector API (Incubator)",
+      stichworte: ["Vector", "SIMD"], offen: true,
       weg: [[338, 16, "Incubator"], [414, 17, "Incubator"], [417, 18, "Incubator"], [426, 19, "Incubator"], [438, 20, "Incubator"], [448, 21, "Incubator"], [460, 22, "Incubator"], [469, 23, "Incubator"], [489, 24, "Incubator"], [508, 25, "Incubator"], [529, 26, "Incubator"], [537, 27, "Incubator"]],
       worum: "Rechnen mit Vektoren, die die JVM auf SIMD-Befehle der CPU abbildet – viele Zahlen in einem Schritt.",
       warum: "Für Numerik, Bildverarbeitung, Suche und KI-nahe Rechnungen. Sie bleibt Incubator, bis Valhalla die Vektoren als Value-Klassen ermöglicht.",
@@ -531,6 +583,7 @@
 
     // ===== JVM und Laufzeit =====
     { nr: 200, v: 9, b: "jvm", projekt: "Jigsaw", name: "Das JDK in Modulen", titel: "The Modular JDK",
+      stichworte: ["Modul", "java.base", "JDK-Module"],
       worum: "Das JDK ist in rund 70 Module geteilt: `java.base`, `java.sql`, `java.xml`, `jdk.httpserver` …",
       warum: "Die Voraussetzung für schlanke Laufzeiten mit `jlink` und für die Kapselung der Interna.",
       betrifft: "Du wissen willst, welche Teile des JDK Deine Anwendung braucht.",
@@ -541,6 +594,7 @@
         "jdeps --print-module-deps --ignore-missing-deps target/bestellung-rest.jar"]],
       bezug: [[201, "Quelltext in Modulen"], [220, "Laufzeit-Images"], [261, "Modulsystem"], [282, "jlink"]] },
     { nr: 201, v: 9, b: "jvm", projekt: "Jigsaw", name: "JDK-Quelltext in Modulen", titel: "Modular Source Code",
+      stichworte: ["Quelltext", "JDK-Quellen", "Modul"],
       worum: "Der Quelltext des JDK ist nach Modulen geordnet: `src/java.base/share/classes/…`.",
       warum: "Wer im JDK-Quelltext nachliest, findet Klassen jetzt unter ihrem Modul – auch in der IDE und auf GitHub.",
       betrifft: "Du im Quelltext des JDK nachschlägst.",
@@ -549,7 +603,8 @@
       beispiel: ["bash", [
         "unzip -l \"$JAVA_HOME/lib/src.zip\" 'java.base/java/util/List.java'"]],
       bezug: [[200, "das JDK in Modulen"]] },
-    { nr: 248, v: 9, b: "jvm", name: "G1 als Standard", titel: "Make G1 the Default Garbage Collector", danach: [[523, 27, "Standard"]],
+    { nr: 248, v: 9, b: "jvm", name: "G1 als Standard", titel: "Make G1 the Default Garbage Collector",
+      stichworte: ["G1", "Garbage Collector", "GC"], danach: [[523, 27, "Standard"]],
       worum: "G1 löst den Parallel GC als Standard ab – kürzere Pausen bei fast gleichem Durchsatz. Seit 27 auch im kleinen Container.",
       warum: "Wer keinen GC wählt, bekommt G1 – bis 26 außer im kleinen Container: Mit einem Kern oder unter knapp 1,8 GB wählt die JVM Serial. Mit 27 entfällt die Ausnahme (JEP 523).",
       betrifft: "Deine Anwendung ohne GC-Option startet.",
@@ -560,6 +615,7 @@
         "docker run --rm --cpus=1 --memory=1g eclipse-temurin:25 java -Xlog:gc -version"]],
       bezug: [[307, "paralleler Full GC (10)"], [346, "Speicher zurückgeben (12)"]] },
     { nr: 254, v: 9, b: "jvm", name: "Kompakte Strings", titel: "Compact Strings",
+      stichworte: ["String", "Compact Strings", "Speicher", "Latin-1"],
       worum: "Strings mit nur Latin-1-Zeichen belegen ein Byte je Zeichen statt zwei.",
       warum: "Weniger Heap ohne Codeänderung.",
       betrifft: "Deine Anwendung viele Texte im Speicher hält.",
@@ -568,6 +624,7 @@
       beispiel: ["bash", [
         "jcmd $(pgrep -f RestAnwendung) GC.class_histogram | grep -E 'java.lang.String|\\[B'"]] },
     { nr: 310, v: 10, b: "jvm", projekt: "Leyden", name: "AppCDS", titel: "Application Class-Data Sharing",
+      stichworte: ["CDS", "AppCDS", "Class-Data Sharing", "Startzeit"],
       worum: "Auch Anwendungsklassen kommen ins Klassen-Archiv – der Start wird schneller.",
       warum: "Der Vorläufer des AOT-Cache.",
       betrifft: "Startzeit für Dich zählt.",
@@ -579,6 +636,7 @@
         "java -XX:SharedArchiveFile=rest.jsa -jar target/bestellung-rest.jar"]],
       bezug: [[341, "Standardarchiv (12)"], [350, "dynamisches Archiv (13)"], [483, "AOT-Cache (24)"]] },
     { nr: 307, v: 10, b: "jvm", name: "Paralleler Full GC für G1", titel: "Parallel Full GC for G1",
+      stichworte: ["G1", "Full GC", "GC", "Garbage Collector"],
       worum: "Muss G1 doch einmal den ganzen Heap aufräumen, nutzt er dafür alle Kerne.",
       warum: "Der schlimmste Fall von G1 wird deutlich kürzer.",
       betrifft: "Deine Anwendung G1 nutzt und der Heap knapp wird.",
@@ -587,6 +645,7 @@
       beispiel: ["bash", [
         "java -Xmx64m -Xlog:gc -jar target/bestellung-batch.jar   # „Pause Full“ im Log"]] },
     { nr: 328, v: 11, b: "jvm", name: "Flight Recorder", titel: "Flight Recorder",
+      stichworte: ["JFR", "Flight Recorder", "Profiling", "Monitoring"],
       worum: "JFR zeichnet Ereignisse aus JVM und Anwendung auf – sparsam genug für den Dauerbetrieb.",
       warum: "Messen statt raten, auch in Produktion; vorher ein kommerzielles Feature von Oracle.",
       betrifft: "Du Leistung, GC-Pausen oder Pinning untersuchst.",
@@ -596,7 +655,8 @@
         "java -XX:StartFlightRecording=filename=last.jfr,settings=profile -jar target/bestellung-rest.jar",
         "jfr view gc-pauses last.jfr"]],
       bezug: [[349, "JFR-Streaming (14)"]] },
-    { nr: 377, v: 15, b: "jvm", name: "ZGC", titel: "ZGC: A Scalable Low-Latency Garbage Collector (Production)", kette: [[333, 11, "Experimentell"]],
+    { nr: 377, v: 15, b: "jvm", name: "ZGC", titel: "ZGC: A Scalable Low-Latency Garbage Collector (Production)",
+      stichworte: ["ZGC", "GC", "Garbage Collector", "Latenz"], kette: [[333, 11, "Experimentell"]],
       worum: "Ein Collector mit Pausen unter einer Millisekunde, auch bei großen Heaps.",
       warum: "Für Dienste mit engen Antwortzeiten. Gemessen am Übungsprojekt: längste Pause 0,04 ms statt 8,5 ms mit G1.",
       betrifft: "Eure Antwortzeiten unter GC-Pausen leiden.",
@@ -605,7 +665,8 @@
       beispiel: ["bash", [
         "java -XX:+UseZGC -Xlog:gc -jar target/bestellung-rest.jar"]],
       bezug: [[439, "Generational ZGC (21)"], [474, "nur noch generational (23/24)"]] },
-    { nr: 379, v: 15, b: "jvm", name: "Shenandoah", titel: "Shenandoah: A Low-Pause-Time Garbage Collector (Production)", kette: [[189, 12, "Experimentell"]],
+    { nr: 379, v: 15, b: "jvm", name: "Shenandoah", titel: "Shenandoah: A Low-Pause-Time Garbage Collector (Production)",
+      stichworte: ["Shenandoah", "GC", "Garbage Collector", "Latenz"], kette: [[189, 12, "Experimentell"]],
       worum: "Ein weiterer Collector mit kurzen Pausen.",
       warum: "Eine Alternative zu ZGC – nicht in jeder Distribution enthalten.",
       betrifft: "Eure Distribution ihn mitliefert und ZGC nicht passt.",
@@ -615,6 +676,7 @@
         "java -XX:+UseShenandoahGC -Xlog:gc -version"]],
       bezug: [[521, "Generational Shenandoah (25)"]] },
     { nr: 341, v: 12, b: "jvm", projekt: "Leyden", name: "CDS-Standardarchiv", titel: "Default CDS Archives",
+      stichworte: ["CDS", "Startzeit"],
       worum: "Das JDK bringt ein Archiv seiner eigenen Klassen mit – jeder Start profitiert.",
       warum: "Schnellerer Start ohne eine einzige Option.",
       betrifft: "Startzeit zählt.",
@@ -624,6 +686,7 @@
         "java -Xshare:off -Xlog:startuptime -version",
         "java -Xlog:cds -version"]] },
     { nr: 346, v: 12, b: "jvm", name: "G1 gibt Speicher zurück", titel: "Promptly Return Unused Committed Memory from G1",
+      stichworte: ["G1", "GC", "Speicher", "Container"],
       worum: "G1 gibt ungenutzten Heap auch im Leerlauf an das Betriebssystem zurück.",
       warum: "Im Container und in der Cloud zählt belegter, nicht genutzter Speicher.",
       betrifft: "Eure Anwendung lange Leerlaufphasen hat.",
@@ -632,6 +695,7 @@
       beispiel: ["bash", [
         "java -XX:G1PeriodicGCInterval=60000 -jar target/bestellung-rest.jar"]] },
     { nr: 350, v: 13, b: "jvm", projekt: "Leyden", name: "Dynamisches CDS-Archiv", titel: "Dynamic CDS Archives",
+      stichworte: ["CDS", "ArchiveClassesAtExit", "Startzeit"],
       worum: "`-XX:ArchiveClassesAtExit` schreibt nach einem Lauf ein Archiv der Anwendungsklassen.",
       warum: "AppCDS in einem Schritt. Gemessen: REST-Schnittstelle 311 → 218 ms Startzeit auf JDK 21.",
       betrifft: "Startzeit zählt und Ihr noch auf 21 seid.",
@@ -642,6 +706,7 @@
         "java -XX:SharedArchiveFile=rest.jsa -jar target/bestellung-rest.jar"]],
       bezug: [[483, "AOT-Cache (24)"]] },
     { nr: 349, v: 14, b: "jvm", name: "JFR-Streaming", titel: "JFR Event Streaming",
+      stichworte: ["JFR", "Streaming", "Monitoring"],
       worum: "JFR-Ereignisse laufend lesen, statt erst eine Aufzeichnung auszuwerten.",
       warum: "Überwachung im laufenden Betrieb.",
       betrifft: "Ihr eigene Überwachung baut.",
@@ -654,6 +719,7 @@
         "    strom.start();",
         "}"]] },
     { nr: 358, v: 14, b: "jvm", name: "Hilfreiche NullPointerExceptions", titel: "Helpful NullPointerExceptions",
+      stichworte: ["NullPointerException", "NPE", "null", "Fehlermeldung"],
       worum: "Die Meldung nennt, was `null` war: „because the return value of …getKunde() is null“.",
       warum: "Fehler in Produktion schneller finden – ohne Codeänderung.",
       betrifft: "Du jemals eine NullPointerException gesucht hast.",
@@ -663,6 +729,7 @@
         "Exception in thread \"main\" java.lang.NullPointerException:",
         "  Cannot invoke \"Kunde.name()\" because the return value of \"Bestellung.kunde()\" is null"]] },
     { nr: 439, v: 21, b: "jvm", name: "Generational ZGC", titel: "Generational ZGC",
+      stichworte: ["ZGC", "generational", "GC", "Garbage Collector"],
       worum: "ZGC trennt junge und alte Objekte und räumt die jungen häufiger auf.",
       warum: "Weniger CPU und Speicher für dieselben kurzen Pausen; ab 23 der Standard-Modus (JEP 474).",
       betrifft: "Ihr ZGC nutzt.",
@@ -671,7 +738,8 @@
       beispiel: ["bash", [
         "java -XX:+UseZGC -XX:+ZGenerational -Xlog:gc -jar target/bestellung-rest.jar   # JDK 21"]],
       bezug: [[474, "Standard ab 23"]] },
-    { nr: 474, v: 23, b: "jvm", name: "ZGC nur generational", titel: "ZGC: Generational Mode by Default", danach: [[490, 24, "entfernt"]],
+    { nr: 474, v: 23, b: "jvm", name: "ZGC nur generational", titel: "ZGC: Generational Mode by Default",
+      stichworte: ["ZGC", "generational", "GC", "Garbage Collector"], danach: [[490, 24, "entfernt"]],
       worum: "Generational ZGC wird Standard; mit 24 entfällt der alte Modus (JEP 490).",
       warum: "Wer ZGC einschaltet, bekommt die bessere Variante.",
       betrifft: "Eure Startskripte `-XX:-ZGenerational` setzen.",
@@ -681,6 +749,7 @@
         "java -XX:+UseZGC -XX:-ZGenerational -version   # JDK 25: Warnung, Option ignoriert"]],
       bezug: [[439, "Generational ZGC (21)"]] },
     { nr: 491, v: 24, b: "jvm", projekt: "Loom", name: "Kein Pinning bei synchronized", titel: "Synchronize Virtual Threads without Pinning",
+      stichworte: ["synchronized", "Pinning", "Virtual Threads"],
       worum: "Ein virtueller Thread, der in `synchronized` blockiert, gibt seinen Träger frei.",
       warum: "Der größte Vorbehalt gegen virtuelle Threads unter 21 entfällt. Gemessen: Batch-Import 906 ms auf 21, 60 ms auf 25.",
       betrifft: "Ihr virtuelle Threads mit altem Code oder alten Treibern nutzt.",
@@ -691,6 +760,7 @@
         "jfr print --events jdk.VirtualThreadPinned pinning.jfr"]],
       bezug: [[444, "Virtual Threads (21)"]] },
     { nr: 483, v: 24, b: "jvm", projekt: "Leyden", name: "AOT-Cache", titel: "Ahead-of-Time Class Loading & Linking",
+      stichworte: ["AOT", "Cache", "Startzeit"],
       worum: "Ein Trainingslauf schreibt geladene und gelinkte Klassen in einen Cache; die nächsten Starts lesen ihn.",
       warum: "Gemessen am Lasttest mit einer Bestellung (davon 100 ms Wartezeit): 303 ms ohne, 226 ms mit eigenem CDS-Archiv, 204 ms mit AOT-Cache.",
       betrifft: "Startzeit zählt.",
@@ -702,6 +772,7 @@
         "java -XX:AOTCache=rest.aot -jar target/bestellung-rest.jar"]],
       bezug: [[350, "dynamisches CDS-Archiv (13)"], [514, "in einem Schritt (25)"], [515, "mit Profilen (25)"], [516, "mit jedem GC (26)"], [544, "mit nativem Code (28)"]] },
     { nr: 514, v: 25, b: "jvm", projekt: "Leyden", name: "AOT in einem Schritt", titel: "Ahead-of-Time Command-Line Ergonomics",
+      stichworte: ["AOT", "AOTCacheOutput", "Startzeit"],
       worum: "`-XX:AOTCacheOutput` erzeugt den Cache in einem Lauf statt in zwei.",
       warum: "Der AOT-Cache wird alltagstauglich.",
       betrifft: "Ihr den AOT-Cache im Build erzeugt.",
@@ -712,6 +783,7 @@
         "java -XX:AOTCache=rest.aot -jar target/bestellung-rest.jar"]],
       bezug: [[483, "AOT-Cache (24)"]] },
     { nr: 515, v: 25, b: "jvm", projekt: "Leyden", name: "AOT-Profile", titel: "Ahead-of-Time Method Profiling",
+      stichworte: ["AOT", "Profil", "Warmup"],
       worum: "Der Cache enthält auch Profile aus dem Trainingslauf – der JIT optimiert früher.",
       warum: "Schneller auf voller Leistung nach dem Start.",
       betrifft: "Eure Dienste kurz nach dem Start Last tragen müssen.",
@@ -720,7 +792,8 @@
       beispiel: ["bash", [
         "java -XX:AOTCacheOutput=rest.aot -cp target/bestellung-rest.jar bestellung.rest.Lasttest 1000"]],
       bezug: [[483, "AOT-Cache (24)"], [544, "AOT-Code (28)"]] },
-    { nr: 519, v: 25, b: "jvm", projekt: "Lilliput", name: "Kompakte Objekt-Header", titel: "Compact Object Headers", kette: [[450, 24, "Experimentell"]], danach: [[534, 27, "Standard"]],
+    { nr: 519, v: 25, b: "jvm", projekt: "Lilliput", name: "Kompakte Objekt-Header", titel: "Compact Object Headers",
+      stichworte: ["Objekt-Header", "UseCompactObjectHeaders", "Speicher"], kette: [[450, 24, "Experimentell"]], danach: [[534, 27, "Standard"]],
       worum: "Objekt-Header schrumpfen auf 8 Byte; in 25 einschalten mit `-XX:+UseCompactObjectHeaders`, ab 27 Standard (JEP 534).",
       warum: "Weniger Heap bei vielen kleinen Objekten – gemessen: drei Millionen Bestellpositionen 107 → 84 MB.",
       betrifft: "Eure Anwendung viele kleine Objekte hält.",
@@ -729,7 +802,8 @@
       beispiel: ["bash", [
         "java -XX:+UseCompactObjectHeaders -Xlog:gc+heap+exit -jar target/bestellung-batch.jar"]],
       bezug: [[401, "Valhalla – Objekte ganz ohne Header im Feld"]] },
-    { nr: 521, v: 25, b: "jvm", name: "Generational Shenandoah", titel: "Generational Shenandoah", kette: [[404, 24, "Experimentell"]], danach: [[535, 28, "Standard"]],
+    { nr: 521, v: 25, b: "jvm", name: "Generational Shenandoah", titel: "Generational Shenandoah",
+      stichworte: ["Shenandoah", "generational", "GC", "Garbage Collector"], kette: [[404, 24, "Experimentell"]], danach: [[535, 28, "Standard"]],
       worum: "Shenandoah trennt junge und alte Objekte – wie Generational ZGC.",
       warum: "Weniger Aufwand für dieselben kurzen Pausen; mit 28 der Standard-Modus (JEP 535).",
       betrifft: "Ihr Shenandoah nutzt.",
@@ -739,6 +813,7 @@
         "java -XX:+UseShenandoahGC -XX:ShenandoahGCMode=generational -Xlog:gc -version"]],
       bezug: [[379, "Shenandoah (15)"]] },
     { nr: 516, v: 26, b: "jvm", projekt: "Leyden", name: "AOT-Cache mit jedem GC", titel: "Ahead-of-Time Object Caching with Any GC",
+      stichworte: ["AOT", "Cache", "GC", "ZGC"],
       worum: "Der AOT-Cache enthält vorab erzeugte Objekte in einem neutralen Format – nutzbar auch mit ZGC.",
       warum: "Bisher konnte nur G1 die zwischengespeicherten Objekte direkt einblenden; jetzt profitieren auch ZGC-Dienste vom schnellen Start.",
       betrifft: "Ihr ZGC und den AOT-Cache zusammen nutzen wollt.",
@@ -747,7 +822,19 @@
       beispiel: ["bash", [
         "java -XX:+UseZGC -XX:AOTCacheOutput=rest.aot -jar target/bestellung-rest.jar   # ab JDK 26"]],
       bezug: [[483, "AOT-Cache (24)"]] },
-    { nr: 539, b: "jvm", projekt: "Valhalla", name: "Strikte Feldinitialisierung", titel: "Strict Field Initialization in the JVM (Preview)", offen: true,
+    { nr: 536, v: 27, b: "jvm", name: "JFR schwärzt Geheimnisse", titel: "JFR In-Process Data Redaction",
+      stichworte: ["JFR", "Flight Recorder", "Passwort", "Secret", "redact", "REDACTED"],
+      worum: "JFR schwärzt Passwörter, Tokens und andere Geheimnisse in Kommandozeile, Umgebungsvariablen und Systemeigenschaften, bevor die Aufzeichnung den Prozess verlässt.",
+      warum: "Aufzeichnungen gehen an Kolleg:innen, Support oder Hersteller – und enthielten bisher z. B. `-Ddb.password=…` im Klartext.",
+      betrifft: "Ihr JFR-Aufzeichnungen weitergebt oder auswertet, die Werte aus Kommandozeile oder Umgebung erwarten.",
+      risiko: 1, risikoText: "Ab 27 ist die Schwärzung voreingestellt: Wo früher der Wert stand, steht `[REDACTED]`. Werkzeuge, die diese Werte auslesen, sehen sie nicht mehr; `redact-argument=none,redact-key=none` holt das alte Verhalten zurück.", r: [1, 1, 1],
+      umsetzung: "Zwei Unteroptionen von `-XX:FlightRecorderOptions`: `redact-key` für Umgebungsvariablen und Systemeigenschaften, `redact-argument` für Argumente der Kommandozeile. Filter sind Glob-Muster ohne Rücksicht auf Groß- und Kleinschreibung, mit `;` getrennt; `+` ergänzt die Voreinstellung (u. a. `*password*`, `*secret*`, `*token*`), `@datei` liest sie aus einer Datei. `-Xlog:jfr+redact=debug` zeigt, was geschwärzt wurde.",
+      beispiel: ["bash", [
+        "# ab JDK 27: zusätzlich alles schwärzen, was „datenbank“ heißt",
+        "java -XX:FlightRecorderOptions:'redact-key=+*datenbank*' -XX:StartFlightRecording:filename=rest.jfr -jar target/bestellung-rest.jar"]],
+      bezug: [[328, "Flight Recorder (11)"]] },
+    { nr: 539, b: "jvm", projekt: "Valhalla", name: "Strikte Feldinitialisierung", titel: "Strict Field Initialization in the JVM (Preview)",
+      stichworte: ["final", "Feld", "Initialisierung"], offen: true,
       weg: [[539, 28, "Preview"]],
       worum: "Die JVM garantiert für markierte Felder, dass nie ihr Vorgabewert (`0`, `null`) gelesen wird.",
       warum: "Die Grundlage für Value Objects: Ein Wert ohne Identität darf nicht halb initialisiert sichtbar werden.",
@@ -758,6 +845,7 @@
         "javap -v --enable-preview Betrag.class | grep -i strict   # JDK 28 Early Access"]],
       bezug: [[401, "Value Objects"], [513, "flexible Konstruktoren"]] },
     { nr: 544, v: 28, b: "jvm", projekt: "Leyden", name: "AOT-Code", titel: "Ahead-of-Time Code Compilation",
+      stichworte: ["AOT", "JIT", "Compiler", "Startzeit"],
       worum: "Der AOT-Cache enthält auch nativen Code aus dem Trainingslauf – die Anwendung startet gleich optimiert.",
       warum: "Kein Warten auf den JIT nach dem Start, ohne auf ihn zu verzichten: Ändert sich die Last, übersetzt er neu.",
       betrifft: "Eure Dienste skalieren oft neu und müssen sofort Last tragen.",
@@ -768,6 +856,7 @@
         "java -XX:AOTCache=rest.aot -jar target/bestellung-rest.jar"]],
       bezug: [[483, "AOT-Cache (24)"], [515, "AOT-Profile (25)"]] },
     { nr: 545, v: 28, b: "jvm", name: "ZGC schneller warm", titel: "Faster Startup and Warmup with ZGC",
+      stichworte: ["ZGC", "GC", "Startzeit", "Warmup"],
       worum: "ZGC startet mit kleinem Heap und wächst in der Aufwärmphase zügig.",
       warum: "Kürzere Start- und Aufwärmzeit mit ZGC, ohne Heap-Optionen.",
       betrifft: "Ihr ZGC für kurzlebige oder oft neu startende Dienste nutzt.",
@@ -779,6 +868,7 @@
 
     // ===== Werkzeuge =====
     { nr: 222, v: 9, b: "werkzeuge", name: "jshell", titel: "jshell: The Java Shell (Read-Eval-Print Loop)",
+      stichworte: ["jshell", "REPL"],
       worum: "Java-Ausdrücke und Schnipsel interaktiv ausprobieren.",
       warum: "Eine API ausprobieren, ohne ein Projekt anzulegen.",
       betrifft: "Du schnell etwas ausprobieren willst.",
@@ -787,6 +877,7 @@
       beispiel: ["bash", [
         "jshell --class-path altbestand/bestellung-domaene/target/classes"]] },
     { nr: 247, v: 9, b: "werkzeuge", name: "--release", titel: "Compile for Older Platform Versions",
+      stichworte: ["--release", "javac", "Zielversion", "Cross-Compile"],
       worum: "`javac --release 8` übersetzt für ein älteres Release – und prüft, dass nur dessen API benutzt wird.",
       warum: "Ein neues JDK im Build, ohne den Zielbetrieb zu ändern – der erste Schritt jeder Migration.",
       betrifft: "Ihr das JDK im Build wechselt.",
@@ -795,6 +886,7 @@
       beispiel: ["bash", [
         "javac --release 8 -d out src/Bestellung.java"]] },
     { nr: 158, v: 9, b: "werkzeuge", name: "-Xlog", titel: "Unified JVM Logging",
+      stichworte: ["-Xlog", "Logging", "GC-Log"],
       worum: "Ein gemeinsames Logging für alle Bereiche der JVM: `-Xlog:gc`, `-Xlog:class+load` …",
       warum: "Ersetzt die alten GC-Log-Optionen.",
       betrifft: "Eure Startskripte GC-Logs schreiben.",
@@ -803,6 +895,7 @@
       beispiel: ["bash", [
         "java -Xlog:gc*:file=gc.log:time,uptime -jar target/bestellung-batch.jar"]] },
     { nr: 238, v: 9, b: "werkzeuge", name: "Multi-Release-JARs", titel: "Multi-Release JAR Files",
+      stichworte: ["Multi-Release", "JAR", "META-INF/versions"],
       worum: "Ein JAR kann je Java-Release eigene Klassen mitbringen (`META-INF/versions/…`).",
       warum: "Bibliotheken unterstützen alte und neue JDKs zugleich.",
       betrifft: "Du Bibliotheken für mehrere Releases baust.",
@@ -811,6 +904,7 @@
       beispiel: ["bash", [
         "jar --create --file bib.jar -C klassen8 . --release 17 -C klassen17 ."]] },
     { nr: 277, v: 9, b: "werkzeuge", name: "jdeprscan", titel: "Enhanced Deprecation",
+      stichworte: ["@Deprecated", "forRemoval", "jdeprscan", "Abkündigung"],
       worum: "`@Deprecated(forRemoval = true, since = …)` kündigt Entfernungen an; `jdeprscan` findet ihre Nutzung im eigenen Code.",
       warum: "Was entfernt wird, wird vorher angekündigt – wer sucht, wird nicht überrascht.",
       betrifft: "Ihr eine Migration plant.",
@@ -819,6 +913,7 @@
       beispiel: ["bash", [
         "jdeprscan --release 25 --for-removal target/bestellung-rest.jar"]] },
     { nr: 282, v: 9, b: "werkzeuge", projekt: "Jigsaw", name: "jlink", titel: "jlink: The Java Linker",
+      stichworte: ["jlink", "Runtime-Image", "Container", "Docker"],
       worum: "Baut eine schlanke Laufzeitumgebung aus genau den Modulen, die eine Anwendung braucht.",
       warum: "Kleinere Container-Images.",
       betrifft: "Ihr Container-Images baut und jedes Megabyte zählt.",
@@ -828,6 +923,7 @@
         "jlink --add-modules java.base,java.logging,jdk.httpserver --strip-debug --no-header-files --output laufzeit"]],
       bezug: [[261, "Modulsystem"], [220, "Laufzeit-Images"], [493, "jlink ohne jmods (24)"]] },
     { nr: 493, v: 24, b: "werkzeuge", name: "jlink ohne jmods", titel: "Linking Run-Time Images without JMODs",
+      stichworte: ["jlink", "jmods"],
       worum: "Ein JDK darf ohne seine `jmods` ausgeliefert werden; `jlink` baut Images dann aus dem laufenden JDK.",
       warum: "Das JDK wird rund ein Viertel kleiner – manche Distributionen, etwa Temurin 25, nutzen das.",
       betrifft: "Ihr mit `jlink` eigene Laufzeit-Images baut und die JDK-Distribution wechselt.",
@@ -838,6 +934,7 @@
         "jlink --add-modules java.base --output laufzeit"]],
       bezug: [[282, "jlink"]] },
     { nr: 330, v: 11, b: "werkzeuge", name: "java Datei.java", titel: "Launch Single-File Source-Code Programs",
+      stichworte: ["java Datei.java", "Single-File", "Quelldatei", "Skript", "Shebang"],
       worum: "`java Datei.java` übersetzt und startet ein Programm in einem Schritt.",
       warum: "Skripte und Spielwiesen in Java, ohne Build.",
       betrifft: "Du kleine Werkzeuge oder Versuche schreibst.",
@@ -846,7 +943,8 @@
       beispiel: ["bash", [
         "java spielwiese/Versionsinfo.java"]],
       bezug: [[458, "mehrere Dateien (22)"], [512, "kompakte Quelldateien (25)"]] },
-    { nr: 392, v: 16, b: "werkzeuge", name: "jpackage", titel: "Packaging Tool", kette: [[343, 14, "Incubator"]],
+    { nr: 392, v: 16, b: "werkzeuge", name: "jpackage", titel: "Packaging Tool",
+      stichworte: ["jpackage", "Installer", "msi", "dmg"], kette: [[343, 14, "Incubator"]],
       worum: "Baut installierbare Pakete (`.msi`, `.dmg`, `.deb`) samt Laufzeit.",
       warum: "Für Desktop-Anwendungen.",
       betrifft: "Du Anwendungen zum Installieren auslieferst.",
@@ -855,6 +953,7 @@
       beispiel: ["bash", [
         "jpackage --name Bestellung --input target --main-jar bestellung-batch.jar --type deb"]] },
     { nr: 408, v: 18, b: "werkzeuge", name: "jwebserver", titel: "Simple Web Server",
+      stichworte: ["jwebserver", "Webserver", "HTTP"],
       worum: "`jwebserver` liefert ein Verzeichnis statischer Dateien aus.",
       warum: "Zum Testen und Ausprobieren, nicht für Produktion.",
       betrifft: "Du schnell Dateien per HTTP bereitstellen willst.",
@@ -863,6 +962,7 @@
       beispiel: ["bash", [
         "jwebserver --port 8000 --directory \"$PWD/target/site\""]] },
     { nr: 413, v: 18, b: "werkzeuge", name: "@snippet in Javadoc", titel: "Code Snippets in Java API Documentation",
+      stichworte: ["Javadoc", "@snippet", "Dokumentation"],
       worum: "`{@snippet …}` bindet geprüfte Code-Beispiele in Javadoc ein.",
       warum: "Beispiele, die nicht veralten.",
       betrifft: "Du Bibliotheken dokumentierst.",
@@ -877,6 +977,7 @@
         " */"]],
       bezug: [[467, "Markdown-Javadoc (23)"]] },
     { nr: 458, v: 22, b: "werkzeuge", name: "Mehrere Quelldateien starten", titel: "Launch Multi-File Source-Code Programs",
+      stichworte: ["Multi-File", "Quelldateien", "Single-File"],
       worum: "`java Haupt.java` darf weitere Quelldateien im selben Ordner nutzen.",
       warum: "Kleine Programme wachsen über eine Datei hinaus, ohne Build.",
       betrifft: "Du Skripte in Java schreibst.",
@@ -886,6 +987,7 @@
         "java Haupt.java   # Haupt nutzt Hilfe.java im selben Ordner"]],
       bezug: [[330, "eine Quelldatei (11)"], [512, "kompakte Quelldateien (25)"]] },
     { nr: 467, v: 23, b: "werkzeuge", name: "Javadoc in Markdown", titel: "Markdown Documentation Comments",
+      stichworte: ["Javadoc", "Markdown", "///", "Dokumentation"],
       worum: "Javadoc-Kommentare mit `///` in Markdown statt HTML.",
       warum: "Lesbare Dokumentation im Quelltext.",
       betrifft: "Du Javadoc schreibst.",
@@ -901,6 +1003,7 @@
 
     // ===== Entfernt und verschärft =====
     { nr: 220, v: 9, b: "entfernt", projekt: "Jigsaw", name: "rt.jar und tools.jar entfernt", titel: "Modular Run-Time Images",
+      stichworte: ["rt.jar", "tools.jar", "jrt", "Klassenpfad"],
       worum: "Das JDK hat kein `rt.jar` und kein `tools.jar` mehr; Klassen liegen im Image `lib/modules`, erreichbar über `jrt:/`.",
       warum: "Werkzeuge und Skripte, die `rt.jar` oder `tools.jar` suchen, brechen.",
       betrifft: "Euer Build, ein Plugin oder ein Werkzeug Pfade im JDK erwartet.",
@@ -911,6 +1014,7 @@
         "Files.list(jrt.getPath(\"/modules\")).limit(5).forEach(IO::println);"]],
       bezug: [[200, "das JDK in Modulen"], [282, "jlink"]] },
     { nr: 260, v: 9, b: "entfernt", projekt: "Jigsaw", name: "Interna gekapselt", titel: "Encapsulate Most Internal APIs",
+      stichworte: ["sun.misc.Unsafe", "Unsafe", "Interna", "Kapselung", "Reflection", "--add-exports"],
       worum: "Die meisten `sun.*`- und `com.sun.*`-Interna sind nicht mehr zugänglich; kritische wie `sun.misc.Unsafe` bleiben vorerst.",
       warum: "Der Anfang der starken Kapselung.",
       betrifft: "Dein Code oder eine Bibliothek Klassen aus `sun.*` importiert.",
@@ -920,6 +1024,7 @@
         "jdeps --jdk-internals target/bestellung-rest.jar"]],
       bezug: [[261, "Modulsystem"], [396, "Kapselung als Standard (16)"], [403, "ohne Ausweg (17)"]] },
     { nr: 252, v: 9, b: "entfernt", name: "CLDR als Standard", titel: "Use CLDR Locale Data by Default",
+      stichworte: ["CLDR", "Locale", "Datumsformat", "DateTimeFormatter"],
       worum: "Datums- und Zahlformate kommen aus dem Unicode-CLDR statt aus den JDK-eigenen Daten.",
       warum: "Still geänderte Ausgaben: „Mo., 14. Sept. 2026“ statt „Mo, 14. Sep 2026“, ein geschütztes Leerzeichen vor dem €.",
       betrifft: "Ihr formatierte Daten oder Beträge in Dateien oder Schnittstellen schreibt.",
@@ -929,7 +1034,8 @@
         "var datum = LocalDate.of(2026, 9, 14);",
         "DateTimeFormatter.ofPattern(\"EEE, d. MMM yyyy\", Locale.GERMANY).format(datum);",
         "// Java 8: \"Mo, 14. Sep 2026\"   ab Java 9: \"Mo., 14. Sept. 2026\""]] },
-    { nr: 363, v: 14, b: "entfernt", name: "CMS entfernt", titel: "Remove the Concurrent Mark Sweep (CMS) Garbage Collector", ziel: "entfernt", kette: [[291, 9, "Abkündigung"]],
+    { nr: 363, v: 14, b: "entfernt", name: "CMS entfernt", titel: "Remove the Concurrent Mark Sweep (CMS) Garbage Collector",
+      stichworte: ["CMS", "GC", "Garbage Collector"], ziel: "entfernt", kette: [[291, 9, "Abkündigung"]],
       worum: "Der CMS-Collector ist nicht mehr im JDK – abgekündigt mit 9 (JEP 291), entfernt mit 14.",
       warum: "Alte Startskripte brechen – ein Bruch, der in keinem Quelltext steht. Die Ankündigung haben viele überlesen.",
       betrifft: "`-XX:+UseConcMarkSweepGC` in Startskript oder Dockerfile steht.",
@@ -939,6 +1045,7 @@
         "java -XX:+UseConcMarkSweepGC -version   # JDK 21: Unrecognized VM option"]],
       bezug: [[248, "G1 als Standard (9)"]] },
     { nr: 320, v: 11, b: "entfernt", name: "Java EE und CORBA entfernt", titel: "Remove the Java EE and CORBA Modules",
+      stichworte: ["JAXB", "JAX-WS", "javax.xml.bind", "CORBA", "Java EE", "javax.annotation", "@PostConstruct", "Jakarta"],
       worum: "JAXB, JAX-WS, JAF, `javax.annotation` und CORBA sind nicht mehr im JDK.",
       warum: "Der häufigste Bruch beim Sprung von 8 auf 11.",
       betrifft: "Ihr XML mit JAXB bindet oder SOAP-Dienste nutzt.",
@@ -950,7 +1057,8 @@
         "  <artifactId>jakarta.xml.bind-api</artifactId>",
         "  <version>4.0.2</version>",
         "</dependency>"]] },
-    { nr: 372, v: 15, b: "entfernt", name: "Nashorn entfernt", titel: "Remove the Nashorn JavaScript Engine", ziel: "entfernt", kette: [[335, 11, "Abkündigung"]],
+    { nr: 372, v: 15, b: "entfernt", name: "Nashorn entfernt", titel: "Remove the Nashorn JavaScript Engine",
+      stichworte: ["Nashorn", "JavaScript", "ScriptEngine"], ziel: "entfernt", kette: [[335, 11, "Abkündigung"]],
       worum: "Die JavaScript-Engine ist aus dem JDK entfernt – abgekündigt mit 11 (JEP 335).",
       warum: "Skripte brauchen eine eigene Engine, etwa GraalJS oder Nashorn als Bibliothek.",
       betrifft: "Ihr per `ScriptEngine` JavaScript ausführt.",
@@ -960,6 +1068,7 @@
         "ScriptEngine engine = new ScriptEngineManager().getEngineByName(\"nashorn\");",
         "// ab JDK 15: null"]] },
     { nr: 390, v: 16, b: "entfernt", projekt: "Valhalla", name: "Warnung bei Wertklassen", titel: "Warnings for Value-Based Classes",
+      stichworte: ["Integer", "value-based", "Wertklasse", "synchronized"],
       worum: "Der Compiler warnt, wenn auf `Integer`, `LocalDate` und anderen wertbasierten Klassen synchronisiert wird; ihre Konstruktoren wie `new Integer(…)` sind zur Entfernung abgekündigt.",
       warum: "Die Vorbereitung auf Valhalla: Diese Klassen werden Value-Klassen ohne Identität.",
       betrifft: "Du `new Integer(…)` schreibst oder auf solchen Objekten synchronisierst.",
@@ -971,6 +1080,7 @@
         "Integer alt = new Integer(42); // warning: [removal]"]],
       bezug: [[401, "Value Objects (Preview in 28)"]] },
     { nr: 396, v: 16, b: "entfernt", projekt: "Jigsaw", name: "Kapselung als Standard", titel: "Strongly Encapsulate JDK Internals by Default",
+      stichworte: ["Kapselung", "--illegal-access", "Reflection", "--add-opens"],
       worum: "`--illegal-access=deny` wird Standard: Deep Reflection auf JDK-Interna scheitert zur Laufzeit.",
       warum: "Der Bruch, der den Sprung von 8 auf 17 für viele Bibliotheken schmerzhaft machte.",
       betrifft: "Dein Code oder eine Bibliothek per `setAccessible(true)` in JDK-Klassen greift.",
@@ -980,6 +1090,7 @@
         "java --add-opens java.base/java.util=ALL-UNNAMED -jar target/altbestand.jar"]],
       bezug: [[260, "Interna gekapselt (9)"], [403, "ohne Ausweg (17)"], [500, "final heißt final (26)"]] },
     { nr: 403, v: 17, b: "entfernt", projekt: "Jigsaw", name: "Kapselung ohne Ausweg", titel: "Strongly Encapsulate JDK Internals",
+      stichworte: ["Kapselung", "--add-opens", "Reflection", "InaccessibleObjectException"],
       worum: "`--illegal-access` ist wirkungslos; nur noch `--add-opens` öffnet einzelne Pakete.",
       warum: "Ab 17 gibt es keinen Schalter mehr, der alles wieder öffnet.",
       betrifft: "Ihr bisher mit `--illegal-access=permit` gestartet habt.",
@@ -988,7 +1099,8 @@
       beispiel: ["bash", [
         "java --illegal-access=permit -version   # JDK 17: Warnung, Option ignoriert"]],
       bezug: [[396, "Kapselung als Standard (16)"]] },
-    { nr: 486, v: 24, b: "entfernt", name: "Security Manager abgeschaltet", titel: "Permanently Disable the Security Manager", ziel: "abgeschaltet", kette: [[411, 17, "Abkündigung"]],
+    { nr: 486, v: 24, b: "entfernt", name: "Security Manager abgeschaltet", titel: "Permanently Disable the Security Manager",
+      stichworte: ["Security Manager", "SecurityManager"], ziel: "abgeschaltet", kette: [[411, 17, "Abkündigung"]],
       worum: "Ein Security Manager lässt sich nicht mehr einschalten – abgekündigt mit 17 (JEP 411); `-Djava.security.manager=allow` hilft ab 24 nicht mehr.",
       warum: "Das Ende einer Ära – auch für Server, die ihn genutzt haben. Wer damit Plugins oder fremden Code einsperrt, braucht ein anderes Konzept.",
       betrifft: "Eure Anwendung oder Euer Server `System.setSecurityManager` aufruft.",
@@ -998,7 +1110,8 @@
         "System.setSecurityManager(new SecurityManager());",
         "// JDK 21 ohne -Djava.security.manager=allow: UnsupportedOperationException",
         "// JDK 25: immer UnsupportedOperationException"]] },
-    { nr: 504, v: 26, b: "entfernt", name: "Applet-API entfernt", titel: "Remove the Applet API", ziel: "entfernt", kette: [[398, 17, "Abkündigung"]],
+    { nr: 504, v: 26, b: "entfernt", name: "Applet-API entfernt", titel: "Remove the Applet API",
+      stichworte: ["Applet", "JApplet"], ziel: "entfernt", kette: [[398, 17, "Abkündigung"]],
       worum: "`java.applet` und `javax.swing.JApplet` sind entfernt – abgekündigt mit 17 (JEP 398).",
       warum: "Historisch; Browser führen seit Jahren keine Applets mehr aus.",
       betrifft: "Noch Applet-Klassen im Code liegen.",
@@ -1007,6 +1120,7 @@
       beispiel: ["bash", [
         "jdeprscan --release 25 --for-removal target/altbestand.jar"]] },
     { nr: 400, v: 18, b: "entfernt", name: "UTF-8 als Standard", titel: "UTF-8 by Default",
+      stichworte: ["UTF-8", "Zeichensatz", "Encoding", "file.encoding", "Charset"],
       worum: "Der Standard-Zeichensatz ist überall UTF-8, nicht mehr der des Betriebssystems.",
       warum: "Unter Windows lesen und schreiben `FileReader` und Co. plötzlich anders.",
       betrifft: "Ihr Dateien ohne ausdrücklichen Zeichensatz lest oder schreibt.",
@@ -1015,7 +1129,8 @@
       beispiel: ["java", [
         "new FileReader(datei);                              // ab 18 UTF-8, vorher Systemzeichensatz",
         "Files.newBufferedReader(datei, StandardCharsets.UTF_8);   // eindeutig"]] },
-    { nr: 421, v: 18, b: "entfernt", name: "Finalisierung abgekündigt", titel: "Deprecate Finalization for Removal", ziel: "Abkündigung",
+    { nr: 421, v: 18, b: "entfernt", name: "Finalisierung abgekündigt", titel: "Deprecate Finalization for Removal",
+      stichworte: ["finalize", "Finalisierung", "Cleaner"], ziel: "Abkündigung",
       worum: "`finalize()` ist zur Entfernung abgekündigt; mit `--finalization=disabled` lässt sich ihr Fehlen schon testen.",
       warum: "Aufräumen gehört in try-with-resources oder einen `Cleaner`.",
       betrifft: "Eure Klassen oder alte Bibliotheken `finalize()` überschreiben.",
@@ -1023,7 +1138,8 @@
       umsetzung: "`Object.finalize` trägt `forRemoval`; `--finalization=disabled` schaltet sie ab, JFR meldet Klassen mit Finalizer (`jdk.FinalizerStatistics`).",
       beispiel: ["bash", [
         "java --finalization=disabled -jar target/bestellung-batch.jar"]] },
-    { nr: 451, v: 21, b: "entfernt", name: "Agenten nur noch beim Start", titel: "Prepare to Disallow the Dynamic Loading of Agents", ziel: "Warnung",
+    { nr: 451, v: 21, b: "entfernt", name: "Agenten nur noch beim Start", titel: "Prepare to Disallow the Dynamic Loading of Agents",
+      stichworte: ["Agent", "Java Agent", "Instrumentation", "Mockito", "ByteBuddy"], ziel: "Warnung",
       worum: "Lädt sich ein Agent zur Laufzeit in eine JVM, gibt es eine Warnung; künftig braucht er `-XX:+EnableDynamicAgentLoading`.",
       warum: "Betrifft Mocking-Bibliotheken und Überwachungswerkzeuge.",
       betrifft: "Ihr Mockito, Byte Buddy oder einen APM-Agenten dynamisch ladet.",
@@ -1031,7 +1147,8 @@
       umsetzung: "Ein Agent über die Attach-API löst eine Warnung aus; `-XX:+EnableDynamicAgentLoading` erlaubt es still. Mockito empfiehlt den Agenten über Surefire `argLine`.",
       beispiel: ["bash", [
         "java -javaagent:mockito-core.jar -jar tests.jar"]] },
-    { nr: 498, v: 24, b: "entfernt", name: "Warnung bei Unsafe", titel: "Warn upon Use of Memory-Access Methods in sun.misc.Unsafe", ziel: "Warnung", kette: [[471, 23, "Abkündigung"]],
+    { nr: 498, v: 24, b: "entfernt", name: "Warnung bei Unsafe", titel: "Warn upon Use of Memory-Access Methods in sun.misc.Unsafe",
+      stichworte: ["sun.misc.Unsafe", "Unsafe"], ziel: "Warnung", kette: [[471, 23, "Abkündigung"]],
       worum: "Die Speicherzugriffe von `sun.misc.Unsafe` lösen eine Warnung aus – sie werden entfernt.",
       warum: "Viele Bibliotheken nutzen sie noch; Maven bis 3.9.11 warnt selbst auf 24 und neuer.",
       betrifft: "Beim Start eine Warnung zu `sun.misc.Unsafe` erscheint.",
@@ -1040,7 +1157,8 @@
       beispiel: ["bash", [
         "java --sun-misc-unsafe-memory-access=deny -jar target/bestellung-rest.jar   # testet die Zukunft"]],
       bezug: [[454, "Foreign Function & Memory (22)"]] },
-    { nr: 472, v: 24, b: "entfernt", name: "JNI eingeschränkt", titel: "Prepare to Restrict the Use of JNI", ziel: "Warnung",
+    { nr: 472, v: 24, b: "entfernt", name: "JNI eingeschränkt", titel: "Prepare to Restrict the Use of JNI",
+      stichworte: ["JNI", "native", "--enable-native-access"], ziel: "Warnung",
       worum: "Das Laden nativer Bibliotheken per JNI warnt; erlauben mit `--enable-native-access`.",
       warum: "Wie bei der Kapselung: erst warnen, dann verbieten.",
       betrifft: "Ihr oder eine Bibliothek native Bibliotheken ladet.",
@@ -1049,17 +1167,21 @@
       beispiel: ["bash", [
         "java --enable-native-access=ALL-UNNAMED -jar target/anwendung.jar"]],
       bezug: [[454, "Foreign Function & Memory (22)"]] },
-    { nr: 500, v: 26, b: "entfernt", name: "Final heißt final", titel: "Prepare to Make Final Mean Final", ziel: "Warnung",
+    { nr: 500, v: 26, b: "entfernt", name: "Final heißt final", titel: "Prepare to Make Final Mean Final",
+      stichworte: ["final", "Reflection", "setAccessible"], ziel: "Warnung",
       worum: "Wer per Reflection ein `final`-Feld ändert, bekommt eine Warnung; künftig scheitert es.",
       warum: "Integrität und Optimierung: Die JVM soll sich auf `final` verlassen können. Betrifft Serialisierung, Mocking und Dependency Injection in Felder.",
       betrifft: "Eure Bibliotheken `final`-Felder per `Field.set` setzen.",
-      risiko: 1, risikoText: "Gemessen: still auf 25, Warnung ab 26, `IllegalAccessException` mit `--illegal-final-field-mutation=deny` (Demo `FinalesFeld` in der Spielwiese).", r: [1, 1, 2],
+      risiko: 1, risikoText: "Gemessen: still auf 25, Warnung ab 26, `IllegalAccessException` mit `--illegal-final-field-mutation=deny`.", r: [1, 1, 2],
       umsetzung: "`Field.setAccessible(true)` plus `set` auf ein finales Feld warnt; `--enable-final-field-mutation=ALL-UNNAMED` erlaubt es still, `--illegal-final-field-mutation=deny` verbietet es schon heute.",
-      beispiel: ["bash", [
-        "java spielwiese/FinalesFeld.java",
-        "java --illegal-final-field-mutation=deny spielwiese/FinalesFeld.java"]],
+      beispiel: ["java", [
+        "// ab JDK 26 eine Warnung, mit --illegal-final-field-mutation=deny eine IllegalAccessException",
+        "Field feld = Bestellung.class.getDeclaredField(\"nummer\");   // private final String nummer",
+        "feld.setAccessible(true);",
+        "feld.set(bestellung, \"B-9999\");"]],
       bezug: [[396, "Kapselung als Standard (16)"]] },
-    { nr: 541, v: 28, b: "entfernt", name: "macOS/x64 abgekündigt", titel: "Deprecate the macOS/x64 Port for Removal", ziel: "Abkündigung",
+    { nr: 541, v: 28, b: "entfernt", name: "macOS/x64 abgekündigt", titel: "Deprecate the macOS/x64 Port for Removal",
+      stichworte: ["macOS", "x64", "Intel", "Plattform"], ziel: "Abkündigung",
       worum: "Das JDK für Macs mit Intel-Prozessor wird abgekündigt; entfernt wird es in einem späteren Release.",
       warum: "Wer auf einem Intel-Mac entwickelt oder baut, braucht mittelfristig Apple Silicon oder Linux.",
       betrifft: "Ihr auf Intel-Macs entwickelt oder dort Builds laufen lasst.",
@@ -1080,7 +1202,7 @@
     200: "2014-07", 201: "2014-07", 248: "2015-02", 254: "2014-08", 310: "2017-08", 307: "2017-01", 328: "2017-12",
     377: "2018-02", 379: "2014-01", 341: "2018-06", 346: "2018-05", 350: "2018-12", 349: "2017-07", 358: "2019-03",
     439: "2021-08", 474: "2024-02", 491: "2024-07", 483: "2023-09", 514: "2025-02", 515: "2024-02", 519: "2022-10",
-    521: "2021-02", 516: "2024-02", 539: "2025-02", 544: "2024-06", 545: "2024-04",
+    521: "2021-02", 516: "2024-02", 539: "2025-02", 544: "2024-06", 545: "2024-04", 527: "2025-06", 536: "2025-11",
     222: "2014-05", 247: "2014-09", 158: "2012-02", 238: "2014-06", 277: "2014-11", 282: "2015-07", 493: "2024-06", 330: "2017-12",
     392: "2018-04", 408: "2021-01", 413: "2018-04", 458: "2023-03", 467: "2023-09",
     220: "2014-10", 260: "2015-08", 252: "2014-05", 363: "2015-11", 320: "2017-10", 372: "2018-05", 390: "2020-07",
@@ -1194,7 +1316,7 @@
   // ---------------------------------------------------------------------------
   // ZUSTAND – eine Wahrheit, eine Funktion macht ihn sichtbar (zeichnen).
   // ---------------------------------------------------------------------------
-  const stand = { art: "", lts: "", bereich: "", jep: "", reiter: "" };
+  const stand = { art: "", lts: "", such: "", jep: "", reiter: "" };
 
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -1269,7 +1391,7 @@
       const drin = jeps.filter(function (j) { return j.b === b.id; })
                        .sort(function (x, y) { return beginn(x) - beginn(y) || ende(x) - ende(y) || x.nr - y.nr; });
       html += '<section class="jl-gruppe" data-bereich="' + b.id + '" aria-labelledby="jl-g-' + b.id + '">'
-           + '<h2 class="jl-gruppe__titel" id="jl-g-' + b.id + '">' + esc(b.titel) + " <small>" + drin.length + " JEPs</small></h2><ul class=\"jl-liste\">";
+           + '<h2 class="jl-gruppe__titel" id="jl-g-' + b.id + '">' + esc(b.titel) + ' <small class="jl-gruppe__anzahl">' + drin.length + " JEPs</small></h2><ul class=\"jl-liste\">";
       drin.forEach(function (j) {
         html += '<li><button type="button" class="jl-zeile jl-eintrag' + (j.zurückgezogen ? " is-zurueckgezogen" : "") + (j.offen ? " is-offen" : "")
              + '" data-nr="' + j.nr + '" aria-label="' + esc(beschriftung(j)) + '" aria-haspopup="dialog">'
@@ -1291,7 +1413,12 @@
 
     knöpfe("jl-knoepfe-art", "art", [{ id: "", titel: "Alle" }].concat(arten));
     knöpfe("jl-knoepfe-lts", "lts", [{ id: "", titel: "Alle" }].concat(sprünge));
-    knöpfe("jl-knoepfe-bereich", "bereich", [{ id: "", titel: "Alle" }].concat(bereiche));
+    const suche = document.getElementById("jl-suche");
+    suche.addEventListener("input", function () {
+      stand.such = suche.value.trim().slice(0, 40);
+      zeichnen();
+      melden();
+    });
 
     druckfassung();
 
@@ -1366,29 +1493,78 @@
     document.querySelectorAll(".jl-spalte").forEach(function (k) {
       k.classList.toggle("is-gewaehlt", Boolean(stand.lts) && stand.lts === k.dataset.lts);
     });
-    document.querySelectorAll(".jl-gruppe").forEach(function (g) {
-      g.classList.toggle("is-gewaehlt", stand.bereich === g.dataset.bereich);
-    });
+    const suche = document.getElementById("jl-suche");
+    if (suche.value.trim() !== stand.such) suche.value = stand.such;
     const artIndex = arten.findIndex(function (a) { return a.id === stand.art; });
-    document.querySelectorAll(".jl-eintrag").forEach(function (zeile) {
-      const j = finde(zeile.dataset.nr);
-      const leise = (stand.lts && sprungVon(j) !== stand.lts)
-                 || (stand.bereich && j.b !== stand.bereich)
-                 || (artIndex >= 0 && j.r[artIndex] === 0);
-      const wichtig = !leise && artIndex >= 0 && j.r[artIndex] === 2;
-      zeile.classList.toggle("is-leise", Boolean(leise));
-      zeile.classList.toggle("is-wichtig", wichtig);
-      zeile.setAttribute("aria-label", beschriftung(j) + (wichtig ? " – wichtig für " + arten[artIndex].titel : "") + (leise ? " – ausgeblendet" : ""));
+    let gesamt = 0;
+    document.querySelectorAll(".jl-gruppe").forEach(function (g) {
+      let sichtbar = 0;
+      g.querySelectorAll(".jl-eintrag").forEach(function (zeile) {
+        const j = finde(zeile.dataset.nr);
+        const zeigen = (!stand.lts || sprungVon(j) === stand.lts)
+                    && (artIndex < 0 || j.r[artIndex] > 0)
+                    && passt(j, stand.such);
+        zeile.parentElement.hidden = !zeigen;
+        if (zeigen) sichtbar++;
+      });
+      g.hidden = sichtbar === 0;
+      g.querySelector(".jl-gruppe__anzahl").textContent = sichtbar + " JEPs";
+      gesamt += sichtbar;
     });
+    document.getElementById("jl-leer").hidden = gesamt > 0;
 
     const dialog = document.getElementById("jl-dialog");
     const j = stand.jep ? finde(stand.jep) : null;
+    if (j) markieren(j.nr);
     if (j) {
       füllen(j);
       if (!dialog.open) dialog.showModal();
     } else if (dialog.open) {
       dialog.close();
     }
+  }
+
+  // MARKIERUNG: Die Zeile des geöffneten JEP trägt einen Rahmen und bleibt markiert,
+  // bis ein anderer JEP aufgeht – so findet man sie nach dem Schließen wieder. Öffnet
+  // die Adresse einen JEP (#/?jep=395), scrollt die Liste dahinter zu seiner Zeile.
+  let markiert = "";
+  function markieren(nr) {
+    const nummer = String(nr);
+    if (nummer === markiert) return;
+    markiert = nummer;
+    document.querySelectorAll(".jl-eintrag.is-markiert").forEach(function (z) { z.classList.remove("is-markiert"); });
+    const zeile = document.querySelector('.jl-eintrag[data-nr="' + nummer + '"]');
+    if (!zeile) return;
+    zeile.classList.add("is-markiert");
+    if (zeile.parentElement.hidden) return;
+    // Nur scrollen, wenn die Zeile nicht schon zu sehen ist – ein Klick soll nicht springen.
+    const lage = zeile.getBoundingClientRect();
+    if (lage.top < 0 || lage.bottom > window.innerHeight) zeile.scrollIntoView({ block: "center", inline: "nearest" });
+  }
+
+  // SUCHE nach Stichworten: Name, Titel, Projekt, JEP-Nummern und die Stichworte der
+  // Zeile – nicht der Fließtext. Jedes Wort der Eingabe muss einen Begriff treffen: als
+  // ganzes Wort (auch mit Plural-s), sobald das irgendwo trifft – „record“ findet die
+  // Records, nicht den Flight Recorder –, sonst als Wortanfang, solange noch getippt wird.
+  function klein(t) { return String(t).toLowerCase(); }
+  function begriffe(j) {
+    if (!j._begriffe) {
+      j._begriffe = [j.name, j.titel, j.projekt || ""].concat(j.stichworte || [])
+        .concat(weg(j).map(function (s) { return String(s[0]); })).map(klein)
+        .map(function (b) { return [b].concat(b.split(/[\s\/(),.<>-]+/).filter(Boolean)); });
+    }
+    return j._begriffe;
+  }
+  function trifft(j, w, ganz) {
+    return begriffe(j).some(function (teile) {
+      return teile.some(function (t) { return ganz ? t === w || t === w + "s" : t.indexOf(w) === 0; });
+    });
+  }
+  function passt(j, such) {
+    return klein(such).split(/\s+/).filter(Boolean).every(function (w) {
+      const ganz = jeps.some(function (x) { return trifft(x, w, true); });
+      return trifft(j, w, ganz);
+    });
   }
 
   function verweis(nr) {
@@ -1491,12 +1667,13 @@
   function gültig(schlüssel, wert) {
     if (!wert) return "";
     if (schlüssel === "jep") { const j = finde(wert); return j ? String(j.nr) : ""; }
-    const listen = { art: arten, lts: sprünge, bereich: bereiche, reiter: reiter.slice(1) };
+    if (schlüssel === "such") return String(wert).trim().slice(0, 40);
+    const listen = { art: arten, lts: sprünge, reiter: reiter.slice(1) };
     return listen[schlüssel].some(function (x) { return x.id === wert; }) ? wert : "";
   }
   function anmelden() {
     if (!window.skr || !window.skr.state) return;
-    ["art", "lts", "bereich", "jep", "reiter"].forEach(function (schlüssel) {
+    ["art", "lts", "such", "jep", "reiter"].forEach(function (schlüssel) {
       window.skr.state.register({
         key: schlüssel,
         read: function () { return stand[schlüssel]; },

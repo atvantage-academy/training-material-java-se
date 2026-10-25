@@ -1,7 +1,14 @@
 (function () {
-  const sealed = "public sealed interface Zahlart permits Rechnung, Lastschrift, Kreditkarte, PayPal { }";
-  const record = "public record Rechnung(int zahlungszielTage) implements Zahlart { }   // und drei weitere";
   const klassen = "public interface Zahlart { }   // Rechnung, Lastschrift, … sind Klassen mit Gettern";
+  const versiegelt = [
+    "public sealed interface Zahlart permits Rechnung, Lastschrift, Kreditkarte, PayPal { }",
+    "// Rechnung, Lastschrift, … sind finale Klassen mit Gettern"
+  ];
+  const records = [
+    "public interface Zahlart { }",
+    "public record Rechnung(int zahlungszielTage) implements Zahlart { }   // und drei weitere"
+  ];
+  const unbekannt = "        default -> throw new IllegalArgumentException(\"Unbekannte Zahlart: \" + zahlart);";
 
   const kette8 = [
     "public static String beschreibe(Zahlart zahlart) {",
@@ -35,35 +42,48 @@
     "                    + \", gültig bis \" + kreditkarte.getGültigBis().format(MONAT_JAHR);",
     "        }",
     "        case \"PayPal\" -> \"PayPal (\" + ((PayPal) zahlart).getKonto() + \")\";",
-    "        default -> throw new IllegalArgumentException(\"Unbekannte Zahlart: \" + zahlart);",
+    unbekannt,
     "    };",
     "}"
   ];
   const kette16 = [
     "public static String beschreibe(Zahlart zahlart) {",
     "    if (zahlart instanceof Rechnung rechnung) {",
-    "        return \"Rechnung, zahlbar innerhalb von \" + rechnung.zahlungszielTage() + \" Tagen\";",
+    "        return \"Rechnung, zahlbar innerhalb von \" + rechnung.getZahlungszielTage() + \" Tagen\";",
     "    } else if (zahlart instanceof Lastschrift lastschrift) {",
-    "        return \"Lastschrift von \" + maskiere(lastschrift.iban());",
+    "        return \"Lastschrift von \" + maskiere(lastschrift.getIban());",
     "    } else if (zahlart instanceof Kreditkarte kreditkarte) {",
-    "        return \"Kreditkarte \" + maskiere(kreditkarte.kartennummer())",
-    "                + \", gültig bis \" + kreditkarte.gültigBis().format(MONAT_JAHR);",
+    "        return \"Kreditkarte \" + maskiere(kreditkarte.getKartennummer())",
+    "                + \", gültig bis \" + kreditkarte.getGültigBis().format(MONAT_JAHR);",
     "    } else if (zahlart instanceof PayPal payPal) {",
-    "        return \"PayPal (\" + payPal.konto() + \")\";",
+    "        return \"PayPal (\" + payPal.getKonto() + \")\";",
     "    } else {",
     "        throw new IllegalArgumentException(\"Unbekannte Zahlart: \" + zahlart);",
     "    }",
     "}"
   ];
-  const switch21 = [
+  // 21/1 und 21/2 unterscheiden sich nur im `default`.
+  const typmuster = [
     "public static String beschreibe(Zahlart zahlart) {",
     "    return switch (zahlart) {",
-    "        case Rechnung(var tage) when tage == 0 -> \"Rechnung, sofort zahlbar\";",
-    "        case Rechnung(var tage) -> \"Rechnung, zahlbar innerhalb von \" + tage + \" Tagen\";",
+    "        case Rechnung rechnung when rechnung.getZahlungszielTage() == 0 -> \"Rechnung, sofort zahlbar\";",
+    "        case Rechnung rechnung -> \"Rechnung, zahlbar innerhalb von \" + rechnung.getZahlungszielTage() + \" Tagen\";",
+    "        case Lastschrift lastschrift -> \"Lastschrift von \" + maskiere(lastschrift.getIban());",
+    "        case Kreditkarte kreditkarte -> \"Kreditkarte \" + maskiere(kreditkarte.getKartennummer())",
+    "                + \", gültig bis \" + kreditkarte.getGültigBis().format(MONAT_JAHR);",
+    "        case PayPal payPal -> \"PayPal (\" + payPal.getKonto() + \")\";"
+  ];
+  const recordMuster = [
+    "public static String beschreibe(Zahlart zahlart) {",
+    "    return switch (zahlart) {",
+    "        case Rechnung(int tage) when tage == 0 -> \"Rechnung, sofort zahlbar\";",
+    "        case Rechnung(int tage) when tage <= 14 -> \"Rechnung, zahlbar innerhalb von \" + tage + \" Tagen\";",
+    "        case Rechnung(int tage) -> \"Rechnung mit langem Zahlungsziel (\" + tage + \" Tage)\";",
     "        case Lastschrift(var iban) -> \"Lastschrift von \" + maskiere(iban);",
     "        case Kreditkarte(var nummer, var gültigBis) ->",
     "                \"Kreditkarte \" + maskiere(nummer) + \", gültig bis \" + gültigBis.format(MONAT_JAHR);",
     "        case PayPal(var konto) -> \"PayPal (\" + konto + \")\";",
+    unbekannt,
     "    };",
     "}"
   ];
@@ -73,79 +93,46 @@
     "    return switch (zahlart) {",
     "        case Rechnung _ -> false;",
     "        case Lastschrift _, Kreditkarte _, PayPal _ -> true;",
+    unbekannt,
     "    };",
     "}"
   ];
-  const ausblick = [
-    "public static String beschreibe(Zahlart zahlart) {",
-    "    return switch (zahlart) {",
-    "        case Rechnung(var tage) -> switch (tage) {",
-    "            case 0 -> \"Rechnung, sofort zahlbar\";",
-    "            case int t when t <= 14 -> \"Rechnung, zahlbar innerhalb von \" + t + \" Tagen\";",
-    "            case int t -> \"Rechnung mit langem Zahlungsziel (\" + t + \" Tage)\";",
-    "        };",
-    "        case Lastschrift(var iban) -> \"Lastschrift von \" + maskiere(iban);",
-    "        case Kreditkarte(var nummer, var gültigBis) ->",
-    "                \"Kreditkarte \" + maskiere(nummer) + \", gültig bis \" + gültigBis.format(MONAT_JAHR);",
-    "        case PayPal(var konto) -> \"PayPal (\" + konto + \")\";",
+  const ausblickPrimitiv = [
+    "public static String zahlungsziel(int tage) {",
+    "    return switch (tage) {",
+    "        case 0 -> \"sofort zahlbar\";",
+    "        case int t when t <= 14 -> \"zahlbar innerhalb von \" + t + \" Tagen\";",
+    "        case int t -> \"langes Zahlungsziel (\" + t + \" Tage)\";",
     "    };",
     "}"
   ];
 
-  // Prüft der Compiler, ob ein Fall fehlt? Gemessen mit javac 25 und --release der Stufe.
+  // Stufen mit `teil` und gleichem `label` stehen im Regler in einer Spalte: oben das
+  // Release, darunter je Teil ein Knopf.
+  // `vergleich`: Stufe, gegenüber der die Zeilen als neu markiert werden – sonst die vorige.
+  // Die Spezialfälle 21/2 und 21/3 bauen beide auf 21/1 auf, nicht aufeinander.
   const stufen = [
     { id: "8", label: "8", unter: "2014", titel: "Java 8: Kette mit Casts", marken: ["Java 8", "LTS 8"],
-      code: [klassen, ""].concat(kette8),
-      neu: "Der Ausgangsstand im Altbestand: `instanceof`, dann ein Cast in eine Hilfsvariable – viermal.",
-      weg: "–",
-      probe: "Kommt eine fünfte Zahlart dazu, übersetzt alles weiter. Sie fällt erst **zur Laufzeit** in den `else`-Zweig." },
-    { id: "14", label: "14", unter: "LTS 17", titel: "Switch-Expressions", marken: ["Java 14", "JEP 361", "LTS 17"],
-      code: [klassen, ""].concat(switch14),
-      neu: "`switch` als Ausdruck: `case … ->`, kein `break`, kein Durchfallen, `yield` für einen Block. Aber nur über **Konstanten** – hier ein bewusster Umweg über den Klassennamen.",
-      weg: "Die `else if`-Treppe. Die Casts bleiben, und `default` ist Pflicht.",
-      probe: "Mit `--release 13`: `switch expressions are not supported in -source 13`. Eine fünfte Zahlart landet weiter erst zur Laufzeit im `default`." },
+      code: [klassen, ""].concat(kette8) },
+    { id: "14", label: "14", unter: "LTS 17", titel: "Switch-Expressions – Umweg über den Klassennamen", marken: ["Java 14", "JEP 361", "LTS 17"],
+      code: [klassen, ""].concat(switch14) },
     { id: "16", label: "16", unter: "LTS 17", titel: "instanceof mit Muster", marken: ["Java 16", "JEP 394", "LTS 17"],
-      code: ["public interface Zahlart { }", record, ""].concat(kette16),
-      neu: "`zahlart instanceof Rechnung rechnung` prüft und bindet in einem Schritt. Die Zahlarten sind jetzt Records (JEP 395), daher `zahlungszielTage()` statt Getter.",
-      weg: "Alle Casts und die Zeile mit der Hilfsvariable – je Zahlart eine.",
-      probe: "Mit `--release 15`: `records are not supported in -source 15`. Eine fünfte Zahlart bemerkt der Compiler weiterhin nicht." },
-    { id: "17", label: "17", unter: "LTS 17", titel: "Versiegelte Hierarchie", marken: ["Java 17", "JEP 409", "LTS 17"],
-      code: [sealed, record, ""].concat(kette16),
-      neu: "`sealed … permits` – der Compiler weiß jetzt, dass es genau vier Zahlarten gibt.",
-      weg: "Nichts. Die `if`-Kette fragt den Compiler nicht.",
-      probe: "Lässt man den `else`-Zweig weg, meldet der Compiler `missing return statement` – obwohl alle vier Fälle behandelt sind. Sein Wissen nutzt erst der `switch`." },
-    { id: "21", label: "21", unter: "LTS 21", titel: "Record-Patterns im switch", marken: ["Java 21", "JEP 441", "JEP 440", "LTS 21"],
-      code: [sealed, record, ""].concat(switch21),
-      neu: "`switch` über den Typ mit **Record-Patterns**: `case Rechnung(var tage)` zerlegt den Record gleich. Ein **Wächter** mit `when` trennt „sofort zahlbar“ ab – er muss vor dem allgemeinen Fall stehen.",
-      weg: "Die Kette, die Hilfsvariablen, die Zugriffsmethoden – und der `default`-Zweig.",
-      probe: "Fehlt der PayPal-Fall: `the switch expression does not cover all possible input values`. Eine fünfte Zahlart ist jetzt ein **Übersetzungsfehler** an jeder unvollständigen Stelle." },
+      code: [klassen, ""].concat(kette16) },
+    { id: "21", label: "21", unter: "LTS 21", teil: "Typmuster", titel: "Typmuster im switch", marken: ["Java 21", "JEP 441", "LTS 21"],
+      code: [klassen, ""].concat(typmuster, [unbekannt, "    };", "}"]) },
+    { id: "21-sealed", label: "21", unter: "LTS 21", teil: "sealed", vergleich: "21", titel: "Spezialfall: versiegelte Hierarchie", marken: ["Java 21", "JEP 441", "JEP 409", "LTS 21"],
+      code: versiegelt.concat([""], typmuster, ["    };", "}"]) },
+    { id: "21-records", label: "21", unter: "LTS 21", teil: "Records", vergleich: "21", titel: "Spezialfall: Record-Patterns", marken: ["Java 21", "JEP 440", "LTS 21"],
+      code: records.concat([""], recordMuster) },
     { id: "22", label: "22", unter: "LTS 25", titel: "Unbenannte Muster _", marken: ["Java 22", "JEP 456", "LTS 25"],
-      code: [sealed, record, ""].concat(switch21, sofort22),
-      neu: "`_` für Muster, deren Wert man nicht braucht – und mehrere davon in einem `case`. Gezeigt an einer zweiten Methode, weil `beschreibe` jeden Wert nutzt.",
-      weg: "Namen für Variablen, die niemand liest.",
-      probe: "Mit `--release 21`: `unnamed variables are not supported in -source 21`. Vollständig muss auch dieser `switch` sein." },
-    { id: "ausblick", label: "Ausblick", unter: "Preview", titel: "Primitive Muster", marken: ["Preview 23–27", "JEP 532"],
-      code: [sealed, record, ""].concat(ausblick),
-      neu: "Muster auch für primitive Typen: `case int t when t <= 14`. Noch **Preview** (fünfte Fassung in Java 27) – im Kurs nur als Ausblick.",
-      weg: "Die `if`-Kette über einen Zahlenwert innerhalb eines Falls.",
-      probe: "Ohne `--enable-preview`: `primitive patterns are a preview feature and are disabled by default`. Preview-Code bricht womöglich beim nächsten Release." }
+      code: records.concat([""], recordMuster, sofort22) },
+    { id: "ausblick", label: "Ausblick", unter: "Preview", titel: "Ausblick: primitive Muster", marken: ["Preview 23–27", "JEP 532"],
+      code: ausblickPrimitiv }
   ];
 
   let aktuell = 0;
 
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-  function text(s) {
-    return esc(s).replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>").replace(/`([^`]+)`/g, "<code>$1</code>");
-  }
-  function casts(zeilen) {
-    return zeilen.join("\n").match(/\((Rechnung|Lastschrift|Kreditkarte|PayPal)\) zahlart/g)?.length || 0;
-  }
-  function methodenzeilen(zeilen) {
-    const start = zeilen.findIndex(function (z) { return z.startsWith("public static String beschreibe"); });
-    let ende = start;
-    while (ende < zeilen.length && zeilen[ende] !== "}") ende++;
-    return ende - start + 1;
-  }
   function färben(zeile) {
     if (!zeile) return " ";
     // Zeile für Zeile über die Hervorhebung des Skriptoriums: Jede Zeile behält so ihre
@@ -160,11 +147,23 @@
 
   function aufbauen() {
     const box = document.getElementById("pme-stufen");
-    box.innerHTML = stufen.map(function (s, i) {
-      return '<button type="button" class="pme-stufe" data-i="' + i + '"><b>' + esc(s.label) + "</b><span>" + esc(s.unter) + "</span></button>";
+    const spalten = [];
+    stufen.forEach(function (s, i) {
+      const letzte = spalten[spalten.length - 1];
+      if (s.teil && letzte && stufen[letzte[0]].teil && stufen[letzte[0]].label === s.label) letzte.push(i);
+      else spalten.push([i]);
+    });
+    box.innerHTML = spalten.map(function (teile) {
+      const s = stufen[teile[0]];
+      return '<div class="pme-spalte' + (s.teil ? " pme-spalte--" + teile.length : "") + '">'
+        + '<button type="button" class="pme-stufe" data-i="' + teile[0] + '" data-teile="' + teile.join(" ") + '"><b>' + esc(s.label) + "</b><span>" + esc(s.unter) + "</span></button>"
+        + (s.teil ? '<div class="pme-teile" role="group" aria-label="' + esc(s.label) + '">' + teile.map(function (i) {
+            return '<button type="button" class="pme-teil" data-i="' + i + '">' + esc(stufen[i].teil) + "</button>";
+          }).join("") + "</div>" : "")
+        + "</div>";
     }).join("");
     box.addEventListener("click", function (e) {
-      const k = e.target.closest(".pme-stufe");
+      const k = e.target.closest(".pme-stufe, .pme-teil");
       if (k) wählen(Number(k.dataset.i));
     });
     document.getElementById("pme-zurueck").addEventListener("click", function () { wählen(aktuell - 1); });
@@ -176,7 +175,7 @@
 
     let druck = "";
     stufen.forEach(function (s) {
-      druck += "<section><h3>" + esc(s.titel) + " (" + esc(s.marken.join(" · ")) + ")</h3><p>" + text(s.neu) + "</p><p>" + text(s.probe) + "</p><pre>" + esc(s.code.join("\n")) + "</pre></section>";
+      druck += "<section><h3>" + esc(s.titel) + " (" + esc(s.marken.join(" · ")) + ")</h3><pre>" + esc(s.code.join("\n")) + "</pre></section>";
     });
     document.getElementById("pme-druck").innerHTML = druck;
   }
@@ -186,16 +185,23 @@
     aktuell = i;
     zeichnen();
     if (window.skr.state) window.skr.state.update();
-    const knopf = document.querySelector('.pme-stufe[data-i="' + i + '"]');
-    if (knopf && document.activeElement && document.activeElement.classList.contains("pme-stufe")) knopf.focus();
+    const box = document.getElementById("pme-stufen");
+    const knopf = box.querySelector('.pme-teil[data-i="' + i + '"]') || box.querySelector('.pme-stufe[data-i="' + i + '"]');
+    if (knopf && box.contains(document.activeElement)) knopf.focus();
   }
 
   function zeichnen() {
     const s = stufen[aktuell];
-    const vorher = aktuell > 0 ? stufen[aktuell - 1].code : null;
-    document.querySelectorAll(".pme-stufe").forEach(function (k, i) {
-      k.setAttribute("aria-pressed", String(i === aktuell));
-      k.classList.toggle("is-vorbei", i < aktuell);
+    const basis = s.vergleich ? stufen.find(function (x) { return x.id === s.vergleich; })
+                              : stufen[aktuell - 1];
+    const vorher = basis ? basis.code : null;
+    document.querySelectorAll(".pme-stufe").forEach(function (k) {
+      const teile = k.dataset.teile.split(" ").map(Number);
+      k.setAttribute("aria-pressed", String(teile.indexOf(aktuell) !== -1));
+      k.classList.toggle("is-vorbei", Math.max.apply(null, teile) < aktuell);
+    });
+    document.querySelectorAll(".pme-teil").forEach(function (k) {
+      k.setAttribute("aria-pressed", String(Number(k.dataset.i) === aktuell));
     });
     document.getElementById("pme-zurueck").disabled = aktuell === 0;
     document.getElementById("pme-weiter").disabled = aktuell === stufen.length - 1;
@@ -205,20 +211,14 @@
       return '<span class="pme-zeile' + (neu ? " is-neu" : "") + '">' + färben(z) + "</span>";
     }).join("");
 
-    const z = methodenzeilen(s.code);
     document.getElementById("pme-info").innerHTML =
       "<h2>" + esc(s.titel) + "</h2>"
       + '<p class="pme-marken">' + s.marken.map(function (m) {
           return '<span class="pme-marke' + (/^LTS/.test(m) ? " pme-marke--lts" : "") + '">' + esc(m) + "</span>";
         }).join("") + "</p>"
-      + "<h3>Neu</h3><p>" + text(s.neu) + "</p>"
-      + "<h3>Fällt weg</h3><p>" + text(s.weg) + "</p>"
-      + '<div class="pme-zahlen">'
-      + '<div class="pme-zahl"><b>' + casts(s.code) + "</b><span>Casts</span></div>"
-      + '<div class="pme-zahl"><b>' + z + "</b><span>Zeilen in <code>beschreibe</code></span></div>"
-      + '<div class="pme-zahl"><b>' + (["21", "22", "ausblick"].indexOf(s.id) !== -1 ? "ja" : "nein") + "</b><span>Compiler prüft Vollständigkeit</span></div>"
-      + "</div>"
-      + '<p class="pme-probe">' + text(s.probe) + "</p>";
+      ;
+    document.getElementById("pme-vergleich").textContent = basis ? "neu gegenüber " + basis.label + (basis.teil ? " · " + basis.teil : "") : "";
+    document.querySelector(".pme-legende").hidden = !basis;
   }
 
   function anmelden() {

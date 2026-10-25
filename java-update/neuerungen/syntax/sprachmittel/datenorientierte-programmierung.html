@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-present-mark>
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../../">
+<script src="../../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Datenorientierte Programmierung · ATVANTAGE Academy</title>
+<meta name="description" content="Datenorientierte Programmierung: woher die Idee kommt, warum sie sich lohnt und wie Java sie mit Records, Sealed Classes und Pattern Matching umsetzt – die Motivation hinter diesen Neuerungen.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Datenorientierte Programmierung">
+<meta property="og:description" content="Datenorientierte Programmierung: woher die Idee kommt, warum sie sich lohnt und wie Java sie mit Records, Sealed Classes und Pattern Matching umsetzt – die Motivation hinter diesen Neuerungen.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../../skriptorium/components.css?v=76b431ec">
+<link rel="stylesheet" href="../../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.16.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Datenorientierte Programmierung: woher die Idee kommt, warum sie sich lohnt und wie Java sie mit Records, Sealed Classes und Pattern Matching umsetzt – die Motivation hinter diesen Neuerungen.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"skriptorium.presentation","pageAssets":[{"path":"java-update/neuerungen/syntax/sprachmittel/datenorientierte-programmierung.css","src":"datenorientierte-programmierung.css","type":"style"}],"pageId":null,"runtimeFragments":["^/\\d+$"],"siteIndex":"/skriptorium/site.json","title":"Datenorientierte Programmierung","topics":null,"untranslated":null,"url":"/java-update/neuerungen/syntax/sprachmittel/datenorientierte-programmierung.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../../../skriptorium/client.js?v=600c56bb" defer></script>
+<script src="../../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+<link rel="stylesheet" href="../../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../../../skriptorium/presentation.css?v=fc13e38e">
+<script src="../../../../skriptorium/presentation.js?v=5b256d9d" defer></script>
+
+<link rel="stylesheet" href="../../../../java-update/neuerungen/syntax/sprachmittel/datenorientierte-programmierung.css?v=67cc92cd">
+
+</head>
+<body class="skr-present" data-skr-layout="skriptorium.presentation" data-skr-layouts="skriptorium.presentation" data-skr-lang="de" data-skr-audience="learner" data-skr-present data-skr-present-title="Datenorientierte Programmierung">
+  <a class="skr-skip-link" href="#skr-deck">Zum Inhalt springen</a>
+  <header class="skr-present__bar">
+    <img class="skr-present__logo" src="../../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-present__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-present__title">Datenorientierte Programmierung</span>
+    <span class="skr-present__counter" data-skr-present-counter aria-live="off"></span>
+    <div class="skr-present__tools">
+      <button type="button" class="skr-present__back" data-skr-back hidden
+              title="Zurück" aria-label="Zurück"><svg viewBox="0 0 24 24" width="1em" height="1em"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+              ><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Zurück</button>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-present-print=""
+        title="Drucken (alle Folien)" aria-label="Drucken (alle Folien)"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-present-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  </header>
+  <main class="skr-deck" id="skr-deck"ZgotmplZ data-skr-deck>
+    <!-- ANFORDERUNGEN an diese Präsentation
+     - Erklärt die MOTIVATION hinter Records, Sealed Classes und Pattern Matching: Sie sind
+       keine Einzelfeatures, sondern zusammen die Umsetzung der datenorientierten
+       Programmierung in Java. Aufbau: Einsatzzwecke (praktische Relevanz zuerst, noch
+       ohne Code) → was daran mit Java-8-Code weh tut → Gegenüberstellung → Theorie
+       (Expression Problem,
+       algebraische Datentypen, Herkunft) → Grundsätze → Umsetzung in Java (JEPs, Code) →
+       Abgrenzung zur Objektorientierung → Reflexionsfrage.
+     - Nicht verwechseln mit „Data-Oriented Design“ (Speicherlayout, Spieleentwicklung) –
+       gemeint ist die Modellierung von Daten als Daten.
+     - Quellen: Brian Goetz, „Data Oriented Programming in Java“, InfoQ, 20.06.2022 (die
+       vier Grundsätze, Records = Produkttyp, sealed = Summentyp, OOP „at its best when it
+       is defining and defending boundaries“); Nicolai Parlog, „Data-Oriented Programming –
+       Version 1.1“ (nipafx.dev/dop, inside.java 2024); Philip Wadler, „The Expression
+       Problem“, 12.11.1998; Hope (Burstall, MacQueen, Sannella, 1980) als erste Sprache mit
+       algebraischen Datentypen und Pattern Matching darauf; Yaron Minsky, „Effective ML“
+       (Jane Street) für „Make illegal states unrepresentable“; JEP 468 (Derived Record
+       Creation) ist Candidate ohne Release.
+     - Der Code der Folien „Alles zusammen“, „Zwei Bausteine“ und „Ungültige Zustände“
+       (Nachher) übersetzt mit javac aus Temurin 25.0.4.1 und --release 21; die übrigen
+       Ausschnitte sind gekürzt.
+     - Die Grafiken sind inline-SVG mit Klassen aus datenorientierte-programmierung.css (Farben aus den
+       Tokens); Koordinaten von Hand, Alternativtext in aria-label.
+     - Bezeichner mit Umlauten (A-006). Keine Verortung im Kursablauf. -->
+<h1 id="datenorientierte-programmierung">Datenorientierte Programmierung</h1>
+<p>Warum Records, Sealed Classes und Pattern Matching zusammengehören · Java-Update</p>
+<h2 id="viel-code-trägt-nur-daten-von-a-nach-b">Viel Code trägt nur Daten von A nach B</h2>
+<div class="skr-grid">
+<div class="skr-card">
+<h3 id="schnittstellen">Schnittstellen</h3>
+<p>JSON rein, JSON raus: die Bestellung als DTO – ohne eigenes Verhalten</p>
+</div>
+<div class="skr-card">
+<h3 id="ereignisse">Ereignisse</h3>
+<p>„Bestellung angelegt“, „Zahlung eingegangen“ – Fakten, die sich nicht mehr ändern</p>
+</div>
+<div class="skr-card">
+<h3 id="ergebnisse-mit-varianten">Ergebnisse mit Varianten</h3>
+<p>Gefunden, nicht gefunden, mehrdeutig – statt <code>null</code> und Ausnahmen</p>
+</div>
+<div class="skr-card">
+<h3 id="zustnde">Zustände</h3>
+<p>Offen, bezahlt, erstattet – je Zustand nur die Daten, die dazugehören</p>
+</div>
+<div class="skr-card">
+<h3 id="befehle-und-regeln">Befehle und Regeln</h3>
+<p>Kommandozeilenoptionen, Filter, Rechenausdrücke – ein Baum aus Fällen</p>
+</div>
+<div class="skr-card">
+<h3 id="werte">Werte</h3>
+<p>Geldbetrag, Zeitraum, IBAN – einmal geprüft, danach unveränderlich</p>
+</div>
+</div>
+<h2 id="und-genau-dort-tut-java-8-code-weh">Und genau dort tut Java-8-Code weh</h2>
+<ul>
+<li><strong>Zeremonie:</strong> 50 Zeilen Klasse für drei Felder – Konstruktor, Getter, <code>equals</code>, <code>hashCode</code>, <code>toString</code></li>
+<li><strong>Halbe Zustände:</strong> Felder, die nur manchmal gelten – und sonst <code>null</code> sind</li>
+<li><strong>Blinde Fallunterscheidung:</strong> Eine neue Variante übersieht die <code>instanceof</code>-Kette still</li>
+<li><strong>Umwege:</strong> der Visitor, damit der Compiler wenigstens irgendetwas prüft</li>
+</ul>
+<h2 id="dieselbe-frage-zwei-antworten">Dieselbe Frage, zwei Antworten</h2>
+<div class="zwei">
+<div>
+<h3 id="objektorientiert">Objektorientiert</h3>
+<pre><code class="language-java">interface Zahlart {
+    String beschreibe();
+}
+
+final class Rechnung implements Zahlart {
+    private final int tage;
+    // Konstruktor …
+    public String beschreibe() {
+        return &quot;zahlbar in &quot; + tage + &quot; Tagen&quot;;
+    }
+}
+</code></pre>
+</div>
+<div>
+<h3 id="datenorientiert">Datenorientiert</h3>
+<pre><code class="language-java">sealed interface Zahlart
+        permits Rechnung, PayPal { }
+record Rechnung(int tage) implements Zahlart { }
+record PayPal(String konto) implements Zahlart { }
+
+String beschreibe(Zahlart zahlart) {
+    return switch (zahlart) {
+        case Rechnung(var tage) -&gt; &quot;zahlbar in &quot; + tage + &quot; Tagen&quot;;
+        case PayPal(var konto)  -&gt; &quot;PayPal (&quot; + konto + &quot;)&quot;;
+    };
+}
+</code></pre>
+</div>
+</div>
+<ul>
+<li>Objektorientiert wohnt das Verhalten <strong>im Typ</strong></li>
+<li>Datenorientiert sind die Daten <strong>nur Daten</strong> – die Operation steht daneben</li>
+</ul>
+<h2 id="wer-leicht-wachsen-darf-entscheidet-das-modell">Wer leicht wachsen darf, entscheidet das Modell</h2>
+<svg class="grafik" viewBox="0 0 1000 420" role="img" aria-label="Zwei Raster aus Zahlarten (Zeilen) und Operationen (Spalten). Objektorientiert ist jede Zeile eine Klasse: Eine neue Zahlart ist eine neue Klasse, eine neue Operation ändert jede Klasse. Datenorientiert ist jede Spalte ein switch: Eine neue Operation ist ein neuer switch, eine neue Zahlart ändert jeden switch.">
+  <text x="302" y="58" text-anchor="middle" font-size="20" font-weight="700">Objektorientiert: je Zeile eine Klasse</text>
+  <text class="leise" x="185" y="96" text-anchor="middle" font-size="16">Text</text>
+  <text class="leise" x="263" y="96" text-anchor="middle" font-size="16">Export</text>
+  <text class="leise" x="341" y="96" text-anchor="middle" font-size="16">Gebühr</text>
+  <text class="leise" x="419" y="96" text-anchor="middle" font-size="16">+ neu</text>
+  <text class="leise" x="136" y="136" text-anchor="end" font-size="16">Rechnung</text>
+  <text class="leise" x="136" y="184" text-anchor="end" font-size="16">Lastschrift</text>
+  <text class="leise" x="136" y="232" text-anchor="end" font-size="16">PayPal</text>
+  <text class="leise" x="136" y="280" text-anchor="end" font-size="16">+ neu</text>
+  <rect class="zelle" x="150" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="228" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="306" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="384" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="150" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="228" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="306" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="384" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="150" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="228" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="306" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="384" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="150" y="254" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="228" y="254" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="306" y="254" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="384" y="254" width="70" height="40" rx="4"/>
+  <rect class="gruppe" x="146" y="106" width="312" height="48" rx="7"/>
+  <rect class="gruppe" x="146" y="154" width="312" height="48" rx="7"/>
+  <rect class="gruppe" x="146" y="202" width="312" height="48" rx="7"/>
+  <rect class="gruppe gruppe--leicht" x="146" y="250" width="312" height="48" rx="7"/>
+  <rect class="zelle--teuer" x="387" y="113" width="64" height="34" rx="3"/>
+  <rect class="zelle--teuer" x="387" y="161" width="64" height="34" rx="3"/>
+  <rect class="zelle--teuer" x="387" y="209" width="64" height="34" rx="3"/>
+  <text class="akzent" x="302" y="334" text-anchor="middle" font-size="17">neue Zahlart: eine Klasse</text>
+  <text class="teuer" x="302" y="360" text-anchor="middle" font-size="17">neue Operation: jede Klasse ändern</text>
+  <text x="812" y="58" text-anchor="middle" font-size="20" font-weight="700">Datenorientiert: je Spalte ein switch</text>
+  <text class="leise" x="695" y="96" text-anchor="middle" font-size="16">Text</text>
+  <text class="leise" x="773" y="96" text-anchor="middle" font-size="16">Export</text>
+  <text class="leise" x="851" y="96" text-anchor="middle" font-size="16">Gebühr</text>
+  <text class="leise" x="929" y="96" text-anchor="middle" font-size="16">+ neu</text>
+  <text class="leise" x="646" y="136" text-anchor="end" font-size="16">Rechnung</text>
+  <text class="leise" x="646" y="184" text-anchor="end" font-size="16">Lastschrift</text>
+  <text class="leise" x="646" y="232" text-anchor="end" font-size="16">PayPal</text>
+  <text class="leise" x="646" y="280" text-anchor="end" font-size="16">+ neu</text>
+  <rect class="zelle" x="660" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="738" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="816" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="894" y="110" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="660" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="738" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="816" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="894" y="158" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="660" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="738" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle" x="816" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="894" y="206" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="660" y="254" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="738" y="254" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="816" y="254" width="70" height="40" rx="4"/>
+  <rect class="zelle zelle--neu" x="894" y="254" width="70" height="40" rx="4"/>
+  <rect class="gruppe" x="656" y="106" width="78" height="192" rx="7"/>
+  <rect class="gruppe" x="734" y="106" width="78" height="192" rx="7"/>
+  <rect class="gruppe" x="812" y="106" width="78" height="192" rx="7"/>
+  <rect class="gruppe gruppe--leicht" x="890" y="106" width="78" height="192" rx="7"/>
+  <rect class="zelle--teuer" x="663" y="257" width="64" height="34" rx="3"/>
+  <rect class="zelle--teuer" x="741" y="257" width="64" height="34" rx="3"/>
+  <rect class="zelle--teuer" x="819" y="257" width="64" height="34" rx="3"/>
+  <text class="akzent" x="812" y="334" text-anchor="middle" font-size="17">neue Operation: ein switch</text>
+  <text class="teuer" x="812" y="360" text-anchor="middle" font-size="17">neue Zahlart: jeder switch</text>
+</svg>
+<ul>
+<li>Philip Wadler, 1998: das <strong>Expression Problem</strong> – kein Modell macht beides billig</li>
+<li>Datenorientiert lohnt sich, wo die <strong>Fälle feststehen</strong> und die <strong>Operationen wachsen</strong></li>
+</ul>
+<h2 id="die-idee-ist-älter-als-java">Die Idee ist älter als Java</h2>
+<svg class="grafik" viewBox="0 0 1000 250" role="img" aria-label="Zeitleiste: 1980 Hope, Datentypen mit Mustern; 1990 Haskell, algebraische Datentypen; 1998 Wadler, „Expression Problem“; um 2010 Minsky, „illegal states unrepresentable“; 2021 Java 16/17, Records, sealed; 2022 Goetz, „Data-Oriented Programming“; 2023 Java 21, Muster im switch.">
+  <line class="linie" x1="95" y1="150" x2="915" y2="150"/>
+  <circle class="punkt" cx="95" cy="150" r="11"/>
+  <text x="95" y="88" text-anchor="middle" font-size="19" font-weight="700">Hope</text>
+  <text class="leise" x="95" y="112" text-anchor="middle" font-size="15">Datentypen mit Mustern</text>
+  <text x="95" y="190" text-anchor="middle" font-size="16">1980</text>
+  <circle class="punkt" cx="232" cy="150" r="11"/>
+  <text x="232" y="126" text-anchor="middle" font-size="16">1990</text>
+  <text x="232" y="198" text-anchor="middle" font-size="19" font-weight="700">Haskell</text>
+  <text class="leise" x="232" y="222" text-anchor="middle" font-size="15">algebraische Datentypen</text>
+  <circle class="punkt" cx="368" cy="150" r="11"/>
+  <text x="368" y="88" text-anchor="middle" font-size="19" font-weight="700">Wadler</text>
+  <text class="leise" x="368" y="112" text-anchor="middle" font-size="15">„Expression Problem“</text>
+  <text x="368" y="190" text-anchor="middle" font-size="16">1998</text>
+  <circle class="punkt" cx="505" cy="150" r="11"/>
+  <text x="505" y="126" text-anchor="middle" font-size="16">um 2010</text>
+  <text x="505" y="198" text-anchor="middle" font-size="19" font-weight="700">Minsky</text>
+  <text class="leise" x="505" y="222" text-anchor="middle" font-size="15">„illegal states unrepresentable“</text>
+  <circle class="punkt punkt--java" cx="642" cy="150" r="11"/>
+  <text x="642" y="88" text-anchor="middle" font-size="19" font-weight="700">Java 16/17</text>
+  <text class="leise" x="642" y="112" text-anchor="middle" font-size="15">Records, sealed</text>
+  <text x="642" y="190" text-anchor="middle" font-size="16">2021</text>
+  <circle class="punkt punkt--java" cx="778" cy="150" r="11"/>
+  <text x="778" y="126" text-anchor="middle" font-size="16">2022</text>
+  <text x="778" y="198" text-anchor="middle" font-size="19" font-weight="700">Goetz</text>
+  <text class="leise" x="778" y="222" text-anchor="middle" font-size="15">„Data-Oriented Programming“</text>
+  <circle class="punkt punkt--java" cx="915" cy="150" r="11"/>
+  <text x="915" y="88" text-anchor="middle" font-size="19" font-weight="700">Java 21</text>
+  <text class="leise" x="915" y="112" text-anchor="middle" font-size="15">Muster im switch</text>
+  <text x="915" y="190" text-anchor="middle" font-size="16">2023</text>
+</svg>
+<ul>
+<li>Aus der funktionalen Programmierung: <strong>algebraische Datentypen</strong> und Muster darauf</li>
+<li>Scala und Kotlin hatten es vor Java – Java holt es im Projekt <strong>Amber</strong> nach</li>
+</ul>
+<h2 id="zwei-bausteine-und-und-oder">Zwei Bausteine: UND und ODER</h2>
+<svg class="grafik" viewBox="0 0 1000 200" role="img" aria-label="Links ein Record als Produkttyp: Kreditkarte ist nummer UND gültigBis. Rechts eine versiegelte Schnittstelle als Summentyp: Zahlart ist Rechnung ODER Lastschrift ODER Kreditkarte ODER PayPal.">
+  <text x="230" y="40" text-anchor="middle" font-size="20" font-weight="700">record – UND</text>
+  <rect class="kasten" x="40" y="70" width="380" height="110" rx="10"/>
+  <text x="60" y="100" font-size="17" font-weight="700">Kreditkarte</text>
+  <rect class="feld" x="60" y="118" width="150" height="44" rx="6"/>
+  <text x="135" y="146" text-anchor="middle" font-size="17">nummer</text>
+  <text class="akzent" x="230" y="148" text-anchor="middle" font-size="24" font-weight="700">×</text>
+  <rect class="feld" x="250" y="118" width="150" height="44" rx="6"/>
+  <text x="325" y="146" text-anchor="middle" font-size="17">gültigBis</text>
+  <text x="735" y="40" text-anchor="middle" font-size="20" font-weight="700">sealed – ODER</text>
+  <rect class="kasten" x="480" y="70" width="510" height="110" rx="10"/>
+  <text x="500" y="100" font-size="17" font-weight="700">Zahlart</text>
+  <rect class="feld" x="500" y="118" width="100" height="44" rx="6"/>
+  <text x="550" y="146" text-anchor="middle" font-size="15">Rechnung</text>
+  <text class="akzent" x="611" y="148" text-anchor="middle" font-size="24" font-weight="700">|</text>
+  <rect class="feld" x="622" y="118" width="100" height="44" rx="6"/>
+  <text x="672" y="146" text-anchor="middle" font-size="15">Lastschrift</text>
+  <text class="akzent" x="733" y="148" text-anchor="middle" font-size="24" font-weight="700">|</text>
+  <rect class="feld" x="744" y="118" width="100" height="44" rx="6"/>
+  <text x="794" y="146" text-anchor="middle" font-size="15">Kreditkarte</text>
+  <text class="akzent" x="855" y="148" text-anchor="middle" font-size="24" font-weight="700">|</text>
+  <rect class="feld" x="866" y="118" width="100" height="44" rx="6"/>
+  <text x="916" y="146" text-anchor="middle" font-size="15">PayPal</text>
+</svg>
+<pre><code class="language-java">record Kreditkarte(String nummer, YearMonth gültigBis) implements Zahlart { }
+sealed interface Zahlart permits Rechnung, Lastschrift, Kreditkarte, PayPal { }
+</code></pre>
+<ul>
+<li>Ein <strong>Record</strong> ist ein Produkttyp, ein <strong>versiegelter</strong> Typ ein Summentyp</li>
+</ul>
+<h2 id="vier-grundsätze--und-was-java-dafür-hat">Vier Grundsätze – und was Java dafür hat</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Grundsatz</th>
+					<th>In Java</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Modelliere die Daten, die ganzen Daten und nichts als die Daten</td>
+					<td><code>record</code> – die Komponenten sind die ganze Klasse</td>
+			</tr>
+			<tr>
+					<td>Daten sind unveränderlich</td>
+					<td>Die Felder eines Records sind <code>final</code></td>
+			</tr>
+			<tr>
+					<td>Prüfe an der Grenze</td>
+					<td>Der kompakte Konstruktor prüft einmal, beim Erzeugen</td>
+			</tr>
+			<tr>
+					<td>Mache ungültige Zustände nicht darstellbar</td>
+					<td><code>sealed</code> – je Zustand ein eigener Record</td>
+			</tr>
+	</tbody>
+</table>
+<p class="quelle">Brian Goetz: „Data Oriented Programming in Java“, InfoQ, Juni 2022</p>
+<h2 id="ungültige-zustände-gar-nicht-erst-bauen-können">Ungültige Zustände gar nicht erst bauen können</h2>
+<div class="zwei">
+<div>
+<h3 id="vorher">Vorher</h3>
+<pre><code class="language-java">class Zahlung {
+    Status status;        // OFFEN, BEZAHLT, ERSTATTET
+    LocalDate bezahltAm;  // nur bei BEZAHLT, ERSTATTET
+    BigDecimal erstattet; // nur bei ERSTATTET
+}
+</code></pre>
+</div>
+<div>
+<h3 id="nachher">Nachher</h3>
+<pre><code class="language-java">sealed interface Zahlung
+        permits Offen, Bezahlt, Erstattet { }
+record Offen() implements Zahlung { }
+record Bezahlt(LocalDate am) implements Zahlung { }
+record Erstattet(LocalDate am, BigDecimal betrag)
+        implements Zahlung { }
+</code></pre>
+</div>
+</div>
+<ul>
+<li>Vorher sagt nur ein <strong>Kommentar</strong>, welche Felder gelten</li>
+<li>Nachher lässt sich „erstattet, aber nie bezahlt“ <strong>nicht einmal hinschreiben</strong></li>
+</ul>
+<p class="quelle">„Make illegal states unrepresentable“ – Yaron Minsky, „Effective ML“ (Jane Street)</p>
+<h2 id="java-setzt-es-in-schritten-um">Java setzt es in Schritten um</h2>
+<table>
+	<thead>
+			<tr>
+					<th>JEP</th>
+					<th>Sprachmittel</th>
+					<th>Rolle</th>
+					<th>Final</th>
+					<th>LTS</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>395</td>
+					<td>Records</td>
+					<td>Produkttyp – UND</td>
+					<td>16</td>
+					<td>17</td>
+			</tr>
+			<tr>
+					<td>409</td>
+					<td>Sealed Classes</td>
+					<td>Summentyp – ODER</td>
+					<td>17</td>
+					<td>17</td>
+			</tr>
+			<tr>
+					<td>394</td>
+					<td>Muster für <code>instanceof</code></td>
+					<td>Typ prüfen und binden</td>
+					<td>16</td>
+					<td>17</td>
+			</tr>
+			<tr>
+					<td>441</td>
+					<td>Muster im <code>switch</code></td>
+					<td>Fallunterscheidung, vollständig über <code>sealed</code></td>
+					<td>21</td>
+					<td>21</td>
+			</tr>
+			<tr>
+					<td>440</td>
+					<td>Record-Patterns</td>
+					<td>Daten zerlegen</td>
+					<td>21</td>
+					<td>21</td>
+			</tr>
+			<tr>
+					<td>456</td>
+					<td>Unbenannte Muster <code>_</code></td>
+					<td>Unwichtiges weglassen</td>
+					<td>22</td>
+					<td>25</td>
+			</tr>
+			<tr>
+					<td>468</td>
+					<td>Abgeleitete Records (<code>with</code>)</td>
+					<td>Ändern durch Kopieren</td>
+					<td>Kandidat</td>
+					<td>–</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="alles-zusammen">Alles zusammen</h2>
+<pre><code class="language-java">sealed interface Zahlart permits Rechnung, Lastschrift, Kreditkarte, PayPal { }
+record Rechnung(int tage) implements Zahlart { }
+record Lastschrift(String iban) implements Zahlart { }
+record Kreditkarte(String nummer, YearMonth gültigBis) implements Zahlart { }
+record PayPal(String konto) implements Zahlart { }
+
+static String beschreibe(Zahlart zahlart) {
+    return switch (zahlart) {
+        case Rechnung(var tage) when tage == 0 -&gt; &quot;Rechnung, sofort zahlbar&quot;;
+        case Rechnung(var tage) -&gt; &quot;Rechnung, zahlbar in &quot; + tage + &quot; Tagen&quot;;
+        case Lastschrift(var iban) -&gt; &quot;Lastschrift von &quot; + iban;
+        case Kreditkarte(var nummer, var gültigBis) -&gt; &quot;Kreditkarte bis &quot; + gültigBis;
+        case PayPal(var konto) -&gt; &quot;PayPal (&quot; + konto + &quot;)&quot;;
+    };   // kein default: Eine neue Zahlart ist ein Übersetzungsfehler
+}
+</code></pre>
+<h2 id="kein-ersatz-für-objektorientierung">Kein Ersatz für Objektorientierung</h2>
+<div class="zwei">
+<div>
+<h3 id="klasse-mit-verhalten">Klasse mit Verhalten</h3>
+<ul>
+<li>Fachobjekte mit <strong>Identität</strong> und Zustand – Bestellung, Konto</li>
+<li>Neue Arten kommen <strong>von außen</strong> – Plugins, Frameworks</li>
+<li><strong>Grenzen</strong> ziehen und verteidigen – Kapselung, Invarianten</li>
+</ul>
+</div>
+<div>
+<h3 id="records-sealed-switch">Records, <code>sealed</code>, <code>switch</code></h3>
+<ul>
+<li><strong>Werte</strong>, Nachrichten, DTOs, Ergebnisse</li>
+<li>Die Fälle <strong>stehen fest</strong>, und der Compiler soll sie kennen</li>
+<li><strong>Viele Operationen</strong> über dieselben Daten – Darstellung, Export, Prüfung</li>
+</ul>
+</div>
+</div>
+<p class="quelle">Objektorientierung ist „at its best when it is defining and defending boundaries“ – Brian Goetz, InfoQ 2022</p>
+<h2 id="wo-steckt-bei-euch-eine-fallunterscheidung-die-ein-versiegelter-typ-sein-will">Wo steckt bei Euch eine Fallunterscheidung, die ein versiegelter Typ sein will?</h2>
+<ul>
+<li>Eine <code>if</code>-Kette über <code>instanceof</code>, ein Enum mit Feldern, die nur manchmal gelten, ein Visitor</li>
+<li>Zum Weiterlesen:
+<ul>
+<li><a href="https://www.infoq.com/articles/data-oriented-programming-java/">Brian Goetz: Data Oriented Programming in Java</a></li>
+<li><a href="https://nipafx.dev/dop/">Nicolai Parlog: Data-Oriented Programming – Version 1.1</a></li>
+<li><a href="https://homepages.inf.ed.ac.uk/wadler/papers/expression/expression.txt">Philip Wadler: The Expression Problem</a></li>
+</ul>
+</li>
+</ul>
+
+  </main>
+  <nav class="skr-present__controls" aria-label="Foliennavigation" hidden data-skr-present-controls>
+    <button type="button" class="skr-present__nav" data-skr-present-prev
+            title="Vorherige Folie (←)" aria-label="Vorherige Folie"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="skr-present__nav" data-skr-present-next
+            title="Nächste Folie (→)" aria-label="Nächste Folie"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+  </nav>
+  <div class="skr-present__progress" aria-hidden="true">
+    <div class="skr-present__progress-fill" data-skr-present-progress></div>
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

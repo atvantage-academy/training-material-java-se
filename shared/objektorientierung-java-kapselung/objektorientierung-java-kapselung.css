@@ -28,7 +28,7 @@
 .ojk-card p:last-child{margin-bottom:0;}
 .ojk-card pre{margin:0;overflow-x:auto;}
 .ojk-card pre + p{margin-top:.6rem;}
-.ojk-root pre code.hljs{border-radius:var(--skr-radius-lg,8px);font-size:.8rem;line-height:1.5;}
+.ojk-root pre code.hljs{border-radius:var(--skr-radius-lg,8px);line-height:1.5;}
 
 /* Gegenüberstellung richtig/falsch – für die Assoziations-Falle */
 .ojk-card--good{border-left:4px solid var(--skr-color-accent,#FF5401);}

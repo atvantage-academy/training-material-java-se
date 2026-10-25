@@ -2,7 +2,7 @@
 .sk-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
 .sk-buehne{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1.25rem;align-items:start;margin:0 0 1rem;}
 @media (max-width:860px){.sk-buehne{grid-template-columns:minmax(0,1fr);}}
-.sk-code{margin:0;overflow-x:auto;font-size:.78rem;line-height:1.55;border-radius:var(--skr-radius,8px);}
+.sk-code{margin:0;overflow-x:auto;line-height:1.55;border-radius:var(--skr-radius,8px);}
 .sk-code code{display:block;padding:.8rem 1rem;white-space:pre;min-width:max-content;}
 .sk-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
 .sk-titel code{text-transform:none;letter-spacing:0;}
@@ -19,4 +19,22 @@
 .sk-regeln{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:0 0 1rem;}
 .sk-regel{padding:.8rem .9rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
 .sk-regel p{margin:.3rem 0;}
-.sk-regel pre{margin:.5rem 0 0;overflow-x:auto;font-size:.75rem;}
+.sk-regel pre{margin:.5rem 0 0;overflow-x:auto;}
+.sk-bild{margin:0 0 .75rem;}
+.sk-diagramm{display:block;width:100%;height:auto;}
+.sk-kasten rect{fill:var(--skr-color-bg-subtle);stroke:var(--skr-color-border);stroke-width:1.5;}
+.sk-kasten--sealed rect{stroke:var(--skr-color-accent);stroke-width:2;}
+.sk-kasten--offen rect{stroke:var(--skr-color-warning);stroke-width:2;stroke-dasharray:6 3;}
+.sk-kasten--fehler rect{stroke:var(--skr-color-danger);stroke-width:2;stroke-dasharray:4 3;}
+.sk-kasten text{text-anchor:middle;font-family:var(--skr-font-mono,monospace);}
+.sk-art{font-size:11px;fill:var(--skr-color-ink-muted);}
+.sk-kasten--fehler .sk-art{fill:var(--skr-color-danger-ink);font-weight:700;}
+.sk-name{font-size:14px;font-weight:700;fill:var(--skr-color-ink);}
+.sk-linie{fill:none;stroke:var(--skr-color-ink-muted);stroke-width:1.5;}
+.sk-pfeil{fill:var(--skr-color-bg);stroke:var(--skr-color-ink-muted);stroke-width:1.5;}
+.sk-zeile{margin:0 0 1.5rem;}
+.sk-kasten{cursor:pointer;}
+.sk-kasten:hover rect,.sk-kasten:focus-visible rect{stroke:var(--skr-color-accent);}
+.sk-kasten:focus{outline:none;}
+.sk-kasten:focus-visible rect{stroke-width:3;}
+.sk-kasten--gewaehlt rect{stroke-width:3.5;fill:var(--skr-color-bg);}

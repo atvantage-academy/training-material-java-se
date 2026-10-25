@@ -1,0 +1,30 @@
+.sv-lead{color:var(--skr-color-ink-muted);margin:0 0 .75rem;}
+.sv-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
+.sv-tabelle th[scope="row"]{white-space:nowrap;}
+.sv-buehne{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.25rem;align-items:start;margin:0 0 1.5rem;}
+@media (max-width:860px){.sv-buehne{grid-template-columns:minmax(0,1fr);}}
+.sv-code{margin:0 0 .75rem;overflow-x:auto;line-height:1.55;border-radius:var(--skr-radius,8px);}
+.sv-code code{display:block;white-space:pre;min-width:max-content;}
+/* Die aktive Zeile wie in „Das Modulsystem“: fett, mit Rahmen in der Akzentfarbe –
+   kein eigener Hintergrund, der den Kontrast zum Code-Thema bricht. */
+.sv-zeile--aktiv{display:inline-block;min-width:100%;font-weight:700;outline:2px solid var(--skr-color-accent);outline-offset:-1px;border-radius:3px;}
+.sv-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
+.sv-titel code{text-transform:none;letter-spacing:0;}
+.sv-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;}
+.sv-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.sv-knopf:hover:not(:disabled){border-color:var(--skr-color-accent);}
+.sv-knopf:disabled{opacity:.5;cursor:default;}
+.sv-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.sv-stapel{display:flex;flex-direction:column;gap:.35rem;margin:0 0 1rem;min-height:5.2rem;}
+.sv-bindung{padding:.45rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg-subtle);font-family:var(--skr-font-mono,monospace);color:var(--skr-color-ink-muted);}
+.sv-bindung small{font-family:var(--skr-font-sans,inherit);margin-left:.4rem;}
+.sv-bindung--gilt{border-color:var(--skr-color-accent);border-width:2px;color:var(--skr-color-ink);font-weight:700;}
+.sv-bindung--leer{border-style:dashed;}
+.sv-ausgabe{margin:0 0 .75rem;min-height:5.5rem;}
+.sv-erklaerung{margin:0;padding:.7rem .9rem;border-left:4px solid var(--skr-color-accent);background:var(--skr-color-bg-subtle);border-radius:var(--skr-radius,6px);}
+.sv-urteil{padding:.7rem .9rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
+.sv-urteil p{margin:.3rem 0;}
+.sv-meldung{margin:.4rem 0;}
+.sv-ergebnis{font-weight:700;}
+.sv-ergebnis--gut{color:var(--skr-color-success-ink);}
+.sv-ergebnis--schlecht{color:var(--skr-color-danger-ink);}

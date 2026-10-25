@@ -1,0 +1,30 @@
+/* Eigene Bausteine dieser Präsentation. Farben ausschließlich aus Theme-Tokens;
+   Flächen per color-mix gegen --skr-color-bg, damit Light und Dark ohne
+   zweiten Regelsatz stimmen. Alle Grafiken sind inline-SVG, Text in currentColor. */
+.skr-slide { justify-content: center; justify-content: safe center; }
+.skr-slide h2 { margin-bottom: var(--skr-space-6); }
+.skr-slide__inner > ul { margin-top: var(--skr-space-6); }
+
+.grafik { width: 100%; height: auto; display: block; color: var(--skr-color-ink); }
+.grafik text { fill: currentColor; font-family: inherit; }
+.grafik .leise { fill: var(--skr-color-ink-muted); }
+.grafik .akzent { fill: var(--skr-color-accent-ink, var(--skr-color-accent)); font-weight: 700; }
+.grafik .teuer { fill: var(--skr-color-danger-ink, var(--skr-color-danger)); font-weight: 700; }
+.grafik .linie { stroke: var(--skr-color-ink-muted); stroke-width: 4; }
+.grafik .punkt { fill: var(--skr-color-bg); stroke: var(--skr-color-ink-muted); stroke-width: 4; }
+.grafik .punkt--java { fill: var(--skr-color-accent); stroke: var(--skr-color-accent); }
+.grafik .zelle { fill: color-mix(in srgb, var(--skr-color-ink) 10%, var(--skr-color-bg)); }
+.grafik .zelle--neu { fill: none; stroke: var(--skr-color-border); stroke-width: 2; stroke-dasharray: 5 4; }
+.grafik .zelle--teuer { fill: none; stroke: var(--skr-color-danger); stroke-width: 3; stroke-dasharray: 6 4; }
+.grafik .gruppe { fill: none; stroke: var(--skr-color-ink-muted); stroke-width: 2; }
+.grafik .gruppe--leicht { stroke: var(--skr-color-accent); stroke-width: 4; }
+.grafik .kasten { fill: color-mix(in srgb, var(--skr-color-primary) 10%, var(--skr-color-bg)); stroke: var(--skr-color-primary); stroke-width: 2; }
+.grafik .feld { fill: var(--skr-color-bg); stroke: var(--skr-color-border); stroke-width: 2; }
+
+/* Zwei Spalten nebeneinander – Vorher/Nachher, Gegenüberstellung */
+.zwei { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--skr-space-6); align-items: start; }
+.zwei pre { margin: 0; }
+.zwei h3 { margin: 0 0 var(--skr-space-2); font-size: .8em; }
+@media (max-width: 800px) { .zwei { grid-template-columns: minmax(0, 1fr); } }
+
+.quelle { font-size: .55em; color: var(--skr-color-ink-muted); margin-top: var(--skr-space-4); }

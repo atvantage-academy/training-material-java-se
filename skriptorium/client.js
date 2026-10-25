@@ -79,14 +79,23 @@
      leer (`open=`) bedeutet dann "alles zu", sonst ließe sich ein geschlossener
      Standard-Aufklapper nicht ausdrücken.
 
-     AUF LAYOUTS MIT EIGENEN FRAGMENTEN HÄLT DIESE STELLE STILL. Meldet ein Layout
-     Fragmente an, die erst im Browser entstehen (`fragments`, etwa `#/3`
-     der Präsentation), gehört das Fragment ihm, und ein zweiter Schreiber
-     zerschösse die Folien- oder Schrittnummer.
+     LAYOUTS MIT EIGENEN FRAGMENTEN DELEGIEREN IHREN TEIL. Meldet ein Layout
+     Fragmente an, die erst im Browser entstehen (`fragments`, etwa `#/3` der
+     Präsentation), schreibt es sie nicht selbst, sondern meldet sich hier an:
+
+         skr.state.layout({ read, apply })
+             - `read` liefert den Teil des Layouts (`3`), `apply` stellt ihn her.
+
+     Dann gehört ihm der Teil zwischen `#/` und `?` - an der Stelle, an der sonst
+     die Sprungmarke steht -, den Bausteinen der Teil ab `?`: `#/3?open=a,b`. So
+     bleibt es bei EINEM Schreiber, und keiner zerschießt dem anderen seinen Teil.
+     Ein Layout, das Fragmente anmeldet, ohne sich anzumelden, behält das Fragment
+     für sich allein: Dort hält diese Stelle still.
      ========================================================================== */
   var State = (function () {
     var parts = [];        /* {key, read, apply, standard} */
     var disclosures = [];    /* {id, exclusive, isOpen, set} */
+    var owner = null;     /* das Layout, dem der Teil vor `?` gehört: {read, apply} */
     var ready = false;    /* erst nach dem ersten `apply()` wird geschrieben */
     var applying = false;
 
@@ -96,12 +105,29 @@
       try { return ((JSON.parse(block.textContent) || {}).runtimeFragments || []).length > 0; } catch (e) { return false; }
     }
 
+    /* Was das Layout liefert, steht genau so in der Adresse; leer heißt: kein Teil. */
+    function ownerPath() {
+      var value;
+      try { value = owner.read(); } catch (e) { return ""; }
+      return (value === null || value === undefined) ? "" : String(value);
+    }
+
+    /* Den Teil des Layouts herstellen - VOR den Bausteinen, denn die stehen womöglich
+       auf einer Folie oder in einem Schritt, den erst das Layout herstellt. */
+    function applyOwner() {
+      if (!owner) { return; }
+      var path = address().path;
+      if (!path) { return; }
+      try { owner.apply(path); } catch (e) { /* ein Layout darf scheitern */ }
+    }
+
     /* Aus dem Fragment werden Sprungmarke und Werte. Alles, was nicht mit `/`
-       beginnt, ist eine gewöhnliche Sprungmarke und hat keine Werte. */
+       beginnt, ist eine gewöhnliche Sprungmarke und hat keine Werte. Hat sich ein
+       Layout angemeldet, ist der Teil vor `?` seiner (`path`) und keine Sprungmarke. */
     function address() {
       var raw = location.hash || "";
       if (raw.charAt(0) === "#") { raw = raw.slice(1); }
-      if (raw.charAt(0) !== "/") { return { anchor: decode(raw), values: {} }; }
+      if (raw.charAt(0) !== "/") { return { anchor: owner ? "" : decode(raw), path: "", values: {} }; }
       raw = raw.slice(1);
       var sep = raw.indexOf("?");
       var anchor = decode(sep === -1 ? raw : raw.slice(0, sep));
@@ -114,7 +140,7 @@
           values[k] = decode(i === -1 ? "" : pair.slice(i + 1));
         });
       }
-      return { anchor: anchor, values: values };
+      return owner ? { anchor: "", path: anchor, values: values } : { anchor: anchor, path: "", values: values };
     }
 
     /* Eine von Hand getippte Adresse darf kaputt sein - sie führt dann in den
@@ -126,6 +152,12 @@
     function encode(text) {
       /* Kommas bleiben lesbar: `open=a,b` ist eine Liste, keine Kodierung. */
       return encodeURIComponent(text).replace(/%2C/g, ",");
+    }
+
+    /* Der Teil des Layouts behält seine Schrägstriche: `schritte/2` steht so in der
+       Adresse, wie das Layout es unter `fragments` anmeldet. */
+    function encodePath(text) {
+      return encode(text).replace(/%2F/g, "/");
     }
 
     function valuesNow() {
@@ -146,15 +178,17 @@
          `update()` in dem Moment, in dem die halbe Seite hergestellt ist. Wer
          dann schreibt, ueberschreibt die Adresse mit einem Zwischenstand - und
          der Rest der Liste ist danach weg. */
-      if (!ready || applying || foreignFragment()) { return; }
+      if (!ready || applying || (!owner && foreignFragment())) { return; }
       var now = address();
       var values = valuesNow();
       var key = Object.keys(values);
+      /* Mit Layout steht vorn sein Teil, sonst die Sprungmarke. */
+      var head = owner ? encodePath(ownerPath()) : encode(now.anchor);
       var fresh;
       if (!key.length) {
-        fresh = now.anchor ? "#" + encode(now.anchor) : "";
+        fresh = !head ? "" : owner ? "#/" + head : "#" + head;
       } else {
-        fresh = "#/" + encode(now.anchor) + "?" + key.map(function (k) {
+        fresh = "#/" + head + "?" + key.map(function (k) {
           return encode(k) + "=" + encode(values[k]);
         }).join("&");
       }
@@ -166,12 +200,27 @@
       window.dispatchEvent(new CustomEvent("skr-urlchange"));
     }
 
+    /* NUR DER TEIL DES LAYOUTS, der Rest ab `?` bleibt, wie er dasteht: Ein Baustein,
+       der sich erst später anmeldet, fände seinen Wert sonst nicht mehr vor. */
+    function writeOwner() {
+      if (!owner || !ready) { return; }
+      var raw = location.hash || "";
+      var rest = raw.charAt(1) === "/" ? raw.replace(/^[^?]*/, "") : "";
+      var head = ownerPath();
+      var fresh = head || rest ? "#/" + encodePath(head) + rest : "";
+      if (fresh === raw) { return; }
+      if (!window.history || !window.history.replaceState) { return; }
+      window.history.replaceState(null, "", fresh || (location.pathname + location.search));
+      window.dispatchEvent(new CustomEvent("skr-urlchange"));
+    }
+
     /* NUR SCHLÜSSEL, DIE DASTEHEN, werden angewendet. Ein fehlender Schlüssel ist
        keine Aussage "alles zu", sondern gar keine - sonst schlösse der erste
        Seitenaufruf jeden Abschnitt, den der Autor offen geschrieben hat. */
     function apply() {
       applying = true;
       window.setTimeout(function () { applying = false; }, 0);
+      applyOwner();
       var values = address().values;
       parts.forEach(function (t) {
         if (!Object.prototype.hasOwnProperty.call(values, t.key)) { return; }
@@ -184,7 +233,7 @@
        Zustand aufgeht. Deshalb erst anwenden, dann springen. */
     function jump() {
       var raw = location.hash || "";
-      if (raw.slice(0, 2) !== "#/") { return; }
+      if (raw.slice(0, 2) !== "#/" || owner) { return; }
       var anchor = address().anchor;
       if (!anchor) { return; }
       var target = document.getElementById(anchor);
@@ -276,14 +325,33 @@
         parts.push(t);
         backfill(t);
       },
-      /* Nach jeder Bedienung aufrufen. */
+      /* Das Layout, dem der Teil des Fragments vor `?` gehört (`#/3?…`). Höchstens
+         eines je Seite. Sein Teil wird sofort hergestellt - das Layout soll nicht
+         erst mit der ersten Folie aufbauen und dann springen. */
+      layout: function (o) {
+        if (!o || typeof o.read !== "function" || typeof o.apply !== "function") { return; }
+        if (owner) {
+          if (window.console) { window.console.warn("skr.state.layout: an dieser Seite hat sich schon ein Layout angemeldet"); }
+          return;
+        }
+        owner = o;
+        applyOwner();
+      },
+      /* Nach jeder Bedienung aufrufen - Bausteine wie Layouts. */
       update: writeState,
       /* Die Sprungmarke der Adresse - für Bausteine, die tiefe Verweise auf
-         Inhalte in sich selbst auflösen müssen. */
+         Inhalte in sich selbst auflösen müssen. Gehört der Teil einem Layout, leer. */
       anchor: function () { return address().anchor; },
       /* Zustand aus der Adresse herstellen. Ruft das Theme selbst auf: einmal nach
          dem Aufbau der Seite und bei jedem `hashchange`. */
-      restore: function () { apply(); jump(); },
+      restore: function () {
+        apply();
+        jump();
+        /* MIT LAYOUT STEHT SEIN TEIL IMMER DA (`#/1` schon beim Laden, `#/99` wird
+           zur letzten Folie). Erst nach dem Herstellen: Bis dahin ist nicht klar,
+           wo das Layout steht. */
+        if (owner) { window.setTimeout(writeOwner, 0); }
+      },
       /* Ab hier darf geschrieben werden (nach dem ersten Herstellen). */
       ready: function () { ready = true; }
     };
@@ -1576,9 +1644,9 @@
          auf eine Folie, die längst weitergeblättert ist.
 
          Zwei Ereignisse, weil eines nicht genügt: `hashchange` deckt Sprungmarken
-         und Vor/Zurück ab; die Präsentation setzt das Fragment aber per
+         und Vor/Zurück ab; `skr.state` setzt das Fragment aber per
          `history.replaceState`, und das löst kein `hashchange` aus – dafür sendet
-         presentation.js `skr-urlchange`. */
+         es `skr-urlchange`. */
       window.addEventListener("hashchange", render);
       window.addEventListener("skr-urlchange", render);
 
@@ -2488,7 +2556,7 @@
     if (!document.querySelector("[data-skr-present]")) return null;
     function slides() { return document.querySelectorAll(".skr-deck__track > .skr-slide").length; }
     function current() {
-      var m = /^#\/(\d+)$/.exec(location.hash || "");
+      var m = /^#\/(\d+)(?:\?|$)/.exec(location.hash || "");
       return m ? parseInt(m[1], 10) : 1;
     }
     function button(name) {
@@ -2501,7 +2569,9 @@
       goTo: function (n) {
         var number = Math.round(Number(n));
         if (!isFinite(number)) throw new TypeError("skr.presentation.goTo: Foliennummer erwartet");
-        location.hash = "#/" + Math.max(1, Math.min(slides() || 1, number));
+        /* Der Zustand der Seite ab `?` bleibt stehen. */
+        var rest = (location.hash || "").replace(/^[^?]*/, "");
+        location.hash = "#/" + Math.max(1, Math.min(slides() || 1, number)) + rest;
       },
       next: function () { button("next"); },
       prev: function () { button("prev"); }
@@ -2572,7 +2642,9 @@
       description: s.description === undefined ? null : s.description,
       duration: s.duration === undefined ? null : s.duration,
       topics: Array.isArray(s.topics) ? s.topics.slice() : [],
-      languages: (languages || []).slice()
+      languages: (languages || []).slice(),
+      /* Eine unübersetzte Fassung (ADR-0200): die Sprache ihres Inhalts, sonst null. */
+      untranslated: s.untranslated || null
     });
   }
 
@@ -2581,7 +2653,7 @@
     var per = index && index.pages && index.pages[slug];
     if (!per || !per[language]) return null;
     return pageObject(slug, language, per[language],
-      (index.languages || []).filter(function (c) { return !!per[c]; }));
+      (index.languages || []).filter(function (c) { return !!per[c] && !per[c].untranslated; }));
   }
 
   function pageInfo(slug, language) {

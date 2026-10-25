@@ -18,10 +18,10 @@
 .si-art--verfuegbar{color:var(--skr-color-success-ink);}
 .si-art--preview{color:var(--skr-color-warning-ink);}
 .si-art--zurueck{color:var(--skr-color-danger-ink);}
-.si-code{margin:0 0 .75rem;overflow-x:auto;font-size:.8rem;line-height:1.55;border-radius:var(--skr-radius,8px);}
+.si-code{margin:0 0 .75rem;overflow-x:auto;line-height:1.55;border-radius:var(--skr-radius,8px);}
 .si-code code{display:block;padding:.8rem 1rem;white-space:pre;min-width:max-content;}
 .si-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
-.si-ausgabe{margin:0;padding:.6rem 1rem;font-size:.85rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);color:var(--skr-color-ink);white-space:pre-wrap;}
+.si-ausgabe{margin:0;padding:.6rem 1rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);color:var(--skr-color-ink);white-space:pre-wrap;}
 .si-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .75rem;}
 .si-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
 .si-knopf:hover{border-color:var(--skr-color-accent);}

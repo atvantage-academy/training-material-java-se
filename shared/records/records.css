@@ -2,7 +2,7 @@
 .rec-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
 .rec-buehne{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1.25rem;align-items:start;}
 @media (max-width:860px){.rec-buehne{grid-template-columns:minmax(0,1fr);}}
-.rec-quelle pre{margin:0;overflow-x:auto;font-size:.8rem;}
+.rec-quelle pre{margin:0;overflow-x:auto;}
 .rec-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
 .rec-wahl .rec-titel + .rec-knoepfe{margin-bottom:1rem;}
 .rec-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;}
@@ -12,7 +12,7 @@
 .rec-erklaerung{margin:1.25rem 0 0;padding:1rem 1.1rem;border:1px solid var(--skr-color-border);border-left:4px solid var(--skr-color-accent);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
 .rec-erklaerung h3{margin:0 0 .4rem;font-size:1.15rem;color:var(--skr-color-headline);}
 .rec-erklaerung p{margin:.4rem 0;}
-.rec-erklaerung pre{margin:.6rem 0 0;overflow-x:auto;font-size:.78rem;white-space:pre;}
+.rec-erklaerung pre{margin:.6rem 0 0;overflow-x:auto;white-space:pre;}
 .rec-art{display:inline-block;font-size:.75rem;font-weight:700;margin:0 0 .3rem;}
 .rec-art--ja{color:var(--skr-color-success-ink);}
 .rec-art--nein{color:var(--skr-color-danger-ink);}

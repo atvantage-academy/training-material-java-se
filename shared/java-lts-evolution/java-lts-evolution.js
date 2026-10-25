@@ -107,7 +107,7 @@
 
         const JEV_START = 1996, JEV_END = 2026, JEV_YH = 120;
         const JEV_LTS = [8, 11, 17, 21, 25];
-        let jevTimeline, jevModal, jevCurrent = [];
+        let jevTimeline, jevModal, jevOpenVersion = null;
 
         // Die Codeblöcke dieser Seite entstehen erst per JavaScript (Zeitleiste, Modal).
         // Gefärbt werden sie über die Hervorhebung des Skriptoriums (`skr.highlight`):
@@ -134,6 +134,14 @@
             }).join(' ') + '</p>';
         }
         function jevSlug(ver){ return 'java-' + ver.toLowerCase().replace(/[^0-9a-z]+/g, '-').replace(/^-+|-+$/g, ''); }
+        // Wert in der Adresse (`#/?version=21`): die Hauptversion, wo es eine gibt, sonst die
+        // Version selbst („1.4“).
+        function jevKey(ver){ var m = ver.match(/\((\d+)\)/); return m ? m[1] : ver; }
+        // ASCII-ID für Sprungziele und die Adresse (`open=java-21-records`).
+        function jevId(s){
+            return s.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+                .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        }
         function jevMajor(ver){ var m = ver.match(/\((\d+)\)/); if (m) return +m[1]; var m2 = ver.match(/^1\.(\d+)/); if (m2) return +m2[1]; var m3 = ver.match(/^(\d+)$/); return m3 ? +m3[1] : 0; }
         function jevIsLts(ver){ return JEV_LTS.indexOf(jevMajor(ver)) !== -1; }
 
@@ -171,12 +179,44 @@
                 n.addEventListener('click', function(){ jevShow(v); });
                 jevTimeline.appendChild(n);
             });
+            jevBuildTabs();
             jevHighlight('#jev-timeline');
-            jevCheckHash();
+            jevHighlight('#jev-modal-body');
+            jevRegisterState();
+        }
+
+        // JE VERSION EIN REITER-BAUSTEIN DES SKRIPTORIUMS (`skr-tabs`), je Feature ein
+        // Reiter. Gebaut wird beim Laden, VOR dem Aufbau des Skriptoriums: Nur Reiter, die
+        // dann im Dokument stehen, macht es zur Leiste und merkt sich den gewählten in der
+        // Adresse (`#/?version=21&open=java-21-records`). Das Modal blendet je Version
+        // ihren Baustein ein.
+        function jevBuildTabs(){
+            var body = document.getElementById('jev-modal-body');
+            body.innerHTML = javaVersions.map(function(v){
+                var gruppe = jevSlug(v.ver);
+                return '<div class="skr-tabs jev-version-tabs" data-jev-version="' + jevEsc(jevKey(v.ver)) + '" hidden>'
+                    + v.features.map(function(f, i){
+                        return '<details class="skr-tabs__panel" name="' + gruppe + '" id="' + gruppe + '-' + jevId(f.title) + '"' + (i === 0 ? ' open' : '') + '>'
+                            + '<summary>' + jevEsc(f.title) + '</summary>'
+                            + jevJepMarken(f)
+                            + '<p class="jev-feature-desc">' + jevEsc(f.desc) + '</p>'
+                            + '<pre><code class="language-java">' + jevEsc(f.code) + '</code></pre>'
+                            + '</details>';
+                    }).join('')
+                    + '</div>';
+            }).join('');
+        }
+
+        // Eine Version, die nicht zu sehen ist, steht wieder auf ihrem ersten Reiter – sonst
+        // bliebe ihre Wahl in der Adresse stehen, auch wenn längst eine andere offen ist.
+        function jevResetTabs(box){
+            var erster = box.querySelector('details.skr-tabs__panel');
+            if (erster && !erster.open) erster.open = true;
         }
 
         function jevShow(v, updateHash){
             if (updateHash === undefined) updateHash = true;
+            jevOpenVersion = v;
             document.getElementById('jev-modal-title').textContent = 'Java ' + v.ver;
             document.getElementById('jev-badge').innerHTML = jevIsLts(v.ver) ? '<span class="jev-badge-lts">LTS Release</span>' : '';
             // Verknüpfung mit der JEP-Landkarte: nur für die LTS-Releases, die dort eine
@@ -191,38 +231,25 @@
             var jevJepBase = jevJepLink.getAttribute('href').split('#')[0];
             jevJep.hidden = [11, 17, 21, 25].indexOf(jevMaj) === -1;
             jevJepLink.setAttribute('href', jevJepBase + '#/?lts=' + jevMaj);
-            document.getElementById('jev-modal-tabs').innerHTML = v.features.map(function(f, i){
-                return '<button type="button" class="jev-tab' + (i === 0 ? ' active' : '') + '" data-jev-tab="' + i + '">' + jevEsc(f.title) + '</button>';
-            }).join('');
-            jevCurrent = v.features;
-            jevRender(v.features[0]);
+            var aktiv = null;
+            document.querySelectorAll('#jev-modal-body .jev-version-tabs').forEach(function(box){
+                box.hidden = box.dataset.jevVersion !== jevKey(v.ver);
+                if (box.hidden) jevResetTabs(box); else aktiv = box;
+            });
+            // Erst jetzt sichtbar: Codeblöcke dem Skriptorium melden (`skr-content-added`) –
+            // läuft einer waagerecht über, bekommt er einen Haltepunkt in der Tabulatorreihenfolge.
+            if (aktiv) aktiv.dispatchEvent(new CustomEvent('skr-content-added', { bubbles: true }));
             document.body.classList.add('jev-modal-open');
             jevModal.classList.add('open');
             jevModal.setAttribute('aria-hidden', 'false');
             jevModal.removeAttribute('inert');
-            if (updateHash){ try { history.replaceState(null, '', '#' + jevSlug(v.ver)); } catch (e){ location.hash = jevSlug(v.ver); } }
+            if (updateHash) jevUpdateState();
         }
 
-        function jevTab(btn, idx){
-            var tabs = document.querySelectorAll('#jev-modal-tabs .jev-tab');
-            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-            btn.classList.add('active');
-            jevRender(jevCurrent[idx]);
-        }
-
-        function jevRender(f){
-            document.getElementById('jev-modal-body').innerHTML =
-                '<h3 class="jev-feature-title">' + jevEsc(f.title) + '</h3>'
-                + jevJepMarken(f)
-                + '<p class="jev-feature-desc">' + jevEsc(f.desc) + '</p>'
-                + '<pre><code class="language-java">' + jevEsc(f.code) + '</code></pre>';
-            jevHighlight('#jev-modal-body');
-            // Neu eingesetzte Codeblöcke dem Skriptorium melden (`skr-content-added`): Läuft
-            // einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
-            document.getElementById('jev-modal-body').dispatchEvent(new CustomEvent('skr-content-added', { bubbles: true }));
-        }
-
-        function jevCloseModal(){
+        function jevCloseModal(updateHash){
+            if (updateHash === undefined) updateHash = true;
+            jevOpenVersion = null;
+            document.querySelectorAll('#jev-modal-body .jev-version-tabs').forEach(jevResetTabs);
             var y = window.scrollY;
             jevModal.classList.remove('open');
             jevModal.setAttribute('aria-hidden', 'true');
@@ -232,35 +259,37 @@
             // wanderte in etwas, das niemand sieht und keine Vorlesehilfe ansagt.
             jevModal.setAttribute('inert', '');
             document.body.classList.remove('jev-modal-open');
-            try { history.replaceState(null, '', location.pathname + location.search); } catch (e){ location.hash = ''; }
+            if (updateHash) jevUpdateState();
             window.scrollTo(0, y);
         }
 
         function jevCloseOnExternal(e){ if (e.target === jevModal) jevCloseModal(); }
 
-        function jevCheckHash(){
-            var h = location.hash.slice(1);
-            if (!h) return;
-            var v = null;
-            for (var i = 0; i < javaVersions.length; i++){ if (jevSlug(javaVersions[i].ver) === h){ v = javaVersions[i]; break; } }
-            if (v){
-                jevShow(v, false);
-                var el = document.getElementById(jevSlug(v.ver));
-                if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
-            }
+        // ADRESSE – über skr.state des Skriptoriums, nie selbst ins Fragment schreiben:
+        // Sonst überschreiben sich zwei Schreiber (Erweiterung Didaktikon 1.1.0).
+        function jevUpdateState(){ if (window.skr && window.skr.state) window.skr.state.update(); }
+        function jevRegisterState(){
+            if (!window.skr || !window.skr.state) return;
+            window.skr.state.register({
+                key: 'version',
+                read: function(){ return jevOpenVersion ? jevKey(jevOpenVersion.ver) : ''; },
+                apply: function(wert){
+                    var v = null;
+                    for (var i = 0; i < javaVersions.length; i++){ if (jevKey(javaVersions[i].ver) === wert){ v = javaVersions[i]; break; } }
+                    if (!v){ if (jevOpenVersion) jevCloseModal(false); return; }
+                    jevShow(v, false);
+                    var el = document.getElementById(jevSlug(v.ver));
+                    if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+                }
+            });
         }
 
         document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && jevModal && jevModal.classList.contains('open')) jevCloseModal(); });
-        window.addEventListener('hashchange', jevCheckHash);
         // Bedienung über Ereignisse, nicht über onclick-Attribute im Markup – so läuft die
         // Seite unter einer strengen Content Security Policy.
         function jevBind(){
             document.getElementById('jev-modal').addEventListener('click', jevCloseOnExternal);
             document.querySelector('#jev-modal .jev-close').addEventListener('click', jevCloseModal);
-            document.getElementById('jev-modal-tabs').addEventListener('click', function(e){
-                var b = e.target.closest('[data-jev-tab]');
-                if (b) jevTab(b, +b.dataset.jevTab);
-            });
         }
         function jevStart(){ jevBind(); jevInit(); }
         if (document.readyState !== 'loading') jevStart(); else document.addEventListener('DOMContentLoaded', jevStart);

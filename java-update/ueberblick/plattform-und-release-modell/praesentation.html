@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-present-mark>
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Plattform und Release-Modell · ATVANTAGE Academy</title>
+<meta name="description" content="Wie Java heute erscheint: der Release-Zug alle sechs Monate, LTS-Releases und Quartals-Updates, die Anbieter des JDK und die Stufen, in denen ein Feature reift.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Plattform und Release-Modell">
+<meta property="og:description" content="Wie Java heute erscheint: der Release-Zug alle sechs Monate, LTS-Releases und Quartals-Updates, die Anbieter des JDK und die Stufen, in denen ein Feature reift.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=76b431ec">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.16.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Wie Java heute erscheint: der Release-Zug alle sechs Monate, LTS-Releases und Quartals-Updates, die Anbieter des JDK und die Stufen, in denen ein Feature reift.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"skriptorium.presentation","pageAssets":[{"path":"java-update/ueberblick/plattform-und-release-modell/praesentation.css","src":"praesentation.css","type":"style"}],"pageId":null,"runtimeFragments":["^/\\d+$"],"siteIndex":"/skriptorium/site.json","title":"Plattform und Release-Modell","topics":null,"untranslated":null,"url":"/java-update/ueberblick/plattform-und-release-modell/praesentation.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../../skriptorium/presentation.css?v=fc13e38e">
+<script src="../../../skriptorium/presentation.js?v=5b256d9d" defer></script>
+
+<link rel="stylesheet" href="../../../java-update/ueberblick/plattform-und-release-modell/praesentation.css?v=41d413c7">
+
+</head>
+<body class="skr-present" data-skr-layout="skriptorium.presentation" data-skr-layouts="skriptorium.presentation" data-skr-lang="de" data-skr-audience="learner" data-skr-present data-skr-present-title="Plattform und Release-Modell">
+  <a class="skr-skip-link" href="#skr-deck">Zum Inhalt springen</a>
+  <header class="skr-present__bar">
+    <img class="skr-present__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-present__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-present__title">Plattform und Release-Modell</span>
+    <span class="skr-present__counter" data-skr-present-counter aria-live="off"></span>
+    <div class="skr-present__tools">
+      <button type="button" class="skr-present__back" data-skr-back hidden
+              title="Zurück" aria-label="Zurück"><svg viewBox="0 0 24 24" width="1em" height="1em"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+              ><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Zurück</button>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-present-print=""
+        title="Drucken (alle Folien)" aria-label="Drucken (alle Folien)"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-present-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  </header>
+  <main class="skr-deck" id="skr-deck"ZgotmplZ data-skr-deck>
+    <!-- ANFORDERUNGEN an diese Präsentation
+     - Stützt das Trainer-Thema „Plattform und Release-Modell“ (Java-Update). Folie 2–4
+       Release-Zug, 5–6 Anbieter, 7–10 JEP-Lebenszyklus, Feature-Stufen, Incubator /
+       Experimentell / Preview im Vergleich und Preview, 11 `--release` (Live-Demo des
+       Trainers), 12 die beiden Nachschlage-Visualisierungen. Die Kapitel des
+       Moduls verlinken mit Folien-Ankern (#/5, #/7, #/11) – Reihenfolge nicht
+       ändern, ohne die Anker nachzuziehen.
+     - Stand aller Fristen und Versionen: 2026-10-23. Quellen: adoptium.net/support   durable-ok
+       (Temurin), Oracle Java SE Support Roadmap (Oracle 21/25), openjdk.org/projects/jdk
+       (27 freigegeben am 2026-09-15, 28 in Entwicklung). Vor jeder Durchführung prüfen.   durable-ok
+     - JEP-Lebenszyklus nach dem Prozess „JEP 2.0“ (cr.openjdk.org/~mr/jep/jep-2.0-02.html),
+       vereinfacht auf die Zustände, die man im JEP-Index sieht.
+     - Meldungen auf Folie 11 gemessen auf Temurin 8, 21 und 25.
+     - Bewusst NICHT: Lizenzberatung, Empfehlung für einen Anbieter, Oracle-Fristen für
+       8/11/17 (nicht nachgeprüft). Keine Verortung im Kursablauf (kein „Tag 1“).
+     - Preview-Beispiel sind ausschließlich die String Templates (Vorgabe der
+       Konzept-AGENTS.md). Ihre Geschichte erklärt die Visualisierung
+       „Die Geschichte der String-Interpolation in Java“; Folie 10 verweist nur darauf
+       und wiederholt sie nicht.
+     - LTS-Evolution und JEP-Landkarte werden auf Folie 12 verlinkt – in diesem Modul
+       ist das ihr Ort, in der Materialübersicht stehen sie im Block „Überblick“.
+     - Absicht: Die Gruppe soll den Takt SEHEN (dicht gegen dünn), nicht Daten lernen. -->
+<h1 id="plattform-und-release-modell">Plattform und Release-Modell</h1>
+<p>Wie Java heute erscheint – und was das für Deinen Umstieg heißt · Java-Update</p>
+<h2 id="früher-kam-ein-release-wenn-es-fertig-war--heute-wenn-der-zug-fährt">Früher kam ein Release, wenn es fertig war – heute, wenn der Zug fährt</h2>
+<!-- Achse 2004–2027, x = 40 + (Jahr − 2004) · 40. Alte Releases nach GA-Datum:
+     6 = 12/2006, 7 = 07/2011, 8 = 03/2014, 9 = 09/2017. Ab 10 (03/2018) alle sechs
+     Monate bis 27 (09/2026), Abstand 20 px. -->
+<svg class="grafik" viewBox="0 0 1000 190" role="img" aria-label="Zeitachse von 2004 bis 2027: Java 6, 7, 8 und 9 liegen zweieinhalb bis viereinhalb Jahre auseinander; ab Java 10 im März 2018 folgt alle sechs Monate ein Release bis Java 27.">
+  <line class="achse" x1="40" y1="100" x2="960" y2="100"/>
+  <circle class="alt" cx="156" cy="100" r="14"/><text x="156" y="68" text-anchor="middle" font-size="26" font-weight="700">6</text>
+  <circle class="alt" cx="340" cy="100" r="14"/><text x="340" y="68" text-anchor="middle" font-size="26" font-weight="700">7</text>
+  <circle class="alt" cx="448" cy="100" r="14"/><text x="448" y="68" text-anchor="middle" font-size="26" font-weight="700">8</text>
+  <circle class="alt" cx="588" cy="100" r="14"/><text x="590" y="68" text-anchor="end" font-size="26" font-weight="700">9</text>
+  <text class="leise" x="248" y="140" text-anchor="middle" font-size="20">4½ Jahre</text>
+  <text class="leise" x="394" y="140" text-anchor="middle" font-size="20">2½</text>
+  <text class="leise" x="518" y="140" text-anchor="middle" font-size="20">3½ Jahre</text>
+  <g class="lts">
+    <circle cx="608" cy="100" r="7"/><circle cx="628" cy="100" r="7"/><circle cx="648" cy="100" r="7"/><circle cx="668" cy="100" r="7"/>
+    <circle cx="688" cy="100" r="7"/><circle cx="708" cy="100" r="7"/><circle cx="728" cy="100" r="7"/><circle cx="748" cy="100" r="7"/>
+    <circle cx="768" cy="100" r="7"/><circle cx="788" cy="100" r="7"/><circle cx="808" cy="100" r="7"/><circle cx="828" cy="100" r="7"/>
+    <circle cx="848" cy="100" r="7"/><circle cx="868" cy="100" r="7"/><circle cx="888" cy="100" r="7"/><circle cx="908" cy="100" r="7"/>
+    <circle cx="928" cy="100" r="7"/><circle cx="948" cy="100" r="7"/>
+  </g>
+  <text x="606" y="68" text-anchor="start" font-size="26" font-weight="700">10</text>
+  <text x="948" y="68" text-anchor="middle" font-size="26" font-weight="700">27</text>
+  <text class="leise" x="778" y="140" text-anchor="middle" font-size="20">alle 6 Monate · März und September</text>
+  <text class="leise" x="40" y="180" font-size="18">2004</text>
+  <text class="leise" x="608" y="180" text-anchor="middle" font-size="18">2018</text>
+  <text class="leise" x="960" y="180" text-anchor="end" font-size="18">2026</text>
+</svg>
+<ul>
+<li>Was nicht fertig ist, fährt mit dem <strong>nächsten</strong> Zug</li>
+<li>Weniger auf einmal – jedes Release ist ein kleiner Schritt</li>
+</ul>
+<h2 id="alle-zwei-jahre-hält-der-zug-an-einem-lts-release">Alle zwei Jahre hält der Zug an einem LTS-Release</h2>
+<!-- Releases 10–29, x = 40 + (Release − 10) · 48. LTS groß und in Akzentfarbe, 29 nur
+     geplant (gestrichelt). „heute“ = Oktober 2026, also hinter 27. -->
+<svg class="grafik" viewBox="0 0 1000 230" role="img" aria-label="Releases 10 bis 29 auf einer Linie. Hervorgehoben sind die LTS-Releases 11 (2018), 17 (2021), 21 (2023), 25 (2025) und das geplante 29 (2027). Zwischen 11 und 17 liegen drei Jahre, danach jeweils zwei. Stand Oktober 2026 ist 27 das aktuelle Release.">
+  <line class="achse" x1="40" y1="110" x2="952" y2="110"/>
+  <g class="alt">
+    <circle cx="40" cy="110" r="7"/><circle cx="136" cy="110" r="7"/><circle cx="184" cy="110" r="7"/><circle cx="232" cy="110" r="7"/>
+    <circle cx="280" cy="110" r="7"/><circle cx="328" cy="110" r="7"/><circle cx="424" cy="110" r="7"/><circle cx="472" cy="110" r="7"/>
+    <circle cx="520" cy="110" r="7"/><circle cx="616" cy="110" r="7"/><circle cx="664" cy="110" r="7"/><circle cx="712" cy="110" r="7"/>
+    <circle cx="808" cy="110" r="7"/><circle cx="856" cy="110" r="7"/><circle cx="904" cy="110" r="7"/>
+  </g>
+  <g class="leise" font-size="16" text-anchor="middle">
+    <text x="40" y="140">10</text><text x="136" y="140">12</text><text x="232" y="140">14</text><text x="328" y="140">16</text>
+    <text x="472" y="140">19</text><text x="664" y="140">23</text><text x="856" y="140">27</text>
+  </g>
+  <circle class="lts" cx="88" cy="110" r="24"/><text class="lts-text" x="88" y="119" text-anchor="middle" font-size="24">11</text>
+  <circle class="lts" cx="376" cy="110" r="24"/><text class="lts-text" x="376" y="119" text-anchor="middle" font-size="24">17</text>
+  <circle class="lts" cx="568" cy="110" r="24"/><text class="lts-text" x="568" y="119" text-anchor="middle" font-size="24">21</text>
+  <circle class="lts" cx="760" cy="110" r="24"/><text class="lts-text" x="760" y="119" text-anchor="middle" font-size="24">25</text>
+  <circle class="geplant" cx="952" cy="110" r="22"/><text x="952" y="119" text-anchor="middle" font-size="24" font-weight="700">29</text>
+  <g font-size="18" text-anchor="middle">
+    <text x="88" y="70">2018</text><text x="376" y="70">2021</text><text x="568" y="70">2023</text><text x="760" y="70">2025</text>
+    <text x="940" y="70">2027 geplant</text>
+  </g>
+  <line class="heute" x1="880" y1="30" x2="880" y2="160"/>
+  <text class="heute-text" x="880" y="24" text-anchor="middle" font-size="16">heute</text>
+  <g class="leise" font-size="18" text-anchor="middle">
+    <text x="232" y="200">3 Jahre</text><text x="472" y="200">2 Jahre</text><text x="664" y="200">2 Jahre</text><text x="856" y="200">2 Jahre</text>
+  </g>
+</svg>
+<ul>
+<li>Dazwischen: gleich stabil, aber nur <strong>bis zum nächsten Release</strong> gepflegt</li>
+<li>Im Kurs trägt jedes Feature die Marke seines LTS-Release</li>
+</ul>
+<h2 id="jedes-quartal-kommt-ein-update--kein-neues-release">Jedes Quartal kommt ein Update – kein neues Release</h2>
+<div class="version" role="img" aria-label="Die Versionsnummer 21.0.12.1 besteht aus Feature-Release 21, Interim 0, Update 12 und Patch 1.">
+<span class="hervor">21<small>Feature</small></span><span class="punkt">.</span>
+<span>0<small>Interim</small></span><span class="punkt">.</span>
+<span class="hervor">12<small>Update</small></span><span class="punkt">.</span>
+<span>1<small>Patch</small></span>
+</div>
+<ul>
+<li>Januar · April · Juli · Oktober, jeweils am <strong>dritten Dienstag</strong></li>
+<li>Sicherheit und Fehler – <strong>keine</strong> neuen Sprachmittel</li>
+<li>Wer ein Quartal auslässt, läuft mit bekannten Lücken</li>
+</ul>
+<h2 id="java-ist-eine-spezifikation--dein-jdk-kommt-von-einem-anbieter">Java ist eine Spezifikation – Dein JDK kommt von einem Anbieter</h2>
+<svg class="grafik" viewBox="0 0 1000 300" role="img" aria-label="Die Spezifikation Java SE wird vom OpenJDK als Quellcode umgesetzt. Daraus bauen acht Anbieter ihr JDK: Temurin, Corretto, Red Hat, Microsoft, Zulu, Liberica, SapMachine und Oracle. Jeder Build besteht das TCK.">
+  <rect class="kasten" x="330" y="8" width="340" height="52" rx="10"/>
+  <text x="500" y="42" text-anchor="middle" font-size="22"><tspan font-weight="700">Java SE</tspan> · Spezifikation</text>
+  <line class="linie" x1="500" y1="60" x2="500" y2="98"/>
+  <rect class="kasten" x="330" y="98" width="340" height="52" rx="10"/>
+  <text x="500" y="132" text-anchor="middle" font-size="22"><tspan font-weight="700">OpenJDK</tspan> · Quellcode</text>
+  <path class="linie" d="M500 150 V180 M68 180 H932 M68 180 V222 M190 180 V222 M312 180 V222 M434 180 V222 M556 180 V222 M678 180 V222 M800 180 V222 M932 180 V222"/>
+  <text class="leise" x="510" y="172" font-size="16">bauen · testen gegen das TCK</text>
+  <g font-size="17" text-anchor="middle">
+    <rect class="kasten kasten--anbieter" x="12" y="222" width="112" height="48" rx="8"/><text x="68" y="252">Temurin</text>
+    <rect class="kasten kasten--anbieter" x="134" y="222" width="112" height="48" rx="8"/><text x="190" y="252">Corretto</text>
+    <rect class="kasten kasten--anbieter" x="256" y="222" width="112" height="48" rx="8"/><text x="312" y="252">Red Hat</text>
+    <rect class="kasten kasten--anbieter" x="378" y="222" width="112" height="48" rx="8"/><text x="434" y="252">Microsoft</text>
+    <rect class="kasten kasten--anbieter" x="500" y="222" width="112" height="48" rx="8"/><text x="556" y="252">Zulu</text>
+    <rect class="kasten kasten--anbieter" x="622" y="222" width="112" height="48" rx="8"/><text x="678" y="252">Liberica</text>
+    <rect class="kasten kasten--anbieter" x="744" y="222" width="112" height="48" rx="8"/><text x="800" y="252">SapMachine</text>
+    <rect class="kasten kasten--anbieter" x="876" y="222" width="112" height="48" rx="8"/><text x="932" y="252">Oracle</text>
+  </g>
+</svg>
+<ul>
+<li>Technisch weitgehend gleich – verschieden in <strong>Fristen, Plattformen, Lizenz</strong></li>
+<li>„Oracle JDK“ ist nicht „OpenJDK“: eigene Lizenz, kostenfrei nur auf Zeit</li>
+</ul>
+<h2 id="wie-lange-es-updates-gibt-entscheidet-dein-anbieter">Wie lange es Updates gibt, entscheidet Dein Anbieter</h2>
+<!-- Temurin „at least until“, Stand 2026-10-23 (adoptium.net/support).   durable-ok
+     x = 120 + (Jahr − 2014) · 45; Beginn = GA-Monat, Ende = Monat der Zusage. -->
+<svg class="grafik" viewBox="0 0 1000 270" role="img" aria-label="Updates von Eclipse Temurin, Stand Oktober 2026: Java 8 bis mindestens Dezember 2030, Java 11 und 17 bis mindestens Oktober 2027, Java 21 bis mindestens Dezember 2029, Java 25 bis mindestens September 2031.">
+  <g font-size="20" font-weight="700" text-anchor="end">
+    <text x="100" y="50">Java 8</text><text x="100" y="94">Java 11</text><text x="100" y="138">Java 17</text><text x="100" y="182">Java 21</text><text x="100" y="226">Java 25</text>
+  </g>
+  <rect class="balken" x="129" y="30" width="751" height="28" rx="6"/>
+  <rect class="balken" x="331" y="74" width="410" height="28" rx="6"/>
+  <rect class="balken" x="466" y="118" width="275" height="28" rx="6"/>
+  <rect class="balken" x="556" y="162" width="279" height="28" rx="6"/>
+  <rect class="balken" x="646" y="206" width="270" height="28" rx="6"/>
+  <g font-size="16" text-anchor="start">
+    <text x="888" y="50">12/2030</text><text x="749" y="94">10/2027</text><text x="749" y="138">10/2027</text><text x="843" y="182">12/2029</text><text x="906" y="226" text-anchor="end" class="balken-text">09/2031</text>
+  </g>
+  <line class="heute" x1="696" y1="16" x2="696" y2="248"/>
+  <text class="heute-text" x="696" y="264" text-anchor="middle" font-size="16">heute</text>
+  <g class="leise" font-size="16" text-anchor="middle">
+    <text x="120" y="264">2014</text><text x="300" y="264">2018</text><text x="480" y="264">2022</text><text x="840" y="264">2030</text>
+  </g>
+</svg>
+<ul>
+<li><strong>Eclipse Temurin</strong>, jeweils „mindestens bis“ – andere Anbieter haben andere Fristen</li>
+<li>Oracle mit Vertrag: 21 bis 09/2031, 25 bis 09/2033</li>
+<li>Builds von <code>jdk.java.net</code>: nur bis zum <strong>nächsten Feature-Release</strong></li>
+</ul>
+<p class="quelle">Stand Oktober 2026 · adoptium.net/support · Oracle Java SE Support Roadmap</p>
+<h2 id="ein-jep-ist-der-fahrplan-für-ein-feature">Ein JEP ist der Fahrplan für ein Feature</h2>
+<div class="spuren">
+<b>Vorschlag</b>
+<div class="spur"><span class="chip">Draft</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Submitted</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Candidate</span></div>
+<b>Für ein Release</b>
+<div class="spur"><span class="chip">Proposed to Target</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Targeted</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Integrated</span><span class="pfeil" aria-hidden="true">→</span><span class="chip">Complete</span></div>
+<b>Ausgeliefert</b>
+<div class="spur"><span class="chip chip--final">Closed / Delivered</span></div>
+<b>Aufgegeben</b>
+<div class="spur"><span class="chip chip--weg">Closed / Withdrawn</span></div>
+</div>
+<ul>
+<li><strong>JDK Enhancement Proposal:</strong> Nummer, Begründung, Ziel-Release</li>
+<li>„Candidate“ ist eine Idee, keine Zusage – fest wird es erst mit <strong>Targeted</strong></li>
+<li>Der Schlüssel zum Nachschlagen: die <strong>JEP-Nummer</strong></li>
+</ul>
+<h2 id="ein-feature-reift-in-stufen--und-kann-unterwegs-verschwinden">Ein Feature reift in Stufen – und kann unterwegs verschwinden</h2>
+<div class="spuren">
+<b>HTTP-Client</b>
+<div class="spur"><span class="chip chip--inkubator">Incubator 9</span><span class="chip chip--inkubator">Incubator 10</span><span class="chip chip--final">final 11</span></div>
+<b>Records</b>
+<div class="spur"><span class="chip chip--preview">Preview 14</span><span class="chip chip--preview">Preview 15</span><span class="chip chip--final">final 16 · LTS 17</span></div>
+<b>String Templates</b>
+<div class="spur"><span class="chip chip--preview">Preview 21</span><span class="chip chip--preview">Preview 22</span><span class="chip chip--weg">zurückgezogen 23</span></div>
+<b>Vector API</b>
+<div class="spur"><span class="chip chip--inkubator">Incubator seit 16</span><span class="chip">… wartet auf Valhalla</span></div>
+</div>
+<ul>
+<li><strong>Incubator:</strong> neue API im Modul <code>jdk.incubator.*</code></li>
+<li><strong>Preview:</strong> fertig spezifiziert, aber nur mit <code>--enable-preview</code> – und nur auf genau diesem JDK</li>
+<li>Erst die <strong>finale</strong> Fassung gehört in Produktion</li>
+</ul>
+<h2 id="incubator-experimentell-preview--dreimal-noch-nicht-fertig">Incubator, Experimentell, Preview – dreimal „noch nicht fertig“</h2>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>Incubator</th>
+					<th>Experimentell</th>
+					<th>Preview</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>Was</strong></td>
+					<td>eine neue <strong>API</strong></td>
+					<td>eine <strong>JVM-Funktion</strong> (GC, JIT)</td>
+					<td>ein <strong>Sprachmittel</strong> oder eine API</td>
+			</tr>
+			<tr>
+					<td><strong>Reifegrad</strong></td>
+					<td>API kann sich noch grundlegend ändern</td>
+					<td>läuft, aber nicht produktionsreif</td>
+					<td>fertig spezifiziert, wartet auf Rückmeldung</td>
+			</tr>
+			<tr>
+					<td><strong>Einschalten</strong></td>
+					<td><code>--add-modules jdk.incubator.…</code></td>
+					<td><code>-XX:+UnlockExperimentalVMOptions</code></td>
+					<td><code>--enable-preview</code> beim Übersetzen und Starten</td>
+			</tr>
+			<tr>
+					<td><strong>Beispiel</strong></td>
+					<td>HTTP-Client (9, 10), Vector API</td>
+					<td>ZGC (11), Shenandoah (12)</td>
+					<td>Records (14, 15), String Templates</td>
+			</tr>
+	</tbody>
+</table>
+<ul>
+<li><strong>Incubator</strong> und <strong>Preview</strong> betreffen Deinen <strong>Code</strong>, <strong>Experimentell</strong> nur den <strong>Start</strong> der JVM</li>
+<li>Preview-Code läuft nur auf <strong>genau dem JDK</strong>, mit dem er übersetzt wurde</li>
+<li>Gemeinsam: Jede Stufe kann sich ändern oder wieder verschwinden</li>
+</ul>
+<h2 id="preview-heißt-probefahrt">Preview heißt Probefahrt</h2>
+<pre><code class="language-java">String gruss = STR.&quot;Hallo \{name}!&quot;;
+</code></pre>
+<ul>
+<li>Die String Templates waren <strong>Preview</strong> in 21 und 22 – und sind in 23 <strong>ersatzlos zurückgezogen</strong></li>
+<li>Code, der sie nutzt, übersetzt mit <strong>keinem</strong> JDK mehr</li>
+<li>Warum, und was es stattdessen gibt: <a class="skr-doclink skr-doclink--visualization" href="../../../shared/string-interpolation/string-interpolation.html">Die Geschichte der String-Interpolation in Java</a></li>
+</ul>
+<h2 id="nur---release-prüft-auch-die-api">Nur <code>--release</code> prüft auch die API</h2>
+<pre><code class="language-java">boolean leer = zeile.isBlank();   // seit Java 11
+</code></pre>
+<table>
+	<thead>
+			<tr>
+					<th>Übersetzt auf JDK 21/25 mit</th>
+					<th>Ergebnis</th>
+					<th>Auf Java 8</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>--release 8</code></td>
+					<td><code>cannot find symbol: method isBlank()</code></td>
+					<td>–</td>
+			</tr>
+			<tr>
+					<td><code>-source 8 -target 8</code></td>
+					<td>übersetzt, nur Warnungen</td>
+					<td><code>NoSuchMethodError</code></td>
+			</tr>
+	</tbody>
+</table>
+<ul>
+<li>In Maven: <code>maven.compiler.release</code> – im Übungsprojekt steht es auf <strong>8</strong></li>
+</ul>
+<h2 id="zum-nachschlagen-lts-evolution-und-jep-landkarte">Zum Nachschlagen: LTS-Evolution und JEP-Landkarte</h2>
+<ul>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../../shared/java-lts-evolution/java-lts-evolution.html">Java-LTS-Evolution</a> – je LTS-Release die wichtigsten Features, mit kurzer Erklärung und Codebeispiel</li>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html">JEP-Landkarte</a> – jeder JEP als Zeile mit seinem Weg vom Vorschlag über Incubator und Preview bis final oder entfernt
+<ul>
+<li>filterbar nach Anwendungsart, LTS-Sprung und Bereich</li>
+<li>je JEP: worum es geht, Umsetzung und Kompatibilitätsrisiko, Beispiel</li>
+</ul>
+</li>
+<li>Von einem LTS-Release der Evolution führt „Alle JEPs dieser Version →“ in die Landkarte</li>
+</ul>
+
+  </main>
+  <nav class="skr-present__controls" aria-label="Foliennavigation" hidden data-skr-present-controls>
+    <button type="button" class="skr-present__nav" data-skr-present-prev
+            title="Vorherige Folie (←)" aria-label="Vorherige Folie"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="skr-present__nav" data-skr-present-next
+            title="Nächste Folie (→)" aria-label="Nächste Folie"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+  </nav>
+  <div class="skr-present__progress" aria-hidden="true">
+    <div class="skr-present__progress-fill" data-skr-present-progress></div>
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

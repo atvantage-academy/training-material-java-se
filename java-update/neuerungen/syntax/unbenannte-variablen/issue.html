@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../../">
+<script src="../../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>_: von der Warnung zum Sprachmittel · ATVANTAGE Academy</title>
+<meta name="description" content="Verfolge den Weg von „_“ vom gewöhnlichen Bezeichner über den Fehler zum Sprachmittel, setze unbenannte Variablen in einer Auswertung ein und bewerte, was Dir das bringt.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="_: von der Warnung zum Sprachmittel">
+<meta property="og:description" content="Verfolge den Weg von „_“ vom gewöhnlichen Bezeichner über den Fehler zum Sprachmittel, setze unbenannte Variablen in einer Auswertung ein und bewerte, was Dir das bringt.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../../skriptorium/components.css?v=76b431ec">
+<link rel="stylesheet" href="../../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.16.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Verfolge den Weg von „_“ vom gewöhnlichen Bezeichner über den Fehler zum Sprachmittel, setze unbenannte Variablen in einer Auswertung ein und bewerte, was Dir das bringt.","duration":20,"fields":{"didaktikon":{"objectives":["Du zeigst am Compiler, wie sich die Bedeutung von `_` zwischen Release 8, 9 und 22 geändert hat.","Du ersetzt Variablen, die der Code nie liest, durch `_` – in `catch`, Schleifen und Lambdas.","Du bewertest, wo sich der Umbau in Deinem Bestand lohnt."],"reflective_questions":["Warum hat Java `_` erst zum Fehler gemacht, bevor es eine neue Bedeutung bekam? Was wäre passiert, wenn es den Schritt übersprungen hätte?","Eine Variable, die nie gelesen wird, heißt bisher `ignoriert` oder `unused`. Was sagt `_` mehr – oder weniger?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich verstehen, warum „_“ erst verboten und dann neu erlaubt wurde, damit ich Variablen, die mein Code nie liest, als solche kennzeichnen kann."},"skriptorium":{"definition_of_done":["Das Modul `neuerungen/syntax/unbenannte-variablen` baut mit Release 8 mit einer Warnung zu `_` und scheitert mit Release 9; Du hast beide Meldungen verglichen.","Optional, mit JDK 25: Das Modul `neuerungen/syntax/unbenannte-variablen` baut mit Release 25, `Auswertung` nutzt `_` für jede Variable, die der Code nie liest, und `AuswertungTest` ist unverändert grün."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"_: von der Warnung zum Sprachmittel","topics":["Unbenannte Variablen und Muster","JEP 213","JEP 456"],"untranslated":null,"url":"/java-update/neuerungen/syntax/unbenannte-variablen/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../../../skriptorium/client.js?v=600c56bb" defer></script>
+<script src="../../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+<link rel="stylesheet" href="../../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../../../skriptorium/guide-layout.css?v=04cc011a">
+<link rel="stylesheet" href="../../../../extensions/didaktikon/exercise.css?v=d44ba6e9">
+<script src="../../../../skriptorium/guide-layout.js?v=207db517" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header"
+        data-skr-menu-visible="7" data-skr-menu-speed="1" data-skr-header>
+  <a class="skr-header__brand" href="../../../../" aria-label="Startseite"><img class="skr-header__logo" src="../../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><img class="skr-header__mark" src="../../../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../../../skriptorium/search/de.json?v=e6f707ee"
+     data-base="../../../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../../java-update/">Java-Update</a><span>/</span><span aria-current="page">_: von der Warnung zum Sprachmittel</span></nav>
+
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 20 Minuten</span><span class="skr-tag">Unbenannte Variablen und Muster</span><span class="skr-tag">JEP 213</span><span class="skr-tag">JEP 456</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">_: von der Warnung zum Sprachmittel</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-didaktikon-content-top" data-skr-slot="content.top">
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich verstehen, warum „_“ erst verboten und dann neu erlaubt wurde, damit ich Variablen, die mein Code nie liest, als solche kennzeichnen kann.</p>
+</div>
+<div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<h2 id="lernziele">Lernziele</h2>
+<ul>
+<li>Du zeigst am Compiler, wie sich die Bedeutung von <code>_</code> zwischen Release 8, 9 und 22 geändert hat.</li>
+<li>Du ersetzt Variablen, die der Code nie liest, durch <code>_</code> – in <code>catch</code>, Schleifen und Lambdas.</li>
+<li>Du bewertest, wo sich der Umbau in Deinem Bestand lohnt.</li>
+</ul>
+</div>
+</div>
+<div class="skr-guide-done">
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Modul neuerungen/syntax/unbenannte-variablen baut mit Release 8 mit einer Warnung zu _ und scheitert mit Release 9; Du hast beide Meldungen verglichen." disabled="disabled"> Das Modul <code>neuerungen/syntax/unbenannte-variablen</code> baut mit Release 8 mit einer Warnung zu <code>_</code> und scheitert mit Release 9; Du hast beide Meldungen verglichen.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Optional, mit JDK 25: Das Modul neuerungen/syntax/unbenannte-variablen baut mit Release 25, Auswertung nutzt _ für jede Variable, die der Code nie liest, und AuswertungTest ist unverändert grün." disabled="disabled"> Optional, mit JDK 25: Das Modul <code>neuerungen/syntax/unbenannte-variablen</code> baut mit Release 25, <code>Auswertung</code> nutzt <code>_</code> für jede Variable, die der Code nie liest, und <code>AuswertungTest</code> ist unverändert grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
+<p>Ein Unterstrich als Variablenname war in Java 8 erlaubt, aber schon mit einer Warnung
+versehen. Mit Java 9 wurde er zum Fehler, und seit Java 22 hat er eine neue Bedeutung.
+Verfolge den Weg am Compiler, und – mit JDK 25 – setze das neue Sprachmittel ein.</p>
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+<h3 id="worum-es-geht">Worum es geht</h3>
+<p>Bis <strong>Java 8</strong> ist <code>_</code> ein gewöhnlicher Bezeichner; der Compiler warnt nur. <strong>Java 9</strong>
+macht ihn zum Schlüsselwort ohne Bedeutung (JEP 213, LTS-Marke <strong>11</strong>) – Code mit <code>_</code>
+als Namen übersetzt nicht mehr. Seit <strong>Java 22</strong> steht <code>_</code> für eine <strong>unbenannte
+Variable</strong> oder ein <strong>unbenanntes Muster</strong>: etwas, das der Code braucht, aber nie liest
+(JEP 456, LTS-Marke <strong>25</strong>). Wo beides in der Geschichte von Java steht, zeigt die
+<a class="skr-doclink skr-doclink--visualization" href="../../../../shared/java-lts-evolution/java-lts-evolution.html#/?version=25&amp;open=java-25-unnamed-variables">LTS-Evolution</a>.</p>
+<h3 id="das-modul-mit-java-8-bauen">Das Modul mit Java 8 bauen</h3>
+<p>Im Modul <code>neuerungen/syntax/unbenannte-variablen</code> steht die Klasse <code>Auswertung</code>, im Stil
+von Java 8 geschrieben. Das Release steht noch auf <code>8</code>. Baue das Modul:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="bauen-8" open>
+<summary>Kommandozeile</summary>
+<p>Baue das Modul im Wurzelordner des Übungsprojekts und lass seine Tests laufen:</p>
+<pre><code class="language-shell">mvn clean verify -pl neuerungen/syntax/unbenannte-variablen -am
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="bauen-8">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>syntax-unbenannte-variablen</code></strong>. Sie baut mit <code>clean</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen-8">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>syntax-unbenannte-variablen</code></strong>. Sie baut mit <code>clean</code>.</p>
+</details>
+</div>
+<p>Der Build ist grün, aber der Compiler warnt:</p>
+<pre><code class="language-text">[WARNING] …/Auswertung.java:[27,44] Ab Release 9 ist &quot;_&quot; ein Schlüsselwort und kann nicht als ID verwendet werden
+</code></pre>
+<p>Sieh Dir Zeile 27 an: Die Ausnahme in <code>anzahlZahlen</code> heißt <code>_</code> – so, wie man in Java 8
+eine Variable nannte, die man nicht braucht.</p>
+<h3 id="das-release-auf-9-stellen">Das Release auf 9 stellen</h3>
+<p>Stell in der <code>pom.xml</code> des Moduls die Property <code>maven.compiler.release</code> an der Stelle
+mit dem Kommentar „Hier hochstellen.“ von <code>8</code> auf <code>9</code>. Baue das Modul danach wie oben.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Immer mit <code>clean</code>. Ändert sich nur das Release, hält Maven die
+übersetzten Klassen für aktuell.</p>
+</blockquote>
+<p>Jetzt scheitert der Build:</p>
+<pre><code class="language-text">[ERROR] …/Auswertung.java:[27,44] Unbenannte Variablen werden in -source 9 nicht unterstützt
+  (Verwenden Sie -source 22 oder höher, um Unbenannte Variablen zu aktivieren)
+</code></pre>
+<p>Aus der Warnung ist ein Fehler geworden. Lies die Meldung genau: Was schlägt der
+Compiler vor? Ein JDK 21 meldet an dieser Stelle noch etwas anderes – es kennt
+unbenannte Variablen nur als Preview.</p>
+<p>Stell das Release danach wieder auf <code>8</code> – oder mach mit JDK 25 im optionalen Schritt
+weiter.</p>
+<div class="skr-callout skr-callout--info">
+<p><strong>Mit JDK 25.</strong> Der folgende Schritt nutzt das Sprachmittel aus Java 22 und braucht ein
+JDK 25. Mit JDK 21 übersetzt kein Code mit unbenannten Variablen.</p>
+</div>
+<h3 id="optional-auf-java-25-umstellen-und-_-einsetzen">Optional: Auf Java 25 umstellen und <code>_</code> einsetzen</h3>
+<p>Stell <code>maven.compiler.release</code> in der <code>pom.xml</code> des Moduls auf <code>25</code> und baue das Modul
+wie oben:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="bauen-25" open>
+<summary>Kommandozeile</summary>
+<p>Baue das Modul im Wurzelordner des Übungsprojekts und lass seine Tests laufen:</p>
+<pre><code class="language-shell">mvn clean verify -pl neuerungen/syntax/unbenannte-variablen -am
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="bauen-25">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>syntax-unbenannte-variablen</code></strong>. Sie baut mit <code>clean</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen-25">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>syntax-unbenannte-variablen</code></strong>. Sie baut mit <code>clean</code>.</p>
+</details>
+</div>
+<p>Der Build ist grün, und die Warnung ist weg: Seit Java 22 ist <code>catch (NumberFormatException _)</code>
+eine <strong>unbenannte Variable</strong> – genau, was der Code von Java 8 meinte.</p>
+<p>Die Klasse <code>Auswertung</code> hat weitere Variablen, die der Code braucht, aber nie liest; sie
+tragen Namen. Die Stellen sind in der Vorlage mit <code>// Umbauen:</code> markiert. Ersetze jede
+dieser Variablen durch <code>_</code>. <code>AuswertungTest</code> sichert das Verhalten ab – er bleibt
+unverändert und muss grün bleiben.</p>
+<p>Die Lösung: Die Zeilennummern gelten für die Vorlage auf <code>main</code>; arbeite von unten nach
+oben, dann stimmen sie bis zum Schluss.</p>
+<p>Ersetze in <code>Auswertung.java</code> die Zeilen 37–38 (in <code>anzahlZeilen</code>) durch:</p>
+<pre><code class="language-java">        for (String _ : zeilen) {
+</code></pre>
+<p>Ersetze in <code>Auswertung.java</code> die Zeilen 49–50 (in <code>artikelJeKunde</code>) durch:</p>
+<pre><code class="language-java">            ergebnis.computeIfAbsent(felder[0], _ -&gt; new ArrayList&lt;String&gt;()).add(felder[1]);
+</code></pre>
+<p>Ersetze in <code>Auswertung.java</code> die Zeilen 58–59 (in <code>gesamtmenge</code>) durch:</p>
+<pre><code class="language-java">        mengeJeArtikel.forEach((_, menge) -&gt; summe[0] += menge);
+</code></pre>
+<p>Die Variable <code>text</code> in <code>anzahlZahlen</code> bleibt: Der Code liest sie.</p>
+<p>Baue das Modul danach erneut, wie oben.</p>
+<div class="skr-didaktikon-content-after" data-skr-slot="content.after">
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
+<ul>
+<li>Warum hat Java <code>_</code> erst zum Fehler gemacht, bevor es eine neue Bedeutung bekam? Was wäre passiert, wenn es den Schritt übersprungen hätte?</li>
+<li>Eine Variable, die nie gelesen wird, heißt bisher <code>ignoriert</code> oder <code>unused</code>. Was sagt <code>_</code> mehr – oder weniger?</li>
+</ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># `_`: von der Warnung zum Sprachmittel
+
+&lt;div class=&#34;skr-didaktikon-content-top&#34; data-skr-slot=&#34;content.top&#34; markdown=&#34;1&#34;&gt;
+
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
+
+Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich verstehen, warum „_“ erst verboten und dann neu erlaubt wurde, damit ich Variablen, die mein Code nie liest, als solche kennzeichnen kann.
+
+&lt;/div&gt;
+
+&lt;div class=&#34;skr-callout skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+## Lernziele
+
+- Du zeigst am Compiler, wie sich die Bedeutung von `_` zwischen Release 8, 9 und 22 geändert hat.
+- Du ersetzt Variablen, die der Code nie liest, durch `_` – in `catch`, Schleifen und Lambdas.
+- Du bewertest, wo sich der Umbau in Deinem Bestand lohnt.
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+## Definition of Done
+
+- [ ] Das Modul `neuerungen/syntax/unbenannte-variablen` baut mit Release 8 mit einer Warnung zu `_` und scheitert mit Release 9; Du hast beide Meldungen verglichen.
+- [ ] Optional, mit JDK 25: Das Modul `neuerungen/syntax/unbenannte-variablen` baut mit Release 25, `Auswertung` nutzt `_` für jede Variable, die der Code nie liest, und `AuswertungTest` ist unverändert grün.
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+
+Ein Unterstrich als Variablenname war in Java 8 erlaubt, aber schon mit einer Warnung
+versehen. Mit Java 9 wurde er zum Fehler, und seit Java 22 hat er eine neue Bedeutung.
+Verfolge den Weg am Compiler, und – mit JDK 25 – setze das neue Sprachmittel ein.
+
+## Arbeitsschritte
+
+### Worum es geht
+
+Bis **Java 8** ist `_` ein gewöhnlicher Bezeichner; der Compiler warnt nur. **Java 9**
+macht ihn zum Schlüsselwort ohne Bedeutung (JEP 213, LTS-Marke **11**) – Code mit `_`
+als Namen übersetzt nicht mehr. Seit **Java 22** steht `_` für eine **unbenannte
+Variable** oder ein **unbenanntes Muster**: etwas, das der Code braucht, aber nie liest
+(JEP 456, LTS-Marke **25**). Wo beides in der Geschichte von Java steht, zeigt die
+[LTS-Evolution](../../../../shared/java-lts-evolution/java-lts-evolution.md#/?version=25&amp;open=java-25-unnamed-variables).
+
+### Das Modul mit Java 8 bauen
+
+Im Modul `neuerungen/syntax/unbenannte-variablen` steht die Klasse `Auswertung`, im Stil
+von Java 8 geschrieben. Das Release steht noch auf `8`. Baue das Modul:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-8&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Baue das Modul im Wurzelordner des Übungsprojekts und lass seine Tests laufen:
+
+```shell
+mvn clean verify -pl neuerungen/syntax/unbenannte-variablen -am
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`syntax-unbenannte-variablen`**. Sie baut mit `clean`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`syntax-unbenannte-variablen`**. Sie baut mit `clean`.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Der Build ist grün, aber der Compiler warnt:
+
+```text
+[WARNING] …/Auswertung.java:[27,44] Ab Release 9 ist &#34;_&#34; ein Schlüsselwort und kann nicht als ID verwendet werden
+```
+
+Sieh Dir Zeile 27 an: Die Ausnahme in `anzahlZahlen` heißt `_` – so, wie man in Java 8
+eine Variable nannte, die man nicht braucht.
+
+### Das Release auf 9 stellen
+
+Stell in der `pom.xml` des Moduls die Property `maven.compiler.release` an der Stelle
+mit dem Kommentar „Hier hochstellen.“ von `8` auf `9`. Baue das Modul danach wie oben.
+
+&gt; **Hinweis:** Immer mit `clean`. Ändert sich nur das Release, hält Maven die
+&gt; übersetzten Klassen für aktuell.
+
+Jetzt scheitert der Build:
+
+```text
+[ERROR] …/Auswertung.java:[27,44] Unbenannte Variablen werden in -source 9 nicht unterstützt
+  (Verwenden Sie -source 22 oder höher, um Unbenannte Variablen zu aktivieren)
+```
+
+Aus der Warnung ist ein Fehler geworden. Lies die Meldung genau: Was schlägt der
+Compiler vor? Ein JDK 21 meldet an dieser Stelle noch etwas anderes – es kennt
+unbenannte Variablen nur als Preview.
+
+Stell das Release danach wieder auf `8` – oder mach mit JDK 25 im optionalen Schritt
+weiter.
+
+&lt;div class=&#34;skr-callout skr-callout--info&#34; markdown=&#34;1&#34;&gt;
+
+**Mit JDK 25.** Der folgende Schritt nutzt das Sprachmittel aus Java 22 und braucht ein
+JDK 25. Mit JDK 21 übersetzt kein Code mit unbenannten Variablen.
+
+&lt;/div&gt;
+
+### Optional: Auf Java 25 umstellen und `_` einsetzen
+
+Stell `maven.compiler.release` in der `pom.xml` des Moduls auf `25` und baue das Modul
+wie oben:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-25&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Baue das Modul im Wurzelordner des Übungsprojekts und lass seine Tests laufen:
+
+```shell
+mvn clean verify -pl neuerungen/syntax/unbenannte-variablen -am
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-25&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`syntax-unbenannte-variablen`**. Sie baut mit `clean`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-25&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`syntax-unbenannte-variablen`**. Sie baut mit `clean`.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Der Build ist grün, und die Warnung ist weg: Seit Java 22 ist `catch (NumberFormatException _)`
+eine **unbenannte Variable** – genau, was der Code von Java 8 meinte.
+
+Die Klasse `Auswertung` hat weitere Variablen, die der Code braucht, aber nie liest; sie
+tragen Namen. Die Stellen sind in der Vorlage mit `// Umbauen:` markiert. Ersetze jede
+dieser Variablen durch `_`. `AuswertungTest` sichert das Verhalten ab – er bleibt
+unverändert und muss grün bleiben.
+
+Die Lösung: Die Zeilennummern gelten für die Vorlage auf `main`; arbeite von unten nach
+oben, dann stimmen sie bis zum Schluss.
+
+Ersetze in `Auswertung.java` die Zeilen 37–38 (in `anzahlZeilen`) durch:
+
+```java
+        for (String _ : zeilen) {
+```
+
+Ersetze in `Auswertung.java` die Zeilen 49–50 (in `artikelJeKunde`) durch:
+
+```java
+            ergebnis.computeIfAbsent(felder[0], _ -&gt; new ArrayList&lt;String&gt;()).add(felder[1]);
+```
+
+Ersetze in `Auswertung.java` die Zeilen 58–59 (in `gesamtmenge`) durch:
+
+```java
+        mengeJeArtikel.forEach((_, menge) -&gt; summe[0] &#43;= menge);
+```
+
+Die Variable `text` in `anzahlZahlen` bleibt: Der Code liest sie.
+
+Baue das Modul danach erneut, wie oben.
+
+
+&lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
+
+## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
+
+- Warum hat Java `_` erst zum Fehler gemacht, bevor es eine neue Bedeutung bekam? Was wäre passiert, wenn es den Schritt übersprungen hätte?
+- Eine Variable, die nie gelesen wird, heißt bisher `ignoriert` oder `unused`. Was sagt `_` mehr – oder weniger?
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+## Weiterführende Informationen
+- [Übungsprojekt auf GitHub](https://github.com/atvantage-academy/code-template-java-se-java-update)
+- [JEP-Landkarte: JEP 456](/shared/jep-landkarte/jep-landkarte.html#/?jep=456)
+- [JEP 213: Milling Project Coin](https://openjdk.org/jeps/213)
+- [JEP 456: Unnamed Variables &amp; Patterns](https://openjdk.org/jeps/456)
+</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#worum-es-geht" class="skr-toc--h3">Worum es geht</a><a href="#das-modul-mit-java-8-bauen" class="skr-toc--h3">Das Modul mit Java 8 bauen</a><a href="#das-release-auf-9-stellen" class="skr-toc--h3">Das Release auf 9 stellen</a><a href="#optional-auf-java-25-umstellen-und-_-einsetzen" class="skr-toc--h3">Optional: Auf Java 25 umstellen und _ einsetzen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 3 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://github.com/atvantage-academy/code-template-java-se-java-update" target="_blank" rel="noopener"><span>Übungsprojekt auf GitHub</span></a>
+      <a href="../../../../shared/jep-landkarte/jep-landkarte.html#/?jep=456"><span>JEP-Landkarte: JEP 456</span></a>
+      <a href="https://openjdk.org/jeps/213" target="_blank" rel="noopener"><span>JEP 213: Milling Project Coin</span></a>
+      <a href="https://openjdk.org/jeps/456" target="_blank" rel="noopener"><span>JEP 456: Unnamed Variables &amp; Patterns</span></a>
+    </div>
+  </div>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

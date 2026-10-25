@@ -206,8 +206,8 @@ pre > .skr-copy.is-copied { opacity: 1; }
 
 /* --- Dokumentlinks (`skr-doclink`) ------------------------------------------
    Ein Verweis, dem die ART seines Ziels vorangestellt ist: Präsentation, Übersicht –
-   und was Extensions an Arten mitbringen. Gesetzt vom Bau (ein Listenpunkt aus
-   genau einem Verweis bekommt die Art seines Ziels) oder von Hand
+   und was Extensions an Arten mitbringen. Gesetzt vom Bau (jeder interne Verweis im
+   Inhalt bekommt die Art seines Ziels) oder von Hand
    (`{: .skr-doclink .skr-doclink--«art»}`).
 
    HIER STEHEN NUR FORM UND FARBE. Welche Arten es gibt, ihr Icon und ihre
@@ -218,37 +218,43 @@ pre > .skr-copy.is-copied { opacity: 1; }
 
    DAS SYMBOL IN ZWEI SCHICHTEN: die KACHEL als Hintergrundfarbe
    (`--skr-doclink-tile`) und darüber das ZEICHEN – das Icon als Maske in
-   `--skr-doclink-glyph`. `::after` liegt per `order` und negativem Rand genau auf
-   `::before`; beide richten sich gleich an der Grundlinie aus. Im dunklen Schema
-   liefe die Kachel mit dem Seitenhintergrund zusammen, deshalb der feine Ring.
-   Gedruckt erscheint das Symbol, weil print.css `print-color-adjust: exact`
-   global setzt. */
+   `--skr-doclink-glyph`. Wie bei den Linkmarken steht der PLATZ AM VERWEIS und das
+   Symbol absolut darüber: Der Verweis bricht im Satz um wie jeder andere, nie aber
+   zwischen Symbol und erstem Wort. Die Größe folgt der Schrift (`em`), auch in einer
+   Überschrift. Im dunklen Schema liefe die Kachel mit dem Seitenhintergrund zusammen,
+   deshalb der feine Ring. Gedruckt erscheint das Symbol, weil print.css
+   `print-color-adjust: exact` global setzt.
+
+   ABSCHALTEN: `skr-doclink--none` am Verweis lässt der Bau ohne Marke; an einem
+   Vorfahren nimmt es die Marken aller Verweise darin weg – samt ihrem Platz. Die
+   wiederholte Klasse hebt die Regel über die je Art in doclinks.css (Zeichen und
+   Bezeichnung je Sprache), die in derselben Schicht später stehen. */
 .skr-doclink {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--skr-space-2);
+  position: relative;
+  padding-left: calc(1.05em + var(--skr-space-2));
 }
 .skr-doclink::before,
 .skr-doclink::after {
-  flex: none;
-  width: 1.05rem;
-  height: 1.05rem;
+  position: absolute;
+  left: 0;
+  top: .15em;
+  width: 1.05em;
+  height: 1.05em;
   border-radius: 3px;
-  transform: translateY(.15rem);
 }
 .skr-doclink::before {
   content: "";
-  order: -2;
   background: var(--skr-doclink-tile);
   box-shadow: 0 0 0 1px var(--skr-color-border);
 }
 /* Ohne `content`: Das Zeichen erscheint erst, wenn doclinks.css die Art kennt. */
 .skr-doclink::after {
-  order: -1;
-  margin-left: calc(-1.05rem - var(--skr-space-2));
   background: var(--skr-doclink-glyph);
   mask: var(--skr-doclink-icon) center / contain no-repeat;
 }
+.skr-doclink--none .skr-doclink.skr-doclink.skr-doclink { padding-left: 0; }
+.skr-doclink--none .skr-doclink.skr-doclink.skr-doclink::before,
+.skr-doclink--none .skr-doclink.skr-doclink.skr-doclink::after { content: none; }
 
 /* --- Linkmarken (`skr-linkmark`) ------------------------------------
    EIN ICON VOR EINEM VERWEIS, ABGELEITET AUS SEINEM ZIEL. Wer auf ein Repository,

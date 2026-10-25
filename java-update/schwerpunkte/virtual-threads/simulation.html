@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>Plattform-Threads und virtuelle Threads · ATVANTAGE Academy</title>
+<meta name="description" content="Wartende Anfragen auf drei Wegen: ein fester Thread-Pool, der beim Warten blockiert, reaktive Programmierung mit wenigen Threads und virtuelle Threads, die ihren Trägerthread freigeben – dazu das Pinning in synchronized unter Java 21, das Java 25 beendet, und ein Vergleich, was wann passt.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Plattform-Threads und virtuelle Threads">
+<meta property="og:description" content="Wartende Anfragen auf drei Wegen: ein fester Thread-Pool, der beim Warten blockiert, reaktive Programmierung mit wenigen Threads und virtuelle Threads, die ihren Trägerthread freigeben – dazu das Pinning in synchronized unter Java 21, das Java 25 beendet, und ein Vergleich, was wann passt.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=76b431ec">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.16.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Wartende Anfragen auf drei Wegen: ein fester Thread-Pool, der beim Warten blockiert, reaktive Programmierung mit wenigen Threads und virtuelle Threads, die ihren Trägerthread freigeben – dazu das Pinning in synchronized unter Java 21, das Java 25 beendet, und ein Vergleich, was wann passt.","duration":null,"fields":{"didaktikon":{"simulation":{"intro":"Was passiert mit einem Thread, während er auf ein anderes System wartet? Drei Wege mit denselben Anfragen, dann das Pinning und ein Vergleich – jeder Ablauf beginnt von vorn.","speed":1,"step":{"interval":3200}}}},"language":"de","languages":["de"],"layout":"didaktikon.simulation","pageAssets":[{"path":"java-update/schwerpunkte/virtual-threads/simulation.css","src":"simulation.css","type":"style"},{"path":"java-update/schwerpunkte/virtual-threads/simulation.js","src":"simulation.js","type":"script"}],"pageId":"java-update-virtual-threads-simulation","runtimeFragments":["^/\\d+$","^/[A-Za-z0-9_-]+/\\d+$","^/overview/?$"],"siteIndex":"/skriptorium/site.json","title":"Plattform-Threads und virtuelle Threads","topics":null,"untranslated":null,"url":"/java-update/schwerpunkte/virtual-threads/simulation.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../../extensions/didaktikon/simulation.css?v=d0d00574">
+<script src="../../../extensions/didaktikon/simulation.js?v=7b8f2c99"></script>
+
+<link rel="stylesheet" href="../../../java-update/schwerpunkte/virtual-threads/simulation.css?v=b77651de">
+<script src="../../../java-update/schwerpunkte/virtual-threads/simulation.js?v=c09626e2" defer></script>
+
+</head>
+<body class="skr-didaktikon-simulation" data-skr-layout="didaktikon.simulation" data-skr-layouts="didaktikon.simulation" data-skr-lang="de" data-skr-audience="learner" data-skr-didaktikon-simulation data-skr-didaktikon-simulation-title="Plattform-Threads und virtuelle Threads">
+  <a class="skr-skip-link" href="#skr-didaktikon-simulation-stage">Zum Inhalt springen</a>
+  <header class="skr-didaktikon-simulation__bar">
+    <img class="skr-logo skr-didaktikon-simulation__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-logo-mask skr-didaktikon-simulation__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-didaktikon-simulation__title">Plattform-Threads und virtuelle Threads</span>
+    <span class="skr-didaktikon-simulation__counter" data-skr-didaktikon-simulation-counter aria-live="off"></span>
+    <div class="skr-didaktikon-simulation__tools">
+      <button type="button" class="skr-didaktikon-simulation__back" data-skr-back hidden
+        title="Zurück" aria-label="Zurück"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Zurück</button>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-didaktikon-simulation-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  </header>
+  <nav class="skr-didaktikon-simulation__tabs" data-skr-didaktikon-simulation-tabs hidden aria-label="Szenarien"></nav>
+  <main class="skr-didaktikon-simulation__main">
+    <div class="skr-didaktikon-simulation__stage" id="skr-didaktikon-simulation-stage" data-skr-didaktikon-simulation-stage>
+      <!-- ANFORDERUNGEN an diese Simulation
+     - Muss zeigen, in dieser Reihenfolge: (1) VORHER – fester Pool, Threads blockieren
+       beim Warten, weitere Anfragen stehen in der Warteschlange; (2) REAKTIV – wenige
+       Threads einer Ereignisschleife, nicht blockierend, alle Anfragen warten
+       gleichzeitig; der Preis ist das Programmiermodell (Fortsetzungen statt
+       Ablauf, Stacktrace der Schleife, blockieren verboten); (3) VIRTUELLE THREADS –
+       Aushängen beim Warten, Trägerthread frei, der Code bleibt blockierend;
+       (4) Pinning – Warten in einem synchronized-Block hält unter Java 21 den
+       Trägerthread fest; ab Java 24 (JEP 491, im Kurs LTS 25) nicht mehr;
+       (5) Entscheidungsbild klassisch / reaktiv / virtuell, mit Quarkus als Beispiel
+       (Worker-Pool, Mutiny/Vert.x, @RunOnVirtualThread).
+     - Der Code im Pinning-Szenario ist `Verbindung.sende` aus dem Übungsprojekt
+       (Startstand, ohne Ausnahmebehandlung gekürzt). Der Code im reaktiven Szenario
+       ist schematisch (CompletableFuture), kein Code des Übungsprojekts – reaktive
+       Programmierung wird im Kurs nicht unterrichtet, nur abgegrenzt.
+     - Bewusst NICHT: Scheduler-Details (ForkJoinPool, Work-Stealing), Continuations,
+       Stack-Größen in Zahlen, native Frames als Pinning-Ursache, Structured
+       Concurrency, Mutiny- oder Reactor-API. Das gehört in den Erklärtext oder gar
+       nicht hierher.
+     - Zahlen im Erklärtext sind Messwerte aus der Musterlösung `loesung/virtual-threads`
+       (Temurin 21 in Docker und 25 unter macOS, 12 Kerne, Stand 2026-10-23). durable-ok
+     - Klein gehalten: 4 Pool-Threads, 2 Trägerthreads bzw. Threads der Ereignisschleife,
+       6 bzw. 4 Anfragen – genug, um den Engpass zu sehen, wenig genug, um jeden Kasten
+       zu verfolgen.
+     - Absicht: Die Lernenden sollen sehen, WO gewartet wird – im Thread des
+       Betriebssystems, als Fortsetzung oder als virtueller Thread auf dem Heap. -->
+<!-- Szenario 1: fester Pool. Die dritte Tafel heißt „beim Lager“: Dort steht, wer
+     gerade auf die Antwort wartet – der Thread wartet mit. -->
+<div class="threads" data-skr-didaktikon-simulation-scene="pool">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Warteschlange <span class="skr-didaktikon-simulation-panel__hint">noch kein Thread</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-bereit"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Thread-Pool <span class="skr-didaktikon-simulation-panel__hint">4 Threads des Betriebssystems</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-plaetze"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Beim Lager <span class="skr-didaktikon-simulation-panel__hint">100 ms Antwortzeit</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-wartend"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pool-fertig"></div>
+  </div>
+</div>
+<!-- Szenario 2: reaktiv. Zwei Threads einer Ereignisschleife; wer wartet, ist nur
+     noch eine registrierte Fortsetzung. Darunter der Preis: der Code. -->
+<div class="threads threads--mit-code" data-skr-didaktikon-simulation-scene="reaktiv">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Bereit <span class="skr-didaktikon-simulation-panel__hint">Anfragen</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="reaktiv-bereit"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Ereignisschleife <span class="skr-didaktikon-simulation-panel__hint">so viele Threads wie Kerne</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="reaktiv-plaetze"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Ausstehend beim Lager <span class="skr-didaktikon-simulation-panel__hint">nur eine Fortsetzung</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="reaktiv-wartend"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="reaktiv-fertig"></div>
+  </div>
+  <div class="threads__code">
+    <div class="skr-didaktikon-simulation-code__label">Reaktiv – schematisch, mit CompletableFuture</div>
+<pre class="skr-didaktikon-simulation-code"><code class="language-java">return lager.istVorrätigAsync(artikelnummer)      // kehrt sofort zurück
+        .thenApply(vorrätig -> service.anlegen(bestellung, vorrätig))
+        .thenApply(mapper::alsAntwort);            // läuft, wenn das Lager antwortet</code></pre>
+  </div>
+</div>
+<!-- Szenario 3: virtuelle Threads auf zwei Trägerthreads. -->
+<div class="threads" data-skr-didaktikon-simulation-scene="virtuell">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Bereit <span class="skr-didaktikon-simulation-panel__hint">virtuelle Threads</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-bereit"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Trägerthreads <span class="skr-didaktikon-simulation-panel__hint">so viele wie Kerne</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-plaetze"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Geparkt auf dem Heap <span class="skr-didaktikon-simulation-panel__hint">warten aufs Lager</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-wartend"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="virtuell-fertig"></div>
+  </div>
+</div>
+<!-- Szenario 4: Pinning. Die Kennzeichnung „Java 21/25“ steht im Titel der
+     Trägerthread-Tafel und wechselt im vorletzten Schritt. -->
+<div class="threads threads--mit-code" data-skr-didaktikon-simulation-scene="pinning">
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-1">
+    <h2 class="skr-didaktikon-simulation-panel__title">Bereit <span class="skr-didaktikon-simulation-panel__hint">virtuelle Threads</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-bereit"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-3">
+    <h2 class="skr-didaktikon-simulation-panel__title">Trägerthreads <span class="skr-didaktikon-simulation-panel__hint" id="pinning-jdk"></span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-plaetze"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel skr-didaktikon-simulation-panel--tone-4">
+    <h2 class="skr-didaktikon-simulation-panel__title">Geparkt auf dem Heap <span class="skr-didaktikon-simulation-panel__hint">warten im Monitor</span></h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-wartend"></div>
+  </div>
+  <div class="skr-didaktikon-simulation-panel">
+    <h2 class="skr-didaktikon-simulation-panel__title">Erledigt</h2>
+    <div class="skr-didaktikon-simulation-panel__body" id="pinning-fertig"></div>
+  </div>
+  <div class="threads__code">
+    <div class="skr-didaktikon-simulation-code__label">Verbindung.sende – wie im Altbestand</div>
+<pre class="skr-didaktikon-simulation-code"><code class="language-java">public synchronized String sende(String anfrage) {
+    anfragen++;
+    TimeUnit.MILLISECONDS.sleep(latenzMillis);   // wartet auf das Netz
+    return "OK:" + anfrage;
+}</code></pre>
+  </div>
+</div>
+<!-- Szenario 5: Entscheidungsbild. Eine Zeile je Kriterium, Schritt für Schritt. -->
+<div class="vergleich" data-skr-didaktikon-simulation-scene="entscheidung">
+  <div class="vergleich__kopf" aria-hidden="true">
+    <span></span><span>Fester Pool</span><span>Reaktiv</span><span>Virtuelle Threads</span>
+  </div>
+  <div class="vergleich__zeilen" id="entscheidung-zeilen"></div>
+</div>
+
+    </div>
+    <div class="skr-didaktikon-simulation__intro" data-skr-didaktikon-simulation-intro hidden></div>
+    <div class="skr-didaktikon-simulation__caption" data-skr-didaktikon-simulation-caption hidden aria-hidden="true">
+      <p class="skr-didaktikon-simulation__caption-title" data-skr-didaktikon-simulation-caption-title></p>
+      <div class="skr-didaktikon-simulation__caption-text" data-skr-didaktikon-simulation-caption-text></div>
+    </div>
+    <aside class="skr-didaktikon-simulation__aside" aria-label="Erklärung zum aktuellen Schritt">
+      <h2 class="skr-didaktikon-simulation__note-title" data-skr-didaktikon-simulation-note-title></h2>
+      <div class="skr-didaktikon-simulation__note" data-skr-didaktikon-simulation-note aria-live="polite"></div>
+    </aside>
+  </main>
+  <div class="skr-didaktikon-simulation__progress" aria-hidden="true">
+    <div class="skr-didaktikon-simulation__progress-fill" data-skr-didaktikon-simulation-progress></div>
+  </div>
+  <footer class="skr-didaktikon-simulation__controls" aria-label="Simulation steuern" data-skr-didaktikon-simulation-controls>
+    <button type="button" class="skr-didaktikon-simulation__btn" data-skr-didaktikon-simulation-reset
+            title="Zurück auf Anfang (Taste R)" aria-label="Zurück auf Anfang">⟲</button>
+    <button type="button" class="skr-didaktikon-simulation__btn" data-skr-didaktikon-simulation-prev
+            title="Schritt zurück (←)" aria-label="Schritt zurück">‹</button>
+    <div class="skr-didaktikon-simulation__play-group">
+      <button type="button" class="skr-didaktikon-simulation__btn skr-didaktikon-simulation__btn--play" data-skr-didaktikon-simulation-play
+              title="Abspielen (Leertaste)" aria-label="Abspielen">
+        <span class="skr-didaktikon-simulation__btn-icon" data-skr-didaktikon-simulation-play-icon>▶</span>
+        <span class="skr-didaktikon-simulation__btn-text" data-skr-didaktikon-simulation-play-text>Abspielen</span>
+      </button>
+      <button type="button" class="skr-didaktikon-simulation__btn skr-didaktikon-simulation__btn--speed" data-skr-didaktikon-simulation-speed-toggle
+              title="Tempo wählen (Taste T)" aria-label="Tempo wählen"
+              aria-haspopup="true" aria-expanded="false">
+        <span data-skr-didaktikon-simulation-speed-label></span>
+        <span class="skr-didaktikon-simulation__caret" aria-hidden="true">▴</span>
+      </button>
+      <ul class="skr-didaktikon-simulation__speed-menu" data-skr-didaktikon-simulation-speed-menu hidden role="menu"
+          aria-label="Tempo">
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-skr-didaktikon-simulation-speed-value="0.5"><span data-skr-didaktikon-simulation-speed-number></span><span> langsam</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="true"  data-skr-didaktikon-simulation-speed-value="1"><span data-skr-didaktikon-simulation-speed-number></span><span> normal</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-skr-didaktikon-simulation-speed-value="2"><span data-skr-didaktikon-simulation-speed-number></span><span> zügig</span></button></li>
+        <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-skr-didaktikon-simulation-speed-value="5"><span data-skr-didaktikon-simulation-speed-number></span><span> im Zeitraffer</span></button></li>
+      </ul>
+    </div>
+    <button type="button" class="skr-didaktikon-simulation__btn" data-skr-didaktikon-simulation-next
+            title="Schritt vor (→)" aria-label="Schritt vor">›</button>
+  </footer>
+  <p class="skr-didaktikon-simulation__capture-hint" data-skr-didaktikon-simulation-capture-hint hidden aria-hidden="true">
+    Capture-Modus · <b>C</b> beenden · <b>T</b> Text einblenden
+  </p>
+  <p class="skr-didaktikon-simulation__print-hint" aria-hidden="true">
+    Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.
+  </p>
+</body>
+</html>

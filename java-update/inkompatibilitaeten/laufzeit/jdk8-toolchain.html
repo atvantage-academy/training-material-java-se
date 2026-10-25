@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
+<title>JDK 8 als Toolchain einrichten · ATVANTAGE Academy</title>
+<meta name="description" content="Richte ein JDK 8 als Maven-Toolchain ein, damit die Tests der Inkompatibilitäten so laufen wie vor dem Umstieg – Maven selbst bleibt auf Deinem aktuellen JDK.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="JDK 8 als Toolchain einrichten">
+<meta property="og:description" content="Richte ein JDK 8 als Maven-Toolchain ein, damit die Tests der Inkompatibilitäten so laufen wie vor dem Umstieg – Maven selbst bleibt auf Deinem aktuellen JDK.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=76b431ec">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
+<meta name="generator" content="Skriptorium 1.16.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Richte ein JDK 8 als Maven-Toolchain ein, damit die Tests der Inkompatibilitäten so laufen wie vor dem Umstieg – Maven selbst bleibt auf Deinem aktuellen JDK.","duration":15,"fields":{"skriptorium":{"definition_of_done":["Ein JDK 8 ist installiert, und `java -version` aus seinem Ordner meldet `1.8.0_…`.","`~/.m2/toolchains.xml` führt das JDK 8 mit der Version `1.8`.","`mvn -v` meldet weiter Dein aktuelles JDK, nicht das JDK 8.","Der Test im Modul `inkompatibilitaeten/laufzeit/toolchain` ist mit dem Profil `jdk8` grün."]}},"language":"de","languages":["de"],"layout":"skriptorium.guide","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"JDK 8 als Toolchain einrichten","topics":["Maven Toolchains","JDK 8"],"untranslated":null,"url":"/java-update/inkompatibilitaeten/laufzeit/jdk8-toolchain.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
+
+<script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=04cc011a">
+<script src="../../../skriptorium/guide-layout.js?v=207db517" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="skriptorium.guide" data-skr-layouts="skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header"
+        data-skr-menu-visible="7" data-skr-menu-speed="1" data-skr-header>
+  <a class="skr-header__brand" href="../../../" aria-label="Startseite"><img class="skr-header__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><img class="skr-header__mark" src="../../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../../skriptorium/search/de.json?v=e6f707ee"
+     data-base="../../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-update/">Java-Update</a><span>/</span><span aria-current="page">JDK 8 als Toolchain einrichten</span></nav>
+
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 15 Minuten</span><span class="skr-tag">Maven Toolchains</span><span class="skr-tag">JDK 8</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">JDK 8 als Toolchain einrichten</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content"><div class="skr-guide-done">
+<h2 id="definition-of-done">Definition of Done</h2>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ein JDK 8 ist installiert, und java -version aus seinem Ordner meldet 1.8.0_…." disabled="disabled"> Ein JDK 8 ist installiert, und <code>java -version</code> aus seinem Ordner meldet <code>1.8.0_…</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="~/.m2/toolchains.xml führt das JDK 8 mit der Version 1.8." disabled="disabled"> <code>~/.m2/toolchains.xml</code> führt das JDK 8 mit der Version <code>1.8</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn -v meldet weiter Dein aktuelles JDK, nicht das JDK 8." disabled="disabled"> <code>mvn -v</code> meldet weiter Dein aktuelles JDK, nicht das JDK 8.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Test im Modul inkompatibilitaeten/laufzeit/toolchain ist mit dem Profil jdk8 grün." disabled="disabled"> Der Test im Modul <code>inkompatibilitaeten/laufzeit/toolchain</code> ist mit dem Profil <code>jdk8</code> grün.</li>
+</ul>
+</div>
+<p>Die Übungen zu den Brüchen <strong>zur Laufzeit</strong> – Datumsformat, Zeitstempel, JAXB,
+Reflection, Security Manager, Zeichensatz – starten mit einem roten Test. <code>--release 8</code>
+legt nur fest, gegen welche Sprache und API übersetzt wird; laufen tut der Code auf
+Deinem JDK 21 oder 25. Wie der Test vor dem Umstieg ausging, beschreibt jede Übung.
+Mit einem zusätzlichen JDK 8 siehst Du es selbst.</p>
+<p>Dafür stellst Du nichts um: Maven läuft weiter auf Deinem aktuellen JDK und übersetzt
+damit. Nur die <strong>Tests</strong> laufen über eine <strong>Maven-Toolchain</strong> auf dem JDK 8. Das
+übernimmt das Profil <code>jdk8</code> im Übungsprojekt; es braucht nur zu wissen, wo das JDK 8
+liegt. Das trägst Du einmal in <code>~/.m2/toolchains.xml</code> ein.</p>
+<h2 id="schritte">Schritte</h2>
+<h3 id="ein-jdk-8-installieren">Ein JDK 8 installieren</h3>
+<p>Installiere ein JDK 8 <strong>neben</strong> Deinem aktuellen JDK. Mach es <strong>nicht</strong> zum Standard:
+<code>JAVA_HOME</code> und <code>PATH</code> bleiben, wie sie sind.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="installieren" open>
+<summary>IntelliJ</summary>
+<p>Unter <em>File → Project Structure… → Platform Settings → SDKs</em> fügst Du mit <strong>+ →
+Download JDK…</strong> ein JDK hinzu: Version <strong>1.8</strong>, Anbieter etwa <strong>Azul Zulu</strong> oder
+<strong>Amazon Corretto</strong>. IntelliJ legt es in Deinem Benutzerordner ab und braucht dafür
+keine Administratorrechte. Den Ordner zeigt die Liste der SDKs an.</p>
+</details>
+<details class="skr-tabs__panel" name="installieren">
+<summary>macOS</summary>
+<p>Mit <a href="https://brew.sh">Homebrew</a> installierst Du Azul Zulu 8. Das Paket gibt es für
+Intel- und Apple-Prozessoren; Homebrew wählt das passende selbst:</p>
+<pre><code class="language-shell">brew install --cask zulu@8
+</code></pre>
+<p>Ohne Homebrew lädst Du ein JDK 8 als <code>.pkg</code> oder <code>.dmg</code> herunter und installierst es:
+<a href="https://www.azul.com/downloads/?version=java-8-lts&amp;os=macos&amp;package=jdk">Azul Zulu 8</a>
+oder <a href="https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html">Amazon Corretto 8</a>,
+jeweils für Deinen Prozessor.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Eclipse Temurin gibt es für Java 8 auf dem Mac nur für
+Intel-Prozessoren, auch als Homebrew-Paket <code>temurin@8</code>. Auf einem Mac mit
+<strong>Apple-Prozessor</strong> (M1 und neuer) liefe es nur über Rosetta – nimm dort Zulu oder
+Corretto.</p>
+</blockquote>
+<p>Homebrew und die Installer legen das JDK unter <code>/Library/Java/JavaVirtualMachines</code> ab.
+Dein Standard-JDK ändert sich dadurch nicht: macOS nimmt weiter das neueste.</p>
+</details>
+<details class="skr-tabs__panel" name="installieren">
+<summary>Windows</summary>
+<p>Mit <a href="https://chocolatey.org">Chocolatey</a> installierst Du Eclipse Temurin 8. Öffne eine
+PowerShell <strong>als Administrator</strong> und installiere nur das JDK selbst – ohne Eintrag in
+<code>PATH</code> und ohne Verknüpfung der <code>.jar</code>-Dateien, die das Paket sonst mitbringt:</p>
+<pre><code class="language-powershell">choco install temurin8 --params=&quot;/ADDLOCAL=FeatureMain /INSTALLDIR=$env:ProgramFiles\Eclipse Adoptium\&quot;
+</code></pre>
+<p>Ohne Chocolatey lädst Du
+<a href="https://adoptium.net/temurin/releases/?version=8&amp;os=windows">Eclipse Temurin 8</a>
+als <code>.msi</code> herunter und installierst es. Lass im Installer die Punkte <strong>„Set
+JAVA_HOME variable“</strong> und <strong>„Add to PATH“</strong> abgewählt.</p>
+<p>Prüfe danach in einer neuen Konsole, dass <code>java -version</code> weiter Dein aktuelles JDK
+meldet.</p>
+</details>
+<details class="skr-tabs__panel" name="installieren">
+<summary>Linux</summary>
+<p>Installiere das JDK 8 über die Paketverwaltung, unter Debian und Ubuntu etwa:</p>
+<pre><code class="language-shell">sudo apt install openjdk-8-jdk
+</code></pre>
+<p>Prüfe danach, dass <code>java -version</code> weiter Dein aktuelles JDK meldet. Falls nicht,
+stellst Du es mit <code>sudo update-alternatives --config java</code> zurück.</p>
+</details>
+</div>
+<h3 id="den-ordner-des-jdk-8-finden">Den Ordner des JDK 8 finden</h3>
+<p>Für die Toolchain brauchst Du den <strong>Ordner des JDK</strong> – den, in dem <code>bin/java</code> liegt.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="ordner" open>
+<summary>macOS</summary>
+<p>Lass Dir den Ordner des JDK 8 anzeigen:</p>
+<pre><code class="language-shell">/usr/libexec/java_home -v 1.8
+</code></pre>
+<p>Typisch ist <code>/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home</code>, von IntelliJ
+geladen <code>~/Library/Java/JavaVirtualMachines/…/Contents/Home</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="ordner">
+<summary>Windows</summary>
+<p>Typisch ist <code>C:\Program Files\Eclipse Adoptium\jdk-8.0.…-hotspot</code>, von IntelliJ
+geladen <code>C:\Users\«Du»\.jdks\…</code>. Sieh im Explorer nach, wie der Ordner bei Dir genau
+heißt.</p>
+</details>
+<details class="skr-tabs__panel" name="ordner">
+<summary>Linux</summary>
+<p>Lass Dir die installierten JDKs anzeigen:</p>
+<pre><code class="language-shell">ls /usr/lib/jvm
+</code></pre>
+<p>Typisch ist <code>/usr/lib/jvm/java-8-openjdk-amd64</code>.</p>
+</details>
+</div>
+<p>Prüfe den Ordner, indem Du das <code>java</code> darin direkt aufrufst:</p>
+<pre><code class="language-shell">«ordner»/bin/java -version
+</code></pre>
+<p>Die Ausgabe beginnt mit <code>openjdk version &quot;1.8.0_…&quot;</code>.</p>
+<h3 id="das-jdk-8-in-toolchainsxml-eintragen">Das JDK 8 in <code>toolchains.xml</code> eintragen</h3>
+<p>Lege die Datei <code>toolchains.xml</code> im Ordner <code>.m2</code> Deines Benutzerordners an
+(<code>~/.m2/toolchains.xml</code>, unter Windows <code>C:\Users\«Du»\.m2\toolchains.xml</code>) und setze
+bei <code>jdkHome</code> den Ordner aus dem vorigen Schritt ein:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;toolchains&gt;
+  &lt;toolchain&gt;
+    &lt;type&gt;jdk&lt;/type&gt;
+    &lt;provides&gt;
+      &lt;version&gt;1.8&lt;/version&gt;
+    &lt;/provides&gt;
+    &lt;configuration&gt;
+      &lt;jdkHome&gt;/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home&lt;/jdkHome&gt;
+    &lt;/configuration&gt;
+  &lt;/toolchain&gt;
+&lt;/toolchains&gt;
+</code></pre>
+<p>Gibt es die Datei schon, ergänzt Du nur den Abschnitt <code>&lt;toolchain&gt;</code> innerhalb von
+<code>&lt;toolchains&gt;</code>. Ob dort <code>1.8</code> oder <code>8</code> als Version steht, ist gleich: Das Profil sucht
+jede Version ab 1.8 und unter 9.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> IntelliJ IDEA und Eclipse lesen dieselbe Datei. In Eclipse siehst Du
+unter <em>Window → Preferences → Maven → User Settings</em> (auf dem Mac <em>Eclipse →
+Settings…</em>) bei <strong>User Toolchains</strong>, welche Datei es nimmt.</p>
+</blockquote>
+<h3 id="die-einrichtung-prüfen">Die Einrichtung prüfen</h3>
+<p>Für diese Prüfung hat das Übungsprojekt ein eigenes Modul, <code>inkompatibilitaeten/laufzeit/toolchain</code>.
+Es enthält nur einen Test, und der läuft nur mit dem Profil <code>jdk8</code>. Grün ist er nur,
+wenn er wirklich auf einem JDK 8 läuft.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="pruefen" open>
+<summary>Kommandozeile</summary>
+<p>Prüfe zuerst, dass Maven weiter auf Deinem aktuellen JDK läuft:</p>
+<pre><code class="language-shell">mvn -v
+</code></pre>
+<p>Baue dann das Modul im Wurzelordner des Übungsprojekts mit dem Profil <code>jdk8</code>:</p>
+<pre><code class="language-shell">mvn clean verify -pl inkompatibilitaeten/laufzeit/toolchain -am -Pjdk8
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="pruefen">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>laufzeit-toolchain</code></strong>. Sie baut mit <code>clean</code> und
+dem Profil <code>jdk8</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="pruefen">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>laufzeit-toolchain</code></strong>. Sie baut mit <code>clean</code> und dem Profil <code>jdk8</code>.</p>
+</details>
+</div>
+<p>In der Ausgabe steht vor dem Test, welches JDK ihn ausführt, und der Test nennt es noch
+einmal selbst:</p>
+<pre><code class="language-text">[INFO] Toolchain in maven-surefire-plugin: JDK[/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home]
+Die Tests laufen auf Java 1.8.0_512 (Azul Systems, Inc.) aus /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre
+</code></pre>
+<p>Geht etwas schief, sagt Dir die Meldung, wo Du suchen musst:</p>
+<ul>
+<li><strong>„Requested toolchain specification did not match any configured toolchain“</strong> –
+Maven findet keinen passenden Eintrag. Prüfe Name und Ort der Datei und die Version
+in <code>toolchains.xml</code>. Steht davor <strong>„Misconfigured toolchain.“</strong>, gibt es den Ordner
+bei <code>jdkHome</code> nicht.</li>
+<li><strong>„Die Tests laufen nicht auf JDK 8“</strong> – der Eintrag passt, aber <code>jdkHome</code> zeigt
+auf ein anderes JDK.</li>
+</ul>
+<p>Die Übungen zu den Brüchen zur Laufzeit haben je eine eigene Run Configuration mit
+<code>-jdk8</code> am Ende, etwa <code>laufzeit-jaxb-jdk8</code>. Sie nennen sie an der Stelle, an
+der Du den Stand vorher sehen kannst.</p>
+<textarea id="skr-md-source" hidden aria-hidden="true"># JDK 8 als Toolchain einrichten
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+## Definition of Done
+
+- [ ] Ein JDK 8 ist installiert, und `java -version` aus seinem Ordner meldet `1.8.0_…`.
+- [ ] `~/.m2/toolchains.xml` führt das JDK 8 mit der Version `1.8`.
+- [ ] `mvn -v` meldet weiter Dein aktuelles JDK, nicht das JDK 8.
+- [ ] Der Test im Modul `inkompatibilitaeten/laufzeit/toolchain` ist mit dem Profil `jdk8` grün.
+
+&lt;/div&gt;
+
+
+Die Übungen zu den Brüchen **zur Laufzeit** – Datumsformat, Zeitstempel, JAXB,
+Reflection, Security Manager, Zeichensatz – starten mit einem roten Test. `--release 8`
+legt nur fest, gegen welche Sprache und API übersetzt wird; laufen tut der Code auf
+Deinem JDK 21 oder 25. Wie der Test vor dem Umstieg ausging, beschreibt jede Übung.
+Mit einem zusätzlichen JDK 8 siehst Du es selbst.
+
+Dafür stellst Du nichts um: Maven läuft weiter auf Deinem aktuellen JDK und übersetzt
+damit. Nur die **Tests** laufen über eine **Maven-Toolchain** auf dem JDK 8. Das
+übernimmt das Profil `jdk8` im Übungsprojekt; es braucht nur zu wissen, wo das JDK 8
+liegt. Das trägst Du einmal in `~/.m2/toolchains.xml` ein.
+
+## Schritte
+
+### Ein JDK 8 installieren
+
+Installiere ein JDK 8 **neben** Deinem aktuellen JDK. Mach es **nicht** zum Standard:
+`JAVA_HOME` und `PATH` bleiben, wie sie sind.
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;installieren&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Unter *File → Project Structure… → Platform Settings → SDKs* fügst Du mit **&#43; →
+Download JDK…** ein JDK hinzu: Version **1.8**, Anbieter etwa **Azul Zulu** oder
+**Amazon Corretto**. IntelliJ legt es in Deinem Benutzerordner ab und braucht dafür
+keine Administratorrechte. Den Ordner zeigt die Liste der SDKs an.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;installieren&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;macOS&lt;/summary&gt;
+
+Mit [Homebrew](https://brew.sh) installierst Du Azul Zulu 8. Das Paket gibt es für
+Intel- und Apple-Prozessoren; Homebrew wählt das passende selbst:
+
+```shell
+brew install --cask zulu@8
+```
+
+Ohne Homebrew lädst Du ein JDK 8 als `.pkg` oder `.dmg` herunter und installierst es:
+[Azul Zulu 8](https://www.azul.com/downloads/?version=java-8-lts&amp;os=macos&amp;package=jdk)
+oder [Amazon Corretto 8](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html),
+jeweils für Deinen Prozessor.
+
+&gt; **Hinweis:** Eclipse Temurin gibt es für Java 8 auf dem Mac nur für
+&gt; Intel-Prozessoren, auch als Homebrew-Paket `temurin@8`. Auf einem Mac mit
+&gt; **Apple-Prozessor** (M1 und neuer) liefe es nur über Rosetta – nimm dort Zulu oder
+&gt; Corretto.
+
+Homebrew und die Installer legen das JDK unter `/Library/Java/JavaVirtualMachines` ab.
+Dein Standard-JDK ändert sich dadurch nicht: macOS nimmt weiter das neueste.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;installieren&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Windows&lt;/summary&gt;
+
+Mit [Chocolatey](https://chocolatey.org) installierst Du Eclipse Temurin 8. Öffne eine
+PowerShell **als Administrator** und installiere nur das JDK selbst – ohne Eintrag in
+`PATH` und ohne Verknüpfung der `.jar`-Dateien, die das Paket sonst mitbringt:
+
+```powershell
+choco install temurin8 --params=&#34;/ADDLOCAL=FeatureMain /INSTALLDIR=$env:ProgramFiles\Eclipse Adoptium\&#34;
+```
+
+Ohne Chocolatey lädst Du
+[Eclipse Temurin 8](https://adoptium.net/temurin/releases/?version=8&amp;os=windows)
+als `.msi` herunter und installierst es. Lass im Installer die Punkte **„Set
+JAVA_HOME variable“** und **„Add to PATH“** abgewählt.
+
+Prüfe danach in einer neuen Konsole, dass `java -version` weiter Dein aktuelles JDK
+meldet.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;installieren&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Linux&lt;/summary&gt;
+
+Installiere das JDK 8 über die Paketverwaltung, unter Debian und Ubuntu etwa:
+
+```shell
+sudo apt install openjdk-8-jdk
+```
+
+Prüfe danach, dass `java -version` weiter Dein aktuelles JDK meldet. Falls nicht,
+stellst Du es mit `sudo update-alternatives --config java` zurück.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+### Den Ordner des JDK 8 finden
+
+Für die Toolchain brauchst Du den **Ordner des JDK** – den, in dem `bin/java` liegt.
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ordner&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;macOS&lt;/summary&gt;
+
+Lass Dir den Ordner des JDK 8 anzeigen:
+
+```shell
+/usr/libexec/java_home -v 1.8
+```
+
+Typisch ist `/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home`, von IntelliJ
+geladen `~/Library/Java/JavaVirtualMachines/…/Contents/Home`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ordner&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Windows&lt;/summary&gt;
+
+Typisch ist `C:\Program Files\Eclipse Adoptium\jdk-8.0.…-hotspot`, von IntelliJ
+geladen `C:\Users\«Du»\.jdks\…`. Sieh im Explorer nach, wie der Ordner bei Dir genau
+heißt.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ordner&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Linux&lt;/summary&gt;
+
+Lass Dir die installierten JDKs anzeigen:
+
+```shell
+ls /usr/lib/jvm
+```
+
+Typisch ist `/usr/lib/jvm/java-8-openjdk-amd64`.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Prüfe den Ordner, indem Du das `java` darin direkt aufrufst:
+
+```shell
+«ordner»/bin/java -version
+```
+
+Die Ausgabe beginnt mit `openjdk version &#34;1.8.0_…&#34;`.
+
+### Das JDK 8 in `toolchains.xml` eintragen
+
+Lege die Datei `toolchains.xml` im Ordner `.m2` Deines Benutzerordners an
+(`~/.m2/toolchains.xml`, unter Windows `C:\Users\«Du»\.m2\toolchains.xml`) und setze
+bei `jdkHome` den Ordner aus dem vorigen Schritt ein:
+
+```xml
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;toolchains&gt;
+  &lt;toolchain&gt;
+    &lt;type&gt;jdk&lt;/type&gt;
+    &lt;provides&gt;
+      &lt;version&gt;1.8&lt;/version&gt;
+    &lt;/provides&gt;
+    &lt;configuration&gt;
+      &lt;jdkHome&gt;/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home&lt;/jdkHome&gt;
+    &lt;/configuration&gt;
+  &lt;/toolchain&gt;
+&lt;/toolchains&gt;
+```
+
+Gibt es die Datei schon, ergänzt Du nur den Abschnitt `&lt;toolchain&gt;` innerhalb von
+`&lt;toolchains&gt;`. Ob dort `1.8` oder `8` als Version steht, ist gleich: Das Profil sucht
+jede Version ab 1.8 und unter 9.
+
+&gt; **Hinweis:** IntelliJ IDEA und Eclipse lesen dieselbe Datei. In Eclipse siehst Du
+&gt; unter *Window → Preferences → Maven → User Settings* (auf dem Mac *Eclipse →
+&gt; Settings…*) bei **User Toolchains**, welche Datei es nimmt.
+
+### Die Einrichtung prüfen
+
+Für diese Prüfung hat das Übungsprojekt ein eigenes Modul, `inkompatibilitaeten/laufzeit/toolchain`.
+Es enthält nur einen Test, und der läuft nur mit dem Profil `jdk8`. Grün ist er nur,
+wenn er wirklich auf einem JDK 8 läuft.
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pruefen&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Prüfe zuerst, dass Maven weiter auf Deinem aktuellen JDK läuft:
+
+```shell
+mvn -v
+```
+
+Baue dann das Modul im Wurzelordner des Übungsprojekts mit dem Profil `jdk8`:
+
+```shell
+mvn clean verify -pl inkompatibilitaeten/laufzeit/toolchain -am -Pjdk8
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pruefen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`laufzeit-toolchain`**. Sie baut mit `clean` und
+dem Profil `jdk8`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pruefen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`laufzeit-toolchain`**. Sie baut mit `clean` und dem Profil `jdk8`.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+In der Ausgabe steht vor dem Test, welches JDK ihn ausführt, und der Test nennt es noch
+einmal selbst:
+
+```text
+[INFO] Toolchain in maven-surefire-plugin: JDK[/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home]
+Die Tests laufen auf Java 1.8.0_512 (Azul Systems, Inc.) aus /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre
+```
+
+Geht etwas schief, sagt Dir die Meldung, wo Du suchen musst:
+
+- **„Requested toolchain specification did not match any configured toolchain“** –
+  Maven findet keinen passenden Eintrag. Prüfe Name und Ort der Datei und die Version
+  in `toolchains.xml`. Steht davor **„Misconfigured toolchain.“**, gibt es den Ordner
+  bei `jdkHome` nicht.
+- **„Die Tests laufen nicht auf JDK 8“** – der Eintrag passt, aber `jdkHome` zeigt
+  auf ein anderes JDK.
+
+Die Übungen zu den Brüchen zur Laufzeit haben je eine eigene Run Configuration mit
+`-jdk8` am Ende, etwa `laufzeit-jaxb-jdk8`. Sie nennen sie an der Stelle, an
+der Du den Stand vorher sehen kannst.
+## Weiterführende Informationen
+- [Maven: Guide to Using Toolchains](https://maven.apache.org/guides/mini/guide-using-toolchains.html)
+- [Surefire: Using Java Toolchains](https://maven.apache.org/surefire/maven-surefire-plugin/examples/toolchains.html)
+</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#schritte">Schritte</a><a href="#ein-jdk-8-installieren" class="skr-toc--h3">Ein JDK 8 installieren</a><a href="#den-ordner-des-jdk-8-finden" class="skr-toc--h3">Den Ordner des JDK 8 finden</a><a href="#das-jdk-8-in-toolchainsxml-eintragen" class="skr-toc--h3">Das JDK 8 in toolchains.xml eintragen</a><a href="#die-einrichtung-prüfen" class="skr-toc--h3">Die Einrichtung prüfen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 4 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://maven.apache.org/guides/mini/guide-using-toolchains.html" target="_blank" rel="noopener"><span>Maven: Guide to Using Toolchains</span></a>
+      <a href="https://maven.apache.org/surefire/maven-surefire-plugin/examples/toolchains.html" target="_blank" rel="noopener"><span>Surefire: Using Java Toolchains</span></a>
+    </div>
+  </div>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div></div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

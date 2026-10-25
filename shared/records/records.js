@@ -1,5 +1,6 @@
 (function () {
   // Alle Ausgaben gemessen: javap aus Temurin 17, Compilermeldungen aus javac 25.
+  // code ist Java (gefärbt), ausgabe die Programmausgabe oder Compilermeldung dazu.
   const teile = [
     { id: "felder", gruppe: "ja", knopf: "Felder",
       titel: "Je Komponente ein privates, finales Feld",
@@ -9,7 +10,8 @@
     { id: "konstruktor", gruppe: "ja", knopf: "Kanonischer Konstruktor",
       titel: "Ein Konstruktor mit allen Komponenten",
       text: "Der **kanonische** Konstruktor nimmt alle Komponenten in ihrer Reihenfolge. Der **kompakte** Konstruktor `public Position { … }` ist sein Rumpf ohne Parameterliste: Er prüft, die Zuweisung an die Felder ergänzt der Compiler danach.",
-      code: "public Position(java.lang.String, int, java.math.BigDecimal);\n\nnew Position(\"Tasse\", 0, BigDecimal.ONE)\n→ IllegalArgumentException: Menge muss positiv sein: 0",
+      code: "public Position(java.lang.String, int, java.math.BigDecimal);\n\nnew Position(\"Tasse\", 0, BigDecimal.ONE)",
+      ausgabe: "IllegalArgumentException: Menge muss positiv sein: 0",
       quelle: "javap -p, Programmausgabe" },
     { id: "zugriff", gruppe: "ja", knopf: "Zugriffsmethoden",
       titel: "Je Komponente eine Zugriffsmethode – ohne get",
@@ -19,7 +21,8 @@
     { id: "methoden", gruppe: "ja", knopf: "equals, hashCode, toString",
       titel: "Gleichheit und Text aus allen Komponenten",
       text: "Zwei Records mit gleichen Werten sind **gleich**, und `toString` zeigt alle Werte. Für eine handgeschriebene Klasse sind das die Methoden, in denen sich beim nächsten neuen Feld ein Fehler versteckt.",
-      code: "Position[artikel=Tasse, menge=2, einzelpreis=4.50]\n\nnew Position(\"Tasse\", 2, new BigDecimal(\"4.50\"))\n    .equals(new Position(\"Tasse\", 2, new BigDecimal(\"4.50\")))  → true",
+      code: "System.out.println(new Position(\"Tasse\", 2, new BigDecimal(\"4.50\")));\nSystem.out.println(new Position(\"Tasse\", 2, new BigDecimal(\"4.50\"))\n    .equals(new Position(\"Tasse\", 2, new BigDecimal(\"4.50\"))));",
+      ausgabe: "Position[artikel=Tasse, menge=2, einzelpreis=4.50]\ntrue",
       quelle: "Programmausgabe" },
     { id: "final", gruppe: "ja", knopf: "final und extends Record",
       titel: "Die Klasse ist final und erbt von java.lang.Record",
@@ -29,22 +32,26 @@
     { id: "setter", gruppe: "nein", knopf: "Setter",
       titel: "Keine Setter",
       text: "Die Felder sind `final` – auch eine selbst geschriebene Setter-Methode übersetzt nicht. Eine Änderung ist ein **neues** Objekt.",
-      code: "public void setMenge(int menge) { this.menge = menge; }\n\nerror: cannot assign a value to final variable menge",
+      code: "public void setMenge(int menge) { this.menge = menge; }",
+      ausgabe: "error: cannot assign a value to final variable menge",
       quelle: "javac 25" },
     { id: "leer", gruppe: "nein", knopf: "Parameterloser Konstruktor",
       titel: "Kein parameterloser Konstruktor",
       text: "Ein Record entsteht immer **vollständig**. Wer ihn leer erzeugen und danach befüllen will – so arbeiten JPA-Entitäten und ältere Mapper –, bekommt einen Fehler. Einen zusätzlichen Konstruktor darf man schreiben, er muss aber an den kanonischen weiterreichen.",
-      code: "new Position()\n\nerror: constructor Position in record Position cannot be applied to given types;\n  required: String,int,BigDecimal\n  found:    no arguments\n  reason: actual and formal argument lists differ in length",
+      code: "new Position()",
+      ausgabe: "error: constructor Position in record Position cannot be applied to given types;\n  required: String,int,BigDecimal\n  found:    no arguments\n  reason: actual and formal argument lists differ in length",
       quelle: "javac 25" },
     { id: "zusatzfeld", gruppe: "nein", knopf: "Weitere Instanzfelder",
       titel: "Keine Felder außer den Komponenten",
       text: "Der Zustand eines Records ist genau seine Komponenten. Ein zusätzliches Instanzfeld – etwa ein Zwischenspeicher oder eine Versionsnummer – ist verboten; statische Felder sind erlaubt.",
-      code: "private int version;\n\nerror: field declaration must be static\n  (consider replacing field with record component)",
+      code: "private int version;",
+      ausgabe: "error: field declaration must be static\n  (consider replacing field with record component)",
       quelle: "javac 25" },
     { id: "oberklasse", gruppe: "nein", knopf: "Eigene Oberklasse",
       titel: "Keine eigene Oberklasse, keine Unterklasse",
       text: "Ein Record erbt immer von `java.lang.Record`; `extends` gibt es im Kopf nicht. Frameworks, die eine Klasse zur Laufzeit **ableiten** (Proxies für Lazy Loading, CDI-Scopes), können mit einem Record nichts anfangen.",
-      code: "public record Position(…) extends Basis { }\n\nerror: '{' expected",
+      code: "public record Position(…) extends Basis { }",
+      ausgabe: "error: '{' expected",
       quelle: "javac 25" }
   ];
 
@@ -73,7 +80,7 @@
       });
     });
     document.getElementById("rec-druck").innerHTML = teile.map(function (t) {
-      return "<section><h3>" + (t.gruppe === "ja" ? "✓ " : "✗ ") + esc(t.titel) + "</h3><p>" + text(t.text) + "</p><pre>" + esc(t.code) + "</pre></section>";
+      return "<section><h3>" + (t.gruppe === "ja" ? "✓ " : "✗ ") + esc(t.titel) + "</h3><p>" + text(t.text) + "</p><pre>" + esc(t.code + (t.ausgabe ? "\n\n" + t.ausgabe : "")) + "</pre></section>";
     }).join("");
   }
 
@@ -93,9 +100,19 @@
       '<span class="rec-art rec-art--' + t.gruppe + '">' + (t.gruppe === "ja" ? "✓ Erzeugt der Compiler" : "✗ Gibt es nicht") + "</span>"
       + "<h3>" + esc(t.titel) + "</h3>"
       + "<p>" + text(t.text) + "</p>"
-      + "<pre><code>" + esc(t.code) + "</code></pre>"
+      + '<pre><code class="language-java">' + esc(t.code) + "</code></pre>"
+      + (t.ausgabe ? '<p class="rec-art">Ausgabe</p><pre><code>' + esc(t.ausgabe) + "</code></pre>" : "")
       + '<p class="rec-art">' + esc(t.quelle) + "</p>";
     inhaltMelden("rec-erklaerung");
+    färben();
+  }
+
+  // Gefärbt wird über die Hervorhebung des Skriptoriums (`skr.highlight`); steht sie noch
+  // nicht bereit, meldet sie sich mit `skr-highlight-ready`. Ausgaben bleiben ungefärbt.
+  function färben() {
+    const box = document.getElementById("rec-erklaerung");
+    if (window.skr && window.skr.highlight) { window.skr.highlight.apply(box); return; }
+    document.addEventListener("skr-highlight-ready", function () { window.skr.highlight.apply(box); }, { once: true });
   }
 
   function anmelden() {

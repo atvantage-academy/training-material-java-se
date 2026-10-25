@@ -4,6 +4,9 @@
 .jl-filter__knoepfe{display:flex;flex-wrap:wrap;gap:.35rem;}
 .jl-knopf{font:inherit;font-size:.8rem;padding:.3rem .75rem;border-radius:999px;border:1px solid var(--skr-color-border);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
 .jl-knopf:hover{border-color:var(--skr-color-accent);}
+.jl-suche{font:inherit;font-size:.85rem;width:min(100%,18rem);padding:.3rem .75rem;border-radius:999px;border:1px solid var(--skr-color-border);background:var(--skr-color-bg);color:var(--skr-color-ink);}
+.jl-suche:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:2px;}
+.jl-leer{color:var(--skr-color-ink-muted);}
 .jl-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);font-weight:700;}
 .jl-legende{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin:1rem 0;font-size:.8rem;color:var(--skr-color-ink-muted);}
 .jl-legende__eintrag{display:inline-flex;align-items:center;gap:.25rem;}
@@ -31,17 +34,14 @@
 .jl-gruppe{margin:0;}
 .jl-gruppe__titel{font-size:.9rem;margin:1rem 0 .25rem;padding:.35rem 0;color:var(--skr-color-headline);border-bottom:1px solid var(--skr-color-border);}
 .jl-gruppe__titel small{font-weight:400;color:var(--skr-color-ink-muted);}
-.jl-gruppe.is-gewaehlt .jl-gruppe__titel{box-shadow:inset 3px 0 0 var(--skr-color-accent);padding-left:.5rem;}
 .jl-liste{list-style:none;margin:0;padding:0;}
 .jl-liste li{margin:0;padding:0;}
 .jl-eintrag{width:100%;font:inherit;text-align:left;padding:0;margin:0;border:1px solid transparent;border-radius:var(--skr-radius,6px);background:transparent;color:var(--skr-color-ink);cursor:pointer;min-height:2.1rem;}
 .jl-eintrag:hover,.jl-eintrag:focus-visible{border-color:var(--skr-color-accent);}
 .jl-eintrag:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:1px;}
+.jl-eintrag.is-markiert{border-color:var(--skr-color-accent);box-shadow:0 0 0 2px var(--skr-color-accent);background:var(--skr-color-bg-subtle);}
 .jl-zeile__titel{display:block;font-size:.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .jl-zeile__meta{display:block;font-size:.68rem;color:var(--skr-color-ink-muted);}
-.jl-eintrag.is-wichtig{border:2px solid var(--skr-color-accent);}
-.jl-eintrag.is-leise{border-style:dashed;border-color:var(--skr-color-border);color:var(--skr-color-ink-muted);}
-.jl-eintrag.is-leise .jl-zeile__titel{font-weight:400;}
 .jl-eintrag.is-zurueckgezogen .jl-zeile__titel{text-decoration:line-through;}
 
 /* Spur: Spaltenfelder, Balken, Stationen – in dieser Reihenfolge übereinander. */
@@ -53,7 +53,6 @@
 .jl-balken.is-danach{height:2px;background:var(--skr-color-ink-muted);border:0;}
 .jl-balken.is-danach.is-ausblick{background:transparent;border-top:2px dashed var(--skr-color-ink-muted);height:0;}
 .jl-balken.is-zurueckgezogen{background:repeating-linear-gradient(90deg,var(--skr-color-ink-muted) 0 6px,transparent 6px 10px);}
-.jl-eintrag.is-leise .jl-balken{background:transparent;border:1px dashed var(--skr-color-border);}
 .jl-stationen{display:flex;justify-content:center;gap:1px;position:relative;}
 .jl-station{display:inline-flex;align-items:center;justify-content:center;min-width:1.15rem;height:1.15rem;padding:0 .15rem;box-sizing:border-box;border-radius:999px;font-size:.62rem;font-weight:700;line-height:1;border:1.5px solid var(--skr-color-ink);background:var(--skr-color-bg);color:var(--skr-color-ink);}
 .jl-station--vorschlag{border-style:dotted;color:var(--skr-color-ink-muted);border-color:var(--skr-color-ink-muted);}
@@ -65,7 +64,8 @@
 .jl-station--final.is-ausblick{background:var(--skr-color-bg);color:var(--skr-color-ink);border-color:var(--skr-color-accent);}
 .jl-merksatz{margin-top:1.5rem;}
 
-.jl-dialog{width:min(94vw,760px);max-height:88vh;padding:0;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg);color:var(--skr-color-ink);}
+.jl-dialog{width:min(94vw,760px);height:min(88vh,720px);overflow:hidden;padding:0;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg);color:var(--skr-color-ink);}
+.jl-dialog[open]{display:flex;flex-direction:column;}
 .jl-dialog::backdrop{background:rgba(2,6,23,.6);}
 .jl-dialog__kopf{display:flex;justify-content:space-between;gap:1rem;padding:1.1rem 1.4rem;border-bottom:1px solid var(--skr-color-border);}
 .jl-dialog__kopf h2{margin:0;font-size:1.5rem;line-height:1.15;color:var(--skr-color-headline);}
@@ -75,7 +75,7 @@
 .jl-reiter{font:inherit;font-size:.75rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:.35rem .85rem;border-radius:999px;border:1px solid var(--skr-color-border);background:transparent;color:var(--skr-color-ink);cursor:pointer;}
 .jl-reiter:hover{border-color:var(--skr-color-accent);}
 .jl-reiter[aria-selected="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
-.jl-dialog__inhalt{padding:1rem 1.4rem 1.4rem;overflow-y:auto;}
+.jl-dialog__inhalt{flex:1 1 auto;min-height:0;padding:1rem 1.4rem 1.4rem;overflow-y:auto;}
 .jl-dialog__inhalt h3{font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:1rem 0 .3rem;}
 .jl-dialog__inhalt p{margin:0;}
 .jl-dialog__inhalt pre{margin:.25rem 0 0;}
@@ -93,7 +93,6 @@
   .jl-scroll{overflow:visible;}
   .jl-karte{min-width:0;}
   .jl-zeile--kopf{position:static;}
-  .jl-eintrag.is-leise{border-style:solid;}
   .jl-druck{display:block;break-before:page;}
   .jl-druck section{break-inside:avoid;margin:0 0 10pt;}
   .jl-druck h3{font-size:11pt;margin:0 0 2pt;}

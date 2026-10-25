@@ -21,8 +21,7 @@
 .ear-reiter__inhalt > :first-child{margin-top:0;}
 .ear-reiter__inhalt > :last-child{margin-bottom:0;}
 .ear-reiter__inhalt pre{margin:.2rem 0 .8rem;}
-.ear-root .ear-reiter pre code.hljs{font-size:.92rem;line-height:1.5;}
-.ear-root .ear-reiter .ear-konsole{font-size:.88rem;}
+.ear-root .ear-reiter pre code.hljs{line-height:1.5;}
 .ear-reiter__mess{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;}
 .ear-card{min-width:0;background:var(--skr-color-bg-subtle);border:1px solid var(--skr-color-border);border-radius:var(--skr-radius);padding:1rem 1.15rem;}
 .ear-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
@@ -34,10 +33,10 @@
 .ear-card--schlecht{border-left:4px solid var(--skr-color-warning);}
 .ear-etikett{display:block;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-accent-ink);margin:0 0 .3rem;}
 .ear-root pre{overflow-x:auto;}
-.ear-root pre code.hljs{border-radius:var(--skr-radius-lg);font-size:.8rem;line-height:1.5;}
+.ear-root pre code.hljs{border-radius:var(--skr-radius-lg);line-height:1.5;}
 
 /* Ausgaben: Konsole und javap. Bewusst KEIN Java-Highlighting – es ist Text. */
-pre.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-radius);background:var(--skr-color-bg);color:var(--skr-color-ink);border:1px dashed var(--skr-color-border);font-family:var(--skr-font-mono);font-size:.78rem;line-height:1.5;white-space:pre;overflow-x:auto;}
+pre.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-radius);background:var(--skr-color-bg);color:var(--skr-color-ink);border:1px dashed var(--skr-color-border);font-family:var(--skr-font-mono);line-height:1.5;white-space:pre;overflow-x:auto;}
 .ear-konsole::before{content:attr(data-titel);display:block;font-family:var(--skr-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin-bottom:.3rem;}
 .ear-konsole mark{background:var(--skr-color-accent-soft);color:inherit;border-radius:2px;padding:0 .15rem;}
 
@@ -66,7 +65,6 @@ pre.ear-konsole{margin:.5rem 0 0;padding:.6rem .85rem;border-radius:var(--skr-ra
 
 @media (max-width:30rem){
   .ear-grid{grid-template-columns:minmax(0,1fr);}
-  .ear-root .ear-reiter pre code.hljs{font-size:.8rem;}
 }
 
 /* Druck: Die Theme-Reiter klappen vor dem Druck selbst alle auf. */

@@ -28,19 +28,14 @@
 }
 .jev-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(2,6,23,.7);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .2s ease;}
 .jev-modal.open{opacity:1;pointer-events:auto;}
-.jev-modal-container{display:flex;flex-direction:column;width:min(96vw,960px);max-height:88vh;overflow:hidden;background:var(--skr-color-bg,var(--skr-color-bg,#fff));color:var(--skr-color-ink,inherit);border:1px solid var(--skr-color-border,#e2e2e2);border-radius:var(--skr-radius-lg,8px);box-shadow:0 24px 70px rgba(0,0,0,.45);}
+.jev-modal-container{display:flex;flex-direction:column;width:min(96vw,960px);height:min(88vh,720px);overflow:hidden;background:var(--skr-color-bg,var(--skr-color-bg,#fff));color:var(--skr-color-ink,inherit);border:1px solid var(--skr-color-border,#e2e2e2);border-radius:var(--skr-radius-lg,8px);box-shadow:0 24px 70px rgba(0,0,0,.45);}
 .jev-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;border-bottom:1px solid var(--skr-color-border,#eee);}
 .jev-modal-head h2{margin:0;font-size:1.7rem;line-height:1.1;color:var(--skr-color-headline,inherit);}
 .jev-badge-lts{display:inline-block;margin-top:.45rem;padding:.15rem .6rem;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--skr-color-accent,#FF5401);border:1px solid var(--skr-color-accent,#FF5401);border-radius:999px;}
 .jev-modal-date{margin-top:.4rem;font-size:.85rem;opacity:.7;}
 .jev-close{flex:none;background:none;border:none;font-size:1.7rem;line-height:1;cursor:pointer;color:inherit;opacity:.55;padding:.1rem .45rem;border-radius:6px;}
 .jev-close:hover{opacity:1;color:var(--skr-color-danger,#EE1919);}
-.jev-tabs{display:flex;flex-wrap:wrap;gap:.5rem;padding:.9rem 1.5rem;border-bottom:1px solid var(--skr-color-border,#eee);}
-.jev-tab{padding:.4rem .95rem;font-size:.7rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:inherit;background:transparent;border:1px solid var(--skr-color-border,#ccc);border-radius:999px;cursor:pointer;transition:all .15s;}
-.jev-tab:hover{border-color:var(--skr-color-accent,#FF5401);}
-.jev-tab.active{color:#fff;background:var(--skr-color-accent,#FF5401);border-color:var(--skr-color-accent,#FF5401);}
-.jev-modal-body{padding:1.35rem 1.5rem;overflow-y:auto;}
-.jev-feature-title{margin:0 0 .5rem;font-size:1.25rem;color:var(--skr-color-headline,inherit);border-left:4px solid var(--skr-color-accent,#FF5401);padding-left:.7rem;}
+.jev-modal-body{flex:1 1 auto;min-height:0;padding:1.35rem 1.5rem;overflow-y:auto;}
 .jev-feature-desc{margin:0 0 1rem;opacity:.85;}
 /* JEP-Marken: Form und Farben aus dem Badge des Skriptoriums (`.skr-badge`), hier nur
    Abstand und Verweis-Zustände. Farbe ausdrücklich gesetzt, weil die Verweisfarbe des
@@ -75,4 +70,4 @@ body.jev-modal-open{overflow:hidden;}
 }
 /* Farben für die Codeblöcke liefert das Theme (highlight.css, GitHub-Dark) – hier
    nur die Feinabstimmung im Modal. */
-.jev-modal-body pre code.hljs{border-radius:var(--skr-radius-lg,8px);font-size:.82rem;line-height:1.5;}
+.jev-modal-body pre code.hljs{border-radius:var(--skr-radius-lg,8px);line-height:1.5;}
