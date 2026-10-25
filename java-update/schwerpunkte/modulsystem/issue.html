@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.16.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Mach aus drei JARs Java-Module: Abhängigkeiten und API festlegen, einen Erweiterungspunkt über den ServiceLoader anmelden, auf dem Modulpfad starten und mit jlink eine eigene Laufzeitumgebung bauen.","duration":50,"fields":{"didaktikon":{"objectives":["Du deklarierst ein Modul mit `module-info.java` und legst fest, welche Module es liest und welche Packages es exportiert.","Du erklärst, warum ein `public`-Typ in einem nicht exportierten Package von außen nicht mehr erreichbar ist.","Du meldest einen Erweiterungspunkt mit `uses` und `provides` an und startest die Anwendung auf dem Modulpfad.","Du baust mit `jlink` eine eigene Laufzeitumgebung und erklärst, warum ein Dienstanbieter darin fehlen kann.","Du bewertest, wo das Modulsystem im Bestand Probleme macht und ob es sich für Eure Anwendungen lohnt."],"reflective_questions":["Euer Bestand hängt von Bibliotheken ohne `module-info` ab. Was bedeutet das für `requires`, für den Modulpfad und für `jlink`?","Ein Framework liest Eure Klassen per Reflection – JSON-Binding, JPA, CDI. Was müsstet Ihr in `module-info.java` freigeben, und was verliert Ihr damit?","Ihr betreibt eine Quarkus-Anwendung und eine Anwendung auf einem Jakarta-EE-Server. Wer entscheidet dort, ob Eure Klassen auf dem Klassen- oder dem Modulpfad landen?","Wenn Ihr selbst keine Module schreibt: Welcher Teil des Modulsystems betrifft Euch trotzdem?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, was es kostet und was es bringt, die Anwendung in Module zu schneiden, damit ich entscheiden kann, ob sich das für unseren Bestand lohnt."},"skriptorium":{"definition_of_done":[{"items":["`schwerpunkte/modulsystem` baut mit Release 11, und jeder der drei Teile hat eine `module-info.java`.","`BestellungTest` und `ExportlaufTest` sind unverändert grün.","`Exportlauf` läuft auf dem Modulpfad und findet das CSV-Format."],"title":"Module"},{"items":["Dein Image unter `schwerpunkte/modulsystem/target` startet `exportlauf`, und die Ausgabe enthält den CSV-Export.","Du kannst sagen, welche Module im Image liegen und wie groß es im Vergleich zum JDK ist."],"title":"Laufzeit-Image"},{"items":["Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die Bestellexporte modularisieren","topics":["Modulsystem","JEP 261","jlink"],"untranslated":null,"url":"/java-update/schwerpunkte/modulsystem/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Mach aus drei JARs Java-Module: Abhängigkeiten und API festlegen, einen Erweiterungspunkt über den ServiceLoader anmelden, auf dem Modulpfad starten und mit jlink eine eigene Laufzeitumgebung bauen.","duration":50,"fields":{"didaktikon":{"objectives":["Du deklarierst ein Modul mit `module-info.java` und legst fest, welche Module es liest und welche Packages es exportiert.","Du erklärst, warum ein `public`-Typ in einem nicht exportierten Package von außen nicht mehr erreichbar ist.","Du meldest einen Erweiterungspunkt mit `uses` und `provides` an und startest die Anwendung auf dem Modulpfad.","Du baust mit `jlink` eine eigene Laufzeitumgebung und erklärst, warum ein Dienstanbieter darin fehlen kann.","Du bewertest, wo das Modulsystem im Bestand Probleme macht und ob es sich für Eure Anwendungen lohnt."],"reflective_questions":["Wenn Ihr selbst keine Module schreibt: Welcher Teil des Modulsystems betrifft Euch trotzdem?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, was es kostet und was es bringt, die Anwendung in Module zu schneiden, damit ich entscheiden kann, ob sich das für unseren Bestand lohnt."},"skriptorium":{"definition_of_done":[{"items":["`schwerpunkte/modulsystem` baut mit Release 11, und jeder der drei Teile hat eine `module-info.java`.","`BestellungTest` und `ExportlaufTest` sind unverändert grün.","`Exportlauf` läuft auf dem Modulpfad und findet das CSV-Format."],"title":"Module"},{"items":["Dein Image unter `schwerpunkte/modulsystem/target` startet `exportlauf`, und die Ausgabe enthält den CSV-Export.","Du kannst sagen, welche Module im Image liegen und wie groß es im Vergleich zum JDK ist."],"title":"Laufzeit-Image"},{"items":["Du hast den Nutzen je Anwendungsart, Voraussetzungen, Vorteile und Herausforderungen notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die Bestellexporte modularisieren","topics":["Modulsystem","JEP 261","jlink"],"untranslated":null,"url":"/java-update/schwerpunkte/modulsystem/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3ff330af" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f1cb0df4" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=3ff330af"
+     data-index="../../../skriptorium/search/de.json?v=f1cb0df4"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -164,7 +164,7 @@
 </ul>
 <h3 id="bewertung">Bewertung</h3>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert." disabled="disabled"> Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast den Nutzen je Anwendungsart, Voraussetzungen, Vorteile und Herausforderungen notiert." disabled="disabled"> Du hast den Nutzen je Anwendungsart, Voraussetzungen, Vorteile und Herausforderungen notiert.</li>
 </ul>
 <h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
 <ul class="task-list">
@@ -214,13 +214,27 @@ Das CSV-Format kennt die Anwendung nicht beim Namen; es ist nur zur Laufzeit da
 <strong><code>schwerpunkte-modulsystem</code></strong>. Sie baut mit <code>clean</code>.</p>
 </details>
 </div>
-<p>Die drei JARs liegen danach gemeinsam in <code>schwerpunkte/modulsystem/target/module</code>.
-Die nächsten Befehle startest Du im Wurzelordner des Übungsprojekts – auf der
-Kommandozeile oder im Terminal der IDE (IntelliJ: <em>View → Tool Windows → Terminal</em>,
-Eclipse: <em>Window → Show View → Terminal</em>).</p>
+<p>Die drei JARs liegen danach gemeinsam in <code>schwerpunkte/modulsystem/target/module</code>.</p>
 <p>Starte die Anwendung auf dem Klassenpfad:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="klassenpfad" open>
+<summary>Kommandozeile</summary>
+<p>Starte sie im Wurzelordner des Übungsprojekts:</p>
 <pre><code class="language-shell">java -cp &quot;schwerpunkte/modulsystem/target/module/*&quot; bestellwesen.anwendung.Exportlauf
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="klassenpfad">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-modulsystem-klassenpfad</code></strong>. Sie baut alle
+drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="klassenpfad">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-modulsystem-klassenpfad</code></strong>. Sie baut alle drei Teile und startet danach
+die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+</div>
 <p>Sieh Dir <code>Exportlauf</code> an: Aus welchem Package holt die Anwendung die Formatierung der
 Gesamtsumme? Und was steht in der Javadoc dieser Klasse?</p>
 <h3 id="das-release-hochstellen">Das Release hochstellen</h3>
@@ -233,11 +247,43 @@ drei Teile. Baue danach wie oben – der Build ist grün, noch hat sich nichts g
 </blockquote>
 <p>Die JARs haben noch keine <code>module-info.class</code>. Starte sie trotzdem einmal auf dem
 <strong>Modulpfad</strong>:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="modulpfad-automatisch" open>
+<summary>Kommandozeile</summary>
+<p>Starte im Wurzelordner des Übungsprojekts:</p>
 <pre><code class="language-shell">java --module-path schwerpunkte/modulsystem/target/module --module modulsystem.anwendung/bestellwesen.anwendung.Exportlauf
 </code></pre>
+<p>Meldet die JVM <code>Module modulsystem.anwendung not found</code>, liegen in <code>target/module</code>
+noch JARs eines früheren Baus. Baue noch einmal mit <code>clean</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="modulpfad-automatisch">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-modulsystem-modulpfad-automatisch</code></strong>. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="modulpfad-automatisch">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-modulsystem-modulpfad-automatisch</code></strong>. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+</div>
 <p>Es läuft. Woher kommt der Name <code>modulsystem.anwendung</code>? Lass Dir das Modul beschreiben:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="beschreiben" open>
+<summary>Kommandozeile</summary>
+<p>Beschreibe im Wurzelordner des Übungsprojekts das JAR der Anwendung:</p>
 <pre><code class="language-shell">jar --describe-module --file schwerpunkte/modulsystem/target/module/modulsystem-anwendung-1.0.0-SNAPSHOT.jar
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="beschreiben">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-modulsystem-beschreiben</code></strong>. Sie baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="beschreiben">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-modulsystem-beschreiben</code></strong>. Sie baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.</p>
+</details>
+</div>
 <h3 id="module-deklarieren">Module deklarieren</h3>
 <p>Leg in jedem der drei Teile unter <code>src/main/java</code> eine Datei <code>module-info.java</code> an –
 direkt in <code>src/main/java</code>, nicht in einem Package-Ordner. Die Module heißen
@@ -282,8 +328,23 @@ wählen, sonst übersetzt die IDE die <code>module-info.java</code> noch mit Rel
 die passende Direktive in der <code>module-info.java</code> der Anwendung. Baue erneut, bis die
 Tests grün sind.</p>
 <p>Starte die Anwendung danach auf dem Modulpfad – jetzt mit ihrem eigenen Modulnamen:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="modulpfad" open>
+<summary>Kommandozeile</summary>
+<p>Starte im Wurzelordner des Übungsprojekts:</p>
 <pre><code class="language-shell">java --module-path schwerpunkte/modulsystem/target/module --module bestellwesen.anwendung/bestellwesen.anwendung.Exportlauf
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="modulpfad">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-modulsystem-modulpfad</code></strong>. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="modulpfad">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-modulsystem-modulpfad</code></strong>. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+</div>
 <p>Die Tests sind grün, aber das Programm findet kein Format. Was fehlt dem CSV-Modul,
 und warum genügt die Datei unter <code>META-INF/services</code> nicht mehr? Ergänze es, baue und
 starte noch einmal.</p>
@@ -304,23 +365,55 @@ starte noch einmal.</p>
 <p>Warum die Tests schon vorher grün waren: Surefire legt das CSV-JAR auf den Klassenpfad, weil die Anwendung es nicht mit <code>requires</code> nennt – und dort gilt die Datei unter <code>META-INF/services</code>. Lass sie deshalb stehen.</p>
 <h3 id="ein-eigenes-laufzeit-image-bauen">Ein eigenes Laufzeit-Image bauen</h3>
 <p>Baue mit <code>jlink</code> eine Laufzeitumgebung, die nur die Anwendung und das enthält, was
-sie braucht:</p>
+sie braucht, und lass Dir zeigen, welche Module darin liegen:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="image" open>
+<summary>Kommandozeile</summary>
+<p>Baue im Wurzelordner des Übungsprojekts das Image:</p>
 <pre><code class="language-shell">jlink --module-path schwerpunkte/modulsystem/target/module --add-modules bestellwesen.anwendung --strip-debug --no-header-files --no-man-pages --launcher exportlauf=bestellwesen.anwendung/bestellwesen.anwendung.Exportlauf --output schwerpunkte/modulsystem/target/bild
-</code></pre>
-<p>Starte das Image über sein Startskript (unter Windows
-<code>schwerpunkte\modulsystem\target\bild\bin\exportlauf.bat</code>):</p>
-<pre><code class="language-shell">schwerpunkte/modulsystem/target/bild/bin/exportlauf
 </code></pre>
 <p>Lass Dir zeigen, welche Module im Image liegen:</p>
 <pre><code class="language-shell">schwerpunkte/modulsystem/target/bild/bin/java --list-modules
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="image">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-modulsystem-image</code></strong>. Sie baut alle drei Teile und das Image unter <code>schwerpunkte/modulsystem/target/bild</code> und zeigt die Module im Image; sie stehen am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="image">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-modulsystem-image</code></strong>. Sie baut alle drei Teile und das Image unter <code>schwerpunkte/modulsystem/target/bild</code> und zeigt die Module im Image; sie stehen am Ende des Protokolls.</p>
+</details>
+</div>
+<p>Starte das Image über sein Startskript – auf der Kommandozeile oder im Terminal der IDE
+(IntelliJ: <em>View → Tool Windows → Terminal</em>, Eclipse: <em>Window → Show View → Terminal</em>),
+im Wurzelordner des Übungsprojekts. Es braucht weder Maven noch ein installiertes JDK
+(unter Windows <code>schwerpunkte\modulsystem\target\bild\bin\exportlauf.bat</code>):</p>
+<pre><code class="language-shell">schwerpunkte/modulsystem/target/bild/bin/exportlauf
 </code></pre>
 <p>Das Image findet kein Format. Bau ein zweites unter
 <code>schwerpunkte/modulsystem/target/bild-mit-csv</code>, in dem das CSV-Format dabei ist, und
 vergleiche die Größe beider Images mit der Deines JDK.</p>
 <p>Die Lösung: <code>--add-modules bestellwesen.anwendung</code> nimmt nur, was die Anwendung mit <code>requires</code> erreicht – sie selbst, das Modell und <code>java.base</code>. Ein Anbieter über <code>provides</code> kommt nur mit, wenn man ihn nennt. Baue das zweite Image mit dem CSV-Format:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="image-mit-csv" open>
+<summary>Kommandozeile</summary>
+<p>Baue im Wurzelordner des Übungsprojekts das zweite Image:</p>
 <pre><code class="language-shell">jlink --module-path schwerpunkte/modulsystem/target/module --add-modules bestellwesen.anwendung,bestellwesen.csv --strip-debug --no-header-files --no-man-pages --launcher exportlauf=bestellwesen.anwendung/bestellwesen.anwendung.Exportlauf --output schwerpunkte/modulsystem/target/bild-mit-csv
 </code></pre>
-<p>Starte es über sein Startskript:</p>
+</details>
+<details class="skr-tabs__panel" name="image-mit-csv">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-modulsystem-image-mit-csv</code></strong>. Sie baut alle drei Teile und beide Images, <code>bild</code> und <code>bild-mit-csv</code> unter <code>schwerpunkte/modulsystem/target</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="image-mit-csv">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-modulsystem-image-mit-csv</code></strong>. Sie baut alle drei Teile und beide Images, <code>bild</code> und <code>bild-mit-csv</code> unter <code>schwerpunkte/modulsystem/target</code>.</p>
+</details>
+</div>
+<p>Starte es über sein Startskript, wieder auf der Kommandozeile:</p>
 <pre><code class="language-shell">schwerpunkte/modulsystem/target/bild-mit-csv/bin/exportlauf
 </code></pre>
 <ul>
@@ -333,23 +426,20 @@ nicht.</li>
 <h3 id="bewerten">Bewerten</h3>
 <p>Halte für Dich fest, kurz und in Stichworten:</p>
 <ul>
+<li><strong>Betrifft mich das?</strong> Wie hoch ist der Nutzen für einen REST-Microservice (etwa
+mit Quarkus), ein Batch-Programm und eine Server-Anwendung (Java EE/Jakarta EE) –
+gering, mittel oder hoch?</li>
 <li><strong>Voraussetzungen:</strong> Was müssen alle Abhängigkeiten mitbringen, damit eine Anwendung
 ganz auf dem Modulpfad läuft? Was braucht <code>jlink</code>?</li>
 <li><strong>Vorteile:</strong> Was meldet die JVM jetzt beim Start statt mitten im Betrieb? Was kann
 niemand mehr aus Versehen nutzen?</li>
 <li><strong>Herausforderungen:</strong> Wo stößt Ihr im Bestand an – Packages, die in zwei JARs
 liegen, Frameworks mit Reflection, Bibliotheken ohne <code>module-info</code>?</li>
-<li><strong>Betrifft mich das?</strong> Wie hoch ist der Nutzen für einen REST-Microservice (etwa
-mit Quarkus), ein Batch-Programm und eine Server-Anwendung (Java EE/Jakarta EE) –
-gering, mittel oder hoch?</li>
 </ul>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>Euer Bestand hängt von Bibliotheken ohne <code>module-info</code> ab. Was bedeutet das für <code>requires</code>, für den Modulpfad und für <code>jlink</code>?</li>
-<li>Ein Framework liest Eure Klassen per Reflection – JSON-Binding, JPA, CDI. Was müsstet Ihr in <code>module-info.java</code> freigeben, und was verliert Ihr damit?</li>
-<li>Ihr betreibt eine Quarkus-Anwendung und eine Anwendung auf einem Jakarta-EE-Server. Wer entscheidet dort, ob Eure Klassen auf dem Klassen- oder dem Modulpfad landen?</li>
 <li>Wenn Ihr selbst keine Module schreibt: Welcher Teil des Modulsystems betrifft Euch trotzdem?</li>
 </ul>
 </div>
@@ -395,7 +485,7 @@ Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben sol
 
 ### Bewertung
 
-- [ ] Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert.
+- [ ] Du hast den Nutzen je Anwendungsart, Voraussetzungen, Vorteile und Herausforderungen notiert.
 
 ### Für die ganze Seite
 
@@ -467,15 +557,40 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 &lt;/div&gt;
 
 Die drei JARs liegen danach gemeinsam in `schwerpunkte/modulsystem/target/module`.
-Die nächsten Befehle startest Du im Wurzelordner des Übungsprojekts – auf der
-Kommandozeile oder im Terminal der IDE (IntelliJ: *View → Tool Windows → Terminal*,
-Eclipse: *Window → Show View → Terminal*).
 
 Starte die Anwendung auf dem Klassenpfad:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;klassenpfad&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte sie im Wurzelordner des Übungsprojekts:
 
 ```shell
 java -cp &#34;schwerpunkte/modulsystem/target/module/*&#34; bestellwesen.anwendung.Exportlauf
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;klassenpfad&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-modulsystem-klassenpfad`**. Sie baut alle
+drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;klassenpfad&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-modulsystem-klassenpfad`**. Sie baut alle drei Teile und startet danach
+die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Sieh Dir `Exportlauf` an: Aus welchem Package holt die Anwendung die Formatierung der
 Gesamtsumme? Und was steht in der Javadoc dieser Klasse?
@@ -492,15 +607,70 @@ drei Teile. Baue danach wie oben – der Build ist grün, noch hat sich nichts g
 Die JARs haben noch keine `module-info.class`. Starte sie trotzdem einmal auf dem
 **Modulpfad**:
 
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad-automatisch&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte im Wurzelordner des Übungsprojekts:
+
 ```shell
 java --module-path schwerpunkte/modulsystem/target/module --module modulsystem.anwendung/bestellwesen.anwendung.Exportlauf
 ```
 
+Meldet die JVM `Module modulsystem.anwendung not found`, liegen in `target/module`
+noch JARs eines früheren Baus. Baue noch einmal mit `clean`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad-automatisch&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-modulsystem-modulpfad-automatisch`**. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad-automatisch&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-modulsystem-modulpfad-automatisch`**. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
 Es läuft. Woher kommt der Name `modulsystem.anwendung`? Lass Dir das Modul beschreiben:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;beschreiben&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Beschreibe im Wurzelordner des Übungsprojekts das JAR der Anwendung:
 
 ```shell
 jar --describe-module --file schwerpunkte/modulsystem/target/module/modulsystem-anwendung-1.0.0-SNAPSHOT.jar
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;beschreiben&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-modulsystem-beschreiben`**. Sie baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;beschreiben&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-modulsystem-beschreiben`**. Sie baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 ### Module deklarieren
 
@@ -567,9 +737,35 @@ Tests grün sind.
 
 Starte die Anwendung danach auf dem Modulpfad – jetzt mit ihrem eigenen Modulnamen:
 
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte im Wurzelordner des Übungsprojekts:
+
 ```shell
 java --module-path schwerpunkte/modulsystem/target/module --module bestellwesen.anwendung/bestellwesen.anwendung.Exportlauf
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-modulsystem-modulpfad`**. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-modulsystem-modulpfad`**. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Die Tests sind grün, aber das Programm findet kein Format. Was fehlt dem CSV-Modul,
 und warum genügt die Datei unter `META-INF/services` nicht mehr? Ergänze es, baue und
@@ -600,17 +796,17 @@ Warum die Tests schon vorher grün waren: Surefire legt das CSV-JAR auf den Klas
 ### Ein eigenes Laufzeit-Image bauen
 
 Baue mit `jlink` eine Laufzeitumgebung, die nur die Anwendung und das enthält, was
-sie braucht:
+sie braucht, und lass Dir zeigen, welche Module darin liegen:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Baue im Wurzelordner des Übungsprojekts das Image:
 
 ```shell
 jlink --module-path schwerpunkte/modulsystem/target/module --add-modules bestellwesen.anwendung --strip-debug --no-header-files --no-man-pages --launcher exportlauf=bestellwesen.anwendung/bestellwesen.anwendung.Exportlauf --output schwerpunkte/modulsystem/target/bild
-```
-
-Starte das Image über sein Startskript (unter Windows
-`schwerpunkte\modulsystem\target\bild\bin\exportlauf.bat`):
-
-```shell
-schwerpunkte/modulsystem/target/bild/bin/exportlauf
 ```
 
 Lass Dir zeigen, welche Module im Image liegen:
@@ -619,17 +815,71 @@ Lass Dir zeigen, welche Module im Image liegen:
 schwerpunkte/modulsystem/target/bild/bin/java --list-modules
 ```
 
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-modulsystem-image`**. Sie baut alle drei Teile und das Image unter `schwerpunkte/modulsystem/target/bild` und zeigt die Module im Image; sie stehen am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-modulsystem-image`**. Sie baut alle drei Teile und das Image unter `schwerpunkte/modulsystem/target/bild` und zeigt die Module im Image; sie stehen am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Starte das Image über sein Startskript – auf der Kommandozeile oder im Terminal der IDE
+(IntelliJ: *View → Tool Windows → Terminal*, Eclipse: *Window → Show View → Terminal*),
+im Wurzelordner des Übungsprojekts. Es braucht weder Maven noch ein installiertes JDK
+(unter Windows `schwerpunkte\modulsystem\target\bild\bin\exportlauf.bat`):
+
+```shell
+schwerpunkte/modulsystem/target/bild/bin/exportlauf
+```
+
 Das Image findet kein Format. Bau ein zweites unter
 `schwerpunkte/modulsystem/target/bild-mit-csv`, in dem das CSV-Format dabei ist, und
 vergleiche die Größe beider Images mit der Deines JDK.
 
 Die Lösung: `--add-modules bestellwesen.anwendung` nimmt nur, was die Anwendung mit `requires` erreicht – sie selbst, das Modell und `java.base`. Ein Anbieter über `provides` kommt nur mit, wenn man ihn nennt. Baue das zweite Image mit dem CSV-Format:
 
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image-mit-csv&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Baue im Wurzelordner des Übungsprojekts das zweite Image:
+
 ```shell
 jlink --module-path schwerpunkte/modulsystem/target/module --add-modules bestellwesen.anwendung,bestellwesen.csv --strip-debug --no-header-files --no-man-pages --launcher exportlauf=bestellwesen.anwendung/bestellwesen.anwendung.Exportlauf --output schwerpunkte/modulsystem/target/bild-mit-csv
 ```
 
-Starte es über sein Startskript:
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image-mit-csv&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-modulsystem-image-mit-csv`**. Sie baut alle drei Teile und beide Images, `bild` und `bild-mit-csv` unter `schwerpunkte/modulsystem/target`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image-mit-csv&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-modulsystem-image-mit-csv`**. Sie baut alle drei Teile und beide Images, `bild` und `bild-mit-csv` unter `schwerpunkte/modulsystem/target`.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Starte es über sein Startskript, wieder auf der Kommandozeile:
 
 ```shell
 schwerpunkte/modulsystem/target/bild-mit-csv/bin/exportlauf
@@ -645,15 +895,15 @@ schwerpunkte/modulsystem/target/bild-mit-csv/bin/exportlauf
 
 Halte für Dich fest, kurz und in Stichworten:
 
+- **Betrifft mich das?** Wie hoch ist der Nutzen für einen REST-Microservice (etwa
+  mit Quarkus), ein Batch-Programm und eine Server-Anwendung (Java EE/Jakarta EE) –
+  gering, mittel oder hoch?
 - **Voraussetzungen:** Was müssen alle Abhängigkeiten mitbringen, damit eine Anwendung
   ganz auf dem Modulpfad läuft? Was braucht `jlink`?
 - **Vorteile:** Was meldet die JVM jetzt beim Start statt mitten im Betrieb? Was kann
   niemand mehr aus Versehen nutzen?
 - **Herausforderungen:** Wo stößt Ihr im Bestand an – Packages, die in zwei JARs
   liegen, Frameworks mit Reflection, Bibliotheken ohne `module-info`?
-- **Betrifft mich das?** Wie hoch ist der Nutzen für einen REST-Microservice (etwa
-  mit Quarkus), ein Batch-Programm und eine Server-Anwendung (Java EE/Jakarta EE) –
-  gering, mittel oder hoch?
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
@@ -662,9 +912,6 @@ Halte für Dich fest, kurz und in Stichworten:
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- Euer Bestand hängt von Bibliotheken ohne `module-info` ab. Was bedeutet das für `requires`, für den Modulpfad und für `jlink`?
-- Ein Framework liest Eure Klassen per Reflection – JSON-Binding, JPA, CDI. Was müsstet Ihr in `module-info.java` freigeben, und was verliert Ihr damit?
-- Ihr betreibt eine Quarkus-Anwendung und eine Anwendung auf einem Jakarta-EE-Server. Wer entscheidet dort, ob Eure Klassen auf dem Klassen- oder dem Modulpfad landen?
 - Wenn Ihr selbst keine Module schreibt: Welcher Teil des Modulsystems betrifft Euch trotzdem?
 
 &lt;/div&gt;
