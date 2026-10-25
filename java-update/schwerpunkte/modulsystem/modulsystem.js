@@ -1,33 +1,24 @@
 (function () {
   // Alle Meldungen gemessen mit Temurin 25 (Docker) an gleichwertigem Code, hier mit den Namen der Beispiel-Domäne.
 
-  // ---- 1 · Pannen: Klassenpfad gegen Modulpfad ----
+  // ---- 2 · Pannen: Klassenpfad gegen Modulpfad ----
   const pannen = [
-    { id: "fehlt", knopf: "Ein JAR fehlt",
-      klassenpfad: { gut: false, text: "Die Anwendung **startet** und läuft, bis sie die erste Klasse aus dem fehlenden JAR braucht – vielleicht nach Stunden, vielleicht in einem selten genutzten Zweig:",
-        meldung: "Exception in thread \"main\"\n  java.lang.NoClassDefFoundError: shop/katalog/Artikel\n    at shop.app.Start.main(Start.java:12)\nCaused by: java.lang.ClassNotFoundException:\n  shop.katalog.Artikel" },
-      modulpfad: { gut: true, text: "Die JVM prüft **beim Start**, ob jedes `requires` erfüllt ist, und startet gar nicht erst:",
-        meldung: "Error occurred during initialization of boot layer\njava.lang.module.FindException: Module shop.katalog\n  not found, required by shop.app" } },
     { id: "doppelt", knopf: "Ein JAR liegt doppelt da",
       klassenpfad: { gut: false, text: "Zwei Fassungen desselben JARs, etwa nach einem Update: Es gewinnt **still** die, die zuerst im Pfad steht. Welche das ist, hängt von der Reihenfolge ab – auch von der, in der ein Server seine Ordner liest.", meldung: "" },
       modulpfad: { gut: true, text: "Zwei Module mit demselben Namen lehnt die JVM ab:",
-        meldung: "Error occurred during initialization of boot layer\njava.lang.module.FindException: Two versions of module\n  shop.katalog found in lib\n  (shop-katalog-1.0.jar and shop-katalog-0.9.jar)" } },
-    { id: "geteilt", knopf: "Zwei JARs, ein Paket",
-      klassenpfad: { gut: false, text: "Zwei Bibliotheken bringen Klassen im **selben Paket** mit („Split Package“). Auf dem Klassenpfad mischen sie sich; was dabei herauskommt, merkt man erst, wenn eine Klasse fehlt oder doppelt ist.", meldung: "" },
-      modulpfad: { gut: true, text: "Ein Paket gehört genau einem Modul. Der Compiler und die JVM lehnen die Mischung ab:",
-        meldung: "error: module shop.app reads package shop.util\n  from both shop.katalog and shop.pdf\n\njava.lang.LayerInstantiationException: Package shop.util\n  in both module shop.katalog and module shop.pdf" } },
-    { id: "intern", knopf: "Zugriff auf ein internes Paket",
-      klassenpfad: { gut: false, text: "Jede `public`-Klasse ist von überall erreichbar. Ein Paket `…intern` schützt nur sein Name – und irgendwann greift jemand doch hinein.", meldung: "" },
-      modulpfad: { gut: true, text: "Was ein Modul nicht exportiert, ist auch `public` nicht erreichbar – schon der Compiler sagt es:",
-        meldung: "error: package shop.katalog.intern is not visible\n  (package shop.katalog.intern is declared in module shop.katalog,\n   which does not export it)" } }
+        meldung: "Error occurred during initialization of boot layer\njava.lang.module.FindException: Two versions of module\n  katalog found in lib\n  (katalog-1.0.jar and katalog-0.9.jar)" } },
+    { id: "geteilt", knopf: "Zwei JARs, ein Package",
+      klassenpfad: { gut: false, text: "Zwei Bibliotheken bringen Klassen im **selben Package** mit („Split Package“). Auf dem Klassenpfad mischen sie sich; was dabei herauskommt, merkt man erst, wenn eine Klasse fehlt oder doppelt ist.", meldung: "" },
+      modulpfad: { gut: true, text: "Ein Package gehört genau einem Modul. Der Compiler und die JVM lehnen die Mischung ab:",
+        meldung: "error: module app reads package shop.util\n  from both katalog and pdf\n\njava.lang.LayerInstantiationException: Package shop.util\n  in both module katalog and module pdf" } }
   ];
 
-  // ---- 2 · Direktiven und der Modulgraph ----
+  // ---- 3 · Direktiven und der Modulgraph ----
   const knoten = {
-    app: { x: 20, y: 20, name: "shop.app" },
-    pdf: { x: 330, y: 20, name: "shop.pdf" },
-    katalog: { x: 175, y: 130, name: "shop.katalog" },
-    geld: { x: 20, y: 240, name: "shop.geld" },
+    app: { x: 20, y: 20, name: "app" },
+    pdf: { x: 330, y: 20, name: "pdf" },
+    katalog: { x: 175, y: 130, name: "katalog" },
+    geld: { x: 20, y: 240, name: "geld" },
     jspecify: { x: 330, y: 240, name: "org.jspecify" }
   };
   const kanten = [
@@ -39,79 +30,54 @@
     { id: "pdf-app", von: "pdf", nach: "app", text: "provides → uses", direktiven: ["dienste"], dienst: true }
   ];
   const quelltext = [
-    ["// shop.katalog/module-info.java", ""],
-    ["module shop.katalog {", ""],
-    ["    requires transitive shop.geld;", "transitive"],
+    ["// katalog/module-info.java", ""],
+    ["module katalog {", ""],
+    ["    requires transitive geld;", "transitive"],
     ["    requires static org.jspecify;", "static"],
     ["    exports shop.katalog;", "exports"],
     ["    exports shop.katalog.export;", "exports"],
-    ["    exports shop.katalog.intern to shop.pdf;", "qualifiziert"],
+    ["    exports shop.katalog.intern to pdf;", "qualifiziert"],
     ["    opens shop.katalog.daten;", "opens"],
     ["}", ""],
     ["", ""],
-    ["// shop.pdf/module-info.java", ""],
-    ["module shop.pdf {", ""],
-    ["    requires shop.katalog;", "requires"],
+    ["// pdf/module-info.java", ""],
+    ["module pdf {", ""],
+    ["    requires katalog;", "requires"],
     ["    provides shop.katalog.export.Exportformat", "dienste"],
     ["        with shop.pdf.PdfFormat;", "dienste"],
     ["}", ""],
     ["", ""],
-    ["// shop.app/module-info.java", ""],
-    ["module shop.app {", ""],
-    ["    requires shop.katalog;", "requires"],
+    ["// app/module-info.java", ""],
+    ["module app {", ""],
+    ["    requires katalog;", "requires"],
     ["    uses shop.katalog.export.Exportformat;", "dienste"],
     ["}", ""]
   ];
   const direktiven = [
     { id: "requires", knopf: "requires",
       text: "**Ich brauche dieses Modul.** Ein Modul sieht nur die Module, die es liest. `java.base` liest jedes Modul von selbst, alles andere steht hier.",
-      ohne: "Fehlt die Zeile, meldet der Compiler:", meldung: "error: package shop.katalog is not visible\n  (package shop.katalog is declared in module shop.katalog,\n   but module shop.app does not read it)" },
+      ohne: "Fehlt die Zeile, meldet der Compiler:", meldung: "error: package shop.katalog is not visible\n  (package shop.katalog is declared in module katalog,\n   but module app does not read it)" },
     { id: "transitive", knopf: "requires transitive",
-      text: "**Wer mich liest, liest das mit.** Die API von `shop.katalog` gibt Beträge aus `shop.geld` zurück; mit `transitive` kann `shop.app` sie nutzen, ohne `shop.geld` selbst zu nennen. Gedacht für Module, deren Typen in der eigenen API auftauchen.",
-      ohne: "Ohne `transitive` scheitert `shop.app` an einem Typ, den es über `shop.katalog` bekommt:", meldung: "error: package shop.geld is not visible\n  (package shop.geld is declared in module shop.geld,\n   but module shop.app does not read it)" },
+      text: "**Wer mich liest, liest das mit.** Die API von `katalog` gibt Beträge aus `geld` zurück; mit `transitive` kann `app` sie nutzen, ohne `geld` selbst zu nennen. Gedacht für Module, deren Typen in der eigenen API auftauchen.",
+      ohne: "Ohne `transitive` scheitert `app` an einem Typ, den es über `katalog` bekommt:", meldung: "error: package shop.geld is not visible\n  (package shop.geld is declared in module geld,\n   but module app does not read it)" },
     { id: "static", knopf: "requires static",
       text: "**Nur zum Übersetzen.** Typischer Fall: Annotationen wie `@Nullable`, die zur Laufzeit niemand braucht. Zur Laufzeit muss das Modul nicht da sein; wird es nicht anderweitig gebraucht, löst die JVM es gar nicht erst auf.",
       ohne: "", meldung: "" },
     { id: "exports", knopf: "exports",
-      text: "**Das ist meine API.** Nur die `public`-Typen exportierter Pakete sind von außen erreichbar – zum Übersetzen und zur Laufzeit. `public` heißt damit nicht mehr „für alle“, sondern „für alle, die das Paket sehen“.",
-      ohne: "Ein nicht exportiertes Paket – auch eines mit `public`-Klassen:", meldung: "error: package shop.katalog.intern is not visible\n  (package shop.katalog.intern is declared in module shop.katalog,\n   which does not export it)" },
+      text: "**Das ist meine API.** Nur die `public`-Typen exportierter Packages sind von außen erreichbar – zum Übersetzen und zur Laufzeit. `public` heißt damit nicht mehr „für alle“, sondern „für alle, die das Package sehen“.",
+      ohne: "Ein nicht exportiertes Package – auch eines mit `public`-Klassen:", meldung: "error: package shop.katalog.intern is not visible\n  (package shop.katalog.intern is declared in module katalog,\n   which does not export it)" },
     { id: "qualifiziert", knopf: "exports … to",
-      text: "**Nur für bestimmte Module.** Ein Paket wird genau den genannten Modulen gezeigt, etwa einem Exportformat aus demselben Haus. Das hält die Kopplung sichtbar, statt das Paket für alle zu öffnen.",
-      ohne: "Übersetzt man `shop.katalog` allein, warnt javac, dass es das Zielmodul noch nicht kennt – das ist harmlos:", meldung: "warning: module not found: shop.pdf" },
+      text: "**Nur für bestimmte Module.** Ein Package wird genau den genannten Modulen gezeigt, etwa einem Exportformat aus demselben Haus. Das hält die Kopplung sichtbar, statt das Package für alle zu öffnen.",
+      ohne: "Übersetzt man `katalog` allein, warnt javac, dass es das Zielmodul noch nicht kennt – das ist harmlos:", meldung: "warning: module not found: pdf" },
     { id: "opens", knopf: "opens",
-      text: "**Für Reflection, auch auf Privates.** Frameworks wie JSON-Binding, JPA oder CDI greifen zur Laufzeit per Reflection auf Felder zu. Das geht nur in geöffneten Paketen. `opens` ohne `exports` erlaubt Reflection, aber keinen Zugriff beim Übersetzen; `open module` öffnet alle Pakete.",
-      ohne: "Ohne `opens` scheitert der Griff auf ein privates Feld:", meldung: "java.lang.reflect.InaccessibleObjectException: Unable to make field\n  private java.lang.String shop.katalog.daten.Artikel.name accessible:\n  module shop.katalog does not \"opens shop.katalog.daten\" to module …" },
+      text: "**Für Reflection, auch auf Privates.** Frameworks wie JSON-Binding, JPA oder CDI greifen zur Laufzeit per Reflection auf Felder zu. Das geht nur in geöffneten Packages. `opens` ohne `exports` erlaubt Reflection, aber keinen Zugriff beim Übersetzen; `open module` öffnet alle Packages.",
+      ohne: "Ohne `opens` scheitert der Griff auf ein privates Feld:", meldung: "java.lang.reflect.InaccessibleObjectException: Unable to make field\n  private java.lang.String shop.katalog.daten.Artikel.name accessible:\n  module katalog does not \"opens shop.katalog.daten\" to module …" },
     { id: "dienste", knopf: "uses / provides",
-      text: "**Ein Erweiterungspunkt ohne feste Kopplung.** `shop.app` kennt nur das Interface `Exportformat` und fragt den `ServiceLoader`; `shop.pdf` meldet seine Umsetzung mit `provides` an. Kein Modul nennt das andere – der Pfeil steht für die Absprache über das Interface.",
-      ohne: "Ohne `uses` verweigert der `ServiceLoader` die Arbeit. Ohne `provides` findet er nichts – eine Datei unter `META-INF/services` beachtet die JVM in einem benannten Modul nicht:", meldung: "java.util.ServiceConfigurationError: shop.katalog.export.Exportformat:\n  module shop.app does not declare `uses`" }
+      text: "**Ein Erweiterungspunkt ohne feste Kopplung.** `app` kennt nur das Interface `Exportformat` und fragt den `ServiceLoader`; `pdf` meldet seine Umsetzung mit `provides` an. Kein Modul nennt das andere – der Pfeil steht für die Absprache über das Interface.",
+      ohne: "Ohne `uses` verweigert der `ServiceLoader` die Arbeit. Ohne `provides` findet er nichts – eine Datei unter `META-INF/services` beachtet die JVM in einem benannten Modul nicht:", meldung: "java.util.ServiceConfigurationError: shop.katalog.export.Exportformat:\n  module app does not declare `uses`" }
   ];
 
-  // ---- 3 · Arten von Modulen ----
-  const pfade = [{ id: "klassenpfad", knopf: "Klassenpfad" }, { id: "modulpfad", knopf: "Modulpfad" }];
-  const deskriptoren = [{ id: "ja", knopf: "ja" }, { id: "nein", knopf: "nein" }];
-  const arten = {
-    "klassenpfad-ja": { name: "das unbenannte Modul", punkte: [
-      "Alle JARs auf dem Klassenpfad bilden zusammen **ein** Modul ohne Namen – eine vorhandene `module-info.class` wird **ignoriert**.",
-      "Liest alle Module, exportiert und öffnet alle seine Pakete.",
-      "Kein benanntes Modul kann es mit `requires` nennen.",
-      "So läuft jeder Bestand, der nichts umstellt – auch auf Java 25."] },
-    "klassenpfad-nein": { name: "das unbenannte Modul", punkte: [
-      "Alle JARs auf dem Klassenpfad bilden zusammen **ein** Modul ohne Namen.",
-      "Liest alle Module, exportiert und öffnet alle seine Pakete.",
-      "Kein benanntes Modul kann es mit `requires` nennen.",
-      "So läuft jeder Bestand, der nichts umstellt – auch auf Java 25."] },
-    "modulpfad-ja": { name: "ein benanntes Modul", punkte: [
-      "Name, Abhängigkeiten und API stehen in seiner `module-info.class`.",
-      "Liest nur, was es mit `requires` nennt, und zeigt nur, was es exportiert.",
-      "Kann mit `jlink` in ein eigenes Laufzeit-Image."] },
-    "modulpfad-nein": { name: "ein automatisches Modul", punkte: [
-      "Der Name kommt aus dem Eintrag `Automatic-Module-Name` im Manifest, sonst aus dem Dateinamen: aus `shop-katalog-1.0.jar` wird `shop.katalog`.",
-      "Liest alle Module, auch den Klassenpfad, und exportiert alle seine Pakete.",
-      "Die Brücke für Bibliotheken ohne `module-info` – benannte Module können es mit `requires` nennen.",
-      "`jlink` nimmt es nicht."] }
-  };
-
-  const zustand = { panne: "fehlt", direktive: "requires", pfad: "klassenpfad", deskriptor: "nein" };
+  const zustand = { panne: "doppelt", direktive: "requires" };
 
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function text(s) {
@@ -189,7 +155,7 @@
     const dir = direktiven.find(function (x) { return x.id === zustand.direktive; });
     const aktiv = kanten.filter(function (k) { return k.direktiven.indexOf(zustand.direktive) !== -1; })
       .map(function (k) { return knoten[k.von].name + " " + k.text + " " + knoten[k.nach].name; });
-    return dir.knopf + (aktiv.length ? " – " + aktiv.join("; ") : " – betrifft nur shop.katalog");
+    return dir.knopf + (aktiv.length ? " – " + aktiv.join("; ") : " – betrifft nur katalog");
   }
 
   function direktiveZeichnen() {
@@ -204,18 +170,9 @@
     knöpfe("mx-direktiven", direktiven, function (id) { return id === zustand.direktive; }, function (id) { setzen("direktive", id); });
   }
 
-  function artZeichnen() {
-    const art = arten[zustand.pfad + "-" + zustand.deskriptor];
-    document.getElementById("mx-art").innerHTML = '<p class="mx-ergebnis">Das JAR ist ' + esc(art.name) + ".</p><ul>" +
-      art.punkte.map(function (p) { return "<li>" + text(p) + "</li>"; }).join("") + "</ul>";
-    knöpfe("mx-pfad", pfade, function (id) { return id === zustand.pfad; }, function (id) { setzen("pfad", id); });
-    knöpfe("mx-deskriptor", deskriptoren, function (id) { return id === zustand.deskriptor; }, function (id) { setzen("deskriptor", id); });
-  }
-
   function zeichnen() {
     pannenZeichnen();
     direktiveZeichnen();
-    artZeichnen();
   }
 
   function setzen(schlüssel, wert) {
@@ -239,16 +196,10 @@
     const st = window.skr.state;
     st.register({ key: "panne",
       read: function () { return zustand.panne; },
-      apply: function (w) { zustand.panne = gültig(pannen, w, "fehlt"); zeichnen(); } });
+      apply: function (w) { zustand.panne = gültig(pannen, w, "doppelt"); zeichnen(); } });
     st.register({ key: "direktive",
       read: function () { return zustand.direktive; },
       apply: function (w) { zustand.direktive = gültig(direktiven, w, "requires"); zeichnen(); } });
-    st.register({ key: "pfad",
-      read: function () { return zustand.pfad; },
-      apply: function (w) { zustand.pfad = gültig(pfade, w, "klassenpfad"); zeichnen(); } });
-    st.register({ key: "deskriptor",
-      read: function () { return zustand.deskriptor; },
-      apply: function (w) { zustand.deskriptor = gültig(deskriptoren, w, "nein"); zeichnen(); } });
   }
 
   function start() {

@@ -35,3 +35,12 @@
 .mx-regel{padding:.8rem .9rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
 .mx-regel p{margin:.3rem 0;}
 .mx-regel pre{margin:.5rem 0 0;overflow-x:auto;}
+.mx-skizze{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:.75rem;align-items:center;margin:0 0 1rem;}
+.mx-skizze pre{margin:.5rem 0;overflow-x:auto;}
+.mx-skizze__pfeil{display:flex;flex-direction:column;align-items:center;margin:0;font-family:var(--skr-font-mono,monospace);font-size:.85rem;color:var(--skr-color-ink-muted);}
+.mx-skizze__spitze{font-size:1.6rem;line-height:1;}
+@media (max-width:860px){.mx-skizze{grid-template-columns:minmax(0,1fr);}.mx-skizze__spitze{transform:rotate(90deg);}}
+.mx-liste{list-style:none;margin:.3rem 0;padding:0;}
+.mx-liste li{margin:.25rem 0;}
+.mx-ort{font-size:.82rem;color:var(--skr-color-ink-muted);margin:0 0 .35rem;}
+.mx-graph{margin:0 0 .75rem;}

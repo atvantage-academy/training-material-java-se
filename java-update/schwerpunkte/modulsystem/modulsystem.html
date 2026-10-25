@@ -6,11 +6,11 @@
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=dfcd09dd"></script>
 <title>Das Modulsystem · ATVANTAGE Academy</title>
-<meta name="description" content="Was der Klassenpfad nicht merkt und der Modulpfad beim Start meldet, was in module-info.java steht, welche Arten von Modulen es gibt – und wie jlink daraus eine eigene Laufzeitumgebung baut.">
+<meta name="description" content="Was ein Modul ist und was der Modulpfad beim Start prüft, was in module-info.java steht und was ohne sie passiert – und wie jlink aus Modulen und JMOD-Dateien eine eigene Laufzeitumgebung baut.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Das Modulsystem">
-<meta property="og:description" content="Was der Klassenpfad nicht merkt und der Modulpfad beim Start meldet, was in module-info.java steht, welche Arten von Modulen es gibt – und wie jlink daraus eine eigene Laufzeitumgebung baut.">
+<meta property="og:description" content="Was ein Modul ist und was der Modulpfad beim Start prüft, was in module-info.java steht und was ohne sie passiert – und wie jlink aus Modulen und JMOD-Dateien eine eigene Laufzeitumgebung baut.">
 <meta property="og:type" content="website">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.16.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.16.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.16.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Was der Klassenpfad nicht merkt und der Modulpfad beim Start meldet, was in module-info.java steht, welche Arten von Modulen es gibt – und wie jlink daraus eine eigene Laufzeitumgebung baut.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-update/schwerpunkte/modulsystem/modulsystem.css","src":"modulsystem.css","type":"style"},{"path":"java-update/schwerpunkte/modulsystem/modulsystem.js","src":"modulsystem.js","type":"script"}],"pageId":"java-update-modulsystem","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das Modulsystem","topics":null,"untranslated":null,"url":"/java-update/schwerpunkte/modulsystem/modulsystem.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Was ein Modul ist und was der Modulpfad beim Start prüft, was in module-info.java steht und was ohne sie passiert – und wie jlink aus Modulen und JMOD-Dateien eine eigene Laufzeitumgebung baut.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-update/schwerpunkte/modulsystem/modulsystem.css","src":"modulsystem.css","type":"style"},{"path":"java-update/schwerpunkte/modulsystem/modulsystem.js","src":"modulsystem.js","type":"script"}],"pageId":"java-update-modulsystem","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das Modulsystem","topics":null,"untranslated":null,"url":"/java-update/schwerpunkte/modulsystem/modulsystem.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=e6f707ee" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3ff330af" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -50,8 +50,8 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
-<link rel="stylesheet" href="../../../java-update/schwerpunkte/modulsystem/modulsystem.css?v=eeabdd98">
-<script src="../../../java-update/schwerpunkte/modulsystem/modulsystem.js?v=cfdbf175" defer></script>
+<link rel="stylesheet" href="../../../java-update/schwerpunkte/modulsystem/modulsystem.css?v=8ffde2a0">
+<script src="../../../java-update/schwerpunkte/modulsystem/modulsystem.js?v=9a5d11e7" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -80,28 +80,319 @@
   <div class="skr-guide-layout">
     <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
      - Input des Schwerpunkts Modulsystem im Java-Update (Entscheidung: Visualisierung,
-       keine Präsentation). Drei Fragen: Motivation (was der Klassenpfad nicht merkt),
-       Umsetzung (die Direktiven in module-info.java), optionale Verwendung (drei Arten
-       von Modulen, starke Kapselung des JDK für alle). Dazu jlink und als Hinweis die
-       Modul-Importe (JEP 511, Java 25).
+       keine Präsentation). Fünf Teile:
+       1. Überblick in zwei Reitern an zwei JARs, Start lädt Artikel und Cache (beide
+          public): „Classloading bisher“ (alles erreichbar, Fehler erst beim Laden) und
+          „mit Modulen“ (je eine module-info.java, nur ein Package exportiert, Fehler
+          beim Übersetzen bzw. Start; Abhängigkeiten deklarativ). Darunter die möglichen
+          Inhalte einer module-info.java (requires nennt Module, exports/opens Packages),
+          in drei Reitern mit Skizze, was ohne sie passiert (Katalog ohne, Anwendung
+          ohne, alles auf dem Klassenpfad), und die Kapselung des JDK für alle.
+       2. Die zwei Pannen, die Teil 1 nicht zeigt: JAR doppelt, Split Package.
+       3. Die Direktiven am Modulgraph.
+       4. jlink, mit den JMOD-Dateien (seit Java 9; JDK ohne jmods seit 24, JEP 493).
+       5. Als Hinweis die Modul-Importe (JEP 511, Java 25).
+       6. Use Cases in Reitern: wo es Anwendung findet (JDK, JavaFX mit jpackage,
+          Werkzeuge, Bibliotheken, jlink nur fürs JDK), Vorteile, Spring Boot/Quarkus/
+          Server mit ihren eigenen Wegen, warum es kein Standard wird.
+       Die Übersichten in Teil 4 stehen in Reitern, damit die Texte die volle Breite haben.
+       Teil 1 und die JMODs gemessen mit JDK 25.0.2 (Temurin ohne jmods, OpenJDK-Build
+       von jdk.java.net mit).
      - Liegt im Modulordner, nicht unter shared/: Die Grundkurse schließen das
        Modulsystem ausdrücklich aus. Braucht es ein weiterer Kurs, zieht die Seite nach
        shared/ um (wie die Pattern-Matching-Evolution).
-     - Beispiel-Domäne „shop“ (Katalog, PDF-Export, Anwendung) – bewusst NICHT die
+     - Beispiel-Domäne „shop“ (Katalog, PDF-Export, Anwendung). Die Module heißen
+       bewusst anders als ihre Packages (Modul katalog, Packages shop.katalog …), damit
+       sichtbar bleibt: requires nennt Module, exports/opens nennen Packages – bewusst NICHT die
        Module der Übung (bestellwesen.*), damit die Seite die Musterlösung nicht vorwegnimmt.
      - ALLE MELDUNGEN GEMESSEN mit Temurin 25 (Docker, englische Meldungen) an
        gleichwertigem Code; hier mit den Namen der Beispiel-Domäne. Größen des Images:
        Temurin 25 und 21 in Docker, jlink mit --strip-debug --no-header-files
        --no-man-pages.
-     - Jeder Zustand steht in der Adresse (#/?panne=…&direktive=…&pfad=…&deskriptor=…),
+     - Jeder Zustand steht in der Adresse (#/?panne=…&direktive=…),
        über skr.state. Gut/schlecht nicht nur über Farbe (Zeichen ✓/✗ und Text), der
        Graph markiert die gewählte Direktive auch über Strichstärke und Beschriftung.
      - Bezeichner mit Umlauten (A-006), Farben aus den Tokens des Skriptoriums, kein
        eigenes Breiten-CSS. -->
 <p class="mx-lead">Seit Java 9 kann ein JAR sagen, <strong>was es braucht</strong> und <strong>was es zeigt</strong>. Die JVM prüft das beim Start – statt mitten im Betrieb festzustellen, dass etwas fehlt. Das Modulsystem ist freiwillig; seine Kapselung des JDK betrifft trotzdem alle.</p>
 <p class="mx-marken"><span class="skr-badge">seit Java 9</span> <span class="skr-badge">LTS 11</span> <span class="skr-badge">JEP 261</span> <span class="skr-badge">jlink: JEP 282</span> <span class="skr-badge">Modul-Importe: LTS 25, JEP 511</span></p>
-<h2 id="warum">1 · Warum: was der Klassenpfad nicht merkt</h2>
-<p>Auf dem Klassenpfad liegen JARs einfach hintereinander. Java sucht eine Klasse erst, wenn sie gebraucht wird, und nimmt die erste, die es findet. Wähle eine Panne und vergleiche:</p>
+<h2 id="ueberblick">1 · Worum es geht</h2>
+<p>Zwei JARs: <code>app.jar</code> enthält die Klasse <code>Start</code>, <code>katalog.jar</code> die Klassen <code>Artikel</code> und <code>Cache</code> – beide <code>public</code>, aber in verschiedenen Packages. <code>Start</code> braucht beide:</p>
+<pre><code class="language-java">package shop.app;
+
+import shop.katalog.Artikel;
+import shop.katalog.intern.Cache;
+
+public class Start {
+    public static void main(String[] args) {
+        Artikel artikel = new Artikel(&quot;Tasse&quot;);
+        Cache.merken(artikel);
+    }
+}
+</code></pre>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="ueberblick" open>
+<summary>Classloading bisher</summary>
+<div class="mx-skizze">
+<div class="mx-regel">
+<p class="mx-titel">app.jar</p>
+<ul class="mx-liste">
+<li><code>shop/app/Start.class</code></li>
+</ul>
+</div>
+<p class="mx-skizze__pfeil" aria-hidden="true"><span>lädt</span><span class="mx-skizze__spitze">→</span></p>
+<div class="mx-regel">
+<p class="mx-titel">katalog.jar</p>
+<ul class="mx-liste">
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop/katalog/Artikel.class</code> – <code>public</code></li>
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop/katalog/intern/Cache.class</code> – <code>public</code></li>
+</ul>
+</div>
+</div>
+<p>Gestartet wird über den Klassenpfad:</p>
+<pre><code class="language-shell">java -cp app.jar:katalog.jar shop.app.Start
+</code></pre>
+<ul>
+<li><strong>Beide Klassen werden geladen.</strong> <code>public</code> heißt: für alle – dass <code>Cache</code> in einem
+Package <code>intern</code> liegt, schützt nur sein Name.</li>
+<li><strong>Geladen wird erst, wenn <code>main</code> eine Klasse braucht</strong> (<em>Lazy Class Loading</em>). Welche
+JARs <code>Start</code> braucht, steht nirgends. Fehlt <code>katalog.jar</code>, startet die Anwendung
+trotzdem und scheitert erst in Zeile 8:</li>
+</ul>
+<pre><code>Exception in thread "main" java.lang.NoClassDefFoundError: shop/katalog/Artikel
+    at shop.app.Start.main(Start.java:8)</code></pre>
+</details>
+<details class="skr-tabs__panel" name="ueberblick">
+<summary>mit Modulen</summary>
+<div class="mx-skizze">
+<div class="mx-regel">
+<p class="mx-titel">app.jar</p>
+<pre><code class="language-java">module app {
+    requires katalog;
+}
+</code></pre>
+<ul class="mx-liste">
+<li><code>shop/app/Start.class</code></li>
+</ul>
+</div>
+<p class="mx-skizze__pfeil" aria-hidden="true"><span>requires</span><span class="mx-skizze__spitze">→</span></p>
+<div class="mx-regel">
+<p class="mx-titel">katalog.jar</p>
+<pre><code class="language-java">module katalog {
+    exports shop.katalog;
+}
+</code></pre>
+<ul class="mx-liste">
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop/katalog/Artikel.class</code> – exportiert</li>
+<li><span class="mx-ergebnis mx-ergebnis--schlecht">✗</span> <code>shop/katalog/intern/Cache.class</code> – <code>public</code>, aber nicht exportiert</li>
+</ul>
+</div>
+</div>
+<p>Jedes JAR bringt eine <code>module-info.java</code> mit. Das Modul heißt <code>katalog</code>, sein Package
+<code>shop.katalog</code>: <code>requires</code> nennt das Modul, <code>exports</code> das Package. Auf dem Modulpfad
+schaltet die <code>module-info.java</code> das Modulsystem ein:</p>
+<pre><code class="language-shell">java -p app.jar:katalog.jar -m app/shop.app.Start
+</code></pre>
+<ul>
+<li><strong>Nur das exportierte Package ist erreichbar.</strong> <code>Artikel</code> geht, <code>Cache</code> nicht – schon
+der Compiler lehnt <code>Start</code> ab:</li>
+</ul>
+<pre><code>error: package shop.katalog.intern is not visible
+  (package shop.katalog.intern is declared in module katalog,
+   which does not export it)</code></pre>
+<ul>
+<li><strong>Geprüft wird beim Start, bevor <code>main</code> läuft.</strong> Die JVM löst die Module auf: Ist jedes
+<code>requires</code> erfüllt? Fehlt <code>katalog.jar</code>, startet die Anwendung gar nicht erst.
+Klassen werden weiter erst bei Bedarf geladen – aber dass ihre Module da sind, steht
+schon fest.</li>
+<li><strong>Die Abhängigkeiten sind deklarativ.</strong> Sie stehen im JAR selbst, statt sich erst aus
+dem Programmlauf zu ergeben. Maven kennt sie beim Bauen – mit Modulen kennen sie auch
+Compiler und JVM.</li>
+</ul>
+</details>
+</div>
+<h3 id="inhalt">Was in einer module-info.java stehen kann</h3>
+<p>Pflicht ist nur der Name: <code>module katalog { }</code> ist ein gültiges Modul – es braucht
+nichts außer <code>java.base</code> und zeigt nichts. Alles andere sind Direktiven:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Direktive</th>
+					<th>nennt</th>
+					<th>bedeutet</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>requires geld;</code></td>
+					<td>ein Modul</td>
+					<td>Ich brauche dieses Modul.</td>
+			</tr>
+			<tr>
+					<td><code>requires transitive geld;</code></td>
+					<td>ein Modul</td>
+					<td>Wer mich liest, liest es mit.</td>
+			</tr>
+			<tr>
+					<td><code>requires static org.jspecify;</code></td>
+					<td>ein Modul</td>
+					<td>Nur zum Übersetzen nötig.</td>
+			</tr>
+			<tr>
+					<td><code>exports shop.katalog;</code></td>
+					<td>ein Package</td>
+					<td>Dieses Package ist meine API.</td>
+			</tr>
+			<tr>
+					<td><code>exports shop.katalog.intern to pdf;</code></td>
+					<td>ein Package</td>
+					<td>API nur für die genannten Module.</td>
+			</tr>
+			<tr>
+					<td><code>opens shop.katalog.daten;</code></td>
+					<td>ein Package</td>
+					<td>Reflection erlaubt, auch auf Privates – nur zur Laufzeit.</td>
+			</tr>
+			<tr>
+					<td><code>uses shop.katalog.export.Exportformat;</code></td>
+					<td>ein Interface</td>
+					<td>Ich suche Implementierungen über den <code>ServiceLoader</code>.</td>
+			</tr>
+			<tr>
+					<td><code>provides shop.katalog.export.Exportformat with shop.pdf.PdfFormat;</code></td>
+					<td>ein Interface und eine Klasse</td>
+					<td>Ich biete eine Implementierung an.</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong><code>requires</code> nennt Module, <code>exports</code> und <code>opens</code> nennen Packages.</strong> Ein Package lässt
+sich nicht anfordern – <code>requires shop.katalog.intern;</code> findet kein Modul dieses Namens:</p>
+<pre><code>error: module not found: shop.katalog.intern</code></pre>
+<p>Dazu kann statt <code>module</code> auch <code>open module</code> stehen: Dann sind alle Packages für
+Reflection geöffnet. Wie die Direktiven zusammenspielen, zeigt <a href="#wie">Teil 3</a>.</p>
+<h3 id="ohne-deskriptor">Und wenn ein JAR keine module-info.java hat?</h3>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="ohne-deskriptor" open>
+<summary>Der Katalog hat keine</summary>
+<div class="mx-skizze">
+<div class="mx-regel">
+<p class="mx-titel">app.jar</p>
+<p class="mx-ort">Modulpfad · benanntes Modul</p>
+<pre><code class="language-java">module app {
+    requires katalog;
+}
+</code></pre>
+</div>
+<p class="mx-skizze__pfeil" aria-hidden="true"><span>requires</span><span class="mx-skizze__spitze">→</span></p>
+<div class="mx-regel">
+<p class="mx-titel">katalog.jar</p>
+<p class="mx-ort">Modulpfad · automatisches Modul <code>katalog</code></p>
+<p>keine <code>module-info.class</code></p>
+<ul class="mx-liste">
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop.katalog</code> – exportiert</li>
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop.katalog.intern</code> – exportiert</li>
+</ul>
+</div>
+</div>
+<p>Beide JARs liegen auf dem Modulpfad:</p>
+<pre><code class="language-shell">java -p app.jar:katalog.jar -m app/shop.app.Start
+</code></pre>
+<ul>
+<li><strong>Der Katalog wird ein automatisches Modul.</strong> Sein Name kommt aus dem Eintrag
+<code>Automatic-Module-Name</code> im Manifest, sonst aus dem Dateinamen: aus <code>katalog.jar</code> wird
+<code>katalog</code>. Deshalb kann <code>app</code> ihn mit <code>requires</code> nennen – das ist die Brücke für
+Bibliotheken, die noch keine <code>module-info.java</code> haben.</li>
+<li><strong>Ein automatisches Modul exportiert alle seine Packages.</strong> <code>Cache</code> ist wieder
+erreichbar, <code>Start</code> läuft durch. Gekapselt ist nur, was ein JAR selbst erklärt.</li>
+<li><strong>Die Prüfung beim Start bleibt:</strong> Fehlt <code>katalog.jar</code>, startet <code>app</code> nicht.</li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="ohne-deskriptor">
+<summary>Die Anwendung hat keine</summary>
+<div class="mx-skizze">
+<div class="mx-regel">
+<p class="mx-titel">app.jar</p>
+<p class="mx-ort">Klassenpfad · unbenanntes Modul</p>
+<p>keine <code>module-info.class</code></p>
+<ul class="mx-liste">
+<li><code>shop/app/Start.class</code></li>
+</ul>
+</div>
+<p class="mx-skizze__pfeil" aria-hidden="true"><span>liest</span><span class="mx-skizze__spitze">→</span></p>
+<div class="mx-regel">
+<p class="mx-titel">katalog.jar</p>
+<p class="mx-ort">Modulpfad · benanntes Modul</p>
+<pre><code class="language-java">module katalog {
+    exports shop.katalog;
+}
+</code></pre>
+<ul class="mx-liste">
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop.katalog</code> – exportiert</li>
+<li><span class="mx-ergebnis mx-ergebnis--schlecht">✗</span> <code>shop.katalog.intern</code> – nicht exportiert</li>
+</ul>
+</div>
+</div>
+<p>Die Anwendung liegt auf dem Klassenpfad, der Katalog auf dem Modulpfad:</p>
+<pre><code class="language-shell">java -cp app.jar -p katalog.jar --add-modules katalog shop.app.Start
+</code></pre>
+<ul>
+<li><strong>Die Anwendung läuft im unbenannten Modul.</strong> Es liest alle Module – aber nur die,
+die überhaupt aufgelöst werden. Weil niemand <code>katalog</code> mit <code>requires</code> nennt, muss man
+ihn mit <code>--add-modules katalog</code> dazunehmen. Ohne den Schalter fehlt das Modul, und es
+kommt wie bisher erst in Zeile 8 ein <code>NoClassDefFoundError</code>.</li>
+<li><strong>Die Kapselung des Katalogs gilt trotzdem.</strong> <code>Artikel</code> geht, <code>Cache</code> nicht. Der
+Compiler meldet es wie im Reiter „mit Modulen“; ein schon übersetztes <code>Start</code> lädt
+<code>Artikel</code> in Zeile 8 und scheitert erst in Zeile 9, mitten im Lauf:</li>
+</ul>
+<pre><code>Exception in thread "main" java.lang.IllegalAccessError:
+  class shop.app.Start (in unnamed module @…) cannot access
+  class shop.katalog.intern.Cache (in module katalog)
+  because module katalog does not export
+  shop.katalog.intern to unnamed module @…</code></pre>
+</details>
+<details class="skr-tabs__panel" name="ohne-deskriptor">
+<summary>Alles auf dem Klassenpfad</summary>
+<div class="mx-skizze">
+<div class="mx-regel">
+<p class="mx-titel">app.jar</p>
+<p class="mx-ort">Klassenpfad · unbenanntes Modul</p>
+<ul class="mx-liste">
+<li><code>shop/app/Start.class</code></li>
+</ul>
+</div>
+<p class="mx-skizze__pfeil" aria-hidden="true"><span>lädt</span><span class="mx-skizze__spitze">→</span></p>
+<div class="mx-regel">
+<p class="mx-titel">katalog.jar</p>
+<p class="mx-ort">Klassenpfad · unbenanntes Modul</p>
+<ul class="mx-liste">
+<li><span class="mx-ergebnis mx-ergebnis--schlecht">✗</span> <code>module-info.class</code> – <strong>ignoriert</strong></li>
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop/katalog/Artikel.class</code></li>
+<li><span class="mx-ergebnis mx-ergebnis--gut">✓</span> <code>shop/katalog/intern/Cache.class</code></li>
+</ul>
+</div>
+</div>
+<p>Beide JARs liegen auf dem Klassenpfad – ob mit oder ohne <code>module-info.class</code>:</p>
+<pre><code class="language-shell">java -cp app.jar:katalog.jar shop.app.Start
+</code></pre>
+<ul>
+<li><strong>Alles ist wie bisher.</strong> Auf dem Klassenpfad bilden alle JARs zusammen das
+unbenannte Modul; eine <code>module-info.class</code> darin wird ignoriert. <code>Cache</code> ist
+erreichbar, ein fehlendes JAR fällt erst beim Laden auf.</li>
+<li><strong>So läuft jeder Bestand, der nichts umstellt</strong> – auch auf Java 25. Das Modulsystem
+schaltet erst ein, wer den Modulpfad benutzt.</li>
+</ul>
+</details>
+</div>
+<div class="skr-callout skr-callout--warning">
+<p><strong>Für alle gilt: Das JDK ist gekapselt.</strong> Seit Java 9 besteht es selbst aus Modulen
+(JEP 200, 220). Seine Interna wie <code>sun.misc</code> oder die privaten Felder von
+<code>java.util.ArrayList</code> waren zuerst nur mit Warnung erreichbar (JEP 260), seit Java 16
+standardmäßig gesperrt (JEP 396) und seit Java 17 ohne globalen Ausweg (JEP 403). Wer
+per Reflection hineingreift – oft eine Bibliothek, nicht der eigene Code –, braucht
+den Schalter <code>--add-opens java.base/java.util=ALL-UNNAMED</code>, auch ganz ohne eigene Module.</p>
+</div>
+<h2 id="pruefungen">2 · Was der Modulpfad außerdem prüft</h2>
+<p>Ein fehlendes JAR und den Griff in ein internes Package zeigt Teil 1. Zwei weitere Pannen bemerkt der Klassenpfad gar nicht: Er legt die JARs einfach hintereinander und nimmt die erste Klasse, die er findet. Wähle eine Panne und vergleiche:</p>
 <div class="mx-knoepfe" role="group" aria-label="Panne" id="mx-pannen"></div>
 <div class="mx-vergleich">
 <div class="mx-spalte">
@@ -113,74 +404,163 @@
 <div class="mx-urteil" id="mx-modulpfad" aria-live="polite"></div>
 </div>
 </div>
-<h2 id="wie">2 · Wie: der Vertrag in module-info.java</h2>
+<h2 id="wie">3 · Wie: der Vertrag in module-info.java</h2>
 <p>Jedes Modul beschreibt sich in einer Datei <code>module-info.java</code> im Wurzelordner seiner Quellen. Wähle eine Direktive – der Graph zeigt, welche Beziehung sie stiftet, der Code, wo sie steht.</p>
 <div class="mx-knoepfe" role="group" aria-label="Direktive" id="mx-direktiven"></div>
 <div class="mx-buehne">
-<div class="mx-graph" id="mx-graph"></div>
 <div>
-<pre class="mx-code"><code class="hljs" id="mx-code"></code></pre>
+<div class="mx-graph" id="mx-graph"></div>
 <div class="mx-urteil" id="mx-erklaerung" aria-live="polite"></div>
 </div>
-</div>
-<h2 id="arten">3 · Freiwillig: drei Arten von Modulen</h2>
-<p>Wer keine Module schreibt, muss nichts ändern. Was ein JAR ist, hängt von zwei Fragen ab:</p>
-<div class="mx-buehne mx-buehne--schmal">
-<div>
-<p class="mx-titel" id="mx-pfad-titel">Wo liegt das JAR?</p>
-<div class="mx-knoepfe" role="group" aria-labelledby="mx-pfad-titel" id="mx-pfad"></div>
-<p class="mx-titel" id="mx-deskriptor-titel">Enthält es eine <code>module-info.class</code>?</p>
-<div class="mx-knoepfe" role="group" aria-labelledby="mx-deskriptor-titel" id="mx-deskriptor"></div>
-</div>
-<div class="mx-urteil" id="mx-art" aria-live="polite"></div>
-</div>
-<div class="skr-callout skr-callout--warning">
-<p><strong>Für alle gilt: Das JDK ist gekapselt.</strong> Seit Java 9 besteht es selbst aus Modulen
-(JEP 200, 220). Seine Interna wie <code>sun.misc</code> oder die privaten Felder von
-<code>java.util.ArrayList</code> waren zuerst nur mit Warnung erreichbar (JEP 260), seit Java 16
-standardmäßig gesperrt (JEP 396) und seit Java 17 ohne globalen Ausweg (JEP 403). Wer
-per Reflection hineingreift – oft eine Bibliothek, nicht der eigene Code –, braucht
-den Schalter <code>--add-opens java.base/java.util=ALL-UNNAMED</code>, auch ganz ohne eigene Module.</p>
+<pre class="mx-code"><code class="hljs" id="mx-code"></code></pre>
 </div>
 <h2 id="jlink">4 · Das eigene Laufzeit-Image: jlink</h2>
 <p><code>jlink</code> (JEP 282) baut aus Modulen eine Laufzeitumgebung, die nur enthält, was die Anwendung braucht – samt Startskript:</p>
-<pre><code class="language-shell">jlink --module-path target/module --add-modules shop.app,shop.pdf --strip-debug --no-header-files --no-man-pages --launcher shop=shop.app/shop.app.Start --output target/bild
+<pre><code class="language-shell">jlink --module-path target/module --add-modules app,pdf --strip-debug --no-header-files --no-man-pages --launcher shop=app/shop.app.Start --output target/bild
 </code></pre>
-<div class="mx-regeln">
-<div class="mx-regel">
-<p class="mx-titel">Klein</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="jlink" open>
+<summary>Klein</summary>
 <p>Gemessen mit Temurin 25: das ganze JDK 253&nbsp;MB, ein Image aus <code>java.base</code> und drei eigenen Modulen 54&nbsp;MB.</p>
-</div>
-<div class="mx-regel">
-<p class="mx-titel">Nur benannte Module</p>
+</details>
+<details class="skr-tabs__panel" name="jlink">
+<summary>Nur benannte Module</summary>
 <p>Ein automatisches Modul nimmt jlink nicht:</p>
 <pre><code>Error: automatic module cannot be used with jlink:
-       shop.pdf from file:///…/shop-pdf.jar</code></pre>
+       pdf from file:///…/pdf.jar</code></pre>
+</details>
+<details class="skr-tabs__panel" name="jlink">
+<summary>Dienste nur auf Zuruf</summary>
+<p><code>--add-modules app</code> nimmt nur, was <code>app</code> mit <code>requires</code> erreicht. Ein Anbieter über <code>provides</code> fehlt im Image – ihn nennt man mit, oder <code>--bind-services</code> holt alle Anbieter, auch die des JDK.</p>
+</details>
 </div>
-<div class="mx-regel">
-<p class="mx-titel">Dienste nur auf Zuruf</p>
-<p><code>--add-modules shop.app</code> nimmt nur, was <code>shop.app</code> mit <code>requires</code> erreicht. Ein Anbieter über <code>provides</code> fehlt im Image – ihn nennt man mit, oder <code>--bind-services</code> holt alle Anbieter, auch die des JDK.</p>
-</div>
-<div class="mx-regel">
-<p class="mx-titel">JDK ohne jmods</p>
-<p>Seit Java 24 darf ein JDK ohne seine <code>jmods</code> ausgeliefert werden (JEP 493); Temurin 25 tut das. jlink funktioniert trotzdem – nur das Modul <code>jdk.jlink</code> selbst lässt sich dann nicht ins Image nehmen, und daran scheitert <code>--bind-services</code>:</p>
+<h3 id="jmod">Woraus jlink baut: JMOD-Dateien</h3>
+<p>Die Module des JDK liegen für jlink als <strong>JMOD-Dateien</strong> bereit – seit Java 9, im Ordner <code>jmods/</code> des JDK, je Modul eine Datei (<code>java.base.jmod</code>, <code>java.sql.jmod</code>, …). Ein JMOD ist ein Format nur für jlink und den Compiler: Es nimmt alles auf, was ein Modul im fertigen Image braucht, auch das, was in kein JAR gehört.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="jmod" open>
+<summary>Mehr als Klassen</summary>
+<p>Gemessen an <code>java.base.jmod</code> (JDK 25): Ordner <code>classes/</code> mit 7323 Einträgen, dazu <code>lib/</code> (native Bibliotheken), <code>bin/</code> (Programme), <code>conf/</code> (Konfiguration wie <code>java.security</code>), <code>include/</code> (C-Header), <code>man/</code> und <code>legal/</code> (Lizenztexte). Ein JDK 25 mit <code>jmods/</code> trägt 69 davon, zusammen gut 80&nbsp;MB.</p>
+</details>
+<details class="skr-tabs__panel" name="jmod">
+<summary>Nicht zum Starten</summary>
+<p>Übersetzen und Linken gehen mit JMODs, starten nicht:</p>
+<pre><code>Error occurred during initialization of boot layer
+java.lang.module.FindException: JMOD format not supported
+  at execution time: katalog.jmod</code></pre>
+</details>
+<details class="skr-tabs__panel" name="jmod">
+<summary>Eigene JMODs</summary>
+<p>Das Werkzeug <code>jmod</code> baut sie (<code>jmod create --class-path … --libs … katalog.jmod</code>). jlink nimmt JMODs und modulare JARs gemischt. Ein eigenes JMOD lohnt sich nur, wenn ein Modul native Bibliotheken oder Konfiguration mitbringt – sonst genügt das modulare JAR.</p>
+</details>
+<details class="skr-tabs__panel" name="jmod">
+<summary>JDK ohne jmods</summary>
+<p>Seit Java 24 darf ein JDK ohne seinen Ordner <code>jmods/</code> ausgeliefert werden (JEP 493) – rund 80&nbsp;MB kleiner. jlink nimmt die Module dann aus dem laufenden JDK selbst. Temurin 25 tut das, der OpenJDK-Build von jdk.java.net nicht. Nur das Modul <code>jdk.jlink</code> selbst lässt sich dann nicht ins Image nehmen, und daran scheitert <code>--bind-services</code>:</p>
 <pre><code>Error: This JDK does not contain packaged modules and cannot
        be used to create another image with the jdk.jlink module</code></pre>
-</div>
+</details>
 </div>
 <h2 id="import">5 · Seit Java 25: ein ganzes Modul importieren</h2>
-<p>Die <strong>Modul-Importe</strong> (JEP 511, final in Java 25, LTS 25) holen alle Pakete, die ein Modul exportiert, mit einer Zeile – auch in Code, der selbst kein Modul ist:</p>
+<p>Die <strong>Modul-Importe</strong> (JEP 511, final in Java 25, LTS 25) holen alle Packages, die ein Modul exportiert, mit einer Zeile – auch in Code, der selbst kein Modul ist:</p>
 <pre><code class="language-java">import module java.base;      // java.util, java.time, java.io, …
 
 class Bericht {
     List&lt;LocalDate&gt; tage = new ArrayList&lt;&gt;();
 }
 </code></pre>
-<blockquote>
-<p><strong>Merksatz:</strong> Der Klassenpfad vertraut und scheitert spät. Der Modulpfad prüft beim
-Start, was fehlt, was doppelt ist und wer worauf zugreifen darf. Eigene Module sind
-freiwillig – die Kapselung des JDK ist es nicht.</p>
-</blockquote>
+<h2 id="use-cases">6 · Use Cases: wer das Modulsystem nutzt – und wer nicht</h2>
+<p>Das Modulsystem gibt es seit Java 9, aber für Anwendungen ist es nicht zum Standard geworden. Ob es sich lohnt, hängt vor allem daran, wer die Laufzeit mitbringt: die Anwendung selbst, ein Framework oder ein Server.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="use-cases" open>
+<summary>Wo es Anwendung findet</summary>
+<ul>
+<li><strong>Im JDK selbst.</strong> Es ist der größte Nutzer: rund 70 Module mit gekapselten Interna.
+Das betrifft jede Anwendung, auch ohne eigene Module (Teil 1).</li>
+<li><strong>In Desktop-Anwendungen mit JavaFX.</strong> Seit Version 11 kommt JavaFX nicht mehr mit
+dem JDK, sondern als eigene Module (<code>javafx.controls</code>, <code>javafx.fxml</code>, …). Eine
+modulare Anwendung baut mit jlink und <code>jpackage</code> (JEP 392, seit Java 16) ein
+Installationspaket mit eigener Laufzeit – auf dem Rechner der Anwender muss kein
+Java installiert sein. Lädt man JavaFX vom Klassenpfad, warnt es seit Version 16
+beim Start vor einer nicht unterstützten Konfiguration.</li>
+<li><strong>In Werkzeugen, die ihre Laufzeit mitbringen</strong> – Kommandozeilenprogramme,
+Batch-Programme beim Kunden, Installer: überall dort, wo kein passendes JDK
+vorausgesetzt werden kann.</li>
+<li><strong>In Bibliotheken.</strong> Viele bringen eine <code>module-info.class</code> mit oder setzen zumindest
+<code>Automatic-Module-Name</code> im Manifest. Dann können modulare Anwendungen sie mit einem
+stabilen Namen nennen – auch wenn die meisten Nutzer auf dem Klassenpfad bleiben.</li>
+<li><strong>In großen Codebasen</strong>, die Grenzen zwischen Teilsystemen erzwingen wollen:
+<code>exports</code> macht die API eines Teilsystems prüfbar, schon beim Übersetzen.</li>
+<li><strong>Für eine schlanke Laufzeit – auch ohne eigene Module.</strong> jlink kann nur das JDK
+verkleinern; die Anwendung bleibt auf dem Klassenpfad. Gemessen mit Temurin 25 auf
+macOS: 43 MB statt 294 MB für das ganze JDK. Gut für schlanke
+Container-Images.</li>
+</ul>
+<p>Ermittle, welche JDK-Module die JARs brauchen:</p>
+<pre><code class="language-shell">jdeps --print-module-deps --ignore-missing-deps app.jar katalog.jar
+</code></pre>
+<p>Bau aus diesen Modulen eine Laufzeit, hier nur aus <code>java.base</code>:</p>
+<pre><code class="language-shell">jlink --add-modules java.base --strip-debug --no-header-files --no-man-pages --output laufzeit
+</code></pre>
+<p>Starte die Anwendung mit dieser Laufzeit auf dem Klassenpfad:</p>
+<pre><code class="language-shell">laufzeit/bin/java -cp app.jar:katalog.jar shop.app.Start
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="use-cases">
+<summary>Vorteile</summary>
+<ul>
+<li><strong>Zuverlässige Konfiguration.</strong> Fehlende und doppelte Module und geteilte Packages
+fallen beim Start auf, nicht mitten im Betrieb (Teile 1 und 2).</li>
+<li><strong>Starke Kapselung.</strong> <code>public</code> heißt nicht mehr „für alle“. Interna bleiben intern,
+auch gegen Reflection – es sei denn, ein Package wird ausdrücklich geöffnet.</li>
+<li><strong>Deklarative Abhängigkeiten.</strong> Sie stehen im JAR und sind für Compiler, JVM und
+Werkzeuge wie <code>jdeps</code> lesbar, nicht nur für den Build.</li>
+<li><strong>Eine eigene, kleine Laufzeit.</strong> jlink nimmt nur die Module, die gebraucht werden:
+weniger Speicherplatz, weniger Angriffsfläche, kein vorinstalliertes JDK nötig
+(Teil 4).</li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="use-cases">
+<summary>Spring Boot, Quarkus und Server</summary>
+<p>Die großen Frameworks gehen eigene Wege – meist, um dasselbe Ziel zu erreichen: schneller
+starten, weniger Speicher, kleinere Auslieferung.</p>
+<ul>
+<li><strong>Spring Boot</strong> packt die Bibliotheken als verschachtelte JARs in ein ausführbares
+JAR und lädt sie mit einem eigenen Classloader. Die Anwendung läuft damit auf dem
+Klassenpfad, im unbenannten Modul. Für Start und Speicher setzt Spring auf
+<strong>Spring AOT mit GraalVM Native Image</strong> (seit Spring Boot 3) und auf <strong>CDS</strong> bzw. den
+<strong>AOT-Cache</strong> der JVM (JEP 483).</li>
+<li><strong>Quarkus</strong> verlegt Arbeit aus dem Start in den Build, lädt Klassen mit eigenem
+Classloading und baut Native Images mit GraalVM bzw. Mandrel. Eigene
+<code>module-info.java</code> sind dort nicht der vorgesehene Weg.</li>
+<li><strong>Jakarta-EE-Server</strong> bestimmen das Classloading selbst: Eine Anwendung wird als WAR
+oder EAR auf den Klassenpfad des Servers deployt. Mancher Server hat ein eigenes
+Modulsystem für seine Teile, etwa WildFly mit JBoss Modules.</li>
+<li><strong>Native Image</strong> geht weiter als jlink: Es baut ein natives Programm ohne JVM. Dafür
+verlangt es eine geschlossene Welt – was zur Laufzeit per Reflection gebraucht wird,
+muss beim Bauen bekannt sein.</li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="use-cases">
+<summary>Warum es kein Standard wird</summary>
+<ul>
+<li><strong>Abwärtskompatibilität.</strong> Der Klassenpfad bleibt, damit jeder Bestand weiterläuft.
+Ein Pflicht-Umstieg würde genau das brechen, was Java verspricht.</li>
+<li><strong>Reflection-lastige Frameworks.</strong> Spring, CDI, JPA und JSON-Binding greifen zur
+Laufzeit auf Felder und Konstruktoren zu. Jedes betroffene Package braucht <code>opens</code> –
+oder das ganze Modul wird <code>open module</code>, und von der Kapselung bleibt wenig übrig.</li>
+<li><strong>Das Ökosystem zieht nicht vollständig mit.</strong> Bibliotheken mit geteilten Packages
+oder ohne <code>module-info</code> gibt es weiter. Automatische Module tragen wacklige Namen aus
+dem Dateinamen, und jlink nimmt sie nicht – <strong>eine</strong> nicht modulare Abhängigkeit
+verhindert das Image der ganzen Anwendung.</li>
+<li><strong>Doppelte Buchführung.</strong> Die Abhängigkeiten stehen in der POM bzw. im Gradle-Build
+und noch einmal in der <code>module-info.java</code>; Versionen kennt nur der Build.</li>
+<li><strong>Werkzeuge und Packaging.</strong> Tests auf dem Modulpfad brauchen Kunstgriffe (Surefire
+patcht die Testklassen ins Modul), Fat-JARs und Shading passen nicht zum Modulpfad.</li>
+<li><strong>Der Nutzen ist anderswo schon da.</strong> Abhängigkeiten prüft der Build, schlanke
+Auslieferung liefern Container-Images und Native Image, Architekturregeln Werkzeuge
+wie ArchUnit.</li>
+</ul>
+</details>
+</div>
 
     </main>
   </div>
