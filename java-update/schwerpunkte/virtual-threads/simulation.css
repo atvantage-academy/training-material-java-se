@@ -1,33 +1,131 @@
-  /* Bühnenbild: vier Tafeln in einer Reihe, im Pinning-Szenario darunter der Code.
-     Farben nur aus Academy-Tokens. */
-  .threads {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(0.75rem, 0.4rem + 1.2vw, 1.75rem);
-    align-items: start;
-    align-content: center;
-    min-height: 100%;
+  /* Bühnenbild der Abläufe 1–4: ein Sequenzdiagramm, darunter die Legende, im
+     reaktiven und im Pinning-Ablauf der Code. Farben nur aus Academy-Tokens. */
+  .sequenz {
+    display: flex;
+    flex-direction: column;
+    gap: var(--skr-space-3);
+    height: 100%;
+    min-height: 0;
   }
-  .threads--mit-code { grid-template-rows: auto auto; }
-  .threads__code { grid-column: 1 / -1; }
-  @media (max-width: 1000px) {
-    .threads { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sequenz__bild { flex: 1 1 auto; min-height: 18rem; display: flex; justify-content: center; }
+  .sequenz__svg { width: 100%; height: 100%; max-width: 64rem; }
+  .sequenz--mit-code .sequenz__bild { min-height: 15rem; }
+  .sequenz__code { flex: 0 0 auto; }
+  .sequenz__jdk { margin: 0; font-weight: var(--skr-fw-medium); }
+
+  /* Diagramm: Köpfe, Lebenslinien, Raster. */
+  .sequenz__kopf { fill: var(--skr-color-bg-subtle); stroke: var(--skr-color-border); stroke-width: 1; }
+  .sequenz__kopf-name { fill: var(--skr-color-headline); font-weight: var(--skr-fw-bold); font-size: 15px; }
+  .sequenz__kopf-hinweis { fill: var(--skr-color-ink-muted); font-size: 11px; }
+  .sequenz__lebenslinie { stroke: var(--skr-color-border); stroke-width: 1.5; stroke-dasharray: 5 4; }
+  .sequenz__raster { stroke: var(--skr-color-border); stroke-width: 0.5; opacity: 0.6; }
+  .sequenz__achse { fill: var(--skr-color-ink-muted); font-size: 11px; }
+
+  /* Balken: was eine Lebenslinie gerade tut. */
+  .sequenz__balken { stroke-width: 1.5; }
+  .sequenz__balken--laeuft { fill: var(--skr-color-accent); stroke: var(--skr-color-accent); }
+  .sequenz__balken--blockiert,
+  .sequenz__balken--gepinnt { stroke: var(--skr-color-danger); }
+  .sequenz__schraffur-grund { fill: var(--skr-color-bg); }
+  .sequenz__schraffur { stroke: var(--skr-color-danger); stroke-width: 3; }
+  .sequenz__balken--geparkt { fill: var(--skr-color-bg-subtle); stroke: var(--skr-color-ink-muted); stroke-dasharray: 4 3; }
+  .sequenz__balken--wartet { fill: none; stroke: var(--skr-color-warning); stroke-width: 2; stroke-dasharray: 2 3; }
+  .sequenz__schlange { fill: var(--skr-color-bg-subtle); stroke: var(--skr-color-border); stroke-width: 1.5; }
+  .sequenz__schlange-name { fill: var(--skr-color-headline); font-weight: var(--skr-fw-bold); font-size: 13px; }
+  .sequenz__platz { fill: none; stroke: var(--skr-color-border); stroke-width: 1; stroke-dasharray: 3 3; }
+  .sequenz__grenze { stroke: var(--skr-color-ink-muted); stroke-width: 2; }
+  .sequenz__eintrag { fill: var(--skr-color-bg); stroke: var(--skr-color-warning); stroke-width: 1.5; }
+  .sequenz__eintrag--entnommen { stroke: var(--skr-color-border); stroke-dasharray: 3 3; }
+  .sequenz__eintrag--entnommen + .sequenz__text--eintrag { fill: var(--skr-color-ink-muted); font-weight: 400; }
+  .sequenz__kurve { fill: none; }
+  .sequenz__balken--lager { fill: var(--skr-color-bg-subtle); stroke: var(--skr-color-ink-muted); }
+
+  /* Nachrichten. */
+  .sequenz__pfeil { stroke: var(--skr-color-ink); stroke-width: 1.5; }
+  .sequenz__pfeil--antwort { stroke-dasharray: 6 4; }
+  .sequenz__spitze--voll { fill: var(--skr-color-ink); }
+  .sequenz__spitze--offen { fill: none; stroke: var(--skr-color-ink); stroke-width: 1.5; }
+
+  /* Beschriftungen. */
+  /* Ein Rand in der Hintergrundfarbe hält Texte lesbar, wo Pfeile darunter laufen. */
+  .sequenz__text {
+    fill: var(--skr-color-ink); font-size: 12px;
+    paint-order: stroke; stroke: var(--skr-color-bg); stroke-width: 4px; stroke-linejoin: round;
   }
-  /* Die Tafeln sind von Anfang an so hoch wie im vollsten Zustand (sechs Kästen),
-     damit nichts nachrutscht. */
-  .threads .skr-didaktikon-simulation-panel__body { min-height: 19rem; }
-  .threads--mit-code .skr-didaktikon-simulation-panel__body { min-height: 13rem; }
+  .sequenz__text--pfeil { font-size: 12px; }
+  .sequenz__text--laeuft { fill: var(--skr-color-ink); font-weight: var(--skr-fw-medium); }
+  .sequenz__text--blockiert,
+  .sequenz__text--gepinnt { fill: var(--skr-color-danger-ink); font-weight: var(--skr-fw-bold); }
+  .sequenz__text--geparkt,
+  .sequenz__text--lager,
+  .sequenz__text--frei { fill: var(--skr-color-ink-muted); font-style: italic; }
+  .sequenz__text--fertig { fill: var(--skr-color-success-ink); font-weight: var(--skr-fw-bold); }
+  .sequenz__text--eintrag { fill: var(--skr-color-ink); font-size: 11px; font-weight: var(--skr-fw-medium); }
+  .sequenz__text--eingang { fill: var(--skr-color-headline); font-weight: var(--skr-fw-bold); }
 
-  .anfrage { justify-content: center; font-weight: var(--skr-fw-bold); }
+  /* Weitere Threads gibt es, gearbeitet wird hier nicht auf ihnen: nur angedeutet. */
+  .sequenz__kopf.sequenz__angedeutet { fill: none; stroke-dasharray: 4 3; }
+  .sequenz__lebenslinie.sequenz__angedeutet { opacity: 0.45; }
+  g.sequenz__angedeutet { opacity: 0.4; filter: grayscale(1); }
+  .sequenz__kopf-name.sequenz__angedeutet,
+  .sequenz__kopf-hinweis.sequenz__angedeutet { fill: var(--skr-color-ink-muted); font-weight: var(--skr-fw-medium); }
 
-  /* Ein Thread-Platz: oben der Thread, darunter, was er gerade tut. */
-  .platz { flex-direction: column; align-items: stretch; gap: var(--skr-space-1); }
-  .platz__kopf { display: flex; justify-content: space-between; gap: var(--skr-space-2); }
-  .platz__status { font-size: 0.8em; color: var(--skr-color-ink-muted); }
-  .platz--frei { opacity: 0.6; }
-  .platz--wartet { border-style: dashed; }
-  .platz--wartet .platz__status { color: var(--skr-color-warning-ink); font-weight: var(--skr-fw-medium); }
-  .platz--gepinnt .platz__status { color: var(--skr-color-danger-ink); font-weight: var(--skr-fw-bold); }
+  /* Ablauf im Schritt: Das Skript setzt je Element --start und --dauer. Pfeile
+     werden gezogen (Maske), Balken wachsen von oben nach unten, Texte erscheinen,
+     ein abgeholtes Kästchen verblasst; neben dem Lager wackeln drei Punkte. */
+  .sequenz__maske { fill: none; stroke: #fff; stroke-width: 26; stroke-dasharray: 1; }
+  .sequenz__ziehen { stroke-dashoffset: 1; animation: sequenz-ziehen var(--dauer) ease-in-out var(--start) forwards; }
+  @keyframes sequenz-ziehen { to { stroke-dashoffset: 0; } }
+  .sequenz__wachsen { transform-box: fill-box; transform-origin: top; animation: sequenz-wachsen var(--dauer) linear var(--start) both; }
+  @keyframes sequenz-wachsen { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .sequenz__erscheinen { animation: sequenz-ein 0.3s ease-out var(--start) both; }
+  @keyframes sequenz-ein { from { opacity: 0; } to { opacity: 1; } }
+  .sequenz__verblassen { opacity: 0; animation: sequenz-aus 0.4s ease-in var(--start) backwards; }
+  @keyframes sequenz-aus { from { opacity: 1; } to { opacity: 0; } }
+  .sequenz__tippen { opacity: 0; }
+  .sequenz__tippen--aktiv { animation: sequenz-tippen var(--dauer) linear var(--start); }
+  @keyframes sequenz-tippen {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 1; transform: translateY(var(--weg)); }
+  }
+  .sequenz__punkt { fill: var(--skr-color-ink-muted); transform-box: fill-box; animation: sequenz-huepfen 0.9s ease-in-out infinite; }
+  .sequenz__punkt--2 { animation-delay: 0.15s; }
+  .sequenz__punkt--3 { animation-delay: 0.3s; }
+  @keyframes sequenz-huepfen { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .sequenz__ziehen, .sequenz__wachsen, .sequenz__erscheinen, .sequenz__verblassen, .sequenz__tippen--aktiv, .sequenz__punkt { animation: none; }
+    .sequenz__ziehen { stroke-dashoffset: 0; }
+  }
+
+  /* Legende unter dem Diagramm. */
+  .sequenz__legende {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--skr-space-1) var(--skr-space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.85em;
+    color: var(--skr-color-ink-muted);
+  }
+  .sequenz__legende li { display: flex; align-items: center; gap: var(--skr-space-2); margin: 0; }
+  .sequenz__muster { display: inline-block; width: 0.9em; height: 1.2em; box-sizing: border-box; }
+  .sequenz__muster--laeuft { background: var(--skr-color-accent); }
+  .sequenz__muster--blockiert {
+    border: 1.5px solid var(--skr-color-danger);
+    background: repeating-linear-gradient(45deg, var(--skr-color-danger) 0 2px, var(--skr-color-bg) 2px 5px);
+  }
+  .sequenz__muster--geparkt { border: 1.5px dashed var(--skr-color-ink-muted); background: var(--skr-color-bg-subtle); }
+  .sequenz__muster--wartet { width: 0.5em; border: 2px dotted var(--skr-color-warning); }
+  .sequenz__muster--entnommen { width: 1.4em; height: 1em; border: 1.5px dashed var(--skr-color-border); border-radius: 3px; }
+  .sequenz__muster--eintrag { width: 1.4em; height: 1em; border: 1.5px solid var(--skr-color-warning); border-radius: 3px; background: var(--skr-color-bg); }
+  .sequenz__muster--lager { border: 1.5px solid var(--skr-color-ink-muted); background: var(--skr-color-bg-subtle); }
+  .sequenz__muster--aufruf,
+  .sequenz__muster--async,
+  .sequenz__muster--antwort { width: 1.8em; height: 0; border-top: 1.5px solid var(--skr-color-ink); }
+  .sequenz__muster--antwort { border-top-style: dashed; }
+
   .jdk {
     display: inline-block;
     padding: 0.05em 0.6em;
