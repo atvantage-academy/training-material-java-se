@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f1cb0df4" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=6624fb27" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=f1cb0df4"
+     data-index="../../../skriptorium/search/de.json?v=6624fb27"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -280,19 +280,22 @@ oben – der Build ist grün, noch hat sich nichts geändert.</p>
 (IntelliJ: <em>Maven → Reload All Maven Projects</em>, Eclipse: <em>Maven → Update Project…</em>).</p>
 </blockquote>
 <h3 id="den-batch-import-umstellen">Den Batch-Import umstellen</h3>
-<p><code>BestellImport</code> erzeugt einen festen Pool mit <code>Executors.newFixedThreadPool(threads)</code>.
-Stell ihn so um, dass <strong>jede Bonitätsprüfung ihren eigenen virtuellen Thread</strong> bekommt.
-Die Poolgröße braucht dann niemand mehr – entferne sie aus dem Konstruktor, aus
-<code>BatchAnwendung</code> und aus <code>BestellImportTest</code>.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Ein <code>ExecutorService</code> ist seit Java 19 <code>AutoCloseable</code>. Mit
-<code>try</code>-with-resources wartet <code>close()</code>, bis alle Aufgaben fertig sind.</p>
-</blockquote>
-<p>Baue und miss den Batch-Import erneut. Was hast Du erwartet, was kam heraus?</p>
+<p><code>BestellImport</code> erzeugt einen festen Pool mit acht Threads. Stell ihn so um, dass
+<strong>jede Bonitätsprüfung ihren eigenen virtuellen Thread</strong> bekommt.</p>
+<p>Ersetze in <code>altbestand/bestellung-batch/src/main/java/bestellung/batch/BestellImport.java</code>
+Zeile 32 (<code>Executors.newFixedThreadPool(8)</code>) durch:</p>
+<pre><code class="language-java">        ExecutorService pool = Executors.newVirtualThreadPerTaskExecutor();
+</code></pre>
+<p>Mehr ist es nicht: Der übrige Code bleibt, wie er ist – blockierend, von oben nach
+unten. Baue und miss den Batch-Import erneut. Was hast Du erwartet, was kam heraus?</p>
 <h3 id="die-rest-schnittstelle-umstellen">Die REST-Schnittstelle umstellen</h3>
 <p><code>RestAnwendung</code> gibt dem Server einen festen Pool mit zehn Threads. Gib ihm stattdessen
-einen Executor, der für jede Anfrage einen virtuellen Thread startet. Baue und miss mit
-dem Lasttest.</p>
+einen Executor, der für jede Anfrage einen virtuellen Thread startet.</p>
+<p>Ersetze in <code>altbestand/bestellung-rest/src/main/java/bestellung/rest/RestAnwendung.java</code>
+Zeile 47 (<code>Executors.newFixedThreadPool(10)</code>) durch:</p>
+<pre><code class="language-java">        executor = Executors.newVirtualThreadPerTaskExecutor();
+</code></pre>
+<p>Baue und miss mit dem Lasttest.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Der Lasttest schickt höchstens 100 Bestellungen gleichzeitig. Schneller
 als zwei Runden zu je 100 ms geht es also nicht.</p>
@@ -515,21 +518,32 @@ oben – der Build ist grün, noch hat sich nichts geändert.
 
 ### Den Batch-Import umstellen
 
-`BestellImport` erzeugt einen festen Pool mit `Executors.newFixedThreadPool(threads)`.
-Stell ihn so um, dass **jede Bonitätsprüfung ihren eigenen virtuellen Thread** bekommt.
-Die Poolgröße braucht dann niemand mehr – entferne sie aus dem Konstruktor, aus
-`BatchAnwendung` und aus `BestellImportTest`.
+`BestellImport` erzeugt einen festen Pool mit acht Threads. Stell ihn so um, dass
+**jede Bonitätsprüfung ihren eigenen virtuellen Thread** bekommt.
 
-&gt; **Hinweis:** Ein `ExecutorService` ist seit Java 19 `AutoCloseable`. Mit
-&gt; `try`-with-resources wartet `close()`, bis alle Aufgaben fertig sind.
+Ersetze in `altbestand/bestellung-batch/src/main/java/bestellung/batch/BestellImport.java`
+Zeile 32 (`Executors.newFixedThreadPool(8)`) durch:
 
-Baue und miss den Batch-Import erneut. Was hast Du erwartet, was kam heraus?
+```java
+        ExecutorService pool = Executors.newVirtualThreadPerTaskExecutor();
+```
+
+Mehr ist es nicht: Der übrige Code bleibt, wie er ist – blockierend, von oben nach
+unten. Baue und miss den Batch-Import erneut. Was hast Du erwartet, was kam heraus?
 
 ### Die REST-Schnittstelle umstellen
 
 `RestAnwendung` gibt dem Server einen festen Pool mit zehn Threads. Gib ihm stattdessen
-einen Executor, der für jede Anfrage einen virtuellen Thread startet. Baue und miss mit
-dem Lasttest.
+einen Executor, der für jede Anfrage einen virtuellen Thread startet.
+
+Ersetze in `altbestand/bestellung-rest/src/main/java/bestellung/rest/RestAnwendung.java`
+Zeile 47 (`Executors.newFixedThreadPool(10)`) durch:
+
+```java
+        executor = Executors.newVirtualThreadPerTaskExecutor();
+```
+
+Baue und miss mit dem Lasttest.
 
 &gt; **Hinweis:** Der Lasttest schickt höchstens 100 Bestellungen gleichzeitig. Schneller
 &gt; als zwei Runden zu je 100 ms geht es also nicht.
