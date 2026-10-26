@@ -9,31 +9,31 @@
       wie: "Ein einziger GC-Thread. Für jede Sammlung hält er die ganze Anwendung an und räumt allein auf – erst die jungen Objekte, bei Bedarf den ganzen Heap.",
       wann: "Ein Kern, ein kleiner Heap, kurze Programme. Im kleinen Container wählt ihn die JVM bis Java 26 von selbst.",
       kosten: "Kaum zusätzlicher Speicher und keine zusätzliche CPU – aber lange Pausen, sobald der Heap wächst.",
-      stationen: [["seit jeher", ""]] },
+      stationen: [["seit jeher"]] },
     { id: "parallel", knopf: "Parallel", option: "-XX:+UseParallelGC",
       messung: { dauer: 2908, pausen: 25, mittel: 7.58, längste: 43.4 }, nebenher: false,
       wie: "Wie Serial, aber mit einem GC-Thread je Kern: Die Anwendung steht während jeder Sammlung, dafür ist die Sammlung schneller vorbei.",
       wann: "Durchsatz vor Antwortzeit – ein Batch, der nachts rechnet und dem eine Pause egal ist. Bis Java 8 der Standard.",
       kosten: "Wenig Speicher, volle CPU während der Pause.",
-      stationen: [["Standard bis 8", ""]] },
+      stationen: [["Standard bis 8"]] },
     { id: "g1", knopf: "G1", option: "-XX:+UseG1GC",
       messung: { dauer: 2873, pausen: 17, mittel: 7.75, längste: 52.5 }, nebenher: true,
       wie: "Teilt den Heap in gleich große Regionen und räumt zuerst die mit dem meisten Müll („Garbage First“). Das Markieren läuft nebenher; kurze Pausen bleiben, ihr Ziel ist einstellbar (Standard 200 ms).",
       wann: "Fast immer richtig – der Standard. Ausgewogen zwischen Pausen, Durchsatz und Speicher.",
       kosten: "Etwas Speicher für seine Verwaltung und etwas CPU nebenher.",
-      stationen: [["Standard seit 9", "JEP 248 · LTS 11"], ["auch im kleinen Container ab 27", "JEP 523 · Ausblick"]] },
+      stationen: [["Standard seit 9", 248, "LTS 11"], ["auch im kleinen Container ab 27", 523, "Ausblick"]] },
     { id: "z", knopf: "ZGC", option: "-XX:+UseZGC",
       messung: { dauer: 4427, pausen: 71, mittel: 0.00554, längste: 0.0131 }, nebenher: true,
       wie: "Erledigt fast alles nebenher, auch das Verschieben der Objekte. Die Anwendung hält nur für Sekundenbruchteile an – unabhängig davon, wie groß der Heap ist.",
       wann: "Kurze Antwortzeiten bei großem Heap – ein Dienst, bei dem jede Pause beim Kunden ankommt.",
       kosten: "Mehr CPU und mehr Speicher; im Messlauf brauchte er die längste Zeit.",
-      stationen: [["experimentell in 11", "JEP 333"], ["produktiv seit 15", "JEP 377 · LTS 17"], ["mit Generationen seit 21", "JEP 439 · LTS 21"], ["nur noch mit Generationen seit 24", "JEP 490 · LTS 25"]] },
+      stationen: [["experimentell in 11", 333], ["produktiv seit 15", 377, "LTS 17"], ["mit Generationen seit 21", 439, "LTS 21"], ["nur noch mit Generationen seit 24", 490, "LTS 25"]] },
     { id: "shenandoah", knopf: "Shenandoah", option: "-XX:+UseShenandoahGC",
       messung: { dauer: 3713, pausen: 52, mittel: 0, längste: 0.281 }, nebenher: true,
       wie: "Wie ZGC: Markieren und Verschieben laufen nebenher, die Pausen bleiben kurz. Entwickelt von Red Hat.",
       wann: "Wie ZGC. Nicht in jedem JDK: Temurin, Corretto und Red Hat liefern ihn, die Builds von Oracle nicht.",
       kosten: "Mehr CPU und Speicher als G1.",
-      stationen: [["experimentell in 12", "JEP 189"], ["produktiv seit 15", "JEP 379 · LTS 17"], ["mit Generationen seit 25", "JEP 521 · LTS 25"]] }
+      stationen: [["experimentell in 12", 189], ["produktiv seit 15", 379, "LTS 17"], ["mit Generationen seit 25", 521, "LTS 25"]] }
   ];
 
   // ---- 2 · Container ----
@@ -45,11 +45,11 @@
   // ---- 3 · Startzeit ----
   const stufen = [
     { id: "ohne", knopf: "Ohne Archiv", ms: 345, option: "-Xshare:off", erledigt: 0,
-      text: "Jede Klasse wird gesucht, gelesen, geprüft und verknüpft – bei jedem Start von vorn. So startete Java 8 ohne Zutun.",
+      text: "Jede Klasse wird gesucht, gelesen, geprüft und verknüpft – bei jedem Start von vorn. So startet die JVM, wenn sie kein Archiv findet.",
       marke: "" },
     { id: "standard", knopf: "Standard-CDS", ms: 303, option: "ohne Option", erledigt: 1,
-      text: "Das JDK bringt ein Archiv seiner eigenen Klassen mit und nutzt es von selbst. Deine Klassen lädt es weiter einzeln.",
-      marke: "seit 12 · JEP 341 · LTS 17" },
+      text: "Das JDK bringt ein Archiv seiner eigenen Klassen mit und nutzt es von selbst. Deine Klassen lädt es weiter einzeln. CDS selbst gibt es seit Java 5 – bis Java 11 musste man das Archiv aber meist erst mit -Xshare:dump erzeugen.",
+      marke: "Archiv im JDK seit 12 · JEP 341 · LTS 17" },
     { id: "eigen", knopf: "Eigenes CDS-Archiv", ms: 226, option: "-XX:ArchiveClassesAtExit=app.jsa, dann -XX:SharedArchiveFile=app.jsa", erledigt: 2,
       text: "Ein Lauf schreibt beim Beenden alle geladenen Klassen – auch Deine – in ein Archiv; die nächsten Starts lesen sie daraus.",
       marke: "AppCDS seit 10 · JEP 310 · dynamisch seit 13 · JEP 350 · LTS 17" },
@@ -119,6 +119,31 @@
     document.getElementById("lz-zeitleiste").innerHTML = svg;
   }
 
+  // Jeder JEP führt zur JEP-Landkarte. Ihre Adresse nimmt das Skript von einem Verweis in
+  // der Seite, den das Skriptorium schon aufgelöst hat.
+  function landkarte() {
+    const verweis = document.querySelector('a[href*="jep-landkarte"]');
+    return verweis ? verweis.getAttribute("href").split("#")[0] : "";
+  }
+  function jep(nr) {
+    const ziel = landkarte();
+    return ziel ? '<a href="' + esc(ziel + "#/?jep=" + nr) + '">' + nr + "</a>" : String(nr);
+  }
+  // Maskiert einen Text und verlinkt darin jedes „JEP 341“ bzw. „JEP 514, 515“.
+  function mitJeps(text) {
+    return esc(text).replace(/JEP (\d+(?:, \d+)*)/g, function (_, nummern) {
+      return "JEP " + nummern.split(", ").map(jep).join(", ");
+    });
+  }
+
+  // Station eines Collectors: Text, JEP und LTS-Marke.
+  function station(s) {
+    const teile = [];
+    if (s[1]) teile.push("JEP " + jep(s[1]));
+    if (s[2]) teile.push(esc(s[2]));
+    return "<li>" + esc(s[0]) + (teile.length ? ' <span class="skr-badge">' + teile.join(" · ") + "</span>" : "") + "</li>";
+  }
+
   function gcZeichnen() {
     const gc = collectoren.find(function (c) { return c.id === zustand.gc; });
     zeitleisteZeichnen(gc);
@@ -127,7 +152,7 @@
       '<p class="lz-kennzahlen"><span><b>' + m.pausen + "</b> Pausen</span><span>längste <b>" + zahl(m.längste) + " ms</b></span>" +
       (m.mittel ? "<span>Median <b>" + zahl(m.mittel) + " ms</b></span>" : "") + "<span>Laufzeit <b>" + String(m.dauer).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " ms</b></span></p>" +
       "<dl class=\"lz-steckbrief\"><dt>Wie er arbeitet</dt><dd>" + esc(gc.wie) + "</dd><dt>Wann sinnvoll</dt><dd>" + esc(gc.wann) + "</dd><dt>Was er kostet</dt><dd>" + esc(gc.kosten) + "</dd>" +
-      "<dt>Seit wann</dt><dd><ul>" + gc.stationen.map(function (s) { return "<li>" + esc(s[0]) + (s[1] ? ' <span class="skr-badge">' + esc(s[1]) + "</span>" : "") + "</li>"; }).join("") + "</ul></dd>" +
+      "<dt>Seit wann</dt><dd><ul>" + gc.stationen.map(station).join("") + "</ul></dd>" +
       "<dt>Wählen mit</dt><dd><code>" + esc(gc.option) + "</code></dd></dl>";
     knöpfe("lz-gcs", collectoren, function (id) { return id === zustand.gc; }, function (id) { setzen("gc", id); });
   }
@@ -153,7 +178,7 @@
       : "Ohne Angabe nimmt die JVM ein Viertel des Containers als Heap. Im Container, in dem nur die JVM läuft, bleibt so viel ungenutzt.";
     document.getElementById("lz-container").innerHTML =
       '<p class="lz-kennzahlen"><span>Collector <b>' + gc + "</b></span><span>Heap höchstens <b>" + heapText + "</b></span></p>" +
-      "<p>" + esc(urteil) + "</p><p>" + heapUrteil + "</p>" +
+      "<p>" + mitJeps(urteil) + "</p><p>" + heapUrteil + "</p>" +
       '<pre class="lz-befehl"><code>docker run --rm --cpus ' + k + " -m " + (mb >= 1024 ? mb / 1024 + "g" : mb + "m") + " eclipse-temurin:" + zustand.jdk + " java" + option + " -Xlog:gc,gc+init -version</code></pre>";
     inhaltMelden("lz-container");
     knöpfe("lz-jdk", jdks, function (id) { return id === zustand.jdk; }, function (id) { setzen("jdk", id); });
@@ -170,7 +195,7 @@
         '</span><span class="lz-schritt__wann">' + (vorab ? "✓ vorab erledigt" : "bei jedem Start") + "</span></li>";
     }).join("");
     document.getElementById("lz-stufe-karte").innerHTML = "<p>" + esc(st.text) + "</p>" +
-      (st.marke ? '<p><span class="skr-badge">' + esc(st.marke) + "</span></p>" : "") +
+      (st.marke ? '<p><span class="skr-badge">' + mitJeps(st.marke) + "</span></p>" : "") +
       "<p>Option: <code>" + esc(st.option) + "</code></p>";
     const höchstwert = stufen[0].ms;
     document.getElementById("lz-balken").innerHTML = stufen.map(function (s) {

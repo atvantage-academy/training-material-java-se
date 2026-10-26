@@ -51,7 +51,7 @@
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
 <link rel="stylesheet" href="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.css?v=c4e105b7">
-<script src="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.js?v=ff9307c3" defer></script>
+<script src="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.js?v=bf84c2a1" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -115,7 +115,7 @@
 </div>
 <div class="lz-ergebnis" id="lz-container" aria-live="polite"></div>
 <h2 id="startzeit">3 · Der Start: Was die JVM jedes Mal tut, lässt sich vorher erledigen</h2>
-<p>Bei jedem Start sucht die JVM dieselben Klassen, lädt und prüft sie, verknüpft sie miteinander und beobachtet, welche Methoden sich zu übersetzen lohnen. <strong>CDS</strong> (Class Data Sharing) legt geladene Klassen in einem Archiv ab, der <strong>AOT-Cache</strong> zusätzlich verknüpft und mit Profilen. Wähle eine Stufe:</p>
+<p>Bei jedem Start sucht die JVM dieselben Klassen, lädt und prüft sie, verknüpft sie miteinander und beobachtet, welche Methoden sich zu übersetzen lohnen. <strong>CDS</strong> (Class Data Sharing) legt geladene und geprüfte Klassen in einem Archiv ab. Der <strong>AOT-Cache</strong> legt sie außerdem schon verknüpft ab und speichert dazu Profile, welche Methoden oft laufen. Wähle eine Stufe:</p>
 <div class="lz-knoepfe" role="group" aria-label="Stufe" id="lz-stufen"></div>
 <div class="lz-stufe">
 <ol class="lz-schritte" id="lz-schritte"></ol>
@@ -124,8 +124,8 @@
 <div class="lz-balken" id="lz-balken"></div>
 <p class="lz-fussnote">REST-Schnittstelle des Übungsprojekts: Lasttest mit einer Bestellung, davon 100 ms Wartezeit aufs Lager. Median aus sieben Läufen, OpenJDK 25.</p>
 <div class="skr-callout skr-callout--info">
-<p><strong>Ausblick:</strong> Mit Java 26 funktioniert der AOT-Cache mit jedem Garbage Collector (JEP 516),
-mit Java 28 legt er auch übersetzten Maschinencode ab (JEP 544). Beides gehört zu Project
+<p><strong>Ausblick:</strong> Mit Java 26 funktioniert der AOT-Cache mit jedem Garbage Collector (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=516">JEP 516</a>),
+mit Java 28 legt er auch übersetzten Maschinencode ab (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=544">JEP 544</a>). Beides gehört zu Project
 Leyden – dem Weg, die Startzeit im JDK selbst zu verkürzen, ohne die Regeln eines
 GraalVM Native Image.</p>
 </div>
@@ -136,98 +136,106 @@ GraalVM Native Image.</p>
 <div class="lz-objekt"><p class="lz-titel">Kompakt · 24 Byte</p><div class="lz-bytes"><span class="lz-byte lz-byte--kopf" style="--n:8">Header 8</span><span class="lz-byte" style="--n:4">Ref 4</span><span class="lz-byte" style="--n:4">int 4</span><span class="lz-byte" style="--n:8">long 8</span></div></div>
 </div>
 <p class="lz-hinweis">Eine Bestellposition mit einer Referenz, einem <code>int</code> und einem <code>long</code>: klassisch 12 Byte Header plus 16 Byte Felder, aufgerundet auf ein Vielfaches von 8, also 32 Byte; kompakt 24 Byte. <strong>Gemessen</strong> mit drei Millionen solcher Positionen: 107&nbsp;MB, mit kompakten Headern 84&nbsp;MB.</p>
-<p class="lz-marken"><span class="skr-badge">experimentell in 24 · JEP 450</span> <span class="skr-badge">LTS 25 · JEP 519</span> <span class="skr-badge">Standard ab 27 · JEP 534</span></p>
+<p class="lz-marken"><span class="skr-badge">experimentell in 24 · <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=450">JEP 450</a></span> <span class="skr-badge">LTS 25 · <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=519">JEP 519</a></span> <span class="skr-badge">Standard ab 27 · <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=534">JEP 534</a></span></p>
 <pre><code class="language-shell">java -XX:+UseCompactObjectHeaders -jar app.jar
 </code></pre>
 <h2 id="neu">5 · Was ist neu seit Java 9?</h2>
 <table>
 	<thead>
 			<tr>
+					<th>LTS</th>
 					<th>Seit</th>
 					<th>Was</th>
 					<th>JEP</th>
-					<th>LTS</th>
 			</tr>
 	</thead>
 	<tbody>
 			<tr>
+					<td>11</td>
 					<td>9</td>
 					<td>G1 ist der Standard-Collector</td>
-					<td>248</td>
-					<td>11</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=248">248</a></td>
 			</tr>
 			<tr>
-					<td>9</td>
-					<td>CMS abgekündigt, entfernt in 14</td>
-					<td>291, 363</td>
-					<td>11 / 17</td>
+					<td></td>
+					<td></td>
+					<td>CMS abgekündigt</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=291">291</a></td>
 			</tr>
 			<tr>
+					<td></td>
 					<td>10</td>
 					<td>Die JVM erkennt die Grenzen ihres Containers</td>
 					<td>–</td>
-					<td>11</td>
 			</tr>
 			<tr>
-					<td>10</td>
-					<td>AppCDS: eigene Klassen im Archiv, ab 13 dynamisch nach einem Lauf</td>
-					<td>310, 350</td>
-					<td>11 / 17</td>
+					<td></td>
+					<td></td>
+					<td>AppCDS: eigene Klassen im Archiv</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=310">310</a></td>
 			</tr>
 			<tr>
+					<td></td>
 					<td>11</td>
 					<td>Flight Recorder in jedem OpenJDK</td>
-					<td>328</td>
-					<td>11</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=328">328</a></td>
 			</tr>
 			<tr>
+					<td>17</td>
 					<td>12</td>
 					<td>Standard-CDS-Archiv im JDK</td>
-					<td>341</td>
-					<td>17</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=341">341</a></td>
 			</tr>
 			<tr>
+					<td></td>
+					<td>13</td>
+					<td>CDS-Archiv dynamisch nach einem Lauf</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=350">350</a></td>
+			</tr>
+			<tr>
+					<td></td>
+					<td>14</td>
+					<td>CMS entfernt</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=363">363</a></td>
+			</tr>
+			<tr>
+					<td></td>
 					<td>15</td>
 					<td>ZGC und Shenandoah produktiv</td>
-					<td>377, 379</td>
-					<td>17</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=377">377</a>, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=379">379</a></td>
 			</tr>
 			<tr>
+					<td>21</td>
 					<td>21</td>
 					<td>Generational ZGC; <code>jfr view</code> auf der Kommandozeile</td>
-					<td>439</td>
-					<td>21</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=439">439</a></td>
 			</tr>
 			<tr>
+					<td>25</td>
 					<td>24</td>
 					<td>ZGC nur noch mit Generationen; AOT-Cache</td>
-					<td>490, 483</td>
-					<td>25</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=490">490</a>, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=483">483</a></td>
 			</tr>
 			<tr>
+					<td></td>
 					<td>25</td>
 					<td>AOT-Cache in einem Schritt und mit Profilen</td>
-					<td>514, 515</td>
-					<td>25</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=514">514</a>, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=515">515</a></td>
 			</tr>
 			<tr>
-					<td>25</td>
+					<td></td>
+					<td></td>
 					<td>Kompakte Objekt-Header; Generational Shenandoah</td>
-					<td>519, 521</td>
-					<td>25</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=519">519</a>, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=521">521</a></td>
 			</tr>
 			<tr>
+					<td>Ausblick</td>
 					<td>27</td>
 					<td>G1 auch im kleinen Container; kompakte Header als Standard</td>
-					<td>523, 534</td>
-					<td>Ausblick</td>
+					<td><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=523">523</a>, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=534">534</a></td>
 			</tr>
 	</tbody>
 </table>
-<blockquote>
-<p><strong>Merksatz:</strong> Den Collector wählt man mit einer Option, den Heap im Container relativ,
-den Start verkürzt ein Trainingslauf im Build. Und erst messen, dann ändern.</p>
-</blockquote>
 
     </main>
   </div>
