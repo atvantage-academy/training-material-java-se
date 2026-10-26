@@ -14,13 +14,20 @@
    sonst schöbe sie auf dem Handy die ganze Seite seitlich auf. */
 .jl-scroll{overflow-x:auto;margin:0 0 1.5rem;width:0;min-width:100%;}
 .jl-karte{min-width:960px;}
+/* Die Kopfzeile steht außerhalb des Scrollrahmens – sonst klebte sie an ihm statt an der
+   Seite – und bleibt unter der Kopfzeile der Seite stehen, falls es eine gibt; seitlich führt sie das Skript nach. */
+.jl-kopf{position:sticky;top:var(--topnav-height,72px);z-index:2;overflow:hidden;width:0;min-width:100%;background:var(--skr-color-bg);}
+.jl-kopf__innen{min-width:960px;}
+/* Ohne Kopfzeile der Seite (Layout ohne Chrome) an den oberen Rand – wie das
+   `scroll-padding-top` des Skriptoriums. */
+body:not(:has(> .skr-header)) .jl-kopf{top:0;}
 
 /* Eine Zeile: Name, dann je Release (8 … 29) eine Spalte. Kopf und Einträge teilen das Raster. */
 .jl-zeile{display:grid;grid-template-columns:13rem repeat(22,minmax(1.75rem,1fr));align-items:center;}
 .jl-zeile > *,.jl-zeile__spur > *{grid-row:1;}
 .jl-zeile__name{grid-column:1;padding:.2rem .5rem .2rem 0;line-height:1.2;min-width:0;}
 .jl-zeile__spur{display:contents;}
-.jl-zeile--kopf{position:sticky;top:0;z-index:2;background:var(--skr-color-bg);border-bottom:1px solid var(--skr-color-border);}
+.jl-zeile--kopf{border-bottom:1px solid var(--skr-color-border);}
 .jl-zeile--kopf .jl-zeile__name{font-size:.75rem;font-weight:700;color:var(--skr-color-ink-muted);}
 .jl-spalte{display:flex;flex-direction:column;align-items:center;padding:.35rem 0;font-size:.75rem;color:var(--skr-color-ink-muted);border-left:1px solid transparent;}
 .jl-spalte b{font-size:.85rem;color:var(--skr-color-ink);}
@@ -34,7 +41,23 @@
 .jl-gruppe{margin:0;}
 .jl-gruppe__titel{font-size:.9rem;margin:1rem 0 .25rem;padding:.35rem 0;color:var(--skr-color-headline);border-bottom:1px solid var(--skr-color-border);}
 .jl-gruppe__titel small{font-weight:400;color:var(--skr-color-ink-muted);}
+
+/* Aufklappen: ein Knopf je Bereich (Pfeil dreht sich), darüber zwei für alle. */
+.jl-gruppe__knopf{display:flex;align-items:center;gap:.4rem;width:100%;font:inherit;color:inherit;text-align:left;background:none;border:0;padding:0;cursor:pointer;}
+.jl-gruppe__knopf:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:2px;}
+.jl-gruppe__knopf::before{content:"";flex:none;width:1em;height:1em;background:currentColor;transition:transform .15s;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E") center / contain no-repeat;}
+.jl-gruppe__knopf[aria-expanded="true"]::before{transform:rotate(90deg);}
+.jl-werkzeuge{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 .5rem;}
+.jl-klappen{display:inline-flex;align-items:center;gap:.35rem;font:inherit;font-size:.8rem;padding:.3rem .75rem;border-radius:999px;border:1px solid var(--skr-color-border);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.jl-klappen:hover{border-color:var(--skr-color-accent);}
+.jl-klappen:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:2px;}
+.jl-klappen::before{content:"";flex:none;width:1rem;height:1rem;background:currentColor;-webkit-mask:var(--jl-symbol) center / contain no-repeat;mask:var(--jl-symbol) center / contain no-repeat;}
+.jl-klappen--auf{--jl-symbol:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15 5 5 5-5'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3C/svg%3E");}
+.jl-klappen--zu{--jl-symbol:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 20 5-5 5 5'/%3E%3Cpath d='m7 4 5 5 5-5'/%3E%3C/svg%3E");}
 .jl-liste{list-style:none;margin:0;padding:0;}
+.jl-liste[hidden]{display:none;}
 .jl-liste li{margin:0;padding:0;}
 .jl-eintrag{width:100%;font:inherit;text-align:left;padding:0;margin:0;border:1px solid transparent;border-radius:var(--skr-radius,6px);background:transparent;color:var(--skr-color-ink);cursor:pointer;min-height:2.1rem;}
 .jl-eintrag:hover,.jl-eintrag:focus-visible{border-color:var(--skr-color-accent);}
@@ -89,10 +112,12 @@
 .jl-quelle{margin-top:1rem !important;}
 .jl-druck{display:none;}
 @media print{
-  .jl-filter,.jl-dialog{display:none !important;}
-  .jl-scroll{overflow:visible;}
-  .jl-karte{min-width:0;}
-  .jl-zeile--kopf{position:static;}
+  .jl-filter,.jl-dialog,.jl-werkzeuge{display:none !important;}
+  .jl-scroll,.jl-kopf{overflow:visible;}
+  .jl-karte,.jl-kopf__innen{min-width:0;}
+  .jl-kopf{position:static;}
+  .jl-liste[hidden]{display:block !important;}
+  .jl-gruppe__knopf::before{display:none;}
   .jl-druck{display:block;break-before:page;}
   .jl-druck section{break-inside:avoid;margin:0 0 10pt;}
   .jl-druck h3{font-size:11pt;margin:0 0 2pt;}

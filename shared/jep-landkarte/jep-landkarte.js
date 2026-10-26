@@ -1335,14 +1335,14 @@
   function spalte(v) { return v - erstes + 2; }
 
   function kopfzeile() {
-    let html = '<div class="jl-zeile jl-zeile--kopf" aria-hidden="true"><span class="jl-zeile__name">JEP</span>';
+    let html = '<div class="jl-kopf__innen"><div class="jl-zeile jl-zeile--kopf"><span class="jl-zeile__name">JEP</span>';
     releases.forEach(function (r) {
       const sprung = sprünge.find(function (s) { return r.v >= s.von && r.v <= s.bis; });
       html += '<span class="jl-spalte' + (ltsReleases.indexOf(r.v) >= 0 ? " is-lts" : "") + (istAusblick(r.v) ? " is-ausblick" : "")
            + (r.v === aktuell ? " is-aktuell" : "") + '" data-lts="' + (sprung ? sprung.id : "") + '" style="grid-column:' + spalte(r.v) + '">'
            + "<b>" + r.v + "</b>" + (ltsReleases.indexOf(r.v) >= 0 ? "<small>LTS</small>" : "") + (r.v === aktuell ? "<small>heute</small>" : "") + "</span>";
     });
-    return html + "</div>";
+    return html + "</div></div>";
   }
 
   function balken(j) {
@@ -1386,12 +1386,17 @@
 
   function aufbauen() {
     const karte = document.getElementById("jl-karte");
-    let html = kopfzeile();
+    const kopf = document.getElementById("jl-kopf");
+    const rahmen = document.getElementById("jl-scroll");
+    kopf.innerHTML = kopfzeile();
+    rahmen.addEventListener("scroll", function () { kopf.scrollLeft = rahmen.scrollLeft; }, { passive: true });
+    let html = "";
     bereiche.forEach(function (b) {
       const drin = jeps.filter(function (j) { return j.b === b.id; })
                        .sort(function (x, y) { return beginn(x) - beginn(y) || ende(x) - ende(y) || x.nr - y.nr; });
       html += '<section class="jl-gruppe" data-bereich="' + b.id + '" aria-labelledby="jl-g-' + b.id + '">'
-           + '<h2 class="jl-gruppe__titel" id="jl-g-' + b.id + '">' + esc(b.titel) + ' <small class="jl-gruppe__anzahl">' + drin.length + " JEPs</small></h2><ul class=\"jl-liste\">";
+           + '<h2 class="jl-gruppe__titel" id="jl-g-' + b.id + '"><button type="button" class="jl-gruppe__knopf" aria-expanded="false" aria-controls="jl-l-' + b.id + '">'
+           + esc(b.titel) + ' <small class="jl-gruppe__anzahl">' + drin.length + ' JEPs</small></button></h2><ul class="jl-liste" id="jl-l-' + b.id + '" hidden>';
       drin.forEach(function (j) {
         html += '<li><button type="button" class="jl-zeile jl-eintrag' + (j.zurückgezogen ? " is-zurueckgezogen" : "") + (j.offen ? " is-offen" : "")
              + '" data-nr="' + j.nr + '" aria-label="' + esc(beschriftung(j)) + '" aria-haspopup="dialog">'
@@ -1403,6 +1408,13 @@
     });
     karte.innerHTML = html;
     karte.addEventListener("click", function (e) {
+      const knopf = e.target.closest(".jl-gruppe__knopf");
+      if (knopf) {
+        const bereich = knopf.closest(".jl-gruppe").dataset.bereich;
+        offen[bereich] = !offen[bereich];
+        zeichnen();
+        return;
+      }
       const zeile = e.target.closest(".jl-eintrag");
       if (!zeile) return;
       stand.jep = zeile.dataset.nr;
@@ -1411,6 +1423,8 @@
       melden();
     });
 
+    document.getElementById("jl-alle-auf").addEventListener("click", function () { alleKlappen(true); zeichnen(); });
+    document.getElementById("jl-alle-zu").addEventListener("click", function () { alleKlappen(false); zeichnen(); });
     knöpfe("jl-knoepfe-art", "art", [{ id: "", titel: "Alle" }].concat(arten));
     knöpfe("jl-knoepfe-lts", "lts", [{ id: "", titel: "Alle" }].concat(sprünge));
     const suche = document.getElementById("jl-suche");
@@ -1486,7 +1500,23 @@
     });
   }
 
+  // AUFKLAPPEN: Beim Laden sind alle Bereiche zu. Ein Filter oder die Suche klappt alle
+  // auf – sobald sie sich ändern, nicht bei jedem Zeichnen, sonst ließe sich während der
+  // Suche nichts zuklappen –, ein geöffneter JEP seinen Bereich.
+  const offen = {};
+  let filterZuletzt = "";
+  function alleKlappen(auf) {
+    bereiche.forEach(function (b) { offen[b.id] = auf; });
+  }
+
   function zeichnen() {
+    const filter = [stand.art, stand.lts, stand.such].join("|");
+    if (filter !== filterZuletzt) {
+      if (stand.art || stand.lts || stand.such) alleKlappen(true);
+      filterZuletzt = filter;
+    }
+    const j = stand.jep ? finde(stand.jep) : null;
+    if (j) offen[j.b] = true;
     document.querySelectorAll(".jl-knopf").forEach(function (k) {
       k.setAttribute("aria-pressed", String(stand[k.dataset.schluessel] === k.dataset.wert));
     });
@@ -1508,13 +1538,15 @@
         if (zeigen) sichtbar++;
       });
       g.hidden = sichtbar === 0;
+      const auf = Boolean(offen[g.dataset.bereich]);
+      g.querySelector(".jl-gruppe__knopf").setAttribute("aria-expanded", String(auf));
+      g.querySelector(".jl-liste").hidden = !auf;
       g.querySelector(".jl-gruppe__anzahl").textContent = sichtbar + " JEPs";
       gesamt += sichtbar;
     });
     document.getElementById("jl-leer").hidden = gesamt > 0;
 
     const dialog = document.getElementById("jl-dialog");
-    const j = stand.jep ? finde(stand.jep) : null;
     if (j) markieren(j.nr);
     if (j) {
       füllen(j);
