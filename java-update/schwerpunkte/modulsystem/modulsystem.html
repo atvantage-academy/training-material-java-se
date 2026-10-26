@@ -115,7 +115,7 @@
      - Bezeichner mit Umlauten (A-006), Farben aus den Tokens des Skriptoriums, kein
        eigenes Breiten-CSS. -->
 <p class="mx-lead">Seit Java 9 kann ein JAR sagen, <strong>was es braucht</strong> und <strong>was es zeigt</strong>. Die JVM prüft das beim Start – statt mitten im Betrieb festzustellen, dass etwas fehlt. Das Modulsystem ist freiwillig; seine Kapselung des JDK betrifft trotzdem alle.</p>
-<p class="mx-marken"><span class="skr-badge">seit Java 9</span> <span class="skr-badge">LTS 11</span> <span class="skr-badge">JEP 261</span> <span class="skr-badge">jlink: JEP 282</span> <span class="skr-badge">Modul-Importe: LTS 25, JEP 511</span></p>
+<p class="mx-marken"><span class="skr-badge">seit Java 9</span> <span class="skr-badge">LTS 11</span> <span class="skr-badge"><a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=261">JEP 261</a></span> <span class="skr-badge">jlink: <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=282">JEP 282</a></span> <span class="skr-badge">Modul-Importe: LTS 25, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=511">JEP 511</a></span></p>
 <h2 id="ueberblick">1 · Worum es geht</h2>
 <p>Zwei JARs: <code>app.jar</code> enthält die Klasse <code>Start</code>, <code>katalog.jar</code> die Klassen <code>Artikel</code> und <code>Cache</code> – beide <code>public</code>, aber in verschiedenen Packages. <code>Start</code> braucht beide:</p>
 <pre><code class="language-java">package shop.app;
@@ -385,9 +385,9 @@ schaltet erst ein, wer den Modulpfad benutzt.</li>
 </div>
 <div class="skr-callout skr-callout--warning">
 <p><strong>Für alle gilt: Das JDK ist gekapselt.</strong> Seit Java 9 besteht es selbst aus Modulen
-(JEP 200, 220). Seine Interna wie <code>sun.misc</code> oder die privaten Felder von
-<code>java.util.ArrayList</code> waren zuerst nur mit Warnung erreichbar (JEP 260), seit Java 16
-standardmäßig gesperrt (JEP 396) und seit Java 17 ohne globalen Ausweg (JEP 403). Wer
+(<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=200">JEP 200</a>, <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=220">220</a>). Seine Interna wie <code>sun.misc</code> oder die privaten Felder von
+<code>java.util.ArrayList</code> waren zuerst nur mit Warnung erreichbar (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=260">JEP 260</a>), seit Java 16
+standardmäßig gesperrt (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=396">JEP 396</a>) und seit Java 17 ohne globalen Ausweg (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=403">JEP 403</a>). Wer
 per Reflection hineingreift – oft eine Bibliothek, nicht der eigene Code –, braucht
 den Schalter <code>--add-opens java.base/java.util=ALL-UNNAMED</code>, auch ganz ohne eigene Module.</p>
 </div>
@@ -415,7 +415,7 @@ den Schalter <code>--add-opens java.base/java.util=ALL-UNNAMED</code>, auch ganz
 <pre class="mx-code"><code class="hljs" id="mx-code"></code></pre>
 </div>
 <h2 id="jlink">4 · Das eigene Laufzeit-Image: jlink</h2>
-<p><code>jlink</code> (JEP 282) baut aus Modulen eine Laufzeitumgebung, die nur enthält, was die Anwendung braucht – samt Startskript:</p>
+<p><code>jlink</code> (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=282">JEP 282</a>) baut aus Modulen eine Laufzeitumgebung, die nur enthält, was die Anwendung braucht – samt Startskript:</p>
 <pre><code class="language-shell">jlink --module-path target/module --add-modules app,pdf --strip-debug --no-header-files --no-man-pages --launcher shop=app/shop.app.Start --output target/bild
 </code></pre>
 <div class="skr-tabs">
@@ -454,13 +454,13 @@ java.lang.module.FindException: JMOD format not supported
 </details>
 <details class="skr-tabs__panel" name="jmod">
 <summary>JDK ohne jmods</summary>
-<p>Seit Java 24 darf ein JDK ohne seinen Ordner <code>jmods/</code> ausgeliefert werden (JEP 493) – rund 80&nbsp;MB kleiner. jlink nimmt die Module dann aus dem laufenden JDK selbst. Temurin 25 tut das, der OpenJDK-Build von jdk.java.net nicht. Nur das Modul <code>jdk.jlink</code> selbst lässt sich dann nicht ins Image nehmen, und daran scheitert <code>--bind-services</code>:</p>
+<p>Seit Java 24 darf ein JDK ohne seinen Ordner <code>jmods/</code> ausgeliefert werden (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=493">JEP 493</a>) – rund 80&nbsp;MB kleiner. jlink nimmt die Module dann aus dem laufenden JDK selbst. Temurin 25 tut das, der OpenJDK-Build von jdk.java.net nicht. Nur das Modul <code>jdk.jlink</code> selbst lässt sich dann nicht ins Image nehmen, und daran scheitert <code>--bind-services</code>:</p>
 <pre><code>Error: This JDK does not contain packaged modules and cannot
        be used to create another image with the jdk.jlink module</code></pre>
 </details>
 </div>
 <h2 id="import">5 · Seit Java 25: ein ganzes Modul importieren</h2>
-<p>Die <strong>Modul-Importe</strong> (JEP 511, final in Java 25, LTS 25) holen alle Packages, die ein Modul exportiert, mit einer Zeile – auch in Code, der selbst kein Modul ist:</p>
+<p>Die <strong>Modul-Importe</strong> (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=511">JEP 511</a>, final in Java 25, LTS 25) holen alle Packages, die ein Modul exportiert, mit einer Zeile – auch in Code, der selbst kein Modul ist:</p>
 <pre><code class="language-java">import module java.base;      // java.util, java.time, java.io, …
 
 class Bericht {
@@ -477,7 +477,7 @@ class Bericht {
 Das betrifft jede Anwendung, auch ohne eigene Module (Teil 1).</li>
 <li><strong>In Desktop-Anwendungen mit JavaFX.</strong> Seit Version 11 kommt JavaFX nicht mehr mit
 dem JDK, sondern als eigene Module (<code>javafx.controls</code>, <code>javafx.fxml</code>, …). Eine
-modulare Anwendung baut mit jlink und <code>jpackage</code> (JEP 392, seit Java 16) ein
+modulare Anwendung baut mit jlink und <code>jpackage</code> (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=392">JEP 392</a>, seit Java 16) ein
 Installationspaket mit eigener Laufzeit – auf dem Rechner der Anwender muss kein
 Java installiert sein. Lädt man JavaFX vom Klassenpfad, warnt es seit Version 16
 beim Start vor einer nicht unterstützten Konfiguration.</li>
@@ -527,7 +527,7 @@ starten, weniger Speicher, kleinere Auslieferung.</p>
 JAR und lädt sie mit einem eigenen Classloader. Die Anwendung läuft damit auf dem
 Klassenpfad, im unbenannten Modul. Für Start und Speicher setzt Spring auf
 <strong>Spring AOT mit GraalVM Native Image</strong> (seit Spring Boot 3) und auf <strong>CDS</strong> bzw. den
-<strong>AOT-Cache</strong> der JVM (JEP 483).</li>
+<strong>AOT-Cache</strong> der JVM (<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=483">JEP 483</a>).</li>
 <li><strong>Quarkus</strong> verlegt Arbeit aus dem Start in den Build, lädt Klassen mit eigenem
 Classloading und baut Native Images mit GraalVM bzw. Mandrel. Eigene
 <code>module-info.java</code> sind dort nicht der vorgesehene Weg.</li>

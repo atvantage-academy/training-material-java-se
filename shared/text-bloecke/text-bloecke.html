@@ -84,7 +84,8 @@
      - LTS-Marke: final in Java 15 (JEP 378; Previews JEP 355 in 13, JEP 368 in 14),
        LTS 17.
      - Kern: der Quelltext links, die entstehende Zeichenkette rechts – Leerzeichen als ·,
-       Zeilenumbrüche als ↵. Einstellbar: das Beispiel als Reiter (skr-tabs: JSON, lange
+       Zeilenumbrüche als ↵. Darüber als Problemstellung dasselbe JSON in Java 8 (verkettete
+       String-Literale, statischer Codeblock). Einstellbar: das Beispiel als Reiter (skr-tabs: JSON, lange
        Zeile mit \, Leerzeichen am Ende mit \s, Werte mit formatted()) und – darunter,
        als Warnung –
        die Lage der schließenden Anführungszeichen (unter dem Inhalt, weiter links, am
@@ -106,6 +107,16 @@
      - Bezeichner mit Umlauten (A-006), Farben aus den Tokens des Skriptoriums. -->
 <p class="tb-lead">Ein Text-Block beginnt mit <code>"""</code> und einem Zeilenumbruch und endet mit <code>"""</code>. Was dazwischen steht, wird zur Zeichenkette – <strong>ohne</strong> den Einzug, der nur im Quelltext steht. Wie viel davon wegfällt, bestimmen die Zeilen selbst und die Lage der schließenden Anführungszeichen. Stell es unten ein: Leerzeichen erscheinen als <span class="tb-z">·</span>, Zeilenumbrüche als <span class="tb-z">↵</span>.</p>
 <p class="tb-marken"><span class="skr-badge">seit Java 15</span> <span class="skr-badge">LTS 17</span> <span class="skr-badge">JEP 378</span></p>
+<p><strong>Problemstellung:</strong> In Java 8 gibt es nur das gewöhnliche String-Literal, und es
+endet am Zeilenende. Mehrzeiliger Text wie das JSON unten wird deshalb aus einzelnen
+Literalen zusammengesetzt – jede Zeile mit <code>\n</code> am Ende, jedes Anführungszeichen als
+<code>\&quot;</code>:</p>
+<pre><code class="language-java">String json = &quot;{\n&quot; +
+        &quot;  \&quot;artikel\&quot;: \&quot;Tasse\&quot;,\n&quot; +
+        &quot;  \&quot;menge\&quot;: 2\n&quot; +
+        &quot;}\n&quot;;
+</code></pre>
+<p>Ab Java 15 steht derselbe Text als Text-Block so da, wie er aussieht – ohne <code>\n</code> und ohne <code>\&quot;</code>:</p>
 <div class="skr-tabs tb-beispiele">
 <details class="skr-tabs__panel" name="tb-beispiel" id="tb-json" open>
 <summary>JSON</summary>
