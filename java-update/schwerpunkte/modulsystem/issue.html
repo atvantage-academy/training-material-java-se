@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=78155e55" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b053ed44" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=78155e55"
+     data-index="../../../skriptorium/search/de.json?v=b053ed44"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -213,6 +213,10 @@ Das CSV-Format kennt die Anwendung nicht beim Namen; es ist nur zur Laufzeit da
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem</code></strong>. Sie baut mit <code>clean</code>.</p>
 </details>
+<details class="skr-tabs__panel" name="bauen-8">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem</code></strong>. Er baut mit <code>clean</code>.</p>
+</details>
 </div>
 <p>Die drei JARs liegen danach gemeinsam in <code>schwerpunkte/modulsystem/target/module</code>.</p>
 <p>Starte die Anwendung auf dem Klassenpfad:</p>
@@ -233,6 +237,11 @@ drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Prot
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem-klassenpfad</code></strong>. Sie baut alle drei Teile und startet danach
 die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="klassenpfad">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem-klassenpfad</code></strong>. Er baut alle
+drei Teile und startet danach die Anwendung; seine Ausgabe steht am Ende des Protokolls.</p>
 </details>
 </div>
 <p>Sieh Dir <code>Exportlauf</code> an: Aus welchem Package holt die Anwendung die Formatierung der
@@ -265,6 +274,10 @@ noch JARs eines früheren Baus. Baue noch einmal mit <code>clean</code>.</p>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem-modulpfad-automatisch</code></strong>. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
 </details>
+<details class="skr-tabs__panel" name="modulpfad-automatisch">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem-modulpfad-automatisch</code></strong>. Er baut alle drei Teile und startet danach die Anwendung; seine Ausgabe steht am Ende des Protokolls.</p>
+</details>
 </div>
 <p>Es läuft. Woher kommt der Name <code>modulsystem.anwendung</code>? Lass Dir das Modul beschreiben:</p>
 <div class="skr-tabs">
@@ -282,6 +295,10 @@ noch JARs eines früheren Baus. Baue noch einmal mit <code>clean</code>.</p>
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem-beschreiben</code></strong>. Sie baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.</p>
+</details>
+<details class="skr-tabs__panel" name="beschreiben">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem-beschreiben</code></strong>. Er baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.</p>
 </details>
 </div>
 <h3 id="module-deklarieren">Module deklarieren</h3>
@@ -344,6 +361,10 @@ Tests grün sind.</p>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem-modulpfad</code></strong>. Sie baut alle drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Protokolls.</p>
 </details>
+<details class="skr-tabs__panel" name="modulpfad">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem-modulpfad</code></strong>. Er baut alle drei Teile und startet danach die Anwendung; seine Ausgabe steht am Ende des Protokolls.</p>
+</details>
 </div>
 <p>Die Tests sind grün, aber das Programm findet kein Format. Was fehlt dem CSV-Modul,
 und warum genügt die Datei unter <code>META-INF/services</code> nicht mehr? Ergänze es, baue und
@@ -385,6 +406,10 @@ sie braucht, und lass Dir zeigen, welche Module darin liegen:</p>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem-image</code></strong>. Sie baut alle drei Teile und das Image unter <code>schwerpunkte/modulsystem/target/bild</code> und zeigt die Module im Image; sie stehen am Ende des Protokolls.</p>
 </details>
+<details class="skr-tabs__panel" name="image">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem-image</code></strong>. Er baut alle drei Teile und das Image unter <code>schwerpunkte/modulsystem/target/bild</code> und zeigt die Module im Image; sie stehen am Ende des Protokolls.</p>
+</details>
 </div>
 <p>Starte das Image über sein Startskript – auf der Kommandozeile oder im Terminal der IDE
 (IntelliJ: <em>View → Tool Windows → Terminal</em>, Eclipse: <em>Window → Show View → Terminal</em>),
@@ -411,6 +436,10 @@ vergleiche die Größe beider Images mit der Deines JDK.</p>
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-modulsystem-image-mit-csv</code></strong>. Sie baut alle drei Teile und beide Images, <code>bild</code> und <code>bild-mit-csv</code> unter <code>schwerpunkte/modulsystem/target</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="image-mit-csv">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-modulsystem-image-mit-csv</code></strong>. Er baut alle drei Teile und beide Images, <code>bild</code> und <code>bild-mit-csv</code> unter <code>schwerpunkte/modulsystem/target</code>.</p>
 </details>
 </div>
 <p>Starte es über sein Startskript, wieder auf der Kommandozeile:</p>
@@ -554,6 +583,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem`**. Er baut mit `clean`.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Die drei JARs liegen danach gemeinsam in `schwerpunkte/modulsystem/target/module`.
@@ -587,6 +623,14 @@ drei Teile und startet danach die Anwendung; ihre Ausgabe steht am Ende des Prot
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 **`schwerpunkte-modulsystem-klassenpfad`**. Sie baut alle drei Teile und startet danach
 die Anwendung; ihre Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;klassenpfad&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem-klassenpfad`**. Er baut alle
+drei Teile und startet danach die Anwendung; seine Ausgabe steht am Ende des Protokolls.
 
 &lt;/details&gt;
 
@@ -638,6 +682,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad-automatisch&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem-modulpfad-automatisch`**. Er baut alle drei Teile und startet danach die Anwendung; seine Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Es läuft. Woher kommt der Name `modulsystem.anwendung`? Lass Dir das Modul beschreiben:
@@ -667,6 +718,13 @@ Starte die Run Configuration **`schwerpunkte-modulsystem-beschreiben`**. Sie bau
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 **`schwerpunkte-modulsystem-beschreiben`**. Sie baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;beschreiben&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem-beschreiben`**. Er baut alle drei Teile und beschreibt danach das Modul der Anwendung; die Beschreibung steht am Ende des Protokolls.
 
 &lt;/details&gt;
 
@@ -765,6 +823,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;modulpfad&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem-modulpfad`**. Er baut alle drei Teile und startet danach die Anwendung; seine Ausgabe steht am Ende des Protokolls.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Die Tests sind grün, aber das Programm findet kein Format. Was fehlt dem CSV-Modul,
@@ -832,6 +897,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem-image`**. Er baut alle drei Teile und das Image unter `schwerpunkte/modulsystem/target/bild` und zeigt die Module im Image; sie stehen am Ende des Protokolls.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Starte das Image über sein Startskript – auf der Kommandozeile oder im Terminal der IDE
@@ -874,6 +946,13 @@ Starte die Run Configuration **`schwerpunkte-modulsystem-image-mit-csv`**. Sie b
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 **`schwerpunkte-modulsystem-image-mit-csv`**. Sie baut alle drei Teile und beide Images, `bild` und `bild-mit-csv` unter `schwerpunkte/modulsystem/target`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;image-mit-csv&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-modulsystem-image-mit-csv`**. Er baut alle drei Teile und beide Images, `bild` und `bild-mit-csv` unter `schwerpunkte/modulsystem/target`.
 
 &lt;/details&gt;
 

@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=78155e55" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b053ed44" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=78155e55"
+     data-index="../../../skriptorium/search/de.json?v=b053ed44"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -188,6 +188,13 @@ von selbst.</p>
 Ordner <code>java-update</code>. Lass alle Projekte ausgewählt, auch das Wurzelprojekt
 <code>java-update</code> – dort liegen die Run Configurations.</p>
 </details>
+<details class="skr-tabs__panel" name="projekt-importieren">
+<summary>VS Code</summary>
+<p>Öffne den Ordner <code>java-update</code> über <em>File → Open Folder…</em>. Mit dem <em>Extension Pack for
+Java</em> importiert VS Code alle Maven-Module. Die Run Configurations des Projekts liegen in
+<code>.vscode/</code>: Alles, was Maven aufruft, startest Du über <em>Terminal → Run Task…</em>, Programme
+über <em>Run and Debug</em>.</p>
+</details>
 </div>
 <h3 id="alles-einmal-bauen">Alles einmal bauen</h3>
 <p>Baue das ganze Projekt und lass alle Tests laufen. Brich dabei nicht beim ersten
@@ -208,6 +215,10 @@ Testfehler ab:</p>
 <summary>Eclipse</summary>
 <p>Öffne <em>Run → Run Configurations…</em> und starte unter <em>Maven Build</em> die Konfiguration
 <strong><code>java-update</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="alles-bauen">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>java-update</code></strong>.</p>
 </details>
 </div>
 <p>Der Build läuft durch – aber in einigen Modulen sind Tests rot. Welche Module sind
@@ -273,6 +284,11 @@ diesen Befehl auf.</p>
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>ueberblick-plattform-und-release-modell-versionsinfo</code></strong>. Sie ruft über Maven genau
+diesen Befehl auf.</p>
+</details>
+<details class="skr-tabs__panel" name="versionsinfo">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>ueberblick-plattform-und-release-modell-versionsinfo</code></strong>. Er ruft über Maven genau
 diesen Befehl auf.</p>
 </details>
 </div>
@@ -373,6 +389,16 @@ Ordner `java-update`. Lass alle Projekte ausgewählt, auch das Wurzelprojekt
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;projekt-importieren&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Öffne den Ordner `java-update` über *File → Open Folder…*. Mit dem *Extension Pack for
+Java* importiert VS Code alle Maven-Module. Die Run Configurations des Projekts liegen in
+`.vscode/`: Alles, was Maven aufruft, startest Du über *Terminal → Run Task…*, Programme
+über *Run and Debug*.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 ### Alles einmal bauen
@@ -406,6 +432,13 @@ Wähle oben rechts in der Auswahl neben dem Startknopf die Run Configuration
 
 Öffne *Run → Run Configurations…* und starte unter *Maven Build* die Konfiguration
 **`java-update`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;alles-bauen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`java-update`**.
 
 &lt;/details&gt;
 
@@ -471,6 +504,14 @@ diesen Befehl auf.
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 **`ueberblick-plattform-und-release-modell-versionsinfo`**. Sie ruft über Maven genau
+diesen Befehl auf.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;versionsinfo&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`ueberblick-plattform-und-release-modell-versionsinfo`**. Er ruft über Maven genau
 diesen Befehl auf.
 
 &lt;/details&gt;

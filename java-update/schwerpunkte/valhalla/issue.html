@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=78155e55" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b053ed44" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=78155e55"
+     data-index="../../../skriptorium/search/de.json?v=b053ed44"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -174,8 +174,9 @@ Valhalla daraus macht.</p>
 <p><strong>Hinweis:</strong> Für die Pflicht reicht <strong>JDK 21 oder 25</strong>. Die beiden Kür-Schritte
 brauchen einen <strong>Early-Access-Build von JDK 28</strong> – nur, wenn Du ihn installieren darfst
 oder Docker hast. Alles liegt im Modul <code>schwerpunkte/valhalla</code>; die Befehle laufen in
-diesem Ordner. Zu den Befehlen der Pflicht gibt es Run Configurations; sie rufen über
-Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven startet.</p>
+diesem Ordner. Zu den Befehlen der Pflicht gibt es Run Configurations (in VS Code
+Tasks); sie rufen über Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE
+Maven startet – in VS Code mit dem, das <code>mvn -v</code> im Terminal nennt.</p>
 </blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="worum-es-geht">Worum es geht</h3>
@@ -206,6 +207,10 @@ Quelltext; der Compiler übersetzt es dabei und warnt. Starte das Programm:</p>
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="wertbasiert">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
 </details>
 </div>
 <p>Lies zuerst die Warnungen des Compilers über der Ausgabe: Welche Stellen meldet er, und
@@ -239,6 +244,10 @@ lies die Aufzeichnung danach als Tabelle:</p>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-valhalla-diagnose</code></strong>.</p>
 </details>
+<details class="skr-tabs__panel" name="diagnose">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-valhalla-diagnose</code></strong>.</p>
+</details>
 </div>
 <p>Die Konsole läuft dabei voll – je Sperre ein Eintrag; die Tabelle steht am Ende.</p>
 <p>In welcher Methode wird gesperrt, und auf welcher Klasse? Wie würdet Ihr so etwas in
@@ -261,6 +270,10 @@ mit Valhalla nicht brechen. Starte danach wieder:</p>
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="wertbasiert-behoben">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
 </details>
 </div>
 <p>Erst wenn keine Warnung mehr kommt und die Ausgabe stimmt, bist Du fertig.</p>
@@ -391,8 +404,8 @@ entpacke ihn in einen eigenen Ordner und rufe dessen <code>bin/java</code> mit d
 <code>schwerpunkte/valhalla</code>:</p>
 <pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview Wertbasiert.java
 </code></pre>
-<p>Die beiden Kür-Schritte laufen nur auf der Kommandozeile: Eine Run Configuration nähme
-das JDK, mit dem Deine IDE Maven startet, nicht den Early-Access-Build.</p>
+<p>Die beiden Kür-Schritte laufen nur auf der Kommandozeile: Eine Run Configuration oder ein
+Task nähme das JDK, mit dem Deine IDE Maven startet, nicht den Early-Access-Build.</p>
 <p>Starte zuerst den <strong>unveränderten</strong> Stand (<code>git stash</code>, danach <code>git stash pop</code>), dann
 Deine behobene Fassung, jeweils mit <code>--enable-preview</code>. Was geschieht mit den vier
 Stellen? Welche bricht beim Übersetzen, welche zur Laufzeit, und welche liefert plötzlich
@@ -484,8 +497,9 @@ Valhalla daraus macht.
 &gt; **Hinweis:** Für die Pflicht reicht **JDK 21 oder 25**. Die beiden Kür-Schritte
 &gt; brauchen einen **Early-Access-Build von JDK 28** – nur, wenn Du ihn installieren darfst
 &gt; oder Docker hast. Alles liegt im Modul `schwerpunkte/valhalla`; die Befehle laufen in
-&gt; diesem Ordner. Zu den Befehlen der Pflicht gibt es Run Configurations; sie rufen über
-&gt; Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven startet.
+&gt; diesem Ordner. Zu den Befehlen der Pflicht gibt es Run Configurations (in VS Code
+&gt; Tasks); sie rufen über Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE
+&gt; Maven startet – in VS Code mit dem, das `mvn -v` im Terminal nennt.
 
 ## Arbeitsschritte
 
@@ -531,6 +545,13 @@ Starte die Run Configuration **`schwerpunkte-valhalla-wertbasiert`**.
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 **`schwerpunkte-valhalla-wertbasiert`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-valhalla-wertbasiert`**.
 
 &lt;/details&gt;
 
@@ -584,6 +605,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;diagnose&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-valhalla-diagnose`**.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Die Konsole läuft dabei voll – je Sperre ein Eintrag; die Tabelle steht am Ende.
@@ -621,6 +649,13 @@ Starte die Run Configuration **`schwerpunkte-valhalla-wertbasiert`**.
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 **`schwerpunkte-valhalla-wertbasiert`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert-behoben&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-valhalla-wertbasiert`**.
 
 &lt;/details&gt;
 
@@ -764,8 +799,8 @@ entpacke ihn in einen eigenen Ordner und rufe dessen `bin/java` mit dem vollen P
 docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview Wertbasiert.java
 ```
 
-Die beiden Kür-Schritte laufen nur auf der Kommandozeile: Eine Run Configuration nähme
-das JDK, mit dem Deine IDE Maven startet, nicht den Early-Access-Build.
+Die beiden Kür-Schritte laufen nur auf der Kommandozeile: Eine Run Configuration oder ein
+Task nähme das JDK, mit dem Deine IDE Maven startet, nicht den Early-Access-Build.
 
 Starte zuerst den **unveränderten** Stand (`git stash`, danach `git stash pop`), dann
 Deine behobene Fassung, jeweils mit `--enable-preview`. Was geschieht mit den vier

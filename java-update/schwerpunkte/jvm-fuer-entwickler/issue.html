@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=78155e55" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b053ed44" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=78155e55"
+     data-index="../../../skriptorium/search/de.json?v=b053ed44"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -178,9 +178,9 @@ die Visualisierung <a class="skr-doclink skr-doclink--visualization" href="../..
 <p><strong>Hinweis:</strong> Du brauchst <strong>JDK 21 oder 25</strong>. Wo ein Schritt nur mit einem der beiden
 geht, steht es dabei. Alles liegt im Modul <code>schwerpunkte/jvm-fuer-entwickler</code>, mit
 einer eigenen Kopie der Bestellabwicklung – was Du in anderen Übungen am Projekt
-geändert hast, spielt hier keine Rolle. Zu jedem Befehl gibt es eine Run Configuration;
-sie ruft über Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven
-startet.</p>
+geändert hast, spielt hier keine Rolle. Zu jedem Befehl gibt es eine Run Configuration
+(in VS Code einen Task); sie ruft über Maven genau diesen Befehl auf, mit dem JDK, mit
+dem Deine IDE Maven startet – in VS Code mit dem, das <code>mvn -v</code> im Terminal nennt.</p>
 </blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="das-modul-bauen">Das Modul bauen</h3>
@@ -201,6 +201,10 @@ startet.</p>
 <details class="skr-tabs__panel" name="bauen">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration <strong><code>schwerpunkte-jvm-fuer-entwickler</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-jvm-fuer-entwickler</code></strong>.</p>
 </details>
 </div>
 <h3 id="was-wählt-die-jvm">Was wählt die JVM?</h3>
@@ -227,6 +231,14 @@ Container nach, mit einem Kern und 1 GB:</p>
 <details class="skr-tabs__panel" name="ergonomie">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="ergonomie">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks:</p>
 <ul>
 <li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
 <li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
@@ -276,6 +288,16 @@ den Lauf mit dem Flight Recorder auf und sieh Dir die Pausen an:</p>
 <li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
 </ul>
 </details>
+<details class="skr-tabs__panel" name="gc">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
+</ul>
+</details>
 </div>
 <p>In der IDE zeichnet jede Run Configuration auf und zeigt danach die Pausen. Halte je
 Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.</p>
@@ -316,10 +338,10 @@ lief.</p>
 <p>Starte nacheinander die Run Configurations:</p>
 <ul>
 <li><strong><code>schwerpunkte-jvm-fuer-entwickler-start</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training</code></strong> (JDK 25)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot</code></strong> (JDK 25)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training</code></strong> (JDK 21)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds</code></strong> (JDK 21)</li>
 </ul>
 </details>
 <details class="skr-tabs__panel" name="start">
@@ -327,10 +349,21 @@ lief.</p>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
 <ul>
 <li><strong><code>schwerpunkte-jvm-fuer-entwickler-start</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training</code></strong> (JDK 25)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot</code></strong> (JDK 25)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training</code></strong> (JDK 21)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds</code></strong> (JDK 21)</li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="start">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training</code></strong> (JDK 25)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot</code></strong> (JDK 25)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training</code></strong> (JDK 21)</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds</code></strong> (JDK 21)</li>
 </ul>
 </details>
 </div>
@@ -364,6 +397,10 @@ die Rechenzeit hingeht und welche Klassen den meisten Speicher anlegen:</p>
 <details class="skr-tabs__panel" name="jfr">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration <strong><code>schwerpunkte-jvm-fuer-entwickler-flight-recorder</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="jfr">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-jvm-fuer-entwickler-flight-recorder</code></strong>.</p>
 </details>
 </div>
 <p>In der IDE zeichnet die Run Configuration auf und zeigt danach beide Ansichten. Was
@@ -399,6 +436,14 @@ der Bestand belegt (letzte Zeile der Ausgabe):</p>
 <li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-klassisch</code></strong></li>
 </ul>
 </details>
+<details class="skr-tabs__panel" name="header">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-kompakt</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-klassisch</code></strong></li>
+</ul>
+</details>
 </div>
 <p>Wie viel spart es? Für welche Eurer Anwendungen zählt das?</p>
 <h3 id="kür-pinning-nachweisen-jdk-21-und-25">Kür: Pinning nachweisen (JDK 21 und 25)</h3>
@@ -422,6 +467,10 @@ virtuellen Threads ihren Träger festgehalten haben:</p>
 <details class="skr-tabs__panel" name="pinning">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration <strong><code>schwerpunkte-jvm-fuer-entwickler-pinning</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="pinning">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-jvm-fuer-entwickler-pinning</code></strong>.</p>
 </details>
 </div>
 <p>Vergleicht die Ausgabe und die Laufzeit auf JDK 21 und 25 – mit einem Paar, das das
@@ -504,9 +553,9 @@ die Visualisierung [Die Laufzeitumgebung seit Java 8](laufzeit.md).
 &gt; **Hinweis:** Du brauchst **JDK 21 oder 25**. Wo ein Schritt nur mit einem der beiden
 &gt; geht, steht es dabei. Alles liegt im Modul `schwerpunkte/jvm-fuer-entwickler`, mit
 &gt; einer eigenen Kopie der Bestellabwicklung – was Du in anderen Übungen am Projekt
-&gt; geändert hast, spielt hier keine Rolle. Zu jedem Befehl gibt es eine Run Configuration;
-&gt; sie ruft über Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven
-&gt; startet.
+&gt; geändert hast, spielt hier keine Rolle. Zu jedem Befehl gibt es eine Run Configuration
+&gt; (in VS Code einen Task); sie ruft über Maven genau diesen Befehl auf, mit dem JDK, mit
+&gt; dem Deine IDE Maven startet – in VS Code mit dem, das `mvn -v` im Terminal nennt.
 
 ## Arbeitsschritte
 
@@ -540,6 +589,13 @@ Starte die Run Configuration **`schwerpunkte-jvm-fuer-entwickler`**.
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration **`schwerpunkte-jvm-fuer-entwickler`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-jvm-fuer-entwickler`**.
 
 &lt;/details&gt;
 
@@ -583,6 +639,16 @@ Starte nacheinander die Run Configurations:
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
 Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
+
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ergonomie&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks:
 
 - **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
 - **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
@@ -642,6 +708,18 @@ Starte nacheinander die Run Configurations:
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
 Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
+
+- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-z`**
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;gc&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks:
 
 - **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
 - **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
@@ -713,10 +791,10 @@ java -XX:SharedArchiveFile=rest.jsa -cp target/jvm-fuer-entwickler.jar bestellun
 Starte nacheinander die Run Configurations:
 
 - **`schwerpunkte-jvm-fuer-entwickler-start`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training`** (JDK 25)
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot`** (JDK 25)
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training`** (JDK 21)
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds`** (JDK 21)
 
 &lt;/details&gt;
 
@@ -726,10 +804,23 @@ Starte nacheinander die Run Configurations:
 Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
 
 - **`schwerpunkte-jvm-fuer-entwickler-start`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)`**
-- **`schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training`** (JDK 25)
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot`** (JDK 25)
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training`** (JDK 21)
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds`** (JDK 21)
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;start&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks:
+
+- **`schwerpunkte-jvm-fuer-entwickler-start`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training`** (JDK 25)
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot`** (JDK 25)
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training`** (JDK 21)
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds`** (JDK 21)
 
 &lt;/details&gt;
 
@@ -786,6 +877,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration *
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;jfr&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-jvm-fuer-entwickler-flight-recorder`**.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 In der IDE zeichnet die Run Configuration auf und zeigt danach beide Ansichten. Was
@@ -838,6 +936,16 @@ Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Ko
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;header&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks:
+
+- **`schwerpunkte-jvm-fuer-entwickler-header-kompakt`**
+- **`schwerpunkte-jvm-fuer-entwickler-header-klassisch`**
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Wie viel spart es? Für welche Eurer Anwendungen zählt das?
@@ -878,6 +986,13 @@ Starte die Run Configuration **`schwerpunkte-jvm-fuer-entwickler-pinning`**.
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration **`schwerpunkte-jvm-fuer-entwickler-pinning`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pinning&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-jvm-fuer-entwickler-pinning`**.
 
 &lt;/details&gt;
 

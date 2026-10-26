@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=78155e55" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=b053ed44" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=78155e55"
+     data-index="../../../skriptorium/search/de.json?v=b053ed44"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -208,6 +208,10 @@ macht einen Unterschied – vergleicht Eure Zahlen mit einem Paar, das das ander
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
 <strong><code>schwerpunkte-virtual-threads</code></strong>. Sie baut mit <code>clean</code>.</p>
 </details>
+<details class="skr-tabs__panel" name="bauen-vorher">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-virtual-threads</code></strong>. Er baut mit <code>clean</code>.</p>
+</details>
 </div>
 <p>Miss den Batch-Import und die REST-Schnittstelle:</p>
 <div class="skr-tabs">
@@ -233,6 +237,12 @@ startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.</p>
 <strong><code>schwerpunkte-virtual-threads-batch-messen</code></strong> und
 <strong><code>schwerpunkte-virtual-threads-rest-lasttest</code></strong>. Der Lasttest startet die REST-Schnittstelle
 selbst und schickt ihr 200 Bestellungen.</p>
+</details>
+<details class="skr-tabs__panel" name="messen">
+<summary>VS Code</summary>
+<p>Starte unter <em>Run and Debug</em> nacheinander die Konfigurationen <strong><code>schwerpunkte-virtual-threads-batch-messen</code></strong> und
+<strong><code>schwerpunkte-virtual-threads-rest-lasttest</code></strong>. Der Lasttest
+startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.</p>
 </details>
 </div>
 <p>Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
@@ -450,6 +460,13 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-vorher&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`schwerpunkte-virtual-threads`**. Er baut mit `clean`.
+
+&lt;/details&gt;
+
 &lt;/div&gt;
 
 Miss den Batch-Import und die REST-Schnittstelle:
@@ -490,6 +507,15 @@ Starte unter *Run → Run Configurations… → Java Application* die Konfigurat
 **`schwerpunkte-virtual-threads-batch-messen`** und
 **`schwerpunkte-virtual-threads-rest-lasttest`**. Der Lasttest startet die REST-Schnittstelle
 selbst und schickt ihr 200 Bestellungen.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte unter *Run and Debug* nacheinander die Konfigurationen **`schwerpunkte-virtual-threads-batch-messen`** und
+**`schwerpunkte-virtual-threads-rest-lasttest`**. Der Lasttest
+startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.
 
 &lt;/details&gt;
 
