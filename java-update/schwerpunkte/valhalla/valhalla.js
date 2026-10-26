@@ -15,62 +15,67 @@
       identitaet: [true, "true"],
       wert: [true, "true – equals bleibt der richtige Vergleich."] },
     { was: "synchronized (a)", erklärung: "auf dem Objekt sperren",
-      identitaet: [true, "geht – der Compiler warnt bei wertbasierten Klassen (JEP 390)."],
+      identitaet: [true, "geht – sperrt auf a; wer auf b sperrt, wartet nicht, obwohl der Inhalt gleich ist. Der Compiler warnt nur bei den wertbasierten Klassen des JDK wie Integer oder LocalDate (JEP 390), nicht bei eigenen Records."],
       wert: [false, "übersetzt nicht („required: identity class“); über eine Variable vom Typ Object: IdentityException zur Laufzeit."] },
     { was: "new WeakReference<>(a)", erklärung: "schwache Referenz, WeakHashMap",
-      identitaet: [true, "geht – JDK 25 warnt bei wertbasierten Klassen."],
+      identitaet: [true, "geht – hält a, nicht b: Ist a sonst nirgends mehr erreichbar, räumt der GC es ab, auch wenn b mit gleichem Inhalt weiterlebt. JDK 25 warnt nur bei den wertbasierten Klassen des JDK wie Integer oder LocalDate, nicht bei eigenen Records."],
       wert: [false, "IdentityException: „… is not an identity class“."] },
     { was: "System.identityHashCode(a)", erklärung: "Hash der Identität, IdentityHashMap",
       identitaet: [true, "je Objekt verschieden – eine IdentityHashMap zählt gleiche Werte mehrfach."],
       wert: [true, "aus dem Inhalt berechnet – gleiche Werte, gleicher Hash."] },
     { was: "a = null", erklärung: "Variable ohne Objekt",
       identitaet: [true, "geht."],
-      wert: [true, "geht weiterhin – Wertobjekte sind Referenzen. Erst null-restricted Typen (Entwurf) schließen null aus."] }
-  ];
-
-  // ---- 2 · Speicher ----
-  const layouts = [
-    { id: "identitaet", knopf: "Mit Identität", mb: 100, ms: 18,
-      titel: "record Platz(int regal, short fach)",
-      text: "Das Array hält nur Zeiger. Jedes Objekt liegt für sich im Heap, mit Header, und nach dem Mischen kreuz und quer. Ein Durchlauf springt für jedes Element an eine andere Stelle des Speichers – der Prozessor-Cache hilft kaum." },
-    { id: "flach", knopf: "Wert, flach", mb: 41, ms: 2,
-      titel: "value record WertPlatz(int regal, short fach)",
-      text: "Ohne Identität legt die JVM die Felder direkt ins Array, dazu eine Markierung für null. Kein Zeiger, kein Header: weniger als die Hälfte des Speichers, und ein Durchlauf liest den Speicher am Stück." },
-    { id: "gross", knopf: "Wert, zu groß", mb: 145, ms: 32,
-      titel: "value record GroßerWertPlatz(int regal, int fach)",
-      text: "Zwei int und die Markierung für null passen nicht mehr in 64 Bit, die die JVM in einem Schritt lesen und schreiben kann. Das Array hält wieder Zeiger – und braucht in der Messung sogar mehr Speicher als die Fassung mit Identität." },
-    { id: "nullfrei", knopf: "Ohne null (Entwurf)", mb: null, ms: null,
-      titel: "GroßerWertPlatz![] – Entwurf, übersetzt mit keinem JDK",
-      text: "Null-restricted Typen sollen null ausschließen. Dann braucht die JVM keine Markierung, und auch ein Wert mit zwei int passt flach ins Array. Noch ein Entwurf – Syntax und Umfang können sich ändern." }
+      wert: [true, "geht weiterhin – Wertobjekte sind Referenzen. Ausschließen soll null erst ein Entwurf, JEP 8303099 (null-restricted Typen, für alle Referenztypen): Betrag! ist nie null, Betrag? darf null sein, Betrag ohne Zeichen bleibt unbestimmt wie heute. Betrag! b = null übersetzt dann nicht; fließt ein null aus einem unbestimmten Typ hinein, warnt der Compiler, und zur Laufzeit wirft genau diese Zuweisung eine NullPointerException. Felder mit ! müssen im Konstruktor vor super(…) gesetzt sein, Arrays mit ! brauchen beim Anlegen für jedes Element einen Wert. Ein zweiter Entwurf nutzt das für den Speicher: Eine Wertklasse mit implicit-Konstruktor bekommt statt null eine Null-Instanz mit lauter Vorgabewerten und liegt dann ohne Markierung flach im Array. Beide Entwürfe haben noch kein Release."] }
   ];
 
   // ---- 3 · Abhängigkeiten ----
   const kette = [
-    { id: "390", jep: "JEP 390", name: "Warnungen für wertbasierte Klassen", stand: "seit 16 · LTS 17", status: "fertig",
+    { id: "390", nr: 390, jep: "JEP 390", name: "Warnungen für wertbasierte Klassen", stand: "seit 16 · LTS 17", status: "fertig",
       text: "Integer, LocalDate, Optional und andere sind als wertbasiert markiert. Der Compiler warnt beim synchronized auf ihnen, ihre Konstruktoren wie new Integer(…) sind zur Entfernung abgekündigt. Die Vorbereitung darauf, dass diese Klassen ihre Identität verlieren." },
-    { id: "513", jep: "JEP 513", name: "Flexible Konstruktoren", stand: "seit 25 · LTS 25", status: "fertig",
+    { id: "513", nr: 513, jep: "JEP 513", name: "Flexible Konstruktoren", stand: "seit 25 · LTS 25", status: "fertig",
       text: "Anweisungen vor super(…). Ein Wertobjekt setzt alle Felder, bevor es fertig ist – genau in diesem Teil des Konstruktors." },
-    { id: "401", jep: "JEP 401", name: "Value Objects", stand: "Preview in 28", status: "preview",
+    { id: "401", nr: 401, jep: "JEP 401", name: "Value Objects", stand: "Preview in 28", status: "preview",
       text: "value class und value record: Objekte ohne Identität, == vergleicht den Inhalt. Mit --enable-preview werden Integer, Long, Optional, LocalDate, Instant und weitere zu Wertklassen; String bleibt eine Klasse mit Identität. Nur mit javac --release 28 --enable-preview." },
-    { id: "539", jep: "JEP 539", name: "Strikte Feldinitialisierung", stand: "Preview in 28", status: "preview",
+    { id: "539", nr: 539, jep: "JEP 539", name: "Strikte Feldinitialisierung", stand: "Preview in 28", status: "preview",
       text: "Die JVM garantiert, dass ein Feld nie mit seinem Vorgabewert gelesen wird. Darauf verlassen sich die Wertobjekte: Ein Wert darf nie halb fertig sichtbar werden." },
-    { id: "nullfrei", jep: "Entwurf", name: "Null-restricted Typen", stand: "ohne Release", status: "entwurf",
-      text: "Platz! schließt null aus, Platz? erlaubt es ausdrücklich. Für die JVM heißt das: keine Markierung für null, also flache Ablage auch für größere Werte. Nebenbei findet der Compiler unerwartete null-Werte." },
-    { id: "402", jep: "JEP 402", name: "Primitive als Objekte", stand: "Entwurf", status: "entwurf",
+    { id: "nullfrei", nr: 8303099, jep: "Entwurf", name: "Null-restricted Typen", stand: "ohne Release", status: "entwurf",
+      text: "Heute darf jede Referenz null sein; auffallen tut das erst, wenn eine NullPointerException fliegt – oft weit weg von der Stelle, an der das null hineinkam. Der Entwurf schreibt es an den Typ: Betrag! ist nie null, Betrag? darf null sein, Betrag ohne Zeichen bleibt unbestimmt wie heute. Der Compiler meldet, wo null oder ein unbestimmter Wert in einen Betrag! fließt, und zur Laufzeit wird genau dort geprüft – nicht erst beim ersten Zugriff. Felder und Arrays mit ! müssen gefüllt sein, bevor jemand sie liest; darauf baut JEP 539. Für Valhalla zählt: Ohne null braucht die JVM keine Markierung, und auch größere Werte passen flach ins Array. Noch ein Entwurf ohne Release – Syntax und Umfang können sich ändern." },
+    { id: "402", nr: 402, jep: "JEP 402", name: "Primitive als Objekte", stand: "Entwurf", status: "entwurf",
       text: "int und Integer rücken zusammen: Methoden auf primitiven Werten, primitive Typen dort, wo heute nur Klassen stehen dürfen. Setzt voraus, dass Integer ein Wert ist." },
-    { id: "218", jep: "JEP 218", name: "Generics über primitive Typen", stand: "Kandidat", status: "entwurf",
+    { id: "218", nr: 218, jep: "JEP 218", name: "Generics über primitive Typen", stand: "Kandidat", status: "entwurf",
       text: "List<int> ohne Boxing – das Fernziel, an dem Valhalla seit 2014 arbeitet." },
-    { id: "vector", jep: "JEP 338 ff.", name: "Vector API", stand: "Incubator seit 16", status: "wartet",
+    { id: "vector", nr: 338, jep: "JEP 338 ff.", name: "Vector API", stand: "Incubator seit 16", status: "wartet",
       text: "Rechnen auf SIMD-Befehlen des Prozessors. Bleibt im Incubator, bis die Vektoren Wertklassen sein können – ein Vektor ist ein Wert, kein Objekt mit Identität." },
-    { id: "519", jep: "JEP 519", name: "Kompakte Objekt-Header", stand: "seit 25 · LTS 25", status: "fertig",
+    { id: "519", nr: 519, jep: "JEP 519", name: "Kompakte Objekt-Header", stand: "seit 25 · LTS 25", status: "fertig",
       text: "Kein Teil von Valhalla, aber dasselbe Ziel: weniger Speicher je Objekt. Kompakte Header verkleinern jedes Objekt; Wertobjekte sparen den Header im Array ganz." }
   ];
   const statusText = { fertig: "im JDK", preview: "Preview", entwurf: "Entwurf", wartet: "wartet auf Valhalla" };
 
-  const zustand = { objekt: "identitaet", layout: "identitaet", jep: "401" };
+  const zustand = { objekt: "identitaet", jep: "401" };
 
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  // Jeder JEP führt zur JEP-Landkarte. Ihre Adresse nimmt das Skript von einem Verweis in
+  // der Seite, den das Skriptorium schon aufgelöst hat.
+  function landkarte() {
+    const verweis = document.querySelector('a[href*="jep-landkarte"]');
+    return verweis ? verweis.getAttribute("href").split("#")[0] : "";
+  }
+  function jepVerweis(nr, text) {
+    const ziel = landkarte();
+    return ziel ? '<a href="' + esc(ziel + "#/?jep=" + nr) + '">' + esc(text) + "</a>" : esc(text);
+  }
+  // Maskiert einen Text und verlinkt darin jedes „JEP 390“.
+  function mitJeps(text) {
+    return esc(text).replace(/JEP (\d+)/g, function (ganz, nr) { return jepVerweis(nr, ganz); });
+  }
+
+  // Neu eingesetzte Tabellen meldet die Seite dem Skriptorium (`skr-content-added`):
+  // Läuft einer waagerecht über, gibt es ihm einen Haltepunkt in der Tabulatorreihenfolge.
+  function inhaltMelden(id) {
+    document.getElementById(id).dispatchEvent(new CustomEvent("skr-content-added", { bubbles: true }));
   }
 
   function knöpfe(behälterId, liste, gewählt, wählen) {
@@ -90,64 +95,16 @@
 
   function identitätZeichnen() {
     knöpfe("vh-objekte", objekte, zustand.objekt, function (id) { setzen("objekt", id); });
+    document.querySelectorAll(".vh-code").forEach(function (c) { c.hidden = c.dataset.objekt !== zustand.objekt; });
     let html = '<table><thead><tr><th scope="col">Vorgang</th><th scope="col">Ergebnis</th></tr></thead><tbody>';
     vorgänge.forEach(function (v) {
       const e = v[zustand.objekt];
       const art = e[0] === null ? ["vh-anders", "→", "Ergebnis"] : e[0] ? ["vh-geht", "✓", "geht"] : ["vh-geht-nicht", "✗", "bricht"];
       html += '<tr><th scope="row"><code>' + esc(v.was) + '</code><small>' + esc(v.erklärung) + "</small></th>" +
-        '<td class="' + art[0] + '"><span class="vh-zeichen" aria-hidden="true">' + art[1] + '</span><span class="skr-visually-hidden">' + art[2] + ": </span> " + esc(e[1]) + "</td></tr>";
+        '<td class="' + art[0] + '"><span class="vh-zeichen" aria-hidden="true">' + art[1] + '</span><span class="skr-visually-hidden">' + art[2] + ": </span> " + mitJeps(e[1]) + "</td></tr>";
     });
     document.getElementById("vh-identitaet").innerHTML = html + "</tbody></table>";
-  }
-
-  function bildZeichnen(l) {
-    const plätze = [["12", "3"], ["7", "1"], ["30", "2"], ["4", "5"]];
-    const zeiger = l.id === "identitaet" || l.id === "gross";
-    let svg = '<svg viewBox="0 0 1000 ' + (zeiger ? 250 : 145) + '" role="img" aria-label="' + esc(l.knopf + ": " + l.titel) + '">';
-    svg += '<text x="20" y="24" class="vh-bild-text">Array mit vier Plätzen</text>';
-    const breite = zeiger ? 70 : (l.id === "nullfrei" ? 170 : 150);
-    const ziele = [[560, 118], [330, 196], [790, 160], [600, 200]];
-    let linien = "";
-    plätze.forEach(function (p, i) {
-      const x = 20 + i * (breite + 6);
-      svg += '<rect class="vh-feld" x="' + x + '" y="36" width="' + breite + '" height="56" rx="4"/>';
-      if (zeiger) {
-        svg += '<text x="' + (x + breite / 2) + '" y="70" text-anchor="middle" class="vh-bild-text">Zeiger</text>';
-        const z = ziele[i];
-        linien += '<line class="vh-pfeil" x1="' + (x + breite / 2) + '" y1="92" x2="' + z[0] + '" y2="' + (z[1] + 20) + '"/>';
-        svg += '<rect class="vh-objekt" x="' + z[0] + '" y="' + z[1] + '" width="170" height="40" rx="4"/>';
-        svg += '<rect class="vh-kopf" x="' + z[0] + '" y="' + z[1] + '" width="56" height="40" rx="4"/>';
-        svg += '<text x="' + (z[0] + 28) + '" y="' + (z[1] + 25) + '" text-anchor="middle" class="vh-bild-text vh-bild-text--klein">Header</text>';
-        svg += '<text x="' + (z[0] + 113) + '" y="' + (z[1] + 25) + '" text-anchor="middle" class="vh-bild-text vh-bild-text--klein">' + p[0] + " · " + p[1] + "</text>";
-      } else {
-        const markierung = l.id === "flach";
-        svg += '<text x="' + (x + (markierung ? 60 : breite / 2)) + '" y="70" text-anchor="middle" class="vh-bild-text">regal ' + p[0] + " · fach " + p[1] + "</text>";
-        if (markierung) {
-          svg += '<rect class="vh-kopf" x="' + (x + breite - 34) + '" y="44" width="28" height="40" rx="3"/>';
-          svg += '<text x="' + (x + breite - 20) + '" y="69" text-anchor="middle" class="vh-bild-text vh-bild-text--klein">n</text>';
-        }
-      }
-    });
-    svg += linien;
-    if (l.id === "flach") svg += '<text x="20" y="130" class="vh-bild-text vh-bild-text--klein">n = Markierung für null</text>';
-    if (l.id === "nullfrei") svg += '<text x="20" y="130" class="vh-bild-text vh-bild-text--klein">schematisch – Entwurf</text>';
-    svg += "</svg>";
-    document.getElementById("vh-bild").innerHTML = svg;
-  }
-
-  function speicherZeichnen() {
-    knöpfe("vh-layouts", layouts, zustand.layout, function (id) { setzen("layout", id); });
-    const l = layouts.find(function (e) { return e.id === zustand.layout; });
-    bildZeichnen(l);
-    const höchstwert = Math.max.apply(null, layouts.filter(function (e) { return e.mb; }).map(function (e) { return e.mb; }));
-    let karte = "<p><code>" + esc(l.titel) + "</code></p><p>" + esc(l.text) + "</p>";
-    if (l.mb) {
-      karte += '<p class="vh-kennzahlen"><span>Speicher <b>' + l.mb + " MB</b></span><span>Durchlauf <b>" + l.ms + " ms</b></span></p>";
-      karte += '<div class="vh-balken" aria-hidden="true"><span style="width:' + (100 * l.mb / höchstwert) + '%"></span></div>';
-    } else {
-      karte += '<p class="vh-kennzahlen"><span>Nicht messbar – noch kein JDK kennt null-restricted Typen.</span></p>';
-    }
-    document.getElementById("vh-layout-karte").innerHTML = karte;
+    inhaltMelden("vh-identitaet");
   }
 
   function ketteZeichnen() {
@@ -167,12 +124,12 @@
       liste.appendChild(li);
     });
     const s = kette.find(function (e) { return e.id === zustand.jep; });
-    document.getElementById("vh-jep-karte").innerHTML = "<p><b>" + esc(s.jep + " · " + s.name) + '</b> <span class="skr-badge">' + esc(s.stand) + "</span></p><p>" + esc(s.text) + "</p>";
+    document.getElementById("vh-jep-karte").innerHTML = "<p><b>" + esc(s.jep + " · " + s.name) + '</b> <span class="skr-badge">' + esc(s.stand) + "</span></p><p>" + mitJeps(s.text) + "</p>" +
+      "<p>" + jepVerweis(s.nr, "In der JEP-Landkarte →") + "</p>";
   }
 
   function zeichnen() {
     identitätZeichnen();
-    speicherZeichnen();
     ketteZeichnen();
   }
 
@@ -196,7 +153,7 @@
   function anmelden() {
     if (!(window.skr && window.skr.state)) return;
     const st = window.skr.state;
-    [["objekt", objekte, "identitaet"], ["layout", layouts, "identitaet"], ["jep", kette, "401"]].forEach(function (e) {
+    [["objekt", objekte, "identitaet"], ["jep", kette, "401"]].forEach(function (e) {
       st.register({ key: e[0],
         read: function () { return zustand[e[0]]; },
         apply: function (w) { zustand[e[0]] = gültig(e[1], w, e[2]); zeichnen(); } });

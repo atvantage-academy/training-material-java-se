@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=1b39601c" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0a6ceff2" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -50,8 +50,8 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
-<link rel="stylesheet" href="../../../java-update/schwerpunkte/valhalla/valhalla.css?v=089eb215">
-<script src="../../../java-update/schwerpunkte/valhalla/valhalla.js?v=f8680a4c" defer></script>
+<link rel="stylesheet" href="../../../java-update/schwerpunkte/valhalla/valhalla.css?v=6d72fdd0">
+<script src="../../../java-update/schwerpunkte/valhalla/valhalla.js?v=ea795187" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -80,9 +80,9 @@
   <div class="skr-guide-layout">
     <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
      - Input des optionalen Schwerpunkts Valhalla im Java-Update (Entscheidung:
-       Visualisierung statt Präsentation). Drei Fragen: Was bedeutet Identität (==,
-       synchronized, Identitäts-Hash, schwache Referenzen)? Wie liegen Werte im Speicher
-       (Zeiger auf verstreute Objekte gegen flaches Array, Cache-Lokalität)? Was hängt
+       Visualisierung statt Präsentation). Welche Arten von Objekten gibt es
+       (Identitäts-, Wertobjekte, wertbasierte Klassen)? Was bedeutet Identität (==,
+       synchronized, Identitäts-Hash, schwache Referenzen)? Was hängt
        davon ab (JEP 390, 513, 401, 539, null-restricted Typen, 402, 218, Vector API,
        kompakte Objekt-Header)? Dazu: Was kannst Du heute tun?
      - Liegt im Modulordner: Die Grundkurse behandeln Valhalla nicht.
@@ -90,32 +90,170 @@
        openjdk.org/projects/jdk/28 (JEP 401 und 539 integriert, Preview in 28); EA-Build
        jdk.java.net/28 (28-ea+20). VOR JEDER DURCHFÜHRUNG NACHZIEHEN.
      - ALLE ERGEBNISSE GEMESSEN (2026-10-23, macOS, 28-ea+20, bestätigt in Docker   durable-ok
-       openjdk:28-ea-20-jdk): Abschnitt 1 mit schwerpunkte/valhalla/Wertbasiert.java und kleinen
-       Proben; Abschnitt 2 mit schwerpunkte/valhalla/Wertklassen.java (fünf Millionen Plätze,
-       Array gemischt, bester von zehn Durchläufen). Die Ansicht „null-restricted“ ist
-       ein Entwurf und schematisch – das steht auch auf der Seite.
-     - Jeder Zustand steht in der Adresse (#/?objekt=…&layout=…&jep=…), über skr.state.
+       openjdk:28-ea-20-jdk): Abschnitt 2 mit schwerpunkte/valhalla/Wertbasiert.java und kleinen
+       Proben (2026-10-26 nachgemessen: Betrag, Objects.hasIdentity der wertbasierten   durable-ok
+       Klassen). Die Liste der wertbasierten Klassen in Abschnitt 1 aus
+       @jdk.internal.ValueBased in JDK 25.
+     - Jeder Zustand steht in der Adresse (#/?objekt=…&jep=…), über skr.state.
        Nicht nur über Farbe: Ergebnisse tragen Text, Knöpfe aria-pressed.
      - Bezeichner mit Umlauten (A-006), Farben aus den Tokens, kein eigenes Breiten-CSS. -->
 <p class="vh-lead">Jedes Objekt in Java hat heute eine Identität: Zwei Objekte mit gleichem Inhalt sind trotzdem zwei. Für einen Geldbetrag, einen Zeitpunkt oder eine Koordinate ist das überflüssig – und es kostet Speicher und Zeit. Project Valhalla gibt Java Objekte ohne Identität. Seit Java 28 stecken sie als Preview im JDK.</p>
-<p class="vh-marken"><span class="skr-badge">Preview in 28 · JEP 401</span> <span class="skr-badge">Vorbereitung seit 16 · JEP 390 · LTS 17</span> <span class="skr-badge">Ausblick: LTS 29 oder später</span></p>
-<h2 id="identitaet">1 · Was Identität bedeutet</h2>
-<p>Nimm zwei Objekte mit demselben Inhalt, etwa <code>LocalDate.of(2026, 10, 23)</code> zweimal. Was geschieht mit ihnen – heute und als Wertobjekt mit <code>--enable-preview</code> auf JDK 28?</p>
+<p class="vh-marken"><span class="skr-badge">Preview in 28 · <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=401">JEP 401</a></span> <span class="skr-badge">Vorbereitung seit 16 · <a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=390">JEP 390</a> · LTS 17</span> <span class="skr-badge">Ausblick: LTS 29 oder später</span></p>
+<h2 id="begriffe">1 · Identitätsobjekte und Wertobjekte</h2>
+<p>Valhalla teilt die Objekte in Java in zwei Arten
+(<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=401">JEP 401</a>):</p>
+<ul>
+<li><strong>Identitätsobjekte</strong> (identity objects) – alle Objekte, die es heute gibt. Jedes hat
+eine eigene Identität: Zwei Objekte mit gleichem Inhalt sind zwei, <code>==</code> unterscheidet
+sie, und jedes hat seinen eigenen Monitor, auf dem <code>synchronized</code> sperrt. Ihre Klassen
+heißen <strong>Identitätsklassen</strong>.</li>
+<li><strong>Wertobjekte</strong> (value objects) – neu mit Valhalla, Preview in Java 28. Sie haben keine
+Identität, nur ihren Inhalt: Zwei Wertobjekte mit gleichem Inhalt sind derselbe Wert,
+<code>==</code> vergleicht den Inhalt, und es gibt keinen Monitor. Ihre Klassen heißen
+<strong>Wertklassen</strong> (<code>value class</code>, <code>value record</code>).</li>
+</ul>
+<p>Welche Art ein Objekt ist, entscheidet seine Klasse; <code>Objects.hasIdentity</code> fragt es ab.
+Ohne <code>--enable-preview</code> ist jedes Objekt ein Identitätsobjekt.</p>
+<h3 id="wertbasierte-klassen">Wertbasierte Klassen</h3>
+<p>Lange vor Valhalla hat das JDK eine Reihe seiner Klassen als <strong>wertbasiert</strong> (value-based)
+erklärt: Identitätsklassen, die sich schon heute wie Wertklassen benutzen lassen sollen.
+Eine wertbasierte Klasse verspricht, ein Wert zu sein und kein „Ding“ mit eigenem Leben:</p>
+<ul>
+<li>Sie ist <code>final</code>, ihre Felder sind <code>final</code>.</li>
+<li><code>equals</code>, <code>hashCode</code> und <code>toString</code> rechnen nur mit dem Inhalt, nie mit der Identität.</li>
+<li>Sie hat keinen zugänglichen Konstruktor. Objekte entstehen über Fabrikmethoden wie
+<code>Integer.valueOf</code> oder <code>LocalDate.of</code>, und die sagen nichts über die Identität zu:
+Zwei Aufrufe mit gleichem Inhalt dürfen dasselbe Objekt liefern oder zwei verschiedene.</li>
+<li>Gleiche Objekte sind beliebig austauschbar. Wer sie doch unterscheidet – mit <code>==</code>,
+<code>synchronized</code>, <code>System.identityHashCode</code> oder schwachen Referenzen –, verlässt sich auf
+etwas, das sich mit jedem Release ändern darf.</li>
+</ul>
+<p>Das ist ein Vertrag in der Dokumentation (<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/doc-files/ValueBased.html">Value-based Classes</a>),
+keine Regel der Sprache. Seit Java 16 tragen diese Klassen intern die Markierung
+<code>@jdk.internal.ValueBased</code>, und der Compiler warnt beim <code>synchronized</code> auf ihnen
+(<a class="skr-doclink skr-doclink--visualization" href="../../../shared/jep-landkarte/jep-landkarte.html#/?jep=390">JEP 390</a>), ab JDK 25 auch bei
+schwachen Referenzen. Mit Valhalla werden genau diese Klassen zu Wertklassen.</p>
+<p><strong>Wertbasiert sind in JDK 25:</strong></p>
+<ul>
+<li>die Hüllen der primitiven Typen: <code>Integer</code>, <code>Long</code>, <code>Short</code>, <code>Byte</code>, <code>Character</code>,
+<code>Boolean</code>, <code>Float</code>, <code>Double</code></li>
+<li><code>Optional</code>, <code>OptionalInt</code>, <code>OptionalLong</code>, <code>OptionalDouble</code></li>
+<li>die Typen für Datum und Zeit: <code>LocalDate</code>, <code>LocalTime</code>, <code>LocalDateTime</code>, <code>Instant</code>,
+<code>Duration</code>, <code>Period</code>, <code>ZonedDateTime</code>, <code>OffsetDateTime</code>, <code>OffsetTime</code>, <code>Year</code>,
+<code>YearMonth</code>, <code>MonthDay</code>, <code>ZoneId</code>, <code>ZoneOffset</code> und die Kalender in <code>java.time.chrono</code>
+(<code>JapaneseDate</code>, <code>HijrahDate</code>, <code>MinguoDate</code>, <code>ThaiBuddhistDate</code>)</li>
+<li><code>Runtime.Version</code> und <code>ProcessHandle</code></li>
+<li>die unveränderlichen Sammlungen aus <code>List.of</code>, <code>Set.of</code> und <code>Map.of</code> sowie die Einträge
+aus <code>Map.entry</code> – ihre Klassen sind intern, der Vertrag steht in der Javadoc von <code>List</code>,
+<code>Set</code> und <code>Map</code></li>
+</ul>
+<p><strong>Records gehören nicht dazu.</strong> Ein gewöhnlicher Record ist eine Identitätsklasse wie
+jede andere. Er erfüllt vieles davon – er ist <code>final</code>, seine Felder sind <code>final</code>, <code>equals</code>, <code>hashCode</code> und <code>toString</code> rechnen mit dem Inhalt. Aber er hat
+einen öffentlichen Konstruktor, und <code>new</code> liefert immer ein neues Objekt mit eigener
+Identität. Der Compiler warnt deshalb weder beim <code>synchronized</code> noch bei einer
+<code>WeakReference</code> auf einem Record (gemessen mit JDK 25). Wer einen Record als Wert benutzt,
+hält sich selbst an den Vertrag; mit Valhalla macht <code>value record</code> daraus eine Regel, die
+der Compiler prüft.</p>
+<h3 id="im-überblick">Im Überblick</h3>
+<p>Zusammen mit den primitiven Typen gibt es damit vier Arten von Daten. Wertbasierte Klassen
+sind dabei keine eigene Art im JDK, sondern Identitätsklassen mit einem Versprechen. Mit
+<code>--enable-preview</code> auf JDK 28 werden die Hüllen der primitiven Typen, die <code>Optional</code>-Typen
+und die Typen für Datum und Zeit zu Wertklassen; <code>ZoneId</code>, <code>ZoneOffset</code>, <code>Runtime.Version</code>,
+<code>ProcessHandle</code> und die Sammlungen aus <code>List.of</code>, <code>Set.of</code> und <code>Map.of</code> bleiben vorerst
+Identitätsklassen (gemessen mit <code>Objects.hasIdentity</code> auf 28-ea+20).</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>Primitive Typen</th>
+					<th>Identitätsklassen</th>
+					<th>Wertbasierte Klassen (ohne Preview)</th>
+					<th>Wertklassen (Preview in 28)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>Beispiele</strong></td>
+					<td><code>int</code>, <code>long</code>, <code>double</code></td>
+					<td><code>String</code>, <code>ArrayList</code>, eigene Klassen und Records</td>
+					<td><code>Integer</code>, <code>LocalDate</code>, <code>Optional</code></td>
+					<td><code>value record Betrag</code>; mit Preview auch <code>Integer</code>, <code>LocalDate</code>, <code>Optional</code></td>
+			</tr>
+			<tr>
+					<td><strong>Objekt?</strong></td>
+					<td>nein, ein nackter Wert</td>
+					<td>ja</td>
+					<td>ja</td>
+					<td>ja</td>
+			</tr>
+			<tr>
+					<td><strong>Identität</strong></td>
+					<td>keine</td>
+					<td>ja</td>
+					<td>ja, aber man soll sich nicht darauf verlassen</td>
+					<td>keine</td>
+			</tr>
+			<tr>
+					<td><strong><code>==</code> vergleicht</strong></td>
+					<td>den Wert</td>
+					<td>die Identität</td>
+					<td>die Identität – eine Falle</td>
+					<td>den Inhalt</td>
+			</tr>
+			<tr>
+					<td><strong><code>null</code></strong></td>
+					<td>nicht möglich</td>
+					<td>möglich</td>
+					<td>möglich</td>
+					<td>möglich, bis null-restricted Typen kommen</td>
+			</tr>
+			<tr>
+					<td><strong><code>synchronized</code></strong></td>
+					<td>nicht möglich</td>
+					<td>sperrt auf diesem Objekt</td>
+					<td>sperrt, der Compiler warnt</td>
+					<td>Fehler beim Übersetzen bzw. <code>IdentityException</code></td>
+			</tr>
+			<tr>
+					<td><strong>Im Array</strong></td>
+					<td>der Wert selbst</td>
+					<td>Zeiger auf das Objekt</td>
+					<td>Zeiger auf das Objekt</td>
+					<td>flach, wenn der Wert klein genug ist</td>
+			</tr>
+			<tr>
+					<td><strong>Als Typargument</strong></td>
+					<td>nein, nur über die Hülle (<code>List&lt;Integer&gt;</code>)</td>
+					<td>ja</td>
+					<td>ja</td>
+					<td>ja</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="identitaet">2 · Was Identität bedeutet</h2>
+<p>Nimm zwei Objekte mit demselben Inhalt – hier einen eigenen Datentyp <code>Betrag</code>, einmal herkömmlich und einmal als Wertobjekt. Was geschieht mit ihnen – heute und als Wertobjekt mit <code>--enable-preview</code> auf JDK 28?</p>
 <div class="vh-knoepfe" role="group" aria-label="Art des Objekts" id="vh-objekte"></div>
-<div class="vh-tabelle" id="vh-identitaet" aria-live="polite"></div>
-<pre><code class="language-java">value record Betrag(long cent, String währung) {}   // JDK 28, --enable-preview
+<div class="vh-code" data-objekt="identitaet">
+<pre><code class="language-java">record Betrag(long cent, String währung) {}          // JDK 28, --enable-preview
+
+var a = new Betrag(1999, &quot;EUR&quot;);
+var b = new Betrag(1999, &quot;EUR&quot;);
+IO.println(a == b);                    // false – zwei Objekte
+IO.println(a.equals(b));               // true – gleicher Inhalt
+IO.println(Objects.hasIdentity(a));    // true
+</code></pre>
+</div>
+<div class="vh-code" data-objekt="wert" hidden>
+<pre><code class="language-java">value record Betrag(long cent, String währung) {}    // JDK 28, --enable-preview
 
 var a = new Betrag(1999, &quot;EUR&quot;);
 var b = new Betrag(1999, &quot;EUR&quot;);
 IO.println(a == b);                    // true – gleicher Inhalt
+IO.println(a.equals(b));               // true
 IO.println(Objects.hasIdentity(a));    // false
 </code></pre>
-<h2 id="speicher">2 · Wie Werte im Speicher liegen</h2>
-<p>Ein Array von Objekten enthält heute nur Zeiger; die Objekte selbst liegen irgendwo im Heap, jedes mit einem Header. Ohne Identität darf die JVM die Felder direkt ins Array legen. Wähle eine Ansicht – gezeigt sind vier Lagerplätze, gemessen wurde mit fünf Millionen.</p>
-<div class="vh-knoepfe" role="group" aria-label="Ansicht des Speichers" id="vh-layouts"></div>
-<div class="vh-bild" id="vh-bild"></div>
-<div class="vh-karte" id="vh-layout-karte" aria-live="polite"></div>
-<p class="vh-fussnote">Gemessen mit <code>Wertklassen.java</code> aus dem Übungsprojekt auf JDK 28 Early Access (28-ea+20): fünf Millionen Plätze, Reihenfolge gemischt, bester von zehn Durchläufen. Die Anordnung im Bild ist schematisch.</p>
+</div>
+<div class="vh-tabelle" id="vh-identitaet" aria-live="polite"></div>
 <h2 id="abhaengigkeiten">3 · Was davon abhängt</h2>
 <p>Valhalla ist kein einzelnes Feature, sondern eine Kette. Manches liegt schon im JDK, manches ist Preview, manches erst ein Entwurf. Wähle einen Schritt:</p>
 <ol class="vh-kette" id="vh-kette"></ol>
@@ -136,11 +274,6 @@ heute ein Fehler, sobald der Wert außerhalb von −128 bis 127 liegt.</li>
 <li><strong>Werte als Records modellieren</strong>, unveränderlich, ohne Identität im Gebrauch: Ein
 Record ohne Sperren und ohne <code>==</code> wird später mit einem Wort zum Wert-Record.</li>
 </ul>
-<blockquote>
-<p><strong>Merksatz:</strong> Ein Wert hat keine Identität. Wer heute schon so programmiert, gewinnt
-mit Valhalla Speicher und Tempo – wer auf <code>==</code> und <code>synchronized</code> setzt, bekommt einen
-Bruch.</p>
-</blockquote>
 
     </main>
   </div>
