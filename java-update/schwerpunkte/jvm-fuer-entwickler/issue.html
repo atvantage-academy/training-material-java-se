@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=2dde7972" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=1b39601c" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=2dde7972"
+     data-index="../../../skriptorium/search/de.json?v=1b39601c"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -224,24 +224,24 @@ Container nach, mit einem Kern und 1 GB:</p>
 <summary>IntelliJ</summary>
 <p>Starte nacheinander die Run Configurations:</p>
 <ul>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong> – zeigt, was die JVM auf Deinem Rechner wählt.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong> – stellt den kleinen Container nach, mit einem Kern und 1 GB.</li>
 </ul>
 </details>
 <details class="skr-tabs__panel" name="ergonomie">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
 <ul>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong> – zeigt, was die JVM auf Deinem Rechner wählt.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong> – stellt den kleinen Container nach, mit einem Kern und 1 GB.</li>
 </ul>
 </details>
 <details class="skr-tabs__panel" name="ergonomie">
 <summary>VS Code</summary>
 <p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks:</p>
 <ul>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong> – zeigt, was die JVM auf Deinem Rechner wählt.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong> – stellt den kleinen Container nach, mit einem Kern und 1 GB.</li>
 </ul>
 </details>
 </div>
@@ -272,35 +272,34 @@ den Lauf mit dem Flight Recorder auf und sieh Dir die Pausen an:</p>
 <summary>IntelliJ</summary>
 <p>Starte nacheinander die Run Configurations:</p>
 <ul>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong> – startet die Speicherlast mit G1, zeichnet sie in <code>gc.jfr</code> auf und zeigt danach die Pausen (<code>jfr view gc-pauses</code>).</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong> – dasselbe mit dem Serial GC.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong> – dasselbe mit dem Parallel GC.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong> – dasselbe mit ZGC.</li>
 </ul>
 </details>
 <details class="skr-tabs__panel" name="gc">
 <summary>Eclipse</summary>
 <p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
 <ul>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong> – startet die Speicherlast mit G1, zeichnet sie in <code>gc.jfr</code> auf und zeigt danach die Pausen (<code>jfr view gc-pauses</code>).</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong> – dasselbe mit dem Serial GC.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong> – dasselbe mit dem Parallel GC.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong> – dasselbe mit ZGC.</li>
 </ul>
 </details>
 <details class="skr-tabs__panel" name="gc">
 <summary>VS Code</summary>
 <p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks:</p>
 <ul>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong></li>
-<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong> – startet die Speicherlast mit G1, zeichnet sie in <code>gc.jfr</code> auf und zeigt danach die Pausen (<code>jfr view gc-pauses</code>).</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong> – dasselbe mit dem Serial GC.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong> – dasselbe mit dem Parallel GC.</li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong> – dasselbe mit ZGC.</li>
 </ul>
 </details>
 </div>
-<p>In der IDE zeichnet jede Run Configuration auf und zeigt danach die Pausen. Halte je
-Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.</p>
+<p>Halte je Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.</p>
 <p>Recherchiere dann in der Visualisierung und im <em>Garbage Collection Tuning Guide</em> (unter
 den Ressourcen): Wie arbeitet jeder Collector, was kostet er, wann ist er sinnvoll?
 Welchen würdest Du für Eure Anwendung wählen?</p>
@@ -628,8 +627,8 @@ java -XX:ActiveProcessorCount=1 -XX:MaxRAM=1g -Xlog:gc,gc&#43;init -version
 
 Starte nacheinander die Run Configurations:
 
-- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
-- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`** – zeigt, was die JVM auf Deinem Rechner wählt.
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`** – stellt den kleinen Container nach, mit einem Kern und 1 GB.
 
 &lt;/details&gt;
 
@@ -638,8 +637,8 @@ Starte nacheinander die Run Configurations:
 
 Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
 
-- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
-- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`** – zeigt, was die JVM auf Deinem Rechner wählt.
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`** – stellt den kleinen Container nach, mit einem Kern und 1 GB.
 
 &lt;/details&gt;
 
@@ -648,8 +647,8 @@ Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Ko
 
 Starte über *Terminal → Run Task…* nacheinander die Tasks:
 
-- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
-- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`** – zeigt, was die JVM auf Deinem Rechner wählt.
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`** – stellt den kleinen Container nach, mit einem Kern und 1 GB.
 
 &lt;/details&gt;
 
@@ -695,10 +694,10 @@ Wiederhole beides mit `-XX:&#43;UseSerialGC`, `-XX:&#43;UseParallelGC` und `-XX:
 
 Starte nacheinander die Run Configurations:
 
-- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-z`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`** – startet die Speicherlast mit G1, zeichnet sie in `gc.jfr` auf und zeigt danach die Pausen (`jfr view gc-pauses`).
+- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`** – dasselbe mit dem Serial GC.
+- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`** – dasselbe mit dem Parallel GC.
+- **`schwerpunkte-jvm-fuer-entwickler-gc-z`** – dasselbe mit ZGC.
 
 &lt;/details&gt;
 
@@ -707,10 +706,10 @@ Starte nacheinander die Run Configurations:
 
 Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
 
-- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-z`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`** – startet die Speicherlast mit G1, zeichnet sie in `gc.jfr` auf und zeigt danach die Pausen (`jfr view gc-pauses`).
+- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`** – dasselbe mit dem Serial GC.
+- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`** – dasselbe mit dem Parallel GC.
+- **`schwerpunkte-jvm-fuer-entwickler-gc-z`** – dasselbe mit ZGC.
 
 &lt;/details&gt;
 
@@ -719,17 +718,16 @@ Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Ko
 
 Starte über *Terminal → Run Task…* nacheinander die Tasks:
 
-- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`**
-- **`schwerpunkte-jvm-fuer-entwickler-gc-z`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`** – startet die Speicherlast mit G1, zeichnet sie in `gc.jfr` auf und zeigt danach die Pausen (`jfr view gc-pauses`).
+- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`** – dasselbe mit dem Serial GC.
+- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`** – dasselbe mit dem Parallel GC.
+- **`schwerpunkte-jvm-fuer-entwickler-gc-z`** – dasselbe mit ZGC.
 
 &lt;/details&gt;
 
 &lt;/div&gt;
 
-In der IDE zeichnet jede Run Configuration auf und zeigt danach die Pausen. Halte je
-Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.
+Halte je Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.
 
 Recherchiere dann in der Visualisierung und im *Garbage Collection Tuning Guide* (unter
 den Ressourcen): Wie arbeitet jeder Collector, was kostet er, wann ist er sinnvoll?
