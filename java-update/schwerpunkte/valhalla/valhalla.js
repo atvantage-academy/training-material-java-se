@@ -1,6 +1,6 @@
 (function () {
   // Gemessen 2026-10-23 auf JDK 25 und JDK 28 Early Access (28-ea+20) mit
-  // spielwiese/Wertbasiert.java, spielwiese/Wertklassen.java und kleinen Proben.
+  // Wertbasiert.java, Wertklassen.java (schwerpunkte/valhalla) und kleinen Proben.
 
   // ---- 1 · Identität ----
   const objekte = [

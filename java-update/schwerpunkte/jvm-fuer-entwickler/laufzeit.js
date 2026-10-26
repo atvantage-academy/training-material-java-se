@@ -1,5 +1,5 @@
 (function () {
-  // Gemessen mit spielwiese/Speicherlast.java (-Xmx1g, 12 Kerne, „jfr view gc-pauses“);
+  // Gemessen mit Speicherlast.java aus schwerpunkte/jvm-fuer-entwickler (-Xmx1g, 12 Kerne, „jfr view gc-pauses“);
   // Shenandoah mit Temurin 25 in Docker, die übrigen mit OpenJDK 25.
 
   // ---- 1 · Garbage Collector ----

@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3fca0b09" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3729ca90" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=3fca0b09"
+     data-index="../../../skriptorium/search/de.json?v=3729ca90"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -170,98 +170,185 @@
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
-<p>Du änderst keinen Code – Du startest den Altbestand und zwei Programme aus der
-Spielwiese mit anderen JVM-Optionen und misst, was sich ändert. Wie die Collectors
-arbeiten, was die JVM im Container wählt und was CDS und AOT-Cache tun, zeigt die
-Visualisierung <a class="skr-doclink skr-doclink--visualization" href="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.html">Die Laufzeitumgebung seit Java 8</a>.</p>
+<p>Du änderst keinen Code – Du startest die REST-Schnittstelle der Bestellabwicklung und zwei
+kleine Programme mit anderen JVM-Optionen und misst, was sich ändert. Wie die
+Collectors arbeiten, was die JVM im Container wählt und was CDS und AOT-Cache tun, zeigt
+die Visualisierung <a class="skr-doclink skr-doclink--visualization" href="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.html">Die Laufzeitumgebung seit Java 8</a>.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Du brauchst <strong>JDK 21 oder 25</strong>. Wo ein Schritt nur mit einem der beiden
-geht, steht es dabei. Die Befehle mit JVM-Optionen laufen im Terminal – in IntelliJ
-über <em>View → Tool Windows → Terminal</em>, in Eclipse über <em>Window → Show View →
-Terminal</em>, jeweils im Wurzelordner des Übungsprojekts.</p>
+geht, steht es dabei. Alles liegt im Modul <code>schwerpunkte/jvm-fuer-entwickler</code>, mit
+einer eigenen Kopie der Bestellabwicklung – was Du in anderen Übungen am Projekt
+geändert hast, spielt hier keine Rolle. Zu jedem Befehl gibt es eine Run Configuration;
+sie ruft über Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven
+startet.</p>
 </blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="den-altbestand-bauen">Den Altbestand bauen</h3>
-<p>Danach liegen die Anwendungen als startbare JARs bereit, die REST-Schnittstelle in
-<code>altbestand/bestellung-rest/target/bestellung-rest.jar</code>.</p>
+<h3 id="das-modul-bauen">Das Modul bauen</h3>
+<p>Danach liegt die REST-Schnittstelle als startbares JAR in
+<code>target/jvm-fuer-entwickler.jar</code>; die beiden Programme <code>Speicherlast.java</code> und
+<code>Angeheftet.java</code> liegen als Quelldateien daneben und starten ohne Übersetzen.</p>
 <div class="skr-tabs">
 <details class="skr-tabs__panel" name="bauen" open>
 <summary>Kommandozeile</summary>
-<p>Baue im Wurzelordner des Übungsprojekts:</p>
-<pre><code class="language-shell">mvn clean verify -f altbestand/pom.xml
+<p>Wechsle in den Ordner des Moduls und baue es – alle weiteren Befehle laufen in diesem Ordner:</p>
+<pre><code class="language-shell">cd schwerpunkte/jvm-fuer-entwickler &amp;&amp; mvn clean verify
 </code></pre>
 </details>
 <details class="skr-tabs__panel" name="bauen">
 <summary>IntelliJ</summary>
-<p>Starte die Run Configuration <strong><code>altbestand</code></strong>.</p>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-jvm-fuer-entwickler</code></strong>.</p>
 </details>
 <details class="skr-tabs__panel" name="bauen">
 <summary>Eclipse</summary>
-<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
-<strong><code>altbestand</code></strong>.</p>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration <strong><code>schwerpunkte-jvm-fuer-entwickler</code></strong>.</p>
 </details>
 </div>
 <h3 id="was-wählt-die-jvm">Was wählt die JVM?</h3>
-<p>Lass die JVM zeigen, wie sie sich eingerichtet hat:</p>
+<p>Lass die JVM zeigen, wie sie sich eingerichtet hat, und stell danach einen kleinen
+Container nach, mit einem Kern und 1 GB:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="ergonomie" open>
+<summary>Kommandozeile</summary>
+<p>Zeig, was die JVM auf Deinem Rechner wählt:</p>
 <pre><code class="language-shell">java -Xlog:gc,gc+init -version
 </code></pre>
-<p>Lies ab: Welcher GC? Wie viele Prozessoren? Wie groß darf der Heap werden – und
-welcher Anteil Deines Arbeitsspeichers ist das?</p>
-<p>Stell einen kleinen Container nach, mit einem Kern und 1 GB:</p>
+<p>Stell den kleinen Container nach:</p>
 <pre><code class="language-shell">java -XX:ActiveProcessorCount=1 -XX:MaxRAM=1g -Xlog:gc,gc+init -version
 </code></pre>
-<p>Was hat sich geändert, und warum?</p>
+</details>
+<details class="skr-tabs__panel" name="ergonomie">
+<summary>IntelliJ</summary>
+<p>Starte nacheinander die Run Configurations:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="ergonomie">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-ergonomie-klein</code></strong></li>
+</ul>
+</details>
+</div>
+<p>Lies ab: Welcher GC? Wie viele Prozessoren? Wie groß darf der Heap werden – und
+welcher Anteil Deines Arbeitsspeichers ist das? Was hat sich im kleinen Container
+geändert, und warum?</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Wer Docker hat, probiert es im echten Container:
 <code>docker run --rm --cpus 1 -m 1g eclipse-temurin:25 java -Xlog:gc,gc+init -version</code>.
 Mit <code>eclipse-temurin:27</code> sieht das Ergebnis anders aus.</p>
 </blockquote>
 <h3 id="die-garbage-collectors-vergleichen">Die Garbage Collectors vergleichen</h3>
-<p><code>spielwiese/Speicherlast.java</code> hält drei Millionen Bestellpositionen im Speicher und
-erzeugt daneben viele kurzlebige – Arbeit für den Garbage Collector. Starte sie mit
-G1 und zeichne den Lauf mit dem Flight Recorder auf:</p>
-<pre><code class="language-shell">java -XX:+UseG1GC -Xmx1g -XX:StartFlightRecording=filename=gc.jfr spielwiese/Speicherlast.java
+<p><code>Speicherlast.java</code> hält drei Millionen Bestellpositionen im Speicher und erzeugt
+daneben viele kurzlebige – Arbeit für den Garbage Collector. Starte sie mit G1, zeichne
+den Lauf mit dem Flight Recorder auf und sieh Dir die Pausen an:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="gc" open>
+<summary>Kommandozeile</summary>
+<p>Starte die Speicherlast mit G1 und zeichne auf:</p>
+<pre><code class="language-shell">java -XX:+UseG1GC -Xmx1g -XX:StartFlightRecording=filename=gc.jfr Speicherlast.java
 </code></pre>
 <p>Sieh Dir die Pausen an:</p>
 <pre><code class="language-shell">jfr view gc-pauses gc.jfr
 </code></pre>
-<p>Wiederhole beides mit <code>-XX:+UseSerialGC</code>, <code>-XX:+UseParallelGC</code> und <code>-XX:+UseZGC</code>
-anstelle von <code>-XX:+UseG1GC</code>. Halte je Collector die Laufzeit, die Zahl der Pausen und
-die längste Pause fest.</p>
+<p>Wiederhole beides mit <code>-XX:+UseSerialGC</code>, <code>-XX:+UseParallelGC</code> und <code>-XX:+UseZGC</code> anstelle von <code>-XX:+UseG1GC</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="gc">
+<summary>IntelliJ</summary>
+<p>Starte nacheinander die Run Configurations:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="gc">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-g1</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-serial</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-parallel</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-gc-z</code></strong></li>
+</ul>
+</details>
+</div>
+<p>In der IDE zeichnet jede Run Configuration auf und zeigt danach die Pausen. Halte je
+Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.</p>
 <p>Recherchiere dann in der Visualisierung und im <em>Garbage Collection Tuning Guide</em> (unter
 den Ressourcen): Wie arbeitet jeder Collector, was kostet er, wann ist er sinnvoll?
 Welchen würdest Du für Eure Anwendung wählen?</p>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>jfr</code> liegt im <code>bin</code>-Ordner Deines JDK. Shenandoah fehlt in den Builds von
-Oracle; mit Temurin kannst Du ihn mit <code>-XX:+UseShenandoahGC</code> dazunehmen.</p>
+Oracle; mit Temurin kannst Du ihn mit <code>-XX:+UseShenandoahGC</code> dazunehmen (Run
+Configuration <code>schwerpunkte-jvm-fuer-entwickler-gc-shenandoah</code>).</p>
 </blockquote>
 <h3 id="den-start-verkürzen">Den Start verkürzen</h3>
 <p>Als Messlatte dient der Lasttest mit <strong>einer</strong> Bestellung – er startet die
 REST-Schnittstelle, schickt eine Anfrage und endet. 100 ms davon wartet die Anfrage
-aufs Lager. Miss ihn mehrmals:</p>
-<pre><code class="language-shell">time java -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+aufs Lager. In der letzten Zeile nennt er, wie lange die JVM vom Start bis zum Ende
+lief.</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="start" open>
+<summary>Kommandozeile</summary>
+<p>Miss den Start ohne eigenes Archiv:</p>
+<pre><code class="language-shell">java -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 </code></pre>
 <p><strong>Mit JDK 25</strong> lässt Du einen Trainingslauf einen AOT-Cache schreiben:</p>
-<pre><code class="language-shell">java -XX:AOTCacheOutput=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+<pre><code class="language-shell">java -XX:AOTCacheOutput=rest.aot -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 </code></pre>
 <p>Starte dann mit dem Cache und miss wieder:</p>
-<pre><code class="language-shell">time java -XX:AOTCache=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+<pre><code class="language-shell">java -XX:AOTCache=rest.aot -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 </code></pre>
 <p><strong>Mit JDK 21</strong> schreibt der erste Lauf ein CDS-Archiv:</p>
-<pre><code class="language-shell">java -XX:ArchiveClassesAtExit=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+<pre><code class="language-shell">java -XX:ArchiveClassesAtExit=rest.jsa -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 </code></pre>
 <p>Starte dann mit dem Archiv und miss wieder:</p>
-<pre><code class="language-shell">time java -XX:SharedArchiveFile=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+<pre><code class="language-shell">java -XX:SharedArchiveFile=rest.jsa -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="start">
+<summary>IntelliJ</summary>
+<p>Starte nacheinander die Run Configurations:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)</code></strong></li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="start">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)</code></strong></li>
+</ul>
+</details>
+</div>
 <p>Wie viel schneller ist der Start? Und was müsste geschehen, damit Eure Anwendung beim
 Kunden mit genau diesem Cache startet?</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Unter Windows misst Du in PowerShell mit <code>Measure-Command { java … }</code>.
-Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer langsamer.</p>
+<p><strong>Hinweis:</strong> Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer
+langsamer. Bau das Modul zwischen Trainingslauf und Messung nicht neu – zu einem neu
+gebauten JAR passt der Cache nicht mehr.</p>
 </blockquote>
 <h3 id="mit-dem-flight-recorder-messen">Mit dem Flight Recorder messen</h3>
-<p>Zeichne einen größeren Lasttest auf; er dauert gut zehn Sekunden:</p>
-<pre><code class="language-shell">java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1000
+<p>Zeichne einen größeren Lasttest auf – er dauert gut zehn Sekunden – und sieh nach, wo
+die Rechenzeit hingeht und welche Klassen den meisten Speicher anlegen:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="jfr" open>
+<summary>Kommandozeile</summary>
+<p>Zeichne den Lasttest auf:</p>
+<pre><code class="language-shell">java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1000
 </code></pre>
 <p>Sieh nach, wo die Rechenzeit hingeht:</p>
 <pre><code class="language-shell">jfr view hot-methods last.jfr
@@ -269,25 +356,74 @@ Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer langsamer.</p>
 <p>Sieh nach, welche Klassen den meisten Speicher anlegen:</p>
 <pre><code class="language-shell">jfr view allocation-by-class last.jfr
 </code></pre>
-<p>Was überrascht Dich? <code>jfr help view</code> listet alle Ansichten – probiere eine weitere,
-etwa <code>container-configuration</code> im Container oder <code>thread-count</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="jfr">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-jvm-fuer-entwickler-flight-recorder</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="jfr">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration <strong><code>schwerpunkte-jvm-fuer-entwickler-flight-recorder</code></strong>.</p>
+</details>
+</div>
+<p>In der IDE zeichnet die Run Configuration auf und zeigt danach beide Ansichten. Was
+überrascht Dich?</p>
+<p><strong>Optional:</strong> <code>jfr help view</code> listet alle Ansichten – probiere auf der Kommandozeile eine
+weitere, etwa <code>jfr view thread-count last.jfr</code>.</p>
 <h3 id="kür-kompakte-objekt-header-jdk-25">Kür: kompakte Objekt-Header (JDK 25)</h3>
 <p>Starte die Speicherlast mit und ohne kompakte Header und vergleiche, wie viel Speicher
 der Bestand belegt (letzte Zeile der Ausgabe):</p>
-<pre><code class="language-shell">java -XX:+UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="header" open>
+<summary>Kommandozeile</summary>
+<p>Starte sie mit kompakten Headern:</p>
+<pre><code class="language-shell">java -XX:+UseCompactObjectHeaders -Xmx1g Speicherlast.java
 </code></pre>
 <p>Starte sie zum Vergleich ohne:</p>
-<pre><code class="language-shell">java -XX:-UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+<pre><code class="language-shell">java -XX:-UseCompactObjectHeaders -Xmx1g Speicherlast.java
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="header">
+<summary>IntelliJ</summary>
+<p>Starte nacheinander die Run Configurations:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-kompakt</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-klassisch</code></strong></li>
+</ul>
+</details>
+<details class="skr-tabs__panel" name="header">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen:</p>
+<ul>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-kompakt</code></strong></li>
+<li><strong><code>schwerpunkte-jvm-fuer-entwickler-header-klassisch</code></strong></li>
+</ul>
+</details>
+</div>
 <p>Wie viel spart es? Für welche Eurer Anwendungen zählt das?</p>
 <h3 id="kür-pinning-nachweisen-jdk-21-und-25">Kür: Pinning nachweisen (JDK 21 und 25)</h3>
-<p><code>spielwiese/Angeheftet.java</code> lässt 200 virtuelle Threads in einem <code>synchronized</code>-Block
-warten – wie die Fremdsysteme im Altbestand. Zeichne den Lauf auf:</p>
-<pre><code class="language-shell">java -XX:StartFlightRecording=filename=angeheftet.jfr spielwiese/Angeheftet.java
+<p><code>Angeheftet.java</code> lässt 200 virtuelle Threads in einem <code>synchronized</code>-Block warten –
+wie die Fremdsysteme der Bestellabwicklung. Zeichne den Lauf auf und sieh nach, welche
+virtuellen Threads ihren Träger festgehalten haben:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="pinning" open>
+<summary>Kommandozeile</summary>
+<p>Zeichne den Lauf auf:</p>
+<pre><code class="language-shell">java -XX:StartFlightRecording=filename=angeheftet.jfr Angeheftet.java
 </code></pre>
-<p>Sieh nach, welche virtuellen Threads ihren Träger festgehalten haben:</p>
+<p>Sieh Dir die angehefteten Threads an:</p>
 <pre><code class="language-shell">jfr view pinned-threads angeheftet.jfr
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="pinning">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-jvm-fuer-entwickler-pinning</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="pinning">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration <strong><code>schwerpunkte-jvm-fuer-entwickler-pinning</code></strong>.</p>
+</details>
+</div>
 <p>Vergleicht die Ausgabe und die Laufzeit auf JDK 21 und 25 – mit einem Paar, das das
 andere JDK hat. Was zeigt der Flight Recorder, und in welcher Methode?</p>
 <h3 id="bewerten">Bewerten</h3>
@@ -360,32 +496,35 @@ Als Entwickler:in, deren Anwendung im Container und unter Last läuft, möchte i
 &lt;/div&gt;
 
 
-Du änderst keinen Code – Du startest den Altbestand und zwei Programme aus der
-Spielwiese mit anderen JVM-Optionen und misst, was sich ändert. Wie die Collectors
-arbeiten, was die JVM im Container wählt und was CDS und AOT-Cache tun, zeigt die
-Visualisierung [Die Laufzeitumgebung seit Java 8](laufzeit.md).
+Du änderst keinen Code – Du startest die REST-Schnittstelle der Bestellabwicklung und zwei
+kleine Programme mit anderen JVM-Optionen und misst, was sich ändert. Wie die
+Collectors arbeiten, was die JVM im Container wählt und was CDS und AOT-Cache tun, zeigt
+die Visualisierung [Die Laufzeitumgebung seit Java 8](laufzeit.md).
 
 &gt; **Hinweis:** Du brauchst **JDK 21 oder 25**. Wo ein Schritt nur mit einem der beiden
-&gt; geht, steht es dabei. Die Befehle mit JVM-Optionen laufen im Terminal – in IntelliJ
-&gt; über *View → Tool Windows → Terminal*, in Eclipse über *Window → Show View →
-&gt; Terminal*, jeweils im Wurzelordner des Übungsprojekts.
+&gt; geht, steht es dabei. Alles liegt im Modul `schwerpunkte/jvm-fuer-entwickler`, mit
+&gt; einer eigenen Kopie der Bestellabwicklung – was Du in anderen Übungen am Projekt
+&gt; geändert hast, spielt hier keine Rolle. Zu jedem Befehl gibt es eine Run Configuration;
+&gt; sie ruft über Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven
+&gt; startet.
 
 ## Arbeitsschritte
 
-### Den Altbestand bauen
+### Das Modul bauen
 
-Danach liegen die Anwendungen als startbare JARs bereit, die REST-Schnittstelle in
-`altbestand/bestellung-rest/target/bestellung-rest.jar`.
+Danach liegt die REST-Schnittstelle als startbares JAR in
+`target/jvm-fuer-entwickler.jar`; die beiden Programme `Speicherlast.java` und
+`Angeheftet.java` liegen als Quelldateien daneben und starten ohne Übersetzen.
 
 &lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
 
 &lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; open markdown=&#34;1&#34;&gt;
 &lt;summary&gt;Kommandozeile&lt;/summary&gt;
 
-Baue im Wurzelordner des Übungsprojekts:
+Wechsle in den Ordner des Moduls und baue es – alle weiteren Befehle laufen in diesem Ordner:
 
 ```shell
-mvn clean verify -f altbestand/pom.xml
+cd schwerpunkte/jvm-fuer-entwickler &amp;&amp; mvn clean verify
 ```
 
 &lt;/details&gt;
@@ -393,15 +532,14 @@ mvn clean verify -f altbestand/pom.xml
 &lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
 &lt;summary&gt;IntelliJ&lt;/summary&gt;
 
-Starte die Run Configuration **`altbestand`**.
+Starte die Run Configuration **`schwerpunkte-jvm-fuer-entwickler`**.
 
 &lt;/details&gt;
 
 &lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
-Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
-**`altbestand`**.
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration **`schwerpunkte-jvm-fuer-entwickler`**.
 
 &lt;/details&gt;
 
@@ -409,22 +547,53 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 ### Was wählt die JVM?
 
-Lass die JVM zeigen, wie sie sich eingerichtet hat:
+Lass die JVM zeigen, wie sie sich eingerichtet hat, und stell danach einen kleinen
+Container nach, mit einem Kern und 1 GB:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ergonomie&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Zeig, was die JVM auf Deinem Rechner wählt:
 
 ```shell
 java -Xlog:gc,gc&#43;init -version
 ```
 
-Lies ab: Welcher GC? Wie viele Prozessoren? Wie groß darf der Heap werden – und
-welcher Anteil Deines Arbeitsspeichers ist das?
-
-Stell einen kleinen Container nach, mit einem Kern und 1 GB:
+Stell den kleinen Container nach:
 
 ```shell
 java -XX:ActiveProcessorCount=1 -XX:MaxRAM=1g -Xlog:gc,gc&#43;init -version
 ```
 
-Was hat sich geändert, und warum?
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ergonomie&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations:
+
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;ergonomie&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
+
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie`**
+- **`schwerpunkte-jvm-fuer-entwickler-ergonomie-klein`**
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Lies ab: Welcher GC? Wie viele Prozessoren? Wie groß darf der Heap werden – und
+welcher Anteil Deines Arbeitsspeichers ist das? Was hat sich im kleinen Container
+geändert, und warum?
 
 &gt; **Hinweis:** Wer Docker hat, probiert es im echten Container:
 &gt; `docker run --rm --cpus 1 -m 1g eclipse-temurin:25 java -Xlog:gc,gc&#43;init -version`.
@@ -432,12 +601,19 @@ Was hat sich geändert, und warum?
 
 ### Die Garbage Collectors vergleichen
 
-`spielwiese/Speicherlast.java` hält drei Millionen Bestellpositionen im Speicher und
-erzeugt daneben viele kurzlebige – Arbeit für den Garbage Collector. Starte sie mit
-G1 und zeichne den Lauf mit dem Flight Recorder auf:
+`Speicherlast.java` hält drei Millionen Bestellpositionen im Speicher und erzeugt
+daneben viele kurzlebige – Arbeit für den Garbage Collector. Starte sie mit G1, zeichne
+den Lauf mit dem Flight Recorder auf und sieh Dir die Pausen an:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;gc&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte die Speicherlast mit G1 und zeichne auf:
 
 ```shell
-java -XX:&#43;UseG1GC -Xmx1g -XX:StartFlightRecording=filename=gc.jfr spielwiese/Speicherlast.java
+java -XX:&#43;UseG1GC -Xmx1g -XX:StartFlightRecording=filename=gc.jfr Speicherlast.java
 ```
 
 Sieh Dir die Pausen an:
@@ -446,63 +622,140 @@ Sieh Dir die Pausen an:
 jfr view gc-pauses gc.jfr
 ```
 
-Wiederhole beides mit `-XX:&#43;UseSerialGC`, `-XX:&#43;UseParallelGC` und `-XX:&#43;UseZGC`
-anstelle von `-XX:&#43;UseG1GC`. Halte je Collector die Laufzeit, die Zahl der Pausen und
-die längste Pause fest.
+Wiederhole beides mit `-XX:&#43;UseSerialGC`, `-XX:&#43;UseParallelGC` und `-XX:&#43;UseZGC` anstelle von `-XX:&#43;UseG1GC`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;gc&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations:
+
+- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-z`**
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;gc&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
+
+- **`schwerpunkte-jvm-fuer-entwickler-gc-g1`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-serial`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-parallel`**
+- **`schwerpunkte-jvm-fuer-entwickler-gc-z`**
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+In der IDE zeichnet jede Run Configuration auf und zeigt danach die Pausen. Halte je
+Collector die Laufzeit, die Zahl der Pausen und die längste Pause fest.
 
 Recherchiere dann in der Visualisierung und im *Garbage Collection Tuning Guide* (unter
 den Ressourcen): Wie arbeitet jeder Collector, was kostet er, wann ist er sinnvoll?
 Welchen würdest Du für Eure Anwendung wählen?
 
 &gt; **Hinweis:** `jfr` liegt im `bin`-Ordner Deines JDK. Shenandoah fehlt in den Builds von
-&gt; Oracle; mit Temurin kannst Du ihn mit `-XX:&#43;UseShenandoahGC` dazunehmen.
+&gt; Oracle; mit Temurin kannst Du ihn mit `-XX:&#43;UseShenandoahGC` dazunehmen (Run
+&gt; Configuration `schwerpunkte-jvm-fuer-entwickler-gc-shenandoah`).
 
 ### Den Start verkürzen
 
 Als Messlatte dient der Lasttest mit **einer** Bestellung – er startet die
 REST-Schnittstelle, schickt eine Anfrage und endet. 100 ms davon wartet die Anfrage
-aufs Lager. Miss ihn mehrmals:
+aufs Lager. In der letzten Zeile nennt er, wie lange die JVM vom Start bis zum Ende
+lief.
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;start&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Miss den Start ohne eigenes Archiv:
 
 ```shell
-time java -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+java -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 ```
 
 **Mit JDK 25** lässt Du einen Trainingslauf einen AOT-Cache schreiben:
 
 ```shell
-java -XX:AOTCacheOutput=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+java -XX:AOTCacheOutput=rest.aot -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 ```
 
 Starte dann mit dem Cache und miss wieder:
 
 ```shell
-time java -XX:AOTCache=rest.aot -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+java -XX:AOTCache=rest.aot -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 ```
 
 **Mit JDK 21** schreibt der erste Lauf ein CDS-Archiv:
 
 ```shell
-java -XX:ArchiveClassesAtExit=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+java -XX:ArchiveClassesAtExit=rest.jsa -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 ```
 
 Starte dann mit dem Archiv und miss wieder:
 
 ```shell
-time java -XX:SharedArchiveFile=rest.jsa -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1
+java -XX:SharedArchiveFile=rest.jsa -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;start&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations:
+
+- **`schwerpunkte-jvm-fuer-entwickler-start`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)`**
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;start&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
+
+- **`schwerpunkte-jvm-fuer-entwickler-start`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot-training (JDK 25)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-aot (JDK 25)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds-training (JDK 21)`**
+- **`schwerpunkte-jvm-fuer-entwickler-start-cds (JDK 21)`**
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Wie viel schneller ist der Start? Und was müsste geschehen, damit Eure Anwendung beim
 Kunden mit genau diesem Cache startet?
 
-&gt; **Hinweis:** Unter Windows misst Du in PowerShell mit `Measure-Command { java … }`.
-&gt; Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer langsamer.
+&gt; **Hinweis:** Miss jeden Fall mehrmals; der erste Lauf nach dem Bauen ist immer
+&gt; langsamer. Bau das Modul zwischen Trainingslauf und Messung nicht neu – zu einem neu
+&gt; gebauten JAR passt der Cache nicht mehr.
 
 ### Mit dem Flight Recorder messen
 
-Zeichne einen größeren Lasttest auf; er dauert gut zehn Sekunden:
+Zeichne einen größeren Lasttest auf – er dauert gut zehn Sekunden – und sieh nach, wo
+die Rechenzeit hingeht und welche Klassen den meisten Speicher anlegen:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;jfr&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Zeichne den Lasttest auf:
 
 ```shell
-java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp altbestand/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest 1000
+java -XX:StartFlightRecording=filename=last.jfr,settings=profile -cp target/jvm-fuer-entwickler.jar bestellung.rest.Lasttest 1000
 ```
 
 Sieh nach, wo die Rechenzeit hingeht:
@@ -517,40 +770,118 @@ Sieh nach, welche Klassen den meisten Speicher anlegen:
 jfr view allocation-by-class last.jfr
 ```
 
-Was überrascht Dich? `jfr help view` listet alle Ansichten – probiere eine weitere,
-etwa `container-configuration` im Container oder `thread-count`.
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;jfr&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-jvm-fuer-entwickler-flight-recorder`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;jfr&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration **`schwerpunkte-jvm-fuer-entwickler-flight-recorder`**.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+In der IDE zeichnet die Run Configuration auf und zeigt danach beide Ansichten. Was
+überrascht Dich?
+
+**Optional:** `jfr help view` listet alle Ansichten – probiere auf der Kommandozeile eine
+weitere, etwa `jfr view thread-count last.jfr`.
 
 ### Kür: kompakte Objekt-Header (JDK 25)
 
 Starte die Speicherlast mit und ohne kompakte Header und vergleiche, wie viel Speicher
 der Bestand belegt (letzte Zeile der Ausgabe):
 
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;header&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte sie mit kompakten Headern:
+
 ```shell
-java -XX:&#43;UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+java -XX:&#43;UseCompactObjectHeaders -Xmx1g Speicherlast.java
 ```
 
 Starte sie zum Vergleich ohne:
 
 ```shell
-java -XX:-UseCompactObjectHeaders -Xmx1g spielwiese/Speicherlast.java
+java -XX:-UseCompactObjectHeaders -Xmx1g Speicherlast.java
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;header&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations:
+
+- **`schwerpunkte-jvm-fuer-entwickler-header-kompakt`**
+- **`schwerpunkte-jvm-fuer-entwickler-header-klassisch`**
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;header&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen:
+
+- **`schwerpunkte-jvm-fuer-entwickler-header-kompakt`**
+- **`schwerpunkte-jvm-fuer-entwickler-header-klassisch`**
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Wie viel spart es? Für welche Eurer Anwendungen zählt das?
 
 ### Kür: Pinning nachweisen (JDK 21 und 25)
 
-`spielwiese/Angeheftet.java` lässt 200 virtuelle Threads in einem `synchronized`-Block
-warten – wie die Fremdsysteme im Altbestand. Zeichne den Lauf auf:
+`Angeheftet.java` lässt 200 virtuelle Threads in einem `synchronized`-Block warten –
+wie die Fremdsysteme der Bestellabwicklung. Zeichne den Lauf auf und sieh nach, welche
+virtuellen Threads ihren Träger festgehalten haben:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pinning&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Zeichne den Lauf auf:
 
 ```shell
-java -XX:StartFlightRecording=filename=angeheftet.jfr spielwiese/Angeheftet.java
+java -XX:StartFlightRecording=filename=angeheftet.jfr Angeheftet.java
 ```
 
-Sieh nach, welche virtuellen Threads ihren Träger festgehalten haben:
+Sieh Dir die angehefteten Threads an:
 
 ```shell
 jfr view pinned-threads angeheftet.jfr
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pinning&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-jvm-fuer-entwickler-pinning`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;pinning&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration **`schwerpunkte-jvm-fuer-entwickler-pinning`**.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Vergleicht die Ausgabe und die Laufzeit auf JDK 21 und 25 – mit einem Paar, das das
 andere JDK hat. Was zeigt der Flight Recorder, und in welcher Methode?
@@ -593,7 +924,7 @@ Halte in Stichworten fest:
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12">
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#ergonomie-und-garbage-collector" class="skr-toc--h3">Ergonomie und Garbage Collector</a><a href="#start-und-flight-recorder" class="skr-toc--h3">Start und Flight Recorder</a><a href="#bewertung" class="skr-toc--h3">Bewertung</a><a href="#fr-die-ganze-seite" class="skr-toc--h3">Für die ganze Seite</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-altbestand-bauen" class="skr-toc--h3">Den Altbestand bauen</a><a href="#was-wählt-die-jvm" class="skr-toc--h3">Was wählt die JVM?</a><a href="#die-garbage-collectors-vergleichen" class="skr-toc--h3">Die Garbage Collectors vergleichen</a><a href="#den-start-verkürzen" class="skr-toc--h3">Den Start verkürzen</a><a href="#mit-dem-flight-recorder-messen" class="skr-toc--h3">Mit dem Flight Recorder messen</a><a href="#kür-kompakte-objekt-header-jdk-25" class="skr-toc--h3">Kür: kompakte Objekt-Header (JDK 25)</a><a href="#kür-pinning-nachweisen-jdk-21-und-25" class="skr-toc--h3">Kür: Pinning nachweisen (JDK 21 und 25)</a><a href="#bewerten" class="skr-toc--h3">Bewerten</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#ergonomie-und-garbage-collector" class="skr-toc--h3">Ergonomie und Garbage Collector</a><a href="#start-und-flight-recorder" class="skr-toc--h3">Start und Flight Recorder</a><a href="#bewertung" class="skr-toc--h3">Bewertung</a><a href="#fr-die-ganze-seite" class="skr-toc--h3">Für die ganze Seite</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-modul-bauen" class="skr-toc--h3">Das Modul bauen</a><a href="#was-wählt-die-jvm" class="skr-toc--h3">Was wählt die JVM?</a><a href="#die-garbage-collectors-vergleichen" class="skr-toc--h3">Die Garbage Collectors vergleichen</a><a href="#den-start-verkürzen" class="skr-toc--h3">Den Start verkürzen</a><a href="#mit-dem-flight-recorder-messen" class="skr-toc--h3">Mit dem Flight Recorder messen</a><a href="#kür-kompakte-objekt-header-jdk-25" class="skr-toc--h3">Kür: kompakte Objekt-Header (JDK 25)</a><a href="#kür-pinning-nachweisen-jdk-21-und-25" class="skr-toc--h3">Kür: Pinning nachweisen (JDK 21 und 25)</a><a href="#bewerten" class="skr-toc--h3">Bewerten</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">

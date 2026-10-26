@@ -875,7 +875,7 @@
       risiko: 0, risikoText: "Keins.", r: [1, 1, 1],
       umsetzung: "Ausdrücke, Deklarationen und Importe ohne Klasse und `main`; `/vars`, `/methods`, `/open`, `--class-path` für eigene JARs und `--enable-preview`.",
       beispiel: ["bash", [
-        "jshell --class-path altbestand/bestellung-domaene/target/classes"]] },
+        "jshell --class-path schwerpunkte/virtual-threads/bestellung-domaene/target/classes"]] },
     { nr: 247, v: 9, b: "werkzeuge", name: "--release", titel: "Compile for Older Platform Versions",
       stichworte: ["--release", "javac", "Zielversion", "Cross-Compile"],
       worum: "`javac --release 8` übersetzt für ein älteres Release – und prüft, dass nur dessen API benutzt wird.",
@@ -941,7 +941,7 @@
       risiko: 0, risikoText: "Keins.", r: [1, 1, 0],
       umsetzung: "Der Launcher übersetzt die Datei im Speicher und startet die erste Klasse; Optionen wie `--source` und `--enable-preview` gelten. Unter Unix auch mit Shebang `#!/usr/bin/java --source 25`.",
       beispiel: ["bash", [
-        "java spielwiese/Versionsinfo.java"]],
+        "java Versionsinfo.java"]],
       bezug: [[458, "mehrere Dateien (22)"], [512, "kompakte Quelldateien (25)"]] },
     { nr: 392, v: 16, b: "werkzeuge", name: "jpackage", titel: "Packaging Tool",
       stichworte: ["jpackage", "Installer", "msi", "dmg"], kette: [[343, 14, "Incubator"]],
@@ -1087,7 +1087,7 @@
       risiko: 2, risikoText: "`InaccessibleObjectException` zur Laufzeit; Notlösung `--add-opens` (Modul `reflection`).", r: [1, 1, 2],
       umsetzung: "Nicht geöffnete Pakete der JDK-Module verweigern Deep Reflection; `--add-opens java.base/java.util=ALL-UNNAMED` öffnet gezielt.",
       beispiel: ["bash", [
-        "java --add-opens java.base/java.util=ALL-UNNAMED -jar target/altbestand.jar"]],
+        "java --add-opens java.base/java.util=ALL-UNNAMED -jar target/anwendung.jar"]],
       bezug: [[260, "Interna gekapselt (9)"], [403, "ohne Ausweg (17)"], [500, "final heißt final (26)"]] },
     { nr: 403, v: 17, b: "entfernt", projekt: "Jigsaw", name: "Kapselung ohne Ausweg", titel: "Strongly Encapsulate JDK Internals",
       stichworte: ["Kapselung", "--add-opens", "Reflection", "InaccessibleObjectException"],
@@ -1118,7 +1118,7 @@
       risiko: 0, risikoText: "Praktisch keins: Fehler beim Übersetzen, wo noch `Applet` steht.", r: [0, 0, 0],
       umsetzung: "17 markiert die API mit `forRemoval`, 26 entfernt sie.",
       beispiel: ["bash", [
-        "jdeprscan --release 25 --for-removal target/altbestand.jar"]] },
+        "jdeprscan --release 25 --for-removal target/anwendung.jar"]] },
     { nr: 400, v: 18, b: "entfernt", name: "UTF-8 als Standard", titel: "UTF-8 by Default",
       stichworte: ["UTF-8", "Zeichensatz", "Encoding", "file.encoding", "Charset"],
       worum: "Der Standard-Zeichensatz ist überall UTF-8, nicht mehr der des Betriebssystems.",

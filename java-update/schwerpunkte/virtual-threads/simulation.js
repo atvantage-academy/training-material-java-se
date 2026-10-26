@@ -483,7 +483,7 @@
     steps: [
       {
         title: "Ausgangslage",
-        text: "<p>Ein Server mit einem <b>festen Pool</b> aus zehn Threads – wie im Altbestand (<code>Executors.newFixedThreadPool(10)</code>). Jeder ist ein Thread des Betriebssystems mit eigenem Stack. Gezeigt ist Thread 1, die übrigen neun sind angedeutet.</p><p>Darüber die <b>Warteschlange</b> des Pools, rechts hinter der Systemgrenze das <b>Lager</b>, ein externes System. Die Zeit läuft nach unten.</p>",
+        text: "<p>Ein Server mit einem <b>festen Pool</b> aus zehn Threads – wie in der Bestellabwicklung des Übungsprojekts (<code>Executors.newFixedThreadPool(10)</code>). Jeder ist ein Thread des Betriebssystems mit eigenem Stack. Gezeigt ist Thread 1, die übrigen neun sind angedeutet.</p><p>Darüber die <b>Warteschlange</b> des Pools, rechts hinter der Systemgrenze das <b>Lager</b>, ein externes System. Die Zeit läuft nach unten.</p>",
         apply: function () {}
       },
       {
@@ -543,7 +543,7 @@
       },
       {
         title: "Merksatz",
-        text: "<p><b>Gleichzeitig bearbeitet wird höchstens so viel, wie Threads im Pool sind – und ein wartender Thread zählt mit.</b></p><p>10 Threads und 100 ms Wartezeit heißt: höchstens 100 Anfragen je Sekunde. Gemessen im Altbestand: 200 Bestellungen in gut 2 Sekunden. Mehr Threads helfen – bis Speicher und Betriebssystem nicht mehr mitspielen.</p>",
+        text: "<p><b>Gleichzeitig bearbeitet wird höchstens so viel, wie Threads im Pool sind – und ein wartender Thread zählt mit.</b></p><p>10 Threads und 100 ms Wartezeit heißt: höchstens 100 Anfragen je Sekunde. Gemessen im Übungsprojekt: 200 Bestellungen in gut 2 Sekunden. Mehr Threads helfen – bis Speicher und Betriebssystem nicht mehr mitspielen.</p>",
         apply: function () {},
         duration: 5000
       }
@@ -721,7 +721,7 @@
       },
       {
         title: "Merksatz",
-        text: "<p><b>Warten kostet keinen Thread des Betriebssystems mehr.</b></p><p>Der Code bleibt blockierend und lesbar – anders als reaktiv. Nur der Thread ist ein anderer. Gemessen im Altbestand: 200 Bestellungen in gut 0,2 Sekunden statt 2,2.</p>",
+        text: "<p><b>Warten kostet keinen Thread des Betriebssystems mehr.</b></p><p>Der Code bleibt blockierend und lesbar – anders als reaktiv. Nur der Thread ist ein anderer. Gemessen im Übungsprojekt: 200 Bestellungen in gut 0,2 Sekunden statt 2,2.</p>",
         apply: function () {},
         duration: 5000
       }
@@ -766,7 +766,7 @@
     steps: [
       {
         title: "Ausgangslage",
-        text: "<p>Derselbe Träger, zwei virtuelle Threads – und diesmal der Code, den sie ausführen: <code>Verbindung.sende</code> aus dem Altbestand, eine <code>synchronized</code>-Methode, wie sie viele Bibliotheken aus der Java-8-Zeit haben.</p>",
+        text: "<p>Derselbe Träger, zwei virtuelle Threads – und diesmal der Code, den sie ausführen: <code>Verbindung.sende</code> aus dem Übungsprojekt, eine <code>synchronized</code>-Methode, wie sie viele Bibliotheken aus der Java-8-Zeit haben.</p>",
         apply: function () {}
       },
       {

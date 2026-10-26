@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3fca0b09" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3729ca90" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -51,7 +51,7 @@
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
 <link rel="stylesheet" href="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.css?v=c4e105b7">
-<script src="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.js?v=bf84c2a1" defer></script>
+<script src="../../../java-update/schwerpunkte/jvm-fuer-entwickler/laufzeit.js?v=8c8f43c5" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -85,7 +85,7 @@
        Java 9?“ mit LTS-Marken. Denkmodell für Entwickler:innen, kein GC-Tuning.
      - Liegt im Modulordner: Die Grundkurse behandeln die Laufzeitumgebung nicht.
      - ALLE ZAHLEN GEMESSEN (Stand 2026-10-23, 12 Kerne, macOS):   durable-ok
-       GC-Vergleich mit spielwiese/Speicherlast.java (-Xmx1g, JFR „jfr view gc-pauses“),
+       GC-Vergleich mit schwerpunkte/jvm-fuer-entwickler/Speicherlast.java (-Xmx1g, JFR „jfr view gc-pauses“),
        OpenJDK 25.0.2; Shenandoah mit Temurin 25 in Docker, weil der Oracle-Build ihn
        nicht enthält. Container-Ergonomie mit Temurin 21, 25 und 27 in Docker
        (--cpus, -m). Startzeit: Lasttest mit 1 Bestellung (100 ms Wartezeit aufs Lager),
@@ -100,7 +100,7 @@
      - Bezeichner mit Umlauten (A-006), Farben aus den Tokens, kein eigenes Breiten-CSS. -->
 <p class="lz-lead">Seit Java 8 hat sich die Laufzeitumgebung mindestens so stark verändert wie die Sprache – und das meiste wirkt, ohne dass Du eine Zeile Code änderst. Was Du wissen musst, sind vier Dinge: welchen Garbage Collector Du nimmst, was die JVM im Container entscheidet, wie der Start schneller wird und wie viel Speicher ein Objekt kostet.</p>
 <h2 id="gc">1 · Der Garbage Collector entscheidet über Pausen</h2>
-<p>Jeder Collector räumt den Heap auf, aber er tut es anders: Mal hält er die Anwendung an und räumt alles auf einmal, mal räumt er nebenher. Wähle einen Collector – die Zeitleiste zeigt einen Lauf von <code>Speicherlast</code> aus der Spielwiese des Übungsprojekts.</p>
+<p>Jeder Collector räumt den Heap auf, aber er tut es anders: Mal hält er die Anwendung an und räumt alles auf einmal, mal räumt er nebenher. Wähle einen Collector – die Zeitleiste zeigt einen Lauf von <code>Speicherlast</code> aus dem Übungsprojekt.</p>
 <div class="lz-knoepfe" role="group" aria-label="Garbage Collector" id="lz-gcs"></div>
 <div class="lz-zeitleiste" id="lz-zeitleiste"></div>
 <p class="lz-fussnote">Zahl, längste und mittlere Pause und die Dauer sind gemessen; wo die Pausen auf der Zeitleiste liegen, ist schematisch.</p>

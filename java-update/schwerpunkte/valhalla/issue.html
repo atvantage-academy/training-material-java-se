@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.17.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.17.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.17.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Finde im Code die Stellen, die auf die Identität von Integer, LocalDate und Co. setzen – mit den Warnungen des Compilers und der Diagnose der JVM –, probiere mit einem Early-Access-Build von JDK 28 aus, was Valhalla daraus macht, und bewerte, was Ihr heute schon tun könnt.","duration":40,"fields":{"didaktikon":{"objectives":["Du erklärst, was ein Objekt ohne Identität von einem Objekt mit Identität unterscheidet.","Du findest mit den Warnungen des Compilers und der Diagnose der JVM die Stellen, die auf die Identität wertbasierter Klassen setzen.","Du behebst diese Stellen so, dass sie heute und mit Valhalla richtig arbeiten.","Du begründest, warum flach abgelegte Werte Speicher und Zeit sparen – und wann die JVM sie nicht flach ablegen kann.","Du bewertest, was Valhalla für Eure Anwendungen bedeutet und was Ihr heute schon tun könnt."],"reflective_questions":["Euer Code vergleicht an einer Stelle zwei `Integer` mit `==`, und alle Tests sind grün. Warum ist das trotzdem ein Fehler – heute und mit Valhalla?","Welche Frameworks oder Bibliotheken in Eurem Bestand könnten auf die Identität von Objekten setzen – Caches, Sperren, Proxys, ORM?","Wo in Eurer Domäne stecken Werte, die heute Klassen mit Identität sind – Geldbeträge, Zeiträume, Adressen?","Value Objects sind Preview. Was müsste geschehen, bevor Ihr sie in Produktionscode einsetzt?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, wo unser Code auf die Identität von Werten setzt und was Project Valhalla daran ändert, damit ich heute schon so programmiere, dass es später kein Bruch wird."},"skriptorium":{"definition_of_done":[{"items":["Du kannst für jede der vier Stellen in `Wertbasiert` sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.","Du hast die Stellen behoben, und `java spielwiese/Wertbasiert.java` übersetzt ohne Warnung."],"title":"Den Bestand prüfen"},{"items":["Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Valhalla heute schon vorbereiten","topics":["Project Valhalla","Wertbasierte Klassen","JEP 401","JEP 390"],"untranslated":null,"url":"/java-update/schwerpunkte/valhalla/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Finde im Code die Stellen, die auf die Identität von Integer, LocalDate und Co. setzen – mit den Warnungen des Compilers und der Diagnose der JVM –, probiere mit einem Early-Access-Build von JDK 28 aus, was Valhalla daraus macht, und bewerte, was Ihr heute schon tun könnt.","duration":40,"fields":{"didaktikon":{"objectives":["Du erklärst, was ein Objekt ohne Identität von einem Objekt mit Identität unterscheidet.","Du findest mit den Warnungen des Compilers und der Diagnose der JVM die Stellen, die auf die Identität wertbasierter Klassen setzen.","Du behebst diese Stellen so, dass sie heute und mit Valhalla richtig arbeiten.","Du begründest, warum flach abgelegte Werte Speicher und Zeit sparen – und wann die JVM sie nicht flach ablegen kann.","Du bewertest, was Valhalla für Eure Anwendungen bedeutet und was Ihr heute schon tun könnt."],"reflective_questions":["Euer Code vergleicht an einer Stelle zwei `Integer` mit `==`, und alle Tests sind grün. Warum ist das trotzdem ein Fehler – heute und mit Valhalla?","Welche Frameworks oder Bibliotheken in Eurem Bestand könnten auf die Identität von Objekten setzen – Caches, Sperren, Proxys, ORM?","Wo in Eurer Domäne stecken Werte, die heute Klassen mit Identität sind – Geldbeträge, Zeiträume, Adressen?","Value Objects sind Preview. Was müsste geschehen, bevor Ihr sie in Produktionscode einsetzt?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, wo unser Code auf die Identität von Werten setzt und was Project Valhalla daran ändert, damit ich heute schon so programmiere, dass es später kein Bruch wird."},"skriptorium":{"definition_of_done":[{"items":["Du kannst für jede der vier Stellen in `Wertbasiert` sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.","Du hast die Stellen behoben, und `Wertbasiert.java` übersetzt beim Start ohne Warnung."],"title":"Den Bestand prüfen"},{"items":["Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Valhalla heute schon vorbereiten","topics":["Project Valhalla","Wertbasierte Klassen","JEP 401","JEP 390"],"untranslated":null,"url":"/java-update/schwerpunkte/valhalla/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3fca0b09" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3729ca90" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=3fca0b09"
+     data-index="../../../skriptorium/search/de.json?v=3729ca90"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -154,7 +154,7 @@
 <h3 id="den-bestand-prfen">Den Bestand prüfen</h3>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du kannst für jede der vier Stellen in Wertbasiert sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt." disabled="disabled"> Du kannst für jede der vier Stellen in <code>Wertbasiert</code> sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Stellen behoben, und java spielwiese/Wertbasiert.java übersetzt ohne Warnung." disabled="disabled"> Du hast die Stellen behoben, und <code>java spielwiese/Wertbasiert.java</code> übersetzt ohne Warnung.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Stellen behoben, und Wertbasiert.java übersetzt beim Start ohne Warnung." disabled="disabled"> Du hast die Stellen behoben, und <code>Wertbasiert.java</code> übersetzt beim Start ohne Warnung.</li>
 </ul>
 <h3 id="bewertung">Bewertung</h3>
 <ul class="task-list">
@@ -173,9 +173,9 @@ Valhalla daraus macht.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Für die Pflicht reicht <strong>JDK 21 oder 25</strong>. Die beiden Kür-Schritte
 brauchen einen <strong>Early-Access-Build von JDK 28</strong> – nur, wenn Du ihn installieren darfst
-oder Docker hast. Die Befehle laufen im Terminal – in IntelliJ über <em>View → Tool
-Windows → Terminal</em>, in Eclipse über <em>Window → Show View → Terminal</em>, jeweils im
-Wurzelordner des Übungsprojekts.</p>
+oder Docker hast. Alles liegt im Modul <code>schwerpunkte/valhalla</code>; die Befehle laufen in
+diesem Ordner. Zu den Befehlen der Pflicht gibt es Run Configurations; sie rufen über
+Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven startet.</p>
 </blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="worum-es-geht">Worum es geht</h3>
@@ -187,12 +187,27 @@ weitere sind als <em>wertbasiert</em> markiert, und der Compiler warnt, wo Code 
 Identität setzt. Was das im Speicher bedeutet und was davon abhängt, zeigt die
 Visualisierung <a class="skr-doclink skr-doclink--visualization" href="../../../java-update/schwerpunkte/valhalla/valhalla.html">Project Valhalla: Objekte ohne Identität</a>.</p>
 <h3 id="den-bestand-prüfen-1">Den Bestand prüfen</h3>
-<p><code>spielwiese/Wertbasiert.java</code> enthält vier Stellen aus einem Bestellsystem, wie sie in
-echtem Code vorkommen: ein Lager, das auf seinem Zähler sperrt, einen Cache für
-Tageskurse, einen Vergleich zweier Mengen und einen Zähler je Artikelnummer. Starte das
-Programm:</p>
-<pre><code class="language-shell">java spielwiese/Wertbasiert.java
+<p><code>Wertbasiert.java</code> enthält vier Stellen aus einem Bestellsystem, wie sie in echtem Code
+vorkommen: ein Lager, das auf seinem Zähler sperrt, einen Cache für Tageskurse, einen
+Vergleich zweier Mengen und einen Zähler je Artikelnummer. Es startet direkt aus dem
+Quelltext; der Compiler übersetzt es dabei und warnt. Starte das Programm:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="wertbasiert" open>
+<summary>Kommandozeile</summary>
+<p>Wechsle in den Ordner des Moduls und starte das Programm – alle weiteren Befehle laufen in diesem Ordner:</p>
+<pre><code class="language-shell">cd schwerpunkte/valhalla &amp;&amp; java Wertbasiert.java
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="wertbasiert">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="wertbasiert">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
+</details>
+</div>
 <p>Lies zuerst die Warnungen des Compilers über der Ausgabe: Welche Stellen meldet er, und
 welche nicht? Lies dann die Ausgabe: Welches der vier Ergebnisse ist schon heute falsch?
 Starte das Programm mehrmals – bleibt der Bestand gleich?</p>
@@ -203,21 +218,53 @@ warnt dort bei mehr Stellen.</p>
 <h3 id="zur-laufzeit-nachsehen">Zur Laufzeit nachsehen</h3>
 <p>Der Compiler sieht nur Typen. Wo auf einer Variablen vom Typ <code>Object</code> gesperrt wird, die
 zur Laufzeit ein <code>Integer</code> hält, schweigt er. Die JVM meldet jede solche Sperre, und der
-Flight Recorder zeichnet sie auf. Starte das Programm mit Diagnose und Aufzeichnung:</p>
-<pre><code class="language-shell">java -XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 -XX:StartFlightRecording=filename=wert.jfr spielwiese/Wertbasiert.java
+Flight Recorder zeichnet sie auf. Starte das Programm mit Diagnose und Aufzeichnung und
+lies die Aufzeichnung danach als Tabelle:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="diagnose" open>
+<summary>Kommandozeile</summary>
+<p>Starte mit Diagnose und Aufzeichnung:</p>
+<pre><code class="language-shell">java -XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 -XX:StartFlightRecording=filename=wert.jfr Wertbasiert.java
 </code></pre>
-<p>Die Konsole läuft dabei voll – je Sperre ein Eintrag. Lies die Aufzeichnung als Tabelle:</p>
+<p>Lies die Aufzeichnung als Tabelle:</p>
 <pre><code class="language-shell">jfr view SyncOnValueBasedClass wert.jfr
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="diagnose">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-valhalla-diagnose</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="diagnose">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-valhalla-diagnose</code></strong>.</p>
+</details>
+</div>
+<p>Die Konsole läuft dabei voll – je Sperre ein Eintrag; die Tabelle steht am Ende.</p>
 <p>In welcher Methode wird gesperrt, und auf welcher Klasse? Wie würdet Ihr so etwas in
 Eurem Bestand finden, etwa in einem Lasttest?</p>
 <h3 id="die-stellen-beheben">Die Stellen beheben</h3>
-<p>Behebe alle vier Stellen in <code>spielwiese/Wertbasiert.java</code> so, dass sie heute richtig
-arbeiten und mit Valhalla nicht brechen. Starte danach wieder:</p>
-<pre><code class="language-shell">java spielwiese/Wertbasiert.java
+<p>Behebe alle vier Stellen in <code>Wertbasiert.java</code> so, dass sie heute richtig arbeiten und
+mit Valhalla nicht brechen. Starte danach wieder:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="wertbasiert-behoben" open>
+<summary>Kommandozeile</summary>
+<p>Starte das Programm:</p>
+<pre><code class="language-shell">java Wertbasiert.java
 </code></pre>
+</details>
+<details class="skr-tabs__panel" name="wertbasiert-behoben">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
+</details>
+<details class="skr-tabs__panel" name="wertbasiert-behoben">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-valhalla-wertbasiert</code></strong>.</p>
+</details>
+</div>
 <p>Erst wenn keine Warnung mehr kommt und die Ausgabe stimmt, bist Du fertig.</p>
-<p>Die Lösung: Ersetze den Inhalt von <code>spielwiese/Wertbasiert.java</code> durch:</p>
+<p>Die Lösung: Ersetze den Inhalt von <code>Wertbasiert.java</code> durch:</p>
 <pre><code class="language-java">import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -232,16 +279,16 @@ import java.util.concurrent.TimeUnit;
  * Valhalla werden diese Klassen zu Wertklassen ohne Identität (JEP 401, Preview in
  * Java 28). Läuft ab Java 11:
  *
- *     java spielwiese/Wertbasiert.java
+ *     java Wertbasiert.java
  *
  * Der Compiler warnt dabei schon heute. Wo zur Laufzeit auf einer wertbasierten Klasse
  * synchronisiert wird, meldet die JVM mit:
  *
- *     java -XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 spielwiese/Wertbasiert.java
+ *     java -XX:+UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 Wertbasiert.java
  *
  * Mit einem Early-Access-Build von JDK 28 zeigt sich, was Valhalla daraus macht:
  *
- *     java --enable-preview spielwiese/Wertbasiert.java
+ *     java --enable-preview Wertbasiert.java
  */
 public class Wertbasiert {
 
@@ -340,22 +387,24 @@ Artikelnummer, nicht je Objekt.</li>
 <h3 id="kür-valhalla-ausprobieren-jdk-28-early-access">Kür: Valhalla ausprobieren (JDK 28 Early Access)</h3>
 <p>Lade einen Early-Access-Build von JDK 28 von <a href="https://jdk.java.net/28/">jdk.java.net/28</a>,
 entpacke ihn in einen eigenen Ordner und rufe dessen <code>bin/java</code> mit dem vollen Pfad auf
-– er ersetzt Dein JDK nicht. Mit Docker geht es ohne Installation, im Wurzelordner des
-Übungsprojekts:</p>
-<pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertbasiert.java
+– er ersetzt Dein JDK nicht. Mit Docker geht es ohne Installation, im Ordner
+<code>schwerpunkte/valhalla</code>:</p>
+<pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview Wertbasiert.java
 </code></pre>
+<p>Die beiden Kür-Schritte laufen nur auf der Kommandozeile: Eine Run Configuration nähme
+das JDK, mit dem Deine IDE Maven startet, nicht den Early-Access-Build.</p>
 <p>Starte zuerst den <strong>unveränderten</strong> Stand (<code>git stash</code>, danach <code>git stash pop</code>), dann
 Deine behobene Fassung, jeweils mit <code>--enable-preview</code>. Was geschieht mit den vier
 Stellen? Welche bricht beim Übersetzen, welche zur Laufzeit, und welche liefert plötzlich
 ein anderes Ergebnis?</p>
 <h3 id="kür-werte-im-speicher-jdk-28-early-access">Kür: Werte im Speicher (JDK 28 Early Access)</h3>
-<p><code>spielwiese/Wertklassen.java</code> legt fünf Millionen Lagerplätze an – als gewöhnlichen
+<p><code>Wertklassen.java</code> legt fünf Millionen Lagerplätze an – als gewöhnlichen
 Record und als Wert-Record – und misst Speicher und Durchlaufzeit. Starte es mit dem
 Early-Access-Build:</p>
-<pre><code class="language-shell">java --enable-preview spielwiese/Wertklassen.java
+<pre><code class="language-shell">java --enable-preview Wertklassen.java
 </code></pre>
 <p>Mit Docker:</p>
-<pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertklassen.java
+<pre><code class="language-shell">docker run --rm -v &quot;$PWD&quot;:/w -w /w openjdk:28-ea-jdk java --enable-preview Wertklassen.java
 </code></pre>
 <p>Wie viel Speicher und Zeit spart der Wert-Record? Warum ist <code>GroßerWertPlatz</code> mit zwei
 <code>int</code> nicht kleiner, sondern größer? Die Visualisierung gibt die Antwort.</p>
@@ -413,7 +462,7 @@ Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben sol
 ### Den Bestand prüfen
 
 - [ ] Du kannst für jede der vier Stellen in `Wertbasiert` sagen, warum sie auf Identität setzt und was ihre Ausgabe heute zeigt.
-- [ ] Du hast die Stellen behoben, und `java spielwiese/Wertbasiert.java` übersetzt ohne Warnung.
+- [ ] Du hast die Stellen behoben, und `Wertbasiert.java` übersetzt beim Start ohne Warnung.
 
 ### Bewertung
 
@@ -434,9 +483,9 @@ Valhalla daraus macht.
 
 &gt; **Hinweis:** Für die Pflicht reicht **JDK 21 oder 25**. Die beiden Kür-Schritte
 &gt; brauchen einen **Early-Access-Build von JDK 28** – nur, wenn Du ihn installieren darfst
-&gt; oder Docker hast. Die Befehle laufen im Terminal – in IntelliJ über *View → Tool
-&gt; Windows → Terminal*, in Eclipse über *Window → Show View → Terminal*, jeweils im
-&gt; Wurzelordner des Übungsprojekts.
+&gt; oder Docker hast. Alles liegt im Modul `schwerpunkte/valhalla`; die Befehle laufen in
+&gt; diesem Ordner. Zu den Befehlen der Pflicht gibt es Run Configurations; sie rufen über
+&gt; Maven genau diesen Befehl auf, mit dem JDK, mit dem Deine IDE Maven startet.
 
 ## Arbeitsschritte
 
@@ -452,14 +501,40 @@ Visualisierung [Project Valhalla: Objekte ohne Identität](valhalla.md).
 
 ### Den Bestand prüfen
 
-`spielwiese/Wertbasiert.java` enthält vier Stellen aus einem Bestellsystem, wie sie in
-echtem Code vorkommen: ein Lager, das auf seinem Zähler sperrt, einen Cache für
-Tageskurse, einen Vergleich zweier Mengen und einen Zähler je Artikelnummer. Starte das
-Programm:
+`Wertbasiert.java` enthält vier Stellen aus einem Bestellsystem, wie sie in echtem Code
+vorkommen: ein Lager, das auf seinem Zähler sperrt, einen Cache für Tageskurse, einen
+Vergleich zweier Mengen und einen Zähler je Artikelnummer. Es startet direkt aus dem
+Quelltext; der Compiler übersetzt es dabei und warnt. Starte das Programm:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Wechsle in den Ordner des Moduls und starte das Programm – alle weiteren Befehle laufen in diesem Ordner:
 
 ```shell
-java spielwiese/Wertbasiert.java
+cd schwerpunkte/valhalla &amp;&amp; java Wertbasiert.java
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-valhalla-wertbasiert`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-valhalla-wertbasiert`**.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Lies zuerst die Warnungen des Compilers über der Ausgabe: Welche Stellen meldet er, und
 welche nicht? Lies dann die Ausgabe: Welches der vier Ergebnisse ist schon heute falsch?
@@ -472,33 +547,88 @@ Starte das Programm mehrmals – bleibt der Bestand gleich?
 
 Der Compiler sieht nur Typen. Wo auf einer Variablen vom Typ `Object` gesperrt wird, die
 zur Laufzeit ein `Integer` hält, schweigt er. Die JVM meldet jede solche Sperre, und der
-Flight Recorder zeichnet sie auf. Starte das Programm mit Diagnose und Aufzeichnung:
+Flight Recorder zeichnet sie auf. Starte das Programm mit Diagnose und Aufzeichnung und
+lies die Aufzeichnung danach als Tabelle:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;diagnose&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte mit Diagnose und Aufzeichnung:
 
 ```shell
-java -XX:&#43;UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 -XX:StartFlightRecording=filename=wert.jfr spielwiese/Wertbasiert.java
+java -XX:&#43;UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 -XX:StartFlightRecording=filename=wert.jfr Wertbasiert.java
 ```
 
-Die Konsole läuft dabei voll – je Sperre ein Eintrag. Lies die Aufzeichnung als Tabelle:
+Lies die Aufzeichnung als Tabelle:
 
 ```shell
 jfr view SyncOnValueBasedClass wert.jfr
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;diagnose&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-valhalla-diagnose`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;diagnose&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-valhalla-diagnose`**.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Die Konsole läuft dabei voll – je Sperre ein Eintrag; die Tabelle steht am Ende.
 
 In welcher Methode wird gesperrt, und auf welcher Klasse? Wie würdet Ihr so etwas in
 Eurem Bestand finden, etwa in einem Lasttest?
 
 ### Die Stellen beheben
 
-Behebe alle vier Stellen in `spielwiese/Wertbasiert.java` so, dass sie heute richtig
-arbeiten und mit Valhalla nicht brechen. Starte danach wieder:
+Behebe alle vier Stellen in `Wertbasiert.java` so, dass sie heute richtig arbeiten und
+mit Valhalla nicht brechen. Starte danach wieder:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert-behoben&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Starte das Programm:
 
 ```shell
-java spielwiese/Wertbasiert.java
+java Wertbasiert.java
 ```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert-behoben&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`schwerpunkte-valhalla-wertbasiert`**.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;wertbasiert-behoben&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`schwerpunkte-valhalla-wertbasiert`**.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
 
 Erst wenn keine Warnung mehr kommt und die Ausgabe stimmt, bist Du fertig.
 
-Die Lösung: Ersetze den Inhalt von `spielwiese/Wertbasiert.java` durch:
+Die Lösung: Ersetze den Inhalt von `Wertbasiert.java` durch:
 
 ```java
 import java.math.BigDecimal;
@@ -515,16 +645,16 @@ import java.util.concurrent.TimeUnit;
  * Valhalla werden diese Klassen zu Wertklassen ohne Identität (JEP 401, Preview in
  * Java 28). Läuft ab Java 11:
  *
- *     java spielwiese/Wertbasiert.java
+ *     java Wertbasiert.java
  *
  * Der Compiler warnt dabei schon heute. Wo zur Laufzeit auf einer wertbasierten Klasse
  * synchronisiert wird, meldet die JVM mit:
  *
- *     java -XX:&#43;UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 spielwiese/Wertbasiert.java
+ *     java -XX:&#43;UnlockDiagnosticVMOptions -XX:DiagnoseSyncOnValueBasedClasses=2 Wertbasiert.java
  *
  * Mit einem Early-Access-Build von JDK 28 zeigt sich, was Valhalla daraus macht:
  *
- *     java --enable-preview spielwiese/Wertbasiert.java
+ *     java --enable-preview Wertbasiert.java
  */
 public class Wertbasiert {
 
@@ -627,12 +757,15 @@ Die Ausgabe lautet danach:
 
 Lade einen Early-Access-Build von JDK 28 von [jdk.java.net/28](https://jdk.java.net/28/),
 entpacke ihn in einen eigenen Ordner und rufe dessen `bin/java` mit dem vollen Pfad auf
-– er ersetzt Dein JDK nicht. Mit Docker geht es ohne Installation, im Wurzelordner des
-Übungsprojekts:
+– er ersetzt Dein JDK nicht. Mit Docker geht es ohne Installation, im Ordner
+`schwerpunkte/valhalla`:
 
 ```shell
-docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertbasiert.java
+docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview Wertbasiert.java
 ```
+
+Die beiden Kür-Schritte laufen nur auf der Kommandozeile: Eine Run Configuration nähme
+das JDK, mit dem Deine IDE Maven startet, nicht den Early-Access-Build.
 
 Starte zuerst den **unveränderten** Stand (`git stash`, danach `git stash pop`), dann
 Deine behobene Fassung, jeweils mit `--enable-preview`. Was geschieht mit den vier
@@ -641,18 +774,18 @@ ein anderes Ergebnis?
 
 ### Kür: Werte im Speicher (JDK 28 Early Access)
 
-`spielwiese/Wertklassen.java` legt fünf Millionen Lagerplätze an – als gewöhnlichen
+`Wertklassen.java` legt fünf Millionen Lagerplätze an – als gewöhnlichen
 Record und als Wert-Record – und misst Speicher und Durchlaufzeit. Starte es mit dem
 Early-Access-Build:
 
 ```shell
-java --enable-preview spielwiese/Wertklassen.java
+java --enable-preview Wertklassen.java
 ```
 
 Mit Docker:
 
 ```shell
-docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview spielwiese/Wertklassen.java
+docker run --rm -v &#34;$PWD&#34;:/w -w /w openjdk:28-ea-jdk java --enable-preview Wertklassen.java
 ```
 
 Wie viel Speicher und Zeit spart der Wert-Record? Warum ist `GroßerWertPlatz` mit zwei

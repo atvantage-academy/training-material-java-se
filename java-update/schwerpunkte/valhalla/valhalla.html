@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3fca0b09" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3729ca90" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -51,7 +51,7 @@
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
 
 <link rel="stylesheet" href="../../../java-update/schwerpunkte/valhalla/valhalla.css?v=089eb215">
-<script src="../../../java-update/schwerpunkte/valhalla/valhalla.js?v=caa8078b" defer></script>
+<script src="../../../java-update/schwerpunkte/valhalla/valhalla.js?v=f8680a4c" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -90,8 +90,8 @@
        openjdk.org/projects/jdk/28 (JEP 401 und 539 integriert, Preview in 28); EA-Build
        jdk.java.net/28 (28-ea+20). VOR JEDER DURCHFÜHRUNG NACHZIEHEN.
      - ALLE ERGEBNISSE GEMESSEN (2026-10-23, macOS, 28-ea+20, bestätigt in Docker   durable-ok
-       openjdk:28-ea-20-jdk): Abschnitt 1 mit spielwiese/Wertbasiert.java und kleinen
-       Proben; Abschnitt 2 mit spielwiese/Wertklassen.java (fünf Millionen Plätze,
+       openjdk:28-ea-20-jdk): Abschnitt 1 mit schwerpunkte/valhalla/Wertbasiert.java und kleinen
+       Proben; Abschnitt 2 mit schwerpunkte/valhalla/Wertklassen.java (fünf Millionen Plätze,
        Array gemischt, bester von zehn Durchläufen). Die Ansicht „null-restricted“ ist
        ein Entwurf und schematisch – das steht auch auf der Seite.
      - Jeder Zustand steht in der Adresse (#/?objekt=…&layout=…&jep=…), über skr.state.
@@ -115,7 +115,7 @@ IO.println(Objects.hasIdentity(a));    // false
 <div class="vh-knoepfe" role="group" aria-label="Ansicht des Speichers" id="vh-layouts"></div>
 <div class="vh-bild" id="vh-bild"></div>
 <div class="vh-karte" id="vh-layout-karte" aria-live="polite"></div>
-<p class="vh-fussnote">Gemessen mit <code>spielwiese/Wertklassen.java</code> auf JDK 28 Early Access (28-ea+20): fünf Millionen Plätze, Reihenfolge gemischt, bester von zehn Durchläufen. Die Anordnung im Bild ist schematisch.</p>
+<p class="vh-fussnote">Gemessen mit <code>Wertklassen.java</code> aus dem Übungsprojekt auf JDK 28 Early Access (28-ea+20): fünf Millionen Plätze, Reihenfolge gemischt, bester von zehn Durchläufen. Die Anordnung im Bild ist schematisch.</p>
 <h2 id="abhaengigkeiten">3 · Was davon abhängt</h2>
 <p>Valhalla ist kein einzelnes Feature, sondern eine Kette. Manches liegt schon im JDK, manches ist Preview, manches erst ein Entwurf. Wähle einen Schritt:</p>
 <ol class="vh-kette" id="vh-kette"></ol>
