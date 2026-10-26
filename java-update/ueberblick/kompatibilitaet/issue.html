@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.17.0">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.17.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.17.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lass jdeps und jdeprscan über die übersetzten Klassen der Kompatibilitätsmodule laufen und finde heraus, welche Brüche sie melden, bevor ein Test sie zeigt – und welche nicht.","duration":20,"fields":{"didaktikon":{"objectives":["Du lässt `jdeps` und `jdeprscan` über übersetzte Klassen laufen und liest ihre Ausgabe.","Du ordnest jedem Bruch zu, ob ein Werkzeug ihn vorher meldet – und wenn nicht, warum nicht.","Du erklärst, warum Werkzeuge, die Bytecode lesen, Tests auf dem Ziel-JDK nicht ersetzen."],"reflective_questions":["Beide Werkzeuge lesen Bytecode. Welche Arten von Brüchen können sie deshalb grundsätzlich nicht finden?","Wo im Build Eures Projekts würden `jdeps` und `jdeprscan` laufen – und was tut Ihr mit einem Fund in einer Bibliothek?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich Brüche finden, bevor ein Test oder die Produktion sie zeigt, damit ich den Umstieg planen kann, statt von ihm überrascht zu werden."},"skriptorium":{"definition_of_done":["Du hast `jdeps` und `jdeprscan` über alle Kompatibilitätsmodule laufen lassen.","Du hast für jeden der neun Brüche und für die Klassen in `ueberblick/werkzeuge` notiert, ob und mit welchem Werkzeug sie sich vorher finden lassen."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Brüche finden, bevor der Test sie findet","topics":["jdeps","jdeprscan","Abgekündigte APIs","Fehlende Abhängigkeiten"],"untranslated":null,"url":"/java-update/ueberblick/kompatibilitaet/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lass jdeps und jdeprscan über die übersetzten Klassen der Kompatibilitätsmodule laufen und finde heraus, welche Brüche sie melden, bevor ein Test sie zeigt – und welche nicht.","duration":20,"fields":{"didaktikon":{"objectives":["Du lässt `jdeps` und `jdeprscan` über übersetzte Klassen laufen und liest ihre Ausgabe.","Du erklärst, warum Werkzeuge, die Bytecode lesen, Tests auf dem Ziel-JDK nicht ersetzen."],"reflective_questions":["Beide Werkzeuge lesen Bytecode. Welche Arten von Brüchen können sie deshalb grundsätzlich nicht finden?","Wo im Build Eures Projekts würden `jdeps` und `jdeprscan` laufen – und was tut Ihr mit einem Fund in einer Bibliothek?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich Brüche finden, bevor ein Test oder die Produktion sie zeigt, damit ich den Umstieg planen kann, statt von ihm überrascht zu werden."},"skriptorium":{"definition_of_done":["Du hast `jdeps` und `jdeprscan` über alle Kompatibilitätsmodule laufen lassen."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Brüche finden, bevor der Test sie findet","topics":["jdeps","jdeprscan","Abgekündigte APIs","Fehlende Abhängigkeiten"],"untranslated":null,"url":"/java-update/ueberblick/kompatibilitaet/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0a6ceff2" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f7986b6a" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=0a6ceff2"
+     data-index="../../../skriptorium/search/de.json?v=f7986b6a"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -142,7 +142,6 @@
 <h2 id="lernziele">Lernziele</h2>
 <ul>
 <li>Du lässt <code>jdeps</code> und <code>jdeprscan</code> über übersetzte Klassen laufen und liest ihre Ausgabe.</li>
-<li>Du ordnest jedem Bruch zu, ob ein Werkzeug ihn vorher meldet – und wenn nicht, warum nicht.</li>
 <li>Du erklärst, warum Werkzeuge, die Bytecode lesen, Tests auf dem Ziel-JDK nicht ersetzen.</li>
 </ul>
 </div>
@@ -151,7 +150,6 @@
 <h2 id="definition-of-done">Definition of Done</h2>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast jdeps und jdeprscan über alle Kompatibilitätsmodule laufen lassen." disabled="disabled"> Du hast <code>jdeps</code> und <code>jdeprscan</code> über alle Kompatibilitätsmodule laufen lassen.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast für jeden der neun Brüche und für die Klassen in ueberblick/werkzeuge notiert, ob und mit welchem Werkzeug sie sich vorher finden lassen." disabled="disabled"> Du hast für jeden der neun Brüche und für die Klassen in <code>ueberblick/werkzeuge</code> notiert, ob und mit welchem Werkzeug sie sich vorher finden lassen.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
@@ -202,7 +200,9 @@ des JDK werden benutzt?):</p>
 <p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>ueberblick-werkzeuge-jdeps</code></strong>.</p>
 </details>
 </div>
-<p>Zwischen den Zeilen von Maven steht die Ausgabe von <code>jdeps</code>. Die Werkzeuge antworten in
+<p>Zwischen den Zeilen von Maven steht die Ausgabe von <code>jdeps</code>. Davor übersetzt Maven die
+Module; die Warnungen dabei – etwa <code>Ab Release 9 ist &quot;_&quot; ein Schlüsselwort</code> – meldet
+der Compiler <code>javac</code>, der den Quelltext liest, nicht <code>jdeps</code>. Die Werkzeuge antworten in
 der Sprache Deines Systems; auf Englisch heißt „nicht gefunden“ „not found“:</p>
 <pre><code class="language-text">classes -&gt; nicht gefunden
    kompatibilitaet.jaxb.BestellungXml   -&gt; javax.xml.bind.annotation.XmlAttribute   nicht gefunden
@@ -221,7 +221,7 @@ sun.misc.Unsafe                          See https://openjdk.org/jeps/260
 </code></pre>
 <p>Welche Klasse nutzt eine interne API, und was schlägt <code>jdeps</code> als Ersatz vor? Dass
 das Modul <code>reflection</code> hier fehlt, obwohl es auf ein privates Feld von <code>ArrayList</code>
-zugreift, merk Dir für die Bilanz.</p>
+zugreift, merk Dir.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>Nummernkreis</code> lässt sich nur übersetzen, weil das Modul mit
 <code>maven.compiler.source</code> und <code>maven.compiler.target</code> 8 baut statt mit
@@ -264,7 +264,7 @@ class ueberblick/werkzeuge/Exportwächter verwendet die veraltete Methode java/l
 <p><code>&lt;init&gt;</code> steht für einen Konstruktor. Welche Module nutzen noch etwas, das entfernt
 werden soll? Und was bedeutet die Zeile <code>Fehler: Klasse javax/xml/bind/JAXB nicht gefunden</code>?</p>
 <h3 id="optional-ein-werkzeug-selbst-aufrufen">Optional: Ein Werkzeug selbst aufrufen</h3>
-<p>Dieser Schritt geht nur auf der Kommandozeile; für die Bilanz brauchst Du ihn nicht.
+<p>Dieser Schritt geht nur auf der Kommandozeile.
 Maven nimmt Dir hier nur die Tipparbeit ab. In Deinem eigenen Projekt rufst Du die
 Werkzeuge direkt auf – auf ein Verzeichnis mit Klassen oder auf ein JAR. Öffne dazu ein
 Terminal im Wurzelordner des Übungsprojekts (in der IDE: das eingebaute Terminal).</p>
@@ -278,81 +278,6 @@ Terminal im Wurzelordner des Übungsprojekts (in der IDE: das eingebaute Termina
 <pre><code class="language-shell">jdeprscan --release 25 --for-removal ueberblick/werkzeuge/target/classes
 </code></pre>
 <p>Was ändert sich jeweils gegenüber <code>--release 21</code>?</p>
-<h3 id="die-bilanz-ziehen">Die Bilanz ziehen</h3>
-<p>Notiere für jeden der neun Brüche und für die Klassen in <code>werkzeuge</code>, ob eines der
-Werkzeuge sie gemeldet hat. Für die, die keines findet: Warum nicht – und wann zeigt
-sich der Bruch stattdessen?</p>
-<p>Das Ergebnis, gemessen mit JDK 25:</p>
-<table>
-	<thead>
-			<tr>
-					<th>Bruch (Modul)</th>
-					<th><code>jdeps</code></th>
-					<th><code>jdeprscan</code></th>
-					<th>Sonst sichtbar …</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td><code>jaxb</code></td>
-					<td>✓ <code>javax.xml.bind</code> fehlt</td>
-					<td>bricht mit „nicht gefunden“ ab</td>
-					<td>im Test, beim Übersetzen mit Release 11</td>
-			</tr>
-			<tr>
-					<td><code>security-manager</code></td>
-					<td>–</td>
-					<td>✓ <code>SecurityManager</code>, <code>forRemoval=true</code></td>
-					<td>im Test</td>
-			</tr>
-			<tr>
-					<td><code>werkzeuge</code>: <code>Nummernkreis</code></td>
-					<td>✓ <code>--jdk-internals</code>: <code>sun.misc.Unsafe</code></td>
-					<td>–</td>
-					<td>als Warnung beim Übersetzen und ab JDK 24 beim ersten Aufruf</td>
-			</tr>
-			<tr>
-					<td><code>werkzeuge</code>: <code>Lagerbestand</code></td>
-					<td>–</td>
-					<td>✓ bis Release 24; JDK 25 hat die Konstruktoren nicht mehr zum Entfernen vorgesehen</td>
-					<td>als Warnung beim Übersetzen</td>
-			</tr>
-			<tr>
-					<td><code>werkzeuge</code>: <code>Druckauftrag</code></td>
-					<td>–</td>
-					<td>✓ <code>finalize()</code></td>
-					<td>als Warnung beim Übersetzen; läuft, bis die Finalisierung entfernt wird (JEP 421)</td>
-			</tr>
-			<tr>
-					<td><code>werkzeuge</code>: <code>Exportwächter</code></td>
-					<td>–</td>
-					<td>✓ <code>Thread.stop()</code></td>
-					<td>als Warnung beim Übersetzen; seit Java 20 eine <code>UnsupportedOperationException</code> – erst, wenn ein Export hängt</td>
-			</tr>
-			<tr>
-					<td><code>reflection</code></td>
-					<td>–</td>
-					<td>–</td>
-					<td>im Test: Das Feld <code>elementData</code> steht als Text im Code, nicht als Abhängigkeit im Bytecode</td>
-			</tr>
-			<tr>
-					<td><code>unterstrich</code>, <code>eingeschraenkte-bezeichner</code>, <code>sequenced</code></td>
-					<td>–</td>
-					<td>–</td>
-					<td>beim Übersetzen mit höherem Release: Der Bruch steckt im Quelltext, nicht im Bytecode</td>
-			</tr>
-			<tr>
-					<td><code>datumsformat</code>, <code>zeitstempel</code>, <code>zeichensatz</code></td>
-					<td>–</td>
-					<td>–</td>
-					<td>erst im Test oder in Produktion: Die API ist dieselbe, nur ihr Verhalten ist anders</td>
-			</tr>
-	</tbody>
-</table>
-<p>Zwei der neun Brüche, dazu alle Klassen in <code>werkzeuge</code>. Die Werkzeuge finden, was
-fehlt, was intern ist oder was verschwinden soll – nicht, was anders läuft. Sie
-ersetzen deshalb weder das Übersetzen mit dem neuen Release noch die Tests auf dem
-Ziel-JDK; sie sagen nur früher und ohne Ausführung, wo es sicher bricht.</p>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
@@ -377,7 +302,6 @@ Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben sol
 ## Lernziele
 
 - Du lässt `jdeps` und `jdeprscan` über übersetzte Klassen laufen und liest ihre Ausgabe.
-- Du ordnest jedem Bruch zu, ob ein Werkzeug ihn vorher meldet – und wenn nicht, warum nicht.
 - Du erklärst, warum Werkzeuge, die Bytecode lesen, Tests auf dem Ziel-JDK nicht ersetzen.
 
 &lt;/div&gt;
@@ -389,7 +313,6 @@ Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben sol
 ## Definition of Done
 
 - [ ] Du hast `jdeps` und `jdeprscan` über alle Kompatibilitätsmodule laufen lassen.
-- [ ] Du hast für jeden der neun Brüche und für die Klassen in `ueberblick/werkzeuge` notiert, ob und mit welchem Werkzeug sie sich vorher finden lassen.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -462,7 +385,9 @@ Starte über *Terminal → Run Task…* den Task **`ueberblick-werkzeuge-jdeps`*
 
 &lt;/div&gt;
 
-Zwischen den Zeilen von Maven steht die Ausgabe von `jdeps`. Die Werkzeuge antworten in
+Zwischen den Zeilen von Maven steht die Ausgabe von `jdeps`. Davor übersetzt Maven die
+Module; die Warnungen dabei – etwa `Ab Release 9 ist &#34;_&#34; ein Schlüsselwort` – meldet
+der Compiler `javac`, der den Quelltext liest, nicht `jdeps`. Die Werkzeuge antworten in
 der Sprache Deines Systems; auf Englisch heißt „nicht gefunden“ „not found“:
 
 ```text
@@ -488,7 +413,7 @@ sun.misc.Unsafe                          See https://openjdk.org/jeps/260
 
 Welche Klasse nutzt eine interne API, und was schlägt `jdeps` als Ersatz vor? Dass
 das Modul `reflection` hier fehlt, obwohl es auf ein privates Feld von `ArrayList`
-zugreift, merk Dir für die Bilanz.
+zugreift, merk Dir.
 
 &gt; **Hinweis:** `Nummernkreis` lässt sich nur übersetzen, weil das Modul mit
 &gt; `maven.compiler.source` und `maven.compiler.target` 8 baut statt mit
@@ -555,7 +480,7 @@ gefunden`?
 
 ### Optional: Ein Werkzeug selbst aufrufen
 
-Dieser Schritt geht nur auf der Kommandozeile; für die Bilanz brauchst Du ihn nicht.
+Dieser Schritt geht nur auf der Kommandozeile.
 Maven nimmt Dir hier nur die Tipparbeit ab. In Deinem eigenen Projekt rufst Du die
 Werkzeuge direkt auf – auf ein Verzeichnis mit Klassen oder auf ein JAR. Öffne dazu ein
 Terminal im Wurzelordner des Übungsprojekts (in der IDE: das eingebaute Terminal).
@@ -580,31 +505,6 @@ jdeprscan --release 25 --for-removal ueberblick/werkzeuge/target/classes
 
 Was ändert sich jeweils gegenüber `--release 21`?
 
-### Die Bilanz ziehen
-
-Notiere für jeden der neun Brüche und für die Klassen in `werkzeuge`, ob eines der
-Werkzeuge sie gemeldet hat. Für die, die keines findet: Warum nicht – und wann zeigt
-sich der Bruch stattdessen?
-
-Das Ergebnis, gemessen mit JDK 25:
-
-| Bruch (Modul) | `jdeps` | `jdeprscan` | Sonst sichtbar … |
-|---|---|---|---|
-| `jaxb` | ✓ `javax.xml.bind` fehlt | bricht mit „nicht gefunden“ ab | im Test, beim Übersetzen mit Release 11 |
-| `security-manager` | – | ✓ `SecurityManager`, `forRemoval=true` | im Test |
-| `werkzeuge`: `Nummernkreis` | ✓ `--jdk-internals`: `sun.misc.Unsafe` | – | als Warnung beim Übersetzen und ab JDK 24 beim ersten Aufruf |
-| `werkzeuge`: `Lagerbestand` | – | ✓ bis Release 24; JDK 25 hat die Konstruktoren nicht mehr zum Entfernen vorgesehen | als Warnung beim Übersetzen |
-| `werkzeuge`: `Druckauftrag` | – | ✓ `finalize()` | als Warnung beim Übersetzen; läuft, bis die Finalisierung entfernt wird (JEP 421) |
-| `werkzeuge`: `Exportwächter` | – | ✓ `Thread.stop()` | als Warnung beim Übersetzen; seit Java 20 eine `UnsupportedOperationException` – erst, wenn ein Export hängt |
-| `reflection` | – | – | im Test: Das Feld `elementData` steht als Text im Code, nicht als Abhängigkeit im Bytecode |
-| `unterstrich`, `eingeschraenkte-bezeichner`, `sequenced` | – | – | beim Übersetzen mit höherem Release: Der Bruch steckt im Quelltext, nicht im Bytecode |
-| `datumsformat`, `zeitstempel`, `zeichensatz` | – | – | erst im Test oder in Produktion: Die API ist dieselbe, nur ihr Verhalten ist anders |
-
-Zwei der neun Brüche, dazu alle Klassen in `werkzeuge`. Die Werkzeuge finden, was
-fehlt, was intern ist oder was verschwinden soll – nicht, was anders läuft. Sie
-ersetzen deshalb weder das Übersetzen mit dem neuen Release noch die Tests auf dem
-Ziel-JDK; sie sagen nur früher und ohne Ausführung, wo es sicher bricht.
-
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
 
@@ -628,14 +528,14 @@ Ziel-JDK; sie sagen nur früher und ohne Ausführung, wo es sicher bricht.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#fehlende-abhängigkeiten-suchen" class="skr-toc--h3">Fehlende Abhängigkeiten suchen</a><a href="#abgekündigte-apis-suchen" class="skr-toc--h3">Abgekündigte APIs suchen</a><a href="#optional-ein-werkzeug-selbst-aufrufen" class="skr-toc--h3">Optional: Ein Werkzeug selbst aufrufen</a><a href="#die-bilanz-ziehen" class="skr-toc--h3">Die Bilanz ziehen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#fehlende-abhängigkeiten-suchen" class="skr-toc--h3">Fehlende Abhängigkeiten suchen</a><a href="#abgekündigte-apis-suchen" class="skr-toc--h3">Abgekündigte APIs suchen</a><a href="#optional-ein-werkzeug-selbst-aufrufen" class="skr-toc--h3">Optional: Ein Werkzeug selbst aufrufen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 3 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 2 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>
