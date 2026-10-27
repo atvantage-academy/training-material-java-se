@@ -32,15 +32,15 @@
 <link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
 <link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
-<meta name="generator" content="Skriptorium 1.18.0">
-<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.1.0"}],"internal":false,"languages":["de"],"skriptorium":"1.18.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.0"},{"name":"atvantage","version":"1.0.0"},{"name":"default","version":"1.18.0"}]}</script>
+<meta name="generator" content="Skriptorium 1.19.0">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.2.0"}],"internal":false,"languages":["de"],"skriptorium":"1.19.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.19.0"}]}</script>
 <script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Sortiere, filtere, summiere und gruppiere die Konten der Bank mit Lambdas, Methodenreferenzen und Streams.","duration":80,"fields":{"didaktikon":{"objectives":["Du sortierst Objekte mit einem `Comparator`, den Du als Lambda und als Methodenreferenz schreibst.","Du formulierst Auswertungen als Stream-Pipeline aus Filtern, Abbilden und einer Endoperation.","Du gruppierst Objekte mit `Collectors.groupingBy`.","Du gibst ein Ergebnis, das fehlen kann, als `Optional` zurück und wertest es aus."],"reflective_questions":["Wann ist eine Methodenreferenz lesbarer als ein Lambda – und wann nicht?","Warum ist ein `forEach`, das eine äußere Variable verändert, keine gute Pipeline?","Was ist der Unterschied zwischen `orElse` und `orElseThrow` bei der Kontosuche – und wer entscheidet, welche Variante richtig ist?","Welchen Typ hat ein Lambda in Java – und in Deiner bisherigen Sprache?"],"user_story":"Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelines formulieren, damit im Code steht, **was** ich wissen will, und nicht, wie die Schleife läuft."},"skriptorium":{"definition_of_done":["Die Konten lassen sich nach Stand sortiert ausgeben – einmal mit Lambda, einmal mit `Comparator.comparing` und Methodenreferenz.","Eine Pipeline liefert alle Konten mit negativem Stand.","Eine Pipeline liefert die Summe aller Stände – ohne Schleife und ohne äußere Variable.","Eine Pipeline gruppiert die Konten nach ihrer Inhaberin bzw. ihrem Inhaber.","Die Suche nach einer IBAN gibt ein `Optional\u003cKonto\u003e` zurück; der Aufrufer behandelt beide Fälle.","Das Programm startet und läuft fehlerfrei."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Konten mit Streams auswerten","topics":["Lambdas","Streams","Optional","Banking"],"untranslated":null,"url":"/java-basics/oo-umsteiger/lambdas-streams/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=600c56bb" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=5b85456e" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=ba279d86" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -49,9 +49,9 @@
 
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
-<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=04cc011a">
-<link rel="stylesheet" href="../../../extensions/didaktikon/exercise.css?v=d44ba6e9">
-<script src="../../../skriptorium/guide-layout.js?v=207db517" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=5326f8e9">
+<link rel="stylesheet" href="../../../extensions/didaktikon/exercise.css?v=3f1eac2c">
+<script src="../../../skriptorium/guide-layout.js?v=203e123a" defer></script>
 
 
 </head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=5b85456e"
+     data-index="../../../skriptorium/search/de.json?v=ba279d86"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -138,8 +138,11 @@
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
 <p>Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelines formulieren, damit im Code steht, <strong>was</strong> ich wissen will, und nicht, wie die Schleife läuft.</p>
 </div>
-<div class="skr-callout skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
-<h2 id="lernziele">Lernziele</h2>
+</div>
+<div class="skr-guide-panels" data-skr-arrangement="fold">
+<details class="skr-fold skr-didaktikon-guide-panels" data-skr-slot="guide.panels">
+<summary>Lernziele</summary>
+<div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
 <li>Du sortierst Objekte mit einem <code>Comparator</code>, den Du als Lambda und als Methodenreferenz schreibst.</li>
 <li>Du formulierst Auswertungen als Stream-Pipeline aus Filtern, Abbilden und einer Endoperation.</li>
@@ -147,9 +150,10 @@
 <li>Du gibst ein Ergebnis, das fehlen kann, als <code>Optional</code> zurück und wertest es aus.</li>
 </ul>
 </div>
-</div>
+</details>
+<details class="skr-fold">
+<summary>Definition of Done</summary>
 <div class="skr-guide-done">
-<h2 id="definition-of-done">Definition of Done</h2>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Konten lassen sich nach Stand sortiert ausgeben – einmal mit Lambda, einmal mit Comparator.comparing und Methodenreferenz." disabled="disabled"> Die Konten lassen sich nach Stand sortiert ausgeben – einmal mit Lambda, einmal mit <code>Comparator.comparing</code> und Methodenreferenz.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eine Pipeline liefert alle Konten mit negativem Stand." disabled="disabled"> Eine Pipeline liefert alle Konten mit negativem Stand.</li>
@@ -159,6 +163,8 @@
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Programm startet und läuft fehlerfrei." disabled="disabled"> Das Programm startet und läuft fehlerfrei.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
+</div>
+</details>
 </div>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="sortieren-vom-lambda-zur-methodenreferenz">Sortieren: vom Lambda zur Methodenreferenz</h3>
@@ -227,9 +233,14 @@ Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelin
 
 &lt;/div&gt;
 
-&lt;div class=&#34;skr-callout skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+&lt;/div&gt;
 
-## Lernziele
+&lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-panels&#34; data-skr-slot=&#34;guide.panels&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Lernziele&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
 - Du sortierst Objekte mit einem `Comparator`, den Du als Lambda und als Methodenreferenz schreibst.
 - Du formulierst Auswertungen als Stream-Pipeline aus Filtern, Abbilden und einer Endoperation.
@@ -238,11 +249,12 @@ Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelin
 
 &lt;/div&gt;
 
-&lt;/div&gt;
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Definition of Done&lt;/summary&gt;
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
-
-## Definition of Done
 
 - [ ] Die Konten lassen sich nach Stand sortiert ausgeben – einmal mit Lambda, einmal mit `Comparator.comparing` und Methodenreferenz.
 - [ ] Eine Pipeline liefert alle Konten mit negativem Stand.
@@ -251,6 +263,10 @@ Als Entwickler:in möchte ich Auswertungen über die Konten der Bank als Pipelin
 - [ ] Die Suche nach einer IBAN gibt ein `Optional&lt;Konto&gt;` zurück; der Aufrufer behandelt beide Fälle.
 - [ ] Das Programm startet und läuft fehlerfrei.
 - [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+&lt;/details&gt;
 
 &lt;/div&gt;
 
@@ -330,7 +346,7 @@ behandle beide Fälle.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#definition-of-done">Definition of Done</a><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#sortieren-vom-lambda-zur-methodenreferenz" class="skr-toc--h3">Sortieren: vom Lambda zur Methodenreferenz</a><a href="#filtern-konten-im-minus" class="skr-toc--h3">Filtern: Konten im Minus</a><a href="#summieren-der-gesamtbestand" class="skr-toc--h3">Summieren: der Gesamtbestand</a><a href="#gruppieren-konten-je-inhaberin" class="skr-toc--h3">Gruppieren: Konten je Inhaber:in</a><a href="#suchen-mit-optional" class="skr-toc--h3">Suchen mit Optional</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#sortieren-vom-lambda-zur-methodenreferenz" class="skr-toc--h3">Sortieren: vom Lambda zur Methodenreferenz</a><a href="#filtern-konten-im-minus" class="skr-toc--h3">Filtern: Konten im Minus</a><a href="#summieren-der-gesamtbestand" class="skr-toc--h3">Summieren: der Gesamtbestand</a><a href="#gruppieren-konten-je-inhaberin" class="skr-toc--h3">Gruppieren: Konten je Inhaber:in</a><a href="#suchen-mit-optional" class="skr-toc--h3">Suchen mit Optional</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
