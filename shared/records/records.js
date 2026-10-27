@@ -93,6 +93,8 @@
 
   function zeichnen() {
     const t = teile[aktuell];
+    // Der Reiter der Gruppe öffnet sich mit, etwa wenn die Adresse einen Teil vorgibt.
+    document.getElementById("rec-panel-" + t.gruppe).open = true;
     document.querySelectorAll(".rec-knopf").forEach(function (k) {
       k.setAttribute("aria-pressed", String(Number(k.dataset.i) === aktuell));
     });

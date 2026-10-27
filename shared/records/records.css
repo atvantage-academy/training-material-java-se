@@ -1,10 +1,8 @@
 .rec-lead{color:var(--skr-color-ink-muted);margin:0 0 .75rem;}
 .rec-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
-.rec-buehne{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1.25rem;align-items:start;}
-@media (max-width:860px){.rec-buehne{grid-template-columns:minmax(0,1fr);}}
+.rec-buehne{display:flex;flex-direction:column;gap:1.25rem;}
 .rec-quelle pre{margin:0;overflow-x:auto;}
 .rec-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
-.rec-wahl .rec-titel + .rec-knoepfe{margin-bottom:1rem;}
 .rec-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;}
 .rec-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;text-align:left;}
 .rec-knopf:hover{border-color:var(--skr-color-accent);}

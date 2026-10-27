@@ -50,8 +50,8 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <link rel="stylesheet" href="../../skriptorium/page-transitions.css?v=716872f0">
 
-<link rel="stylesheet" href="../../shared/records/records.css?v=2c96216a">
-<script src="../../shared/records/records.js?v=ade00902" defer></script>
+<link rel="stylesheet" href="../../shared/records/records.css?v=e19ef66a">
+<script src="../../shared/records/records.js?v=9d223361" defer></script>
 
 </head><body class="skr-guide skr-guide--sidebar-empty" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization" data-skr-lang="de" data-skr-audience="learner">
 <div class="skr-reading-progress" aria-hidden="true"></div>
@@ -107,7 +107,7 @@
            Bean mit normalem Scope (@ApplicationScoped, @RequestScoped) sein.
      - Bezeichner mit Umlauten (A-006), Farben aus den Tokens des Skriptoriums. -->
 <p class="rec-lead">Ein <code>record</code> erklärt nur noch <strong>die Daten</strong> – den Rest erzeugt der Compiler. Genauso wichtig ist, was er <strong>nicht</strong> erzeugt: Daran entscheidet sich, ob ein Record in eine bestehende Anwendung passt. Wähle einen Bestandteil und sieh nach, was der Compiler daraus macht.</p>
-<p class="rec-marken"><span class="skr-badge">seit Java 16</span> <span class="skr-badge">LTS 17</span> <span class="skr-badge">JEP 395</span></p>
+<p class="rec-marken"><span class="skr-badge">seit Java 16</span> <span class="skr-badge">LTS 17</span> <a class="skr-doclink skr-doclink--visualization skr-badge" href="../../shared/jep-landkarte/jep-landkarte.html#/?jep=395">JEP 395</a></p>
 <div class="skr-callout skr-callout--info">
 <p><strong>Warum es das gibt:</strong> Records, Sealed Classes und Pattern Matching gehören zusammen – sie
 sind Javas Umsetzung der <em>datenorientierten Programmierung</em>. Woher die Idee kommt und wofür
@@ -118,7 +118,11 @@ sie sich lohnt, zeigen die Folien
 <div class="rec-buehne">
 <div class="rec-quelle">
 <p class="rec-titel">Quelltext</p>
-<pre><code class="language-java">public record Position(String artikel, int menge, BigDecimal einzelpreis) {
+<pre><code class="language-java">public record Position(
+        String artikel,
+        int menge,
+        BigDecimal einzelpreis
+) {
 
     public Position {                      // kompakter Konstruktor
         if (menge &lt;= 0) {
@@ -132,11 +136,15 @@ sie sich lohnt, zeigen die Folien
 }
 </code></pre>
 </div>
-<div class="rec-wahl">
-<p class="rec-titel" id="rec-gruppe-ja">✓ Erzeugt der Compiler</p>
-<div class="rec-knoepfe" role="group" aria-labelledby="rec-gruppe-ja" id="rec-ja"></div>
-<p class="rec-titel" id="rec-gruppe-nein">✗ Gibt es nicht</p>
-<div class="rec-knoepfe" role="group" aria-labelledby="rec-gruppe-nein" id="rec-nein"></div>
+<div class="skr-tabs rec-wahl">
+<details class="skr-tabs__panel" name="rec-gruppe" id="rec-panel-ja" open>
+<summary>✓ Erzeugt der Compiler</summary>
+<div class="rec-knoepfe" role="group" aria-label="Erzeugt der Compiler" id="rec-ja"></div>
+</details>
+<details class="skr-tabs__panel" name="rec-gruppe" id="rec-panel-nein">
+<summary>✗ Gibt es nicht</summary>
+<div class="rec-knoepfe" role="group" aria-label="Gibt es nicht" id="rec-nein"></div>
+</details>
 </div>
 </div>
 <div class="rec-erklaerung" id="rec-erklaerung" aria-live="polite"></div>
