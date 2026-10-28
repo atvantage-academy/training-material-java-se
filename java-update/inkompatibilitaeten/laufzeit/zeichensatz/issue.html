@@ -25,22 +25,22 @@
 <link rel="stylesheet" href="../../../../skriptorium/tokens.css?v=e74fbfe2">
 <link rel="stylesheet" href="../../../../extensions/didaktikon/tokens.css?v=5966d76a">
 <link rel="stylesheet" href="../../../../skriptorium/base.css?v=86e37c43">
-<link rel="stylesheet" href="../../../../skriptorium/components.css?v=2d0f279f">
+<link rel="stylesheet" href="../../../../skriptorium/components.css?v=20870760">
 <link rel="stylesheet" href="../../../../skriptorium/doclinks.css?v=2ef23515">
 <link rel="stylesheet" href="../../../../skriptorium/linkmarks.css?v=c2b6fab2">
 <link rel="stylesheet" href="../../../../skriptorium/site.css?v=99cfb183">
 <link rel="stylesheet" href="../../../../skriptorium/logo.css?v=43a7fbaf">
 <link rel="stylesheet" href="../../../../skriptorium/guide.css?v=d99cc970">
 <link rel="stylesheet" media="print" href="../../../../skriptorium/print.css?v=856e77e0">
-<meta name="generator" content="Skriptorium 1.21.0">
-<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.2.0"}],"internal":false,"languages":["de"],"skriptorium":"1.21.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.21.0"}]}</script>
+<meta name="generator" content="Skriptorium 1.21.1">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.2.0"}],"internal":false,"languages":["de"],"skriptorium":"1.21.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.21.1"}]}</script>
 <script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Finde heraus, warum der nächtliche Kundenimport auf einem neuen JDK Umlaute verliert, und gib den Zeichensatz der Datei im Code an.","duration":20,"fields":{"didaktikon":{"objectives":["Du erkennst einen Bruch zur Laufzeit, der vom Betriebssystem abhängt.","Du erklärst, woher die JVM ihren Standard-Zeichensatz bis Java 17 und seit Java 18 nimmt.","Du gibst den Zeichensatz einer Datei im Code an, statt ihn der JVM zu überlassen.","Du beurteilst, auf welchem System der Kompatibilitätsschalter das alte Verhalten zurückholt."],"reflective_questions":["`-Dfile.encoding=COMPAT` macht den Test auf Deinem Rechner vielleicht nicht grün. Warum nicht – und wo würde der Schalter wirken?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich wissen, warum Dateien plötzlich mit falschen Umlauten gelesen werden, damit meine Datei-Schnittstellen nach dem Umstieg dieselben Daten liefern."},"skriptorium":{"definition_of_done":["Das Modul `inkompatibilitaeten/laufzeit/zeichensatz` übersetzt mit Release 21, und seine Tests sind grün.","Der Kundenimport liest die Datei mit einem ausdrücklich angegebenen Zeichensatz.","Du hast für REST-Microservice, Batch-Programm und Server-Anwendung je ein Risiko notiert."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"UTF-8 als Standard-Zeichensatz","topics":["Standard-Zeichensatz","UTF-8","JEP 400","file.encoding"],"untranslated":null,"url":"/java-update/inkompatibilitaeten/laufzeit/zeichensatz/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../../skriptorium/client.js?v=3156752d" defer></script>
 <script src="../../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=743105c5" defer></script>
+        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=f9d74d1d" defer></script>
 <link rel="stylesheet" href="../../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../../skriptorium/search/de.json?v=743105c5"
+     data-index="../../../../skriptorium/search/de.json?v=f9d74d1d"
      data-base="../../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -172,8 +172,38 @@ Prüfe, ob der Import auf einem neuen JDK noch dieselben Namen liest.</p>
 <code>KundenImport</code>, ihren Test und die Testdatei <code>kunden-altsystem.csv</code>. Mit welchem
 Zeichensatz liest der <code>FileReader</code> die Datei? Sieh Dir auch die <code>pom.xml</code> des Moduls an:
 Was stellt das Profil <code>altsystem-windows</code> nach, und für welche JDKs?</p>
+<h3 id="optional-den-stand-vorher-mit-jdk-8-sehen">Optional: Den Stand vorher mit JDK 8 sehen</h3>
+<p>Hast Du ein JDK 8 als Toolchain eingerichtet (<a class="skr-doclink skr-doclink--guide" href="../../../../java-update/inkompatibilitaeten/laufzeit/jdk8-toolchain.html">Anleitung</a>), siehst
+Du zuerst, wie es vor dem Umstieg war. Das Profil <code>jdk8</code> lässt die Tests auf JDK 8
+laufen, übersetzt wird weiter mit Deinem JDK:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="bauen-jdk8" open>
+<summary>Kommandozeile</summary>
+<p>Baue das Modul im Wurzelordner des Übungsprojekts mit dem Profil <code>jdk8</code> und lass seine Tests laufen:</p>
+<pre><code class="language-shell">mvn clean verify -pl inkompatibilitaeten/laufzeit/zeichensatz -am -Pjdk8
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="bauen-jdk8">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>laufzeit-zeichensatz-jdk8</code></strong>. Sie baut mit <code>clean</code>
+und dem Profil <code>jdk8</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen-jdk8">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>laufzeit-zeichensatz-jdk8</code></strong>. Sie baut mit <code>clean</code> und dem Profil <code>jdk8</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen-jdk8">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>laufzeit-zeichensatz-jdk8</code></strong>. Er baut mit <code>clean</code>
+und dem Profil <code>jdk8</code>.</p>
+</details>
+</div>
+<p>Der Test ist <strong>grün</strong> – so lief der Code auf dem Windows-Altsystem. Ohne JDK 8
+übergehst Du diesen Schritt: Auf JDK 8 mit dem Windows-Altsystem ist der Test grün.</p>
 <h3 id="auf-deinem-jdk-bauen">Auf Deinem JDK bauen</h3>
-<p>Das Modul wird noch für Java 8 übersetzt. Baue es und lass die Tests laufen:</p>
+<p>Baue das Modul jetzt mit Deinem aktuellen JDK. Das Release ist immer noch <strong>8</strong>:
+Übersetzt wird gegen die API von Java 8.</p>
 <div class="skr-tabs">
 <details class="skr-tabs__panel" name="bauen-8" open>
 <summary>Kommandozeile</summary>
@@ -197,32 +227,6 @@ Was stellt das Profil <code>altsystem-windows</code> nach, und für welche JDKs?
 </div>
 <p>Der Test ist <strong>rot</strong>: Aus „Müller“ wird „M�ller“. Auf JDK 8 mit dem Windows-Altsystem
 war er grün. Ein <strong>Bruch zur Laufzeit</strong>.</p>
-<p><strong>Optional, mit JDK 8:</strong> Hast Du zusätzlich ein JDK 8 als Toolchain eingerichtet
-(<a class="skr-doclink skr-doclink--guide" href="../../../../java-update/inkompatibilitaeten/laufzeit/jdk8-toolchain.html">Anleitung</a>), kannst Du den Stand vorher selbst sehen. Das
-Profil <code>jdk8</code> lässt die Tests auf JDK 8 laufen, übersetzt wird weiter mit Deinem JDK:</p>
-<div class="skr-tabs">
-<details class="skr-tabs__panel" name="bauen-jdk8" open>
-<summary>Kommandozeile</summary>
-<p>Baue das Modul mit dem Profil <code>jdk8</code> und lass seine Tests laufen:</p>
-<pre><code class="language-shell">mvn clean verify -pl inkompatibilitaeten/laufzeit/zeichensatz -am -Pjdk8
-</code></pre>
-</details>
-<details class="skr-tabs__panel" name="bauen-jdk8">
-<summary>IntelliJ</summary>
-<p>Starte die Run Configuration <strong><code>laufzeit-zeichensatz-jdk8</code></strong>. Sie baut mit <code>clean</code>
-und dem Profil <code>jdk8</code>.</p>
-</details>
-<details class="skr-tabs__panel" name="bauen-jdk8">
-<summary>Eclipse</summary>
-<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
-<strong><code>laufzeit-zeichensatz-jdk8</code></strong>. Sie baut mit <code>clean</code> und dem Profil <code>jdk8</code>.</p>
-</details>
-<details class="skr-tabs__panel" name="bauen-jdk8">
-<summary>VS Code</summary>
-<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>laufzeit-zeichensatz-jdk8</code></strong>. Er baut mit <code>clean</code>
-und dem Profil <code>jdk8</code>.</p>
-</details>
-</div>
 <h3 id="das-release-hochstellen">Das Release hochstellen</h3>
 <p>Öffne <code>inkompatibilitaeten/laufzeit/zeichensatz/pom.xml</code> und stell die Property
 <code>maven.compiler.release</code> an der Stelle mit dem Kommentar „Hier hochstellen.“ von <code>8</code>
@@ -367,9 +371,58 @@ Prüfe, ob der Import auf einem neuen JDK noch dieselben Namen liest.
 Zeichensatz liest der `FileReader` die Datei? Sieh Dir auch die `pom.xml` des Moduls an:
 Was stellt das Profil `altsystem-windows` nach, und für welche JDKs?
 
+### Optional: Den Stand vorher mit JDK 8 sehen
+
+Hast Du ein JDK 8 als Toolchain eingerichtet ([Anleitung](../jdk8-toolchain.md)), siehst
+Du zuerst, wie es vor dem Umstieg war. Das Profil `jdk8` lässt die Tests auf JDK 8
+laufen, übersetzt wird weiter mit Deinem JDK:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Baue das Modul im Wurzelordner des Übungsprojekts mit dem Profil `jdk8` und lass seine Tests laufen:
+
+```shell
+mvn clean verify -pl inkompatibilitaeten/laufzeit/zeichensatz -am -Pjdk8
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte die Run Configuration **`laufzeit-zeichensatz-jdk8`**. Sie baut mit `clean`
+und dem Profil `jdk8`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
+**`laufzeit-zeichensatz-jdk8`**. Sie baut mit `clean` und dem Profil `jdk8`.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* den Task **`laufzeit-zeichensatz-jdk8`**. Er baut mit `clean`
+und dem Profil `jdk8`.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Der Test ist **grün** – so lief der Code auf dem Windows-Altsystem. Ohne JDK 8
+übergehst Du diesen Schritt: Auf JDK 8 mit dem Windows-Altsystem ist der Test grün.
+
 ### Auf Deinem JDK bauen
 
-Das Modul wird noch für Java 8 übersetzt. Baue es und lass die Tests laufen:
+Baue das Modul jetzt mit Deinem aktuellen JDK. Das Release ist immer noch **8**:
+Übersetzt wird gegen die API von Java 8.
 
 &lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
 
@@ -410,49 +463,6 @@ Starte über *Terminal → Run Task…* den Task **`laufzeit-zeichensatz`**. Er 
 
 Der Test ist **rot**: Aus „Müller“ wird „M�ller“. Auf JDK 8 mit dem Windows-Altsystem
 war er grün. Ein **Bruch zur Laufzeit**.
-
-**Optional, mit JDK 8:** Hast Du zusätzlich ein JDK 8 als Toolchain eingerichtet
-([Anleitung](../jdk8-toolchain.md)), kannst Du den Stand vorher selbst sehen. Das
-Profil `jdk8` lässt die Tests auf JDK 8 laufen, übersetzt wird weiter mit Deinem JDK:
-
-&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; open markdown=&#34;1&#34;&gt;
-&lt;summary&gt;Kommandozeile&lt;/summary&gt;
-
-Baue das Modul mit dem Profil `jdk8` und lass seine Tests laufen:
-
-```shell
-mvn clean verify -pl inkompatibilitaeten/laufzeit/zeichensatz -am -Pjdk8
-```
-
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; markdown=&#34;1&#34;&gt;
-&lt;summary&gt;IntelliJ&lt;/summary&gt;
-
-Starte die Run Configuration **`laufzeit-zeichensatz-jdk8`**. Sie baut mit `clean`
-und dem Profil `jdk8`.
-
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; markdown=&#34;1&#34;&gt;
-&lt;summary&gt;Eclipse&lt;/summary&gt;
-
-Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
-**`laufzeit-zeichensatz-jdk8`**. Sie baut mit `clean` und dem Profil `jdk8`.
-
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-jdk8&#34; markdown=&#34;1&#34;&gt;
-&lt;summary&gt;VS Code&lt;/summary&gt;
-
-Starte über *Terminal → Run Task…* den Task **`laufzeit-zeichensatz-jdk8`**. Er baut mit `clean`
-und dem Profil `jdk8`.
-
-&lt;/details&gt;
-
-&lt;/div&gt;
 
 ### Das Release hochstellen
 
@@ -590,7 +600,7 @@ Halte für Dich fest, kurz und in Stichworten:
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-problem-ansehen" class="skr-toc--h3">Das Problem ansehen</a><a href="#auf-deinem-jdk-bauen" class="skr-toc--h3">Auf Deinem JDK bauen</a><a href="#das-release-hochstellen" class="skr-toc--h3">Das Release hochstellen</a><a href="#was-dahintersteckt" class="skr-toc--h3">Was dahintersteckt</a><a href="#den-bruch-beheben" class="skr-toc--h3">Den Bruch beheben</a><a href="#den-kompatibilitätsschalter-prüfen" class="skr-toc--h3">Den Kompatibilitätsschalter prüfen</a><a href="#das-risiko-bewerten" class="skr-toc--h3">Das Risiko bewerten</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-problem-ansehen" class="skr-toc--h3">Das Problem ansehen</a><a href="#optional-den-stand-vorher-mit-jdk-8-sehen" class="skr-toc--h3">Optional: Den Stand vorher mit JDK 8 sehen</a><a href="#auf-deinem-jdk-bauen" class="skr-toc--h3">Auf Deinem JDK bauen</a><a href="#das-release-hochstellen" class="skr-toc--h3">Das Release hochstellen</a><a href="#was-dahintersteckt" class="skr-toc--h3">Was dahintersteckt</a><a href="#den-bruch-beheben" class="skr-toc--h3">Den Bruch beheben</a><a href="#den-kompatibilitätsschalter-prüfen" class="skr-toc--h3">Den Kompatibilitätsschalter prüfen</a><a href="#das-risiko-bewerten" class="skr-toc--h3">Das Risiko bewerten</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">

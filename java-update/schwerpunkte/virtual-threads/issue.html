@@ -6,11 +6,11 @@
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c5cdbeab"></script>
 <title>Umstellen und messen · ATVANTAGE Academy</title>
-<meta name="description" content="Stelle Batch-Import und REST-Schnittstelle der Bestellabwicklung auf virtuelle Threads um, miss den Effekt auf Deinem JDK, finde, was ihn bremst, und bewerte die Umstellung.">
+<meta name="description" content="Stelle Batch-Import und REST-Schnittstelle der Bestellabwicklung auf virtuelle Threads um, miss den Effekt auf JDK 8, 21 und – optional – 25, finde und behebe, was ihn bremst, und bewerte die Umstellung.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Umstellen und messen">
-<meta property="og:description" content="Stelle Batch-Import und REST-Schnittstelle der Bestellabwicklung auf virtuelle Threads um, miss den Effekt auf Deinem JDK, finde, was ihn bremst, und bewerte die Umstellung.">
+<meta property="og:description" content="Stelle Batch-Import und REST-Schnittstelle der Bestellabwicklung auf virtuelle Threads um, miss den Effekt auf JDK 8, 21 und – optional – 25, finde und behebe, was ihn bremst, und bewerte die Umstellung.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
@@ -25,22 +25,22 @@
 <link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
 <link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
 <link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
-<link rel="stylesheet" href="../../../skriptorium/components.css?v=2d0f279f">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=20870760">
 <link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
 <link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
 <link rel="stylesheet" href="../../../skriptorium/site.css?v=99cfb183">
 <link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
 <link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
-<meta name="generator" content="Skriptorium 1.21.0">
-<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.2.0"}],"internal":false,"languages":["de"],"skriptorium":"1.21.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.21.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Stelle Batch-Import und REST-Schnittstelle der Bestellabwicklung auf virtuelle Threads um, miss den Effekt auf Deinem JDK, finde, was ihn bremst, und bewerte die Umstellung.","duration":40,"fields":{"didaktikon":{"objectives":["Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.","Du stellst einen festen Thread-Pool auf virtuelle Threads um.","Du erklärst, warum ein virtueller Thread unter Java 21 in `synchronized` seinen Träger festhält, und behebst es im eigenen Code.","Du bewertest, was virtuelle Threads für Eure Anwendungen bringen und wo sie nichts ändern."],"reflective_questions":["Warum hat das Umstellen auf virtuelle Threads unter JDK 21 zunächst wenig gebracht – und unter 25 viel?","Warum sind virtuelle Threads ein so wichtiges Feature im Java-Ökosystem?"],"user_story":"Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann."},"skriptorium":{"definition_of_done":[{"items":["Das Modul `schwerpunkte/virtual-threads` baut mit Release 21; Batch-Import und REST-Schnittstelle nutzen virtuelle Threads.","`mvn clean verify -f schwerpunkte/virtual-threads/pom.xml` ist grün.","Eure Zeile in der Messtabelle ist ausgefüllt – mit JDK-Version."],"title":"Umstellen und messen"},{"items":["Du kannst die Methode benennen, in der unter Java 21 gepinnt wird, und erklären, warum.","Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25."],"title":"Pinning"},{"items":["Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Umstellen und messen","topics":["Virtual Threads","JEP 444","Pinning"],"untranslated":null,"url":"/java-update/schwerpunkte/virtual-threads/issue.html"}</script>
+<meta name="generator" content="Skriptorium 1.21.1">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.2.0"}],"internal":false,"languages":["de"],"skriptorium":"1.21.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.21.1"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Stelle Batch-Import und REST-Schnittstelle der Bestellabwicklung auf virtuelle Threads um, miss den Effekt auf JDK 8, 21 und – optional – 25, finde und behebe, was ihn bremst, und bewerte die Umstellung.","duration":40,"fields":{"didaktikon":{"objectives":["Du misst Batch-Import und REST-Schnittstelle vor und nach der Umstellung und hältst die Werte fest.","Du stellst einen festen Thread-Pool auf virtuelle Threads um.","Du erklärst, warum ein virtueller Thread unter Java 21 in `synchronized` seinen Träger festhält, und behebst es im eigenen Code.","Du bewertest, was virtuelle Threads für Eure Anwendungen bringen und wo sie nichts ändern."],"reflective_questions":["Warum hat das Umstellen auf virtuelle Threads unter JDK 21 zunächst wenig gebracht – und unter 25 viel?","Warum sind virtuelle Threads ein so wichtiges Feature im Java-Ökosystem?"],"user_story":"Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbringt, möchte ich wissen, was virtuelle Threads bei uns bringen und was sie bremst, damit ich die Umstellung begründen und ihre Risiken einschätzen kann."},"skriptorium":{"definition_of_done":[{"items":["Das Modul `schwerpunkte/virtual-threads` baut mit Release 21; Batch-Import und REST-Schnittstelle nutzen virtuelle Threads.","`mvn clean verify -f schwerpunkte/virtual-threads/pom.xml` ist grün.","Die Messtabelle ist ausgefüllt: Ausgangsstand auf JDK 8, virtuelle Threads auf JDK 21 und – optional – 25."],"title":"Umstellen und messen"},{"items":["Du kannst die Methode benennen, in der unter Java 21 gepinnt wird, und erklären, warum.","`Verbindung` schützt ihren Zustand mit einem `ReentrantLock` statt mit `synchronized`.","Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25; die Werte stehen in der Messtabelle."],"title":"Pinning"},{"items":["Du hast Voraussetzungen, Vorteile, Herausforderungen und den Nutzen je Anwendungsart notiert."],"title":"Bewertung"}]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Umstellen und messen","topics":["Virtual Threads","JEP 444","Pinning"],"untranslated":null,"url":"/java-update/schwerpunkte/virtual-threads/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../skriptorium/client.js?v=3156752d" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=743105c5" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f9d74d1d" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=743105c5"
+     data-index="../../../skriptorium/search/de.json?v=f9d74d1d"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -158,12 +158,13 @@
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Modul schwerpunkte/virtual-threads baut mit Release 21; Batch-Import und REST-Schnittstelle nutzen virtuelle Threads." disabled="disabled"> Das Modul <code>schwerpunkte/virtual-threads</code> baut mit Release 21; Batch-Import und REST-Schnittstelle nutzen virtuelle Threads.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn clean verify -f schwerpunkte/virtual-threads/pom.xml ist grün." disabled="disabled"> <code>mvn clean verify -f schwerpunkte/virtual-threads/pom.xml</code> ist grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eure Zeile in der Messtabelle ist ausgefüllt – mit JDK-Version." disabled="disabled"> Eure Zeile in der Messtabelle ist ausgefüllt – mit JDK-Version.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Messtabelle ist ausgefüllt: Ausgangsstand auf JDK 8, virtuelle Threads auf JDK 21 und – optional – 25." disabled="disabled"> Die Messtabelle ist ausgefüllt: Ausgangsstand auf JDK 8, virtuelle Threads auf JDK 21 und – optional – 25.</li>
 </ul>
 <h3 id="pinning">Pinning</h3>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du kannst die Methode benennen, in der unter Java 21 gepinnt wird, und erklären, warum." disabled="disabled"> Du kannst die Methode benennen, in der unter Java 21 gepinnt wird, und erklären, warum.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25." disabled="disabled"> Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Verbindung schützt ihren Zustand mit einem ReentrantLock statt mit synchronized." disabled="disabled"> <code>Verbindung</code> schützt ihren Zustand mit einem <code>ReentrantLock</code> statt mit <code>synchronized</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25; die Werte stehen in der Messtabelle." disabled="disabled"> Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25; die Werte stehen in der Messtabelle.</li>
 </ul>
 <h3 id="bewertung">Bewertung</h3>
 <ul class="task-list">
@@ -180,7 +181,7 @@
 Fremdsysteme: Der <strong>Batch-Import</strong> prüft jede
 Bestellung bei einer Auskunftei (50 ms), die <strong>REST-Schnittstelle</strong> fragt für jede neue
 Bestellung beim Lager nach (100 ms). Beide arbeiten mit einem festen Thread-Pool. Du
-stellst sie auf virtuelle Threads um und misst, was es bringt – auf Deinem JDK.</p>
+stellst sie auf virtuelle Threads um und misst, was es bringt – auf JDK 8, 21 und 25.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="worum-es-geht">Worum es geht</h3>
 <p>Ein Server, der jeder Anfrage einen Thread gibt, bearbeitet höchstens so viele Anfragen
@@ -193,106 +194,72 @@ Betriebssystems mit eigenem Stack.</p>
 und wo es klemmt, zeigt die Simulation
 <a class="skr-doclink skr-doclink--simulation" href="../../../java-update/schwerpunkte/virtual-threads/simulation.html">Plattform-Threads und virtuelle Threads</a>.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Für diese Übung brauchst Du <strong>JDK 21 oder 25</strong>. Mit welchem Du arbeitest,
-macht einen Unterschied – vergleicht Eure Zahlen mit einem Paar, das das andere hat.</p>
+<p><strong>Hinweis:</strong> Gemessen wird auf <strong>JDK 8, 21 und – optional – 25</strong>, ohne dass Du
+<code>JAVA_HOME</code> umstellst: Maven startet die Messung über eine <strong>Toolchain</strong> auf dem JDK, das
+das Profil nennt. Richte Dir dafür ein JDK 21 und – optional – ein JDK 25 als Toolchain
+ein, so wie es die <a class="skr-doclink skr-doclink--guide" href="../../../java-update/inkompatibilitaeten/laufzeit/jdk8-toolchain.html">Anleitung</a> für
+JDK 8 zeigt: je ein weiterer Eintrag in <code>~/.m2/toolchains.xml</code>, mit
+<code>&lt;version&gt;21&lt;/version&gt;</code> bzw. <code>&lt;version&gt;25&lt;/version&gt;</code>.</p>
 </blockquote>
 <h3 id="den-ausgangsstand-messen">Den Ausgangsstand messen</h3>
-<p>Baue die Bestellabwicklung so, wie sie ist, auf Release 8:</p>
+<p>Miss Batch-Import und REST-Schnittstelle so, wie sie sind – mit Release 8, auf JDK 8:</p>
 <div class="skr-tabs">
-<details class="skr-tabs__panel" name="bauen-vorher" open>
+<details class="skr-tabs__panel" name="messen-jdk8" open>
 <summary>Kommandozeile</summary>
-<p>Baue im Wurzelordner des Übungsprojekts und lass die Tests laufen:</p>
-<pre><code class="language-shell">mvn clean verify -f schwerpunkte/virtual-threads/pom.xml
+<p>Miss den Batch-Import mit JDK 8:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk8,messen
+</code></pre>
+<p>Miss die REST-Schnittstelle mit JDK 8; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk8,messen
 </code></pre>
 </details>
-<details class="skr-tabs__panel" name="bauen-vorher">
+<details class="skr-tabs__panel" name="messen-jdk8">
 <summary>IntelliJ</summary>
-<p>Starte die Run Configuration <strong><code>schwerpunkte-virtual-threads</code></strong>. Sie baut mit <code>clean</code>.</p>
+<p>Starte nacheinander die Run Configurations <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk8</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk8</code></strong>. Jede baut mit <code>clean</code> und misst danach.</p>
 </details>
-<details class="skr-tabs__panel" name="bauen-vorher">
+<details class="skr-tabs__panel" name="messen-jdk8">
 <summary>Eclipse</summary>
-<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
-<strong><code>schwerpunkte-virtual-threads</code></strong>. Sie baut mit <code>clean</code>.</p>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk8</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk8</code></strong>. Jede baut mit <code>clean</code> und misst danach.</p>
 </details>
-<details class="skr-tabs__panel" name="bauen-vorher">
+<details class="skr-tabs__panel" name="messen-jdk8">
 <summary>VS Code</summary>
-<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-virtual-threads</code></strong>. Er baut mit <code>clean</code>.</p>
-</details>
-</div>
-<p>Miss den Batch-Import und die REST-Schnittstelle:</p>
-<div class="skr-tabs">
-<details class="skr-tabs__panel" name="messen" open>
-<summary>Kommandozeile</summary>
-<p>Starte den Batch-Import:</p>
-<pre><code class="language-shell">java -jar schwerpunkte/virtual-threads/bestellung-batch/target/bestellung-batch.jar
-</code></pre>
-<p>Starte den Lasttest; er startet die REST-Schnittstelle selbst und schickt ihr 200
-Bestellungen:</p>
-<pre><code class="language-shell">java -cp schwerpunkte/virtual-threads/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest
-</code></pre>
-</details>
-<details class="skr-tabs__panel" name="messen">
-<summary>IntelliJ</summary>
-<p>Starte die Run Configurations <strong><code>schwerpunkte-virtual-threads-batch-messen</code></strong> und
-<strong><code>schwerpunkte-virtual-threads-rest-lasttest</code></strong>. Der Lasttest
-startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.</p>
-</details>
-<details class="skr-tabs__panel" name="messen">
-<summary>Eclipse</summary>
-<p>Starte unter <em>Run → Run Configurations… → Java Application</em> die Konfigurationen
-<strong><code>schwerpunkte-virtual-threads-batch-messen</code></strong> und
-<strong><code>schwerpunkte-virtual-threads-rest-lasttest</code></strong>. Der Lasttest startet die REST-Schnittstelle
-selbst und schickt ihr 200 Bestellungen.</p>
-</details>
-<details class="skr-tabs__panel" name="messen">
-<summary>VS Code</summary>
-<p>Starte unter <em>Run and Debug</em> nacheinander die Konfigurationen <strong><code>schwerpunkte-virtual-threads-batch-messen</code></strong> und
-<strong><code>schwerpunkte-virtual-threads-rest-lasttest</code></strong>. Der Lasttest
-startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.</p>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk8</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk8</code></strong>. Jeder baut mit <code>clean</code> und misst danach.</p>
 </details>
 </div>
 <p>Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
-beide Werte mit Deiner JDK-Version in die Messtabelle ein:</p>
-<table>
-	<thead>
-			<tr>
-					<th>JDK</th>
-					<th>Stand</th>
-					<th style="text-align: right">Batch</th>
-					<th style="text-align: right">REST</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td></td>
-					<td>fester Pool</td>
-					<td style="text-align: right"></td>
-					<td style="text-align: right"></td>
-			</tr>
-			<tr>
-					<td></td>
-					<td>virtuelle Threads</td>
-					<td style="text-align: right"></td>
-					<td style="text-align: right"></td>
-			</tr>
-			<tr>
-					<td></td>
-					<td>… und was Du danach noch änderst</td>
-					<td style="text-align: right"></td>
-					<td style="text-align: right"></td>
-			</tr>
-	</tbody>
-</table>
+beide Werte in die <a class="skr-doclink skr-doclink--visualization" href="../../../java-update/schwerpunkte/virtual-threads/messtabelle.html">Messtabelle</a> ein; sie hält sie in Deinem Browser fest.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
-wärmt sich die JVM noch auf. Nach jeder Änderung erst wieder bauen.</p>
+wärmt sich die JVM noch auf. Ohne JDK 8 misst Du den Ausgangsstand mit <code>-jdk21</code>; der
+feste Pool ist dort nicht schneller.</p>
 </blockquote>
 <p>Passt der Wert der REST-Schnittstelle zur Rechnung oben?</p>
 <h3 id="das-release-hochstellen">Das Release hochstellen</h3>
 <p>Virtuelle Threads gibt es ab Java 21. Stell in <code>schwerpunkte/virtual-threads/pom.xml</code> die Property
 <code>maven.compiler.release</code> an der Stelle mit dem Kommentar „Hier hochstellen“ von <code>8</code> auf
-<code>21</code>. Sie gilt für Domäne, REST-Schnittstelle und Batch-Import zusammen. Baue wie
-oben – der Build ist grün, noch hat sich nichts geändert.</p>
+<code>21</code>. Sie gilt für Domäne, REST-Schnittstelle und Batch-Import zusammen. Baue danach:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="bauen" open>
+<summary>Kommandozeile</summary>
+<p>Baue im Wurzelordner des Übungsprojekts und lass die Tests laufen:</p>
+<pre><code class="language-shell">mvn clean verify -f schwerpunkte/virtual-threads/pom.xml
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="bauen">
+<summary>IntelliJ</summary>
+<p>Starte die Run Configuration <strong><code>schwerpunkte-virtual-threads</code></strong>. Sie baut mit <code>clean</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> die Konfiguration
+<strong><code>schwerpunkte-virtual-threads</code></strong>. Sie baut mit <code>clean</code>.</p>
+</details>
+<details class="skr-tabs__panel" name="bauen">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> den Task <strong><code>schwerpunkte-virtual-threads</code></strong>. Er baut mit <code>clean</code>.</p>
+</details>
+</div>
+<p>Der Build ist grün, noch hat sich nichts geändert.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Immer mit <code>clean</code>. Ändert sich nur das Release, hält Maven die
 übersetzten Klassen für aktuell. In der IDE lädst Du das Maven-Projekt danach neu
@@ -306,7 +273,7 @@ Zeile 32 (<code>Executors.newFixedThreadPool(8)</code>) durch:</p>
 <pre><code class="language-java">        ExecutorService pool = Executors.newVirtualThreadPerTaskExecutor();
 </code></pre>
 <p>Mehr ist es nicht: Der übrige Code bleibt, wie er ist – blockierend, von oben nach
-unten. Baue und miss den Batch-Import erneut. Was hast Du erwartet, was kam heraus?</p>
+unten.</p>
 <h3 id="die-rest-schnittstelle-umstellen">Die REST-Schnittstelle umstellen</h3>
 <p><code>RestAnwendung</code> gibt dem Server einen festen Pool mit zehn Threads. Gib ihm stattdessen
 einen Executor, der für jede Anfrage einen virtuellen Thread startet.</p>
@@ -314,22 +281,85 @@ einen Executor, der für jede Anfrage einen virtuellen Thread startet.</p>
 Zeile 47 (<code>Executors.newFixedThreadPool(10)</code>) durch:</p>
 <pre><code class="language-java">        executor = Executors.newVirtualThreadPerTaskExecutor();
 </code></pre>
-<p>Baue und miss mit dem Lasttest.</p>
+<h3 id="mit-jdk-21-und-25-messen">Mit JDK 21 und 25 messen</h3>
+<p>Miss beide Teile erneut – auf JDK 21 und, optional, auf JDK 25:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="messen-virtuell" open>
+<summary>Kommandozeile</summary>
+<p>Miss den Batch-Import mit JDK 21:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk21,messen
+</code></pre>
+<p>Miss die REST-Schnittstelle mit JDK 21; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk21,messen
+</code></pre>
+<p>Miss den Batch-Import mit JDK 25 – optional:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk25,messen
+</code></pre>
+<p>Miss die REST-Schnittstelle mit JDK 25 – optional; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk25,messen
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="messen-virtuell">
+<summary>IntelliJ</summary>
+<p>Starte nacheinander die Run Configurations <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk21</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk21</code></strong>, danach <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk25</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk25</code></strong> (optional). Jede baut mit <code>clean</code> und misst danach.</p>
+</details>
+<details class="skr-tabs__panel" name="messen-virtuell">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk21</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk21</code></strong>, danach <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk25</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk25</code></strong> (optional). Jede baut mit <code>clean</code> und misst danach.</p>
+</details>
+<details class="skr-tabs__panel" name="messen-virtuell">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk21</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk21</code></strong>, danach <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk25</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk25</code></strong> (optional). Jeder baut mit <code>clean</code> und misst danach.</p>
+</details>
+</div>
+<p>Trag die Werte in die Messtabelle ein. Was hast Du erwartet, was kam heraus?</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Der Lasttest schickt höchstens 100 Bestellungen gleichzeitig. Schneller
 als zwei Runden zu je 100 ms geht es also nicht.</p>
 </blockquote>
 <h3 id="das-pinning-finden">Das Pinning finden</h3>
-<p>Vergleicht Eure Messwerte mit einem Paar, das das andere JDK hat. Auf einem der beiden
-haben virtuelle Threads viel weniger gebracht, als die Rechnung verspricht.</p>
+<p>Vergleiche die Werte von JDK 21 und 25. Ohne JDK 25 vergleichst Du mit einem Paar, das
+es hat. Auf JDK 21 haben virtuelle Threads viel weniger gebracht, als die Rechnung
+verspricht.</p>
 <p>Beide Fremdsysteme fragst Du über <code>Verbindung.sende</code> an (Paket <code>bestellung.extern</code> in
 der Domäne). Sieh Dir die Methode an: Was tut sie, während sie wartet – und was hält
 sie dabei fest? Die Simulation zeigt im Ablauf „Pinning in synchronized“, was ein
 virtueller Thread dort unter Java 21 tut und was sich mit Java 24 geändert hat.</p>
-<p><strong>Mit JDK 21:</strong> Behebe das Pinning in <code>Verbindung</code> – ohne <code>synchronized</code>, mit gleichem
-Schutz für den Zustand. Miss erneut.</p>
-<p><strong>Mit JDK 25:</strong> Erkläre, warum Dein JDK hier nichts bremst. Würdest Du <code>Verbindung</code>
-trotzdem ändern?</p>
+<h3 id="das-pinning-beheben">Das Pinning beheben</h3>
+<p>Stell <code>Verbindung</code> auf einen <code>ReentrantLock</code> um: Sie soll ihren Zustand genauso
+schützen wie bisher, aber ohne <code>synchronized</code>. Miss danach erneut – auf JDK 21 und,
+optional, auf JDK 25:</p>
+<div class="skr-tabs">
+<details class="skr-tabs__panel" name="messen-lock" open>
+<summary>Kommandozeile</summary>
+<p>Miss den Batch-Import mit JDK 21:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk21,messen
+</code></pre>
+<p>Miss die REST-Schnittstelle mit JDK 21; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk21,messen
+</code></pre>
+<p>Miss den Batch-Import mit JDK 25 – optional:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk25,messen
+</code></pre>
+<p>Miss die REST-Schnittstelle mit JDK 25 – optional; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:</p>
+<pre><code class="language-shell">mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk25,messen
+</code></pre>
+</details>
+<details class="skr-tabs__panel" name="messen-lock">
+<summary>IntelliJ</summary>
+<p>Starte nacheinander die Run Configurations <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk21</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk21</code></strong>, danach <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk25</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk25</code></strong> (optional). Jede baut mit <code>clean</code> und misst danach.</p>
+</details>
+<details class="skr-tabs__panel" name="messen-lock">
+<summary>Eclipse</summary>
+<p>Starte unter <em>Run → Run Configurations… → Maven Build</em> nacheinander die Konfigurationen <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk21</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk21</code></strong>, danach <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk25</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk25</code></strong> (optional). Jede baut mit <code>clean</code> und misst danach.</p>
+</details>
+<details class="skr-tabs__panel" name="messen-lock">
+<summary>VS Code</summary>
+<p>Starte über <em>Terminal → Run Task…</em> nacheinander die Tasks <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk21</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk21</code></strong>, danach <strong><code>schwerpunkte-virtual-threads-batch-messen-jdk25</code></strong> und <strong><code>schwerpunkte-virtual-threads-rest-messen-jdk25</code></strong> (optional). Jeder baut mit <code>clean</code> und misst danach.</p>
+</details>
+</div>
+<p>Trag die Werte in die Messtabelle ein. <strong>Mit JDK 25:</strong> Warum ändert sich hier nichts?
+Würdest Du <code>Verbindung</code> trotzdem umstellen?</p>
 <h3 id="bewerten">Bewerten</h3>
 <p>Notiere für virtuelle Threads:</p>
 <ul>
@@ -347,10 +377,13 @@ ohne zu einem festen Pool zurückzukehren. Wie lange dauert der Import dann?</li
 Wie es ohne geht, zeigt die Übung zu Scoped Values.</li>
 </ul>
 <blockquote>
-<p><strong>Hinweis:</strong> Die Musterlösung liegt im Branch <code>loesung/virtual-threads</code>; den
-Unterschied und eine Messtabelle zeigt ihr
-<a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/43">Pull Request</a>.
-Sieh erst nach, wenn Du es selbst versucht hast.</p>
+<p><strong>Hinweis:</strong> Die Musterlösung liegt in zwei Schritten vor: die Umstellung auf
+virtuelle Threads im Branch <code>loesung/virtual-threads</code>
+(<a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/43">Pull Request</a>),
+das Beheben des Pinnings darauf aufbauend im Branch <code>loesung/virtual-threads-pinning</code>
+(<a href="https://github.com/atvantage-academy/code-template-java-se-java-update/pull/57">Pull Request</a>).
+Beide zeigen den Unterschied und ihre Messwerte. Sieh erst nach, wenn Du es selbst
+versucht hast.</p>
 </blockquote>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
@@ -398,12 +431,13 @@ Als Entwickler:in, deren Anwendung viel Zeit mit Warten auf andere Systeme verbr
 
 - [ ] Das Modul `schwerpunkte/virtual-threads` baut mit Release 21; Batch-Import und REST-Schnittstelle nutzen virtuelle Threads.
 - [ ] `mvn clean verify -f schwerpunkte/virtual-threads/pom.xml` ist grün.
-- [ ] Eure Zeile in der Messtabelle ist ausgefüllt – mit JDK-Version.
+- [ ] Die Messtabelle ist ausgefüllt: Ausgangsstand auf JDK 8, virtuelle Threads auf JDK 21 und – optional – 25.
 
 ### Pinning
 
 - [ ] Du kannst die Methode benennen, in der unter Java 21 gepinnt wird, und erklären, warum.
-- [ ] Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25.
+- [ ] `Verbindung` schützt ihren Zustand mit einem `ReentrantLock` statt mit `synchronized`.
+- [ ] Mit JDK 21: Der Batch-Import ist nach Deinem Umbau so schnell wie auf JDK 25; die Werte stehen in der Messtabelle.
 
 ### Bewertung
 
@@ -424,7 +458,7 @@ In der Bestellabwicklung (Modul `schwerpunkte/virtual-threads`) warten zwei Stel
 Fremdsysteme: Der **Batch-Import** prüft jede
 Bestellung bei einer Auskunftei (50 ms), die **REST-Schnittstelle** fragt für jede neue
 Bestellung beim Lager nach (100 ms). Beide arbeiten mit einem festen Thread-Pool. Du
-stellst sie auf virtuelle Threads um und misst, was es bringt – auf Deinem JDK.
+stellst sie auf virtuelle Threads um und misst, was es bringt – auf JDK 8, 21 und 25.
 
 ## Arbeitsschritte
 
@@ -441,16 +475,77 @@ Betriebssystems mit eigenem Stack.
 und wo es klemmt, zeigt die Simulation
 [Plattform-Threads und virtuelle Threads](simulation.md).
 
-&gt; **Hinweis:** Für diese Übung brauchst Du **JDK 21 oder 25**. Mit welchem Du arbeitest,
-&gt; macht einen Unterschied – vergleicht Eure Zahlen mit einem Paar, das das andere hat.
+&gt; **Hinweis:** Gemessen wird auf **JDK 8, 21 und – optional – 25**, ohne dass Du
+&gt; `JAVA_HOME` umstellst: Maven startet die Messung über eine **Toolchain** auf dem JDK, das
+&gt; das Profil nennt. Richte Dir dafür ein JDK 21 und – optional – ein JDK 25 als Toolchain
+&gt; ein, so wie es die [Anleitung](../../inkompatibilitaeten/laufzeit/jdk8-toolchain.md) für
+&gt; JDK 8 zeigt: je ein weiterer Eintrag in `~/.m2/toolchains.xml`, mit
+&gt; `&lt;version&gt;21&lt;/version&gt;` bzw. `&lt;version&gt;25&lt;/version&gt;`.
 
 ### Den Ausgangsstand messen
 
-Baue die Bestellabwicklung so, wie sie ist, auf Release 8:
+Miss Batch-Import und REST-Schnittstelle so, wie sie sind – mit Release 8, auf JDK 8:
 
 &lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
 
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-vorher&#34; open markdown=&#34;1&#34;&gt;
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-jdk8&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Miss den Batch-Import mit JDK 8:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk8,messen
+```
+
+Miss die REST-Schnittstelle mit JDK 8; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk8,messen
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-jdk8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations **`schwerpunkte-virtual-threads-batch-messen-jdk8`** und **`schwerpunkte-virtual-threads-rest-messen-jdk8`**. Jede baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-jdk8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen **`schwerpunkte-virtual-threads-batch-messen-jdk8`** und **`schwerpunkte-virtual-threads-rest-messen-jdk8`**. Jede baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-jdk8&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks **`schwerpunkte-virtual-threads-batch-messen-jdk8`** und **`schwerpunkte-virtual-threads-rest-messen-jdk8`**. Jeder baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
+beide Werte in die [Messtabelle](messtabelle.md) ein; sie hält sie in Deinem Browser fest.
+
+&gt; **Hinweis:** Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
+&gt; wärmt sich die JVM noch auf. Ohne JDK 8 misst Du den Ausgangsstand mit `-jdk21`; der
+&gt; feste Pool ist dort nicht schneller.
+
+Passt der Wert der REST-Schnittstelle zur Rechnung oben?
+
+### Das Release hochstellen
+
+Virtuelle Threads gibt es ab Java 21. Stell in `schwerpunkte/virtual-threads/pom.xml` die Property
+`maven.compiler.release` an der Stelle mit dem Kommentar „Hier hochstellen“ von `8` auf
+`21`. Sie gilt für Domäne, REST-Schnittstelle und Batch-Import zusammen. Baue danach:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; open markdown=&#34;1&#34;&gt;
 &lt;summary&gt;Kommandozeile&lt;/summary&gt;
 
 Baue im Wurzelordner des Übungsprojekts und lass die Tests laufen:
@@ -461,14 +556,14 @@ mvn clean verify -f schwerpunkte/virtual-threads/pom.xml
 
 &lt;/details&gt;
 
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-vorher&#34; markdown=&#34;1&#34;&gt;
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
 &lt;summary&gt;IntelliJ&lt;/summary&gt;
 
 Starte die Run Configuration **`schwerpunkte-virtual-threads`**. Sie baut mit `clean`.
 
 &lt;/details&gt;
 
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-vorher&#34; markdown=&#34;1&#34;&gt;
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
 &lt;summary&gt;Eclipse&lt;/summary&gt;
 
 Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
@@ -476,7 +571,7 @@ Starte unter *Run → Run Configurations… → Maven Build* die Konfiguration
 
 &lt;/details&gt;
 
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen-vorher&#34; markdown=&#34;1&#34;&gt;
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;bauen&#34; markdown=&#34;1&#34;&gt;
 &lt;summary&gt;VS Code&lt;/summary&gt;
 
 Starte über *Terminal → Run Task…* den Task **`schwerpunkte-virtual-threads`**. Er baut mit `clean`.
@@ -485,78 +580,7 @@ Starte über *Terminal → Run Task…* den Task **`schwerpunkte-virtual-threads
 
 &lt;/div&gt;
 
-Miss den Batch-Import und die REST-Schnittstelle:
-
-&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen&#34; open markdown=&#34;1&#34;&gt;
-&lt;summary&gt;Kommandozeile&lt;/summary&gt;
-
-Starte den Batch-Import:
-
-```shell
-java -jar schwerpunkte/virtual-threads/bestellung-batch/target/bestellung-batch.jar
-```
-
-Starte den Lasttest; er startet die REST-Schnittstelle selbst und schickt ihr 200
-Bestellungen:
-
-```shell
-java -cp schwerpunkte/virtual-threads/bestellung-rest/target/bestellung-rest.jar bestellung.rest.Lasttest
-```
-
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen&#34; markdown=&#34;1&#34;&gt;
-&lt;summary&gt;IntelliJ&lt;/summary&gt;
-
-Starte die Run Configurations **`schwerpunkte-virtual-threads-batch-messen`** und
-**`schwerpunkte-virtual-threads-rest-lasttest`**. Der Lasttest
-startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.
-
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen&#34; markdown=&#34;1&#34;&gt;
-&lt;summary&gt;Eclipse&lt;/summary&gt;
-
-Starte unter *Run → Run Configurations… → Java Application* die Konfigurationen
-**`schwerpunkte-virtual-threads-batch-messen`** und
-**`schwerpunkte-virtual-threads-rest-lasttest`**. Der Lasttest startet die REST-Schnittstelle
-selbst und schickt ihr 200 Bestellungen.
-
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen&#34; markdown=&#34;1&#34;&gt;
-&lt;summary&gt;VS Code&lt;/summary&gt;
-
-Starte unter *Run and Debug* nacheinander die Konfigurationen **`schwerpunkte-virtual-threads-batch-messen`** und
-**`schwerpunkte-virtual-threads-rest-lasttest`**. Der Lasttest
-startet die REST-Schnittstelle selbst und schickt ihr 200 Bestellungen.
-
-&lt;/details&gt;
-
-&lt;/div&gt;
-
-Der Batch-Import nennt seine Dauer in der ersten Zeile, der Lasttest am Ende. Trag
-beide Werte mit Deiner JDK-Version in die Messtabelle ein:
-
-| JDK | Stand | Batch | REST |
-|-----|-------|------:|-----:|
-| | fester Pool | | |
-| | virtuelle Threads | | |
-| | … und was Du danach noch änderst | | |
-
-&gt; **Hinweis:** Miss jeden Stand zweimal und nimm den zweiten Wert – beim ersten Lauf
-&gt; wärmt sich die JVM noch auf. Nach jeder Änderung erst wieder bauen.
-
-Passt der Wert der REST-Schnittstelle zur Rechnung oben?
-
-### Das Release hochstellen
-
-Virtuelle Threads gibt es ab Java 21. Stell in `schwerpunkte/virtual-threads/pom.xml` die Property
-`maven.compiler.release` an der Stelle mit dem Kommentar „Hier hochstellen“ von `8` auf
-`21`. Sie gilt für Domäne, REST-Schnittstelle und Batch-Import zusammen. Baue wie
-oben – der Build ist grün, noch hat sich nichts geändert.
+Der Build ist grün, noch hat sich nichts geändert.
 
 &gt; **Hinweis:** Immer mit `clean`. Ändert sich nur das Release, hält Maven die
 &gt; übersetzten Klassen für aktuell. In der IDE lädst Du das Maven-Projekt danach neu
@@ -575,7 +599,7 @@ Zeile 32 (`Executors.newFixedThreadPool(8)`) durch:
 ```
 
 Mehr ist es nicht: Der übrige Code bleibt, wie er ist – blockierend, von oben nach
-unten. Baue und miss den Batch-Import erneut. Was hast Du erwartet, was kam heraus?
+unten.
 
 ### Die REST-Schnittstelle umstellen
 
@@ -589,26 +613,142 @@ Zeile 47 (`Executors.newFixedThreadPool(10)`) durch:
         executor = Executors.newVirtualThreadPerTaskExecutor();
 ```
 
-Baue und miss mit dem Lasttest.
+### Mit JDK 21 und 25 messen
+
+Miss beide Teile erneut – auf JDK 21 und, optional, auf JDK 25:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-virtuell&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Miss den Batch-Import mit JDK 21:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk21,messen
+```
+
+Miss die REST-Schnittstelle mit JDK 21; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk21,messen
+```
+
+Miss den Batch-Import mit JDK 25 – optional:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk25,messen
+```
+
+Miss die REST-Schnittstelle mit JDK 25 – optional; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk25,messen
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-virtuell&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations **`schwerpunkte-virtual-threads-batch-messen-jdk21`** und **`schwerpunkte-virtual-threads-rest-messen-jdk21`**, danach **`schwerpunkte-virtual-threads-batch-messen-jdk25`** und **`schwerpunkte-virtual-threads-rest-messen-jdk25`** (optional). Jede baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-virtuell&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen **`schwerpunkte-virtual-threads-batch-messen-jdk21`** und **`schwerpunkte-virtual-threads-rest-messen-jdk21`**, danach **`schwerpunkte-virtual-threads-batch-messen-jdk25`** und **`schwerpunkte-virtual-threads-rest-messen-jdk25`** (optional). Jede baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-virtuell&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks **`schwerpunkte-virtual-threads-batch-messen-jdk21`** und **`schwerpunkte-virtual-threads-rest-messen-jdk21`**, danach **`schwerpunkte-virtual-threads-batch-messen-jdk25`** und **`schwerpunkte-virtual-threads-rest-messen-jdk25`** (optional). Jeder baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Trag die Werte in die Messtabelle ein. Was hast Du erwartet, was kam heraus?
 
 &gt; **Hinweis:** Der Lasttest schickt höchstens 100 Bestellungen gleichzeitig. Schneller
 &gt; als zwei Runden zu je 100 ms geht es also nicht.
 
 ### Das Pinning finden
 
-Vergleicht Eure Messwerte mit einem Paar, das das andere JDK hat. Auf einem der beiden
-haben virtuelle Threads viel weniger gebracht, als die Rechnung verspricht.
+Vergleiche die Werte von JDK 21 und 25. Ohne JDK 25 vergleichst Du mit einem Paar, das
+es hat. Auf JDK 21 haben virtuelle Threads viel weniger gebracht, als die Rechnung
+verspricht.
 
 Beide Fremdsysteme fragst Du über `Verbindung.sende` an (Paket `bestellung.extern` in
 der Domäne). Sieh Dir die Methode an: Was tut sie, während sie wartet – und was hält
 sie dabei fest? Die Simulation zeigt im Ablauf „Pinning in synchronized“, was ein
 virtueller Thread dort unter Java 21 tut und was sich mit Java 24 geändert hat.
 
-**Mit JDK 21:** Behebe das Pinning in `Verbindung` – ohne `synchronized`, mit gleichem
-Schutz für den Zustand. Miss erneut.
+### Das Pinning beheben
 
-**Mit JDK 25:** Erkläre, warum Dein JDK hier nichts bremst. Würdest Du `Verbindung`
-trotzdem ändern?
+Stell `Verbindung` auf einen `ReentrantLock` um: Sie soll ihren Zustand genauso
+schützen wie bisher, aber ohne `synchronized`. Miss danach erneut – auf JDK 21 und,
+optional, auf JDK 25:
+
+&lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-lock&#34; open markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Kommandozeile&lt;/summary&gt;
+
+Miss den Batch-Import mit JDK 21:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk21,messen
+```
+
+Miss die REST-Schnittstelle mit JDK 21; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk21,messen
+```
+
+Miss den Batch-Import mit JDK 25 – optional:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-batch -am -Pjdk25,messen
+```
+
+Miss die REST-Schnittstelle mit JDK 25 – optional; der Lasttest startet sie selbst und schickt ihr 200 Bestellungen:
+
+```shell
+mvn clean package -pl schwerpunkte/virtual-threads/bestellung-rest -am -Pjdk25,messen
+```
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-lock&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;IntelliJ&lt;/summary&gt;
+
+Starte nacheinander die Run Configurations **`schwerpunkte-virtual-threads-batch-messen-jdk21`** und **`schwerpunkte-virtual-threads-rest-messen-jdk21`**, danach **`schwerpunkte-virtual-threads-batch-messen-jdk25`** und **`schwerpunkte-virtual-threads-rest-messen-jdk25`** (optional). Jede baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-lock&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;Eclipse&lt;/summary&gt;
+
+Starte unter *Run → Run Configurations… → Maven Build* nacheinander die Konfigurationen **`schwerpunkte-virtual-threads-batch-messen-jdk21`** und **`schwerpunkte-virtual-threads-rest-messen-jdk21`**, danach **`schwerpunkte-virtual-threads-batch-messen-jdk25`** und **`schwerpunkte-virtual-threads-rest-messen-jdk25`** (optional). Jede baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-tabs__panel&#34; name=&#34;messen-lock&#34; markdown=&#34;1&#34;&gt;
+&lt;summary&gt;VS Code&lt;/summary&gt;
+
+Starte über *Terminal → Run Task…* nacheinander die Tasks **`schwerpunkte-virtual-threads-batch-messen-jdk21`** und **`schwerpunkte-virtual-threads-rest-messen-jdk21`**, danach **`schwerpunkte-virtual-threads-batch-messen-jdk25`** und **`schwerpunkte-virtual-threads-rest-messen-jdk25`** (optional). Jeder baut mit `clean` und misst danach.
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+Trag die Werte in die Messtabelle ein. **Mit JDK 25:** Warum ändert sich hier nichts?
+Würdest Du `Verbindung` trotzdem umstellen?
 
 ### Bewerten
 
@@ -627,10 +767,13 @@ Notiere für virtuelle Threads:
 - **Mit JDK 25:** Viele virtuelle Threads und `ThreadLocal` vertragen sich schlecht.
   Wie es ohne geht, zeigt die Übung zu Scoped Values.
 
-&gt; **Hinweis:** Die Musterlösung liegt im Branch `loesung/virtual-threads`; den
-&gt; Unterschied und eine Messtabelle zeigt ihr
-&gt; [Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/43).
-&gt; Sieh erst nach, wenn Du es selbst versucht hast.
+&gt; **Hinweis:** Die Musterlösung liegt in zwei Schritten vor: die Umstellung auf
+&gt; virtuelle Threads im Branch `loesung/virtual-threads`
+&gt; ([Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/43)),
+&gt; das Beheben des Pinnings darauf aufbauend im Branch `loesung/virtual-threads-pinning`
+&gt; ([Pull Request](https://github.com/atvantage-academy/code-template-java-se-java-update/pull/57)).
+&gt; Beide zeigen den Unterschied und ihre Messwerte. Sieh erst nach, wenn Du es selbst
+&gt; versucht hast.
 
 
 &lt;div class=&#34;skr-didaktikon-content-after&#34; data-skr-slot=&#34;content.after&#34; markdown=&#34;1&#34;&gt;
@@ -655,14 +798,14 @@ Notiere für virtuelle Threads:
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#worum-es-geht" class="skr-toc--h3">Worum es geht</a><a href="#den-ausgangsstand-messen" class="skr-toc--h3">Den Ausgangsstand messen</a><a href="#das-release-hochstellen" class="skr-toc--h3">Das Release hochstellen</a><a href="#den-batch-import-umstellen" class="skr-toc--h3">Den Batch-Import umstellen</a><a href="#die-rest-schnittstelle-umstellen" class="skr-toc--h3">Die REST-Schnittstelle umstellen</a><a href="#das-pinning-finden" class="skr-toc--h3">Das Pinning finden</a><a href="#bewerten" class="skr-toc--h3">Bewerten</a><a href="#kür" class="skr-toc--h3">Kür</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#worum-es-geht" class="skr-toc--h3">Worum es geht</a><a href="#den-ausgangsstand-messen" class="skr-toc--h3">Den Ausgangsstand messen</a><a href="#das-release-hochstellen" class="skr-toc--h3">Das Release hochstellen</a><a href="#den-batch-import-umstellen" class="skr-toc--h3">Den Batch-Import umstellen</a><a href="#die-rest-schnittstelle-umstellen" class="skr-toc--h3">Die REST-Schnittstelle umstellen</a><a href="#mit-jdk-21-und-25-messen" class="skr-toc--h3">Mit JDK 21 und 25 messen</a><a href="#das-pinning-finden" class="skr-toc--h3">Das Pinning finden</a><a href="#das-pinning-beheben" class="skr-toc--h3">Das Pinning beheben</a><a href="#bewerten" class="skr-toc--h3">Bewerten</a><a href="#kür" class="skr-toc--h3">Kür</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 7 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 8 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>

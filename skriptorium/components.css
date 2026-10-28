@@ -122,6 +122,15 @@
 /* LAGE: oben rechts im Block, über die Stellschrauben `--skr-copy-top` und
    `--skr-copy-right` (stabil) – kein `style` des Skripts steht dagegen. */
 pre:has(> .skr-copy) { position: relative; }
+/* FEST BEIM SCROLLEN: Ein absolut gesetztes Kind scrollt mit dem Inhalt seines
+   Scroll-Containers mit. Darum scrollt in einem Block mit Knopf nicht das `pre`,
+   sondern das `code` darin – der Knopf bleibt am rechten Rand stehen. Die
+   Spezifität (0,1,2) liegt über `.skr-guide-main pre` und `.skr-slide pre` in
+   derselben Schicht;
+   `min-width: 0` hält das `pre` als Flex- oder Grid-Element schmal, was
+   zuvor `overflow-x: auto` am `pre` besorgte. */
+pre:has(> code):has(> .skr-copy) { overflow-x: visible; min-width: 0; }
+pre:has(> .skr-copy) > code { display: block; overflow-x: auto; }
 pre > .skr-copy {
   position: absolute;
   top: var(--skr-copy-top, 0.5rem);
