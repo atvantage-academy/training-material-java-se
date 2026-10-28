@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../../skriptorium/print.css?v=856e77e0">
 <meta name="generator" content="Skriptorium 1.21.1">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.2.0"}],"internal":false,"languages":["de"],"skriptorium":"1.21.1","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.21.1"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lerne versiegelte Klassen kennen, versiegle eine Hierarchie aus Java 8, ersetze ihren Visitor durch einen switch ohne default – und recherchiere, wann sich das lohnt.","duration":20,"fields":{"didaktikon":{"objectives":["Du schließt eine Hierarchie mit `sealed` und `permits`.","Du ersetzt einen Visitor durch einen `switch` über die versiegelte Hierarchie, ohne `default`.","Du lässt Dir vom Compiler zeigen, wo eine neue Unterart fehlt."],"reflective_questions":["Wann sind Sealed Classes sinnvoll, und wann nicht?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich dem Compiler sagen können, welche Unterarten es gibt, damit eine vergessene Unterart beim Übersetzen auffällt statt im Betrieb."},"skriptorium":{"definition_of_done":["Das Modul `neuerungen/syntax/sealed-classes` baut mit Release 21, und `GebührenRechnerTest` ist unverändert grün.","`Zahlart` ist versiegelt und erlaubt genau die vier Zahlarten; `GebührenRechner` ist ein `switch` ohne `default`, `ZahlartVisitor` und alle `accept` sind gelöscht."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Sealed Classes","topics":["Sealed Classes","JEP 409","Vollständige Fallunterscheidung"],"untranslated":null,"url":"/java-update/neuerungen/syntax/sealed-classes/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lerne versiegelte Klassen kennen, versiegle eine Hierarchie aus Java 8, ersetze ihren Visitor durch einen switch ohne default – und recherchiere, wann sich das lohnt.","duration":20,"fields":{"didaktikon":{"objectives":["Du schließt eine Hierarchie mit `sealed` und `permits`.","Du ersetzt einen Visitor durch einen `switch` über die versiegelte Hierarchie, ohne `default`.","Du lässt Dir vom Compiler zeigen, wo eine neue Unterart fehlt."],"reflective_questions":["Wann sind Sealed Classes sinnvoll, und wann nicht?"],"user_story":"Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben soll, möchte ich dem Compiler sagen können, welche Unterarten es gibt, damit eine vergessene Unterart beim Übersetzen auffällt statt im Betrieb."},"skriptorium":{"definition_of_done":["Das Modul `neuerungen/syntax/sealed-classes` baut mit Release 21, und `GebuehrenRechnerTest` ist unverändert grün.","`Zahlart` ist versiegelt und erlaubt genau die vier Zahlarten; `GebuehrenRechner` ist ein `switch` ohne `default`, `ZahlartVisitor` und alle `accept` sind gelöscht."]}},"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Sealed Classes","topics":["Sealed Classes","JEP 409","Vollständige Fallunterscheidung"],"untranslated":null,"url":"/java-update/neuerungen/syntax/sealed-classes/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt"}</script>
 
 <script src="../../../../skriptorium/client.js?v=3156752d" defer></script>
 <script src="../../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=f9d74d1d" defer></script>
+        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=533f19b8" defer></script>
 <link rel="stylesheet" href="../../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../../skriptorium/search/de.json?v=f9d74d1d"
+     data-index="../../../../skriptorium/search/de.json?v=533f19b8"
      data-base="../../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -154,8 +154,8 @@
 <summary>Definition of Done</summary>
 <div class="skr-guide-done">
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Modul neuerungen/syntax/sealed-classes baut mit Release 21, und GebührenRechnerTest ist unverändert grün." disabled="disabled"> Das Modul <code>neuerungen/syntax/sealed-classes</code> baut mit Release 21, und <code>GebührenRechnerTest</code> ist unverändert grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Zahlart ist versiegelt und erlaubt genau die vier Zahlarten; GebührenRechner ist ein switch ohne default, ZahlartVisitor und alle accept sind gelöscht." disabled="disabled"> <code>Zahlart</code> ist versiegelt und erlaubt genau die vier Zahlarten; <code>GebührenRechner</code> ist ein <code>switch</code> ohne <code>default</code>, <code>ZahlartVisitor</code> und alle <code>accept</code> sind gelöscht.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Modul neuerungen/syntax/sealed-classes baut mit Release 21, und GebuehrenRechnerTest ist unverändert grün." disabled="disabled"> Das Modul <code>neuerungen/syntax/sealed-classes</code> baut mit Release 21, und <code>GebuehrenRechnerTest</code> ist unverändert grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Zahlart ist versiegelt und erlaubt genau die vier Zahlarten; GebuehrenRechner ist ein switch ohne default, ZahlartVisitor und alle accept sind gelöscht." disabled="disabled"> <code>Zahlart</code> ist versiegelt und erlaubt genau die vier Zahlarten; <code>GebuehrenRechner</code> ist ein <code>switch</code> ohne <code>default</code>, <code>ZahlartVisitor</code> und alle <code>accept</code> sind gelöscht.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
@@ -210,18 +210,18 @@ hochstellen.“ von <code>8</code> auf <code>21</code>. Baue das Modul danach:</
 wie eine versiegelte Hierarchie den Compiler alle Unterarten kennen lässt.</p>
 <p>Im selben Modul steht <code>Zahlart</code> im Stil von Java 8: eine abstrakte Klasse mit vier
 Unterklassen, deren Javadoc zugibt, dass sich „genau vier“ nicht sicherstellen lässt.
-Der <code>GebührenRechner</code> ist deshalb ein Visitor.</p>
+Der <code>GebuehrenRechner</code> ist deshalb ein Visitor.</p>
 <ol>
 <li><strong>Versiegle</strong> <code>Zahlart</code>, sodass sie genau <code>Rechnung</code>, <code>Lastschrift</code>, <code>Kreditkarte</code>
 und <code>PayPal</code> erlaubt.</li>
-<li>Schreib <code>GebührenRechner.gebühr(zahlart, betrag)</code> als <strong><code>switch</code> über die Zahlart,
+<li>Schreib <code>GebuehrenRechner.gebühr(zahlart, betrag)</code> als <strong><code>switch</code> über die Zahlart,
 ohne <code>default</code></strong>. Danach braucht niemand mehr <code>accept</code> – lösch <code>ZahlartVisitor</code>,
 die abstrakte Methode in <code>Zahlart</code> und ihre Umsetzungen.</li>
 <li><strong>Prüfe, was der Compiler jetzt weiß:</strong> Leg im Paket eine Klasse
 <code>final class Gutschein extends Zahlart</code> an und baue. Trag sie danach in <code>permits</code>
 ein und baue noch einmal. Lies beide Meldungen und lösch den <code>Gutschein</code> wieder.</li>
 </ol>
-<p><code>GebührenRechnerTest</code> sichert das Verhalten ab – er bleibt unverändert und muss grün
+<p><code>GebuehrenRechnerTest</code> sichert das Verhalten ab – er bleibt unverändert und muss grün
 bleiben. Baue das Modul nach jedem Schritt erneut, wie oben.</p>
 <div class="skr-didaktikon-content-after" data-skr-slot="content.after">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
@@ -263,8 +263,8 @@ Als Entwickler:in, die eine Java-8-Anwendung auf ein aktuelles Release heben sol
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
 
-- [ ] Das Modul `neuerungen/syntax/sealed-classes` baut mit Release 21, und `GebührenRechnerTest` ist unverändert grün.
-- [ ] `Zahlart` ist versiegelt und erlaubt genau die vier Zahlarten; `GebührenRechner` ist ein `switch` ohne `default`, `ZahlartVisitor` und alle `accept` sind gelöscht.
+- [ ] Das Modul `neuerungen/syntax/sealed-classes` baut mit Release 21, und `GebuehrenRechnerTest` ist unverändert grün.
+- [ ] `Zahlart` ist versiegelt und erlaubt genau die vier Zahlarten; `GebuehrenRechner` ist ein `switch` ohne `default`, `ZahlartVisitor` und alle `accept` sind gelöscht.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -347,18 +347,18 @@ wie eine versiegelte Hierarchie den Compiler alle Unterarten kennen lässt.
 
 Im selben Modul steht `Zahlart` im Stil von Java 8: eine abstrakte Klasse mit vier
 Unterklassen, deren Javadoc zugibt, dass sich „genau vier“ nicht sicherstellen lässt.
-Der `GebührenRechner` ist deshalb ein Visitor.
+Der `GebuehrenRechner` ist deshalb ein Visitor.
 
 1. **Versiegle** `Zahlart`, sodass sie genau `Rechnung`, `Lastschrift`, `Kreditkarte`
    und `PayPal` erlaubt.
-2. Schreib `GebührenRechner.gebühr(zahlart, betrag)` als **`switch` über die Zahlart,
+2. Schreib `GebuehrenRechner.gebühr(zahlart, betrag)` als **`switch` über die Zahlart,
    ohne `default`**. Danach braucht niemand mehr `accept` – lösch `ZahlartVisitor`,
    die abstrakte Methode in `Zahlart` und ihre Umsetzungen.
 3. **Prüfe, was der Compiler jetzt weiß:** Leg im Paket eine Klasse
    `final class Gutschein extends Zahlart` an und baue. Trag sie danach in `permits`
    ein und baue noch einmal. Lies beide Meldungen und lösch den `Gutschein` wieder.
 
-`GebührenRechnerTest` sichert das Verhalten ab – er bleibt unverändert und muss grün
+`GebuehrenRechnerTest` sichert das Verhalten ab – er bleibt unverändert und muss grün
 bleiben. Baue das Modul nach jedem Schritt erneut, wie oben.
 
 

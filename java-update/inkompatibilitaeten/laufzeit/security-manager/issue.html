@@ -40,7 +40,7 @@
 <script src="../../../../skriptorium/client.js?v=3156752d" defer></script>
 <script src="../../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=f9d74d1d" defer></script>
+        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=533f19b8" defer></script>
 <link rel="stylesheet" href="../../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../../skriptorium/search/de.json?v=f9d74d1d"
+     data-index="../../../../skriptorium/search/de.json?v=533f19b8"
      data-base="../../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -169,7 +169,7 @@ noch funktioniert.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="das-problem-ansehen">Das Problem ansehen</h3>
 <p>Öffne im Übungsprojekt das Modul <code>inkompatibilitaeten/laufzeit/security-manager</code> und darin die Klasse
-<code>PluginAusführer</code> und ihren Test. Wie verhindert die Klasse, dass ein Plugin die
+<code>PluginAusfuehrer</code> und ihren Test. Wie verhindert die Klasse, dass ein Plugin die
 Anwendung beendet?</p>
 <h3 id="optional-den-stand-vorher-mit-jdk-8-sehen">Optional: Den Stand vorher mit JDK 8 sehen</h3>
 <p>Hast Du ein JDK 8 als Toolchain eingerichtet (<a class="skr-doclink skr-doclink--guide" href="../../../../java-update/inkompatibilitaeten/laufzeit/jdk8-toolchain.html">Anleitung</a>), siehst
@@ -278,7 +278,7 @@ er prüft.</p>
 <code>System.exit</code> beendet nur diese; der Status kommt als Exit-Code zurück, und der
 Ausführer meldet ihn als <code>PluginBeendetException</code>. Die Abgrenzung übernimmt damit das
 Betriebssystem – oder ein Container.</p>
-<p>Leg dazu neben <code>PluginAusführer</code> die Klasse <code>PluginStarter</code> an. Sie ist das Programm,
+<p>Leg dazu neben <code>PluginAusfuehrer</code> die Klasse <code>PluginStarter</code> an. Sie ist das Programm,
 das in der neuen JVM ein Plugin startet:</p>
 <pre><code class="language-java">package kompatibilitaet.securitymanager;
 
@@ -293,7 +293,7 @@ public final class PluginStarter {
     }
 }
 </code></pre>
-<p>In <code>PluginAusführer</code> ersetze <strong>Zeilen 15 bis 23</strong>, die Methode <code>führeAus</code>. Sie bekommt
+<p>In <code>PluginAusfuehrer</code> ersetze <strong>Zeilen 15 bis 23</strong>, die Methode <code>führeAus</code>. Sie bekommt
 jetzt die Klasse des Plugins statt einer Instanz – eine Instanz lässt sich nicht an
 eine andere JVM übergeben:</p>
 <pre><code class="language-java">    private static final long ZEITLIMIT_SEKUNDEN = 30;
@@ -332,7 +332,7 @@ eine andere JVM übergeben:</p>
 <code>SecurityException</code>.</li>
 <li><strong>Zeilen 44 bis 55:</strong> Die Klasse <code>ExitVerhinderer</code> entfällt.</li>
 </ul>
-<p>Im Test <code>PluginAusführerTest</code> werden die beiden Plugins zu benannten Klassen, damit die
+<p>Im Test <code>PluginAusfuehrerTest</code> werden die beiden Plugins zu benannten Klassen, damit die
 neue JVM sie laden kann:</p>
 <pre><code class="language-java">    public static class GrüßendesPlugin implements Runnable {
 
@@ -350,8 +350,8 @@ neue JVM sie laden kann:</p>
         }
     }
 </code></pre>
-<p>Die Tests rufen <code>PluginAusführer.führeAus(GrüßendesPlugin.class)</code> und
-<code>PluginAusführer.führeAus(BeendendesPlugin.class)</code> auf. Was sie prüfen, bleibt gleich:
+<p>Die Tests rufen <code>PluginAusfuehrer.führeAus(GrüßendesPlugin.class)</code> und
+<code>PluginAusfuehrer.führeAus(BeendendesPlugin.class)</code> auf. Was sie prüfen, bleibt gleich:
 Das Plugin läuft, und sein <code>System.exit(3)</code> kommt als <code>PluginBeendetException</code> mit
 Status 3 zurück.</p>
 <p>Das ist eine <strong>Entwurfsentscheidung</strong>, keine Behebung im Kleinen: Sie kostet Startzeit
@@ -431,7 +431,7 @@ noch funktioniert.
 ### Das Problem ansehen
 
 Öffne im Übungsprojekt das Modul `inkompatibilitaeten/laufzeit/security-manager` und darin die Klasse
-`PluginAusführer` und ihren Test. Wie verhindert die Klasse, dass ein Plugin die
+`PluginAusfuehrer` und ihren Test. Wie verhindert die Klasse, dass ein Plugin die
 Anwendung beendet?
 
 ### Optional: Den Stand vorher mit JDK 8 sehen
@@ -605,7 +605,7 @@ Das Plugin läuft in einer **eigenen JVM**, gestartet über `ProcessBuilder`. Ei
 Ausführer meldet ihn als `PluginBeendetException`. Die Abgrenzung übernimmt damit das
 Betriebssystem – oder ein Container.
 
-Leg dazu neben `PluginAusführer` die Klasse `PluginStarter` an. Sie ist das Programm,
+Leg dazu neben `PluginAusfuehrer` die Klasse `PluginStarter` an. Sie ist das Programm,
 das in der neuen JVM ein Plugin startet:
 
 ```java
@@ -623,7 +623,7 @@ public final class PluginStarter {
 }
 ```
 
-In `PluginAusführer` ersetze **Zeilen 15 bis 23**, die Methode `führeAus`. Sie bekommt
+In `PluginAusfuehrer` ersetze **Zeilen 15 bis 23**, die Methode `führeAus`. Sie bekommt
 jetzt die Klasse des Plugins statt einer Instanz – eine Instanz lässt sich nicht an
 eine andere JVM übergeben:
 
@@ -665,7 +665,7 @@ Dazu in derselben Klasse:
   `SecurityException`.
 - **Zeilen 44 bis 55:** Die Klasse `ExitVerhinderer` entfällt.
 
-Im Test `PluginAusführerTest` werden die beiden Plugins zu benannten Klassen, damit die
+Im Test `PluginAusfuehrerTest` werden die beiden Plugins zu benannten Klassen, damit die
 neue JVM sie laden kann:
 
 ```java
@@ -686,8 +686,8 @@ neue JVM sie laden kann:
     }
 ```
 
-Die Tests rufen `PluginAusführer.führeAus(GrüßendesPlugin.class)` und
-`PluginAusführer.führeAus(BeendendesPlugin.class)` auf. Was sie prüfen, bleibt gleich:
+Die Tests rufen `PluginAusfuehrer.führeAus(GrüßendesPlugin.class)` und
+`PluginAusfuehrer.führeAus(BeendendesPlugin.class)` auf. Was sie prüfen, bleibt gleich:
 Das Plugin läuft, und sein `System.exit(3)` kommt als `PluginBeendetException` mit
 Status 3 zurück.
 

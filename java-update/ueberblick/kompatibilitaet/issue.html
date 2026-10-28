@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=3156752d" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f9d74d1d" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=533f19b8" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=f9d74d1d"
+     data-index="../../../skriptorium/search/de.json?v=533f19b8"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -176,7 +176,7 @@ Code, wie er in Java-8-Anwendungen oft steht:</p>
 JDK.</li>
 <li><code>Lagerbestand</code> packt Zahlen mit <code>new Integer(…)</code> und <code>new Double(…)</code> ein.</li>
 <li><code>Druckauftrag</code> räumt seine temporäre Datei in <code>finalize()</code> auf.</li>
-<li><code>Exportwächter</code> bricht einen hängenden Export mit <code>Thread.stop()</code> ab.</li>
+<li><code>Exportwaechter</code> bricht einen hängenden Export mit <code>Thread.stop()</code> ab.</li>
 </ul>
 <p>Lass beide Werkzeuge über alles laufen.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
@@ -265,7 +265,7 @@ seine Funde. Für das Modul <code>werkzeuge</code> sieht das so aus:</p>
 class ueberblick/werkzeuge/Druckauftrag setzt die veraltete Methode java/lang/Object::finalize()V (forRemoval=true) außer Kraft
 class ueberblick/werkzeuge/Lagerbestand verwendet die veraltete Methode java/lang/Integer::&lt;init&gt;(I)V (forRemoval=true)
 class ueberblick/werkzeuge/Lagerbestand verwendet die veraltete Methode java/lang/Double::&lt;init&gt;(Ljava/lang/String;)V (forRemoval=true)
-class ueberblick/werkzeuge/Exportwächter verwendet die veraltete Methode java/lang/Thread::stop()V (forRemoval=true)
+class ueberblick/werkzeuge/Exportwaechter verwendet die veraltete Methode java/lang/Thread::stop()V (forRemoval=true)
 </code></pre>
 <p><code>&lt;init&gt;</code> steht für einen Konstruktor. Welche Module nutzen noch etwas, das entfernt
 werden soll? Und was bedeutet die Zeile <code>Fehler: Klasse javax/xml/bind/JAXB nicht gefunden</code>?</p>
@@ -351,7 +351,7 @@ Code, wie er in Java-8-Anwendungen oft steht:
   JDK.
 - `Lagerbestand` packt Zahlen mit `new Integer(…)` und `new Double(…)` ein.
 - `Druckauftrag` räumt seine temporäre Datei in `finalize()` auf.
-- `Exportwächter` bricht einen hängenden Export mit `Thread.stop()` ab.
+- `Exportwaechter` bricht einen hängenden Export mit `Thread.stop()` ab.
 
 Lass beide Werkzeuge über alles laufen.
 
@@ -487,7 +487,7 @@ class ueberblick/werkzeuge/Druckauftrag verwendet die veraltete Methode java/lan
 class ueberblick/werkzeuge/Druckauftrag setzt die veraltete Methode java/lang/Object::finalize()V (forRemoval=true) außer Kraft
 class ueberblick/werkzeuge/Lagerbestand verwendet die veraltete Methode java/lang/Integer::&lt;init&gt;(I)V (forRemoval=true)
 class ueberblick/werkzeuge/Lagerbestand verwendet die veraltete Methode java/lang/Double::&lt;init&gt;(Ljava/lang/String;)V (forRemoval=true)
-class ueberblick/werkzeuge/Exportwächter verwendet die veraltete Methode java/lang/Thread::stop()V (forRemoval=true)
+class ueberblick/werkzeuge/Exportwaechter verwendet die veraltete Methode java/lang/Thread::stop()V (forRemoval=true)
 ```
 
 `&lt;init&gt;` steht für einen Konstruktor. Welche Module nutzen noch etwas, das entfernt
