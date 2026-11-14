@@ -4,7 +4,7 @@
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
-<script src="../../../skriptorium/skr.js?v=c5cdbeab"></script>
+<script src="../../../skriptorium/skr.js?v=f901f1a0"></script>
 <title>Collections-API · ATVANTAGE Academy</title>
 <meta name="description" content="Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen.">
 
@@ -13,34 +13,34 @@
 <meta property="og:description" content="Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen.">
 <meta property="og:type" content="website">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c">
-<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71">
-<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94">
-<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3">
-<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278">
-<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3">
-<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d">
-<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433">
-<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58">
-<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=e74fbfe2">
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=976961fc">
 <link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
 <link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
-<link rel="stylesheet" href="../../../skriptorium/components.css?v=20870760">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=dd0c549b">
 <link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
-<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=c2b6fab2">
-<link rel="stylesheet" href="../../../skriptorium/site.css?v=99cfb183">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=dc500458">
 <link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
-<link rel="stylesheet" href="../../../skriptorium/guide.css?v=d99cc970">
-<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=856e77e0">
-<meta name="generator" content="Skriptorium 1.23.0">
-<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"1.3.0"}],"internal":false,"languages":["de"],"skriptorium":"1.23.0","theme":"didaktikon","themes":[{"name":"didaktikon","version":"1.0.1"},{"name":"atvantage","version":"1.0.1"},{"name":"default","version":"1.23.0"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-basics/oop-mit-java/collections/collections-api.css","src":"collections-api.css","type":"style"},{"path":"java-basics/oop-mit-java/collections/collections-api.js","src":"collections-api.js","type":"script"}],"pageId":null,"runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Collections-API","topics":null,"untranslated":null,"url":"/java-basics/oop-mit-java/collections/collections-api.html"}</script>
-<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizNext":"Weiter","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen"}</script>
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=1237e482">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=675441b6">
+<meta name="generator" content="Skriptorium 2.0.0-rc.13">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.10"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.13","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.10"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.13"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Die wichtigsten Typen der Collections-API als klickbares Klassendiagramm – je Typ Erklärung, Codebeispiel und interne Umsetzung – dazu Anlegen, Generics, Iterieren und Mengenoperationen.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"java-basics/oop-mit-java/collections/collections-api.css","src":"collections-api.css","type":"style"},{"path":"java-basics/oop-mit-java/collections/collections-api.js","src":"collections-api.js","type":"script"}],"pageId":"oop-mit-java-collections-api","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Collections-API","topics":null,"untranslated":null,"url":"/java-basics/oop-mit-java/collections/collections-api.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
-<script src="../../../skriptorium/client.js?v=3156752d" defer></script>
+<script src="../../../skriptorium/client.js?v=394fe386" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=533f19b8" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=1034f7b0" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -64,7 +64,7 @@
 <button type="button" class="skr-qr" data-skr-qr hidden
         title="Diese Seite auf Deinem Smartphone öffnen"
         aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
-<button type="button" class="skr-tool skr-tool--theme" data-skr-theme-toggle
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
         title="Farbschema umschalten (hell/dunkel)"
         aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
         fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
@@ -78,49 +78,8 @@
 </section>
 
   <div class="skr-guide-layout">
-    <main class="skr-guide-main" id="skr-content"><!-- ANFORDERUNGEN an diese Visualisierung
-     - Ort: java-basics/oop-mit-java/collections/ – eingebunden in die Materialübersicht
-       („Zum Nachschlagen“) von „OOP mit Java“ und „Java für OO-Umsteiger“, jeweils
-       im Thema mit der Collections-Übung (index.md und index-trainer.md).
-     - Oben ein KLICKBARES KLASSENDIAGRAMM mit genau diesen Typen: Collection, List,
-       Set, Map (Interfaces) und ArrayList, LinkedList, HashSet, TreeSet, HashMap,
-       TreeMap (Klassen). Methoden im Diagramm: add, remove, get(index), iterator,
-       stream(), size(), clear(), isEmpty(), contains – plus das Nötigste von List
-       und Map (put/get/keySet …), sonst ist Map leer.
-     - WENIG VERERBUNG: Die Pfeile stehen da, damit man die Familien sieht – erklärt
-       wird UML hier nicht. Eine Zeile Legende genügt. Ausdrücklich so gewünscht.
-     - Klick auf einen Typ öffnet ein Popup mit Reitern:
-         · Erklärung – Besonderheiten, wann verwenden, Stärken, Stolpersteine
-         · Codebeispiel (NUR konkrete Klassen) – Beispieldaten Strings/Integers,
-           nach JEDEM add die Ausgabe, damit Sortierung und Duplikate sichtbar werden
-         · Interne Umsetzung (NUR konkrete Klassen) – ArrayList: Array; LinkedList:
-           verkettete Knoten; HashSet/HashMap: Hash-Tabelle mit hashCode + equals;
-           TreeSet/TreeMap: Baum mit Comparable bzw. Comparator
-       Interfaces haben statt Codebeispiel/Intern den Reiter „Methoden“ (ein
-       Reiterstreifen braucht mindestens zwei Reiter; dort stehen die Methoden
-       des Diagramms mit Bedeutung).
-     - Unter dem Diagramm allgemeine Beispiele: Anlegen (new, List.of & Co.,
-       Hilfsklassen Arrays/Collections), Generics (add nur mit dem Elementtyp),
-       Iterieren (Iterator, for-each, stream()), Mengenoperationen.
-     - BEWUSST ÜBER DIE ABGRENZUNG DES TRAINER-MODULS HINAUS: Das Modul
-       collections/index.md lässt Streams, Interna und Comparator weg. Diese Seite
-       ist ein Nachschlagewerk und zeigt sie auf ausdrücklichen Auftrag trotzdem:
-       Die Übersicht muss VOLLSTÄNDIG sein. Was über das Modul hinausgeht, ordnet
-       der Trainer im Unterricht ein (Hinweis statt Weglassen). Nicht kürzen.
-     - ALLE AUSGABEN SIND ECHT: jedes Beispiel mit OpenJDK 25.0.2 ausgeführt
-       (2026-10-08), Compilermeldungen aus javac mit deutscher Locale. Gilt besonders
-       für die Reihenfolge in HashSet/HashMap ([Birne, Kiwi, Apfel]) und die
-       Bucket-Nummern (Tabelle mit 16 Plätzen: Birne 1, Kiwi 3, Apfel 6). Wer
-       Beispieldaten ändert, muss neu ausführen – nicht schätzen.
-     - Bezeichner mit Umlauten (AGENTS.md, A-006), auch im JavaScript dieser Seite.
-     - Zustand in der Adresse: `typ` (offenes Popup) über skr.state, der Reiter
-       über die Theme-Reiter (`open`). Beispiel: #/?typ=hashset&open=hashset-intern
--->
-<div class="cap-root">
+    <main class="skr-guide-main" id="skr-content"><div class="cap-root">
 <p class="cap-lead">Listen, Mengen und Zuordnungen – die zehn Typen, die Du im Alltag wirklich brauchst. <strong>Klicke einen Typ an</strong>: Du bekommst seine Besonderheiten, bei den konkreten Klassen ein Beispiel mit echter Ausgabe und einen Blick darauf, wie er intern gebaut ist. Darunter stehen die Grundgriffe, die für alle gelten.</p>
-<!-- KLASSENDIAGRAMM. data-eltern + data-beziehung steuern die Linien (Skript unten):
-     extends = durchgezogen (Interface erweitert Interface), implements = gestrichelt.
-     Map steht bewusst NEBEN Collection, nicht darunter: Eine Map ist keine Collection. -->
 <div class="cap-diagramm-rahmen">
 <div class="cap-diagramm" id="cap-diagramm">
 <svg class="cap-linien" id="cap-linien" aria-hidden="true" focusable="false"></svg>
@@ -160,18 +119,11 @@
 </button>
 </div>
 </div>
-<!-- Eine Zeile Legende, mehr UML nicht (Anforderung: wenig Vererbung). -->
 <p class="cap-legende">
 <span><svg width="34" height="10" aria-hidden="true"><line x1="0" y1="5" x2="34" y2="5" stroke="currentColor" stroke-width="1.6"/></svg>erweitert (Interface → Interface)</span>
 <span><svg width="34" height="10" aria-hidden="true"><line x1="0" y1="5" x2="34" y2="5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/></svg>implementiert (Klasse → Interface)</span>
 <span>Kursiv mit «interface»: nur Vertrag · Kasten mit Streifen: konkrete Klasse, die Du mit <code>new</code> erzeugst</span>
 </p>
-<!-- ======================================================================
-     POPUPS – eines je Typ. Der Inhalt steht statisch im Dokument (das Theme färbt
-     den Code beim Laden, der Druck zeigt alles). Reiter = Theme-Baustein
-     skr-tabs; die id jedes Reiters steht so in der Adresse.
-     ====================================================================== -->
-<!-- ---------------------------------------------------------- Collection -->
 <dialog class="cap-dialog" id="cap-dialog-collection" aria-labelledby="cap-titel-collection">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -226,7 +178,6 @@ System.out.println(obst.isEmpty());         // true</code></pre>
 </div>
 </div>
 </dialog>
-<!-- ---------------------------------------------------------------- List -->
 <dialog class="cap-dialog" id="cap-dialog-list" aria-labelledby="cap-titel-list">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -271,7 +222,6 @@ System.out.println(zahlen);          // [30]</code></pre>
 </div>
 </div>
 </dialog>
-<!-- ----------------------------------------------------------------- Set -->
 <dialog class="cap-dialog" id="cap-dialog-set" aria-labelledby="cap-titel-set">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -306,7 +256,6 @@ System.out.println(zahlen);          // [30]</code></pre>
 </div>
 </div>
 </dialog>
-<!-- ----------------------------------------------------------------- Map -->
 <dialog class="cap-dialog" id="cap-dialog-map" aria-labelledby="cap-titel-map">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -351,7 +300,6 @@ System.out.println(bestand);                     // {Birne=3, Apfel=5}</code></p
 </div>
 </div>
 </dialog>
-<!-- ----------------------------------------------------------- ArrayList -->
 <dialog class="cap-dialog" id="cap-dialog-arraylist" aria-labelledby="cap-titel-arraylist">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -388,8 +336,6 @@ obst.add(0, "Mango");    System.out.println(obst);  // [Mango, Birne, Kiwi, Apfe
 <details class="skr-tabs__panel" name="cap-arraylist" id="arraylist-intern">
 <summary>Interne Umsetzung</summary>
 <p>Eine <code>ArrayList</code> besteht aus einem gewöhnlichen <strong>Array</strong> (<code>Object[] elementData</code>) und einem Zähler <code>size</code>. Das Array ist meist größer als nötig – die freien Plätze sind Reserve für die nächsten <code>add</code>.</p>
-<!-- Stand nach den vier add des Codebeispiels: new ArrayList<>() legt beim ersten
-     add ein Array mit 10 Plätzen an (DEFAULT_CAPACITY). -->
 <div class="cap-bild" role="img" aria-label="Array mit 10 Plätzen, belegt sind 0 bis 3 mit Birne, Apfel, Kiwi, Apfel; size 4, Kapazität 10">
 <span class="cap-bild__titel">Nach den vier <code>add</code>: size = 4, Kapazität = 10</span>
 <div class="cap-array">
@@ -417,7 +363,6 @@ obst.add(0, "Mango");    System.out.println(obst);  // [Mango, Birne, Kiwi, Apfe
 </div>
 </div>
 </dialog>
-<!-- ---------------------------------------------------------- LinkedList -->
 <dialog class="cap-dialog" id="cap-dialog-linkedlist" aria-labelledby="cap-titel-linkedlist">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -452,7 +397,6 @@ System.out.println(schlange);                 // [Birne, Apfel, Apfel]</code></p
 <details class="skr-tabs__panel" name="cap-linkedlist" id="linkedlist-intern">
 <summary>Interne Umsetzung</summary>
 <p>Jedes Element steckt in einem eigenen <strong>Knoten</strong> (<code>Node</code>) mit drei Feldern: dem Element selbst, einem Verweis auf den Vorgänger (<code>prev</code>) und einem auf den Nachfolger (<code>next</code>). Die Liste kennt nur den ersten und den letzten Knoten.</p>
-<!-- Stand nach den vier add des Codebeispiels (vor removeFirst). -->
 <div class="cap-bild" role="img" aria-label="Doppelt verkettete Liste: first zeigt auf Kiwi, dann Birne, Apfel, Apfel; last zeigt auf das letzte Apfel. Jeder Knoten hat prev und next.">
 <span class="cap-bild__titel">Doppelt verkettet: [Kiwi, Birne, Apfel, Apfel]</span>
 <div class="cap-kette">
@@ -483,7 +427,6 @@ System.out.println(schlange);                 // [Birne, Apfel, Apfel]</code></p
 </div>
 </div>
 </dialog>
-<!-- ------------------------------------------------------------- HashSet -->
 <dialog class="cap-dialog" id="cap-dialog-hashset" aria-labelledby="cap-titel-hashset">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -522,9 +465,6 @@ System.out.println(obst.size());            // 3</code></pre>
 <details class="skr-tabs__panel" name="cap-hashset" id="hashset-intern">
 <summary>Interne Umsetzung</summary>
 <p>Ein <code>HashSet</code> ist eine <strong>Hash-Tabelle</strong>: ein Array von „Eimern“ (Buckets). In welchen Eimer ein Element gehört, berechnet sich aus seinem <code>hashCode()</code>. (Genau genommen benutzt <code>HashSet</code> intern eine <code>HashMap</code> und legt die Elemente als deren Schlüssel ab.)</p>
-<!-- Echte Werte, JDK 25: Tabelle mit 16 Plätzen, Platz = (h ^ (h >>> 16)) & 15.
-     Birne 64193506 → 1, Kiwi 2339024 → 3, Apfel 63466718 → 6. Daraus folgt die
-     Ausgabe [Birne, Kiwi, Apfel]: Iteriert wird Eimer für Eimer. -->
 <div class="cap-bild" role="img" aria-label="Hash-Tabelle mit 16 Plätzen: Birne in Platz 1, Kiwi in Platz 3, Apfel in Platz 6, alle anderen leer">
 <span class="cap-bild__titel">Startgröße 16 Plätze – Platz = Hash, auf die Tabellengröße zugeschnitten (hier 0…15)</span>
 <div class="cap-eimer">
@@ -574,7 +514,6 @@ System.out.println(obst.size());            // 3</code></pre>
 </div>
 </div>
 </dialog>
-<!-- ------------------------------------------------------------- TreeSet -->
 <dialog class="cap-dialog" id="cap-dialog-treeset" aria-labelledby="cap-titel-treeset">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -616,9 +555,6 @@ nachLänge.add("Apfel");  System.out.println(nachLänge);  // [Kiwi, Birne]  ←
 <details class="skr-tabs__panel" name="cap-treeset" id="treeset-intern">
 <summary>Interne Umsetzung</summary>
 <p>Ein <code>TreeSet</code> ist ein <strong>binärer Suchbaum</strong> (genauer: ein Rot-Schwarz-Baum, intern über eine <code>TreeMap</code>). Jeder Knoten hat höchstens zwei Kinder: <strong>links das Kleinere, rechts das Größere</strong>. Beim Einfügen wird von der Wurzel aus verglichen und links oder rechts abgebogen, bis ein freier Platz kommt.</p>
-<!-- Echter Baum nach add(42), add(7), add(19), add(3): Beim Einfügen der 19
-     rotiert der Rot-Schwarz-Baum, 19 wird Wurzel. Farben bewusst weggelassen –
-     die Balance-Regeln sind nicht das Thema, nur „links kleiner, rechts größer“. -->
 <div class="cap-bild cap-baum" role="img" aria-label="Suchbaum: Wurzel 19, links 7 mit linkem Kind 3, rechts 42">
 <span class="cap-bild__titel">Nach 42, 7, 19, 7, 3 – der Baum hat sich selbst ausbalanciert</span>
 <svg viewBox="0 0 300 150" width="300" height="150" aria-hidden="true">
@@ -662,7 +598,6 @@ Set&lt;String&gt; absteigend =
 </div>
 </div>
 </dialog>
-<!-- ------------------------------------------------------------- HashMap -->
 <dialog class="cap-dialog" id="cap-dialog-hashmap" aria-labelledby="cap-titel-hashmap">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -701,8 +636,6 @@ System.out.println(bestand.getOrDefault("Mango", 0));  // 0</code></pre>
 <details class="skr-tabs__panel" name="cap-hashmap" id="hashmap-intern">
 <summary>Interne Umsetzung</summary>
 <p>Dieselbe <strong>Hash-Tabelle</strong> wie beim <code>HashSet</code> – nur liegt in jedem Eimer ein Paar aus Schlüssel und Wert. <strong>Den Platz bestimmt allein der Schlüssel</strong>; der Wert spielt dafür keine Rolle.</p>
-<!-- Dieselben Plätze wie beim HashSet (gleiche Schlüssel, Tabelle mit 16 Plätzen),
-     Werte nach dem Überschreiben (Apfel=8). Mit JDK 25 nachgeprüft. -->
 <div class="cap-bild" role="img" aria-label="Hash-Tabelle mit 16 Plätzen: Platz 1 Birne gleich 3, Platz 3 Kiwi gleich 2, Platz 6 Apfel gleich 8">
 <span class="cap-bild__titel">Startgröße 16 Plätze – Platz = Hash des Schlüssels, auf die Tabellengröße zugeschnitten (hier 0…15)</span>
 <div class="cap-eimer">
@@ -736,7 +669,6 @@ System.out.println(bestand.getOrDefault("Mango", 0));  // 0</code></pre>
 </div>
 </div>
 </dialog>
-<!-- ------------------------------------------------------------- TreeMap -->
 <dialog class="cap-dialog" id="cap-dialog-treemap" aria-labelledby="cap-titel-treemap">
 <div class="cap-dialog__innen">
 <div class="cap-dialog__kopf">
@@ -770,9 +702,6 @@ System.out.println(bestand.headMap("Kiwi"));  // {Apfel=8, Birne=3}  ← alles v
 <details class="skr-tabs__panel" name="cap-treemap" id="treemap-intern">
 <summary>Interne Umsetzung</summary>
 <p>Ein <strong>Rot-Schwarz-Baum</strong> wie beim <code>TreeSet</code> (das <code>TreeSet</code> benutzt intern sogar eine <code>TreeMap</code>). Jeder Knoten trägt Schlüssel <em>und</em> Wert; einsortiert wird nur nach dem Schlüssel – links kleiner, rechts größer.</p>
-<!-- Echter Baum nach put Birne, Apfel, Kiwi: keine Rotation nötig, Birne bleibt
-     Wurzel. Das letzte put(Apfel, 8) findet den Knoten Apfel (Vergleich 0) und
-     ersetzt nur den Wert. -->
 <div class="cap-bild cap-baum" role="img" aria-label="Suchbaum: Wurzel Birne gleich 3, links Apfel gleich 8, rechts Kiwi gleich 2">
 <span class="cap-bild__titel">Nach den vier <code>put</code></span>
 <svg viewBox="0 0 320 120" width="320" height="120" aria-hidden="true">
@@ -790,9 +719,6 @@ Map&lt;LocalDate, Double&gt; kurse = new TreeMap&lt;&gt;();   // LocalDate ist C
 </div>
 </div>
 </dialog>
-<!-- ======================================================================
-     ALLGEMEINE BEISPIELE – gelten für alle Typen oben.
-     ====================================================================== -->
 <section class="cap-sec" id="anlegen">
 <h2><span class="cap-num">1</span> Anlegen</h2>
 <div class="cap-grid">
@@ -950,8 +876,6 @@ for (Map.Entry&lt;String, Integer&gt; e : bestand.entrySet()) {
 </section>
 <section class="cap-sec" id="mengen">
 <h2><span class="cap-num">4</span> Mengenoperationen</h2>
-<!-- TreeSet statt HashSet, damit die gezeigten Ausgaben sortiert und damit
-     verlässlich sind. Die Methoden selbst gehören zu Collection. -->
 <div class="cap-tabelle-rahmen" style="margin-bottom:1.1rem"><table class="cap-tabelle">
 <thead><tr><th>Operation</th><th>Methode</th><th>a = [Apfel, Birne, Kiwi], b = [Apfel, Kiwi, Mango]</th></tr></thead>
 <tbody>
