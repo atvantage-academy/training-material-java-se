@@ -1,5 +1,10 @@
 .lz-lead{color:var(--skr-color-ink-muted);margin:0 0 1.5rem;}
 .lz-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0 1rem;}
+/* JEP-Verweise in Marken (`.skr-badge`), auch die aus laufzeit.js: in der Schrift der Marke statt
+   in der Verweisfarbe – die hält auf dem Grund der Marke keine 3:1 –, und unterstrichen, damit
+   der Verweis nicht nur an der Farbe zu erkennen ist (WCAG 1.4.1). */
+.skr-badge a{color:inherit;text-decoration:underline;text-underline-offset:.15em;}
+.skr-badge a:hover{text-decoration-thickness:2px;}
 .lz-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .35rem;font-weight:700;}
 .lz-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;}
 .lz-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
