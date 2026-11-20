@@ -1,13 +1,13 @@
 (function () {
   // ---------------------------------------------------------------------------
   // DATEN – Voreinstellungen der IDEs. Je IDE zwei Belegungen:
-  //   ij/ijm  IntelliJ unter Windows und Linux / unter macOS
+  //   ij/ijm  IntelliJ unter Windows und Linux / unter macOS; ijl: unter Linux, wo es abweicht
   //   ec/ecm  Eclipse   unter Windows und Linux / unter macOS
   //   vs/vsm  VS Code   unter Windows / unter macOS; vsl: unter Linux, wo es abweicht
   // Windows/Linux mit Tastennamen und „+“ (Strg+Umschalt+A), macOS mit Symbolen ohne
   // „+“ (⌘⇧A). Alternativen trennt „ / “, eine Folge von Griffen ein Leerzeichen
   // (Strg+K Strg+Q). Leer: In dieser IDE gibt es dafür kein voreingestelltes Kürzel.
-  // aktion: der englische Name, unter dem Find Action die Aktion findet.
+  // aktion: der englische Name, unter dem 2× Umschalt die Aktion findet.
   // kern: gehört zu den vier Kürzeln, die man auswendig kann; sie stehen außerdem
   // unter „Die wichtigsten“.
   // wörter: weitere Suchbegriffe, die weder in „was“ noch in „aktion“ stehen.
@@ -32,7 +32,7 @@
       { was: "Verwendungen suchen", aktion: "Find Usages", ij: "Alt+F7", ijm: "⌥F7", ec: "Strg+Umschalt+G", ecm: "⌘⇧G", vs: "Umschalt+Alt+F12", vsm: "⌥⇧F12", wörter: "referenzen references" },
       { was: "Verwendungen in der Datei hervorheben", aktion: "Highlight Usages in File", ij: "Strg+Umschalt+F7", ijm: "⌘⇧F7", ec: "Alt+Umschalt+O", ecm: "⌥⌘O", vs: "", vsm: "", wörter: "occurrences markieren" },
       { was: "Zur Zeile springen", aktion: "Go to Line:Column", ij: "Strg+G", ijm: "⌘L", ec: "Strg+L", ecm: "⌘L", vs: "Strg+G", vsm: "⌃G" },
-      { was: "Zum nächsten / vorigen Fehler", aktion: "Next / Previous Highlighted Error", ij: "F2 / Umschalt+F2", ijm: "F2 / ⇧F2", ec: "Strg+. / Strg+,", ecm: "⌘. / ⌘,", vs: "F8 / Umschalt+F8", vsm: "F8 / ⇧F8", wörter: "problem warnung" },
+      { was: "Zum nächsten / vorigen Fehler", aktion: "Next / Previous Highlighted Error", ij: "F2 / Umschalt+F2", ijm: "F2 / ⇧F2", ec: "Strg+. / Strg+,", ecm: "⌘. / ⌘⇧.", vs: "F8 / Umschalt+F8", vsm: "F8 / ⇧F8", wörter: "problem warnung" },
       { was: "In der Datei suchen / ersetzen", aktion: "Find / Replace", ij: "Strg+F / Strg+R", ijm: "⌘F / ⌘R", ec: "Strg+F", ecm: "⌘F", vs: "Strg+F / Strg+H", vsm: "⌘F / ⌥⌘F" },
       { was: "In allen Dateien suchen", aktion: "Find in Files", ij: "Strg+Umschalt+F", ijm: "⌘⇧F", ec: "Strg+H", ecm: "⌃H", vs: "Strg+Umschalt+F", vsm: "⌘⇧F", wörter: "volltext projekt" },
       { was: "In allen Dateien ersetzen", aktion: "Replace in Files", ij: "Strg+Umschalt+R", ijm: "⌘⇧R", ec: "Strg+H", ecm: "⌃H", vs: "Strg+Umschalt+H", vsm: "⌘⇧H", wörter: "volltext projekt" },
@@ -46,18 +46,18 @@
       { was: "Code erzeugen: Konstruktor, Getter, equals …", aktion: "Generate", ij: "Alt+Einfügen", ijm: "⌘N", ec: "Alt+Umschalt+S", ecm: "⌥⌘S", vs: "", vsm: "", kern: true, wörter: "source action getter setter tostring hashcode" },
       { was: "Methode überschreiben / implementieren", aktion: "Override / Implement Methods", ij: "Strg+O / Strg+I", ijm: "⌃O / ⌃I", ec: "", ecm: "", vs: "", vsm: "" },
       { was: "Live Template einfügen", aktion: "Insert Live Template", ij: "Strg+J", ijm: "⌘J", ec: "Strg+Leer", ecm: "⌃Leer", vs: "", vsm: "", wörter: "vorlage snippet sout sysout psvm" },
-      { was: "Mit Block umgeben: if, try, for …", aktion: "Surround With", ij: "Strg+Alt+T", ijm: "⌘⌥T", ec: "Alt+Umschalt+Z", ecm: "⌥⌘Z", vs: "", vsm: "", wörter: "try catch" },
-      { was: "Parameter der Methode anzeigen", aktion: "Parameter Info", ij: "Strg+P", ijm: "⌘P", ec: "Strg+Umschalt+Leer", ecm: "⌘⇧Leer", vs: "Strg+Umschalt+Leer", vsm: "⌘⇧Leer" },
+      { was: "Mit Block umgeben: if, try, for …", aktion: "Surround With", ij: "Strg+Alt+T", ijm: "⌘⌥T", ijl: "Strg+Alt+T / Strg+Alt+Umschalt+B", ec: "Alt+Umschalt+Z", ecm: "⌥⌘Z", vs: "", vsm: "", wörter: "try catch" },
+      { was: "Parameter der Methode anzeigen", aktion: "Parameter Info", ij: "Strg+P", ijm: "⌘P", ec: "Strg+Umschalt+Leer", ecm: "⌃⇧Leer", vs: "Strg+Umschalt+Leer", vsm: "⌘⇧Leer" },
       { was: "Dokumentation anzeigen", aktion: "Quick Documentation", ij: "Strg+Q", ijm: "F1", ec: "F2", ecm: "F2", vs: "Strg+K Strg+I", vsm: "⌘K ⌘I", wörter: "javadoc hilfe hover" },
-      { was: "Definition im Popup anzeigen", aktion: "Quick Definition", ij: "Strg+Umschalt+I", ijm: "⌥Leer", ec: "", ecm: "", vs: "Alt+F12", vsm: "⌥F12", wörter: "peek" },
-      { was: "Auswahl schrittweise erweitern / verkleinern", aktion: "Extend / Shrink Selection", ij: "Strg+W / Strg+Umschalt+W", ijm: "⌥↑ / ⌥↓", ec: "Alt+Umschalt+↑ / Alt+Umschalt+↓", ecm: "⌃⇧↑ / ⌃⇧↓", vs: "Umschalt+Alt+→ / Umschalt+Alt+←", vsm: "⌃⇧⌘→ / ⌃⇧⌘←", wörter: "markieren expand" },
+      { was: "Definition im Popup anzeigen", aktion: "Quick Definition", ij: "Strg+Umschalt+I", ijm: "⌥Leer", ec: "", ecm: "", vs: "Alt+F12", vsm: "⌥F12", vsl: "Strg+Umschalt+F10", wörter: "peek" },
+      { was: "Auswahl schrittweise erweitern / verkleinern", aktion: "Extend / Shrink Selection", ij: "Strg+W / Strg+Umschalt+W", ijm: "⌥↑ / ⌥↓", ec: "Alt+Umschalt+↑ / Alt+Umschalt+↓", ecm: "⌃⇧⇞ / ⌃⇧⇟", vs: "Umschalt+Alt+→ / Umschalt+Alt+←", vsm: "⌃⇧→ / ⌃⇧←", wörter: "markieren expand" },
       { was: "Zeile duplizieren", aktion: "Duplicate Line or Selection", ij: "Strg+D", ijm: "⌘D", ec: "Strg+Alt+↓", ecm: "⌥⌘↓", vs: "Umschalt+Alt+↓", vsm: "⌥⇧↓", vsl: "Strg+Umschalt+Alt+↓", wörter: "kopieren copy line" },
       { was: "Zeile löschen", aktion: "Delete Line", ij: "Strg+Y", ijm: "⌘⌫", ec: "Strg+D", ecm: "⌘D", vs: "Strg+Umschalt+K", vsm: "⌘⇧K", wörter: "entfernen" },
       { was: "Zeile verschieben", aktion: "Move Line Up / Down", ij: "Alt+Umschalt+↑ / Alt+Umschalt+↓", ijm: "⌥⇧↑ / ⌥⇧↓", ec: "Alt+↑ / Alt+↓", ecm: "⌥↑ / ⌥↓", vs: "Alt+↑ / Alt+↓", vsm: "⌥↑ / ⌥↓" },
       { was: "Anweisung oder Methode verschieben", aktion: "Move Statement Up / Down", ij: "Strg+Umschalt+↑ / Strg+Umschalt+↓", ijm: "⌘⇧↑ / ⌘⇧↓", ec: "", ecm: "", vs: "", vsm: "" },
-      { was: "Zeilen verbinden", aktion: "Join Lines", ij: "Strg+Umschalt+J", ijm: "⌃⇧J", ec: "", ecm: "", vs: "", vsm: "⌃J" },
+      { was: "Zeilen verbinden", aktion: "Join Lines", ij: "Strg+Umschalt+J", ijm: "⌃⇧J", ec: "Strg+Alt+J", ecm: "", vs: "", vsm: "⌃J" },
       { was: "Zeile auskommentieren", aktion: "Comment with Line Comment", ij: "Strg+/", ijm: "⌘/", ec: "Strg+/", ecm: "⌘/", vs: "Strg+/", vsm: "⌘/", wörter: "kommentar" },
-      { was: "Block auskommentieren", aktion: "Comment with Block Comment", ij: "Strg+Umschalt+/", ijm: "⌘⌥/", ec: "Strg+Umschalt+/", ecm: "⌘⇧/", vs: "Umschalt+Alt+A", vsm: "⌥⇧A", vsl: "Strg+Umschalt+A", wörter: "kommentar" },
+      { was: "Block auskommentieren", aktion: "Comment with Block Comment", ij: "Strg+Umschalt+/", ijm: "⌘⌥/", ec: "Strg+Umschalt+/", ecm: "⌃⌘/", vs: "Umschalt+Alt+A", vsm: "⌥⇧A", vsl: "Strg+Umschalt+A", wörter: "kommentar" },
       { was: "Nächstes Vorkommen dazu markieren (mehrere Cursor)", aktion: "Add Selection for Next Occurrence", ij: "Alt+J", ijm: "⌃G", ec: "", ecm: "", vs: "Strg+D", vsm: "⌘D", wörter: "multi cursor caret" },
       { was: "Spaltenmarkierung ein und aus", aktion: "Column Selection Mode", ij: "Alt+Umschalt+Einfügen", ijm: "⌘⇧8", ec: "Alt+Umschalt+A", ecm: "⌥⌘A", vs: "", vsm: "", wörter: "block blockauswahl" },
       { was: "Groß-/Kleinschreibung umschalten", aktion: "Toggle Case", ij: "Strg+Umschalt+U", ijm: "⌘⇧U", ec: "Strg+Umschalt+X / Strg+Umschalt+Y", ecm: "⌘⇧X / ⌘⇧Y", vs: "", vsm: "" },
@@ -69,7 +69,7 @@
     { id: "refactoring", titel: "Umbauen (Refactoring)", kürzel: [
       { was: "Alle Refactorings an dieser Stelle", aktion: "Refactor This", ij: "Strg+Alt+Umschalt+T", ijm: "⌃T", ec: "Alt+Umschalt+T", ecm: "⌥⌘T", vs: "Strg+Umschalt+R", vsm: "⌃⇧R", wörter: "menü" },
       { was: "Umbenennen", aktion: "Rename", ij: "Umschalt+F6", ijm: "⇧F6", ec: "Alt+Umschalt+R", ecm: "⌥⌘R", vs: "F2", vsm: "F2", wörter: "rename" },
-      { was: "Signatur ändern", aktion: "Change Signature", ij: "Strg+F6", ijm: "⌘F6", ec: "Alt+Umschalt+C", ecm: "⌥⌘C", vs: "", vsm: "", wörter: "parameter" },
+      { was: "Signatur ändern", aktion: "Change Signature", ij: "Strg+F6", ijm: "⌘F6", ec: "Alt+Umschalt+C", ecm: "", vs: "", vsm: "", wörter: "parameter" },
       { was: "Variable herausziehen", aktion: "Extract Variable", ij: "Strg+Alt+V", ijm: "⌘⌥V", ec: "Alt+Umschalt+L", ecm: "⌥⌘L", vs: "", vsm: "", wörter: "local lokale" },
       { was: "Methode herausziehen", aktion: "Extract Method", ij: "Strg+Alt+M", ijm: "⌘⌥M", ec: "Alt+Umschalt+M", ecm: "⌥⌘M", vs: "", vsm: "" },
       { was: "Feld herausziehen", aktion: "Introduce Field", ij: "Strg+Alt+F", ijm: "⌘⌥F", ec: "", ecm: "", vs: "", vsm: "", wörter: "attribut extract" },
@@ -83,44 +83,44 @@
     { id: "debuggen", titel: "Ausführen und debuggen", kürzel: [
       { was: "Starten, was gerade ausgewählt ist", aktion: "Run", ij: "Umschalt+F10", ijm: "⌃R", ec: "Strg+F11", ecm: "⌘⇧F11", vs: "Strg+F5", vsm: "⌃F5", wörter: "ausführen" },
       { was: "Im Debugger starten", aktion: "Debug", ij: "Umschalt+F9", ijm: "⌃D", ec: "F11", ecm: "⌘F11", vs: "F5", vsm: "F5" },
-      { was: "Klasse, Test oder Methode am Cursor starten", aktion: "Run Context Configuration", ij: "Strg+Umschalt+F10", ijm: "⌃⇧R", ec: "Alt+Umschalt+X", ecm: "⌥⌘X", vs: "", vsm: "", wörter: "run as test junit main" },
+      { was: "Klasse, Test oder Methode am Cursor starten", aktion: "Run Context Configuration", ij: "Strg+Umschalt+F10", ijm: "⌃⇧R", ec: "Alt+Umschalt+X J / Alt+Umschalt+X T", ecm: "⌥⌘X J / ⌥⌘X T", vs: "", vsm: "", wörter: "run as test junit main" },
       { was: "Beliebiges ausführen: Konfiguration, mvn …, npm …", aktion: "Run Anything", ij: "2× Strg", ijm: "2× ⌃", ec: "", ecm: "", vs: "", vsm: "", wörter: "maven npm befehl kommando" },
       { was: "Anhalten", aktion: "Stop", ij: "Strg+F2", ijm: "⌘F2", ec: "Strg+F2", ecm: "⌘F2", vs: "Umschalt+F5", vsm: "⇧F5", wörter: "beenden terminate" },
       { was: "Haltepunkt setzen und entfernen", aktion: "Toggle Line Breakpoint", ij: "Strg+F8", ijm: "⌘F8", ec: "Strg+Umschalt+B", ecm: "⌘⇧B", vs: "F9", vsm: "F9", wörter: "breakpoint" },
-      { was: "Alle Haltepunkte", aktion: "View Breakpoints", ij: "Strg+Umschalt+F8", ijm: "⌘⇧F8", ec: "", ecm: "", vs: "", vsm: "", wörter: "breakpoint bedingung" },
+      { was: "Alle Haltepunkte", aktion: "View Breakpoints", ij: "Strg+Umschalt+F8", ijm: "⌘⇧F8", ec: "Alt+Umschalt+Q B", ecm: "⌥⌘Q B", vs: "", vsm: "", wörter: "breakpoint bedingung" },
       { was: "Einen Schritt weiter", aktion: "Step Over", ij: "F8", ijm: "F8", ec: "F6", ecm: "F6", vs: "F10", vsm: "F10" },
       { was: "In die Methode hinein", aktion: "Step Into", ij: "F7", ijm: "F7", ec: "F5", ecm: "F5", vs: "F11", vsm: "F11" },
-      { was: "In eine bestimmte Methode der Zeile hinein", aktion: "Smart Step Into", ij: "Umschalt+F7", ijm: "⇧F7", ec: "Strg+F5", ecm: "⌘F5", vs: "", vsm: "", wörter: "step into selection" },
+      { was: "In eine bestimmte Methode der Zeile hinein", aktion: "Smart Step Into", ij: "Umschalt+F7", ijm: "⇧F7", ec: "Strg+F5", ecm: "⌥F5", vs: "", vsm: "", wörter: "step into selection" },
       { was: "Aus der Methode heraus", aktion: "Step Out", ij: "Umschalt+F8", ijm: "⇧F8", ec: "F7", ecm: "F7", vs: "Umschalt+F11", vsm: "⇧F11", wörter: "step return" },
-      { was: "Bis zum Cursor laufen", aktion: "Run to Cursor", ij: "Alt+F9", ijm: "⌥F9", ec: "Strg+R", ecm: "⌘R", vs: "", vsm: "", wörter: "run to line" },
+      { was: "Bis zum Cursor laufen", aktion: "Run to Cursor", ij: "Alt+F9", ijm: "⌥F9", ijl: "Umschalt+Alt+9", ec: "Strg+R", ecm: "⌘R", vs: "", vsm: "", wörter: "run to line" },
       { was: "Weiterlaufen lassen", aktion: "Resume Program", ij: "F9", ijm: "⌘⌥R", ec: "F8", ecm: "F8", vs: "F5", vsm: "F5", wörter: "fortsetzen continue" },
       { was: "Ausdruck auswerten", aktion: "Evaluate Expression", ij: "Alt+F8", ijm: "⌥F8", ec: "Strg+Umschalt+I", ecm: "⌘⇧I", vs: "", vsm: "", wörter: "inspect display watch" }
     ] },
     { id: "bauen", titel: "Bauen, Maven und Projekt", kürzel: [
       { was: "Projekt bauen", aktion: "Build Project", ij: "Strg+F9", ijm: "⌘F9", ec: "Strg+B", ecm: "⌘B", vs: "Strg+Umschalt+B", vsm: "⌘⇧B", wörter: "kompilieren compile build task" },
-      { was: "Maven-Änderungen laden (nach Änderung der pom.xml)", aktion: "Load Maven Changes", ij: "Strg+Umschalt+O", ijm: "⌘⇧I", ec: "Alt+F5", ecm: "⌥F5", vs: "", vsm: "", wörter: "pom update project sync reload abhängigkeiten" },
+      { was: "Maven-Änderungen laden (nach Änderung der pom.xml)", aktion: "Load Maven Changes", ij: "Strg+Umschalt+O", ijm: "⌘⇧I", ec: "Alt+F5", ecm: "⌥F5", vs: "Umschalt+Alt+U", vsm: "⌥⇧U", wörter: "pom update project sync reload abhängigkeiten" },
       { was: "Einstellungen", aktion: "Settings", ij: "Strg+Alt+S", ijm: "⌘,", ec: "", ecm: "⌘,", vs: "Strg+,", vsm: "⌘,", wörter: "preferences optionen konfiguration" },
       { was: "Projektstruktur: JDK, Module, Bibliotheken", aktion: "Project Structure", ij: "Strg+Alt+Umschalt+S", ijm: "⌘;", ec: "", ecm: "", vs: "", vsm: "", wörter: "build path sdk" }
     ] },
     { id: "git", titel: "Git", kürzel: [
       { was: "Git-Aktionen als Auswahl", aktion: "VCS Operations Popup", ij: "Alt+`", ijm: "⌃V", ec: "", ecm: "", vs: "", vsm: "", wörter: "versionsverwaltung vcs" },
-      { was: "Committen", aktion: "Commit", ij: "Strg+K", ijm: "⌘K", ec: "", ecm: "", vs: "", vsm: "", wörter: "einchecken" },
+      { was: "Committen", aktion: "Commit", ij: "Strg+K", ijm: "⌘K", ec: "Strg+#", ecm: "⌥⌘3", vs: "", vsm: "", wörter: "einchecken" },
       { was: "Pushen", aktion: "Push", ij: "Strg+Umschalt+K", ijm: "⌘⇧K", ec: "", ecm: "", vs: "", vsm: "" },
       { was: "Projekt aktualisieren (Pull)", aktion: "Update Project", ij: "Strg+T", ijm: "⌘T", ec: "", ecm: "", vs: "", vsm: "", wörter: "pull fetch" },
       { was: "Änderungen verwerfen", aktion: "Rollback", ij: "Strg+Alt+Z", ijm: "⌘⌥Z", ec: "", ecm: "", vs: "", vsm: "", wörter: "revert zurücksetzen" },
-      { was: "Zur nächsten / vorigen Änderung im Editor", aktion: "Next / Previous Change", ij: "Strg+Alt+Umschalt+↓ / Strg+Alt+Umschalt+↑", ijm: "⌃⌥⇧↓ / ⌃⌥⇧↑", ec: "", ecm: "", vs: "", vsm: "", wörter: "diff" }
+      { was: "Zur nächsten / vorigen Änderung im Editor", aktion: "Next / Previous Change", ij: "Strg+Alt+Umschalt+↓ / Strg+Alt+Umschalt+↑", ijm: "⌃⌥⇧↓ / ⌃⌥⇧↑", ec: "", ecm: "", vs: "Alt+F5 / Umschalt+Alt+F5", vsm: "⌥F5 / ⌥⇧F5", wörter: "diff" }
     ] },
     { id: "fenster", titel: "Fenster und Ansicht", kürzel: [
-      { was: "Projektbaum", aktion: "Project", ij: "Alt+1", ijm: "⌘1", ec: "", ecm: "", vs: "Strg+Umschalt+E", vsm: "⌘⇧E", wörter: "package explorer werkzeugfenster" },
+      { was: "Projektbaum", aktion: "Project", ij: "Alt+1", ijm: "⌘1", ec: "Alt+Umschalt+Q P", ecm: "⌥⌘Q P", vs: "Strg+Umschalt+E", vsm: "⌘⇧E", wörter: "package explorer werkzeugfenster" },
       { was: "Commit-Fenster", aktion: "Commit", ij: "Alt+0", ijm: "⌘0", ec: "", ecm: "", vs: "Strg+Umschalt+G", vsm: "⌃⇧G", wörter: "werkzeugfenster source control" },
       { was: "Git-Fenster mit Log und Branches", aktion: "Git", ij: "Alt+9", ijm: "⌘9", ec: "", ecm: "", vs: "", vsm: "", wörter: "history werkzeugfenster" },
-      { was: "Ausführen-Fenster", aktion: "Run", ij: "Alt+4", ijm: "⌘4", ec: "", ecm: "", vs: "", vsm: "", wörter: "konsole console werkzeugfenster" },
+      { was: "Ausführen-Fenster", aktion: "Run", ij: "Alt+4", ijm: "⌘4", ec: "Alt+Umschalt+Q C", ecm: "⌥⌘Q C", vs: "", vsm: "", wörter: "konsole console werkzeugfenster" },
       { was: "Debug-Fenster", aktion: "Debug", ij: "Alt+5", ijm: "⌘5", ec: "", ecm: "", vs: "Strg+Umschalt+D", vsm: "⌘⇧D", wörter: "werkzeugfenster" },
-      { was: "Probleme", aktion: "Problems", ij: "Alt+6", ijm: "⌘6", ec: "", ecm: "", vs: "Strg+Umschalt+M", vsm: "⌘⇧M", wörter: "fehler warnungen werkzeugfenster" },
+      { was: "Probleme", aktion: "Problems", ij: "Alt+6", ijm: "⌘6", ec: "Alt+Umschalt+Q X", ecm: "⌥⌘Q X", vs: "Strg+Umschalt+M", vsm: "⌘⇧M", wörter: "fehler warnungen werkzeugfenster" },
       { was: "Services: Server, Datenbanken, Container", aktion: "Services", ij: "Alt+8", ijm: "⌘8", ec: "", ecm: "", vs: "", vsm: "", wörter: "docker werkzeugfenster" },
-      { was: "Terminal", aktion: "Terminal", ij: "Alt+F12", ijm: "⌥F12", ec: "", ecm: "", vs: "Strg+`", vsm: "⌃`", wörter: "kommandozeile shell werkzeugfenster" },
-      { was: "Zurück in den Editor", aktion: "Focus Editor", ij: "Esc", ijm: "Esc", ec: "", ecm: "", vs: "Strg+1", vsm: "⌘1" },
-      { was: "Alle Werkzeugfenster aus- und einblenden", aktion: "Hide All Tool Windows", ij: "Strg+Umschalt+F12", ijm: "⌘⇧F12", ec: "Strg+M", ecm: "⌘M", vs: "Strg+B", vsm: "⌘B", wörter: "maximieren vollbild seitenleiste sidebar" },
+      { was: "Terminal", aktion: "Terminal", ij: "Alt+F12", ijm: "⌥F12", ec: "Strg+Alt+Umschalt+T", ecm: "⌃⌥⇧T", vs: "Strg+`", vsm: "⌃`", wörter: "kommandozeile shell werkzeugfenster" },
+      { was: "Zurück in den Editor", aktion: "Focus Editor", ij: "Esc", ijm: "Esc", ec: "F12", ecm: "⌘F12", vs: "Strg+1", vsm: "⌘1" },
+      { was: "Alle Werkzeugfenster aus- und einblenden", aktion: "Hide All Tool Windows", ij: "Strg+Umschalt+F12", ijm: "⌘⇧F12", ec: "Strg+M", ecm: "⌃M", vs: "Strg+B", vsm: "⌘B", wörter: "maximieren vollbild seitenleiste sidebar" },
       { was: "Zwischen Dateien und Fenstern wechseln", aktion: "Switcher", ij: "Strg+Tab", ijm: "⌃Tab", ec: "Strg+F6", ecm: "⌘F6", vs: "Strg+Tab", vsm: "⌃Tab", wörter: "editor reiter" },
       { was: "Reiter schließen", aktion: "Close Tab", ij: "Strg+F4", ijm: "⌘W", ec: "Strg+W", ecm: "⌘W", vs: "Strg+W", vsm: "⌘W", wörter: "editor schließen" }
     ] }
@@ -146,7 +146,7 @@
 
   // Das Kürzel einer IDE für das eingestellte System.
   function belegung(k, ide) {
-    if (ide === "ij") return istMac() ? k.ijm : k.ij;
+    if (ide === "ij") return istMac() ? k.ijm : einstellung.system === "linux" && k.ijl ? k.ijl : k.ij;
     if (einstellung.vergleich === "eclipse") return istMac() ? k.ecm : k.ec;
     if (istMac()) return k.vsm;
     return einstellung.system === "linux" && k.vsl ? k.vsl : k.vs;
