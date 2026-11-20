@@ -1,0 +1,92 @@
+.tk-lead{color:var(--skr-color-ink-muted);margin:0 0 1rem;}
+.tk-lead kbd,.tk-kategorien kbd{font-family:var(--skr-font-mono,monospace);font-size:.85em;padding:.05rem .35rem;border:1px solid var(--skr-color-border);border-bottom-width:2px;border-radius:4px;background:var(--skr-color-bg);color:var(--skr-color-ink);white-space:nowrap;}
+
+/* Einstellungen: System und Vergleichs-IDE */
+.tk-einstellungen{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin:0 0 1.25rem;}
+.tk-einstellung{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .75rem;}
+.tk-einstellung__titel{font-weight:700;}
+.tk-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;}
+.tk-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.tk-knopf:hover{border-color:var(--skr-color-accent);}
+.tk-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+
+/* Suche: Feld mit den gewählten Tasten als Marken, darunter die Tasten zum Anklicken */
+.tk-suche{display:flex;flex-wrap:wrap;align-items:flex-start;gap:.5rem .75rem;margin:0 0 .75rem;}
+.tk-suche__label{font-weight:700;padding-top:.5rem;}
+.tk-suche__spalte{flex:1 1 16rem;min-width:0;}
+.tk-vorschlaege{position:absolute;z-index:5;left:-1px;top:calc(100% + .3rem);min-width:14rem;margin:0;padding:.25rem;list-style:none;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);box-shadow:0 .4rem 1rem rgb(0 0 0 / .15);}
+.tk-vorschlaege[hidden]{display:none;}
+.tk-vorschlag{padding:.35rem .6rem;border-radius:4px;cursor:pointer;}
+.tk-vorschlag[aria-selected="true"]{background:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.tk-vorschlag kbd{font-family:var(--skr-font-mono,monospace);font-size:.85em;padding:.05rem .35rem;border:1px solid var(--skr-color-border);border-radius:4px;background:var(--skr-color-bg);color:var(--skr-color-ink);}
+.tk-suche__feld{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;padding:.3rem .5rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);cursor:text;}
+.tk-suche__feld:focus-within{outline:2px solid var(--skr-color-accent);outline-offset:1px;}
+.tk-suche__marken{display:contents;}
+.tk-suche__eingabe{flex:1 1 8rem;min-width:6rem;font:inherit;padding:.2rem;border:0;background:transparent;color:var(--skr-color-ink);}
+.tk-suche__eingabe:focus{outline:none;}
+.tk-marke{display:inline-flex;align-items:center;gap:.2rem;padding:.1rem .15rem .1rem .45rem;border:1px solid var(--skr-color-accent);border-radius:4px;background:var(--skr-color-bg-subtle);font-family:var(--skr-font-mono,monospace);font-size:.85rem;color:var(--skr-color-ink);white-space:nowrap;}
+.tk-marke__weg{display:inline-flex;align-items:center;justify-content:center;width:1.3rem;height:1.3rem;padding:0;border:0;border-radius:3px;background:none;color:var(--skr-color-ink-muted);font:inherit;line-height:1;cursor:pointer;}
+.tk-marke__weg:hover{color:var(--skr-color-danger-ink,var(--skr-color-ink));background:var(--skr-color-bg);}
+.tk-marke__weg:focus-visible{outline:2px solid var(--skr-color-accent);}
+.tk-tasten-wahl{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin:.45rem 0 0;}
+.tk-tasten-wahl__titel{font-size:.85rem;color:var(--skr-color-ink-muted);}
+.tk-taste{font-family:var(--skr-font-mono,monospace);font-size:.85rem;padding:.15rem .5rem;border:1px solid var(--skr-color-border);border-bottom-width:2px;border-radius:4px;background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.tk-taste:hover{border-color:var(--skr-color-accent);}
+.tk-taste:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:1px;}
+
+/* Über der Liste: Trefferzahl links, alle auf/zu als Symbole rechts */
+.tk-leiste{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 .5rem;}
+.tk-treffer{margin:0;color:var(--skr-color-ink-muted);}
+.tk-leiste__knoepfe{display:flex;gap:.3rem;margin-left:auto;}
+.tk-symbol{display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;padding:0;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.tk-symbol:hover{border-color:var(--skr-color-accent);color:var(--skr-color-accent-ink);}
+.tk-symbol:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:1px;}
+.tk-symbol svg{width:1.15rem;height:1.15rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Kategorien als Akkordeon */
+.tk-kategorie{border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);margin:0 0 .6rem;background:var(--skr-color-bg);}
+.tk-kategorie--wichtigste{border-color:var(--skr-color-accent);}
+.tk-kategorie__kopf{display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;cursor:pointer;font-weight:700;list-style:none;}
+.tk-kategorie__kopf::-webkit-details-marker{display:none;}
+.tk-kategorie__kopf::before{content:"▸";color:var(--skr-color-accent-ink);transition:transform .15s;}
+.tk-kategorie[open] > .tk-kategorie__kopf::before{transform:rotate(90deg);}
+.tk-kategorie__kopf:hover .tk-kategorie__titel{color:var(--skr-color-accent-ink);}
+.tk-kategorie__kopf:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:-2px;border-radius:var(--skr-radius,8px);}
+.tk-kategorie__titel{flex:1 1 auto;}
+.tk-kategorie__zahl{font-weight:400;font-size:.85rem;color:var(--skr-color-ink-muted);}
+.tk-kategorie__inhalt{padding:0 1rem .8rem;}
+
+.tk-tabelle{width:100%;border-collapse:collapse;}
+.tk-tabelle th{text-align:left;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);padding:.3rem .5rem;border-bottom:1px solid var(--skr-color-border);}
+.tk-tabelle td{padding:.5rem;border-bottom:1px solid var(--skr-color-border);vertical-align:top;}
+.tk-tabelle tr:last-child td{border-bottom:0;}
+.tk-tabelle tr{scroll-margin-top:5rem;}
+.tk-was{width:55%;}
+.tk-aktion{display:block;font-size:.82rem;color:var(--skr-color-ink-muted);}
+.tk-tasten,.tk-griff{white-space:nowrap;}
+
+/* Ein Klick auf die Zeile markiert das Kürzel: Rahmen in der Primärfarbe mit Schein. */
+.tk-tabelle tbody tr{cursor:pointer;}
+.tk-tabelle tbody tr:hover td{background:var(--skr-color-bg-subtle);}
+.tk-tabelle tbody tr:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:-2px;}
+.tk-tabelle tbody tr.tk-zeile--markiert{outline:2px solid var(--skr-color-accent);outline-offset:-2px;box-shadow:0 0 .9rem color-mix(in srgb,var(--skr-color-accent) 55%,transparent);border-radius:4px;}
+
+/* Das Kürzel der Vergleichs-IDE: Suchschlüssel, kein Rückfallweg – deshalb klein und zurückgenommen. */
+.tk-tabelle td.tk-vergleich{font-size:.8rem;color:var(--skr-color-ink-muted);white-space:nowrap;}
+.tk-vergleich kbd{color:var(--skr-color-ink-muted);border-bottom-width:1px;background:transparent;}
+.tk-vergleich__name{display:none;}
+
+@media (max-width:560px){
+  .tk-tabelle thead{display:none;}
+  .tk-tabelle tr{display:block;padding:.5rem 0;border-bottom:1px solid var(--skr-color-border);}
+  .tk-tabelle tr:last-child{border-bottom:0;}
+  .tk-tabelle td{display:block;padding:.15rem .5rem;border-bottom:0;width:auto;}
+  .tk-tasten,.tk-tabelle td.tk-vergleich{white-space:normal;}
+  .tk-vergleich__name{display:inline;text-transform:uppercase;letter-spacing:.05em;margin-right:.3rem;}
+}
+
+@media print{
+  .tk-einstellungen .tk-knopf[aria-pressed="false"],.tk-suche,.tk-leiste{display:none;}
+  .tk-kategorie{break-inside:avoid-page;}
+  .tk-kategorie__kopf::before{content:none;}
+}
