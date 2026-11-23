@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Die Raumbuchung in Module schneiden · ATVANTAGE Academy</title>
+<meta name="description" content="Baue eine kleine Raumbuchung aus drei Java-Modulen, übersetze und starte sie auf dem Modulpfad und sag voraus, was das Modulsystem bei jedem Eingriff meldet.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Die Raumbuchung in Module schneiden">
+<meta property="og:description" content="Baue eine kleine Raumbuchung aus drei Java-Modulen, übersetze und starte sie auf dem Modulpfad und sag voraus, was das Modulsystem bei jedem Eingriff meldet.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=1237e482">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Baue eine kleine Raumbuchung aus drei Java-Modulen, übersetze und starte sie auf dem Modulpfad und sag voraus, was das Modulsystem bei jedem Eingriff meldet.","duration":25,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-modulsystem-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die Raumbuchung in Module schneiden","topics":["Modulsystem","module-info.java","ServiceLoader","Reflection","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/modulsystem/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f03ada5d" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=cc0ce1dd">
+<link rel="stylesheet" href="../../../extensions/didaktikon/exercise.css?v=485b7c1d">
+<script src="../../../skriptorium/guide-layout.js?v=00fd0360" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header" data-skr-header>
+  <a class="skr-header__brand" href="../../../" aria-label="Startseite"><img class="skr-header__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span>
+    <img class="skr-header__mark" src="../../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../../java-basics/java-aufbau/">Java-Aufbau</a>
+          <a role="menuitem" href="../../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../../skriptorium/search/de.json?v=f03ada5d"
+     data-base="../../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Die Raumbuchung in Module schneiden</span></nav>
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 25 Minuten</span><span class="skr-tag">Modulsystem</span><span class="skr-tag">module-info.java</span><span class="skr-tag">ServiceLoader</span><span class="skr-tag">Reflection</span><span class="skr-tag">Raumbuchung</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">Die Raumbuchung in Module schneiden</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-guide-panels" data-skr-arrangement="fold">
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>User Story</summary>
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Entwickler:in möchte ich festlegen, welche Pakete meines Codes andere verwenden dürfen, damit interne Klassen intern bleiben und fehlende Abhängigkeiten schon beim Übersetzen auffallen.</p>
+</div>
+</details>
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>Lernziele</summary>
+<div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<ul>
+<li>Du schreibst für drei Module je eine <code>module-info.java</code> mit <code>requires</code> und <code>exports</code>.</li>
+<li>Du übersetzt die Module mit <code>javac --module-source-path</code> und startest sie mit <code>java --module-path</code>.</li>
+<li>Du sagst voraus, was der Compiler bei einem nicht exportierten Paket und einem fehlenden <code>requires transitive</code> meldet.</li>
+<li>Du erklärst, warum Reflection auf private Felder ein <code>opens</code> braucht.</li>
+<li>Du meldest einen Service mit <code>provides … with</code> an und lädst ihn mit <code>uses</code> über den <code>ServiceLoader</code>.</li>
+<li>Du schlägst mit <code>--list-modules</code>, <code>--describe-module</code> und <code>jdeps</code> nach, was ein Modul anbietet und braucht.</li>
+</ul>
+</div>
+</details>
+<details class="skr-fold">
+<summary>Definition of Done</summary>
+<div class="skr-guide-done">
+<h3 id="module">Module</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="booking.api, booking.core und booking.app übersetzen mit einem einzigen javac-Aufruf nach out." disabled="disabled"> <code>booking.api</code>, <code>booking.core</code> und <code>booking.app</code> übersetzen mit einem einzigen <code>javac</code>-Aufruf nach <code>out</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingApp läuft auf dem Modulpfad und verschickt die Buchung über EmailChannel." disabled="disabled"> <code>BookingApp</code> läuft auf dem Modulpfad und verschickt die Buchung über <code>EmailChannel</code>.</li>
+</ul>
+<h3 id="kapselung">Kapselung</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Meldungen zum nicht exportierten Paket und zum fehlenden requires transitive gesehen und erklären können." disabled="disabled"> Du hast die Meldungen zum nicht exportierten Paket und zum fehlenden <code>requires transitive</code> gesehen und erklären können.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="ChannelInspector läuft mit opens booking.core to booking.app und gibt die Zahl der Kanäle aus." disabled="disabled"> <code>ChannelInspector</code> läuft mit <code>opens booking.core to booking.app</code> und gibt die Zahl der Kanäle aus.</li>
+</ul>
+<h3 id="service-und-nachschlagen">Service und Nachschlagen</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast gesehen, was ohne provides und was ohne uses passiert, und beides wieder eingetragen." disabled="disabled"> Du hast gesehen, was ohne <code>provides</code> und was ohne <code>uses</code> passiert, und beides wieder eingetragen.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="--describe-module zeigt für booking.core alle Direktiven, jdeps die Abhängigkeiten von booking.app." disabled="disabled"> <code>--describe-module</code> zeigt für <code>booking.core</code> alle Direktiven, <code>jdeps</code> die Abhängigkeiten von <code>booking.app</code>.</li>
+</ul>
+<h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
+</details>
+</div>
+<p>Die Raumbuchung besteht aus drei Teilen: der API mit <code>Room</code> und dem Interface für
+Benachrichtigungskanäle, dem Kern mit dem <code>BookingService</code> und einem internen
+E-Mail-Kanal, und der Anwendung, die bucht. Du machst aus jedem Teil ein Java-Modul und
+übersetzt alles direkt mit <code>javac</code> – ohne Maven.</p>
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+<h3 id="die-module-anlegen">Die Module anlegen</h3>
+<p>Leg <strong>neben</strong> Deinem Projekt <code>aufbau</code> einen Ordner <code>aufbau-modules</code> an. Darin entsteht
+diese Struktur – unter <code>src</code> je Modul ein Ordner mit dem Namen des Moduls, darin die
+<code>module-info.java</code> und die Paketordner:</p>
+<pre><code class="language-text">aufbau-modules/
+└── src/
+    ├── booking.api/
+    │   ├── module-info.java
+    │   └── booking/api/
+    │       ├── NotificationChannel.java
+    │       └── Room.java
+    ├── booking.core/
+    │   ├── module-info.java
+    │   └── booking/core/
+    │       ├── BookingService.java
+    │       └── internal/
+    │           └── EmailChannel.java
+    └── booking.app/
+        ├── module-info.java
+        └── booking/app/
+            ├── BookingApp.java
+            └── ChannelInspector.java
+</code></pre>
+<p><strong>Modul <code>booking.api</code></strong> – exportiert sein einziges Paket.
+<code>src/booking.api/module-info.java</code>:</p>
+<pre><code class="language-java">module booking.api {
+    exports booking.api;
+}
+</code></pre>
+<p><code>src/booking.api/booking/api/Room.java</code>:</p>
+<pre><code class="language-java">package booking.api;
+
+public record Room(String id, int capacity) {
+}
+</code></pre>
+<p><code>src/booking.api/booking/api/NotificationChannel.java</code>:</p>
+<pre><code class="language-java">package booking.api;
+
+public interface NotificationChannel {
+
+    String name();
+
+    void send(String message);
+}
+</code></pre>
+<p><strong>Modul <code>booking.core</code></strong> – braucht die API, exportiert nur <code>booking.core</code>, lädt
+Kanäle und bietet selbst einen an. <code>src/booking.core/module-info.java</code>:</p>
+<pre><code class="language-java">module booking.core {
+    requires transitive booking.api;
+    exports booking.core;
+    uses booking.api.NotificationChannel;
+    provides booking.api.NotificationChannel with booking.core.internal.EmailChannel;
+}
+</code></pre>
+<p><code>src/booking.core/booking/core/BookingService.java</code>:</p>
+<pre><code class="language-java">package booking.core;
+
+import booking.api.NotificationChannel;
+import booking.api.Room;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ServiceLoader;
+
+public class BookingService {
+
+    private final List&lt;NotificationChannel&gt; channels = new ArrayList&lt;&gt;();
+
+    public BookingService() {
+        for (NotificationChannel channel : ServiceLoader.load(NotificationChannel.class)) {
+            channels.add(channel);
+        }
+    }
+
+    public boolean book(Room room, int attendees) {
+        if (room.capacity() &lt; attendees) {
+            return false;
+        }
+        String message = &quot;Room &quot; + room.id() + &quot; booked for &quot; + attendees + &quot; people&quot;;
+        for (NotificationChannel channel : channels) {
+            channel.send(message);
+        }
+        return true;
+    }
+}
+</code></pre>
+<p><code>src/booking.core/booking/core/internal/EmailChannel.java</code>:</p>
+<pre><code class="language-java">package booking.core.internal;
+
+import booking.api.NotificationChannel;
+
+public class EmailChannel implements NotificationChannel {
+
+    @Override
+    public String name() {
+        return &quot;email&quot;;
+    }
+
+    @Override
+    public void send(String message) {
+        // Imagine a real e-mail to the facility management here.
+        System.out.println(&quot;[email] &quot; + message);
+    }
+}
+</code></pre>
+<p><strong>Modul <code>booking.app</code></strong> – braucht nur den Kern. <code>src/booking.app/module-info.java</code>:</p>
+<pre><code class="language-java">module booking.app {
+    requires booking.core;
+}
+</code></pre>
+<p><code>src/booking.app/booking/app/BookingApp.java</code>:</p>
+<pre><code class="language-java">package booking.app;
+
+import booking.api.Room;
+import booking.core.BookingService;
+
+public class BookingApp {
+
+    public static void main(String[] args) {
+        BookingService service = new BookingService();
+        boolean booked = service.book(new Room(&quot;R1&quot;, 4), 3);
+        System.out.println(&quot;Booked: &quot; + booked);
+    }
+}
+</code></pre>
+<p><code>src/booking.app/booking/app/ChannelInspector.java</code> – sie liest per Reflection ein
+privates Feld des Service:</p>
+<pre><code class="language-java">package booking.app;
+
+import booking.core.BookingService;
+import java.lang.reflect.Field;
+import java.util.List;
+
+public class ChannelInspector {
+
+    public static void main(String[] args) throws Exception {
+        BookingService service = new BookingService();
+
+        Field field = BookingService.class.getDeclaredField(&quot;channels&quot;);
+        field.setAccessible(true);
+        List&lt;?&gt; channels = (List&lt;?&gt;) field.get(service);
+
+        System.out.println(&quot;Channels inside the service: &quot; + channels.size());
+    }
+}
+</code></pre>
+<h3 id="übersetzen-und-starten">Übersetzen und starten</h3>
+<p>Alle folgenden Befehle laufen im Ordner <code>aufbau-modules</code>, unter Windows genauso wie
+unter macOS und Linux.</p>
+<p>Übersetze alle drei Module in einem Aufruf nach <code>out</code> – <code>--module-source-path</code> sagt
+<code>javac</code>, wo die Modulordner liegen, <code>--module</code> nennt die Module:</p>
+<pre><code class="language-shell">javac -d out --module-source-path src --module booking.api,booking.core,booking.app
+</code></pre>
+<p>Sieh Dir den Ordner <code>out</code> an: Je Modul ist ein Ordner entstanden, jeder mit einer
+<code>module-info.class</code>.</p>
+<p>Starte <code>BookingApp</code> auf dem Modulpfad – <code>-m</code> nennt Modul und Klasse:</p>
+<pre><code class="language-shell">java --module-path out -m booking.app/booking.app.BookingApp
+</code></pre>
+<p>Die Buchung geht per E-Mail hinaus, und <code>Booked: true</code> steht darunter – obwohl
+<code>booking.app</code> den <code>EmailChannel</code> nirgends nennt.</p>
+<h3 id="ein-internes-paket-verwenden">Ein internes Paket verwenden</h3>
+<p>Leg in <code>booking.app</code> eine Klasse an, die den E-Mail-Kanal direkt verwendet,
+<code>src/booking.app/booking/app/DirectEmail.java</code>:</p>
+<pre><code class="language-java">package booking.app;
+
+import booking.core.internal.EmailChannel;
+
+public class DirectEmail {
+
+    public static void main(String[] args) {
+        new EmailChannel().send(&quot;Hello&quot;);
+    }
+}
+</code></pre>
+<p><strong>Vorhersage:</strong> <code>EmailChannel</code> ist <code>public</code>. Übersetzt das? Notier Deine Erwartung und
+übersetze wie oben. Lösche <code>DirectEmail.java</code> danach wieder.</p>
+<h3 id="die-api-weiterreichen">Die API weiterreichen</h3>
+<p>Ändere in <code>booking.core/module-info.java</code> die Zeile <code>requires transitive booking.api;</code>
+in <code>requires booking.api;</code>.</p>
+<p><strong>Vorhersage:</strong> <code>booking.app</code> nennt <code>booking.api</code> in seiner <code>module-info.java</code> gar nicht,
+<code>BookingApp</code> verwendet aber <code>Room</code>. Was meldet der Compiler jetzt – und an welcher Stelle?
+Übersetze, vergleiche und stell <code>requires transitive</code> wieder her.</p>
+<h3 id="reflection-auf-ein-privates-feld">Reflection auf ein privates Feld</h3>
+<p><strong>Vorhersage:</strong> <code>booking.core</code> exportiert das Paket <code>booking.core</code>. Kann
+<code>ChannelInspector</code> das private Feld <code>channels</code> lesen? Notier Deine Erwartung und starte:</p>
+<pre><code class="language-shell">java --module-path out -m booking.app/booking.app.ChannelInspector
+</code></pre>
+<p>Erklär die Meldung. Ergänze dann in <code>booking.core/module-info.java</code> unter <code>exports</code> die
+Zeile:</p>
+<pre><code class="language-java">opens booking.core to booking.app;
+</code></pre>
+<p>Übersetze und starte <code>ChannelInspector</code> erneut.</p>
+<h3 id="den-service-anmelden">Den Service anmelden</h3>
+<p>Nimm in <code>booking.core/module-info.java</code> die Zeile mit <code>provides</code> heraus, übersetze und
+starte <code>BookingApp</code>. Was fehlt in der Ausgabe?</p>
+<p><strong>Vorhersage:</strong> Stell <code>provides</code> wieder her und nimm stattdessen die Zeile mit <code>uses</code>
+heraus. Übersetzt das noch – und was passiert beim Start? Prüf Deine Erwartung und stell
+die Zeile danach wieder her.</p>
+<h3 id="nachschlagen">Nachschlagen</h3>
+<p>Liste die Module Deines JDK auf:</p>
+<pre><code class="language-shell">java --list-modules
+</code></pre>
+<p>Lass Dir den Deskriptor von <code>booking.core</code> zeigen, wie die JVM ihn liest:</p>
+<pre><code class="language-shell">java --module-path out --describe-module booking.core
+</code></pre>
+<p>Dasselbe geht für jedes Modul des JDK. Sieh Dir <code>java.sql</code> an und such die Zeile mit
+<code>uses</code>:</p>
+<pre><code class="language-shell">java --describe-module java.sql
+</code></pre>
+<p>Lass Dir von <code>jdeps</code> zusammenfassen, welche Module <code>booking.app</code> braucht:</p>
+<pre><code class="language-shell">jdeps --module-path out -s --module booking.app
+</code></pre>
+<h3 id="für-schnelle">Für Schnelle</h3>
+<ul>
+<li><strong>Ein Kanal als eigenes Modul:</strong> Leg ein Modul <code>booking.chat</code> an, das
+<code>booking.api</code> liest und mit <code>provides … with</code> eine Klasse <code>booking.chat.ChatChannel</code>
+anbietet. Übersetze mit <code>--module booking.api,booking.core,booking.app,booking.chat</code>
+und starte <code>BookingApp</code> – ohne eine Zeile in <code>booking.core</code> oder <code>booking.app</code> zu
+ändern.</li>
+<li><strong>Opens von außen:</strong> Nimm <code>opens</code> wieder heraus und starte <code>ChannelInspector</code> mit der
+Option <code>--add-opens booking.core/booking.core=booking.app</code> vor <code>-m</code>. Genau so öffnen
+Start-Skripte Pakete des JDK für Frameworks.</li>
+<li><strong>Zurück auf den Klassenpfad:</strong> Starte <code>BookingApp</code> und <code>ChannelInspector</code> mit
+<code>-cp out/booking.api:out/booking.core:out/booking.app</code> statt Modulpfad (unter Windows
+mit <code>;</code> getrennt und in Anführungszeichen) und mit dem Klassennamen statt <code>-m</code>. Was
+bleibt von den <code>module-info.class</code>-Dateien übrig?</li>
+</ul>
+<div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
+<ul>
+<li><code>EmailChannel</code> ist <code>public</code>. Warum kann <code>booking.app</code> die Klasse trotzdem nicht verwenden?</li>
+<li>Warum braucht <code>booking.app</code> kein <code>requires booking.api</code>, obwohl <code>BookingApp</code> die Klasse <code>Room</code> verwendet?</li>
+<li>Warum genügt <code>exports booking.core</code> nicht, damit <code>ChannelInspector</code> das private Feld lesen kann?</li>
+<li>Was ändert sich, wenn ein Modul ohne <code>provides</code> gestartet wird, und was, wenn <code>uses</code> fehlt?</li>
+</ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># Die Raumbuchung in Module schneiden
+
+&lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;User Story&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
+
+Als Entwickler:in möchte ich festlegen, welche Pakete meines Codes andere verwenden dürfen, damit interne Klassen intern bleiben und fehlende Abhängigkeiten schon beim Übersetzen auffallen.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Lernziele&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+- Du schreibst für drei Module je eine `module-info.java` mit `requires` und `exports`.
+- Du übersetzt die Module mit `javac --module-source-path` und startest sie mit `java --module-path`.
+- Du sagst voraus, was der Compiler bei einem nicht exportierten Paket und einem fehlenden `requires transitive` meldet.
+- Du erklärst, warum Reflection auf private Felder ein `opens` braucht.
+- Du meldest einen Service mit `provides … with` an und lädst ihn mit `uses` über den `ServiceLoader`.
+- Du schlägst mit `--list-modules`, `--describe-module` und `jdeps` nach, was ein Modul anbietet und braucht.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Definition of Done&lt;/summary&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+### Module
+
+- [ ] `booking.api`, `booking.core` und `booking.app` übersetzen mit einem einzigen `javac`-Aufruf nach `out`.
+- [ ] `BookingApp` läuft auf dem Modulpfad und verschickt die Buchung über `EmailChannel`.
+
+### Kapselung
+
+- [ ] Du hast die Meldungen zum nicht exportierten Paket und zum fehlenden `requires transitive` gesehen und erklären können.
+- [ ] `ChannelInspector` läuft mit `opens booking.core to booking.app` und gibt die Zahl der Kanäle aus.
+
+### Service und Nachschlagen
+
+- [ ] Du hast gesehen, was ohne `provides` und was ohne `uses` passiert, und beides wieder eingetragen.
+- [ ] `--describe-module` zeigt für `booking.core` alle Direktiven, `jdeps` die Abhängigkeiten von `booking.app`.
+
+### Für die ganze Seite
+
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+
+Die Raumbuchung besteht aus drei Teilen: der API mit `Room` und dem Interface für
+Benachrichtigungskanäle, dem Kern mit dem `BookingService` und einem internen
+E-Mail-Kanal, und der Anwendung, die bucht. Du machst aus jedem Teil ein Java-Modul und
+übersetzt alles direkt mit `javac` – ohne Maven.
+
+## Arbeitsschritte
+
+### Die Module anlegen
+
+Leg **neben** Deinem Projekt `aufbau` einen Ordner `aufbau-modules` an. Darin entsteht
+diese Struktur – unter `src` je Modul ein Ordner mit dem Namen des Moduls, darin die
+`module-info.java` und die Paketordner:
+
+```text
+aufbau-modules/
+└── src/
+    ├── booking.api/
+    │   ├── module-info.java
+    │   └── booking/api/
+    │       ├── NotificationChannel.java
+    │       └── Room.java
+    ├── booking.core/
+    │   ├── module-info.java
+    │   └── booking/core/
+    │       ├── BookingService.java
+    │       └── internal/
+    │           └── EmailChannel.java
+    └── booking.app/
+        ├── module-info.java
+        └── booking/app/
+            ├── BookingApp.java
+            └── ChannelInspector.java
+```
+
+**Modul `booking.api`** – exportiert sein einziges Paket.
+`src/booking.api/module-info.java`:
+
+```java
+module booking.api {
+    exports booking.api;
+}
+```
+
+`src/booking.api/booking/api/Room.java`:
+
+```java
+package booking.api;
+
+public record Room(String id, int capacity) {
+}
+```
+
+`src/booking.api/booking/api/NotificationChannel.java`:
+
+```java
+package booking.api;
+
+public interface NotificationChannel {
+
+    String name();
+
+    void send(String message);
+}
+```
+
+**Modul `booking.core`** – braucht die API, exportiert nur `booking.core`, lädt
+Kanäle und bietet selbst einen an. `src/booking.core/module-info.java`:
+
+```java
+module booking.core {
+    requires transitive booking.api;
+    exports booking.core;
+    uses booking.api.NotificationChannel;
+    provides booking.api.NotificationChannel with booking.core.internal.EmailChannel;
+}
+```
+
+`src/booking.core/booking/core/BookingService.java`:
+
+```java
+package booking.core;
+
+import booking.api.NotificationChannel;
+import booking.api.Room;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ServiceLoader;
+
+public class BookingService {
+
+    private final List&lt;NotificationChannel&gt; channels = new ArrayList&lt;&gt;();
+
+    public BookingService() {
+        for (NotificationChannel channel : ServiceLoader.load(NotificationChannel.class)) {
+            channels.add(channel);
+        }
+    }
+
+    public boolean book(Room room, int attendees) {
+        if (room.capacity() &lt; attendees) {
+            return false;
+        }
+        String message = &#34;Room &#34; &#43; room.id() &#43; &#34; booked for &#34; &#43; attendees &#43; &#34; people&#34;;
+        for (NotificationChannel channel : channels) {
+            channel.send(message);
+        }
+        return true;
+    }
+}
+```
+
+`src/booking.core/booking/core/internal/EmailChannel.java`:
+
+```java
+package booking.core.internal;
+
+import booking.api.NotificationChannel;
+
+public class EmailChannel implements NotificationChannel {
+
+    @Override
+    public String name() {
+        return &#34;email&#34;;
+    }
+
+    @Override
+    public void send(String message) {
+        // Imagine a real e-mail to the facility management here.
+        System.out.println(&#34;[email] &#34; &#43; message);
+    }
+}
+```
+
+**Modul `booking.app`** – braucht nur den Kern. `src/booking.app/module-info.java`:
+
+```java
+module booking.app {
+    requires booking.core;
+}
+```
+
+`src/booking.app/booking/app/BookingApp.java`:
+
+```java
+package booking.app;
+
+import booking.api.Room;
+import booking.core.BookingService;
+
+public class BookingApp {
+
+    public static void main(String[] args) {
+        BookingService service = new BookingService();
+        boolean booked = service.book(new Room(&#34;R1&#34;, 4), 3);
+        System.out.println(&#34;Booked: &#34; &#43; booked);
+    }
+}
+```
+
+`src/booking.app/booking/app/ChannelInspector.java` – sie liest per Reflection ein
+privates Feld des Service:
+
+```java
+package booking.app;
+
+import booking.core.BookingService;
+import java.lang.reflect.Field;
+import java.util.List;
+
+public class ChannelInspector {
+
+    public static void main(String[] args) throws Exception {
+        BookingService service = new BookingService();
+
+        Field field = BookingService.class.getDeclaredField(&#34;channels&#34;);
+        field.setAccessible(true);
+        List&lt;?&gt; channels = (List&lt;?&gt;) field.get(service);
+
+        System.out.println(&#34;Channels inside the service: &#34; &#43; channels.size());
+    }
+}
+```
+
+### Übersetzen und starten
+
+Alle folgenden Befehle laufen im Ordner `aufbau-modules`, unter Windows genauso wie
+unter macOS und Linux.
+
+Übersetze alle drei Module in einem Aufruf nach `out` – `--module-source-path` sagt
+`javac`, wo die Modulordner liegen, `--module` nennt die Module:
+
+```shell
+javac -d out --module-source-path src --module booking.api,booking.core,booking.app
+```
+
+Sieh Dir den Ordner `out` an: Je Modul ist ein Ordner entstanden, jeder mit einer
+`module-info.class`.
+
+Starte `BookingApp` auf dem Modulpfad – `-m` nennt Modul und Klasse:
+
+```shell
+java --module-path out -m booking.app/booking.app.BookingApp
+```
+
+Die Buchung geht per E-Mail hinaus, und `Booked: true` steht darunter – obwohl
+`booking.app` den `EmailChannel` nirgends nennt.
+
+### Ein internes Paket verwenden
+
+Leg in `booking.app` eine Klasse an, die den E-Mail-Kanal direkt verwendet,
+`src/booking.app/booking/app/DirectEmail.java`:
+
+```java
+package booking.app;
+
+import booking.core.internal.EmailChannel;
+
+public class DirectEmail {
+
+    public static void main(String[] args) {
+        new EmailChannel().send(&#34;Hello&#34;);
+    }
+}
+```
+
+**Vorhersage:** `EmailChannel` ist `public`. Übersetzt das? Notier Deine Erwartung und
+übersetze wie oben. Lösche `DirectEmail.java` danach wieder.
+
+### Die API weiterreichen
+
+Ändere in `booking.core/module-info.java` die Zeile `requires transitive booking.api;`
+in `requires booking.api;`.
+
+**Vorhersage:** `booking.app` nennt `booking.api` in seiner `module-info.java` gar nicht,
+`BookingApp` verwendet aber `Room`. Was meldet der Compiler jetzt – und an welcher Stelle?
+Übersetze, vergleiche und stell `requires transitive` wieder her.
+
+### Reflection auf ein privates Feld
+
+**Vorhersage:** `booking.core` exportiert das Paket `booking.core`. Kann
+`ChannelInspector` das private Feld `channels` lesen? Notier Deine Erwartung und starte:
+
+```shell
+java --module-path out -m booking.app/booking.app.ChannelInspector
+```
+
+Erklär die Meldung. Ergänze dann in `booking.core/module-info.java` unter `exports` die
+Zeile:
+
+```java
+opens booking.core to booking.app;
+```
+
+Übersetze und starte `ChannelInspector` erneut.
+
+### Den Service anmelden
+
+Nimm in `booking.core/module-info.java` die Zeile mit `provides` heraus, übersetze und
+starte `BookingApp`. Was fehlt in der Ausgabe?
+
+**Vorhersage:** Stell `provides` wieder her und nimm stattdessen die Zeile mit `uses`
+heraus. Übersetzt das noch – und was passiert beim Start? Prüf Deine Erwartung und stell
+die Zeile danach wieder her.
+
+### Nachschlagen
+
+Liste die Module Deines JDK auf:
+
+```shell
+java --list-modules
+```
+
+Lass Dir den Deskriptor von `booking.core` zeigen, wie die JVM ihn liest:
+
+```shell
+java --module-path out --describe-module booking.core
+```
+
+Dasselbe geht für jedes Modul des JDK. Sieh Dir `java.sql` an und such die Zeile mit
+`uses`:
+
+```shell
+java --describe-module java.sql
+```
+
+Lass Dir von `jdeps` zusammenfassen, welche Module `booking.app` braucht:
+
+```shell
+jdeps --module-path out -s --module booking.app
+```
+
+### Für Schnelle
+
+- **Ein Kanal als eigenes Modul:** Leg ein Modul `booking.chat` an, das
+  `booking.api` liest und mit `provides … with` eine Klasse `booking.chat.ChatChannel`
+  anbietet. Übersetze mit `--module booking.api,booking.core,booking.app,booking.chat`
+  und starte `BookingApp` – ohne eine Zeile in `booking.core` oder `booking.app` zu
+  ändern.
+- **Opens von außen:** Nimm `opens` wieder heraus und starte `ChannelInspector` mit der
+  Option `--add-opens booking.core/booking.core=booking.app` vor `-m`. Genau so öffnen
+  Start-Skripte Pakete des JDK für Frameworks.
+- **Zurück auf den Klassenpfad:** Starte `BookingApp` und `ChannelInspector` mit
+  `-cp out/booking.api:out/booking.core:out/booking.app` statt Modulpfad (unter Windows
+  mit `;` getrennt und in Anführungszeichen) und mit dem Klassennamen statt `-m`. Was
+  bleibt von den `module-info.class`-Dateien übrig?
+
+
+&lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
+
+## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
+
+- `EmailChannel` ist `public`. Warum kann `booking.app` die Klasse trotzdem nicht verwenden?
+- Warum braucht `booking.app` kein `requires booking.api`, obwohl `BookingApp` die Klasse `Room` verwendet?
+- Warum genügt `exports booking.core` nicht, damit `ChannelInspector` das private Feld lesen kann?
+- Was ändert sich, wenn ein Modul ohne `provides` gestartet wird, und was, wenn `uses` fehlt?
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+## Weiterführende Informationen
+- [Java Language Specification 17: Module Declarations](https://docs.oracle.com/javase/specs/jls/se17/html/jls-7.html#jls-7.7)
+- [JDK 17: Das Werkzeug java (Optionen zum Modulpfad)](https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html)
+- [JDK 17: Das Werkzeug jdeps](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jdeps.html)
+</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#die-module-anlegen" class="skr-toc--h3">Die Module anlegen</a><a href="#übersetzen-und-starten" class="skr-toc--h3">Übersetzen und starten</a><a href="#ein-internes-paket-verwenden" class="skr-toc--h3">Ein internes Paket verwenden</a><a href="#die-api-weiterreichen" class="skr-toc--h3">Die API weiterreichen</a><a href="#reflection-auf-ein-privates-feld" class="skr-toc--h3">Reflection auf ein privates Feld</a><a href="#den-service-anmelden" class="skr-toc--h3">Den Service anmelden</a><a href="#nachschlagen" class="skr-toc--h3">Nachschlagen</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 7 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://docs.oracle.com/javase/specs/jls/se17/html/jls-7.html#jls-7.7" target="_blank" rel="noopener"><span>Java Language Specification 17: Module Declarations</span></a>
+      <a href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html" target="_blank" rel="noopener"><span>JDK 17: Das Werkzeug java (Optionen zum Modulpfad)</span></a>
+      <a href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/jdeps.html" target="_blank" rel="noopener"><span>JDK 17: Das Werkzeug jdeps</span></a>
+    </div>
+  </div>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div>
+  </div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

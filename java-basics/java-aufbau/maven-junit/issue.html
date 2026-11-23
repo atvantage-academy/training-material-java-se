@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Das Projekt aufbau anlegen und testen · ATVANTAGE Academy</title>
+<meta name="description" content="Leg das Maven-Projekt aufbau von Hand an, binde JUnit über eine BOM ein und halte die CAFE-BABE-Erwartung und das Verhalten eines Raums als Tests fest.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Das Projekt aufbau anlegen und testen">
+<meta property="og:description" content="Leg das Maven-Projekt aufbau von Hand an, binde JUnit über eine BOM ein und halte die CAFE-BABE-Erwartung und das Verhalten eines Raums als Tests fest.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=1237e482">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Leg das Maven-Projekt aufbau von Hand an, binde JUnit über eine BOM ein und halte die CAFE-BABE-Erwartung und das Verhalten eines Raums als Tests fest.","duration":60,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-maven-junit-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das Projekt aufbau anlegen und testen","topics":["Maven","Lifecycle","BOM","JUnit","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/maven-junit/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=f03ada5d" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=cc0ce1dd">
+<link rel="stylesheet" href="../../../extensions/didaktikon/exercise.css?v=485b7c1d">
+<script src="../../../skriptorium/guide-layout.js?v=00fd0360" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header" data-skr-header>
+  <a class="skr-header__brand" href="../../../" aria-label="Startseite"><img class="skr-header__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span>
+    <img class="skr-header__mark" src="../../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../../java-basics/java-aufbau/">Java-Aufbau</a>
+          <a role="menuitem" href="../../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../../skriptorium/search/de.json?v=f03ada5d"
+     data-base="../../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Das Projekt aufbau anlegen und testen</span></nav>
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 60 Minuten</span><span class="skr-tag">Maven</span><span class="skr-tag">Lifecycle</span><span class="skr-tag">BOM</span><span class="skr-tag">JUnit</span><span class="skr-tag">Raumbuchung</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">Das Projekt aufbau anlegen und testen</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-guide-panels" data-skr-arrangement="fold">
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>User Story</summary>
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Java-Entwickler:in möchte ich ein eigenes Maven-Projekt mit JUnit aufsetzen, damit ich meine Erwartungen an Code als Tests festhalten kann, die bei jedem Build laufen.</p>
+</div>
+</details>
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>Lernziele</summary>
+<div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<ul>
+<li>Du schreibst ein minimales POM mit Koordinaten und <code>maven.compiler.release</code>.</li>
+<li>Du ordnest die Ausgabe von <code>mvn verify</code> den Phasen, Plugins und Goals des Lifecycles zu.</li>
+<li>Du findest mit <code>mvn help:effective-pom</code> heraus, woher eine Plugin-Version kommt, und legst sie in <code>pluginManagement</code> fest.</li>
+<li>Du bindest JUnit über die <code>junit-bom</code> ein und deklarierst <code>junit-jupiter</code> ohne Version.</li>
+<li>Du schreibst Tests mit <code>assertEquals</code>, <code>assertThrows</code>, <code>assertAll</code>, <code>@BeforeEach</code>, <code>@DisplayName</code> und einem parametrisierten Test.</li>
+<li>Du liest die Fehlermeldung eines fehlgeschlagenen Tests und korrigierst den Code.</li>
+</ul>
+</div>
+</details>
+<details class="skr-fold">
+<summary>Definition of Done</summary>
+<div class="skr-guide-done">
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Im Ordner aufbau liegt ein POM mit groupId de.academy, artifactId aufbau und maven.compiler.release 17." disabled="disabled"> Im Ordner <code>aufbau</code> liegt ein POM mit <code>groupId</code> <code>de.academy</code>, <code>artifactId</code> <code>aufbau</code> und <code>maven.compiler.release</code> 17.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Version des Surefire-Plugins steht in pluginManagement; die Version stammt von Maven Central." disabled="disabled"> Die Version des Surefire-Plugins steht in <code>pluginManagement</code>; die Version stammt von Maven Central.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="JUnit kommt über die junit-bom ins Projekt; junit-jupiter steht ohne Version im POM, und mvn dependency:tree zeigt es." disabled="disabled"> JUnit kommt über die <code>junit-bom</code> ins Projekt; <code>junit-jupiter</code> steht ohne Version im POM, und <code>mvn dependency:tree</code> zeigt es.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="CafeBabeTest ist erst übersprungen, dann rot und nach Deiner Korrektur des Codes grün." disabled="disabled"> <code>CafeBabeTest</code> ist erst übersprungen, dann rot und nach Deiner Korrektur des Codes grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomTest prüft Name und Kapazität, eine Buchung, die abgelehnte Doppelbuchung und canHost für mehrere Werte." disabled="disabled"> <code>RoomTest</code> prüft Name und Kapazität, eine Buchung, die abgelehnte Doppelbuchung und <code>canHost</code> für mehrere Werte.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn test endet mit BUILD SUCCESS und Failures: 0." disabled="disabled"> <code>mvn test</code> endet mit <code>BUILD SUCCESS</code> und <code>Failures: 0</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
+</details>
+</div>
+<p>Im Einstieg stand Deine Erwartung als Kommentar im Code. Jetzt legst Du das Projekt an,
+in dem Du für den Rest des Kurses arbeitest, und hältst Erwartungen als Tests fest. Du
+arbeitest dabei <strong>im Terminal</strong>, damit sichtbar bleibt, was Maven tut; die IDE darfst
+Du zum Schreiben der Dateien gern nutzen.</p>
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+<h3 id="das-pom-von-hand-anlegen">Das POM von Hand anlegen</h3>
+<p>Leg einen Ordner <code>aufbau</code> an und darin die Datei <code>pom.xml</code>:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.academy&lt;/groupId&gt;
+    &lt;artifactId&gt;aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+&lt;/project&gt;
+</code></pre>
+<p>Leg außerdem die beiden Quellordner an: <code>src/main/java</code> und <code>src/test/java</code>.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Du kannst ein Projekt auch mit <code>mvn archetype:generate</code> erzeugen lassen.
+Das bringt aber ein POM voller Einträge mit, die Du nicht geschrieben hast. Hier soll
+jede Zeile eine sein, die Du erklären kannst.</p>
+</blockquote>
+<h3 id="das-leere-projekt-bauen">Das leere Projekt bauen</h3>
+<p>Öffne ein Terminal im Ordner <code>aufbau</code> und bau das Projekt:</p>
+<pre><code class="language-bash">mvn verify
+</code></pre>
+<p>Lies die Ausgabe. Jede Zeile der Form <code>--- compiler:3.x.y:compile (default-compile) @ aufbau ---</code>
+ist ein <strong>Goal</strong> eines <strong>Plugins</strong>, das an eine <strong>Phase</strong> gebunden ist. Notier, welche
+Plugins in welcher Reihenfolge laufen. Wo steht in Deinem POM, dass sie laufen sollen?</p>
+<h3 id="das-effektive-pom-ansehen">Das effektive POM ansehen</h3>
+<p>Lass Dir das POM so ausgeben, wie Maven es sieht, und schreib es in eine Datei:</p>
+<pre><code class="language-bash">mvn help:effective-pom -Doutput=effective-pom.xml
+</code></pre>
+<p>Such in <code>effective-pom.xml</code> nach <code>maven-surefire-plugin</code>. Welche Version steht dort –
+und woher kommt sie, wenn sie nicht in Deinem POM steht?</p>
+<h3 id="die-surefire-version-festlegen">Die Surefire-Version festlegen</h3>
+<p>Schlag auf Maven Central (<a href="https://central.sonatype.com">https://central.sonatype.com</a>) die aktuelle Version von
+<code>org.apache.maven.plugins:maven-surefire-plugin</code> nach. Ergänze Dein POM nach
+<code>&lt;/properties&gt;</code> um diesen Block und ersetze <code>VERSION</code> durch die gefundene Version:</p>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;VERSION&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+&lt;/build&gt;
+</code></pre>
+<p>Erzeuge das effektive POM noch einmal und prüf, dass nun Deine Version gilt.</p>
+<h3 id="junit-über-die-bom-einbinden">JUnit über die BOM einbinden</h3>
+<p>Schlag auf Maven Central die aktuelle Version von <code>org.junit:junit-bom</code> nach. Ergänze
+Dein POM vor <code>&lt;build&gt;</code> um die BOM und die Abhängigkeit – <code>VERSION</code> ersetzt Du wieder
+durch die gefundene Version:</p>
+<pre><code class="language-xml">&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+            &lt;version&gt;VERSION&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p>Lass Dir anzeigen, welche Artefakte damit ins Projekt kommen:</p>
+<pre><code class="language-bash">mvn dependency:tree
+</code></pre>
+<p>Woher kennt Maven die Version von <code>junit-jupiter</code>, obwohl sie nicht dasteht?</p>
+<h3 id="die-erste-erwartung-als-test-festhalten">Die erste Erwartung als Test festhalten</h3>
+<p>Leg den Ordner <code>src/test/java/aufbau/junit</code> an und darin <code>CafeBabeTest.java</code>:</p>
+<pre><code class="language-java">package aufbau.junit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+class CafeBabeTest {
+
+    @Test
+    @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
+    void addsCafeBabeAndOneFollowedByEightZeros() {
+        long l1 = 0x0_cafe_babe;
+        long l2 = 0x1_0000_0000L;
+        assertEquals(0x1_cafe_babeL, l1 + l2);
+    }
+}
+</code></pre>
+<p>Starte die Tests:</p>
+<pre><code class="language-bash">mvn test
+</code></pre>
+<p>Der Build ist grün, der Test aber übersprungen (<code>Skipped: 1</code>). So kommen ab jetzt alle
+Rätsel des Kurses: Das Projekt baut immer, und Du entscheidest, wann Du ein Rätsel
+startest.</p>
+<p>Entferne nun <code>@Disabled</code> und starte nur diese Testklasse:</p>
+<pre><code class="language-bash">mvn test -Dtest=CafeBabeTest
+</code></pre>
+<p>Lies die Fehlermeldung: Was ist <code>expected</code>, was <code>but was</code>, und in welcher Zeile ist der
+Test gescheitert? Korrigiere dann <strong>den Code</strong> so, dass die Addition stimmt, und starte
+den Test noch einmal, bis er grün ist.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Die Zahlen in der Meldung sind dezimal. Die Ursache kennst Du aus dem
+Einstieg; hier geht es darum, die Meldung lesen zu können.</p>
+</blockquote>
+<h3 id="einen-raum-der-raumbuchung-übernehmen">Einen Raum der Raumbuchung übernehmen</h3>
+<p>Durch den Kurs zieht sich eine kleine Raumbuchung. Leg den Ordner
+<code>src/main/java/aufbau/junit</code> an und darin <code>Room.java</code>:</p>
+<pre><code class="language-java">package aufbau.junit;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Room {
+
+    private final String name;
+    private final int capacity;
+    private final Set&lt;LocalDate&gt; bookedDays = new HashSet&lt;&gt;();
+
+    public Room(String name, int capacity) {
+        if (capacity &lt; 1) {
+            throw new IllegalArgumentException(&quot;capacity must be at least 1, but was &quot; + capacity);
+        }
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public boolean canHost(int persons) {
+        return persons &gt; 0 &amp;&amp; persons &lt;= capacity;
+    }
+
+    public void book(LocalDate day) {
+        if (!bookedDays.add(day)) {
+            throw new IllegalStateException(name + &quot; is already booked on &quot; + day);
+        }
+    }
+
+    public boolean isBooked(LocalDate day) {
+        return bookedDays.contains(day);
+    }
+}
+</code></pre>
+<h3 id="den-raum-testen">Den Raum testen</h3>
+<p>Leg unter <code>src/test/java/aufbau/junit</code> die Datei <code>RoomTest.java</code> an. Sie bringt schon
+einen frischen Raum für jeden Test und einen ersten Test mit:</p>
+<pre><code class="language-java">package aufbau.junit;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class RoomTest {
+
+    private static final LocalDate MONDAY = LocalDate.of(2026, 3, 2);
+
+    private Room room;
+
+    @BeforeEach
+    void createRoom() {
+        room = new Room(&quot;Seminar 1&quot;, 12);
+    }
+
+    @Test
+    void bookingMarksTheDayAsBooked() {
+        room.book(MONDAY);
+        assertTrue(room.isBooked(MONDAY));
+    }
+}
+</code></pre>
+<p>Ergänze die Klasse um diese Tests und starte nach jedem <code>mvn test</code>:</p>
+<ol>
+<li>Ein neuer Raum behält Name <strong>und</strong> Kapazität – geprüft mit <strong>einem</strong> <code>assertAll</code>,
+das zwei <code>assertEquals</code> enthält. Gib dem Test mit <code>@DisplayName</code> einen Namen, der im
+Bericht lesbar ist.</li>
+<li>Ein neuer Raum ist an keinem Tag gebucht.</li>
+<li>Eine zweite Buchung desselben Tages wird abgelehnt: <code>assertThrows</code> mit
+<code>IllegalStateException</code>. Prüf auch die Nachricht der Ausnahme – <code>assertThrows</code> gibt
+sie Dir zurück.</li>
+<li>Ein Raum mit Kapazität <code>0</code> oder <code>-1</code> lässt sich nicht anlegen: <strong>ein</strong>
+parametrisierter Test mit <code>@ParameterizedTest</code> und <code>@ValueSource(ints = { 0, -1 })</code>.</li>
+<li><code>canHost</code> liefert für 1 und 12 Personen <code>true</code>, für 0 und 13 <code>false</code>: ein
+parametrisierter Test mit <code>@CsvSource</code>, je Zeile Personenzahl und Erwartung, etwa
+<code>&quot;13, false&quot;</code>.</li>
+</ol>
+<blockquote>
+<p><strong>Hinweis:</strong> <code>@ParameterizedTest</code>, <code>@ValueSource</code> und <code>@CsvSource</code> liegen in den
+Paketen <code>org.junit.jupiter.params</code> und <code>org.junit.jupiter.params.provider</code>. Sie sind
+schon im Projekt – <code>junit-jupiter</code> bringt sie mit; der Abhängigkeitsbaum zeigt es.</p>
+</blockquote>
+<p>Prüf zwischendurch, ob ein Test wirklich etwas prüft: Ändere eine Erwartung absichtlich,
+sieh ihn rot werden und nimm die Änderung zurück.</p>
+<h3 id="für-schnelle-meldung-lesbar-machen-und-verpacken">Für Schnelle: Meldung lesbar machen und verpacken</h3>
+<p>Mach die Fehlermeldung des <code>CafeBabeTest</code> lesbar: Vergleich statt der Zahlen ihre
+Hex-Darstellung (<code>Long.toHexString(…)</code>) und bau den Fehler kurz wieder ein, um die neue
+Meldung zu sehen.</p>
+<p>Verpacke das Projekt danach:</p>
+<pre><code class="language-bash">mvn package
+</code></pre>
+<p>Sieh in <code>target/</code> nach, was entstanden ist, und vergleich die Ausgabe mit der von
+<code>mvn verify</code>.</p>
+<div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
+<ul>
+<li>Was ist der Unterschied zwischen <code>pluginManagement</code> und <code>build/plugins</code> – und warum genügt für Surefire das erste?</li>
+<li>Woher kam die Version des Surefire-Plugins, bevor Du sie selbst festgelegt hast – und warum ist das ein Problem?</li>
+<li>Warum steht <code>junit-jupiter</code> ohne Version im POM – und was passiert, wenn Du später ein weiteres JUnit-Artefakt brauchst?</li>
+<li>Welche Phasen laufen bei <code>mvn package</code>, welche bei <code>mvn verify</code>?</li>
+<li>Warum hast Du beim <code>CafeBabeTest</code> den Code korrigiert und nicht die Assertion?</li>
+<li>Wo hat Dir <code>assertAll</code> eine Information gegeben, die zwei einzelne <code>assertEquals</code> nicht gegeben hätten?</li>
+</ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># Das Projekt `aufbau` anlegen und testen
+
+&lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;User Story&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
+
+Als Java-Entwickler:in möchte ich ein eigenes Maven-Projekt mit JUnit aufsetzen, damit ich meine Erwartungen an Code als Tests festhalten kann, die bei jedem Build laufen.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Lernziele&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+- Du schreibst ein minimales POM mit Koordinaten und `maven.compiler.release`.
+- Du ordnest die Ausgabe von `mvn verify` den Phasen, Plugins und Goals des Lifecycles zu.
+- Du findest mit `mvn help:effective-pom` heraus, woher eine Plugin-Version kommt, und legst sie in `pluginManagement` fest.
+- Du bindest JUnit über die `junit-bom` ein und deklarierst `junit-jupiter` ohne Version.
+- Du schreibst Tests mit `assertEquals`, `assertThrows`, `assertAll`, `@BeforeEach`, `@DisplayName` und einem parametrisierten Test.
+- Du liest die Fehlermeldung eines fehlgeschlagenen Tests und korrigierst den Code.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Definition of Done&lt;/summary&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+- [ ] Im Ordner `aufbau` liegt ein POM mit `groupId` `de.academy`, `artifactId` `aufbau` und `maven.compiler.release` 17.
+- [ ] Die Version des Surefire-Plugins steht in `pluginManagement`; die Version stammt von Maven Central.
+- [ ] JUnit kommt über die `junit-bom` ins Projekt; `junit-jupiter` steht ohne Version im POM, und `mvn dependency:tree` zeigt es.
+- [ ] `CafeBabeTest` ist erst übersprungen, dann rot und nach Deiner Korrektur des Codes grün.
+- [ ] `RoomTest` prüft Name und Kapazität, eine Buchung, die abgelehnte Doppelbuchung und `canHost` für mehrere Werte.
+- [ ] `mvn test` endet mit `BUILD SUCCESS` und `Failures: 0`.
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+
+Im Einstieg stand Deine Erwartung als Kommentar im Code. Jetzt legst Du das Projekt an,
+in dem Du für den Rest des Kurses arbeitest, und hältst Erwartungen als Tests fest. Du
+arbeitest dabei **im Terminal**, damit sichtbar bleibt, was Maven tut; die IDE darfst
+Du zum Schreiben der Dateien gern nutzen.
+
+## Arbeitsschritte
+
+### Das POM von Hand anlegen
+
+Leg einen Ordner `aufbau` an und darin die Datei `pom.xml`:
+
+```xml
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+&lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.academy&lt;/groupId&gt;
+    &lt;artifactId&gt;aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+&lt;/project&gt;
+```
+
+Leg außerdem die beiden Quellordner an: `src/main/java` und `src/test/java`.
+
+&gt; **Hinweis:** Du kannst ein Projekt auch mit `mvn archetype:generate` erzeugen lassen.
+&gt; Das bringt aber ein POM voller Einträge mit, die Du nicht geschrieben hast. Hier soll
+&gt; jede Zeile eine sein, die Du erklären kannst.
+
+### Das leere Projekt bauen
+
+Öffne ein Terminal im Ordner `aufbau` und bau das Projekt:
+
+```bash
+mvn verify
+```
+
+Lies die Ausgabe. Jede Zeile der Form `--- compiler:3.x.y:compile (default-compile) @ aufbau ---`
+ist ein **Goal** eines **Plugins**, das an eine **Phase** gebunden ist. Notier, welche
+Plugins in welcher Reihenfolge laufen. Wo steht in Deinem POM, dass sie laufen sollen?
+
+### Das effektive POM ansehen
+
+Lass Dir das POM so ausgeben, wie Maven es sieht, und schreib es in eine Datei:
+
+```bash
+mvn help:effective-pom -Doutput=effective-pom.xml
+```
+
+Such in `effective-pom.xml` nach `maven-surefire-plugin`. Welche Version steht dort –
+und woher kommt sie, wenn sie nicht in Deinem POM steht?
+
+### Die Surefire-Version festlegen
+
+Schlag auf Maven Central (&lt;https://central.sonatype.com&gt;) die aktuelle Version von 
+`org.apache.maven.plugins:maven-surefire-plugin` nach. Ergänze Dein POM nach
+`&lt;/properties&gt;` um diesen Block und ersetze `VERSION` durch die gefundene Version:
+
+```xml
+&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;VERSION&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+&lt;/build&gt;
+```
+
+Erzeuge das effektive POM noch einmal und prüf, dass nun Deine Version gilt.
+
+### JUnit über die BOM einbinden
+
+Schlag auf Maven Central die aktuelle Version von `org.junit:junit-bom` nach. Ergänze 
+Dein POM vor `&lt;build&gt;` um die BOM und die Abhängigkeit – `VERSION` ersetzt Du wieder
+durch die gefundene Version:
+
+```xml
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+            &lt;version&gt;VERSION&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+```
+
+Lass Dir anzeigen, welche Artefakte damit ins Projekt kommen:
+
+```bash
+mvn dependency:tree
+```
+
+Woher kennt Maven die Version von `junit-jupiter`, obwohl sie nicht dasteht?
+
+### Die erste Erwartung als Test festhalten
+
+Leg den Ordner `src/test/java/aufbau/junit` an und darin `CafeBabeTest.java`:
+
+```java
+package aufbau.junit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+class CafeBabeTest {
+
+    @Test
+    @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
+    void addsCafeBabeAndOneFollowedByEightZeros() {
+        long l1 = 0x0_cafe_babe;
+        long l2 = 0x1_0000_0000L;
+        assertEquals(0x1_cafe_babeL, l1 &#43; l2);
+    }
+}
+```
+
+Starte die Tests:
+
+```bash
+mvn test
+```
+
+Der Build ist grün, der Test aber übersprungen (`Skipped: 1`). So kommen ab jetzt alle
+Rätsel des Kurses: Das Projekt baut immer, und Du entscheidest, wann Du ein Rätsel
+startest.
+
+Entferne nun `@Disabled` und starte nur diese Testklasse:
+
+```bash
+mvn test -Dtest=CafeBabeTest
+```
+
+Lies die Fehlermeldung: Was ist `expected`, was `but was`, und in welcher Zeile ist der
+Test gescheitert? Korrigiere dann **den Code** so, dass die Addition stimmt, und starte
+den Test noch einmal, bis er grün ist.
+
+&gt; **Hinweis:** Die Zahlen in der Meldung sind dezimal. Die Ursache kennst Du aus dem
+&gt; Einstieg; hier geht es darum, die Meldung lesen zu können.
+
+### Einen Raum der Raumbuchung übernehmen
+
+Durch den Kurs zieht sich eine kleine Raumbuchung. Leg den Ordner
+`src/main/java/aufbau/junit` an und darin `Room.java`:
+
+```java
+package aufbau.junit;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Room {
+
+    private final String name;
+    private final int capacity;
+    private final Set&lt;LocalDate&gt; bookedDays = new HashSet&lt;&gt;();
+
+    public Room(String name, int capacity) {
+        if (capacity &lt; 1) {
+            throw new IllegalArgumentException(&#34;capacity must be at least 1, but was &#34; &#43; capacity);
+        }
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public boolean canHost(int persons) {
+        return persons &gt; 0 &amp;&amp; persons &lt;= capacity;
+    }
+
+    public void book(LocalDate day) {
+        if (!bookedDays.add(day)) {
+            throw new IllegalStateException(name &#43; &#34; is already booked on &#34; &#43; day);
+        }
+    }
+
+    public boolean isBooked(LocalDate day) {
+        return bookedDays.contains(day);
+    }
+}
+```
+
+### Den Raum testen
+
+Leg unter `src/test/java/aufbau/junit` die Datei `RoomTest.java` an. Sie bringt schon
+einen frischen Raum für jeden Test und einen ersten Test mit:
+
+```java
+package aufbau.junit;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class RoomTest {
+
+    private static final LocalDate MONDAY = LocalDate.of(2026, 3, 2);
+
+    private Room room;
+
+    @BeforeEach
+    void createRoom() {
+        room = new Room(&#34;Seminar 1&#34;, 12);
+    }
+
+    @Test
+    void bookingMarksTheDayAsBooked() {
+        room.book(MONDAY);
+        assertTrue(room.isBooked(MONDAY));
+    }
+}
+```
+
+Ergänze die Klasse um diese Tests und starte nach jedem `mvn test`:
+
+1. Ein neuer Raum behält Name **und** Kapazität – geprüft mit **einem** `assertAll`,
+   das zwei `assertEquals` enthält. Gib dem Test mit `@DisplayName` einen Namen, der im
+   Bericht lesbar ist.
+2. Ein neuer Raum ist an keinem Tag gebucht.
+3. Eine zweite Buchung desselben Tages wird abgelehnt: `assertThrows` mit
+   `IllegalStateException`. Prüf auch die Nachricht der Ausnahme – `assertThrows` gibt
+   sie Dir zurück.
+4. Ein Raum mit Kapazität `0` oder `-1` lässt sich nicht anlegen: **ein**
+   parametrisierter Test mit `@ParameterizedTest` und `@ValueSource(ints = { 0, -1 })`.
+5. `canHost` liefert für 1 und 12 Personen `true`, für 0 und 13 `false`: ein
+   parametrisierter Test mit `@CsvSource`, je Zeile Personenzahl und Erwartung, etwa
+   `&#34;13, false&#34;`.
+
+&gt; **Hinweis:** `@ParameterizedTest`, `@ValueSource` und `@CsvSource` liegen in den
+&gt; Paketen `org.junit.jupiter.params` und `org.junit.jupiter.params.provider`. Sie sind
+&gt; schon im Projekt – `junit-jupiter` bringt sie mit; der Abhängigkeitsbaum zeigt es.
+
+Prüf zwischendurch, ob ein Test wirklich etwas prüft: Ändere eine Erwartung absichtlich,
+sieh ihn rot werden und nimm die Änderung zurück.
+
+### Für Schnelle: Meldung lesbar machen und verpacken
+
+Mach die Fehlermeldung des `CafeBabeTest` lesbar: Vergleich statt der Zahlen ihre
+Hex-Darstellung (`Long.toHexString(…)`) und bau den Fehler kurz wieder ein, um die neue
+Meldung zu sehen.
+
+Verpacke das Projekt danach:
+
+```bash
+mvn package
+```
+
+Sieh in `target/` nach, was entstanden ist, und vergleich die Ausgabe mit der von
+`mvn verify`.
+
+
+&lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
+
+## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
+
+- Was ist der Unterschied zwischen `pluginManagement` und `build/plugins` – und warum genügt für Surefire das erste?
+- Woher kam die Version des Surefire-Plugins, bevor Du sie selbst festgelegt hast – und warum ist das ein Problem?
+- Warum steht `junit-jupiter` ohne Version im POM – und was passiert, wenn Du später ein weiteres JUnit-Artefakt brauchst?
+- Welche Phasen laufen bei `mvn package`, welche bei `mvn verify`?
+- Warum hast Du beim `CafeBabeTest` den Code korrigiert und nicht die Assertion?
+- Wo hat Dir `assertAll` eine Information gegeben, die zwei einzelne `assertEquals` nicht gegeben hätten?
+
+&lt;/div&gt;
+
+&lt;/div&gt;</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-pom-von-hand-anlegen" class="skr-toc--h3">Das POM von Hand anlegen</a><a href="#das-leere-projekt-bauen" class="skr-toc--h3">Das leere Projekt bauen</a><a href="#das-effektive-pom-ansehen" class="skr-toc--h3">Das effektive POM ansehen</a><a href="#die-surefire-version-festlegen" class="skr-toc--h3">Die Surefire-Version festlegen</a><a href="#junit-über-die-bom-einbinden" class="skr-toc--h3">JUnit über die BOM einbinden</a><a href="#die-erste-erwartung-als-test-festhalten" class="skr-toc--h3">Die erste Erwartung als Test festhalten</a><a href="#einen-raum-der-raumbuchung-übernehmen" class="skr-toc--h3">Einen Raum der Raumbuchung übernehmen</a><a href="#den-raum-testen" class="skr-toc--h3">Den Raum testen</a><a href="#für-schnelle-meldung-lesbar-machen-und-verpacken" class="skr-toc--h3">Für Schnelle: Meldung lesbar machen und verpacken</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 7 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div>
+  </div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>
