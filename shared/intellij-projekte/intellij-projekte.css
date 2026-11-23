@@ -1,0 +1,62 @@
+.ip-lead{color:var(--skr-color-ink-muted);margin:0 0 1rem;}
+.ip-lead kbd,.ip-begriffe kbd,.ip-schritte kbd{font-family:var(--skr-font-mono,monospace);font-size:.85em;padding:.05rem .35rem;border:1px solid var(--skr-color-border);border-bottom-width:2px;border-radius:4px;background:var(--skr-color-bg);color:var(--skr-color-ink);white-space:nowrap;}
+
+/* Einstellungen: Projektart und Vergleichs-IDE */
+.ip-einstellungen{display:flex;flex-wrap:wrap;gap:.75rem 2rem;margin:0 0 1rem;}
+.ip-einstellung{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .75rem;}
+.ip-einstellung__titel{font-weight:700;}
+.ip-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;}
+.ip-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.ip-knopf:hover{border-color:var(--skr-color-accent);}
+.ip-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.ip-knopf:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:2px;}
+
+/* Begriffe */
+.ip-begriffe{border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);margin:0 0 1.25rem;background:var(--skr-color-bg);}
+.ip-begriffe__kopf{padding:.6rem 1rem;cursor:pointer;font-weight:700;}
+.ip-begriffe__kopf:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:-2px;border-radius:var(--skr-radius,8px);}
+.ip-begriffe__inhalt{padding:0 1rem .8rem;}
+.ip-tabelle{width:100%;border-collapse:collapse;}
+.ip-tabelle th{text-align:left;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);padding:.3rem .5rem;border-bottom:1px solid var(--skr-color-border);}
+.ip-tabelle td{padding:.4rem .5rem;border-bottom:1px solid var(--skr-color-border);vertical-align:top;}
+.ip-tabelle td:first-child{color:var(--skr-color-ink-muted);width:40%;}
+.ip-tabelle tr:last-child td{border-bottom:0;}
+
+/* Leiste über den Schritten */
+.ip-leiste{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 .5rem;}
+.ip-leiste__titel{margin:0;color:var(--skr-color-ink-muted);}
+.ip-leiste__knoepfe{display:flex;gap:.3rem;margin-left:auto;}
+.ip-symbol{display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;padding:0;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;}
+.ip-symbol:hover{border-color:var(--skr-color-accent);color:var(--skr-color-accent-ink);}
+.ip-symbol:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:1px;}
+.ip-symbol svg{width:1.15rem;height:1.15rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Schritte als Akkordeon */
+.ip-schritt{border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,8px);margin:0 0 .6rem;background:var(--skr-color-bg);}
+.ip-schritt__kopf{display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;cursor:pointer;font-weight:700;list-style:none;}
+.ip-schritt__kopf::-webkit-details-marker{display:none;}
+.ip-schritt__kopf::before{content:"▸";color:var(--skr-color-accent-ink);transition:transform .15s;}
+.ip-schritt[open] > .ip-schritt__kopf::before{transform:rotate(90deg);}
+.ip-schritt__kopf:hover .ip-schritt__titel{color:var(--skr-color-accent-ink);}
+.ip-schritt__kopf:focus-visible{outline:2px solid var(--skr-color-accent);outline-offset:-2px;border-radius:var(--skr-radius,8px);}
+.ip-schritt__inhalt{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:1.25rem;padding:0 1rem 1rem;}
+.ip-spalte__titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0 0 .4rem;}
+.ip-anleitung{margin:0;padding-left:1.4rem;}
+.ip-anleitung li{margin:0 0 .4rem;}
+.ip-hinweis{margin:.6rem 0 0;padding:.5rem .75rem;border-left:3px solid var(--skr-color-accent);background:color-mix(in srgb,var(--skr-color-accent) 8%,transparent);font-size:.9rem;}
+.ip-bild{margin:.8rem 0 0;}
+.ip-bild img{display:block;max-width:100%;height:auto;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);}
+.ip-vergleich{font-size:.85rem;color:var(--skr-color-ink-muted);border-left:1px solid var(--skr-color-border);padding-left:1rem;}
+.ip-vergleich__liste{margin:0;padding-left:1.1rem;}
+.ip-vergleich__liste li{margin:0 0 .35rem;}
+
+@media (max-width:640px){
+  .ip-schritt__inhalt{grid-template-columns:minmax(0,1fr);}
+  .ip-vergleich{border-left:0;padding-left:0;border-top:1px solid var(--skr-color-border);padding-top:.75rem;}
+}
+
+@media print{
+  .ip-einstellungen .ip-knopf[aria-pressed="false"],.ip-leiste__knoepfe{display:none;}
+  .ip-schritt{break-inside:avoid-page;}
+  .ip-schritt__kopf::before{content:none;}
+}

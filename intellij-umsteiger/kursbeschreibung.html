@@ -40,7 +40,7 @@
 <script src="../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../" data-index="../skriptorium/search/de.json?v=3cbcebc8" defer></script>
+        data-base="../" data-index="../skriptorium/search/de.json?v=ecb280e2" defer></script>
 <link rel="stylesheet" href="../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../themes/atvantage/assets/icon-180.png">
@@ -78,7 +78,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../skriptorium/search/de.json?v=3cbcebc8"
+     data-index="../skriptorium/search/de.json?v=ecb280e2"
      data-base="../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -131,7 +131,7 @@
     <main class="skr-guide-main" id="skr-content"><div class="skr-didaktikon-content-before" data-skr-slot="content.before">
 <h2 id="berblick">Überblick</h2>
 <div class="skr-didaktikon-overview" data-skr-field="didaktikon.overview">
-<p>Eine neue Entwicklungsumgebung kostet erst einmal Geschwindigkeit: Die Handgriffe sitzen, aber die Tasten liegen anders. Wer IntelliJ wie ein Eclipse mit anderen Farben bedient, bleibt für Monate langsamer als vorher – denn die Stellen, an denen IntelliJ wirklich mehr kann, findet man nicht im Menü, sondern im Arbeitsfluss. Dieser Tag geht die Wege durch, die Du täglich gehst – Projekt öffnen, zu einer Klasse springen, Code umformen, einen Fehler einkreisen, committen – und zeigt an jeder Station, was in IntelliJ anders heißt, anders funktioniert oder in Eclipse gar nicht existiert. Statt einer Tour durch die Oberfläche lernst Du den <strong>Zugriffsweg</strong>: Jede Aktion ist über eine Suche erreichbar.</p>
+<p>Eine neue Entwicklungsumgebung kostet erst einmal Geschwindigkeit: Die Handgriffe sitzen, aber die Tasten liegen anders. Wer IntelliJ wie ein Eclipse mit anderen Farben bedient, bleibt für Monate langsamer als vorher – denn die Stellen, an denen IntelliJ wirklich mehr kann, findet man nicht im Menü, sondern im Arbeitsfluss. Dieser Tag geht die Wege durch, die Du täglich gehst – ein Projekt klonen, anlegen, starten und debuggen, zu einer Klasse springen, Code umformen, committen – und zeigt an jeder Station, was in IntelliJ anders heißt, anders funktioniert oder in Eclipse gar nicht existiert. Statt einer Tour durch die Oberfläche lernst Du den <strong>Zugriffsweg</strong>: Jede Aktion ist über eine Suche erreichbar.</p>
 </div>
 <h2 id="zielgruppe">Zielgruppe</h2>
 <div class="skr-didaktikon-audience" data-skr-field="didaktikon.audience">
@@ -141,7 +141,8 @@
 <p>Die Lernenden …</p>
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
-<li>richten ein bestehendes Maven-Projekt so in IntelliJ ein, dass Bauen, Testen und Formatieren wie im Team funktionieren.</li>
+<li>holen ein bestehendes Projekt mit Backend und Frontend aus Git und richten es so in IntelliJ ein, dass Bauen und Testen wie im Team funktionieren.</li>
+<li>starten und debuggen wahlweise ein Backend mit Jakarta EE auf Open Liberty oder ein Frontend mit Angular aus der Entwicklungsumgebung und wissen, wie man ein solches Projekt neu anlegt.</li>
 <li>finden sich mit den Funktionen der Entwicklungsumgebung in einem unbekannten Codebestand zurecht und lassen wiederkehrende Änderungen am Code von ihr ausführen, statt sie von Hand zu schreiben.</li>
 <li>finden Fehler durch Debugging mit IntelliJ, ohne den untersuchten Code dafür zu verändern.</li>
 <li>arbeiten mit Git aus der Entwicklungsumgebung heraus und halten ihre Änderungen dabei thematisch getrennt.</li>
@@ -152,18 +153,26 @@
 <div class="skr-didaktikon-prerequisites" data-skr-field="didaktikon.prerequisites">
 <ul>
 <li>Java-Praxis aus einer anderen Entwicklungsumgebung, typischerweise Eclipse: Java, Maven und Git sind im Alltag vertraut – neu ist ausschließlich das Werkzeug.</li>
-<li>IntelliJ IDEA Ultimate ist vor Kursbeginn installiert und lizenziert, Maven (3.9 oder neuer) installiert und auf der Kommandozeile aufrufbar, das Übungsprojekt ausgecheckt – die Installation ist nicht Teil des Kurses.</li>
+<li>IntelliJ IDEA Ultimate ist vor Kursbeginn installiert und lizenziert; ein JDK, Maven (3.9 oder neuer), Node.js mit npm und Git sind installiert – die Installation ist nicht Teil des Kurses.</li>
+<li>Maven und npm sind auf die Repositories des Unternehmens eingestellt und funktionieren ohne Internetzugang; das Übungsrepository liegt auf dem Git-Server des Unternehmens und ist vom Arbeitsplatz aus erreichbar. Ohne funktionierende Spiegel lassen sich die Übungen nicht mitmachen.</li>
 </ul>
 </div>
 </div>
 <h2 id="agenda">Agenda</h2>
 <h3 id="ankommen-im-werkzeug">Ankommen im Werkzeug</h3>
 <ul>
-<li>Das Projektmodell von IntelliJ und wie ein Maven-Projekt darin aufgeht</li>
-<li>Die Oberfläche als Arbeitsmittel: Werkzeugfenster, Informationen am Zeilenrand</li>
-<li>Grundkonfiguration und das Auffinden von Einstellungen</li>
-<li>Formatierung, die das ganze Team teilt (<em>EditorConfig</em>)</li>
+<li>Ein Projekt aus Git holen und öffnen, ohne Umweg über einen Import</li>
+<li>Das Projektmodell von IntelliJ – Backend und Frontend getrennt oder in einem Fenster</li>
+<li>Wo die Einstellungen von Umgebung, Projekt und Modul liegen – und wie man sie findet</li>
 <li>Warum es keinen Speichern-Knopf gibt – und was stattdessen absichert</li>
+</ul>
+<h3 id="projekte-anlegen-starten-und-debuggen">Projekte anlegen, starten und debuggen</h3>
+<ul>
+<li>Wahlweise Backend (Jakarta EE auf Open Liberty mit Maven) oder Frontend (Angular mit npm) starten und debuggen</li>
+<li>Startkonfigurationen, die beim ersten Start von selbst entstehen (<em>Run/Debug Configurations</em>)</li>
+<li>Einen Anwendungsserver über Maven starten und den Debugger anhängen (<em>Open Liberty</em>)</li>
+<li>Den Überblick über Abhängigkeiten, Komponenten und Skripte des Projekts behalten</li>
+<li>Wie man ein solches Projekt neu anlegt</li>
 </ul>
 <h3 id="tempo-im-alltag">Tempo im Alltag</h3>
 <ul>
@@ -175,6 +184,7 @@
 <h3 id="code-umformen">Code umformen</h3>
 <ul>
 <li>Umformungen, die über die Cursorposition hinaus wirken – und ihre Vorschau (<em>Refactoring</em>)</li>
+<li>Klassen in neue Packages verschieben, ohne Verweise von Hand nachzuziehen</li>
 <li>Dauerhafte Code-Prüfungen und wie sie sich von Compilerfehlern unterscheiden (<em>Inspections</em>)</li>
 <li>Funktionale Schreibweisen ineinander überführen</li>
 <li>Wann ein Vorschlag der Umgebung abzulehnen ist</li>
@@ -193,17 +203,12 @@
 <li>Die Historie lesen und die Herkunft einer Zeile klären</li>
 <li>Konflikte im Werkzeug auflösen, ohne die Umgebung zu wechseln (<em>Merging</em>)</li>
 </ul>
-<h3 id="weitere-themen">Weitere Themen</h3>
-<ul>
-<li>Effizientes Programmieren mit Code-Generatoren (<em>Lombok, MapStruct</em>)</li>
-<li>HTTP-Anfragen als versionierter Teil des Projekts (<em>HTTP Client</em>)</li>
-</ul>
 
     </main><aside class="skr-guide-sidebar">
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#berblick">Überblick</a><a href="#zielgruppe">Zielgruppe</a><a href="#lernziele">Lernziele</a><a href="#voraussetzungen">Voraussetzungen</a><a href="#agenda">Agenda</a><a href="#ankommen-im-werkzeug" class="skr-toc--h3">Ankommen im Werkzeug</a><a href="#tempo-im-alltag" class="skr-toc--h3">Tempo im Alltag</a><a href="#code-umformen" class="skr-toc--h3">Code umformen</a><a href="#fehler-finden-debugging" class="skr-toc--h3">Fehler finden (Debugging)</a><a href="#mit-git-arbeiten" class="skr-toc--h3">Mit Git arbeiten</a><a href="#weitere-themen" class="skr-toc--h3">Weitere Themen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#berblick">Überblick</a><a href="#zielgruppe">Zielgruppe</a><a href="#lernziele">Lernziele</a><a href="#voraussetzungen">Voraussetzungen</a><a href="#agenda">Agenda</a><a href="#ankommen-im-werkzeug" class="skr-toc--h3">Ankommen im Werkzeug</a><a href="#projekte-anlegen-starten-und-debuggen" class="skr-toc--h3">Projekte anlegen, starten und debuggen</a><a href="#tempo-im-alltag" class="skr-toc--h3">Tempo im Alltag</a><a href="#code-umformen" class="skr-toc--h3">Code umformen</a><a href="#fehler-finden-debugging" class="skr-toc--h3">Fehler finden (Debugging)</a><a href="#mit-git-arbeiten" class="skr-toc--h3">Mit Git arbeiten</a></nav>
   </details>
   <template data-skr-sidebar-cards></template>
 </aside>

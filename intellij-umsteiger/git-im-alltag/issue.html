@@ -40,7 +40,7 @@
 <script src="../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=3cbcebc8" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=ecb280e2" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../skriptorium/search/de.json?v=3cbcebc8"
+     data-index="../../skriptorium/search/de.json?v=ecb280e2"
      data-base="../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -218,6 +218,13 @@ die Du <strong>nicht</strong> selbst geschrieben hast, und finde heraus:</p>
 ausgeführt wurden.</p>
 <p>Das ist keine Pflichtübung, sondern gegen das Misstrauen: Die Oberfläche macht
 nichts, was Du nicht auch von Hand tun würdest – sie macht es schneller.</p>
+<h3 id="wenn-du-früher-fertig-bist-einen-fremden-branch-prüfen">Wenn Du früher fertig bist: einen fremden Branch prüfen</h3>
+<p>Im Repository gibt es einen Branch <code>feature/csv-export</code>, der noch nicht in <code>main</code>
+zusammengeführt ist. Lege Deine eigenen Änderungen weg, wechsle auf diesen Branch und
+sieh Dir im Log an, was er gegenüber <code>main</code> mitbringt.</p>
+<p>Lass die Tests des Backends laufen. Einer schlägt fehl – finde mit dem Debugger
+heraus, warum, und behebe den Fehler auf diesem Branch. Wechsle danach zurück und hol
+Deine weggelegten Änderungen wieder.</p>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
@@ -346,6 +353,16 @@ ausgeführt wurden.
 Das ist keine Pflichtübung, sondern gegen das Misstrauen: Die Oberfläche macht
 nichts, was Du nicht auch von Hand tun würdest – sie macht es schneller.
 
+### Wenn Du früher fertig bist: einen fremden Branch prüfen
+
+Im Repository gibt es einen Branch `feature/csv-export`, der noch nicht in `main`
+zusammengeführt ist. Lege Deine eigenen Änderungen weg, wechsle auf diesen Branch und
+sieh Dir im Log an, was er gegenüber `main` mitbringt.
+
+Lass die Tests des Backends laufen. Einer schlägt fehl – finde mit dem Debugger
+heraus, warum, und behebe den Fehler auf diesem Branch. Wechsle danach zurück und hol
+Deine weggelegten Änderungen wieder.
+
 
 &lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
 
@@ -365,7 +382,7 @@ nichts, was Du nicht auch von Hand tun würdest – sie macht es schneller.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-eigenen-arbeitsstand-ansehen" class="skr-toc--h3">Den eigenen Arbeitsstand ansehen</a><a href="#eine-datei-mit-zwei-themen-finden" class="skr-toc--h3">Eine Datei mit zwei Themen finden</a><a href="#das-erste-thema-committen" class="skr-toc--h3">Das erste Thema committen</a><a href="#das-zweite-thema-weglegen-und-zurückholen" class="skr-toc--h3">Das zweite Thema weglegen und zurückholen</a><a href="#in-die-historie-sehen" class="skr-toc--h3">In die Historie sehen</a><a href="#nachsehen-was-die-ide-tut" class="skr-toc--h3">Nachsehen, was die IDE tut</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-eigenen-arbeitsstand-ansehen" class="skr-toc--h3">Den eigenen Arbeitsstand ansehen</a><a href="#eine-datei-mit-zwei-themen-finden" class="skr-toc--h3">Eine Datei mit zwei Themen finden</a><a href="#das-erste-thema-committen" class="skr-toc--h3">Das erste Thema committen</a><a href="#das-zweite-thema-weglegen-und-zurückholen" class="skr-toc--h3">Das zweite Thema weglegen und zurückholen</a><a href="#in-die-historie-sehen" class="skr-toc--h3">In die Historie sehen</a><a href="#nachsehen-was-die-ide-tut" class="skr-toc--h3">Nachsehen, was die IDE tut</a><a href="#wenn-du-früher-fertig-bist-einen-fremden-branch-prüfen" class="skr-toc--h3">Wenn Du früher fertig bist: einen fremden Branch prüfen</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
