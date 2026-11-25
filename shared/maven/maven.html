@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Maven · ATVANTAGE Academy</title>
+<meta name="description" content="Was Maven automatisiert: Abhängigkeiten aus Repositorys und der Build nach festem Ablauf – transitive Abhängigkeiten und welche Version gewinnt, Scopes und ihre Weitergabe, Plugins als Objekte mit Goals als Methoden, der Lebenszyklus, den ein Befehl wie mvn clean package durchläuft, und wie Plugins konfiguriert und an Phasen gebunden werden.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Maven">
+<meta property="og:description" content="Was Maven automatisiert: Abhängigkeiten aus Repositorys und der Build nach festem Ablauf – transitive Abhängigkeiten und welche Version gewinnt, Scopes und ihre Weitergabe, Plugins als Objekte mit Goals als Methoden, der Lebenszyklus, den ein Befehl wie mvn clean package durchläuft, und wie Plugins konfiguriert und an Phasen gebunden werden.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Was Maven automatisiert: Abhängigkeiten aus Repositorys und der Build nach festem Ablauf – transitive Abhängigkeiten und welche Version gewinnt, Scopes und ihre Weitergabe, Plugins als Objekte mit Goals als Methoden, der Lebenszyklus, den ein Befehl wie mvn clean package durchläuft, und wie Plugins konfiguriert und an Phasen gebunden werden.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/maven/maven.css","src":"maven.css","type":"style"},{"path":"shared/maven/maven.js","src":"maven.js","type":"script"}],"pageId":"shared-maven","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Maven","topics":null,"untranslated":null,"url":"/shared/maven/maven.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../skriptorium/stage.css?v=c76b28bc">
+<script src="../../skriptorium/stage.js?v=a8ce5bf6" defer></script>
+
+<link rel="stylesheet" href="../../shared/maven/maven.css?v=96e2f2df">
+<script src="../../shared/maven/maven.js?v=842ece80" defer></script>
+
+</head>
+<body class="skr-stage" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization skriptorium.stage" data-skr-lang="de" data-skr-stage-home="../../" data-skr-audience="learner">
+  <a class="skr-skip-link" href="#skr-stage-main">Zum Inhalt springen</a>
+  
+<header class="skr-stage__bar">
+  <img class="skr-stage__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-stage__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-stage__title">Maven</span>
+  <div class="skr-stage__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-stage-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  <button type="button" class="skr-stage__nav skr-stage__close" data-skr-stage-close hidden
+        title="Schließen" aria-label="Schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+
+</header>
+  
+  <main class="skr-stage__main" id="skr-stage-main">
+    <div class="mv-hero">
+<p class="mv-lead"><strong>Maven</strong> nimmt Dir zwei Dinge ab: Es <strong>besorgt die Bibliotheken</strong>, die Dein Projekt braucht – samt allem, was diese wiederum brauchen –, und es <strong>baut</strong> das Projekt immer auf dieselbe Weise: übersetzen, testen, verpacken. Was zu tun ist, steht in einer Datei: der <code>pom.xml</code>.</p>
+</div>
+<h2 id="grundfunktionen">Zwei Aufgaben, eine Datei</h2>
+<div class="mv-karten">
+<div class="mv-karte">
+<p class="mv-karte__nr">1</p>
+<p class="mv-karte__titel">Dependency Management</p>
+<p>Du <strong>deklarierst</strong>, was Du brauchst – mit Koordinaten <code>groupId:artifactId:version</code>.
+Maven <strong>lädt</strong> es, legt es lokal ab und setzt es auf den Klassenpfad.</p>
+</div>
+<div class="mv-karte">
+<p class="mv-karte__nr">2</p>
+<p class="mv-karte__titel">Build</p>
+<p>Maven <strong>übersetzt, testet und verpackt</strong> nach einem festen Ablauf, dem
+<strong>Lebenszyklus</strong>. Ein Befehl wie <code>mvn package</code> genügt – auf jedem Rechner derselbe.</p>
+</div>
+</div>
+<p>Deklariert wird in der <code>pom.xml</code> (<em>Project Object Model</em>). Die Versionen stehen als
+Properties oben – so findest und änderst Du sie an einer Stelle. Ein Ausschnitt aus dem
+Beispielprojekt:</p>
+<pre><code class="language-xml">&lt;groupId&gt;de.schulung&lt;/groupId&gt;
+&lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+&lt;properties&gt;
+    &lt;jackson.version&gt;2.20.1&lt;/jackson.version&gt;
+    &lt;mockito.version&gt;5.20.0&lt;/mockito.version&gt;
+&lt;/properties&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;${jackson.version}&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+        &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
+        &lt;version&gt;${mockito.version}&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<h3 id="repositorys">Woher die Bibliotheken kommen</h3>
+<ol class="mv-fluss" aria-label="Suchweg einer Abhängigkeit">
+<li class="mv-fluss__station"><span class="mv-fluss__name">Dein Projekt</span><code>pom.xml</code><span class="mv-fluss__text">deklariert die Koordinaten</span></li>
+<li class="mv-fluss__station"><span class="mv-fluss__name">Lokales Repository</span><code>~/.m2/repository</code><span class="mv-fluss__text">zuerst hier – liegt es da, kein Download</span></li>
+<li class="mv-fluss__station"><span class="mv-fluss__name">Spiegel</span><code>settings.xml</code><span class="mv-fluss__text">in Firmen oft Nexus oder Artifactory, eingetragen unter <code>&lt;mirrors&gt;</code></span></li>
+<li class="mv-fluss__station mv-fluss__station--ziel"><span class="mv-fluss__name">Maven Central</span><code>repo.maven.apache.org</code><span class="mv-fluss__text">das öffentliche Standard-Repository</span></li>
+</ol>
+<p>Was einmal geladen ist, bleibt im <strong>lokalen Repository</strong> – unter einem Pfad, der sich
+aus den Koordinaten ergibt (<code>~/.m2</code> liegt unter Windows in <code>%USERPROFILE%\.m2</code>):</p>
+<pre><code class="language-text">~/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.20.1/jackson-databind-2.20.1.jar
+</code></pre>
+<p>Mit <code>mvn -o</code> (offline) fragt Maven gar kein entferntes Repository – es nimmt nur, was
+lokal schon liegt.</p>
+<h3 id="konvention">Konvention vor Konfiguration</h3>
+<p>Wo die Quellen liegen und wohin das Ergebnis kommt, musst Du Maven nicht sagen – es
+gilt ein festes Verzeichnislayout. Wer sich daran hält, braucht dafür keine Zeile
+Konfiguration:</p>
+<pre><code class="language-text">java-aufbau/
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/          ← Quellcode
+│   │   └── resources/     ← Ressourcen, landen im JAR
+│   └── test/
+│       ├── java/          ← Testklassen
+│       └── resources/     ← Testressourcen, z. B. rooms.csv
+└── target/                ← alles Erzeugte – mvn clean löscht es
+    ├── classes/
+    ├── test-classes/
+    └── java-aufbau-1.0.0-SNAPSHOT.jar
+</code></pre>
+<h2 id="transitivitaet">Abhängigkeiten bringen Abhängigkeiten mit</h2>
+<p>Jede Bibliothek hat selbst eine <code>pom.xml</code>, und Maven folgt deren Abhängigkeiten weiter –
+<strong>transitiv</strong>. Dabei kommt dieselbe Bibliothek oft über <strong>mehrere Pfade</strong> herein, und
+nicht immer in derselben Version. Auf den Klassenpfad kommt aber nur <strong>eine</strong>. Maven
+wählt nach einer einfachen Regel – nicht nach der neuesten Version:</p>
+<div class="mv-regeln">
+<div class="mv-regel">
+<p class="mv-regel__titel">1 · Der kürzeste Pfad gewinnt</p>
+<p><em>Nearest wins:</em> Eine direkte Deklaration (Tiefe 1) schlägt jede transitive (Tiefe 2
+und mehr).</p>
+</div>
+<div class="mv-regel">
+<p class="mv-regel__titel">2 · Bei gleicher Länge: die erste Deklaration</p>
+<p><em>First declaration wins:</em> Es gewinnt der Pfad, dessen Abhängigkeit in der <code>pom.xml</code>
+weiter oben steht. Die Reihenfolge ist also nicht egal.</p>
+</div>
+</div>
+<p>Links steht der Baum eines Beispielprojekts mit Jackson, Mockito und AssertJ, wie ihn
+<code>mvn dependency:tree -Dverbose</code> liefert. Rechts steht, was Maven am Ende benutzt – je
+Bibliothek <strong>eine</strong> Version. Wähle rechts einen Eintrag, um links seinen Pfad zu sehen.</p>
+<div class="mv-aufloesung" data-mv-key="bibliothek">
+<div class="mv-baum">
+<p class="mv-spalte__titel">Baum: alle Pfade</p>
+<ul class="mv-baum__liste" aria-label="Abhängigkeitsbaum mit allen Pfaden">
+<li><span class="mv-knoten mv-knoten--wurzel" data-mv-bib="aufbau"><span class="mv-knoten__name">de.schulung:java-aufbau</span><span class="mv-knoten__version">1.0.0-SNAPSHOT</span></span>
+<ul>
+<li><span class="mv-knoten mv-knoten--direkt" data-mv-bib="jackson-databind"><span class="mv-knoten__name">jackson-databind</span><span class="mv-knoten__version">2.20.1</span></span>
+<ul>
+<li><span class="mv-knoten" data-mv-bib="jackson-annotations"><span class="mv-knoten__name">jackson-annotations</span><span class="mv-knoten__version">2.20</span></span></li>
+<li><span class="mv-knoten" data-mv-bib="jackson-core"><span class="mv-knoten__name">jackson-core</span><span class="mv-knoten__version">2.20.1</span></span></li>
+</ul></li>
+<li><span class="mv-knoten mv-knoten--direkt" data-mv-bib="jackson-datatype-jsr310"><span class="mv-knoten__name">jackson-datatype-jsr310</span><span class="mv-knoten__version">2.20.1</span></span>
+<ul>
+<li><span class="mv-knoten mv-knoten--doppelt" data-mv-bib="jackson-annotations"><span class="mv-knoten__name">jackson-annotations</span><span class="mv-knoten__version">2.20</span><span class="mv-knoten__doppelt">schon vorhanden, gleiche Version</span></span></li>
+<li><span class="mv-knoten mv-knoten--doppelt" data-mv-bib="jackson-core"><span class="mv-knoten__name">jackson-core</span><span class="mv-knoten__version">2.20.1</span><span class="mv-knoten__doppelt">schon vorhanden, gleiche Version</span></span></li>
+<li><span class="mv-knoten mv-knoten--doppelt" data-mv-bib="jackson-databind"><span class="mv-knoten__name">jackson-databind</span><span class="mv-knoten__version">2.20.1</span><span class="mv-knoten__doppelt">schon vorhanden, gleiche Version</span></span></li>
+</ul></li>
+<li><span class="mv-knoten mv-knoten--direkt" data-mv-bib="mockito-core"><span class="mv-knoten__name">mockito-core</span><span class="mv-knoten__version">5.20.0</span></span>
+<ul>
+<li><span class="mv-knoten" data-mv-bib="byte-buddy"><span class="mv-knoten__name">byte-buddy</span><span class="mv-knoten__version">1.17.7</span></span></li>
+<li><span class="mv-knoten" data-mv-bib="byte-buddy-agent"><span class="mv-knoten__name">byte-buddy-agent</span><span class="mv-knoten__version">1.17.7</span></span></li>
+<li><span class="mv-knoten" data-mv-bib="objenesis"><span class="mv-knoten__name">objenesis</span><span class="mv-knoten__version">3.3</span></span></li>
+</ul></li>
+<li><span class="mv-knoten mv-knoten--direkt" data-mv-bib="assertj-core"><span class="mv-knoten__name">assertj-core</span><span class="mv-knoten__version">3.26.3</span></span>
+<ul>
+<li><span class="mv-knoten mv-knoten--verlierer" data-mv-bib="byte-buddy" data-mv-grund="gleich tief, aber mockito-core steht in der pom.xml weiter oben"><span class="mv-knoten__name">byte-buddy</span><span class="mv-knoten__version">1.14.18</span><span class="mv-knoten__verlust">Konflikt: verliert gegen 1.17.7</span></span></li>
+</ul></li>
+</ul></li>
+</ul>
+<ul class="mv-baum__legende">
+<li><strong>fett</strong> = in der eigenen <code>pom.xml</code> deklariert</li>
+<li><span class="mv-legende mv-legende--doppelt">gepunktet</span> = schon vorhanden, gleiche Version – kein Konflikt</li>
+<li><span class="mv-legende mv-legende--verlierer">ausgegraut</span> = Konflikt: andere Version, verliert</li>
+</ul>
+</div>
+<div class="mv-liste">
+<p class="mv-spalte__titel">Aufgelöst: je Bibliothek eine Version</p>
+<ol class="mv-liste__eintraege" aria-label="Aufgelöste Abhängigkeiten">
+<li><button type="button" class="mv-eintrag" data-mv-wert="jackson-databind"><span class="mv-knoten__name">jackson-databind</span><span class="mv-knoten__version">2.20.1</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="jackson-annotations"><span class="mv-knoten__name">jackson-annotations</span><span class="mv-knoten__version">2.20</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="jackson-core"><span class="mv-knoten__name">jackson-core</span><span class="mv-knoten__version">2.20.1</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="jackson-datatype-jsr310"><span class="mv-knoten__name">jackson-datatype-jsr310</span><span class="mv-knoten__version">2.20.1</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="mockito-core"><span class="mv-knoten__name">mockito-core</span><span class="mv-knoten__version">5.20.0</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="byte-buddy"><span class="mv-knoten__name">byte-buddy</span><span class="mv-knoten__version">1.17.7</span><span class="mv-eintrag__konflikt">Konflikt</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="byte-buddy-agent"><span class="mv-knoten__name">byte-buddy-agent</span><span class="mv-knoten__version">1.17.7</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="objenesis"><span class="mv-knoten__name">objenesis</span><span class="mv-knoten__version">3.3</span></button></li>
+<li><button type="button" class="mv-eintrag" data-mv-wert="assertj-core"><span class="mv-knoten__name">assertj-core</span><span class="mv-knoten__version">3.26.3</span></button></li>
+</ol>
+<p class="mv-aufloesung__info mv-nurskript" aria-live="polite">Wähle einen Eintrag.</p>
+</div>
+</div>
+<p>Zwei Fälle sehen im Baum ähnlich aus, sind aber verschieden:</p>
+<ul>
+<li><strong>Gleiche Version, mehrere Pfade – kein Konflikt.</strong> <code>jackson-core</code>,
+<code>jackson-annotations</code> und <code>jackson-databind</code> kommen auch über
+<code>jackson-datatype-jsr310</code> herein, aber in <strong>derselben</strong> Version. Maven nimmt sie
+einfach einmal; <code>-Dverbose</code> schreibt dazu „omitted for duplicate“.</li>
+<li><strong>Andere Version – ein Konflikt.</strong> <code>byte-buddy</code> kommt über Mockito in 1.17.7 und über
+AssertJ in 1.14.18, beide Male auf Tiefe 2. Gleich tief, also gewinnt <strong>die erste
+Deklaration</strong>: Mockito steht oben. Gemessen: Stehen AssertJ und Mockito andersherum,
+gewinnt 1.14.18 – Mockito bekommt dann ein älteres Byte Buddy, als es mitbringt,
+nur wegen der Reihenfolge. „omitted for conflict with …“ markiert den Verlierer.</li>
+</ul>
+<p>Und <strong>der kürzeste Pfad</strong>: Deklarierst Du <code>byte-buddy</code> selbst, steht es auf Tiefe 1 und
+gewinnt immer, egal wie die anderen sortiert sind – gemessen, auch mit AssertJ vorn.</p>
+<p>Die Liste rechts gibt <code>mvn dependency:list</code> aus. Den Baum mit allen Pfaden zeigt dieser
+Befehl:</p>
+<pre><code class="language-bash">mvn dependency:tree -Dverbose
+</code></pre>
+<p class="mv-titel">Ausgabe (gemessen)</p>
+<pre><code class="language-text">[INFO] --- dependency:3.7.0:tree (default-cli) @ java-aufbau ---
+[INFO] de.schulung:java-aufbau:jar:1.0.0-SNAPSHOT
+[INFO] +- com.fasterxml.jackson.core:jackson-databind:jar:2.20.1:compile
+[INFO] |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.20:compile
+[INFO] |  \- com.fasterxml.jackson.core:jackson-core:jar:2.20.1:compile
+[INFO] +- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.20.1:compile
+[INFO] |  +- (com.fasterxml.jackson.core:jackson-annotations:jar:2.20:compile - omitted for duplicate)
+[INFO] |  +- (com.fasterxml.jackson.core:jackson-core:jar:2.20.1:compile - omitted for duplicate)
+[INFO] |  \- (com.fasterxml.jackson.core:jackson-databind:jar:2.20.1:compile - omitted for duplicate)
+[INFO] +- org.mockito:mockito-core:jar:5.20.0:test
+[INFO] |  +- net.bytebuddy:byte-buddy:jar:1.17.7:test
+[INFO] |  +- net.bytebuddy:byte-buddy-agent:jar:1.17.7:test
+[INFO] |  \- org.objenesis:objenesis:jar:3.3:test
+[INFO] \- org.assertj:assertj-core:jar:3.26.3:test
+[INFO]    \- (net.bytebuddy:byte-buddy:jar:1.14.18:test - omitted for conflict with 1.17.7)
+</code></pre>
+<p>Ohne <code>-Dverbose</code> fehlen die Zeilen in Klammern – der Konflikt ist dann unsichtbar.</p>
+<h3 id="konflikte-loesen">Konflikte auflösen</h3>
+<p>Verlass Dich nicht auf Reihenfolge und Tiefe, sondern <strong>leg die Version fest</strong>:</p>
+<ul>
+<li>
+<p><strong>BOM importieren.</strong> Eine <em>Bill of Materials</em> ist eine <code>pom.xml</code>, die nur Versionen
+festlegt. Mit der <code>jackson-bom</code> lässt Du bei allen Jackson-Modulen die Version weg;
+sie passen dann sicher zusammen – gemessen: <code>jackson-datatype-jsr310</code> ohne eigene
+Version kommt in 2.20.1 („version managed“).</p>
+<pre><code class="language-xml">&lt;properties&gt;
+    &lt;jackson.version&gt;2.20.1&lt;/jackson.version&gt;
+&lt;/properties&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.fasterxml.jackson&lt;/groupId&gt;
+            &lt;artifactId&gt;jackson-bom&lt;/artifactId&gt;
+            &lt;version&gt;${jackson.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.datatype&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-datatype-jsr310&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+</li>
+<li>
+<p><strong>Einzelne Version festlegen.</strong> Ein Eintrag in <code>dependencyManagement</code> fügt keine
+Abhängigkeit hinzu, er bestimmt nur die Version, <em>falls</em> sie vorkommt – gemessen:
+„version managed from 1.14.18“.</p>
+<pre><code class="language-xml">&lt;properties&gt;
+    &lt;byte-buddy.version&gt;1.17.7&lt;/byte-buddy.version&gt;
+&lt;/properties&gt;
+
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;net.bytebuddy&lt;/groupId&gt;
+            &lt;artifactId&gt;byte-buddy&lt;/artifactId&gt;
+            &lt;version&gt;${byte-buddy.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+</code></pre>
+</li>
+<li>
+<p><strong>Einen Pfad abschneiden.</strong> <code>&lt;exclusions&gt;</code> verhindert, dass AssertJ sein Byte Buddy
+mitbringt; es bekommt dann das von Mockito.</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+    &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+    &lt;version&gt;${assertj.version}&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+    &lt;exclusions&gt;
+        &lt;exclusion&gt;
+            &lt;groupId&gt;net.bytebuddy&lt;/groupId&gt;
+            &lt;artifactId&gt;byte-buddy&lt;/artifactId&gt;
+        &lt;/exclusion&gt;
+    &lt;/exclusions&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+</ul>
+<h2 id="scopes">Scopes: wann eine Abhängigkeit da ist</h2>
+<p>Der <strong>Scope</strong> einer Abhängigkeit legt fest, auf welchen Klassenpfaden sie landet – und
+ob sie an Projekte weitergegeben wird, die <em>Dein</em> Projekt verwenden.</p>
+<table class="mv-matrix">
+<caption>Scopes und Klassenpfade</caption>
+<thead>
+<tr><th scope="col">Scope</th><th scope="col">Übersetzen <code>src/main</code></th><th scope="col">Übersetzen <code>src/test</code></th><th scope="col">Tests ausführen</th><th scope="col">Laufzeit der Anwendung, im Paket (z.&nbsp;B. WAR)</th><th scope="col">transitiv weitergegeben</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row"><span class="mv-scope mv-scope--compile">compile</span><span class="mv-matrix__info">Standard, wenn nichts dasteht</span></th><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td></tr>
+<tr><th scope="row"><span class="mv-scope mv-scope--provided">provided</span><span class="mv-matrix__info">liefert die Umgebung, etwa der Server: Servlet-API</span></th><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-nein">nein – bringt die Umgebung mit</td><td class="mv-nein">nein</td></tr>
+<tr><th scope="row"><span class="mv-scope mv-scope--runtime">runtime</span><span class="mv-matrix__info">nur zum Ausführen: JDBC-Treiber</span></th><td class="mv-nein">nein</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td></tr>
+<tr class="mv-matrix__extra"><th scope="row"><span class="mv-scope mv-scope--test">test</span><span class="mv-matrix__info">nur für Tests: JUnit, Mockito, AssertJ</span></th><td class="mv-nein">nein</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-nein">nein</td><td class="mv-nein">nein</td></tr>
+<tr class="mv-matrix__extra"><th scope="row"><span class="mv-scope mv-scope--system">system</span><span class="mv-matrix__info">wie provided, aber aus einer lokalen Datei – veraltet</span></th><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-ja">ja</td><td class="mv-nein">nein</td><td class="mv-nein">nein</td></tr>
+<tr class="mv-matrix__import"><th scope="row"><span class="mv-scope mv-scope--import">import</span></th><td colspan="5">kein Klassenpfad – nur in <code>dependencyManagement</code> mit <code>&lt;type&gt;pom&lt;/type&gt;</code>: übernimmt die Versionen einer BOM</td></tr>
+</tbody>
+</table>
+<div class="mv-befund">
+<p class="mv-befund__titel">Ist <code>runtime</code> beim Übersetzen der Tests da? Ja.</p>
+<p>Maven übersetzt <code>src/test</code> mit dem <strong>Testklassenpfad</strong> – und auf dem liegen die Scopes
+<code>compile</code>, <code>provided</code>, <code>runtime</code> und <code>test</code>. Gemessen mit
+<code>jackson-databind</code> im Scope <code>runtime</code> und einer Testklasse, die <code>ObjectMapper</code> direkt
+benutzt:</p>
+<pre><code class="language-java">import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class RaumJsonTest {
+    ObjectMapper mapper = new ObjectMapper();
+}
+</code></pre>
+<p>Übersetze die Tests:</p>
+<pre><code class="language-bash">mvn test-compile
+</code></pre>
+<p class="mv-titel">Ausgabe (gemessen, Ausschnitt)</p>
+<pre><code class="language-text">[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Compiling 1 source file with javac [debug release 17] to target/classes
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Compiling 1 source file with javac [debug release 17] to target/test-classes
+[INFO] BUILD SUCCESS
+</code></pre>
+<p>Dieselbe Klasse unter <code>src/main</code> scheitert dagegen bei <code>mvn compile</code>: Das Paket
+<code>com.fasterxml.jackson.databind</code> ist dort nicht vorhanden. <code>runtime</code> heißt also: <strong>nicht
+für Deinen Anwendungscode</strong> – Tests dürfen die Bibliothek direkt benutzen.</p>
+</div>
+<div class="mv-karten">
+<div class="mv-karte mv-karte--test">
+<p class="mv-karte__titel"><span class="mv-scope mv-scope--test">test</span> – nur auf dem Testklassenpfad</p>
+<p>Was im Scope <code>test</code> steht, sieht nur <code>src/test</code>. Benutzt eine Klasse unter <code>src/main</code>
+versehentlich Mockito, scheitert schon das Übersetzen – gemessen wie oben: <code>mvn compile</code>
+bricht ab, <code>mvn test-compile</code> mit derselben Bibliothek nur in einer Testklasse gelingt.</p>
+</div>
+<div class="mv-karte mv-karte--system">
+<p class="mv-karte__titel"><span class="mv-scope mv-scope--system">system</span> – ein Pfad statt Koordinaten</p>
+<p>Die Datei kommt nicht aus einem Repository, sondern von einem festen Pfad
+(<code>&lt;systemPath&gt;</code>). Das baut nur auf Rechnern, auf denen sie genau dort liegt. Der Scope
+gilt als <strong>veraltet</strong>; besser legst Du die Datei in ein (Firmen-)Repository.</p>
+</div>
+</div>
+<h2 id="transitive-scopes">Welchen Scope bekommt, was mitkommt?</h2>
+<p>Dein Projekt <strong>A</strong> hängt von <strong>B</strong> ab, B von <strong>C</strong>. Welchen Scope hat C dann in A? Das
+regelt diese Tabelle aus der Maven-Doku: <strong>Zeile</strong> = Scope von A → B, <strong>Spalte</strong> = Scope
+von B → C. Wähle eine Zelle.</p>
+<div class="mv-kreuz">
+<table class="mv-kreuz__tabelle">
+<caption>Scope von A → C</caption>
+<thead>
+<tr><th scope="col"><span class="mv-kreuz__ecke">A → B&nbsp;↓ · B → C&nbsp;→</span></th><th scope="col">compile</th><th scope="col">provided</th><th scope="col">runtime</th><th scope="col">test</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">compile</th><td><button type="button" class="mv-zelle" data-mv-x="compile" data-mv-y="compile" data-mv-z="compile">compile<sup>*</sup></button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="compile" data-mv-y="provided" data-mv-z="–">–</button></td><td><button type="button" class="mv-zelle" data-mv-x="compile" data-mv-y="runtime" data-mv-z="runtime">runtime</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="compile" data-mv-y="test" data-mv-z="–">–</button></td></tr>
+<tr><th scope="row">provided</th><td><button type="button" class="mv-zelle" data-mv-x="provided" data-mv-y="compile" data-mv-z="provided">provided</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="provided" data-mv-y="provided" data-mv-z="–">–</button></td><td><button type="button" class="mv-zelle" data-mv-x="provided" data-mv-y="runtime" data-mv-z="provided">provided</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="provided" data-mv-y="test" data-mv-z="–">–</button></td></tr>
+<tr><th scope="row">runtime</th><td><button type="button" class="mv-zelle" data-mv-x="runtime" data-mv-y="compile" data-mv-z="runtime">runtime</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="runtime" data-mv-y="provided" data-mv-z="–">–</button></td><td><button type="button" class="mv-zelle" data-mv-x="runtime" data-mv-y="runtime" data-mv-z="runtime">runtime</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="runtime" data-mv-y="test" data-mv-z="–">–</button></td></tr>
+<tr><th scope="row">test</th><td><button type="button" class="mv-zelle" data-mv-x="test" data-mv-y="compile" data-mv-z="test">test</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="test" data-mv-y="provided" data-mv-z="–">–</button></td><td><button type="button" class="mv-zelle" data-mv-x="test" data-mv-y="runtime" data-mv-z="test">test</button></td><td><button type="button" class="mv-zelle mv-zelle--leer" data-mv-x="test" data-mv-y="test" data-mv-z="–">–</button></td></tr>
+</tbody>
+</table>
+<div class="mv-kreuz__satz mv-nurskript" aria-live="polite">
+<p class="mv-kreuz__formel">Wähle eine Zelle der Tabelle.</p>
+<p class="mv-kreuz__grund"></p>
+</div>
+</div>
+<p>Die Tabelle folgt wenigen Gedanken:</p>
+<ul>
+<li><strong>Spalten <code>provided</code> und <code>test</code> sind leer („–“).</strong> Was B nur zum Übersetzen braucht
+und von seiner Umgebung erwartet, oder was B nur für seine eigenen Tests braucht, gibt
+Maven nicht weiter. Braucht A es, deklariert A es selbst.</li>
+<li><strong>Der Scope von A → B setzt die Grenze.</strong> Ist B bei A nur <code>test</code>, <code>provided</code> oder
+<code>runtime</code>, ist auch alles, was B mitbringt, höchstens das.</li>
+<li><strong><code>runtime</code> bleibt <code>runtime</code>.</strong> Braucht B das C erst zur Laufzeit, braucht A es auch
+nicht früher.</li>
+<li><sup>*</sup> Zu <code>compile</code> × <code>compile</code> merkt die Maven-Doku an: Gedacht wäre eigentlich
+<code>runtime</code> – damit A alles, wogegen es übersetzt, selbst deklariert. Weil aber eine
+Klasse aus B von einer Klasse aus C erben kann, muss C beim Übersetzen da sein.</li>
+</ul>
+<p>Drei Zellen sind gemessen: <code>jackson-databind</code> (compile) → <code>jackson-core</code> (compile)
+ergibt <strong>compile</strong>; <code>mockito-core</code> (test) → <code>byte-buddy</code> (compile) ergibt <strong>test</strong>;
+<code>junit-jupiter</code> (test) → <code>junit-jupiter-engine</code> (runtime) ergibt <strong>test</strong>.</p>
+<h2 id="oo-konzepte">Plugins sind Objekte</h2>
+<p>Maven selbst kann fast nichts – die Arbeit machen <strong>Plugins</strong>. Wer objektorientiert
+denkt, kennt das Muster schon: Ein Plugin ist eine <strong>Klasse</strong>, seine Parameter sind
+<strong>Felder</strong>, seine Goals sind <strong>Methoden</strong>.</p>
+<div class="mv-oo">
+<div class="mv-uml" role="group" aria-label="maven-compiler-plugin als Klasse">
+<p class="mv-uml__kopf"><span class="mv-uml__stereotyp">«plugin»</span><span class="mv-uml__name">maven-compiler-plugin</span><span class="mv-uml__koordinaten">org.apache.maven.plugins · 3.15.0 · Präfix <code>compiler</code></span></p>
+<ul class="mv-uml__teil" aria-label="Parameter (Felder)">
+<li><code>release</code><span>: String</span><em>User Property <code>maven.compiler.release</code></em></li>
+<li><code>encoding</code><span>: String</span><em>Standard <code>${project.build.sourceEncoding}</code></em></li>
+<li><code>source</code>, <code>target</code><span>: String</span><em>Standard <code>1.8</code></em></li>
+<li><code>compilerArgs</code><span>: List</span></li>
+</ul>
+<ul class="mv-uml__teil" aria-label="Goals (Methoden)">
+<li><code>compile()</code><em>übersetzt <code>src/main/java</code></em></li>
+<li><code>testCompile()</code><em>übersetzt <code>src/test/java</code></em></li>
+<li><code>help()</code></li>
+</ul>
+</div>
+<div class="mv-oo__text">
+<table>
+	<thead>
+			<tr>
+					<th>In Maven</th>
+					<th>Objektorientiert</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>Plugin</strong> – ein Artefakt mit Koordinaten</td>
+					<td><strong>Klasse</strong></td>
+			</tr>
+			<tr>
+					<td><strong>Parameter</strong>, z. B. <code>release</code></td>
+					<td><strong>Feld</strong> bzw. Property</td>
+			</tr>
+			<tr>
+					<td><strong>Goal</strong>, z. B. <code>compiler:compile</code></td>
+					<td><strong>Methode</strong></td>
+			</tr>
+	</tbody>
+</table>
+<p>Welche Felder und Methoden ein Plugin hat, steht in seiner Doku – wie die API-Doku
+einer Klasse: die <a href="https://maven.apache.org/plugins/maven-compiler-plugin/">Übersicht des Maven Compiler Plugin</a>
+mit allen Goals und die <a href="https://maven.apache.org/plugins/maven-compiler-plugin/compile-mojo.html">Parameter des Goals <code>compile</code></a>.
+Auf der Kommandozeile liefert <code>mvn help:describe -Dplugin=compiler</code> dasselbe.</p>
+</div>
+</div>
+<h3 id="goal-aufrufen">Ein Goal einzeln aufrufen</h3>
+<p>Ein Goal lässt sich wie eine Methode <strong>direkt aufrufen</strong>: Präfix des Plugins, Doppelpunkt,
+Goal. Rufe nur den Compiler auf:</p>
+<pre><code class="language-bash">mvn compiler:compile
+</code></pre>
+<p class="mv-titel">Ausgabe (gemessen, Ausschnitt)</p>
+<pre><code class="language-text">[INFO] --- compiler:3.15.0:compile (default-cli) @ java-aufbau ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 21 source files with javac [debug release 17] to target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+</code></pre>
+<p>Ein Feld setzt Du von außen über seine <strong>User Property</strong> – gemessen:
+„javac [debug release 21]“:</p>
+<pre><code class="language-bash">mvn compiler:compile -Dmaven.compiler.release=21
+</code></pre>
+<p>Mehrere Goals laufen in der Reihenfolge, in der sie dastehen. Kopiere erst die
+Ressourcen, dann übersetze:</p>
+<pre><code class="language-bash">mvn resources:resources compiler:compile
+</code></pre>
+<p class="mv-titel">Ausgabe (gemessen, Ausschnitt)</p>
+<pre><code class="language-text">[INFO] --- resources:3.4.0:resources (default-cli) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-cli) @ java-aufbau ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 21 source files with javac [debug release 17] to target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+</code></pre>
+<p>Die Execution heißt hier <code>default-cli</code> – ein Aufruf von der Kommandozeile. Für ein
+fertiges JAR müsstest Du so <strong>sechs Goals</strong> nennen, in genau der richtigen Reihenfolge:
+Ressourcen, übersetzen, Testressourcen, Tests übersetzen, testen, verpacken. Vergisst
+Du eines oder vertauschst zwei, fehlt etwas oder es scheitert. Genau das nimmt Dir der
+<strong>Lebenszyklus</strong> ab.</p>
+<h2 id="lebenszyklus">Der Lebenszyklus</h2>
+<p>Maven kennt <strong>drei Lebenszyklen</strong>. Jeder ist eine feste Folge von <strong>Phasen</strong>; Goals
+hängen an Phasen.</p>
+<div class="mv-zyklen">
+<div class="mv-zyklus">
+<p class="mv-zyklus__titel">clean</p>
+<p class="mv-zyklus__text">räumt auf</p>
+<p class="mv-zyklus__phasen"><code>pre-clean</code> <code>clean</code> <code>post-clean</code></p>
+</div>
+<div class="mv-zyklus mv-zyklus--default">
+<p class="mv-zyklus__titel">default</p>
+<p class="mv-zyklus__text">baut – 23 Phasen, von <code>validate</code> bis <code>deploy</code></p>
+<p class="mv-zyklus__phasen"><code>compile</code> <code>test</code> <code>package</code> <code>verify</code> <code>install</code> <code>deploy</code> …</p>
+</div>
+<div class="mv-zyklus">
+<p class="mv-zyklus__titel">site</p>
+<p class="mv-zyklus__text">erzeugt die Projekt-Website</p>
+<p class="mv-zyklus__phasen"><code>pre-site</code> <code>site</code> <code>post-site</code> <code>site-deploy</code></p>
+</div>
+</div>
+<p>Die 23 Phasen von <code>default</code> wirken lang, folgen aber einem <strong>System</strong>: Für jeden
+Gegenstand – <strong>Quellen</strong>, <strong>Ressourcen</strong>, <strong>Klassen</strong> – gibt es erst ein <strong>generate</strong>
+(erzeugen) und dann ein <strong>process</strong> (bearbeiten). Das Ganze zweimal: für <code>main</code> und für
+<code>test</code>.</p>
+<table class="mv-raster">
+<caption>Die Phasen von default als Raster</caption>
+<thead>
+<tr><th scope="col"></th><th scope="col">Quellen<br><span>sources</span></th><th scope="col">Ressourcen<br><span>resources</span></th><th scope="col">Klassen<br><span>classes</span></th><th scope="col">danach</th></tr>
+</thead>
+<tbody>
+<tr class="mv-raster__vorlauf"><th scope="row">vorab</th><td colspan="4"><code>validate</code> → <code>initialize</code></td></tr>
+<tr><th scope="row"><code>main</code></th><td><code>generate-sources</code><br><code>process-sources</code></td><td><code>generate-resources</code><br><code>process-resources</code></td><td><code class="mv-raster__kern">compile</code><br><code>process-classes</code></td><td class="mv-raster__leer"></td></tr>
+<tr><th scope="row"><code>test</code></th><td><code>generate-test-sources</code><br><code>process-test-sources</code></td><td><code>generate-test-resources</code><br><code>process-test-resources</code></td><td><code class="mv-raster__kern">test-compile</code><br><code>process-test-classes</code></td><td><code class="mv-raster__kern">test</code></td></tr>
+<tr class="mv-raster__nachlauf"><th scope="row">Paket</th><td colspan="4"><code>prepare-package</code> → <code class="mv-raster__kern">package</code> → <code>pre-integration-test</code> → <code>integration-test</code> → <code>post-integration-test</code> → <code class="mv-raster__kern">verify</code> → <code class="mv-raster__kern">install</code> → <code class="mv-raster__kern">deploy</code></td></tr>
+</tbody>
+</table>
+<p>Klassen werden nicht „generiert“, sondern <strong>übersetzt</strong> – deshalb heißt die Phase dort
+<code>compile</code> statt <code>generate-classes</code>. Die meisten Phasen sind bei <code>jar</code> <strong>leer</strong>:
+<code>mvn help:describe -Dcmd=package</code> meldet für 15 der 23 Phasen „Not defined“. Sie sind
+Haken, an die Du eigene Goals hängen kannst – ein Code-Generator gehört an
+<code>generate-sources</code>, eine Prüfung der Testabdeckung an <code>verify</code>.</p>
+<h2 id="befehle">Was macht <code>mvn clean package</code>?</h2>
+<p>Ein Befehl nennt eine <strong>Phase</strong>. Maven durchläuft ihren Lebenszyklus <strong>von vorn bis zu
+dieser Phase</strong> und führt dabei jedes Goal aus, das an einer der Phasen hängt. <code>clean</code>
+gehört zu einem <strong>eigenen</strong> Lebenszyklus – <code>mvn clean package</code> sind zwei Läufe
+hintereinander. Wähle einen Befehl:</p>
+<div class="mv-wahl mv-lauf" data-mv-key="befehl" data-mv-standard="clean-package">
+<div class="mv-knoepfe" role="group" aria-label="Befehl">
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="clean" data-mv-phasen="clean"><code>mvn clean</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="compile" data-mv-phasen="compile"><code>mvn compile</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="test" data-mv-phasen="test"><code>mvn test</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="package" data-mv-phasen="package"><code>mvn package</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="clean-package" data-mv-phasen="clean package"><code>mvn clean package</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="verify" data-mv-phasen="verify"><code>mvn verify</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="install" data-mv-phasen="install"><code>mvn install</code></button>
+<button type="button" class="mv-knopf mv-knopf--befehl" data-mv-wert="clean-install" data-mv-phasen="clean install"><code>mvn clean install</code></button>
+</div>
+<div class="mv-buehne">
+<div class="mv-strahl">
+<p class="mv-strahl__zyklus">Lebenszyklus clean</p>
+<ol class="mv-strahl__liste" aria-label="Phasen des Lebenszyklus clean">
+<li class="mv-phase" data-mv-phase="pre-clean" data-mv-zyklus="clean"><span class="mv-phase__name">pre-clean</span></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="clean" data-mv-zyklus="clean"><span class="mv-phase__name">clean</span><code class="mv-phase__goal">clean:clean</code></li>
+<li class="mv-phase" data-mv-phase="post-clean" data-mv-zyklus="clean"><span class="mv-phase__name">post-clean</span></li>
+</ol>
+<p class="mv-strahl__zyklus">Lebenszyklus default</p>
+<ol class="mv-strahl__liste" aria-label="Phasen des Lebenszyklus default">
+<li class="mv-phase" data-mv-phase="validate" data-mv-zyklus="default"><span class="mv-phase__name">validate</span></li>
+<li class="mv-phase" data-mv-phase="initialize" data-mv-zyklus="default"><span class="mv-phase__name">initialize</span></li>
+<li class="mv-phase" data-mv-phase="generate-sources" data-mv-zyklus="default"><span class="mv-phase__name">generate-sources</span></li>
+<li class="mv-phase" data-mv-phase="process-sources" data-mv-zyklus="default"><span class="mv-phase__name">process-sources</span></li>
+<li class="mv-phase" data-mv-phase="generate-resources" data-mv-zyklus="default"><span class="mv-phase__name">generate-resources</span></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="process-resources" data-mv-zyklus="default"><span class="mv-phase__name">process-resources</span><code class="mv-phase__goal">resources:resources</code></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="compile" data-mv-zyklus="default"><span class="mv-phase__name">compile</span><code class="mv-phase__goal">compiler:compile</code></li>
+<li class="mv-phase" data-mv-phase="process-classes" data-mv-zyklus="default"><span class="mv-phase__name">process-classes</span></li>
+<li class="mv-phase" data-mv-phase="generate-test-sources" data-mv-zyklus="default"><span class="mv-phase__name">generate-test-sources</span></li>
+<li class="mv-phase" data-mv-phase="process-test-sources" data-mv-zyklus="default"><span class="mv-phase__name">process-test-sources</span></li>
+<li class="mv-phase" data-mv-phase="generate-test-resources" data-mv-zyklus="default"><span class="mv-phase__name">generate-test-resources</span></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="process-test-resources" data-mv-zyklus="default"><span class="mv-phase__name">process-test-resources</span><code class="mv-phase__goal">resources:testResources</code></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="test-compile" data-mv-zyklus="default"><span class="mv-phase__name">test-compile</span><code class="mv-phase__goal">compiler:testCompile</code></li>
+<li class="mv-phase" data-mv-phase="process-test-classes" data-mv-zyklus="default"><span class="mv-phase__name">process-test-classes</span></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="test" data-mv-zyklus="default"><span class="mv-phase__name">test</span><code class="mv-phase__goal">surefire:test</code></li>
+<li class="mv-phase" data-mv-phase="prepare-package" data-mv-zyklus="default"><span class="mv-phase__name">prepare-package</span></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="package" data-mv-zyklus="default"><span class="mv-phase__name">package</span><code class="mv-phase__goal">jar:jar</code></li>
+<li class="mv-phase" data-mv-phase="pre-integration-test" data-mv-zyklus="default"><span class="mv-phase__name">pre-integration-test</span></li>
+<li class="mv-phase" data-mv-phase="integration-test" data-mv-zyklus="default"><span class="mv-phase__name">integration-test</span></li>
+<li class="mv-phase" data-mv-phase="post-integration-test" data-mv-zyklus="default"><span class="mv-phase__name">post-integration-test</span></li>
+<li class="mv-phase" data-mv-phase="verify" data-mv-zyklus="default"><span class="mv-phase__name">verify</span></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="install" data-mv-zyklus="default"><span class="mv-phase__name">install</span><code class="mv-phase__goal">install:install</code></li>
+<li class="mv-phase mv-phase--goal" data-mv-phase="deploy" data-mv-zyklus="default"><span class="mv-phase__name">deploy</span><code class="mv-phase__goal">deploy:deploy</code></li>
+</ol>
+<p class="mv-strahl__legende">Phasen mit Goal sind hervorgehoben (Packaging <code>jar</code>).</p>
+</div>
+<div class="mv-ausgabe">
+<p class="mv-lauf__stand mv-nurskript" aria-live="polite"></p>
+<p class="mv-nurskript"><button type="button" class="mv-knopf mv-abspielen">Noch einmal abspielen</button></p>
+<div class="mv-panel" data-mv-id="clean">
+<p class="mv-schritt"><code>mvn clean</code></p>
+<p>Nur der Lebenszyklus <code>clean</code>, bis zur Phase <code>clean</code>: <code>target/</code> wird gelöscht.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- clean:3.2.0:clean (default-clean) @ java-aufbau ---
+[INFO] Deleting …/java-aufbau/target
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.120 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="compile">
+<p class="mv-schritt"><code>mvn compile</code></p>
+<p>Sieben Phasen von <code>default</code>, zwei davon mit Goal: Ressourcen kopieren, dann übersetzen.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 21 source files with javac [debug release 17] to target/classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.619 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="test">
+<p class="mv-schritt"><code>mvn test</code></p>
+<p>Alles von <code>compile</code> – dazu die Tests übersetzen und ausführen. Was schon übersetzt ist,
+übersetzt Maven nicht noch einmal („Nothing to compile“).</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 11 source files with javac [debug release 17] to target/test-classes
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Results:
+[WARNING] Tests run: 44, Failures: 0, Errors: 0, Skipped: 2
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.871 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="package">
+<p class="mv-schritt"><code>mvn package</code></p>
+<p>Alles von <code>test</code> – dazu das JAR. Scheitert ein Test, entsteht kein JAR.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Results:
+[WARNING] Tests run: 44, Failures: 0, Errors: 0, Skipped: 2
+[INFO] --- jar:3.5.0:jar (default-jar) @ java-aufbau ---
+[INFO] Building jar: …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.094 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="clean-package">
+<p class="mv-schritt"><code>mvn clean package</code></p>
+<p>Zwei Lebenszyklen nacheinander: erst <code>clean</code> bis <code>clean</code>, dann <code>default</code> bis
+<code>package</code>. Nach dem Aufräumen wird alles neu übersetzt.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- clean:3.2.0:clean (default-clean) @ java-aufbau ---
+[INFO] Deleting …/java-aufbau/target
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 21 source files with javac [debug release 17] to target/classes
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 17] to target/test-classes
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Results:
+[WARNING] Tests run: 44, Failures: 0, Errors: 0, Skipped: 2
+[INFO] --- jar:3.5.0:jar (default-jar) @ java-aufbau ---
+[INFO] Building jar: …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.279 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="verify">
+<p class="mv-schritt"><code>mvn verify</code></p>
+<p>Vier Phasen mehr als <code>package</code> – aber bei <code>jar</code> hängt an keiner davon ein Goal. Erst
+eigene Executions füllen sie, etwa Integrationstests oder eine Prüfung der
+Testabdeckung.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Results:
+[WARNING] Tests run: 44, Failures: 0, Errors: 0, Skipped: 2
+[INFO] --- jar:3.5.0:jar (default-jar) @ java-aufbau ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.849 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="install">
+<p class="mv-schritt"><code>mvn install</code></p>
+<p>Alles bis <code>verify</code> – dazu kopiert <code>install</code> das JAR und die <code>pom.xml</code> ins <strong>lokale</strong>
+Repository. Andere Projekte auf diesem Rechner können es dann als Abhängigkeit
+deklarieren.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Results:
+[WARNING] Tests run: 44, Failures: 0, Errors: 0, Skipped: 2
+[INFO] --- jar:3.5.0:jar (default-jar) @ java-aufbau ---
+[INFO] --- install:3.1.4:install (default-install) @ java-aufbau ---
+[INFO] Installing …/java-aufbau/pom.xml to …/.m2/repository/de/schulung/java-aufbau/1.0.0-SNAPSHOT/java-aufbau-1.0.0-SNAPSHOT.pom
+[INFO] Installing …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT.jar to …/.m2/repository/de/schulung/java-aufbau/1.0.0-SNAPSHOT/java-aufbau-1.0.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.888 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<div class="mv-panel" data-mv-id="clean-install">
+<p class="mv-schritt"><code>mvn clean install</code></p>
+<p>Aufräumen, dann der ganze Weg bis ins lokale Repository – der Klassiker vor dem
+Wechsel in ein Projekt, das dieses verwendet.</p>
+<pre><code class="language-text">[INFO] Scanning for projects...
+[INFO] ----------------------&lt; de.schulung:java-aufbau &gt;-----------------------
+[INFO] Building java-aufbau 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] --- clean:3.2.0:clean (default-clean) @ java-aufbau ---
+[INFO] Deleting …/java-aufbau/target
+[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] skip non existing resourceDirectory …/java-aufbau/src/main/resources
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 21 source files with javac [debug release 17] to target/classes
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 17] to target/test-classes
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Results:
+[WARNING] Tests run: 44, Failures: 0, Errors: 0, Skipped: 2
+[INFO] --- jar:3.5.0:jar (default-jar) @ java-aufbau ---
+[INFO] Building jar: …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT.jar
+[INFO] --- install:3.1.4:install (default-install) @ java-aufbau ---
+[INFO] Installing …/java-aufbau/pom.xml to …/.m2/repository/de/schulung/java-aufbau/1.0.0-SNAPSHOT/java-aufbau-1.0.0-SNAPSHOT.pom
+[INFO] Installing …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT.jar to …/.m2/repository/de/schulung/java-aufbau/1.0.0-SNAPSHOT/java-aufbau-1.0.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.325 s
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+</div>
+<pre class="mv-konsole mv-nurskript" aria-label="Konsole"></pre>
+</div>
+</div>
+</div>
+<p>Zwei Dinge fallen auf: <strong>Eine Phase bringt alle Phasen davor mit</strong> – <code>mvn package</code>
+testet immer, weil <code>test</code> vor <code>package</code> liegt. Und <strong><code>deploy</code></strong> lädt das Artefakt in ein
+<em>entferntes</em> Repository hoch; das braucht ein Ziel in <code>distributionManagement</code> und
+gehört meist in die Pipeline, nicht auf den eigenen Rechner.</p>
+<h2 id="konfiguration-binding">Konfiguration vs. Lifecycle Binding</h2>
+<p>Woher weiß Maven, dass an <code>compile</code> das Goal <code>compiler:compile</code> hängt? Das Packaging
+<code>jar</code> bringt diese <strong>Bindungen</strong> mit – jede als eine <strong>Execution</strong>, ein festgelegter
+Aufruf eines Goals an einer Phase. Ihre IDs beginnen mit <code>default-</code>: <code>default-compile</code>,
+<code>default-test</code>, <code>default-jar</code>. Für eigene Plugins und zusätzliche Aufrufe trennt die
+<code>pom.xml</code> zwei Dinge – wie bei <code>dependencyManagement</code> und <code>dependencies</code>:</p>
+<div class="mv-karten">
+<div class="mv-karte">
+<p class="mv-karte__titel"><code>pluginManagement</code> – Konfiguration</p>
+<p>Legt fest, <strong>wie</strong> ein Plugin aussieht, <em>falls</em> es gebraucht wird: Version und
+Parameter. Allein bewirkt es nichts – wie eine Klasse, von der noch niemand eine Methode
+aufruft.</p>
+</div>
+<div class="mv-karte">
+<p class="mv-karte__titel"><code>plugins</code> – Lifecycle Binding</p>
+<p>Legt fest, <strong>wann</strong> ein Goal läuft: Jede <code>&lt;execution&gt;</code> bindet Goals an eine <code>&lt;phase&gt;</code>.
+Fehlt die Phase, nimmt Maven die Standardphase des Goals.</p>
+</div>
+</div>
+<p>Im Beispiel legt <code>pluginManagement</code> Version und <code>release</code> des Compiler-Plugins fest
+(und die Version des JAR-Plugins); unter <code>plugins</code> bekommt das JAR-Plugin eine zweite
+Execution – einen zweiten Aufruf, diesmal des Goals <code>test-jar</code>:</p>
+<pre><code class="language-xml">&lt;properties&gt;
+    &lt;maven-compiler-plugin.version&gt;3.15.0&lt;/maven-compiler-plugin.version&gt;
+    &lt;maven-jar-plugin.version&gt;3.5.0&lt;/maven-jar-plugin.version&gt;
+&lt;/properties&gt;
+
+&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${maven-compiler-plugin.version}&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;release&gt;21&lt;/release&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${maven-jar-plugin.version}&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;tests-jar&lt;/id&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;test-jar&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<p class="mv-titel">Ausgabe von <code>mvn package</code> (gemessen, Ausschnitt)</p>
+<pre><code class="language-text">[INFO] --- resources:3.4.0:resources (default-resources) @ java-aufbau ---
+[INFO] --- compiler:3.15.0:compile (default-compile) @ java-aufbau ---
+[INFO] Compiling 21 source files with javac [debug release 21] to target/classes
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ java-aufbau ---
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ java-aufbau ---
+[INFO] Compiling 11 source files with javac [debug release 21] to target/test-classes
+[INFO] --- surefire:3.5.4:test (default-test) @ java-aufbau ---
+[INFO] --- jar:3.5.0:jar (default-jar) @ java-aufbau ---
+[INFO] Building jar: …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT.jar
+[INFO] --- jar:3.5.0:test-jar (tests-jar) @ java-aufbau ---
+[INFO] Building jar: …/java-aufbau/target/java-aufbau-1.0.0-SNAPSHOT-tests.jar
+</code></pre>
+<p>Lies jede Goal-Zeile als Methodenaufruf: <strong>Präfix des Plugins</strong>, <strong>Version</strong>, <strong>Goal</strong>,
+in Klammern die <strong>Execution-ID</strong>. Die <code>release</code> aus <code>pluginManagement</code> gilt für beide
+Executions des Compilers, und <code>test-jar</code> läuft ohne eigene <code>&lt;phase&gt;</code> in seiner
+Standardphase <code>package</code> – direkt nach <code>jar:jar</code>.</p>
+<blockquote>
+<p><strong>Merksatz:</strong> Maven besorgt Abhängigkeiten samt ihren Abhängigkeiten – bei
+Versionskonflikten gewinnt der kürzeste Pfad, dann die erste Deklaration, nicht die
+neueste Version. Und Maven baut nach einem Lebenszyklus: Ein Befehl nennt eine Phase,
+jede Phase bringt alle davor mit, und an den Phasen hängen die Goals der Plugins.</p>
+</blockquote>
+
+  </main>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

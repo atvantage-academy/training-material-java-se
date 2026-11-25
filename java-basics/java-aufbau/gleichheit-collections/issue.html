@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Wann sind zwei Objekte gleich? · ATVANTAGE Academy</title>
-<meta name="description" content="Sag voraus, wie sich equals und hashCode in vier kleinen Tests verhalten, starte sie und korrigiere Erwartung und Code.">
+<title>Zauberei mit Collections: Wo ist der Raum geblieben? · ATVANTAGE Academy</title>
+<meta name="description" content="Leg Räume in Sets, Listen und Maps, sag voraus, wann sie doppelt da sind oder verschwinden, lass equals und hashCode erzeugen und miss, was ein schlechter hashCode kostet.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Wann sind zwei Objekte gleich?">
-<meta property="og:description" content="Sag voraus, wie sich equals und hashCode in vier kleinen Tests verhalten, starte sie und korrigiere Erwartung und Code.">
+<meta property="og:title" content="Zauberei mit Collections: Wo ist der Raum geblieben?">
+<meta property="og:description" content="Leg Räume in Sets, Listen und Maps, sag voraus, wann sie doppelt da sind oder verschwinden, lass equals und hashCode erzeugen und miss, was ein schlechter hashCode kostet.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,15 +34,15 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Sag voraus, wie sich equals und hashCode in vier kleinen Tests verhalten, starte sie und korrigiere Erwartung und Code.","duration":35,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-gleichheit-collections-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Wann sind zwei Objekte gleich?","topics":["equals","hashCode","HashMap","HashSet","JUnit"],"untranslated":null,"url":"/java-basics/java-aufbau/gleichheit-collections/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Leg Räume in Sets, Listen und Maps, sag voraus, wann sie doppelt da sind oder verschwinden, lass equals und hashCode erzeugen und miss, was ein schlechter hashCode kostet.","duration":35,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-gleichheit-collections-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Zauberei mit Collections: Wo ist der Raum geblieben?","topics":["equals","hashCode","HashMap","HashSet","JUnit"],"untranslated":null,"url":"/java-basics/java-aufbau/gleichheit-collections/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,7 +120,7 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Wann sind zwei Objekte gleich?</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Zauberei mit Collections: Wo ist der Raum geblieben?</span></nav>
   <div class="skr-guide-hero__meta">
     <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 35 Minuten</span><span class="skr-tag">equals</span><span class="skr-tag">hashCode</span><span class="skr-tag">HashMap</span><span class="skr-tag">HashSet</span><span class="skr-tag">JUnit</span>
     </div>
@@ -129,7 +129,7 @@
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Wann sind zwei Objekte gleich?</h1>
+  </div><h1 id="skr-page-title">Zauberei mit Collections: Wo ist der Raum geblieben?</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -138,16 +138,16 @@
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>User Story</summary>
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Java-Entwickler:in möchte ich wissen, wann zwei Objekte für Java gleich sind, damit meine Objekte in <code>HashSet</code> und <code>HashMap</code> dort bleiben, wo ich sie abgelegt habe.</p>
+<p>Als Entwickler:in der Raumbuchung möchte ich wissen, wann zwei Räume für Java gleich sind, damit meine Räume in <code>HashSet</code> und <code>HashMap</code> dort bleiben, wo ich sie abgelegt habe.</p>
 </div>
 </details>
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>Lernziele</summary>
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
-<li>Du sagst das Ergebnis von <code>equals</code> zwischen Ober- und Unterklasse voraus und begründest es.</li>
-<li>Du prüfst eine <code>equals</code>-Implementierung gegen die Regeln reflexiv und symmetrisch.</li>
-<li>Du erklärst, warum ein veränderter Schlüssel in einer <code>HashMap</code> nicht mehr gefunden wird.</li>
+<li>Du sagst voraus, wie sich <code>HashSet</code> und <code>List</code> ohne eigenes <code>equals</code> und <code>hashCode</code> verhalten.</li>
+<li>Du lässt <code>equals</code> und <code>hashCode</code> von der IDE erzeugen und entscheidest, welche Felder hineingehören.</li>
+<li>Du erklärst, warum ein Objekt aus einem <code>HashSet</code> verschwindet, wenn sich ein Feld aus <code>hashCode</code> ändert.</li>
 <li>Du misst, wie sich ein schlechter <code>hashCode</code> auf die Suche in einer <code>HashMap</code> auswirkt.</li>
 </ul>
 </div>
@@ -156,364 +156,35 @@
 <summary>Definition of Done</summary>
 <div class="skr-guide-done">
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Paket aufbau.equality enthält die Tests EqualsContractTest, MutableKeyTest und HashCodePerformanceTest, keiner trägt mehr @Disabled." disabled="disabled"> Das Paket <code>aufbau.equality</code> enthält die Tests <code>EqualsContractTest</code>, <code>MutableKeyTest</code> und <code>HashCodePerformanceTest</code>, keiner trägt mehr <code>@Disabled</code>.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Vor jedem Start hast Du Deine Erwartung notiert; jede Assertion beschreibt jetzt das tatsächliche Verhalten, und mvn test läuft grün." disabled="disabled"> Vor jedem Start hast Du Deine Erwartung notiert; jede Assertion beschreibt jetzt das tatsächliche Verhalten, und <code>mvn test</code> läuft grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Medium.equals ist symmetrisch, und zwei Bücher mit gleichen Daten sind gleich." disabled="disabled"> <code>Medium.equals</code> ist symmetrisch, und zwei Bücher mit gleichen Daten sind gleich.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Room hat ein von der IDE erzeugtes equals und hashCode über die Raumnummer." disabled="disabled"> <code>Room</code> hat ein von der IDE erzeugtes <code>equals</code> und <code>hashCode</code> über die Raumnummer.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomSetTest und BookedRoomInASetTest sind grün, ohne dass Du ihre Assertions geändert hast." disabled="disabled"> <code>RoomSetTest</code> und <code>BookedRoomInASetTest</code> sind grün, ohne dass Du ihre Assertions geändert hast.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft grün, auch die Abdeckungsregel für Room." disabled="disabled"> Der Maven-Build läuft grün, auch die Abdeckungsregel für <code>Room</code>.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die beiden Laufzeiten aus HashCodePerformanceTest notiert und kannst den Unterschied erklären." disabled="disabled"> Du hast die beiden Laufzeiten aus <code>HashCodePerformanceTest</code> notiert und kannst den Unterschied erklären.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
 </details>
 </div>
-<p>Ein <code>HashSet</code> soll Dubletten aussortieren, eine <code>HashMap</code> ein Objekt wiederfinden.
-Beides verlässt sich auf <code>equals</code> und <code>hashCode</code> – und darauf, dass sie zueinander
-passen. Die folgenden Tests stammen aus <em>Effective Java</em>. Jeder kompiliert, ist aber
-mit <code>@Disabled</code> abgeschaltet. Die Spielregel:</p>
-<ol>
-<li>Lies den Test und <strong>notiere Deine Erwartung</strong> als Kommentar neben jeder Assertion.</li>
-<li>Entferne <code>@Disabled</code> und starte den Test.</li>
-<li><strong>Erkläre</strong> jede Abweichung.</li>
-<li><strong>Korrigiere</strong> die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.</li>
-</ol>
+<p>Ein <code>HashSet</code> soll Dubletten aussortieren, eine <code>HashMap</code> einen Raum wiederfinden. Beides
+verlässt sich auf <code>equals</code> und <code>hashCode</code> – und darauf, dass sie zueinander passen. Sonst
+ist ein Raum plötzlich doppelt da oder verschwindet.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Ein Test bricht an der ersten Assertion ab, die nicht stimmt. Korrigier
-sie und starte erneut – so arbeitest Du Dich Zeile für Zeile vor.</p>
+<p><strong>Hinweis:</strong> Ein Test bricht an der ersten Assertion ab, die nicht stimmt. Korrigier sie
+und starte erneut – so arbeitest Du Dich Zeile für Zeile vor.</p>
 </blockquote>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="das-paket-anlegen">Das Paket anlegen</h3>
-<p>Leg in Deinem Projekt <code>aufbau</code> unter <code>src/test/java</code> das Paket <code>aufbau.equality</code>
-an. Alle Tests dieser Übung kommen dort hinein.</p>
-<h3 id="gleichheit-zwischen-medium-und-buch-vorhersagen">Gleichheit zwischen Medium und Buch vorhersagen</h3>
-<p>Zwei Medien gelten als gleich, wenn ihre ISBN übereinstimmt. Speichere den Test als
-<code>EqualsContractTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.equality;
+<h3 id="leg-das-package-an">Leg das Package an</h3>
+<p>Du arbeitest mit dem <code>Room</code> aus <em>Den Raum mit JUnit testen</em> (Package <code>aufbau.junit</code>). Im
+Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege das Package <code>aufbau.collections</code>
+an; alle Tests dieser Übung kommen dort hinein.</p>
+<h3 id="sag-vorher-wie-viele-räume-im-set-liegen">Sag vorher, wie viele Räume im Set liegen</h3>
+<p>Leg den Test <code>RoomSetTest</code> an:</p>
+<pre><code class="language-java">package aufbau.collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-@Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-class EqualsContractTest {
-
-    // Two media are equal if their ISBNs are equal.
-    static class Medium {
-
-        private String isbn;
-        private String title;
-
-        public String getIsbn() {
-            return isbn;
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
-            result = prime * result + ((title == null) ? 0 : title.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (Medium.class != obj.getClass())
-                return false;
-            Medium other = (Medium) obj;
-            if (isbn == null) {
-                if (other.isbn != null)
-                    return false;
-            } else if (!isbn.equals(other.isbn))
-                return false;
-            if (title == null) {
-                if (other.title != null)
-                    return false;
-            } else if (!title.equals(other.title))
-                return false;
-            return true;
-        }
-    }
-
-    static class Book extends Medium {
-
-        private int pages;
-
-        public int getPages() {
-            return pages;
-        }
-
-        public void setPages(int pages) {
-            this.pages = pages;
-        }
-    }
-
-    Medium medium;
-    Book book1;
-    Book book2;
-
-    @BeforeEach
-    void createMedia() {
-        medium = new Medium();
-        medium.setIsbn(&quot;12345&quot;);
-        medium.setTitle(&quot;A Book&quot;);
-
-        book1 = new Book();
-        book1.setIsbn(&quot;12345&quot;);
-        book1.setTitle(&quot;A Book&quot;);
-        book1.setPages(100);
-
-        book2 = new Book();
-        book2.setIsbn(&quot;12345&quot;);
-        book2.setTitle(&quot;A Book&quot;);
-        book2.setPages(100);
-    }
-
-    @Test
-    void isReflexive() {
-        assertEquals(true, medium.equals(medium));
-        assertEquals(true, book1.equals(book1));
-    }
-
-    @Test
-    void isSymmetric() {
-        assertEquals(true, medium.equals(book1));
-        assertEquals(true, book1.equals(medium));
-    }
-
-    @Test
-    void twoEqualBooksAreEqual() {
-        assertEquals(true, book1.equals(book2));
-        assertEquals(true, book2.equals(book1));
-    }
-}
-</code></pre>
-<p>Notier für die sechs Assertions Deine Erwartung, entferne <code>@Disabled</code> und starte den
-Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=EqualsContractTest
-</code></pre>
-<h3 id="equals-reparieren"><code>equals</code> reparieren</h3>
-<p>Ändere <code>Medium.equals</code> so, dass die Symmetrie gilt und zwei Bücher mit gleichen
-Daten gleich sind. Probier beide Varianten aus und pass die Assertions jeweils an:</p>
-<ul>
-<li><code>getClass() != obj.getClass()</code> statt <code>Medium.class != obj.getClass()</code></li>
-<li><code>if (!(obj instanceof Medium other)) return false;</code> – mit Pattern Matching</li>
-</ul>
-<p>Lass anschließend Deine Entwicklungsumgebung <code>equals</code> und <code>hashCode</code> neu erzeugen
-(IntelliJ: <em>Code | Generate…</em>, Eclipse: <em>Source | Generate hashCode() and equals()</em>)
-und vergleiche das Ergebnis mit Deiner Fassung.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Die Aufgabe sagt „gleich, wenn die ISBN übereinstimmt“. Vergleicht
-<code>equals</code> das auch?</p>
-</blockquote>
-<h3 id="einen-schlüssel-nach-dem-einfügen-ändern">Einen Schlüssel nach dem Einfügen ändern</h3>
-<p>Speichere den Test als <code>MutableKeyTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.equality;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-@Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-class MutableKeyTest {
-
-    static class Medium {
-
-        private String isbn;
-
-        public String getIsbn() {
-            return isbn;
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(isbn);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-            Medium other = (Medium) obj;
-            return Objects.equals(isbn, other.isbn);
-        }
-    }
-
-    @Test
-    void changeKeyAfterPut() {
-        Map&lt;Medium, Integer&gt; copies = new HashMap&lt;&gt;();
-        Medium medium = new Medium();
-        medium.setIsbn(&quot;12345&quot;);
-        copies.put(medium, 3);
-
-        assertEquals(3, copies.get(medium));
-
-        medium.setIsbn(&quot;54321&quot;);
-
-        assertEquals(3, copies.get(medium));
-        assertEquals(1, copies.size());
-    }
-
-    @Test
-    void searchWithOldKey() {
-        Map&lt;Medium, Integer&gt; copies = new HashMap&lt;&gt;();
-        Medium medium = new Medium();
-        medium.setIsbn(&quot;12345&quot;);
-        copies.put(medium, 3);
-        medium.setIsbn(&quot;54321&quot;);
-
-        Medium sameIsbnAsBefore = new Medium();
-        sameIsbnAsBefore.setIsbn(&quot;12345&quot;);
-
-        assertEquals(3, copies.get(sameIsbnAsBefore));
-    }
-}
-</code></pre>
-<p>Notier Deine Erwartungen, entferne <code>@Disabled</code> und starte den Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=MutableKeyTest
-</code></pre>
-<h3 id="die-suche-mit-einem-schlechten-hashcode-messen">Die Suche mit einem schlechten <code>hashCode</code> messen</h3>
-<p>Dieser Test misst, wie lange es dauert, jedes von 20 000 Medien in einer <code>HashMap</code>
-wiederzufinden – einmal mit berechnetem <code>hashCode</code>, einmal mit einem, der immer <code>1</code>
-liefert. <strong>Bevor Du startest:</strong> Schätze, um welchen Faktor die zweite Variante
-langsamer ist. Speichere den Test als <code>HashCodePerformanceTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.equality;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-@Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-class HashCodePerformanceTest {
-
-    static final int NUMBER_OF_MEDIA = 20_000;
-
-    static class Medium {
-
-        private String isbn;
-
-        public String getIsbn() {
-            return isbn;
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(isbn);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-            Medium other = (Medium) obj;
-            return Objects.equals(isbn, other.isbn);
-        }
-    }
-
-    static class MediumWithSameHashCode extends Medium {
-
-        @Override
-        public int hashCode() {
-            return 1;
-        }
-    }
-
-    @Test
-    void searchWithCalculatedHashCode() {
-        Map&lt;Medium, Integer&gt; media = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i++) {
-            Medium medium = new Medium();
-            medium.setIsbn(&quot;ISBN&quot; + i);
-            media.put(medium, i);
-        }
-        long start = System.nanoTime();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i++) {
-            Medium query = new Medium();
-            query.setIsbn(&quot;ISBN&quot; + i);
-            assertEquals(i, media.get(query));
-        }
-        long millis = (System.nanoTime() - start) / 1_000_000;
-        System.out.println(&quot;Calculated hash code: &quot; + millis + &quot; ms&quot;);
-    }
-
-    @Test
-    void searchWithSameHashCode() {
-        Map&lt;Medium, Integer&gt; media = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i++) {
-            Medium medium = new MediumWithSameHashCode();
-            medium.setIsbn(&quot;ISBN&quot; + i);
-            media.put(medium, i);
-        }
-        long start = System.nanoTime();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i++) {
-            Medium query = new MediumWithSameHashCode();
-            query.setIsbn(&quot;ISBN&quot; + i);
-            assertEquals(i, media.get(query));
-        }
-        long millis = (System.nanoTime() - start) / 1_000_000;
-        System.out.println(&quot;Same hash code:       &quot; + millis + &quot; ms&quot;);
-    }
-}
-</code></pre>
-<p>Entferne <code>@Disabled</code> und starte den Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=HashCodePerformanceTest
-</code></pre>
-<p>Die Laufzeiten stehen in der Konsole. Vergleiche sie mit Deiner Schätzung.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Der Test misst nur grob – ein Lauf, ohne Aufwärmen der JVM. Für eine
-Größenordnung reicht das.</p>
-</blockquote>
-<h3 id="für-schnelle-urls-in-einem-hashset">Für Schnelle: URLs in einem <code>HashSet</code></h3>
-<p>Aus 1 000 URLs mit zehn verschiedenen Hosts sollen die Dubletten verschwinden –
-einmal als <code>Set&lt;URL&gt;</code>, einmal als <code>Set&lt;String&gt;</code>. <strong>Bevor Du startest:</strong> Welche Variante
-ist schneller, und um wie viel? Speichere den Test als <code>UrlSetPerformanceTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.equality;
-
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
+import aufbau.junit.Room;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -522,66 +193,248 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-class UrlSetPerformanceTest {
+class RoomSetTest {
 
-    static List&lt;URL&gt; createUrls() throws Exception {
-        List&lt;URL&gt; urls = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; 1_000; i++) {
-            String address = &quot;http://www.server&quot; + (i % 10) + &quot;.example.com/api&quot;;
-            urls.add(URI.create(address).toURL());
-        }
-        return urls;
+    @Test
+    void sameRoomTwiceInASet() {
+        Set&lt;Room&gt; rooms = new HashSet&lt;&gt;();
+        rooms.add(new Room(&quot;R111&quot;, &quot;Berlin&quot;, 6));
+        rooms.add(new Room(&quot;R111&quot;, &quot;Berlin&quot;, 6));
+
+        assertEquals(1, rooms.size());
     }
 
     @Test
-    void urlsInHashSet() throws Exception {
-        List&lt;URL&gt; urls = createUrls();
+    void findRoomInAList() {
+        List&lt;Room&gt; rooms = List.of(new Room(&quot;R111&quot;, &quot;Berlin&quot;, 6), new Room(&quot;R112&quot;, &quot;Hamburg&quot;, 10));
 
-        long start = System.nanoTime();
-        Set&lt;URL&gt; distinctUrls = new HashSet&lt;&gt;(urls);
-        long millis = (System.nanoTime() - start) / 1_000_000;
-
-        System.out.println(&quot;Set&lt;URL&gt;:    &quot; + distinctUrls.size() + &quot; elements, &quot; + millis + &quot; ms&quot;);
-    }
-
-    @Test
-    void urlStringsInHashSet() throws Exception {
-        List&lt;URL&gt; urls = createUrls();
-
-        long start = System.nanoTime();
-        Set&lt;String&gt; distinctUrls = new HashSet&lt;&gt;();
-        for (URL url : urls) {
-            distinctUrls.add(url.toExternalForm());
-        }
-        long millis = (System.nanoTime() - start) / 1_000_000;
-
-        System.out.println(&quot;Set&lt;String&gt;: &quot; + distinctUrls.size() + &quot; elements, &quot; + millis + &quot; ms&quot;);
+        assertTrue(rooms.contains(new Room(&quot;R112&quot;, &quot;Hamburg&quot;, 10)));
     }
 }
 </code></pre>
-<p>Entferne <code>@Disabled</code> und starte den Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=UrlSetPerformanceTest
+<p>Was passiert, wenn Du die beiden Tests startest? Notier Deine Erwartung, entferne <code>@Disabled</code>
+und starte die Testklasse in der IDE. Erklär das Ergebnis – die Assertions bleiben diesmal,
+wie sie sind.</p>
+<h3 id="lass-equals-und-hashcode-erzeugen">Lass equals und hashCode erzeugen</h3>
+<p>Lass Deine IDE in <code>Room</code> die Methoden <code>equals</code> und <code>hashCode</code> erzeugen – so, wie sie es
+vorschlägt, mit <strong>allen</strong> Feldern. Starte <code>RoomSetTest</code> erneut: Beide Tests sind jetzt grün,
+ohne dass Du eine Assertion geändert hast.</p>
+<h3 id="buche-einen-raum-der-im-set-liegt">Buche einen Raum, der im Set liegt</h3>
+<p>Leg den Test <code>BookedRoomInASetTest</code> an:</p>
+<pre><code class="language-java">package aufbau.collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
+class BookedRoomInASetTest {
+
+    @Test
+    void bookARoomThatIsInASet() throws RoomAlreadyBookedException {
+        Room berlin = new Room(&quot;R111&quot;, &quot;Berlin&quot;, 6);
+        Set&lt;Room&gt; rooms = new HashSet&lt;&gt;();
+        rooms.add(berlin);
+
+        berlin.book(LocalDate.of(2026, 3, 2));
+
+        assertEquals(1, rooms.size());
+        assertTrue(rooms.contains(berlin));
+    }
+}
 </code></pre>
-<p>Lies anschließend in der API-Dokumentation nach, was <code>URL.equals</code> und <code>URL.hashCode</code>
-mit dem Host tun.</p>
+<p>Was passiert, wenn Du einen Raum buchst, der schon im Set liegt? Notier Deine Erwartung,
+entferne <code>@Disabled</code> und starte den Test in der IDE. Erklär das Ergebnis.</p>
+<p>Lass danach <code>equals</code> und <code>hashCode</code> neu erzeugen – diesmal nur über die <strong>Raumnummer</strong>: Sie
+macht einen Raum aus, Name, Kapazität und Buchungen nicht. Starte den Test erneut: Er ist grün,
+ohne dass Du eine Assertion geändert hast. Baue danach erneut mit Maven.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Dieser Test braucht eine Namensauflösung (DNS). Ohne Netz oder hinter
-einem restriktiven Proxy kann er sehr lange dauern – dann brich ihn ab; die
-Erklärung findest Du trotzdem in der API-Dokumentation.</p>
+<p><strong>Hinweis:</strong> Scheitert der Build an der Abdeckungsregel für <code>Room</code>, hat Deine IDE in <code>equals</code>
+zusätzlich <code>if (this == o) return true;</code> erzeugt – ein Zweig, den kein Test durchläuft. Die
+Zeile ist nur eine Abkürzung; nimm sie heraus.</p>
 </blockquote>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<p>So oder ähnlich erzeugt es die IDE; dazu der Import <code>java.util.Objects</code>. Manche IDEs prüfen zuerst noch <code>this == o</code>.</p>
+<pre><code class="language-java">@Override
+public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+        return false;
+    }
+    Room room = (Room) o;
+    return Objects.equals(number, room.number);
+}
+
+@Override
+public int hashCode() {
+    return Objects.hashCode(number);
+}</code></pre>
+</details>
+<h3 id="miss-die-suche-mit-einem-schlechten-hashcode">Miss die Suche mit einem schlechten hashCode</h3>
+<p>Der Test misst, wie lange es dauert, jeden von 20 000 Räumen in einer <code>HashMap</code>
+wiederzufinden – einmal mit dem erzeugten <code>hashCode</code> über die Raumnummer, einmal mit einem, der
+immer <code>1</code> liefert.
+Den schlechten <code>hashCode</code> bringt eine <strong>anonyme Unterklasse</strong> von <code>Room</code> mit, die nur im Test
+existiert. Leg den Test <code>HashCodePerformanceTest</code> an:</p>
+<pre><code class="language-java">package aufbau.collections;
+
+import aufbau.junit.Room;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
+class HashCodePerformanceTest {
+
+    // Adjust to your machine: smaller if the test runs too long, larger if the times are too short to compare.
+    static final int NUMBER_OF_ROOMS = 20_000;
+
+    static Room roomWithSameHashCode(String number) {
+        return new Room(number, &quot;Room &quot; + number, 10) {
+            @Override
+            public int hashCode() {
+                return 1;
+            }
+        };
+    }
+
+    @Test
+    void searchWithCalculatedHashCode() {
+        Map&lt;Room, Integer&gt; rooms = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i++) {
+            rooms.put(new Room(&quot;R&quot; + i, &quot;Room &quot; + i, 10), i);
+        }
+        long start = System.nanoTime();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i++) {
+            assertEquals(i, rooms.get(new Room(&quot;R&quot; + i, &quot;Room &quot; + i, 10)));
+        }
+        long millis = (System.nanoTime() - start) / 1_000_000;
+        System.out.println(&quot;Calculated hash code: &quot; + millis + &quot; ms&quot;);
+    }
+
+    @Test
+    void searchWithSameHashCode() {
+        Map&lt;Room, Integer&gt; rooms = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i++) {
+            rooms.put(roomWithSameHashCode(&quot;R&quot; + i), i);
+        }
+        long start = System.nanoTime();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i++) {
+            assertEquals(i, rooms.get(roomWithSameHashCode(&quot;R&quot; + i)));
+        }
+        long millis = (System.nanoTime() - start) / 1_000_000;
+        System.out.println(&quot;Same hash code:       &quot; + millis + &quot; ms&quot;);
+    }
+}
+</code></pre>
+<p>Was erwartest Du für die beiden Laufzeiten? Notier Deine Schätzung, entferne <code>@Disabled</code> und
+starte den Test in der IDE. Die Laufzeiten stehen in der Konsole.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Der Test misst nur grob – ein Lauf, ohne Aufwärmen der JVM. Für eine
+Größenordnung reicht das.</p>
+</blockquote>
+<h3 id="für-schnelle-virtuelle-räume-mit-url">Für Schnelle: Virtuelle Räume mit URL</h3>
+<p>Für Online-Besprechungen gibt es virtuelle Räume. Sie sind gleich, wenn ihr Besprechungslink
+gleich ist. Leg im Ordner <code>src/main/java</code> das Package <code>aufbau.collections</code> an und darin die
+Klasse <code>VirtualRoom</code> – <code>equals</code> und <code>hashCode</code>
+hat die IDE über den Link erzeugt:</p>
+<pre><code class="language-java">package aufbau.collections;
+
+import java.net.URL;
+import java.util.Objects;
+
+public class VirtualRoom {
+
+    private final String name;
+    private final URL meetingLink;
+
+    public VirtualRoom(String name, URL meetingLink) {
+        this.name = name;
+        this.meetingLink = meetingLink;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public URL getMeetingLink() {
+        return meetingLink;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VirtualRoom that = (VirtualRoom) o;
+        return Objects.equals(meetingLink, that.meetingLink);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(meetingLink);
+    }
+}
+</code></pre>
+<p>Leg dazu den Test <code>VirtualRoomSetTest</code> an:</p>
+<pre><code class="language-java">package aufbau.collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
+class VirtualRoomSetTest {
+
+    @Test
+    void distinctVirtualRooms() throws Exception {
+        long start = System.nanoTime();
+        Set&lt;VirtualRoom&gt; rooms = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; 1_000; i++) {
+            String link = &quot;https://meet&quot; + (i % 10) + &quot;.example.com/room-&quot; + (i % 10);
+            rooms.add(new VirtualRoom(&quot;Online &quot; + (i % 10), URI.create(link).toURL()));
+        }
+        long millis = (System.nanoTime() - start) / 1_000_000;
+        System.out.println(&quot;Set&lt;VirtualRoom&gt;: &quot; + rooms.size() + &quot; rooms, &quot; + millis + &quot; ms&quot;);
+
+        assertEquals(10, rooms.size());
+    }
+}
+</code></pre>
+<p>Was erwartest Du für die Laufzeit? Entferne <code>@Disabled</code> und starte den Test in der IDE. Lies
+danach in der API-Dokumentation nach, was <code>URL.equals</code> und <code>URL.hashCode</code> mit dem Host tun.
+Stell <code>VirtualRoom</code> auf <code>java.net.URI</code> um und miss erneut.</p>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>Warum ist <code>book1.equals(medium)</code> wahr, <code>medium.equals(book1)</code> aber falsch – und warum sind zwei gleiche Bücher nicht gleich?</li>
-<li><code>getClass() != obj.getClass()</code> oder <code>instanceof</code> – welche Variante wählst Du für <code>Medium</code>, und was gibst Du dafür auf?</li>
-<li>Wo ist das Medium geblieben, nachdem Du seine ISBN geändert hast?</li>
+<li>Warum sollten <code>hashCode</code> und <code>equals</code> nicht von den Raumbuchungen abhängen?</li>
 <li>Warum ist die Suche mit einem konstanten <code>hashCode</code> so viel langsamer, obwohl <code>equals</code> korrekt ist?</li>
-<li>Welche Klassen in Deinem Projekt landen als Schlüssel in einer <code>HashMap</code> oder in einem <code>HashSet</code> – und sind sie unveränderlich?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Wann sind zwei Objekte gleich?
+<textarea id="skr-md-source" hidden aria-hidden="true"># Zauberei mit Collections: Wo ist der Raum geblieben?
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -590,7 +443,7 @@ Erklärung findest Du trotzdem in der API-Dokumentation.</p>
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Java-Entwickler:in möchte ich wissen, wann zwei Objekte für Java gleich sind, damit meine Objekte in `HashSet` und `HashMap` dort bleiben, wo ich sie abgelegt habe.
+Als Entwickler:in der Raumbuchung möchte ich wissen, wann zwei Räume für Java gleich sind, damit meine Räume in `HashSet` und `HashMap` dort bleiben, wo ich sie abgelegt habe.
 
 &lt;/div&gt;
 
@@ -601,9 +454,9 @@ Als Java-Entwickler:in möchte ich wissen, wann zwei Objekte für Java gleich si
 
 &lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
-- Du sagst das Ergebnis von `equals` zwischen Ober- und Unterklasse voraus und begründest es.
-- Du prüfst eine `equals`-Implementierung gegen die Regeln reflexiv und symmetrisch.
-- Du erklärst, warum ein veränderter Schlüssel in einer `HashMap` nicht mehr gefunden wird.
+- Du sagst voraus, wie sich `HashSet` und `List` ohne eigenes `equals` und `hashCode` verhalten.
+- Du lässt `equals` und `hashCode` von der IDE erzeugen und entscheidest, welche Felder hineingehören.
+- Du erklärst, warum ein Objekt aus einem `HashSet` verschwindet, wenn sich ein Feld aus `hashCode` ändert.
 - Du misst, wie sich ein schlechter `hashCode` auf die Suche in einer `HashMap` auswirkt.
 
 &lt;/div&gt;
@@ -615,9 +468,9 @@ Als Java-Entwickler:in möchte ich wissen, wann zwei Objekte für Java gleich si
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
 
-- [ ] Das Paket `aufbau.equality` enthält die Tests `EqualsContractTest`, `MutableKeyTest` und `HashCodePerformanceTest`, keiner trägt mehr `@Disabled`.
-- [ ] Vor jedem Start hast Du Deine Erwartung notiert; jede Assertion beschreibt jetzt das tatsächliche Verhalten, und `mvn test` läuft grün.
-- [ ] `Medium.equals` ist symmetrisch, und zwei Bücher mit gleichen Daten sind gleich.
+- [ ] `Room` hat ein von der IDE erzeugtes `equals` und `hashCode` über die Raumnummer.
+- [ ] `RoomSetTest` und `BookedRoomInASetTest` sind grün, ohne dass Du ihre Assertions geändert hast.
+- [ ] Der Maven-Build läuft grün, auch die Abdeckungsregel für `Room`.
 - [ ] Du hast die beiden Laufzeiten aus `HashCodePerformanceTest` notiert und kannst den Unterschied erklären.
 - [ ] Du hast die Kontrollfragen beantwortet
 
@@ -628,382 +481,32 @@ Als Java-Entwickler:in möchte ich wissen, wann zwei Objekte für Java gleich si
 &lt;/div&gt;
 
 
-Ein `HashSet` soll Dubletten aussortieren, eine `HashMap` ein Objekt wiederfinden.
-Beides verlässt sich auf `equals` und `hashCode` – und darauf, dass sie zueinander
-passen. Die folgenden Tests stammen aus *Effective Java*. Jeder kompiliert, ist aber
-mit `@Disabled` abgeschaltet. Die Spielregel:
+Ein `HashSet` soll Dubletten aussortieren, eine `HashMap` einen Raum wiederfinden. Beides
+verlässt sich auf `equals` und `hashCode` – und darauf, dass sie zueinander passen. Sonst
+ist ein Raum plötzlich doppelt da oder verschwindet.
 
-1. Lies den Test und **notiere Deine Erwartung** als Kommentar neben jeder Assertion.
-2. Entferne `@Disabled` und starte den Test.
-3. **Erkläre** jede Abweichung.
-4. **Korrigiere** die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.
-
-&gt; **Hinweis:** Ein Test bricht an der ersten Assertion ab, die nicht stimmt. Korrigier
-&gt; sie und starte erneut – so arbeitest Du Dich Zeile für Zeile vor.
+&gt; **Hinweis:** Ein Test bricht an der ersten Assertion ab, die nicht stimmt. Korrigier sie
+&gt; und starte erneut – so arbeitest Du Dich Zeile für Zeile vor.
 
 ## Arbeitsschritte
 
-### Das Paket anlegen
+### Leg das Package an
 
-Leg in Deinem Projekt `aufbau` unter `src/test/java` das Paket `aufbau.equality`
-an. Alle Tests dieser Übung kommen dort hinein.
+Du arbeitest mit dem `Room` aus *Den Raum mit JUnit testen* (Package `aufbau.junit`). Im
+Ordner `src/test/java` Deines Projekts `java-aufbau` lege das Package `aufbau.collections`
+an; alle Tests dieser Übung kommen dort hinein.
 
-### Gleichheit zwischen Medium und Buch vorhersagen
+### Sag vorher, wie viele Räume im Set liegen
 
-Zwei Medien gelten als gleich, wenn ihre ISBN übereinstimmt. Speichere den Test als
-`EqualsContractTest.java`:
+Leg den Test `RoomSetTest` an:
 
 ```java
-package aufbau.equality;
+package aufbau.collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-@Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-class EqualsContractTest {
-
-    // Two media are equal if their ISBNs are equal.
-    static class Medium {
-
-        private String isbn;
-        private String title;
-
-        public String getIsbn() {
-            return isbn;
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result &#43; ((isbn == null) ? 0 : isbn.hashCode());
-            result = prime * result &#43; ((title == null) ? 0 : title.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (Medium.class != obj.getClass())
-                return false;
-            Medium other = (Medium) obj;
-            if (isbn == null) {
-                if (other.isbn != null)
-                    return false;
-            } else if (!isbn.equals(other.isbn))
-                return false;
-            if (title == null) {
-                if (other.title != null)
-                    return false;
-            } else if (!title.equals(other.title))
-                return false;
-            return true;
-        }
-    }
-
-    static class Book extends Medium {
-
-        private int pages;
-
-        public int getPages() {
-            return pages;
-        }
-
-        public void setPages(int pages) {
-            this.pages = pages;
-        }
-    }
-
-    Medium medium;
-    Book book1;
-    Book book2;
-
-    @BeforeEach
-    void createMedia() {
-        medium = new Medium();
-        medium.setIsbn(&#34;12345&#34;);
-        medium.setTitle(&#34;A Book&#34;);
-
-        book1 = new Book();
-        book1.setIsbn(&#34;12345&#34;);
-        book1.setTitle(&#34;A Book&#34;);
-        book1.setPages(100);
-
-        book2 = new Book();
-        book2.setIsbn(&#34;12345&#34;);
-        book2.setTitle(&#34;A Book&#34;);
-        book2.setPages(100);
-    }
-
-    @Test
-    void isReflexive() {
-        assertEquals(true, medium.equals(medium));
-        assertEquals(true, book1.equals(book1));
-    }
-
-    @Test
-    void isSymmetric() {
-        assertEquals(true, medium.equals(book1));
-        assertEquals(true, book1.equals(medium));
-    }
-
-    @Test
-    void twoEqualBooksAreEqual() {
-        assertEquals(true, book1.equals(book2));
-        assertEquals(true, book2.equals(book1));
-    }
-}
-```
-
-Notier für die sechs Assertions Deine Erwartung, entferne `@Disabled` und starte den
-Test:
-
-```bash
-mvn test -Dtest=EqualsContractTest
-```
-
-### `equals` reparieren
-
-Ändere `Medium.equals` so, dass die Symmetrie gilt und zwei Bücher mit gleichen
-Daten gleich sind. Probier beide Varianten aus und pass die Assertions jeweils an:
-
-- `getClass() != obj.getClass()` statt `Medium.class != obj.getClass()`
-- `if (!(obj instanceof Medium other)) return false;` – mit Pattern Matching
-
-Lass anschließend Deine Entwicklungsumgebung `equals` und `hashCode` neu erzeugen
-(IntelliJ: *Code | Generate…*, Eclipse: *Source | Generate hashCode() and equals()*)
-und vergleiche das Ergebnis mit Deiner Fassung.
-
-&gt; **Hinweis:** Die Aufgabe sagt „gleich, wenn die ISBN übereinstimmt“. Vergleicht
-&gt; `equals` das auch?
-
-### Einen Schlüssel nach dem Einfügen ändern
-
-Speichere den Test als `MutableKeyTest.java`:
-
-```java
-package aufbau.equality;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-@Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-class MutableKeyTest {
-
-    static class Medium {
-
-        private String isbn;
-
-        public String getIsbn() {
-            return isbn;
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(isbn);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-            Medium other = (Medium) obj;
-            return Objects.equals(isbn, other.isbn);
-        }
-    }
-
-    @Test
-    void changeKeyAfterPut() {
-        Map&lt;Medium, Integer&gt; copies = new HashMap&lt;&gt;();
-        Medium medium = new Medium();
-        medium.setIsbn(&#34;12345&#34;);
-        copies.put(medium, 3);
-
-        assertEquals(3, copies.get(medium));
-
-        medium.setIsbn(&#34;54321&#34;);
-
-        assertEquals(3, copies.get(medium));
-        assertEquals(1, copies.size());
-    }
-
-    @Test
-    void searchWithOldKey() {
-        Map&lt;Medium, Integer&gt; copies = new HashMap&lt;&gt;();
-        Medium medium = new Medium();
-        medium.setIsbn(&#34;12345&#34;);
-        copies.put(medium, 3);
-        medium.setIsbn(&#34;54321&#34;);
-
-        Medium sameIsbnAsBefore = new Medium();
-        sameIsbnAsBefore.setIsbn(&#34;12345&#34;);
-
-        assertEquals(3, copies.get(sameIsbnAsBefore));
-    }
-}
-```
-
-Notier Deine Erwartungen, entferne `@Disabled` und starte den Test:
-
-```bash
-mvn test -Dtest=MutableKeyTest
-```
-
-### Die Suche mit einem schlechten `hashCode` messen
-
-Dieser Test misst, wie lange es dauert, jedes von 20 000 Medien in einer `HashMap`
-wiederzufinden – einmal mit berechnetem `hashCode`, einmal mit einem, der immer `1`
-liefert. **Bevor Du startest:** Schätze, um welchen Faktor die zweite Variante
-langsamer ist. Speichere den Test als `HashCodePerformanceTest.java`:
-
-```java
-package aufbau.equality;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-@Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-class HashCodePerformanceTest {
-
-    static final int NUMBER_OF_MEDIA = 20_000;
-
-    static class Medium {
-
-        private String isbn;
-
-        public String getIsbn() {
-            return isbn;
-        }
-
-        public void setIsbn(String isbn) {
-            this.isbn = isbn;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(isbn);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || getClass() != obj.getClass()) {
-                return false;
-            }
-            Medium other = (Medium) obj;
-            return Objects.equals(isbn, other.isbn);
-        }
-    }
-
-    static class MediumWithSameHashCode extends Medium {
-
-        @Override
-        public int hashCode() {
-            return 1;
-        }
-    }
-
-    @Test
-    void searchWithCalculatedHashCode() {
-        Map&lt;Medium, Integer&gt; media = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i&#43;&#43;) {
-            Medium medium = new Medium();
-            medium.setIsbn(&#34;ISBN&#34; &#43; i);
-            media.put(medium, i);
-        }
-        long start = System.nanoTime();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i&#43;&#43;) {
-            Medium query = new Medium();
-            query.setIsbn(&#34;ISBN&#34; &#43; i);
-            assertEquals(i, media.get(query));
-        }
-        long millis = (System.nanoTime() - start) / 1_000_000;
-        System.out.println(&#34;Calculated hash code: &#34; &#43; millis &#43; &#34; ms&#34;);
-    }
-
-    @Test
-    void searchWithSameHashCode() {
-        Map&lt;Medium, Integer&gt; media = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i&#43;&#43;) {
-            Medium medium = new MediumWithSameHashCode();
-            medium.setIsbn(&#34;ISBN&#34; &#43; i);
-            media.put(medium, i);
-        }
-        long start = System.nanoTime();
-        for (int i = 0; i &lt; NUMBER_OF_MEDIA; i&#43;&#43;) {
-            Medium query = new MediumWithSameHashCode();
-            query.setIsbn(&#34;ISBN&#34; &#43; i);
-            assertEquals(i, media.get(query));
-        }
-        long millis = (System.nanoTime() - start) / 1_000_000;
-        System.out.println(&#34;Same hash code:       &#34; &#43; millis &#43; &#34; ms&#34;);
-    }
-}
-```
-
-Entferne `@Disabled` und starte den Test:
-
-```bash
-mvn test -Dtest=HashCodePerformanceTest
-```
-
-Die Laufzeiten stehen in der Konsole. Vergleiche sie mit Deiner Schätzung.
-
-&gt; **Hinweis:** Der Test misst nur grob – ein Lauf, ohne Aufwärmen der JVM. Für eine
-&gt; Größenordnung reicht das.
-
-### Für Schnelle: URLs in einem `HashSet`
-
-Aus 1 000 URLs mit zehn verschiedenen Hosts sollen die Dubletten verschwinden –
-einmal als `Set&lt;URL&gt;`, einmal als `Set&lt;String&gt;`. **Bevor Du startest:** Welche Variante
-ist schneller, und um wie viel? Speichere den Test als `UrlSetPerformanceTest.java`:
-
-```java
-package aufbau.equality;
-
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
+import aufbau.junit.Room;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -1012,56 +515,260 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-class UrlSetPerformanceTest {
+class RoomSetTest {
 
-    static List&lt;URL&gt; createUrls() throws Exception {
-        List&lt;URL&gt; urls = new ArrayList&lt;&gt;();
-        for (int i = 0; i &lt; 1_000; i&#43;&#43;) {
-            String address = &#34;http://www.server&#34; &#43; (i % 10) &#43; &#34;.example.com/api&#34;;
-            urls.add(URI.create(address).toURL());
-        }
-        return urls;
+    @Test
+    void sameRoomTwiceInASet() {
+        Set&lt;Room&gt; rooms = new HashSet&lt;&gt;();
+        rooms.add(new Room(&#34;R111&#34;, &#34;Berlin&#34;, 6));
+        rooms.add(new Room(&#34;R111&#34;, &#34;Berlin&#34;, 6));
+
+        assertEquals(1, rooms.size());
     }
 
     @Test
-    void urlsInHashSet() throws Exception {
-        List&lt;URL&gt; urls = createUrls();
+    void findRoomInAList() {
+        List&lt;Room&gt; rooms = List.of(new Room(&#34;R111&#34;, &#34;Berlin&#34;, 6), new Room(&#34;R112&#34;, &#34;Hamburg&#34;, 10));
 
-        long start = System.nanoTime();
-        Set&lt;URL&gt; distinctUrls = new HashSet&lt;&gt;(urls);
-        long millis = (System.nanoTime() - start) / 1_000_000;
-
-        System.out.println(&#34;Set&lt;URL&gt;:    &#34; &#43; distinctUrls.size() &#43; &#34; elements, &#34; &#43; millis &#43; &#34; ms&#34;);
-    }
-
-    @Test
-    void urlStringsInHashSet() throws Exception {
-        List&lt;URL&gt; urls = createUrls();
-
-        long start = System.nanoTime();
-        Set&lt;String&gt; distinctUrls = new HashSet&lt;&gt;();
-        for (URL url : urls) {
-            distinctUrls.add(url.toExternalForm());
-        }
-        long millis = (System.nanoTime() - start) / 1_000_000;
-
-        System.out.println(&#34;Set&lt;String&gt;: &#34; &#43; distinctUrls.size() &#43; &#34; elements, &#34; &#43; millis &#43; &#34; ms&#34;);
+        assertTrue(rooms.contains(new Room(&#34;R112&#34;, &#34;Hamburg&#34;, 10)));
     }
 }
 ```
 
-Entferne `@Disabled` und starte den Test:
+Was passiert, wenn Du die beiden Tests startest? Notier Deine Erwartung, entferne `@Disabled`
+und starte die Testklasse in der IDE. Erklär das Ergebnis – die Assertions bleiben diesmal,
+wie sie sind.
 
-```bash
-mvn test -Dtest=UrlSetPerformanceTest
+### Lass equals und hashCode erzeugen
+
+Lass Deine IDE in `Room` die Methoden `equals` und `hashCode` erzeugen – so, wie sie es
+vorschlägt, mit **allen** Feldern. Starte `RoomSetTest` erneut: Beide Tests sind jetzt grün,
+ohne dass Du eine Assertion geändert hast.
+
+### Buche einen Raum, der im Set liegt
+
+Leg den Test `BookedRoomInASetTest` an:
+
+```java
+package aufbau.collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
+class BookedRoomInASetTest {
+
+    @Test
+    void bookARoomThatIsInASet() throws RoomAlreadyBookedException {
+        Room berlin = new Room(&#34;R111&#34;, &#34;Berlin&#34;, 6);
+        Set&lt;Room&gt; rooms = new HashSet&lt;&gt;();
+        rooms.add(berlin);
+
+        berlin.book(LocalDate.of(2026, 3, 2));
+
+        assertEquals(1, rooms.size());
+        assertTrue(rooms.contains(berlin));
+    }
+}
 ```
 
-Lies anschließend in der API-Dokumentation nach, was `URL.equals` und `URL.hashCode`
-mit dem Host tun.
+Was passiert, wenn Du einen Raum buchst, der schon im Set liegt? Notier Deine Erwartung,
+entferne `@Disabled` und starte den Test in der IDE. Erklär das Ergebnis.
 
-&gt; **Hinweis:** Dieser Test braucht eine Namensauflösung (DNS). Ohne Netz oder hinter
-&gt; einem restriktiven Proxy kann er sehr lange dauern – dann brich ihn ab; die
-&gt; Erklärung findest Du trotzdem in der API-Dokumentation.
+Lass danach `equals` und `hashCode` neu erzeugen – diesmal nur über die **Raumnummer**: Sie
+macht einen Raum aus, Name, Kapazität und Buchungen nicht. Starte den Test erneut: Er ist grün,
+ohne dass Du eine Assertion geändert hast. Baue danach erneut mit Maven.
+
+&gt; **Hinweis:** Scheitert der Build an der Abdeckungsregel für `Room`, hat Deine IDE in `equals`
+&gt; zusätzlich `if (this == o) return true;` erzeugt – ein Zweig, den kein Test durchläuft. Die
+&gt; Zeile ist nur eine Abkürzung; nimm sie heraus.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
+&lt;p&gt;So oder ähnlich erzeugt es die IDE; dazu der Import &lt;code&gt;java.util.Objects&lt;/code&gt;. Manche IDEs prüfen zuerst noch &lt;code&gt;this == o&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Override
+public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+        return false;
+    }
+    Room room = (Room) o;
+    return Objects.equals(number, room.number);
+}
+
+@Override
+public int hashCode() {
+    return Objects.hashCode(number);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+### Miss die Suche mit einem schlechten hashCode
+
+Der Test misst, wie lange es dauert, jeden von 20 000 Räumen in einer `HashMap`
+wiederzufinden – einmal mit dem erzeugten `hashCode` über die Raumnummer, einmal mit einem, der
+immer `1` liefert.
+Den schlechten `hashCode` bringt eine **anonyme Unterklasse** von `Room` mit, die nur im Test
+existiert. Leg den Test `HashCodePerformanceTest` an:
+
+```java
+package aufbau.collections;
+
+import aufbau.junit.Room;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
+class HashCodePerformanceTest {
+
+    // Adjust to your machine: smaller if the test runs too long, larger if the times are too short to compare.
+    static final int NUMBER_OF_ROOMS = 20_000;
+
+    static Room roomWithSameHashCode(String number) {
+        return new Room(number, &#34;Room &#34; &#43; number, 10) {
+            @Override
+            public int hashCode() {
+                return 1;
+            }
+        };
+    }
+
+    @Test
+    void searchWithCalculatedHashCode() {
+        Map&lt;Room, Integer&gt; rooms = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i&#43;&#43;) {
+            rooms.put(new Room(&#34;R&#34; &#43; i, &#34;Room &#34; &#43; i, 10), i);
+        }
+        long start = System.nanoTime();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i&#43;&#43;) {
+            assertEquals(i, rooms.get(new Room(&#34;R&#34; &#43; i, &#34;Room &#34; &#43; i, 10)));
+        }
+        long millis = (System.nanoTime() - start) / 1_000_000;
+        System.out.println(&#34;Calculated hash code: &#34; &#43; millis &#43; &#34; ms&#34;);
+    }
+
+    @Test
+    void searchWithSameHashCode() {
+        Map&lt;Room, Integer&gt; rooms = new HashMap&lt;&gt;();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i&#43;&#43;) {
+            rooms.put(roomWithSameHashCode(&#34;R&#34; &#43; i), i);
+        }
+        long start = System.nanoTime();
+        for (int i = 0; i &lt; NUMBER_OF_ROOMS; i&#43;&#43;) {
+            assertEquals(i, rooms.get(roomWithSameHashCode(&#34;R&#34; &#43; i)));
+        }
+        long millis = (System.nanoTime() - start) / 1_000_000;
+        System.out.println(&#34;Same hash code:       &#34; &#43; millis &#43; &#34; ms&#34;);
+    }
+}
+```
+
+Was erwartest Du für die beiden Laufzeiten? Notier Deine Schätzung, entferne `@Disabled` und
+starte den Test in der IDE. Die Laufzeiten stehen in der Konsole.
+
+&gt; **Hinweis:** Der Test misst nur grob – ein Lauf, ohne Aufwärmen der JVM. Für eine
+&gt; Größenordnung reicht das.
+
+### Für Schnelle: Virtuelle Räume mit URL
+
+Für Online-Besprechungen gibt es virtuelle Räume. Sie sind gleich, wenn ihr Besprechungslink
+gleich ist. Leg im Ordner `src/main/java` das Package `aufbau.collections` an und darin die
+Klasse `VirtualRoom` – `equals` und `hashCode`
+hat die IDE über den Link erzeugt:
+
+```java
+package aufbau.collections;
+
+import java.net.URL;
+import java.util.Objects;
+
+public class VirtualRoom {
+
+    private final String name;
+    private final URL meetingLink;
+
+    public VirtualRoom(String name, URL meetingLink) {
+        this.name = name;
+        this.meetingLink = meetingLink;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public URL getMeetingLink() {
+        return meetingLink;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VirtualRoom that = (VirtualRoom) o;
+        return Objects.equals(meetingLink, that.meetingLink);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(meetingLink);
+    }
+}
+```
+
+Leg dazu den Test `VirtualRoomSetTest` an:
+
+```java
+package aufbau.collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+@Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
+class VirtualRoomSetTest {
+
+    @Test
+    void distinctVirtualRooms() throws Exception {
+        long start = System.nanoTime();
+        Set&lt;VirtualRoom&gt; rooms = new HashSet&lt;&gt;();
+        for (int i = 0; i &lt; 1_000; i&#43;&#43;) {
+            String link = &#34;https://meet&#34; &#43; (i % 10) &#43; &#34;.example.com/room-&#34; &#43; (i % 10);
+            rooms.add(new VirtualRoom(&#34;Online &#34; &#43; (i % 10), URI.create(link).toURL()));
+        }
+        long millis = (System.nanoTime() - start) / 1_000_000;
+        System.out.println(&#34;Set&lt;VirtualRoom&gt;: &#34; &#43; rooms.size() &#43; &#34; rooms, &#34; &#43; millis &#43; &#34; ms&#34;);
+
+        assertEquals(10, rooms.size());
+    }
+}
+```
+
+Was erwartest Du für die Laufzeit? Entferne `@Disabled` und starte den Test in der IDE. Lies
+danach in der API-Dokumentation nach, was `URL.equals` und `URL.hashCode` mit dem Host tun.
+Stell `VirtualRoom` auf `java.net.URI` um und miss erneut.
 
 
 &lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
@@ -1070,11 +777,8 @@ mit dem Host tun.
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- Warum ist `book1.equals(medium)` wahr, `medium.equals(book1)` aber falsch – und warum sind zwei gleiche Bücher nicht gleich?
-- `getClass() != obj.getClass()` oder `instanceof` – welche Variante wählst Du für `Medium`, und was gibst Du dafür auf?
-- Wo ist das Medium geblieben, nachdem Du seine ISBN geändert hast?
+- Warum sollten `hashCode` und `equals` nicht von den Raumbuchungen abhängen?
 - Warum ist die Suche mit einem konstanten `hashCode` so viel langsamer, obwohl `equals` korrekt ist?
-- Welche Klassen in Deinem Projekt landen als Schlüssel in einer `HashMap` oder in einem `HashSet` – und sind sie unveränderlich?
 
 &lt;/div&gt;
 
@@ -1083,7 +787,7 @@ mit dem Host tun.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-paket-anlegen" class="skr-toc--h3">Das Paket anlegen</a><a href="#gleichheit-zwischen-medium-und-buch-vorhersagen" class="skr-toc--h3">Gleichheit zwischen Medium und Buch vorhersagen</a><a href="#equals-reparieren" class="skr-toc--h3">equals reparieren</a><a href="#einen-schlüssel-nach-dem-einfügen-ändern" class="skr-toc--h3">Einen Schlüssel nach dem Einfügen ändern</a><a href="#die-suche-mit-einem-schlechten-hashcode-messen" class="skr-toc--h3">Die Suche mit einem schlechten hashCode messen</a><a href="#für-schnelle-urls-in-einem-hashset" class="skr-toc--h3">Für Schnelle: URLs in einem HashSet</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#leg-das-package-an" class="skr-toc--h3">Leg das Package an</a><a href="#sag-vorher-wie-viele-räume-im-set-liegen" class="skr-toc--h3">Sag vorher, wie viele Räume im Set liegen</a><a href="#lass-equals-und-hashcode-erzeugen" class="skr-toc--h3">Lass equals und hashCode erzeugen</a><a href="#buche-einen-raum-der-im-set-liegt" class="skr-toc--h3">Buche einen Raum, der im Set liegt</a><a href="#miss-die-suche-mit-einem-schlechten-hashcode" class="skr-toc--h3">Miss die Suche mit einem schlechten hashCode</a><a href="#für-schnelle-virtuelle-räume-mit-url" class="skr-toc--h3">Für Schnelle: Virtuelle Räume mit URL</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">

@@ -6,11 +6,11 @@
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
 <title>Ein generischer Raumkatalog · ATVANTAGE Academy</title>
-<meta name="description" content="Mach aus einem Katalog mit Casts einen generischen `Catalog&lt;T extends Room&gt;` und bring ihm mit `? extends` und `? super` bei, auch mit Untertypen umzugehen.">
+<meta name="description" content="Mach aus einem Katalog mit Casts einen generischen `Catalog&lt;T extends Room&gt;`, gib Räumen mit `EquippedRoom&lt;E&gt;` eine Ausstattung und bring beiden mit `? extends` und `? super` bei, auch mit Untertypen umzugehen.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Ein generischer Raumkatalog">
-<meta property="og:description" content="Mach aus einem Katalog mit Casts einen generischen `Catalog&lt;T extends Room&gt;` und bring ihm mit `? extends` und `? super` bei, auch mit Untertypen umzugehen.">
+<meta property="og:description" content="Mach aus einem Katalog mit Casts einen generischen `Catalog&lt;T extends Room&gt;`, gib Räumen mit `EquippedRoom&lt;E&gt;` eine Ausstattung und bring beiden mit `? extends` und `? super` bei, auch mit Untertypen umzugehen.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,15 +34,15 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Mach aus einem Katalog mit Casts einen generischen `Catalog\u003cT extends Room\u003e` und bring ihm mit `? extends` und `? super` bei, auch mit Untertypen umzugehen.","duration":35,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-generics-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Ein generischer Raumkatalog","topics":["Generics","Wildcards","PECS","Type Erasure","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/generics/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Mach aus einem Katalog mit Casts einen generischen `Catalog\u003cT extends Room\u003e`, gib Räumen mit `EquippedRoom\u003cE\u003e` eine Ausstattung und bring beiden mit `? extends` und `? super` bei, auch mit Untertypen umzugehen.","duration":45,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-generics-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Ein generischer Raumkatalog","topics":["Generics","Wildcards","PECS","Type Erasure","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/generics/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -122,7 +122,7 @@
 <section class="skr-guide-hero"
          aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Ein generischer Raumkatalog</span></nav>
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 35 Minuten</span><span class="skr-tag">Generics</span><span class="skr-tag">Wildcards</span><span class="skr-tag">PECS</span><span class="skr-tag">Type Erasure</span><span class="skr-tag">Raumbuchung</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 45 Minuten</span><span class="skr-tag">Generics</span><span class="skr-tag">Wildcards</span><span class="skr-tag">PECS</span><span class="skr-tag">Type Erasure</span><span class="skr-tag">Raumbuchung</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
@@ -147,7 +147,7 @@
 <ul>
 <li>Du machst eine Klasse generisch und schränkst ihren Typparameter mit <code>extends</code> ein.</li>
 <li>Du erklärst, warum ein Array kovariant ist und eine Liste nicht.</li>
-<li>Du setzt <code>? extends</code> für Quellen und <code>? super</code> für Ziele ein (Producer Extends, Consumer Super).</li>
+<li>Du setzt <code>? extends</code> für Quellen und <code>? super</code> für Ziele ein (Producer Extends, Consumer Super) – an Collections und an einem eigenen generischen Typ.</li>
 <li>Du nennst Folgen der Type Erasure für Deinen Code.</li>
 </ul>
 </div>
@@ -159,7 +159,8 @@
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Catalog ist generisch (Catalog&lt;T extends Room&gt;), und CatalogTest kommt ohne Cast aus." disabled="disabled"> <code>Catalog</code> ist generisch (<code>Catalog&lt;T extends Room&gt;</code>), und <code>CatalogTest</code> kommt ohne Cast aus.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Vorhersagen in PredictionsTest hast Du notiert, geprüft und die Assertions auf das tatsächliche Verhalten korrigiert." disabled="disabled"> Die Vorhersagen in <code>PredictionsTest</code> hast Du notiert, geprüft und die Assertions auf das tatsächliche Verhalten korrigiert.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In WildcardTest sind alle Kommentarzeichen und jedes @Disabled entfernt, und alle Tests sind grün." disabled="disabled"> In <code>WildcardTest</code> sind alle Kommentarzeichen und jedes <code>@Disabled</code> entfernt, und alle Tests sind grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn test läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> <code>mvn test</code> läuft ohne Fehler und ohne übersprungene Tests durch.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In EquipmentTest ist jedes @Disabled entfernt; announce nimmt auch Räume mit Videoanlage, upgradeToVideo auch Räume mit Beamer, und alle Tests sind grün." disabled="disabled"> In <code>EquipmentTest</code> ist jedes <code>@Disabled</code> entfernt; <code>announce</code> nimmt auch Räume mit Videoanlage, <code>upgradeToVideo</code> auch Räume mit Beamer, und alle Tests sind grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
@@ -171,8 +172,9 @@ Besprechungsraum herausholt, muss casten. Du machst ihn generisch und lernst
 dabei, wo der Compiler zu streng scheint und wie Wildcards ihn überzeugen.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="lege-das-paket-an-und-kopiere-den-code">Lege das Paket an und kopiere den Code</h3>
-<p>Leg in Deinem Projekt <code>aufbau</code> das Paket <code>aufbau.generics</code> an, unter <code>src/main/java</code>
-und unter <code>src/test/java</code>. Kopiere die folgenden Typen nach <code>src/main/java/aufbau/generics</code>.</p>
+<p>Im Ordner <code>src/main/java</code> und im Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege
+je das Package <code>aufbau.generics</code> an. Kopiere die folgenden Typen ins Package unter
+<code>src/main/java</code>.</p>
 <p><code>Room.java</code>:</p>
 <pre><code class="language-java">package aufbau.generics;
 
@@ -256,7 +258,7 @@ public final class Lists {
     }
 }
 </code></pre>
-<p>Kopiere den Test nach <code>src/test/java/aufbau/generics</code>.</p>
+<p>Kopiere den Test ins Package <code>aufbau.generics</code> unter <code>src/test/java</code>.</p>
 <p><code>CatalogTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.generics;
 
@@ -279,9 +281,7 @@ class CatalogTest {
     }
 }
 </code></pre>
-<p>Starte die Tests:</p>
-<pre><code class="language-bash">mvn test
-</code></pre>
+<p>Baue erneut mit Maven.</p>
 <p>Der Test ist grün – aber nur dank des Casts.</p>
 <h3 id="mach-den-katalog-generisch">Mach den Katalog generisch</h3>
 <p>Mach aus <code>Catalog</code> einen <code>Catalog&lt;T extends Room&gt;</code>: Wo heute <code>Room</code> als Elementtyp
@@ -294,7 +294,7 @@ Zeile in <code>Catalog</code> sorgt dafür?</p>
 überall <code>T</code> – auch <code>addAll</code>, <code>copyTo</code> und <code>sorted</code>. Die passen wir gleich an.</p>
 </blockquote>
 <h3 id="sag-das-verhalten-von-arrays-und-listen-vorher">Sag das Verhalten von Arrays und Listen vorher</h3>
-<p>Kopiere die Klasse nach <code>src/test/java/aufbau/generics</code>.</p>
+<p>Kopiere die Klasse ins Package <code>aufbau.generics</code> unter <code>src/test/java</code>.</p>
 <p><code>PredictionsTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.generics;
 
@@ -344,7 +344,7 @@ class PredictionsTest {
 sagt der Compiler – und warum ist das die bessere Nachricht? Setz die
 Kommentarzeichen wieder, damit das Projekt baut.</p>
 <h3 id="öffne-den-katalog-für-untertypen">Öffne den Katalog für Untertypen</h3>
-<p>Kopiere die Klasse nach <code>src/test/java/aufbau/generics</code>.</p>
+<p>Kopiere die Klasse ins Package <code>aufbau.generics</code> unter <code>src/test/java</code>.</p>
 <p><code>WildcardTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.generics;
 
@@ -434,6 +434,178 @@ Aufruf kompiliert und der Test grün wird.</p>
 <p>Der Test <code>largestMeetingRoom</code> ist von Anfang an grün. Sieh Dir die Signatur von
 <code>Collections.max</code> in der Javadoc an: Warum darf dort ein <code>Comparator&lt;Room&gt;</code> eine
 Liste von Besprechungsräumen vergleichen?</p>
+<h3 id="gib-räumen-eine-ausstattung">Gib Räumen eine Ausstattung</h3>
+<p>Nicht nur der Katalog kann generisch sein, auch ein Raum: Ein <code>EquippedRoom&lt;E&gt;</code> hat eine
+Ausstattung vom Typ <code>E</code> – einen Beamer, eine Videoanlage, ein Whiteboard. Eine
+Videoanlage <strong>ist</strong> ein Beamer. Kopiere die folgenden Typen ins
+Package <code>aufbau.generics</code> unter <code>src/main/java</code>.</p>
+<p><code>Equipment.java</code>:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+public interface Equipment {
+
+    String label();
+}
+</code></pre>
+<p><code>Projector.java</code>:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+public class Projector implements Equipment {
+
+    @Override
+    public String label() {
+        return &quot;projector&quot;;
+    }
+}
+</code></pre>
+<p><code>VideoSystem.java</code>:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+public class VideoSystem extends Projector {
+
+    @Override
+    public String label() {
+        return &quot;video system&quot;;
+    }
+}
+</code></pre>
+<p><code>Whiteboard.java</code>:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+public class Whiteboard implements Equipment {
+
+    @Override
+    public String label() {
+        return &quot;whiteboard&quot;;
+    }
+}
+</code></pre>
+<p><code>EquippedRoom.java</code>:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+public class EquippedRoom&lt;E extends Equipment&gt; implements Room {
+
+    private final String id;
+    private final String name;
+    private final int seats;
+    private E equipment;
+
+    public EquippedRoom(String id, String name, int seats, E equipment) {
+        this.id = id;
+        this.name = name;
+        this.seats = seats;
+        this.equipment = equipment;
+    }
+
+    @Override
+    public String id() {
+        return id;
+    }
+
+    @Override
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public int seats() {
+        return seats;
+    }
+
+    public E equipment() {
+        return equipment;
+    }
+
+    public void replaceEquipment(E equipment) {
+        this.equipment = equipment;
+    }
+}
+</code></pre>
+<p><code>Presentations.java</code> – zwei Methoden der Raumbuchung, die einen ausgestatteten Raum
+brauchen:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+public final class Presentations {
+
+    // announces a talk in the room; the room needs a projector
+    public static String announce(EquippedRoom&lt;Projector&gt; room) {
+        return &quot;Talk in &quot; + room.name() + &quot; with &quot; + room.equipment().label();
+    }
+
+    // replaces the equipment of the room by a new video system
+    public static void upgradeToVideo(EquippedRoom&lt;VideoSystem&gt; room) {
+        room.replaceEquipment(new VideoSystem());
+    }
+
+    private Presentations() {
+    }
+}
+</code></pre>
+<p>Kopiere den Test ins Package <code>aufbau.generics</code> unter <code>src/test/java</code>.</p>
+<p><code>EquipmentTest.java</code>:</p>
+<pre><code class="language-java">package aufbau.generics;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+class EquipmentTest {
+
+    private final EquippedRoom&lt;Projector&gt; berlin = new EquippedRoom&lt;&gt;(&quot;R101&quot;, &quot;Berlin&quot;, 6, new Projector());
+    private final EquippedRoom&lt;VideoSystem&gt; hamburg = new EquippedRoom&lt;&gt;(&quot;R102&quot;, &quot;Hamburg&quot;, 10, new VideoSystem());
+    private final EquippedRoom&lt;Whiteboard&gt; kiel = new EquippedRoom&lt;&gt;(&quot;R302&quot;, &quot;Kiel&quot;, 8, new Whiteboard());
+
+    @Test
+    void announceTalkInRoomWithProjector() {
+        assertEquals(&quot;Talk in Berlin with projector&quot;, Presentations.announce(berlin));
+    }
+
+    @Test
+    @Disabled(&quot;Remove @Disabled once you have activated the call and fixed the signature of announce&quot;)
+    void announceTalkInRoomWithVideoSystem() {
+        String announcement = &quot;&quot;;
+        // announcement = Presentations.announce(hamburg);
+
+        assertEquals(&quot;Talk in Hamburg with video system&quot;, announcement);
+    }
+
+    @Test
+    void roomWithWhiteboardCannotHostATalk() {
+        // Presentations.announce(kiel);
+    }
+
+    @Test
+    @Disabled(&quot;Remove @Disabled once you have activated the call and fixed the signature of upgradeToVideo&quot;)
+    void upgradeRoomWithProjector() {
+        // Presentations.upgradeToVideo(berlin);
+
+        assertEquals(&quot;video system&quot;, berlin.equipment().label());
+    }
+
+    @Test
+    void equipmentOfARoomOfUnknownKind() {
+        EquippedRoom&lt;? extends Equipment&gt; someRoom = kiel;
+        // someRoom.replaceEquipment(new Whiteboard());
+
+        assertEquals(&quot;whiteboard&quot;, someRoom.equipment().label());
+    }
+}
+</code></pre>
+<p>Geh vor wie beim Katalog: <code>@Disabled</code> und Kommentarzeichen entfernen, die Meldung des
+Compilers lesen, die Signatur in <code>Presentations</code> ändern.</p>
+<ol>
+<li>Ein Raum mit Videoanlage soll einen Vortrag ankündigen können. <code>announce</code> <strong>liest</strong>
+die Ausstattung aus dem Raum – welcher Wildcard passt?</li>
+<li>Ein Raum mit Beamer soll auf eine Videoanlage aufgerüstet werden können.
+<code>upgradeToVideo</code> <strong>gibt</strong> dem Raum eine Ausstattung – welcher Wildcard passt jetzt?</li>
+<li>Entferne in <code>roomWithWhiteboardCannotHostATalk</code> die Kommentarzeichen: Der Compiler
+soll den Raum mit Whiteboard auch nach Deiner Änderung ablehnen. Setz die
+Kommentarzeichen wieder.</li>
+<li>Entferne in <code>equipmentOfARoomOfUnknownKind</code> die Kommentarzeichen. Lesen geht – warum
+lehnt der Compiler das Schreiben ab, obwohl der Raum doch ein Whiteboard hat? Setz die
+Kommentarzeichen wieder.</li>
+</ol>
 <h3 id="sag-die-type-erasure-vorher">Sag die Type Erasure vorher</h3>
 <p>Nimm Dir in <code>PredictionsTest</code> den Test <code>listsOfDifferentTypesHaveDifferentClasses</code>
 vor, genauso wie oben: erwarten, <code>@Disabled</code> entfernen, starten, erklären,
@@ -452,6 +624,7 @@ und lies die Meldung des Compilers. Lösch die Methode wieder.</p>
 <li>Warum lässt der Compiler <code>List&lt;Room&gt; rooms = meetingRooms;</code> nicht zu, <code>Room[] rooms = new MeetingRoom[2];</code> aber schon?</li>
 <li>Woran erkennst Du, ob ein Parameter <code>? extends T</code> oder <code>? super T</code> braucht?</li>
 <li>Warum kann <code>Catalog&lt;T&gt;</code> kein <code>new T()</code> und keinen Test <code>instanceof List&lt;MeetingRoom&gt;</code> enthalten?</li>
+<li>Warum darfst Du über <code>EquippedRoom&lt;? extends Equipment&gt;</code> die Ausstattung lesen, aber keine neue einsetzen?</li>
 <li>Wo in der Javadoc des JDK bist Du schon über <code>? super</code> gestolpert, ohne es zu bemerken?</li>
 </ul>
 </div>
@@ -478,7 +651,7 @@ Als Entwickler:in der Raumbuchung möchte ich einen Katalog, der Besprechungs- u
 
 - Du machst eine Klasse generisch und schränkst ihren Typparameter mit `extends` ein.
 - Du erklärst, warum ein Array kovariant ist und eine Liste nicht.
-- Du setzt `? extends` für Quellen und `? super` für Ziele ein (Producer Extends, Consumer Super).
+- Du setzt `? extends` für Quellen und `? super` für Ziele ein (Producer Extends, Consumer Super) – an Collections und an einem eigenen generischen Typ.
 - Du nennst Folgen der Type Erasure für Deinen Code.
 
 &lt;/div&gt;
@@ -493,7 +666,8 @@ Als Entwickler:in der Raumbuchung möchte ich einen Katalog, der Besprechungs- u
 - [ ] `Catalog` ist generisch (`Catalog&lt;T extends Room&gt;`), und `CatalogTest` kommt ohne Cast aus.
 - [ ] Die Vorhersagen in `PredictionsTest` hast Du notiert, geprüft und die Assertions auf das tatsächliche Verhalten korrigiert.
 - [ ] In `WildcardTest` sind alle Kommentarzeichen und jedes `@Disabled` entfernt, und alle Tests sind grün.
-- [ ] `mvn test` läuft ohne Fehler und ohne übersprungene Tests durch.
+- [ ] In `EquipmentTest` ist jedes `@Disabled` entfernt; `announce` nimmt auch Räume mit Videoanlage, `upgradeToVideo` auch Räume mit Beamer, und alle Tests sind grün.
+- [ ] Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -512,8 +686,9 @@ dabei, wo der Compiler zu streng scheint und wie Wildcards ihn überzeugen.
 
 ### Lege das Paket an und kopiere den Code
 
-Leg in Deinem Projekt `aufbau` das Paket `aufbau.generics` an, unter `src/main/java`
-und unter `src/test/java`. Kopiere die folgenden Typen nach `src/main/java/aufbau/generics`.
+Im Ordner `src/main/java` und im Ordner `src/test/java` Deines Projekts `java-aufbau` lege
+je das Package `aufbau.generics` an. Kopiere die folgenden Typen ins Package unter
+`src/main/java`.
 
 `Room.java`:
 
@@ -613,7 +788,7 @@ public final class Lists {
 }
 ```
 
-Kopiere den Test nach `src/test/java/aufbau/generics`.
+Kopiere den Test ins Package `aufbau.generics` unter `src/test/java`.
 
 `CatalogTest.java`:
 
@@ -640,11 +815,7 @@ class CatalogTest {
 }
 ```
 
-Starte die Tests:
-
-```bash
-mvn test
-```
+Baue erneut mit Maven.
 
 Der Test ist grün – aber nur dank des Casts.
 
@@ -662,7 +833,7 @@ Zeile in `Catalog` sorgt dafür?
 
 ### Sag das Verhalten von Arrays und Listen vorher
 
-Kopiere die Klasse nach `src/test/java/aufbau/generics`.
+Kopiere die Klasse ins Package `aufbau.generics` unter `src/test/java`.
 
 `PredictionsTest.java`:
 
@@ -718,7 +889,7 @@ Kommentarzeichen wieder, damit das Projekt baut.
 
 ### Öffne den Katalog für Untertypen
 
-Kopiere die Klasse nach `src/test/java/aufbau/generics`.
+Kopiere die Klasse ins Package `aufbau.generics` unter `src/test/java`.
 
 `WildcardTest.java`:
 
@@ -813,6 +984,202 @@ Der Test `largestMeetingRoom` ist von Anfang an grün. Sieh Dir die Signatur von
 `Collections.max` in der Javadoc an: Warum darf dort ein `Comparator&lt;Room&gt;` eine
 Liste von Besprechungsräumen vergleichen?
 
+### Gib Räumen eine Ausstattung
+
+Nicht nur der Katalog kann generisch sein, auch ein Raum: Ein `EquippedRoom&lt;E&gt;` hat eine
+Ausstattung vom Typ `E` – einen Beamer, eine Videoanlage, ein Whiteboard. Eine
+Videoanlage **ist** ein Beamer. Kopiere die folgenden Typen ins
+Package `aufbau.generics` unter `src/main/java`.
+
+`Equipment.java`:
+
+```java
+package aufbau.generics;
+
+public interface Equipment {
+
+    String label();
+}
+```
+
+`Projector.java`:
+
+```java
+package aufbau.generics;
+
+public class Projector implements Equipment {
+
+    @Override
+    public String label() {
+        return &#34;projector&#34;;
+    }
+}
+```
+
+`VideoSystem.java`:
+
+```java
+package aufbau.generics;
+
+public class VideoSystem extends Projector {
+
+    @Override
+    public String label() {
+        return &#34;video system&#34;;
+    }
+}
+```
+
+`Whiteboard.java`:
+
+```java
+package aufbau.generics;
+
+public class Whiteboard implements Equipment {
+
+    @Override
+    public String label() {
+        return &#34;whiteboard&#34;;
+    }
+}
+```
+
+`EquippedRoom.java`:
+
+```java
+package aufbau.generics;
+
+public class EquippedRoom&lt;E extends Equipment&gt; implements Room {
+
+    private final String id;
+    private final String name;
+    private final int seats;
+    private E equipment;
+
+    public EquippedRoom(String id, String name, int seats, E equipment) {
+        this.id = id;
+        this.name = name;
+        this.seats = seats;
+        this.equipment = equipment;
+    }
+
+    @Override
+    public String id() {
+        return id;
+    }
+
+    @Override
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public int seats() {
+        return seats;
+    }
+
+    public E equipment() {
+        return equipment;
+    }
+
+    public void replaceEquipment(E equipment) {
+        this.equipment = equipment;
+    }
+}
+```
+
+`Presentations.java` – zwei Methoden der Raumbuchung, die einen ausgestatteten Raum
+brauchen:
+
+```java
+package aufbau.generics;
+
+public final class Presentations {
+
+    // announces a talk in the room; the room needs a projector
+    public static String announce(EquippedRoom&lt;Projector&gt; room) {
+        return &#34;Talk in &#34; &#43; room.name() &#43; &#34; with &#34; &#43; room.equipment().label();
+    }
+
+    // replaces the equipment of the room by a new video system
+    public static void upgradeToVideo(EquippedRoom&lt;VideoSystem&gt; room) {
+        room.replaceEquipment(new VideoSystem());
+    }
+
+    private Presentations() {
+    }
+}
+```
+
+Kopiere den Test ins Package `aufbau.generics` unter `src/test/java`.
+
+`EquipmentTest.java`:
+
+```java
+package aufbau.generics;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+class EquipmentTest {
+
+    private final EquippedRoom&lt;Projector&gt; berlin = new EquippedRoom&lt;&gt;(&#34;R101&#34;, &#34;Berlin&#34;, 6, new Projector());
+    private final EquippedRoom&lt;VideoSystem&gt; hamburg = new EquippedRoom&lt;&gt;(&#34;R102&#34;, &#34;Hamburg&#34;, 10, new VideoSystem());
+    private final EquippedRoom&lt;Whiteboard&gt; kiel = new EquippedRoom&lt;&gt;(&#34;R302&#34;, &#34;Kiel&#34;, 8, new Whiteboard());
+
+    @Test
+    void announceTalkInRoomWithProjector() {
+        assertEquals(&#34;Talk in Berlin with projector&#34;, Presentations.announce(berlin));
+    }
+
+    @Test
+    @Disabled(&#34;Remove @Disabled once you have activated the call and fixed the signature of announce&#34;)
+    void announceTalkInRoomWithVideoSystem() {
+        String announcement = &#34;&#34;;
+        // announcement = Presentations.announce(hamburg);
+
+        assertEquals(&#34;Talk in Hamburg with video system&#34;, announcement);
+    }
+
+    @Test
+    void roomWithWhiteboardCannotHostATalk() {
+        // Presentations.announce(kiel);
+    }
+
+    @Test
+    @Disabled(&#34;Remove @Disabled once you have activated the call and fixed the signature of upgradeToVideo&#34;)
+    void upgradeRoomWithProjector() {
+        // Presentations.upgradeToVideo(berlin);
+
+        assertEquals(&#34;video system&#34;, berlin.equipment().label());
+    }
+
+    @Test
+    void equipmentOfARoomOfUnknownKind() {
+        EquippedRoom&lt;? extends Equipment&gt; someRoom = kiel;
+        // someRoom.replaceEquipment(new Whiteboard());
+
+        assertEquals(&#34;whiteboard&#34;, someRoom.equipment().label());
+    }
+}
+```
+
+Geh vor wie beim Katalog: `@Disabled` und Kommentarzeichen entfernen, die Meldung des
+Compilers lesen, die Signatur in `Presentations` ändern.
+
+1. Ein Raum mit Videoanlage soll einen Vortrag ankündigen können. `announce` **liest**
+   die Ausstattung aus dem Raum – welcher Wildcard passt?
+2. Ein Raum mit Beamer soll auf eine Videoanlage aufgerüstet werden können.
+   `upgradeToVideo` **gibt** dem Raum eine Ausstattung – welcher Wildcard passt jetzt?
+3. Entferne in `roomWithWhiteboardCannotHostATalk` die Kommentarzeichen: Der Compiler
+   soll den Raum mit Whiteboard auch nach Deiner Änderung ablehnen. Setz die
+   Kommentarzeichen wieder.
+4. Entferne in `equipmentOfARoomOfUnknownKind` die Kommentarzeichen. Lesen geht – warum
+   lehnt der Compiler das Schreiben ab, obwohl der Raum doch ein Whiteboard hat? Setz die
+   Kommentarzeichen wieder.
+
 ### Sag die Type Erasure vorher
 
 Nimm Dir in `PredictionsTest` den Test `listsOfDifferentTypesHaveDifferentClasses`
@@ -837,6 +1204,7 @@ und lies die Meldung des Compilers. Lösch die Methode wieder.
 - Warum lässt der Compiler `List&lt;Room&gt; rooms = meetingRooms;` nicht zu, `Room[] rooms = new MeetingRoom[2];` aber schon?
 - Woran erkennst Du, ob ein Parameter `? extends T` oder `? super T` braucht?
 - Warum kann `Catalog&lt;T&gt;` kein `new T()` und keinen Test `instanceof List&lt;MeetingRoom&gt;` enthalten?
+- Warum darfst Du über `EquippedRoom&lt;? extends Equipment&gt;` die Ausstattung lesen, aber keine neue einsetzen?
 - Wo in der Javadoc des JDK bist Du schon über `? super` gestolpert, ohne es zu bemerken?
 
 &lt;/div&gt;
@@ -846,14 +1214,14 @@ und lies die Meldung des Compilers. Lösch die Methode wieder.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#mach-den-katalog-generisch" class="skr-toc--h3">Mach den Katalog generisch</a><a href="#sag-das-verhalten-von-arrays-und-listen-vorher" class="skr-toc--h3">Sag das Verhalten von Arrays und Listen vorher</a><a href="#öffne-den-katalog-für-untertypen" class="skr-toc--h3">Öffne den Katalog für Untertypen</a><a href="#sag-die-type-erasure-vorher" class="skr-toc--h3">Sag die Type Erasure vorher</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#mach-den-katalog-generisch" class="skr-toc--h3">Mach den Katalog generisch</a><a href="#sag-das-verhalten-von-arrays-und-listen-vorher" class="skr-toc--h3">Sag das Verhalten von Arrays und Listen vorher</a><a href="#öffne-den-katalog-für-untertypen" class="skr-toc--h3">Öffne den Katalog für Untertypen</a><a href="#gib-räumen-eine-ausstattung" class="skr-toc--h3">Gib Räumen eine Ausstattung</a><a href="#sag-die-type-erasure-vorher" class="skr-toc--h3">Sag die Type Erasure vorher</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>

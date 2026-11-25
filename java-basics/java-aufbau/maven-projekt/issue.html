@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Das Maven-Projekt anlegen · ATVANTAGE Academy</title>
+<meta name="description" content="Leg das Maven-Projekt java-aufbau in Deiner IDE an, stell es auf Java 17 und binde JUnit über eine BOM ein.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Das Maven-Projekt anlegen">
+<meta property="og:description" content="Leg das Maven-Projekt java-aufbau in Deiner IDE an, stell es auf Java 17 und binde JUnit über eine BOM ein.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=1237e482">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Leg das Maven-Projekt java-aufbau in Deiner IDE an, stell es auf Java 17 und binde JUnit über eine BOM ein.","duration":15,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-maven-projekt-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Das Maven-Projekt anlegen","topics":["Maven","POM","BOM","Abhängigkeiten","JUnit"],"untranslated":null,"url":"/java-basics/java-aufbau/maven-projekt/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=cc0ce1dd">
+<link rel="stylesheet" href="../../../extensions/didaktikon/exercise.css?v=485b7c1d">
+<script src="../../../skriptorium/guide-layout.js?v=00fd0360" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header" data-skr-header>
+  <a class="skr-header__brand" href="../../../" aria-label="Startseite"><img class="skr-header__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span>
+    <img class="skr-header__mark" src="../../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../../java-basics/java-aufbau/">Java-Aufbau</a>
+          <a role="menuitem" href="../../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Das Maven-Projekt anlegen</span></nav>
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 15 Minuten</span><span class="skr-tag">Maven</span><span class="skr-tag">POM</span><span class="skr-tag">BOM</span><span class="skr-tag">Abhängigkeiten</span><span class="skr-tag">JUnit</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">Das Maven-Projekt anlegen</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-guide-panels" data-skr-arrangement="fold">
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>User Story</summary>
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Java-Entwickler:in möchte ich ein eigenes Maven-Projekt mit JUnit aufsetzen, damit ich meine Erwartungen an Code als Tests festhalten kann.</p>
+</div>
+</details>
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>Lernziele</summary>
+<div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<ul>
+<li>Du legst in Deiner IDE ein Maven-Projekt mit sinnvollen Koordinaten an und legst es mit <code>maven.compiler.release</code> auf Java 17 oder höher fest.</li>
+<li>Du bindest JUnit über die <code>junit-bom</code> ein und deklarierst <code>junit-jupiter</code> ohne Version.</li>
+<li>Du liest den Abhängigkeitsbaum mit <code>mvn dependency:tree</code>.</li>
+</ul>
+</div>
+</details>
+<details class="skr-fold">
+<summary>Definition of Done</summary>
+<div class="skr-guide-done">
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Projekt java-aufbau hat groupId de.schulung, artifactId java-aufbau, eine -SNAPSHOT-Version und maven.compiler.release 17 oder höher; die Beispielklasse der IDE ist gelöscht." disabled="disabled"> Das Projekt <code>java-aufbau</code> hat <code>groupId</code> <code>de.schulung</code>, <code>artifactId</code> <code>java-aufbau</code>, eine <code>-SNAPSHOT</code>-Version und <code>maven.compiler.release</code> 17 oder höher; die Beispielklasse der IDE ist gelöscht.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn verify endet im Terminal mit BUILD SUCCESS." disabled="disabled"> <code>mvn verify</code> endet im Terminal mit <code>BUILD SUCCESS</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="JUnit kommt über die junit-bom ins Projekt, ihre Version steht als Property junit.version; junit-jupiter steht ohne Version im POM, und mvn dependency:tree zeigt es." disabled="disabled"> JUnit kommt über die <code>junit-bom</code> ins Projekt, ihre Version steht als Property <code>junit.version</code>; <code>junit-jupiter</code> steht ohne Version im POM, und <code>mvn dependency:tree</code> zeigt es.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
+</details>
+</div>
+<p>Im Einstieg stand Deine Erwartung als Kommentar im Code. Jetzt legst Du das Projekt an,
+in dem Du für den Rest des Kurses arbeitest, holst JUnit hinein. Das Projekt legst Du in der IDE an und baust es mit Maven.</p>
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+<h3 id="das-projekt-in-der-ide-anlegen">Das Projekt in der IDE anlegen</h3>
+<p>Leg in Deiner IDE ein neues Maven-Projekt an – ohne Archetype, mit einem JDK 17 oder
+neuer. Die Koordinaten des Projekts:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Angabe</th>
+					<th>Wert</th>
+					<th>Bedeutung</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>groupId</code></td>
+					<td><code>de.schulung</code></td>
+					<td>Wer das Projekt herausgibt, meist ein umgedrehter Domainname</td>
+			</tr>
+			<tr>
+					<td><code>artifactId</code></td>
+					<td><code>java-aufbau</code></td>
+					<td>Der Name des Projekts, zugleich der Name des JARs</td>
+			</tr>
+			<tr>
+					<td><code>version</code></td>
+					<td><code>1.0.0-SNAPSHOT</code></td>
+					<td><code>-SNAPSHOT</code> heißt: in Arbeit, noch keine fertige Version</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="das-pom-auf-java-17-festlegen">Das POM auf Java 17 festlegen</h3>
+<p>Sorg dafür, dass in den <code>&lt;properties&gt;</code> Deiner <code>pom.xml</code> diese beiden Einträge stehen – die
+Java-Version 17 oder höher und UTF-8 als Kodierung der Quelltexte:</p>
+<pre><code class="language-xml">&lt;properties&gt;
+    &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&lt;/properties&gt;
+</code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+&lt;/project&gt;</code></pre>
+</details>
+<p>Hat Deine IDE eine Beispielklasse erzeugt, lösch sie.</p>
+<h3 id="das-projekt-im-terminal-bauen">Das Projekt im Terminal bauen</h3>
+<p>Öffne ein Terminal im Projektordner <code>java-aufbau</code> und bau das Projekt:</p>
+<pre><code class="language-bash">mvn verify
+</code></pre>
+<p>Am Ende steht <code>BUILD SUCCESS</code>. Was die Zeilen dazwischen bedeuten, siehst Du Dir in
+<em>Maven-Plugins und Lifecycle</em> genauer an.</p>
+<h3 id="junit-über-die-bom-einbinden">JUnit über die BOM einbinden</h3>
+<p>Schlag auf Maven Central (<a href="https://central.sonatype.com">https://central.sonatype.com</a>) die neueste stabile Version von
+<code>org.junit:junit-bom</code> nach – ohne Vorabversionen wie <code>-M1</code> oder <code>-RC1</code>, die Maven Central
+oft als neueste führt. Leg die Version als Property an – ergänze in <code>&lt;properties&gt;</code> diese
+Zeile und ersetze <code>VERSION</code> durch die gefundene Version:</p>
+<pre><code class="language-xml">&lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+</code></pre>
+<p>Ergänze dann Dein POM nach <code>&lt;/properties&gt;</code> um die BOM und die Abhängigkeit. Die BOM
+verweist auf die Property:</p>
+<pre><code class="language-xml">&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+            &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;</code></pre>
+</details>
+<p>Lass Dir anzeigen, welche Artefakte damit ins Projekt kommen:</p>
+<pre><code class="language-bash">mvn dependency:tree
+</code></pre>
+<p>Wie Maven Abhängigkeiten, transitive Abhängigkeiten und Scopes behandelt, zeigt die
+Visualisierung <a class="skr-doclink skr-doclink--visualization" href="../../../shared/maven/maven.html#transitivitaet">Maven</a>.</p>
+<div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
+<ul>
+<li>Woher kennt Maven die Version von <code>junit-jupiter</code>, obwohl sie nicht im POM steht – und was passiert, wenn Du später ein weiteres JUnit-Artefakt brauchst?</li>
+</ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># Das Maven-Projekt anlegen
+
+&lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;User Story&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
+
+Als Java-Entwickler:in möchte ich ein eigenes Maven-Projekt mit JUnit aufsetzen, damit ich meine Erwartungen an Code als Tests festhalten kann.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Lernziele&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+- Du legst in Deiner IDE ein Maven-Projekt mit sinnvollen Koordinaten an und legst es mit `maven.compiler.release` auf Java 17 oder höher fest.
+- Du bindest JUnit über die `junit-bom` ein und deklarierst `junit-jupiter` ohne Version.
+- Du liest den Abhängigkeitsbaum mit `mvn dependency:tree`.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Definition of Done&lt;/summary&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+- [ ] Das Projekt `java-aufbau` hat `groupId` `de.schulung`, `artifactId` `java-aufbau`, eine `-SNAPSHOT`-Version und `maven.compiler.release` 17 oder höher; die Beispielklasse der IDE ist gelöscht.
+- [ ] `mvn verify` endet im Terminal mit `BUILD SUCCESS`.
+- [ ] JUnit kommt über die `junit-bom` ins Projekt, ihre Version steht als Property `junit.version`; `junit-jupiter` steht ohne Version im POM, und `mvn dependency:tree` zeigt es.
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+
+Im Einstieg stand Deine Erwartung als Kommentar im Code. Jetzt legst Du das Projekt an,
+in dem Du für den Rest des Kurses arbeitest, holst JUnit hinein. Das Projekt legst Du in der IDE an und baust es mit Maven.
+
+## Arbeitsschritte
+
+### Das Projekt in der IDE anlegen
+
+Leg in Deiner IDE ein neues Maven-Projekt an – ohne Archetype, mit einem JDK 17 oder
+neuer. Die Koordinaten des Projekts:
+
+| Angabe | Wert | Bedeutung |
+|---|---|---|
+| `groupId` | `de.schulung` | Wer das Projekt herausgibt, meist ein umgedrehter Domainname |
+| `artifactId` | `java-aufbau` | Der Name des Projekts, zugleich der Name des JARs |
+| `version` | `1.0.0-SNAPSHOT` | `-SNAPSHOT` heißt: in Arbeit, noch keine fertige Version |
+
+### Das POM auf Java 17 festlegen
+
+Sorg dafür, dass in den `&lt;properties&gt;` Deiner `pom.xml` diese beiden Einträge stehen – die
+Java-Version 17 oder höher und UTF-8 als Kodierung der Quelltexte:
+
+```xml
+&lt;properties&gt;
+    &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&lt;/properties&gt;
+```
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+    &amp;lt;/properties&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+Hat Deine IDE eine Beispielklasse erzeugt, lösch sie.
+
+### Das Projekt im Terminal bauen
+
+Öffne ein Terminal im Projektordner `java-aufbau` und bau das Projekt:
+
+```bash
+mvn verify
+```
+
+Am Ende steht `BUILD SUCCESS`. Was die Zeilen dazwischen bedeuten, siehst Du Dir in
+*Maven-Plugins und Lifecycle* genauer an.
+
+### JUnit über die BOM einbinden
+
+Schlag auf Maven Central (&lt;https://central.sonatype.com&gt;) die neueste stabile Version von 
+`org.junit:junit-bom` nach – ohne Vorabversionen wie `-M1` oder `-RC1`, die Maven Central
+oft als neueste führt. Leg die Version als Property an – ergänze in `&lt;properties&gt;` diese
+Zeile und ersetze `VERSION` durch die gefundene Version:
+
+```xml
+&lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+```
+
+Ergänze dann Dein POM nach `&lt;/properties&gt;` um die BOM und die Abhängigkeit. Die BOM
+verweist auf die Property:
+
+```xml
+&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+            &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+```
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+        &amp;lt;junit.version&amp;gt;VERSION&amp;lt;/junit.version&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.junit&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;junit-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${junit.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.junit.jupiter&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+Lass Dir anzeigen, welche Artefakte damit ins Projekt kommen:
+
+```bash
+mvn dependency:tree
+```
+
+Wie Maven Abhängigkeiten, transitive Abhängigkeiten und Scopes behandelt, zeigt die
+Visualisierung [Maven](../../../shared/maven/maven.md#transitivitaet).
+
+
+&lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
+
+## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
+
+- Woher kennt Maven die Version von `junit-jupiter`, obwohl sie nicht im POM steht – und was passiert, wenn Du später ein weiteres JUnit-Artefakt brauchst?
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+## Weiterführende Informationen
+- [Maven: Introduction to the POM](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html)
+- [Maven: Introduction to the Dependency Mechanism (BOM)](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html)
+</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-projekt-in-der-ide-anlegen" class="skr-toc--h3">Das Projekt in der IDE anlegen</a><a href="#das-pom-auf-java-17-festlegen" class="skr-toc--h3">Das POM auf Java 17 festlegen</a><a href="#das-projekt-im-terminal-bauen" class="skr-toc--h3">Das Projekt im Terminal bauen</a><a href="#junit-über-die-bom-einbinden" class="skr-toc--h3">JUnit über die BOM einbinden</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 4 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" target="_blank" rel="noopener"><span>Maven: Introduction to the POM</span></a>
+      <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html" target="_blank" rel="noopener"><span>Maven: Introduction to the Dependency Mechanism (BOM)</span></a>
+    </div>
+  </div>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div>
+  </div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

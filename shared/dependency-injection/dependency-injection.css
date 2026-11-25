@@ -1,0 +1,52 @@
+.di-lead{color:var(--skr-color-ink-muted);margin:0 0 .75rem;}
+.di-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
+.di-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:.75rem 0 .35rem;font-weight:700;}
+.di-schritt{font-weight:700;color:var(--skr-color-headline);margin:0 0 .5rem;}
+
+/* Auswahl: Knöpfe erst mit Skript, ohne Skript sind alle Teile sichtbar. */
+.di-knoepfe{display:none;}
+.di-aktiv .di-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;}
+.di-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;text-align:left;}
+.di-knopf:hover{border-color:var(--skr-color-accent);}
+.di-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.di-panel{margin:0 0 1.25rem;padding:1rem 1.1rem;border:1px solid var(--skr-color-border);border-left:4px solid var(--skr-color-accent);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
+.di-panel pre{overflow-x:auto;}
+.di-panel > :last-child{margin-bottom:0;}
+
+/* Diagramm: Kästen in Spalten, dazwischen beschriftete Pfeile; schmal untereinander. */
+.di-fluss{display:flex;align-items:stretch;margin:0 0 1rem;}
+.di-gruppe{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.5rem;}
+.di-pfeil{flex:0 0 auto;width:6.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 .35rem;font-size:.75rem;line-height:1.25;text-align:center;color:var(--skr-color-ink-muted);}
+.di-pfeil::after{content:"→";font-size:1.35rem;font-weight:700;line-height:1;}
+.di-pfeil--fest{color:var(--skr-color-danger-ink);}
+.di-kasten{padding:.5rem .65rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);font-size:.85rem;overflow-wrap:anywhere;}
+.di-kasten code{font-size:.8rem;}
+.di-kasten__art{display:block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--skr-color-ink-muted);}
+.di-kasten--interface{border-style:dashed;border-width:2px;}
+.di-kasten--fokus{border-color:var(--skr-color-accent);box-shadow:0 0 0 1px var(--skr-color-accent);}
+.di-kasten--fest{border-color:var(--skr-color-danger);}
+.di-kasten--test{background:var(--skr-color-bg-subtle);border-left:4px solid var(--skr-color-accent);}
+.di-kasten ol,.di-kasten ul{margin:.3rem 0 0;padding-left:1.2rem;}
+
+.di-vergleich{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:1rem;}
+.di-vergleich pre{overflow-x:auto;}
+
+@media (max-width:48rem){
+  .di-fluss{flex-direction:column;}
+  .di-pfeil{width:auto;flex-direction:row;gap:.4rem;padding:.35rem 0;}
+  .di-pfeil::after{content:"↓";}
+}
+
+@media print{
+  .di-knoepfe{display:none !important;}
+  .di-panel[hidden]{display:block !important;}
+  .di-panel{break-inside:avoid;}
+}
+
+/* Abstand über den Markdown-Überschriften: Das Theme setzt jede Überschrift auf margin-top 0,
+   und das Layout visualization ergänzt – anders als guide – keinen Rhythmus. Ohne diese Regel
+   klebt eine Überschrift am Block darüber. Nur direkte Kinder von main, damit Überschriften in
+   Karten und Panels bleiben, wie sie sind. Workaround, siehe ABWEICHUNGEN.md, Eintrag A-035. */
+body .skr-stage__main > h2{margin-top:var(--skr-rhythm-section,3.75rem);margin-bottom:var(--skr-rhythm-heading,1.5rem);}
+body .skr-stage__main > h3{margin-top:var(--skr-rhythm-subsection,2.5rem);margin-bottom:var(--skr-rhythm-heading,1.5rem);}
+body .skr-stage__main > .di-marken + h2{margin-top:var(--skr-rhythm-subsection,2.5rem);}

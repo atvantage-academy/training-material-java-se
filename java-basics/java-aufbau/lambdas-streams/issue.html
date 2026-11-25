@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Raumbuchungen auswerten · ATVANTAGE Academy</title>
-<meta name="description" content="Bau eine Schleife zur Stream-Pipeline um und werte Räume und Buchungen mit Lambdas, Collectors und Optional aus – getrieben von Tests.">
+<title>Raumbuchungen mit Lambdas und Streams auswerten · ATVANTAGE Academy</title>
+<meta name="description" content="Bau fertige Auswertungen der Raumbuchung um: Schleifen werden zu Stream-Pipelines, anonyme Klassen zu Lambdas, null zu Optional – grüne Tests sichern jeden Schritt ab.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Raumbuchungen auswerten">
-<meta property="og:description" content="Bau eine Schleife zur Stream-Pipeline um und werte Räume und Buchungen mit Lambdas, Collectors und Optional aus – getrieben von Tests.">
+<meta property="og:title" content="Raumbuchungen mit Lambdas und Streams auswerten">
+<meta property="og:description" content="Bau fertige Auswertungen der Raumbuchung um: Schleifen werden zu Stream-Pipelines, anonyme Klassen zu Lambdas, null zu Optional – grüne Tests sichern jeden Schritt ab.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,15 +34,15 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Bau eine Schleife zur Stream-Pipeline um und werte Räume und Buchungen mit Lambdas, Collectors und Optional aus – getrieben von Tests.","duration":60,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-lambdas-streams-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Raumbuchungen auswerten","topics":["Lambdas","Funktionale Interfaces","Streams","Collectors","Optional","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/lambdas-streams/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Bau fertige Auswertungen der Raumbuchung um: Schleifen werden zu Stream-Pipelines, anonyme Klassen zu Lambdas, null zu Optional – grüne Tests sichern jeden Schritt ab.","duration":45,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-lambdas-streams-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Raumbuchungen mit Lambdas und Streams auswerten","topics":["Lambdas","Funktionale Interfaces","Streams","Collectors","Optional","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/lambdas-streams/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,16 +120,16 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Raumbuchungen auswerten</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Raumbuchungen mit Lambdas und Streams auswerten</span></nav>
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 60 Minuten</span><span class="skr-tag">Lambdas</span><span class="skr-tag">Funktionale Interfaces</span><span class="skr-tag">Streams</span><span class="skr-tag">Collectors</span><span class="skr-tag">Optional</span><span class="skr-tag">Raumbuchung</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 45 Minuten</span><span class="skr-tag">Lambdas</span><span class="skr-tag">Funktionale Interfaces</span><span class="skr-tag">Streams</span><span class="skr-tag">Collectors</span><span class="skr-tag">Optional</span><span class="skr-tag">Raumbuchung</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Raumbuchungen auswerten</h1>
+  </div><h1 id="skr-page-title">Raumbuchungen mit Lambdas und Streams auswerten</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -138,19 +138,20 @@
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>User Story</summary>
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Entwickler:in der Raumbuchung möchte ich Auswertungen über Räume und Buchungen als Pipelines formulieren, damit im Code steht, was ich wissen will, und nicht, wie die Schleife läuft.</p>
+<p>Als Entwickler:in der Raumbuchung möchte ich bestehende Auswertungen als Pipelines formulieren, damit im Code steht, was ich wissen will, und nicht, wie die Schleife läuft.</p>
 </div>
 </details>
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>Lernziele</summary>
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
-<li>Du baust eine Schleife zu einer Stream-Pipeline um, ohne dass sich ihr Ergebnis ändert.</li>
-<li>Du übergibst Bedingungen und Sortierungen als Lambda oder Methodenreferenz und kombinierst sie.</li>
-<li>Du nutzt <code>removeIf</code>, <code>forEach</code> und <code>Map.merge</code> bzw. <code>computeIfAbsent</code>, statt Collections von Hand zu durchlaufen.</li>
+<li>Du baust Schleifen zu Stream-Pipelines um, ohne dass sich ihr Ergebnis ändert – die Tests bleiben grün.</li>
+<li>Du ersetzt anonyme Klassen durch Lambdas und Methodenreferenzen und kombinierst Bedingungen und Sortierungen.</li>
+<li>Du nutzt <code>removeIf</code>, <code>forEach</code>, <code>Map.merge</code> und <code>computeIfAbsent</code> statt Collections von Hand zu durchlaufen.</li>
 <li>Du wertest mit <code>groupingBy</code>, <code>partitioningBy</code>, <code>toMap</code> und <code>joining</code> aus.</li>
-<li>Du gibst ein Ergebnis, das fehlen kann, als <code>Optional</code> zurück und unterscheidest <code>orElse</code> von <code>orElseGet</code>.</li>
+<li>Du ersetzt eine Rückgabe, die <code>null</code> sein kann, durch <code>Optional</code>.</li>
 <li>Du rufst eine Methode mit Checked Exception aus einem Lambda auf.</li>
+<li>Du verwendest <code>assertAll</code> und <code>assertThrows</code> aus JUnit und begründest, warum sie Lambdas brauchen.</li>
 </ul>
 </div>
 </details>
@@ -158,23 +159,26 @@
 <summary>Definition of Done</summary>
 <div class="skr-guide-done">
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In ReportsTest trägt kein Test mehr @Disabled, alle sind grün, und largeMeetingRoomNames kommt ohne Schleife aus." disabled="disabled"> In <code>ReportsTest</code> trägt kein Test mehr <code>@Disabled</code>, alle sind grün, und <code>largeMeetingRoomNames</code> kommt ohne Schleife aus.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Vorhersagen in PredictionsTest hast Du notiert, geprüft und die Assertions auf das tatsächliche Verhalten korrigiert." disabled="disabled"> Die Vorhersagen in <code>PredictionsTest</code> hast Du notiert, geprüft und die Assertions auf das tatsächliche Verhalten korrigiert.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Reports enthält keine for- oder while-Schleife mehr außer in roomIdsPerPerson, keine anonyme Klasse und kein null; findRoom liefert ein Optional&lt;Room&gt;." disabled="disabled"> <code>Reports</code> enthält keine <code>for</code>- oder <code>while</code>-Schleife mehr außer in <code>roomIdsPerPerson</code>, keine anonyme Klasse und kein <code>null</code>; <code>findRoom</code> liefert ein <code>Optional&lt;Room&gt;</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In ReportsTest stehen keine anonymen Klassen mehr; alle Tests sind grün." disabled="disabled"> In <code>ReportsTest</code> stehen keine anonymen Klassen mehr; alle Tests sind grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="ObjectPoolTest prüft mit assertAll; personWithoutBirthDateIsRejected und secondBookingOfTheSameDayIsRejected erwarten ihre Exception mit assertThrows, ohne try-catch und fail – und sind grün." disabled="disabled"> <code>ObjectPoolTest</code> prüft mit <code>assertAll</code>; <code>personWithoutBirthDateIsRejected</code> und <code>secondBookingOfTheSameDayIsRejected</code> erwarten ihre Exception mit <code>assertThrows</code>, ohne <code>try</code>-<code>catch</code> und <code>fail</code> – und sind grün.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In ExceptionsInLambdasTest trägt kein Test mehr @Disabled, alle sind grün, und executeAction liest die Datei über ein Lambda." disabled="disabled"> In <code>ExceptionsInLambdasTest</code> trägt kein Test mehr <code>@Disabled</code>, alle sind grün, und <code>executeAction</code> liest die Datei über ein Lambda.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn test läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> <code>mvn test</code> läuft ohne Fehler und ohne übersprungene Tests durch.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
 </details>
 </div>
-<p>Die Raumbuchung kennt Räume und Buchungen. Gefragt sind Auswertungen: Welche Räume
-sind groß genug, wer hat wie viele Stunden gebucht, was war am 1. Dezember belegt?
-Eine Auswertung gibt es schon – als Schleife. Die übrigen beschreiben Tests, die Du
-freischaltest und grün machst.</p>
+<p>Die Raumbuchung kennt Räume und Buchungen, und es gibt schon eine Reihe von Auswertungen:
+Welche Räume sind groß genug, wer hat wie viele Stunden gebucht, was war am 1. Dezember
+belegt? Sie funktionieren – geschrieben mit Schleifen, anonymen Klassen und einem <code>null</code>
+für „nicht gefunden“. Du baust sie Schritt für Schritt auf Lambdas, Streams und <code>Optional</code>
+um. Die Tests sind von Anfang an grün und müssen es nach jedem Schritt bleiben.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="lege-das-paket-an-und-kopiere-den-code">Lege das Paket an und kopiere den Code</h3>
-<p>Leg in Deinem Projekt <code>aufbau</code> das Paket <code>aufbau.lambdas</code> an, unter <code>src/main/java</code>
-und unter <code>src/test/java</code>. Kopiere die folgenden Klassen nach <code>src/main/java/aufbau/lambdas</code>.</p>
+<p>Im Ordner <code>src/main/java</code> und im Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege
+je das Package <code>aufbau.lambdas</code> an. Kopiere die folgenden Klassen ins Package unter
+<code>src/main/java</code>.</p>
 <p><code>RoomType.java</code>:</p>
 <pre><code class="language-java">package aufbau.lambdas;
 
@@ -238,16 +242,18 @@ public final class SampleData {
     }
 }
 </code></pre>
-<p><code>Reports.java</code> – die Auswertungen; eine davon ist schon fertig:</p>
+<p><code>Reports.java</code> – die Auswertungen, die Du umbaust:</p>
 <pre><code class="language-java">package aufbau.lambdas;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -277,46 +283,131 @@ public final class Reports {
         return names.toString();
     }
 
+    // Names of all rooms that meet the condition, in the order of the list
     public static List&lt;String&gt; namesWhere(List&lt;Room&gt; rooms, Predicate&lt;Room&gt; condition) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+        List&lt;String&gt; names = new ArrayList&lt;&gt;();
+        for (Room room : rooms) {
+            if (condition.test(room)) {
+                names.add(room.name());
+            }
+        }
+        return names;
     }
 
+    // Booked hours per person; cancelled bookings do not count
     public static Map&lt;String, Integer&gt; bookedHoursPerPerson(List&lt;Booking&gt; bookings) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+        List&lt;Booking&gt; active = new ArrayList&lt;&gt;(bookings);
+        Iterator&lt;Booking&gt; iterator = active.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().isCancelled()) {
+                iterator.remove();
+            }
+        }
+        Map&lt;String, Integer&gt; hours = new HashMap&lt;&gt;();
+        for (Booking booking : active) {
+            Integer sum = hours.get(booking.bookedBy());
+            if (sum == null) {
+                hours.put(booking.bookedBy(), booking.hours());
+            } else {
+                hours.put(booking.bookedBy(), sum + booking.hours());
+            }
+        }
+        return hours;
     }
 
+    // Ids of the booked rooms per person; cancelled bookings do not count
     public static Map&lt;String, Set&lt;String&gt;&gt; roomIdsPerPerson(List&lt;Booking&gt; bookings) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+        Map&lt;String, Set&lt;String&gt;&gt; roomIds = new HashMap&lt;&gt;();
+        for (Booking booking : bookings) {
+            if (!booking.isCancelled()) {
+                Set&lt;String&gt; ids = roomIds.get(booking.bookedBy());
+                if (ids == null) {
+                    ids = new HashSet&lt;&gt;();
+                    roomIds.put(booking.bookedBy(), ids);
+                }
+                ids.add(booking.roomId());
+            }
+        }
+        return roomIds;
     }
 
+    // Number of rooms per room type
     public static Map&lt;RoomType, Long&gt; roomCountPerType(List&lt;Room&gt; rooms) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+        Map&lt;RoomType, Long&gt; counts = new HashMap&lt;&gt;();
+        for (Room room : rooms) {
+            Long count = counts.get(room.type());
+            if (count == null) {
+                counts.put(room.type(), 1L);
+            } else {
+                counts.put(room.type(), count + 1);
+            }
+        }
+        return counts;
     }
 
+    // Names of the rooms with at least the given number of seats (true) and with fewer (false)
     public static Map&lt;Boolean, List&lt;String&gt;&gt; namesBySeatsAtLeast(List&lt;Room&gt; rooms, int seats) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+        List&lt;String&gt; large = new ArrayList&lt;&gt;();
+        List&lt;String&gt; small = new ArrayList&lt;&gt;();
+        for (Room room : rooms) {
+            if (room.seats() &gt;= seats) {
+                large.add(room.name());
+            } else {
+                small.add(room.name());
+            }
+        }
+        Map&lt;Boolean, List&lt;String&gt;&gt; names = new HashMap&lt;&gt;();
+        names.put(true, large);
+        names.put(false, small);
+        return names;
     }
 
+    // Names of the rooms booked on the given date, each room once
     public static List&lt;String&gt; roomNamesBookedOn(List&lt;Room&gt; rooms, List&lt;Booking&gt; bookings, LocalDate date) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+        List&lt;String&gt; names = new ArrayList&lt;&gt;();
+        for (Booking booking : bookings) {
+            if (booking.date().equals(date)) {
+                for (Room room : rooms) {
+                    if (room.id().equals(booking.roomId()) &amp;&amp; !names.contains(room.name())) {
+                        names.add(room.name());
+                    }
+                }
+            }
+        }
+        return names;
     }
 
-    public static Optional&lt;Room&gt; findRoom(List&lt;Room&gt; rooms, String id) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
+    // The room with the given id, or null if there is none
+    public static Room findRoom(List&lt;Room&gt; rooms, String id) {
+        for (Room room : rooms) {
+            if (room.id().equals(id)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    // The name of the room with the given id, or &quot;unknown&quot;
+    public static String roomNameOrUnknown(List&lt;Room&gt; rooms, String id) {
+        Room room = findRoom(rooms, id);
+        if (room == null) {
+            return &quot;unknown&quot;;
+        }
+        return room.name();
     }
 
     private Reports() {
     }
 }
 </code></pre>
-<p>Kopiere den Test nach <code>src/test/java/aufbau/lambdas</code>.</p>
+<p>Kopiere den Test ins Package <code>aufbau.lambdas</code> unter <code>src/test/java</code>.</p>
 <p><code>ReportsTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.lambdas;
 
 import static aufbau.lambdas.SampleData.BOOKINGS;
 import static aufbau.lambdas.SampleData.ROOMS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -325,7 +416,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ReportsTest {
@@ -336,10 +426,19 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented namesWhere&quot;)
     void namesOfLargeTrainingRooms() {
-        Predicate&lt;Room&gt; isTrainingRoom = room -&gt; room.type() == RoomType.TRAINING;
-        Predicate&lt;Room&gt; hasAtLeast16Seats = room -&gt; room.seats() &gt;= 16;
+        Predicate&lt;Room&gt; isTrainingRoom = new Predicate&lt;Room&gt;() {
+            @Override
+            public boolean test(Room room) {
+                return room.type() == RoomType.TRAINING;
+            }
+        };
+        Predicate&lt;Room&gt; hasAtLeast16Seats = new Predicate&lt;Room&gt;() {
+            @Override
+            public boolean test(Room room) {
+                return room.seats() &gt;= 16;
+            }
+        };
 
         List&lt;String&gt; names = Reports.namesWhere(ROOMS, isTrainingRoom.and(hasAtLeast16Seats));
 
@@ -347,9 +446,17 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have completed the comparator&quot;)
     void roomsSortedByFloorThenLargestFirst() {
-        Comparator&lt;Room&gt; byFloorThenLargestFirst = Comparator.comparingInt(Room::floor);
+        Comparator&lt;Room&gt; byFloorThenLargestFirst = new Comparator&lt;Room&gt;() {
+            @Override
+            public int compare(Room first, Room second) {
+                int byFloor = Integer.compare(first.floor(), second.floor());
+                if (byFloor != 0) {
+                    return byFloor;
+                }
+                return Integer.compare(second.seats(), first.seats());
+            }
+        };
 
         List&lt;Room&gt; sorted = new ArrayList&lt;&gt;(ROOMS);
         sorted.sort(byFloorThenLargestFirst);
@@ -360,7 +467,6 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented bookedHoursPerPerson&quot;)
     void bookedHoursPerPersonIgnoresCancelledBookings() {
         Map&lt;String, Integer&gt; hours = Reports.bookedHoursPerPerson(BOOKINGS);
 
@@ -368,7 +474,6 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented roomIdsPerPerson&quot;)
     void roomIdsPerPersonOfActiveBookings() {
         Map&lt;String, Set&lt;String&gt;&gt; roomIds = Reports.roomIdsPerPerson(BOOKINGS);
 
@@ -378,14 +483,12 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented roomCountPerType&quot;)
     void roomCountPerType() {
         assertEquals(Map.of(RoomType.MEETING, 4L, RoomType.TRAINING, 3L, RoomType.OFFICE, 1L),
                 Reports.roomCountPerType(ROOMS));
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented namesBySeatsAtLeast&quot;)
     void namesBySeatsAtLeast10() {
         Map&lt;Boolean, List&lt;String&gt;&gt; names = Reports.namesBySeatsAtLeast(ROOMS, 10);
 
@@ -394,7 +497,6 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented roomNamesBookedOn&quot;)
     void roomNamesBookedOnFirstOfDecember() {
         List&lt;String&gt; names = Reports.roomNamesBookedOn(ROOMS, BOOKINGS, LocalDate.of(2026, 12, 1));
 
@@ -402,10 +504,15 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented findRoom&quot;)
     void findRoom() {
-        assertEquals(&quot;Bremen&quot;, Reports.findRoom(ROOMS, &quot;R301&quot;).map(Room::name).orElse(&quot;unknown&quot;));
-        assertTrue(Reports.findRoom(ROOMS, &quot;R999&quot;).isEmpty());
+        assertEquals(&quot;Bremen&quot;, Reports.findRoom(ROOMS, &quot;R301&quot;).name());
+        assertNull(Reports.findRoom(ROOMS, &quot;R999&quot;));
+    }
+
+    @Test
+    void roomNameOrUnknown() {
+        assertEquals(&quot;Bremen&quot;, Reports.roomNameOrUnknown(ROOMS, &quot;R301&quot;));
+        assertEquals(&quot;unknown&quot;, Reports.roomNameOrUnknown(ROOMS, &quot;R999&quot;));
     }
 
     @Test
@@ -420,123 +527,86 @@ class ReportsTest {
     }
 }
 </code></pre>
-<p>Starte die Tests:</p>
-<pre><code class="language-bash">mvn test
-</code></pre>
-<p>Der Bau ist grün: <code>largeMeetingRoomNames</code> und <code>cancellationOfFirstBookingOfRoomR102</code>
-laufen, alle anderen Tests tragen <code>@Disabled</code> – sie sind Deine Aufträge. Entferne
-<code>@Disabled</code> an einem Test, sobald Du die Methode dazu angehst, und mach ihn grün.</p>
+<p>Baue erneut mit Maven.</p>
+<p>Alle Tests in <code>ReportsTest</code> sind grün. Das bleiben sie: Starte nach jedem der folgenden
+Schritte erneut mit Maven. Was sich ändert, ist nur, <strong>wie</strong> der Code es ausdrückt.</p>
 <h3 id="bau-die-schleife-zur-pipeline-um">Bau die Schleife zur Pipeline um</h3>
 <p>Lies <code>largeMeetingRoomNames</code> und sag in einem Satz, was die Methode liefert. Bau sie
 dann zu einer Stream-Pipeline um: filtern, sortieren, auf den Namen abbilden, mit
-Komma verbinden. Der Test bleibt grün.</p>
+Komma verbinden. Das Bild dazu – ein Fließband mit Maschinen und einem Eimer am Ende –
+zeigt die Visualisierung
+<a class="skr-doclink skr-doclink--visualization" href="../../../shared/lambdas-streams/lambdas-streams.html#stream">Lambdas, Streams und Optional</a>.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Für die Sortierung gibt es <code>Comparator.comparingInt(…)</code>, fürs
 Verbinden <code>Collectors.joining(…)</code>.</p>
 </blockquote>
-<h3 id="übergib-bedingungen-und-sortierungen-als-lambda">Übergib Bedingungen und Sortierungen als Lambda</h3>
-<p>Implementier <code>namesWhere</code>: Die Bedingung kommt als <code>Predicate&lt;Room&gt;</code> herein. Sieh Dir
-im Test <code>namesOfLargeTrainingRooms</code> an, wie zwei Lambdas mit <code>and</code> zu einer Bedingung
-werden.</p>
-<p>Im Test <code>roomsSortedByFloorThenLargestFirst</code> ist der <code>Comparator</code> noch unvollständig.
-Entferne dort <code>@Disabled</code> und ergänz ihn so, dass innerhalb eines Stockwerks der größte Raum zuerst kommt.</p>
+<h3 id="ersetz-die-anonymen-klassen-durch-lambdas">Ersetz die anonymen Klassen durch Lambdas</h3>
+<p>In <code>ReportsTest</code> stehen drei anonyme Klassen: zwei <code>Predicate&lt;Room&gt;</code> in
+<code>namesOfLargeTrainingRooms</code> und ein <code>Comparator&lt;Room&gt;</code> in
+<code>roomsSortedByFloorThenLargestFirst</code>.</p>
+<ul>
+<li>Schreib die beiden Bedingungen als Lambdas. Sieh Dir an, wie sie mit <code>and</code> zu einer
+Bedingung werden.</li>
+<li>Bau den <code>Comparator</code> aus <code>Comparator.comparingInt(Room::floor)</code> und
+<code>thenComparing</code> zusammen – innerhalb eines Stockwerks kommt der größte Raum zuerst.</li>
+<li>Bau <code>namesWhere</code> zur Pipeline um: Die Bedingung, die hereinkommt, passt direkt in
+<code>filter</code>.</li>
+</ul>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>thenComparing</code> nimmt auch einen zweiten <code>Comparator</code> für die
-Richtung.</p>
+Richtung – <code>reversed()</code> dreht ihn um.</p>
 </blockquote>
-<h3 id="zähle-mit-der-collections-api">Zähle mit der Collections-API</h3>
-<p>Implementier <code>bookedHoursPerPerson</code>: Stornierte Buchungen zählen nicht. Arbeite auf
-einer Kopie der Liste und entferne die stornierten Buchungen mit <code>removeIf</code>; summiere
-dann je Person mit <code>forEach</code> und <code>Map.merge</code>.</p>
-<p>Implementier <code>roomIdsPerPerson</code> ebenso ohne Stream: Für jede aktive Buchung holst Du
-mit <code>computeIfAbsent</code> die Menge der Person – oder legst sie an – und fügst die Raum-ID
-hinzu.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> <code>SampleData.BOOKINGS</code> ist mit <code>List.of</code> angelegt und lässt sich nicht
-ändern. Was passiert, wenn Du <code>removeIf</code> direkt darauf aufrufst?</p>
-</blockquote>
+<h3 id="lass-die-collections-api-die-schleifen-schreiben">Lass die Collections-API die Schleifen schreiben</h3>
+<p>Nicht alles muss ein Stream werden. Collections und Maps haben eigene Methoden, die ein
+Lambda nehmen:</p>
+<ul>
+<li>In <code>bookedHoursPerPerson</code>: Ersetz den <code>Iterator</code> durch <code>removeIf</code> und die Summe je
+Person durch <code>forEach</code> mit <code>Map.merge</code>.</li>
+<li>In <code>roomIdsPerPerson</code>: Ersetz das Prüfen auf <code>null</code> und das Anlegen der Menge durch
+<code>computeIfAbsent</code>. Die Schleife darf bleiben.</li>
+</ul>
 <h3 id="werte-mit-collectors-aus">Werte mit Collectors aus</h3>
-<p>Implementier mit Streams:</p>
+<p>Bau mit Streams um:</p>
 <ul>
 <li><code>roomCountPerType</code> mit <code>Collectors.groupingBy</code> und einem nachgelagerten Collector,</li>
 <li><code>namesBySeatsAtLeast</code> mit <code>Collectors.partitioningBy</code> – die Werte sind Namen, keine Räume,</li>
 <li><code>roomNamesBookedOn</code>: Bau Dir zuerst mit <code>Collectors.toMap</code> eine <code>Map</code> von Raum-ID zu
 Raumname, dann bildest Du die Buchungen des Tages darauf ab. Jeder Raum steht nur einmal
-im Ergebnis.</li>
+im Ergebnis – statt <code>contains</code> gibt es dafür eine Maschine auf dem Band.</li>
 </ul>
-<h3 id="benutze-optional-richtig">Benutze Optional richtig</h3>
-<p>Implementier <code>findRoom</code> so, dass sie ein <code>Optional&lt;Room&gt;</code> liefert. Sieh Dir im Test
-<code>findRoom</code> an, wie der Aufrufer mit <code>map</code> und <code>orElse</code> umgeht, ohne <code>isPresent</code> und
-<code>get</code>.</p>
-<p>Der Test <code>cancellationOfFirstBookingOfRoomR102</code> ist schon grün. Lies ihn und erklär,
-warum dort <code>flatMap</code> steht.</p>
+<h3 id="ersetz-null-durch-optional">Ersetz null durch Optional</h3>
+<p><code>findRoom</code> liefert <code>null</code>, wenn es den Raum nicht gibt; <code>roomNameOrUnknown</code> muss das
+wissen und prüfen.</p>
+<ol>
+<li>Ändere den Rückgabetyp von <code>findRoom</code> auf <code>Optional&lt;Room&gt;</code> und bau die Methode zur
+Pipeline um.</li>
+<li>Der Compiler meldet jetzt die Stellen, die mit <code>null</code> gerechnet haben. Bau
+<code>roomNameOrUnknown</code> ohne <code>if</code> um, mit <code>map</code> und <code>orElse</code>.</li>
+<li>Pass den Test <code>findRoom</code> an: statt <code>.name()</code> und <code>assertNull</code> jetzt <code>map</code>, <code>orElse</code>
+und <code>isEmpty</code> – ohne <code>isPresent</code> und <code>get</code>.</li>
+</ol>
+<p>Der Test <code>cancellationOfFirstBookingOfRoomR102</code> arbeitet schon mit <code>Optional</code>. Lies ihn
+und erklär, warum dort <code>flatMap</code> steht.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>Optional</code> ist ein Rückgabetyp. Als Feld oder Parameter macht es den
 Code nicht sicherer, nur länger – <code>Booking</code> speichert deshalb <code>cancelledOn</code> und
 gibt erst in <code>cancellation()</code> ein <code>Optional</code> heraus.</p>
 </blockquote>
-<h3 id="sag-das-verhalten-vorher">Sag das Verhalten vorher</h3>
-<p>Die beiden Tests in <code>PredictionsTest</code> tragen <code>@Disabled</code> und eine naheliegende
-Erwartung. Kopiere die Klasse nach <code>src/test/java/aufbau/lambdas</code>.</p>
-<p><code>PredictionsTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.lambdas;
-
-import static aufbau.lambdas.SampleData.ROOMS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-class PredictionsTest {
-
-    @Test
-    @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-    void howManyRoomsAreChecked() {
-        List&lt;String&gt; checked = new ArrayList&lt;&gt;();
-
-        Optional&lt;Room&gt; firstLargeRoom = ROOMS.stream()
-                .filter(room -&gt; {
-                    checked.add(room.id());
-                    return room.seats() &gt; 10;
-                })
-                .findFirst();
-
-        assertEquals(&quot;Munich&quot;, firstLargeRoom.orElseThrow().name());
-        assertEquals(8, checked.size());
-    }
-
-    @Test
-    @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-    void howOftenIsTheFallbackCreated() {
-        AtomicInteger calls = new AtomicInteger();
-
-        String name = Optional.of(&quot;Berlin&quot;).orElse(fallbackName(calls));
-
-        assertEquals(&quot;Berlin&quot;, name);
-        assertEquals(0, calls.get());
-    }
-
-    private static String fallbackName(AtomicInteger calls) {
-        calls.incrementAndGet();
-        return &quot;unknown&quot;;
-    }
-}
-</code></pre>
-<p>Geh für jeden Test so vor:</p>
-<ol>
-<li>Notier Deine Erwartung: Wie viele Räume prüft der Filter? Wie oft wird <code>fallbackName</code> aufgerufen?</li>
-<li>Entferne <code>@Disabled</code> und starte den Test.</li>
-<li>Erklär das Ergebnis.</li>
-<li>Korrigier die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.</li>
-</ol>
-<p>Ersetz danach in <code>howOftenIsTheFallbackCreated</code> das <code>orElse</code> durch <code>orElseGet</code> und
-pass die Assertion wieder an.</p>
+<h3 id="teste-mit-lambdas-assertall-und-assertthrows">Teste mit Lambdas: assertAll und assertThrows</h3>
+<p>JUnit nimmt an zwei Stellen Lambdas entgegen: <code>Assertions.assertAll</code> und
+<code>Assertions.assertThrows</code>. Sieh Dir beide Methoden in der Javadoc oder im JUnit User Guide an
+und bau damit Tests aus den früheren Übungen um:</p>
+<ul>
+<li><code>ObjectPoolTest</code> im Package <code>aufbau.wrapper</code>: Jeder Test führt alle seine Assertions aus und
+meldet alle, die scheitern – nicht nur die erste.</li>
+<li><code>personWithoutBirthDateIsRejected</code> in <code>aufbau.exceptions</code> und
+<code>secondBookingOfTheSameDayIsRejected</code> in <code>aufbau.junit</code>: Sie erwarten ihre Exception ohne
+<code>try</code>-<code>catch</code> und <code>fail</code>.</li>
+</ul>
+<p>Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
+einem <code>assertAll</code> – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.</p>
 <h3 id="ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf">Ruf eine Methode mit Checked Exception aus einem Lambda auf</h3>
-<p><code>readFile</code> wirft eine <code>IOException</code>. Kopiere die Klasse nach <code>src/test/java/aufbau/lambdas</code>.</p>
+<p><code>readFile</code> wirft eine <code>IOException</code>. Kopiere die Klasse ins Package <code>aufbau.lambdas</code> unter <code>src/test/java</code>.</p>
 <p><code>ExceptionsInLambdasTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.lambdas;
 
@@ -623,14 +693,15 @@ und in eine <code>UncheckedIOException</code> einpacken. Probier beide aus.</p>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
 <li>Was sagt die Stream-Fassung von <code>largeMeetingRoomNames</code>, was die Schleife verschweigt?</li>
-<li>Warum prüft der Stream in <code>howManyRoomsAreChecked</code> nur drei Räume und nicht alle acht?</li>
-<li>Wann ist <code>orElseGet</code> besser als <code>orElse</code>?</li>
+<li>Woran merkt der Aufrufer von <code>findRoom</code>, dass kein Raum gefunden werden kann – vorher und nachher?</li>
 <li>Warum steht im Test zur Stornierung <code>flatMap</code> und nicht <code>map</code>?</li>
+<li><code>stream()</code> ist eine Default-Methode von <code>Collection</code>. Was ist das – und wofür brauchen wir sie?</li>
+<li>Warum nehmen <code>assertAll</code> und <code>assertThrows</code> Lambdas entgegen und nicht einfach die Ergebnisse der Prüfungen oder Aufrufe?</li>
 <li>Welche Deiner beiden Lösungen für die Checked Exception würdest Du im Projekt verwenden – und warum?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Raumbuchungen auswerten
+<textarea id="skr-md-source" hidden aria-hidden="true"># Raumbuchungen mit Lambdas und Streams auswerten
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -639,7 +710,7 @@ und in eine <code>UncheckedIOException</code> einpacken. Probier beide aus.</p>
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in der Raumbuchung möchte ich Auswertungen über Räume und Buchungen als Pipelines formulieren, damit im Code steht, was ich wissen will, und nicht, wie die Schleife läuft.
+Als Entwickler:in der Raumbuchung möchte ich bestehende Auswertungen als Pipelines formulieren, damit im Code steht, was ich wissen will, und nicht, wie die Schleife läuft.
 
 &lt;/div&gt;
 
@@ -650,12 +721,13 @@ Als Entwickler:in der Raumbuchung möchte ich Auswertungen über Räume und Buch
 
 &lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
-- Du baust eine Schleife zu einer Stream-Pipeline um, ohne dass sich ihr Ergebnis ändert.
-- Du übergibst Bedingungen und Sortierungen als Lambda oder Methodenreferenz und kombinierst sie.
-- Du nutzt `removeIf`, `forEach` und `Map.merge` bzw. `computeIfAbsent`, statt Collections von Hand zu durchlaufen.
+- Du baust Schleifen zu Stream-Pipelines um, ohne dass sich ihr Ergebnis ändert – die Tests bleiben grün.
+- Du ersetzt anonyme Klassen durch Lambdas und Methodenreferenzen und kombinierst Bedingungen und Sortierungen.
+- Du nutzt `removeIf`, `forEach`, `Map.merge` und `computeIfAbsent` statt Collections von Hand zu durchlaufen.
 - Du wertest mit `groupingBy`, `partitioningBy`, `toMap` und `joining` aus.
-- Du gibst ein Ergebnis, das fehlen kann, als `Optional` zurück und unterscheidest `orElse` von `orElseGet`.
+- Du ersetzt eine Rückgabe, die `null` sein kann, durch `Optional`.
 - Du rufst eine Methode mit Checked Exception aus einem Lambda auf.
+- Du verwendest `assertAll` und `assertThrows` aus JUnit und begründest, warum sie Lambdas brauchen.
 
 &lt;/div&gt;
 
@@ -666,10 +738,11 @@ Als Entwickler:in der Raumbuchung möchte ich Auswertungen über Räume und Buch
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
 
-- [ ] In `ReportsTest` trägt kein Test mehr `@Disabled`, alle sind grün, und `largeMeetingRoomNames` kommt ohne Schleife aus.
-- [ ] Die Vorhersagen in `PredictionsTest` hast Du notiert, geprüft und die Assertions auf das tatsächliche Verhalten korrigiert.
+- [ ] `Reports` enthält keine `for`- oder `while`-Schleife mehr außer in `roomIdsPerPerson`, keine anonyme Klasse und kein `null`; `findRoom` liefert ein `Optional&lt;Room&gt;`.
+- [ ] In `ReportsTest` stehen keine anonymen Klassen mehr; alle Tests sind grün.
+- [ ] `ObjectPoolTest` prüft mit `assertAll`; `personWithoutBirthDateIsRejected` und `secondBookingOfTheSameDayIsRejected` erwarten ihre Exception mit `assertThrows`, ohne `try`-`catch` und `fail` – und sind grün.
 - [ ] In `ExceptionsInLambdasTest` trägt kein Test mehr `@Disabled`, alle sind grün, und `executeAction` liest die Datei über ein Lambda.
-- [ ] `mvn test` läuft ohne Fehler und ohne übersprungene Tests durch.
+- [ ] Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -679,17 +752,19 @@ Als Entwickler:in der Raumbuchung möchte ich Auswertungen über Räume und Buch
 &lt;/div&gt;
 
 
-Die Raumbuchung kennt Räume und Buchungen. Gefragt sind Auswertungen: Welche Räume
-sind groß genug, wer hat wie viele Stunden gebucht, was war am 1. Dezember belegt?
-Eine Auswertung gibt es schon – als Schleife. Die übrigen beschreiben Tests, die Du
-freischaltest und grün machst.
+Die Raumbuchung kennt Räume und Buchungen, und es gibt schon eine Reihe von Auswertungen:
+Welche Räume sind groß genug, wer hat wie viele Stunden gebucht, was war am 1. Dezember
+belegt? Sie funktionieren – geschrieben mit Schleifen, anonymen Klassen und einem `null`
+für „nicht gefunden“. Du baust sie Schritt für Schritt auf Lambdas, Streams und `Optional`
+um. Die Tests sind von Anfang an grün und müssen es nach jedem Schritt bleiben.
 
 ## Arbeitsschritte
 
 ### Lege das Paket an und kopiere den Code
 
-Leg in Deinem Projekt `aufbau` das Paket `aufbau.lambdas` an, unter `src/main/java`
-und unter `src/test/java`. Kopiere die folgenden Klassen nach `src/main/java/aufbau/lambdas`.
+Im Ordner `src/main/java` und im Ordner `src/test/java` Deines Projekts `java-aufbau` lege
+je das Package `aufbau.lambdas` an. Kopiere die folgenden Klassen ins Package unter
+`src/main/java`.
 
 `RoomType.java`:
 
@@ -766,7 +841,7 @@ public final class SampleData {
 }
 ```
 
-`Reports.java` – die Auswertungen; eine davon ist schon fertig:
+`Reports.java` – die Auswertungen, die Du umbaust:
 
 ```java
 package aufbau.lambdas;
@@ -775,9 +850,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -807,32 +884,117 @@ public final class Reports {
         return names.toString();
     }
 
+    // Names of all rooms that meet the condition, in the order of the list
     public static List&lt;String&gt; namesWhere(List&lt;Room&gt; rooms, Predicate&lt;Room&gt; condition) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+        List&lt;String&gt; names = new ArrayList&lt;&gt;();
+        for (Room room : rooms) {
+            if (condition.test(room)) {
+                names.add(room.name());
+            }
+        }
+        return names;
     }
 
+    // Booked hours per person; cancelled bookings do not count
     public static Map&lt;String, Integer&gt; bookedHoursPerPerson(List&lt;Booking&gt; bookings) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+        List&lt;Booking&gt; active = new ArrayList&lt;&gt;(bookings);
+        Iterator&lt;Booking&gt; iterator = active.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().isCancelled()) {
+                iterator.remove();
+            }
+        }
+        Map&lt;String, Integer&gt; hours = new HashMap&lt;&gt;();
+        for (Booking booking : active) {
+            Integer sum = hours.get(booking.bookedBy());
+            if (sum == null) {
+                hours.put(booking.bookedBy(), booking.hours());
+            } else {
+                hours.put(booking.bookedBy(), sum &#43; booking.hours());
+            }
+        }
+        return hours;
     }
 
+    // Ids of the booked rooms per person; cancelled bookings do not count
     public static Map&lt;String, Set&lt;String&gt;&gt; roomIdsPerPerson(List&lt;Booking&gt; bookings) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+        Map&lt;String, Set&lt;String&gt;&gt; roomIds = new HashMap&lt;&gt;();
+        for (Booking booking : bookings) {
+            if (!booking.isCancelled()) {
+                Set&lt;String&gt; ids = roomIds.get(booking.bookedBy());
+                if (ids == null) {
+                    ids = new HashSet&lt;&gt;();
+                    roomIds.put(booking.bookedBy(), ids);
+                }
+                ids.add(booking.roomId());
+            }
+        }
+        return roomIds;
     }
 
+    // Number of rooms per room type
     public static Map&lt;RoomType, Long&gt; roomCountPerType(List&lt;Room&gt; rooms) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+        Map&lt;RoomType, Long&gt; counts = new HashMap&lt;&gt;();
+        for (Room room : rooms) {
+            Long count = counts.get(room.type());
+            if (count == null) {
+                counts.put(room.type(), 1L);
+            } else {
+                counts.put(room.type(), count &#43; 1);
+            }
+        }
+        return counts;
     }
 
+    // Names of the rooms with at least the given number of seats (true) and with fewer (false)
     public static Map&lt;Boolean, List&lt;String&gt;&gt; namesBySeatsAtLeast(List&lt;Room&gt; rooms, int seats) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+        List&lt;String&gt; large = new ArrayList&lt;&gt;();
+        List&lt;String&gt; small = new ArrayList&lt;&gt;();
+        for (Room room : rooms) {
+            if (room.seats() &gt;= seats) {
+                large.add(room.name());
+            } else {
+                small.add(room.name());
+            }
+        }
+        Map&lt;Boolean, List&lt;String&gt;&gt; names = new HashMap&lt;&gt;();
+        names.put(true, large);
+        names.put(false, small);
+        return names;
     }
 
+    // Names of the rooms booked on the given date, each room once
     public static List&lt;String&gt; roomNamesBookedOn(List&lt;Room&gt; rooms, List&lt;Booking&gt; bookings, LocalDate date) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+        List&lt;String&gt; names = new ArrayList&lt;&gt;();
+        for (Booking booking : bookings) {
+            if (booking.date().equals(date)) {
+                for (Room room : rooms) {
+                    if (room.id().equals(booking.roomId()) &amp;&amp; !names.contains(room.name())) {
+                        names.add(room.name());
+                    }
+                }
+            }
+        }
+        return names;
     }
 
-    public static Optional&lt;Room&gt; findRoom(List&lt;Room&gt; rooms, String id) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
+    // The room with the given id, or null if there is none
+    public static Room findRoom(List&lt;Room&gt; rooms, String id) {
+        for (Room room : rooms) {
+            if (room.id().equals(id)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    // The name of the room with the given id, or &#34;unknown&#34;
+    public static String roomNameOrUnknown(List&lt;Room&gt; rooms, String id) {
+        Room room = findRoom(rooms, id);
+        if (room == null) {
+            return &#34;unknown&#34;;
+        }
+        return room.name();
     }
 
     private Reports() {
@@ -840,7 +1002,7 @@ public final class Reports {
 }
 ```
 
-Kopiere den Test nach `src/test/java/aufbau/lambdas`.
+Kopiere den Test ins Package `aufbau.lambdas` unter `src/test/java`.
 
 `ReportsTest.java`:
 
@@ -850,7 +1012,7 @@ package aufbau.lambdas;
 import static aufbau.lambdas.SampleData.BOOKINGS;
 import static aufbau.lambdas.SampleData.ROOMS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -859,7 +1021,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class ReportsTest {
@@ -870,10 +1031,19 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented namesWhere&#34;)
     void namesOfLargeTrainingRooms() {
-        Predicate&lt;Room&gt; isTrainingRoom = room -&gt; room.type() == RoomType.TRAINING;
-        Predicate&lt;Room&gt; hasAtLeast16Seats = room -&gt; room.seats() &gt;= 16;
+        Predicate&lt;Room&gt; isTrainingRoom = new Predicate&lt;Room&gt;() {
+            @Override
+            public boolean test(Room room) {
+                return room.type() == RoomType.TRAINING;
+            }
+        };
+        Predicate&lt;Room&gt; hasAtLeast16Seats = new Predicate&lt;Room&gt;() {
+            @Override
+            public boolean test(Room room) {
+                return room.seats() &gt;= 16;
+            }
+        };
 
         List&lt;String&gt; names = Reports.namesWhere(ROOMS, isTrainingRoom.and(hasAtLeast16Seats));
 
@@ -881,9 +1051,17 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have completed the comparator&#34;)
     void roomsSortedByFloorThenLargestFirst() {
-        Comparator&lt;Room&gt; byFloorThenLargestFirst = Comparator.comparingInt(Room::floor);
+        Comparator&lt;Room&gt; byFloorThenLargestFirst = new Comparator&lt;Room&gt;() {
+            @Override
+            public int compare(Room first, Room second) {
+                int byFloor = Integer.compare(first.floor(), second.floor());
+                if (byFloor != 0) {
+                    return byFloor;
+                }
+                return Integer.compare(second.seats(), first.seats());
+            }
+        };
 
         List&lt;Room&gt; sorted = new ArrayList&lt;&gt;(ROOMS);
         sorted.sort(byFloorThenLargestFirst);
@@ -894,7 +1072,6 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented bookedHoursPerPerson&#34;)
     void bookedHoursPerPersonIgnoresCancelledBookings() {
         Map&lt;String, Integer&gt; hours = Reports.bookedHoursPerPerson(BOOKINGS);
 
@@ -902,7 +1079,6 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented roomIdsPerPerson&#34;)
     void roomIdsPerPersonOfActiveBookings() {
         Map&lt;String, Set&lt;String&gt;&gt; roomIds = Reports.roomIdsPerPerson(BOOKINGS);
 
@@ -912,14 +1088,12 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented roomCountPerType&#34;)
     void roomCountPerType() {
         assertEquals(Map.of(RoomType.MEETING, 4L, RoomType.TRAINING, 3L, RoomType.OFFICE, 1L),
                 Reports.roomCountPerType(ROOMS));
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented namesBySeatsAtLeast&#34;)
     void namesBySeatsAtLeast10() {
         Map&lt;Boolean, List&lt;String&gt;&gt; names = Reports.namesBySeatsAtLeast(ROOMS, 10);
 
@@ -928,7 +1102,6 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented roomNamesBookedOn&#34;)
     void roomNamesBookedOnFirstOfDecember() {
         List&lt;String&gt; names = Reports.roomNamesBookedOn(ROOMS, BOOKINGS, LocalDate.of(2026, 12, 1));
 
@@ -936,10 +1109,15 @@ class ReportsTest {
     }
 
     @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented findRoom&#34;)
     void findRoom() {
-        assertEquals(&#34;Bremen&#34;, Reports.findRoom(ROOMS, &#34;R301&#34;).map(Room::name).orElse(&#34;unknown&#34;));
-        assertTrue(Reports.findRoom(ROOMS, &#34;R999&#34;).isEmpty());
+        assertEquals(&#34;Bremen&#34;, Reports.findRoom(ROOMS, &#34;R301&#34;).name());
+        assertNull(Reports.findRoom(ROOMS, &#34;R999&#34;));
+    }
+
+    @Test
+    void roomNameOrUnknown() {
+        assertEquals(&#34;Bremen&#34;, Reports.roomNameOrUnknown(ROOMS, &#34;R301&#34;));
+        assertEquals(&#34;unknown&#34;, Reports.roomNameOrUnknown(ROOMS, &#34;R999&#34;));
     }
 
     @Test
@@ -955,142 +1133,95 @@ class ReportsTest {
 }
 ```
 
-Starte die Tests:
+Baue erneut mit Maven.
 
-```bash
-mvn test
-```
-
-Der Bau ist grün: `largeMeetingRoomNames` und `cancellationOfFirstBookingOfRoomR102`
-laufen, alle anderen Tests tragen `@Disabled` – sie sind Deine Aufträge. Entferne
-`@Disabled` an einem Test, sobald Du die Methode dazu angehst, und mach ihn grün.
+Alle Tests in `ReportsTest` sind grün. Das bleiben sie: Starte nach jedem der folgenden
+Schritte erneut mit Maven. Was sich ändert, ist nur, **wie** der Code es ausdrückt.
 
 ### Bau die Schleife zur Pipeline um
 
 Lies `largeMeetingRoomNames` und sag in einem Satz, was die Methode liefert. Bau sie
 dann zu einer Stream-Pipeline um: filtern, sortieren, auf den Namen abbilden, mit
-Komma verbinden. Der Test bleibt grün.
+Komma verbinden. Das Bild dazu – ein Fließband mit Maschinen und einem Eimer am Ende –
+zeigt die Visualisierung
+[Lambdas, Streams und Optional](../../../shared/lambdas-streams/lambdas-streams.md#stream).
 
 &gt; **Hinweis:** Für die Sortierung gibt es `Comparator.comparingInt(…)`, fürs
 &gt; Verbinden `Collectors.joining(…)`.
 
-### Übergib Bedingungen und Sortierungen als Lambda
+### Ersetz die anonymen Klassen durch Lambdas
 
-Implementier `namesWhere`: Die Bedingung kommt als `Predicate&lt;Room&gt;` herein. Sieh Dir
-im Test `namesOfLargeTrainingRooms` an, wie zwei Lambdas mit `and` zu einer Bedingung
-werden.
+In `ReportsTest` stehen drei anonyme Klassen: zwei `Predicate&lt;Room&gt;` in
+`namesOfLargeTrainingRooms` und ein `Comparator&lt;Room&gt;` in
+`roomsSortedByFloorThenLargestFirst`.
 
-Im Test `roomsSortedByFloorThenLargestFirst` ist der `Comparator` noch unvollständig.
-Entferne dort `@Disabled` und ergänz ihn so, dass innerhalb eines Stockwerks der größte Raum zuerst kommt.
+* Schreib die beiden Bedingungen als Lambdas. Sieh Dir an, wie sie mit `and` zu einer
+  Bedingung werden.
+* Bau den `Comparator` aus `Comparator.comparingInt(Room::floor)` und
+  `thenComparing` zusammen – innerhalb eines Stockwerks kommt der größte Raum zuerst.
+* Bau `namesWhere` zur Pipeline um: Die Bedingung, die hereinkommt, passt direkt in
+  `filter`.
 
 &gt; **Hinweis:** `thenComparing` nimmt auch einen zweiten `Comparator` für die
-&gt; Richtung.
+&gt; Richtung – `reversed()` dreht ihn um.
 
-### Zähle mit der Collections-API
+### Lass die Collections-API die Schleifen schreiben
 
-Implementier `bookedHoursPerPerson`: Stornierte Buchungen zählen nicht. Arbeite auf
-einer Kopie der Liste und entferne die stornierten Buchungen mit `removeIf`; summiere
-dann je Person mit `forEach` und `Map.merge`.
+Nicht alles muss ein Stream werden. Collections und Maps haben eigene Methoden, die ein
+Lambda nehmen:
 
-Implementier `roomIdsPerPerson` ebenso ohne Stream: Für jede aktive Buchung holst Du
-mit `computeIfAbsent` die Menge der Person – oder legst sie an – und fügst die Raum-ID
-hinzu.
-
-&gt; **Hinweis:** `SampleData.BOOKINGS` ist mit `List.of` angelegt und lässt sich nicht
-&gt; ändern. Was passiert, wenn Du `removeIf` direkt darauf aufrufst?
+* In `bookedHoursPerPerson`: Ersetz den `Iterator` durch `removeIf` und die Summe je
+  Person durch `forEach` mit `Map.merge`.
+* In `roomIdsPerPerson`: Ersetz das Prüfen auf `null` und das Anlegen der Menge durch
+  `computeIfAbsent`. Die Schleife darf bleiben.
 
 ### Werte mit Collectors aus
 
-Implementier mit Streams:
+Bau mit Streams um:
 
 * `roomCountPerType` mit `Collectors.groupingBy` und einem nachgelagerten Collector,
 * `namesBySeatsAtLeast` mit `Collectors.partitioningBy` – die Werte sind Namen, keine Räume,
 * `roomNamesBookedOn`: Bau Dir zuerst mit `Collectors.toMap` eine `Map` von Raum-ID zu
   Raumname, dann bildest Du die Buchungen des Tages darauf ab. Jeder Raum steht nur einmal
-  im Ergebnis.
+  im Ergebnis – statt `contains` gibt es dafür eine Maschine auf dem Band.
 
-### Benutze Optional richtig
+### Ersetz null durch Optional
 
-Implementier `findRoom` so, dass sie ein `Optional&lt;Room&gt;` liefert. Sieh Dir im Test
-`findRoom` an, wie der Aufrufer mit `map` und `orElse` umgeht, ohne `isPresent` und
-`get`.
+`findRoom` liefert `null`, wenn es den Raum nicht gibt; `roomNameOrUnknown` muss das
+wissen und prüfen.
 
-Der Test `cancellationOfFirstBookingOfRoomR102` ist schon grün. Lies ihn und erklär,
-warum dort `flatMap` steht.
+1. Ändere den Rückgabetyp von `findRoom` auf `Optional&lt;Room&gt;` und bau die Methode zur
+   Pipeline um.
+2. Der Compiler meldet jetzt die Stellen, die mit `null` gerechnet haben. Bau
+   `roomNameOrUnknown` ohne `if` um, mit `map` und `orElse`.
+3. Pass den Test `findRoom` an: statt `.name()` und `assertNull` jetzt `map`, `orElse`
+   und `isEmpty` – ohne `isPresent` und `get`.
+
+Der Test `cancellationOfFirstBookingOfRoomR102` arbeitet schon mit `Optional`. Lies ihn
+und erklär, warum dort `flatMap` steht.
 
 &gt; **Hinweis:** `Optional` ist ein Rückgabetyp. Als Feld oder Parameter macht es den
 &gt; Code nicht sicherer, nur länger – `Booking` speichert deshalb `cancelledOn` und
 &gt; gibt erst in `cancellation()` ein `Optional` heraus.
 
-### Sag das Verhalten vorher
+### Teste mit Lambdas: assertAll und assertThrows
 
-Die beiden Tests in `PredictionsTest` tragen `@Disabled` und eine naheliegende
-Erwartung. Kopiere die Klasse nach `src/test/java/aufbau/lambdas`.
+JUnit nimmt an zwei Stellen Lambdas entgegen: `Assertions.assertAll` und
+`Assertions.assertThrows`. Sieh Dir beide Methoden in der Javadoc oder im JUnit User Guide an
+und bau damit Tests aus den früheren Übungen um:
 
-`PredictionsTest.java`:
+- `ObjectPoolTest` im Package `aufbau.wrapper`: Jeder Test führt alle seine Assertions aus und
+  meldet alle, die scheitern – nicht nur die erste.
+- `personWithoutBirthDateIsRejected` in `aufbau.exceptions` und
+  `secondBookingOfTheSameDayIsRejected` in `aufbau.junit`: Sie erwarten ihre Exception ohne
+  `try`-`catch` und `fail`.
 
-```java
-package aufbau.lambdas;
-
-import static aufbau.lambdas.SampleData.ROOMS;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-class PredictionsTest {
-
-    @Test
-    @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-    void howManyRoomsAreChecked() {
-        List&lt;String&gt; checked = new ArrayList&lt;&gt;();
-
-        Optional&lt;Room&gt; firstLargeRoom = ROOMS.stream()
-                .filter(room -&gt; {
-                    checked.add(room.id());
-                    return room.seats() &gt; 10;
-                })
-                .findFirst();
-
-        assertEquals(&#34;Munich&#34;, firstLargeRoom.orElseThrow().name());
-        assertEquals(8, checked.size());
-    }
-
-    @Test
-    @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-    void howOftenIsTheFallbackCreated() {
-        AtomicInteger calls = new AtomicInteger();
-
-        String name = Optional.of(&#34;Berlin&#34;).orElse(fallbackName(calls));
-
-        assertEquals(&#34;Berlin&#34;, name);
-        assertEquals(0, calls.get());
-    }
-
-    private static String fallbackName(AtomicInteger calls) {
-        calls.incrementAndGet();
-        return &#34;unknown&#34;;
-    }
-}
-```
-
-Geh für jeden Test so vor:
-
-1. Notier Deine Erwartung: Wie viele Räume prüft der Filter? Wie oft wird `fallbackName` aufgerufen?
-2. Entferne `@Disabled` und starte den Test.
-3. Erklär das Ergebnis.
-4. Korrigier die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.
-
-Ersetz danach in `howOftenIsTheFallbackCreated` das `orElse` durch `orElseGet` und
-pass die Assertion wieder an.
+Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
+einem `assertAll` – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.
 
 ### Ruf eine Methode mit Checked Exception aus einem Lambda auf
 
-`readFile` wirft eine `IOException`. Kopiere die Klasse nach `src/test/java/aufbau/lambdas`.
+`readFile` wirft eine `IOException`. Kopiere die Klasse ins Package `aufbau.lambdas` unter `src/test/java`.
 
 `ExceptionsInLambdasTest.java`:
 
@@ -1183,9 +1314,10 @@ class ExceptionsInLambdasTest {
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
 - Was sagt die Stream-Fassung von `largeMeetingRoomNames`, was die Schleife verschweigt?
-- Warum prüft der Stream in `howManyRoomsAreChecked` nur drei Räume und nicht alle acht?
-- Wann ist `orElseGet` besser als `orElse`?
+- Woran merkt der Aufrufer von `findRoom`, dass kein Raum gefunden werden kann – vorher und nachher?
 - Warum steht im Test zur Stornierung `flatMap` und nicht `map`?
+- `stream()` ist eine Default-Methode von `Collection`. Was ist das – und wofür brauchen wir sie?
+- Warum nehmen `assertAll` und `assertThrows` Lambdas entgegen und nicht einfach die Ergebnisse der Prüfungen oder Aufrufe?
 - Welche Deiner beiden Lösungen für die Checked Exception würdest Du im Projekt verwenden – und warum?
 
 &lt;/div&gt;
@@ -1195,14 +1327,14 @@ class ExceptionsInLambdasTest {
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#bau-die-schleife-zur-pipeline-um" class="skr-toc--h3">Bau die Schleife zur Pipeline um</a><a href="#übergib-bedingungen-und-sortierungen-als-lambda" class="skr-toc--h3">Übergib Bedingungen und Sortierungen als Lambda</a><a href="#zähle-mit-der-collections-api" class="skr-toc--h3">Zähle mit der Collections-API</a><a href="#werte-mit-collectors-aus" class="skr-toc--h3">Werte mit Collectors aus</a><a href="#benutze-optional-richtig" class="skr-toc--h3">Benutze Optional richtig</a><a href="#sag-das-verhalten-vorher" class="skr-toc--h3">Sag das Verhalten vorher</a><a href="#ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf" class="skr-toc--h3">Ruf eine Methode mit Checked Exception aus einem Lambda auf</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#bau-die-schleife-zur-pipeline-um" class="skr-toc--h3">Bau die Schleife zur Pipeline um</a><a href="#ersetz-die-anonymen-klassen-durch-lambdas" class="skr-toc--h3">Ersetz die anonymen Klassen durch Lambdas</a><a href="#lass-die-collections-api-die-schleifen-schreiben" class="skr-toc--h3">Lass die Collections-API die Schleifen schreiben</a><a href="#werte-mit-collectors-aus" class="skr-toc--h3">Werte mit Collectors aus</a><a href="#ersetz-null-durch-optional" class="skr-toc--h3">Ersetz null durch Optional</a><a href="#teste-mit-lambdas-assertall-und-assertthrows" class="skr-toc--h3">Teste mit Lambdas: assertAll und assertThrows</a><a href="#ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf" class="skr-toc--h3">Ruf eine Methode mit Checked Exception aus einem Lambda auf</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>

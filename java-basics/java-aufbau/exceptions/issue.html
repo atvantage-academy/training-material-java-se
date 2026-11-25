@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Früh scheitern, nicht spät · ATVANTAGE Academy</title>
-<meta name="description" content="Finde heraus, wann eine fehlende Angabe zur Exception wird, verlege den Fehler an den Anfang und miss, was Exceptions als Kontrollfluss kosten.">
+<title>Exceptions: früh scheitern, nicht spät · ATVANTAGE Academy</title>
+<meta name="description" content="Finde heraus, wann eine fehlende Angabe zur Exception wird, verlege den Fehler an den Anfang, lass den Raum eine Doppelbuchung ablehnen und miss, was Exceptions als Kontrollfluss kosten.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Früh scheitern, nicht spät">
-<meta property="og:description" content="Finde heraus, wann eine fehlende Angabe zur Exception wird, verlege den Fehler an den Anfang und miss, was Exceptions als Kontrollfluss kosten.">
+<meta property="og:title" content="Exceptions: früh scheitern, nicht spät">
+<meta property="og:description" content="Finde heraus, wann eine fehlende Angabe zur Exception wird, verlege den Fehler an den Anfang, lass den Raum eine Doppelbuchung ablehnen und miss, was Exceptions als Kontrollfluss kosten.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,15 +34,15 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Finde heraus, wann eine fehlende Angabe zur Exception wird, verlege den Fehler an den Anfang und miss, was Exceptions als Kontrollfluss kosten.","duration":20,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-exceptions-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Früh scheitern, nicht spät","topics":["Exceptions","Fail-fast","NullPointerException","JUnit"],"untranslated":null,"url":"/java-basics/java-aufbau/exceptions/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Finde heraus, wann eine fehlende Angabe zur Exception wird, verlege den Fehler an den Anfang, lass den Raum eine Doppelbuchung ablehnen und miss, was Exceptions als Kontrollfluss kosten.","duration":25,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-exceptions-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Exceptions: früh scheitern, nicht spät","topics":["Exceptions","Fail-fast","NullPointerException","JUnit"],"untranslated":null,"url":"/java-basics/java-aufbau/exceptions/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,16 +120,16 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Früh scheitern, nicht spät</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Exceptions: früh scheitern, nicht spät</span></nav>
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 20 Minuten</span><span class="skr-tag">Exceptions</span><span class="skr-tag">Fail-fast</span><span class="skr-tag">NullPointerException</span><span class="skr-tag">JUnit</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 25 Minuten</span><span class="skr-tag">Exceptions</span><span class="skr-tag">Fail-fast</span><span class="skr-tag">NullPointerException</span><span class="skr-tag">JUnit</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Früh scheitern, nicht spät</h1>
+  </div><h1 id="skr-page-title">Exceptions: früh scheitern, nicht spät</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -145,8 +145,9 @@
 <summary>Lernziele</summary>
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
-<li>Du sagst voraus, in welcher Zeile eine <code>NullPointerException</code> auftritt, und begründest es.</li>
-<li>Du prüfst Argumente im Konstruktor mit <code>Objects.requireNonNull</code> und testest das mit <code>assertThrows</code>.</li>
+<li>Du sagst voraus, was passiert, wenn ein Objekt mit fehlender Angabe benutzt wird, und begründest es.</li>
+<li>Du prüfst Argumente im Konstruktor, lehnst ungültige mit einer <code>IllegalArgumentException</code> ab und testest das mit <code>try</code>-<code>catch</code>.</li>
+<li>Du definierst eine eigene, geprüfte Exception, wirfst sie und erwartest sie im Test.</li>
 <li>Du misst, was eine Exception als Abbruchbedingung einer Schleife kostet.</li>
 </ul>
 </div>
@@ -155,9 +156,10 @@
 <summary>Definition of Done</summary>
 <div class="skr-guide-done">
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Paket aufbau.exceptions enthält ExceptionTimeTest und ExceptionControlFlowTest, keiner trägt mehr @Disabled." disabled="disabled"> Das Paket <code>aufbau.exceptions</code> enthält <code>ExceptionTimeTest</code> und <code>ExceptionControlFlowTest</code>, keiner trägt mehr <code>@Disabled</code>.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Konstruktor von Person lehnt ein fehlendes Geburtsdatum ab; ein Test prüft das mit assertThrows und der Meldung." disabled="disabled"> Der Konstruktor von <code>Person</code> lehnt ein fehlendes Geburtsdatum ab; ein Test prüft das mit <code>assertThrows</code> und der Meldung.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn test läuft grün." disabled="disabled"> <code>mvn test</code> läuft grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Das Package aufbau.exceptions enthält Person unter src/main/java sowie ExceptionTimeTest und ExceptionControlFlowTest unter src/test/java, keiner trägt mehr @Disabled." disabled="disabled"> Das Package <code>aufbau.exceptions</code> enthält <code>Person</code> unter <code>src/main/java</code> sowie <code>ExceptionTimeTest</code> und <code>ExceptionControlFlowTest</code> unter <code>src/test/java</code>, keiner trägt mehr <code>@Disabled</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Konstruktor von Person lehnt ein fehlendes Geburtsdatum mit einer IllegalArgumentException ab; ein Test prüft das mit try-catch und der Meldung." disabled="disabled"> Der Konstruktor von <code>Person</code> lehnt ein fehlendes Geburtsdatum mit einer <code>IllegalArgumentException</code> ab; ein Test prüft das mit <code>try</code>-<code>catch</code> und der Meldung.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Room lehnt eine zweite Buchung desselben Tages mit einer RoomAlreadyBookedException ab, die Raum und Tag nennt; secondBookingOfTheSameDayIsRejected prüft Typ, Raum und Tag." disabled="disabled"> <code>Room</code> lehnt eine zweite Buchung desselben Tages mit einer <code>RoomAlreadyBookedException</code> ab, die Raum und Tag nennt; <code>secondBookingOfTheSameDayIsRejected</code> prüft Typ, Raum und Tag.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft grün." disabled="disabled"> Der Maven-Build läuft grün.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die beiden Laufzeiten aus ExceptionControlFlowTest notiert und kannst den Unterschied erklären." disabled="disabled"> Du hast die beiden Laufzeiten aus <code>ExceptionControlFlowTest</code> notiert und kannst den Unterschied erklären.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
@@ -165,58 +167,54 @@
 </details>
 </div>
 <p>Eine Exception ist eine Nachricht: Hier stimmt etwas nicht. Wie nützlich sie ist,
-hängt davon ab, <strong>wann</strong> sie fliegt – und ob sie überhaupt einen Fehler meldet. Die
-beiden Tests stammen aus <em>Effective Java</em>. Sie kompilieren, sind aber mit <code>@Disabled</code>
-abgeschaltet. Die Spielregel:</p>
-<ol>
-<li>Lies den Test und <strong>notiere Deine Erwartung</strong>.</li>
-<li>Entferne <code>@Disabled</code> und starte den Test.</li>
-<li><strong>Erkläre</strong> jede Abweichung.</li>
-<li><strong>Korrigiere</strong> den Test auf das tatsächliche Verhalten, bis er grün ist.</li>
-</ol>
+hängt davon ab, <strong>wann</strong> sie fliegt – und ob sie überhaupt einen Fehler meldet.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="das-paket-anlegen">Das Paket anlegen</h3>
-<p>Leg in Deinem Projekt <code>aufbau</code> unter <code>src/test/java</code> das Paket <code>aufbau.exceptions</code> an.
-Beide Tests dieser Übung kommen dort hinein.</p>
+<h3 id="das-package-anlegen">Das Package anlegen</h3>
+<p>Im Ordner <code>src/main/java</code> und im Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege
+je das Package <code>aufbau.exceptions</code> an.</p>
 <h3 id="vorhersagen-wann-es-knallt">Vorhersagen, wann es knallt</h3>
-<p>Speichere den Test als <code>ExceptionTimeTest.java</code>:</p>
+<p>Leg im Package <code>aufbau.exceptions</code> unter <code>src/main/java</code> die Klasse <code>Person</code> an:</p>
 <pre><code class="language-java">package aufbau.exceptions;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.Period;
+
+public class Person {
+
+    private static final int ADULT_AGE = 18;
+
+    private final String name;
+    private final LocalDate birthDate;
+
+    public Person(String name, LocalDate birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public boolean isAdult() {
+        return Period.between(birthDate, LocalDate.now()).getYears() &gt;= ADULT_AGE;
+    }
+}
+</code></pre>
+<p>Leg danach im Package <code>aufbau.exceptions</code> unter <code>src/test/java</code> den Test
+<code>ExceptionTimeTest</code> an:</p>
+<pre><code class="language-java">package aufbau.exceptions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
 class ExceptionTimeTest {
-
-    static class Person {
-
-        private static final int ADULT_AGE = 18;
-
-        private final String name;
-        private final LocalDate birthDate;
-
-        Person(String name, LocalDate birthDate) {
-            this.name = name;
-            this.birthDate = birthDate;
-        }
-
-        String getName() {
-            return name;
-        }
-
-        LocalDate getBirthDate() {
-            return birthDate;
-        }
-
-        boolean isAdult() {
-            return Period.between(birthDate, LocalDate.now()).getYears() &gt;= ADULT_AGE;
-        }
-    }
 
     @Test
     void personWithoutBirthDate() {
@@ -230,11 +228,8 @@ class ExceptionTimeTest {
     }
 }
 </code></pre>
-<p><strong>Bevor Du startest:</strong> Läuft der Test durch? Wenn nicht – in welcher Zeile fliegt
-welche Exception, und wird <code>Person created</code> noch ausgegeben? Entferne <code>@Disabled</code>
-und starte den Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=ExceptionTimeTest
-</code></pre>
+<p>Was passiert, wenn Du den Test startest? Notier Deine Erwartung, entferne <code>@Disabled</code> und
+starte den Test in der IDE.</p>
 <p>Lies die Meldung der Exception genau: Welche Zeile nennt sie, und welche Zeile hat
 den Fehler verursacht?</p>
 <h3 id="den-fehler-an-den-anfang-verlegen">Den Fehler an den Anfang verlegen</h3>
@@ -242,27 +237,108 @@ den Fehler verursacht?</p>
 <code>personWithoutBirthDate</code> durch diesen:</p>
 <pre><code class="language-java">@Test
 void personWithoutBirthDateIsRejected() {
-    NullPointerException exception = assertThrows(NullPointerException.class, () -&gt; new Person(&quot;Max&quot;, null));
-    assertEquals(&quot;birthDate must not be null&quot;, exception.getMessage());
+    try {
+        new Person(&quot;Max&quot;, null);
+        fail(&quot;IllegalArgumentException expected&quot;);
+    } catch (IllegalArgumentException exception) {
+        assertEquals(&quot;birthDate must not be null&quot;, exception.getMessage());
+    }
 }
 </code></pre>
-<p>Ergänze den Import <code>import static org.junit.jupiter.api.Assertions.assertThrows;</code> und
-starte den Test – er muss zuerst <strong>scheitern</strong>:</p>
-<pre><code class="language-bash">mvn test -Dtest=ExceptionTimeTest
-</code></pre>
-<p>Ändere dann den Konstruktor von <code>Person</code> so, dass er ein fehlendes Geburtsdatum mit
-<code>Objects.requireNonNull</code> und genau dieser Meldung ablehnt. Starte den Test erneut,
-bis er grün ist.</p>
+<p>Kommt der Test hinter <code>new Person(…)</code>, ist keine Exception geflogen – dann lässt <code>fail</code> ihn
+scheitern. Ergänze den Import <code>import static org.junit.jupiter.api.Assertions.fail;</code> und
+starte den Test in der IDE – er muss zuerst <strong>scheitern</strong>.</p>
+<p>Ändere dann den Konstruktor von <code>Person</code> so, dass er ein fehlendes Geburtsdatum mit einer
+<code>IllegalArgumentException</code> und genau dieser Meldung ablehnt. Starte den Test erneut, bis er
+grün ist.</p>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<pre><code class="language-java">public Person(String name, LocalDate birthDate) {
+    if (birthDate == null) {
+        throw new IllegalArgumentException("birthDate must not be null");
+    }
+    this.name = name;
+    this.birthDate = birthDate;
+}</code></pre>
+</details>
+<h3 id="die-doppelbuchung-ablehnen">Die Doppelbuchung ablehnen</h3>
+<p>Der <code>Room</code> aus <em>Den Raum mit JUnit testen</em> nimmt eine zweite Buchung desselben Tages
+stillschweigend hin. Das soll er ablehnen – mit einer eigenen Exception, die den Raum und den
+Tag mitliefert, damit der Aufrufer darauf reagieren kann.</p>
+<ol>
+<li>Leg im Package <code>aufbau.junit</code> unter <code>src/main/java</code> die Klasse
+<code>RoomAlreadyBookedException</code> an. Sie erbt von <code>Exception</code>, bekommt im Konstruktor den Raum
+und den Tag und gibt beide über Getter heraus. Als Meldung eignet sich etwa
+<code>Seminar 1 is already booked on 2026-03-02</code>.</li>
+<li>Schreib in <code>RoomTest</code> einen Test <code>secondBookingOfTheSameDayIsRejected</code>: Nach einer ersten
+Buchung am Montag wirft eine zweite die <code>RoomAlreadyBookedException</code>, und sie nennt diesen
+Raum und diesen Tag.</li>
+<li>Ändere <code>book</code> in <code>Room</code>, bis der Test grün ist. Was meldet der Compiler danach für die
+übrigen Tests, die <code>book</code> aufrufen? Korrigier sie.</li>
+</ol>
 <blockquote>
-<p><strong>Hinweis:</strong> <code>Objects.requireNonNull</code> gibt sein Argument zurück – Prüfen und
-Zuweisen passen in eine Zeile.</p>
+<p><strong>Hinweis:</strong> Erwarte die Exception wie bei <code>Person</code> mit <code>try</code>-<code>catch</code> und <code>fail</code>. Im
+<code>catch</code>-Block hast Du die Exception in der Hand; dass sie <strong>denselben</strong> Raum nennt, prüft
+<code>assertSame</code>.</p>
 </blockquote>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: die Exception</summary>
+<pre><code class="language-java">package aufbau.junit;
+
+import java.time.LocalDate;
+
+public class RoomAlreadyBookedException extends Exception {
+
+    private final Room room;
+    private final LocalDate day;
+
+    public RoomAlreadyBookedException(Room room, LocalDate day) {
+        super(room.getName() + " is already booked on " + day);
+        this.room = room;
+        this.day = day;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public LocalDate getDay() {
+        return day;
+    }
+}</code></pre>
+</details>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: Test und Room</summary>
+<p>Im Test dazu die statischen Importe <code>Assertions.fail</code> und <code>Assertions.assertSame</code>. Jeder Test, der <code>book</code> aufruft, kündigt die Exception mit <code>throws</code> an.</p>
+<pre><code class="language-java">// RoomTest
+@Test
+void secondBookingOfTheSameDayIsRejected() throws RoomAlreadyBookedException {
+    room.book(MONDAY);
+    try {
+        room.book(MONDAY);
+        fail("RoomAlreadyBookedException expected");
+    } catch (RoomAlreadyBookedException exception) {
+        assertSame(room, exception.getRoom());
+        assertEquals(MONDAY, exception.getDay());
+    }
+}
+
+// Room
+public void book(LocalDate day) throws RoomAlreadyBookedException {
+    if (!bookedDays.add(day)) {
+        throw new RoomAlreadyBookedException(this, day);
+    }
+}</code></pre>
+</details>
+<p>Baue danach erneut mit Maven.</p>
 <h3 id="exceptions-als-schleifenende-messen">Exceptions als Schleifenende messen</h3>
-<p>Beide Tests laufen 100 000-mal über eine Liste mit zwei Elementen. Der erste hört auf,
-wenn <code>next()</code> eine <code>NoSuchElementException</code> wirft, der zweite fragt vorher
-<code>hasNext()</code>. <strong>Bevor Du startest:</strong> Schätze, um welchen Faktor die erste Variante
+<p>Beide Tests laufen 100 000-mal über eine Liste mit zwei Elementen und zählen dabei die
+Buchstaben – beide kommen auf denselben Wert. Der erste hört auf, wenn <code>next()</code> eine
+<code>NoSuchElementException</code> wirft, der zweite fragt vorher <code>hasNext()</code>. <strong>Bevor Du startest:</strong> Schätze, um welchen Faktor die erste Variante
 langsamer ist. Speichere den Test als <code>ExceptionControlFlowTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.exceptions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
 import java.util.List;
@@ -274,17 +350,20 @@ import org.junit.jupiter.api.Test;
 @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
 class ExceptionControlFlowTest {
 
+    // Adjust to your machine: smaller if the test runs too long, larger if the times are too short to compare.
     static final int REPETITIONS = 100_000;
     static final List&lt;String&gt; MESSAGES = List.of(&quot;x&quot;, &quot;y&quot;);
+    static final int EXPECTED_LETTERS = REPETITIONS * 2;
 
     @Test
     void stopWithException() {
         long start = System.nanoTime();
+        int letters = 0;
         for (int i = 0; i &lt; REPETITIONS; i++) {
             Iterator&lt;String&gt; iterator = MESSAGES.iterator();
             try {
                 while (true) {
-                    iterator.next();
+                    letters += iterator.next().length();
                 }
             } catch (NoSuchElementException e) {
                 // done
@@ -292,25 +371,26 @@ class ExceptionControlFlowTest {
         }
         long millis = (System.nanoTime() - start) / 1_000_000;
         System.out.println(&quot;Exception: &quot; + millis + &quot; ms&quot;);
+        assertEquals(EXPECTED_LETTERS, letters);
     }
 
     @Test
     void stopWithHasNext() {
         long start = System.nanoTime();
+        int letters = 0;
         for (int i = 0; i &lt; REPETITIONS; i++) {
             Iterator&lt;String&gt; iterator = MESSAGES.iterator();
             while (iterator.hasNext()) {
-                iterator.next();
+                letters += iterator.next().length();
             }
         }
         long millis = (System.nanoTime() - start) / 1_000_000;
         System.out.println(&quot;hasNext(): &quot; + millis + &quot; ms&quot;);
+        assertEquals(EXPECTED_LETTERS, letters);
     }
 }
 </code></pre>
-<p>Entferne <code>@Disabled</code> und starte den Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=ExceptionControlFlowTest
-</code></pre>
+<p>Entferne <code>@Disabled</code> und starte den Test in der IDE.</p>
 <p>Die Laufzeiten stehen in der Konsole. Vergleiche sie mit Deiner Schätzung.</p>
 <h3 id="für-schnelle-was-ist-erwachsen">Für Schnelle: Was ist erwachsen?</h3>
 <p>Ein Geburtsdatum in der Zukunft ist ebenso unsinnig wie keines. Schreib einen Test,
@@ -320,14 +400,13 @@ Wie testest Du das, ohne dass der Test vom heutigen Datum abhängt?</p>
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>In welcher Zeile ist der Fehler entstanden, in welcher ist er aufgefallen – und was bedeutet der Abstand im echten Code?</li>
-<li>Warum ist <code>NullPointerException</code> hier die richtige Exception – und wann wäre es <code>IllegalArgumentException</code>?</li>
+<li>Für das fehlende Geburtsdatum – den Parameter <code>null</code> – wirft der Konstruktor von <code>Person</code> eine <code>IllegalArgumentException</code> und keine <code>NullPointerException</code>. Warum?</li>
 <li>Warum ist die Schleife mit Exception so viel langsamer als die mit <code>hasNext()</code>?</li>
-<li>Wo in Deinem Projekt prüft ein Konstruktor seine Argumente nicht – und wo fällt das dann auf?</li>
+<li>Warum musste <code>book</code> die <code>RoomAlreadyBookedException</code> mit <code>throws</code> ankündigen, der Konstruktor von <code>Person</code> die <code>IllegalArgumentException</code> aber nicht?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Früh scheitern, nicht spät
+<textarea id="skr-md-source" hidden aria-hidden="true"># Exceptions: früh scheitern, nicht spät
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -347,8 +426,9 @@ Als Java-Entwickler:in möchte ich, dass ungültige Daten sofort auffallen, dami
 
 &lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
-- Du sagst voraus, in welcher Zeile eine `NullPointerException` auftritt, und begründest es.
-- Du prüfst Argumente im Konstruktor mit `Objects.requireNonNull` und testest das mit `assertThrows`.
+- Du sagst voraus, was passiert, wenn ein Objekt mit fehlender Angabe benutzt wird, und begründest es.
+- Du prüfst Argumente im Konstruktor, lehnst ungültige mit einer `IllegalArgumentException` ab und testest das mit `try`-`catch`.
+- Du definierst eine eigene, geprüfte Exception, wirfst sie und erwartest sie im Test.
 - Du misst, was eine Exception als Abbruchbedingung einer Schleife kostet.
 
 &lt;/div&gt;
@@ -360,9 +440,10 @@ Als Java-Entwickler:in möchte ich, dass ungültige Daten sofort auffallen, dami
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
 
-- [ ] Das Paket `aufbau.exceptions` enthält `ExceptionTimeTest` und `ExceptionControlFlowTest`, keiner trägt mehr `@Disabled`.
-- [ ] Der Konstruktor von `Person` lehnt ein fehlendes Geburtsdatum ab; ein Test prüft das mit `assertThrows` und der Meldung.
-- [ ] `mvn test` läuft grün.
+- [ ] Das Package `aufbau.exceptions` enthält `Person` unter `src/main/java` sowie `ExceptionTimeTest` und `ExceptionControlFlowTest` unter `src/test/java`, keiner trägt mehr `@Disabled`.
+- [ ] Der Konstruktor von `Person` lehnt ein fehlendes Geburtsdatum mit einer `IllegalArgumentException` ab; ein Test prüft das mit `try`-`catch` und der Meldung.
+- [ ] `Room` lehnt eine zweite Buchung desselben Tages mit einer `RoomAlreadyBookedException` ab, die Raum und Tag nennt; `secondBookingOfTheSameDayIsRejected` prüft Typ, Raum und Tag.
+- [ ] Der Maven-Build läuft grün.
 - [ ] Du hast die beiden Laufzeiten aus `ExceptionControlFlowTest` notiert und kannst den Unterschied erklären.
 - [ ] Du hast die Kontrollfragen beantwortet
 
@@ -374,64 +455,64 @@ Als Java-Entwickler:in möchte ich, dass ungültige Daten sofort auffallen, dami
 
 
 Eine Exception ist eine Nachricht: Hier stimmt etwas nicht. Wie nützlich sie ist,
-hängt davon ab, **wann** sie fliegt – und ob sie überhaupt einen Fehler meldet. Die
-beiden Tests stammen aus *Effective Java*. Sie kompilieren, sind aber mit `@Disabled`
-abgeschaltet. Die Spielregel:
-
-1. Lies den Test und **notiere Deine Erwartung**.
-2. Entferne `@Disabled` und starte den Test.
-3. **Erkläre** jede Abweichung.
-4. **Korrigiere** den Test auf das tatsächliche Verhalten, bis er grün ist.
+hängt davon ab, **wann** sie fliegt – und ob sie überhaupt einen Fehler meldet.
 
 ## Arbeitsschritte
 
-### Das Paket anlegen
+### Das Package anlegen
 
-Leg in Deinem Projekt `aufbau` unter `src/test/java` das Paket `aufbau.exceptions` an.
-Beide Tests dieser Übung kommen dort hinein.
+Im Ordner `src/main/java` und im Ordner `src/test/java` Deines Projekts `java-aufbau` lege
+je das Package `aufbau.exceptions` an.
 
 ### Vorhersagen, wann es knallt
 
-Speichere den Test als `ExceptionTimeTest.java`:
+Leg im Package `aufbau.exceptions` unter `src/main/java` die Klasse `Person` an:
+
+```java
+package aufbau.exceptions;
+
+import java.time.LocalDate;
+import java.time.Period;
+
+public class Person {
+
+    private static final int ADULT_AGE = 18;
+
+    private final String name;
+    private final LocalDate birthDate;
+
+    public Person(String name, LocalDate birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public boolean isAdult() {
+        return Period.between(birthDate, LocalDate.now()).getYears() &gt;= ADULT_AGE;
+    }
+}
+```
+
+Leg danach im Package `aufbau.exceptions` unter `src/test/java` den Test
+`ExceptionTimeTest` an:
 
 ```java
 package aufbau.exceptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
-import java.time.Period;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
 class ExceptionTimeTest {
-
-    static class Person {
-
-        private static final int ADULT_AGE = 18;
-
-        private final String name;
-        private final LocalDate birthDate;
-
-        Person(String name, LocalDate birthDate) {
-            this.name = name;
-            this.birthDate = birthDate;
-        }
-
-        String getName() {
-            return name;
-        }
-
-        LocalDate getBirthDate() {
-            return birthDate;
-        }
-
-        boolean isAdult() {
-            return Period.between(birthDate, LocalDate.now()).getYears() &gt;= ADULT_AGE;
-        }
-    }
 
     @Test
     void personWithoutBirthDate() {
@@ -446,13 +527,8 @@ class ExceptionTimeTest {
 }
 ```
 
-**Bevor Du startest:** Läuft der Test durch? Wenn nicht – in welcher Zeile fliegt
-welche Exception, und wird `Person created` noch ausgegeben? Entferne `@Disabled`
-und starte den Test:
-
-```bash
-mvn test -Dtest=ExceptionTimeTest
-```
+Was passiert, wenn Du den Test startest? Notier Deine Erwartung, entferne `@Disabled` und
+starte den Test in der IDE.
 
 Lies die Meldung der Exception genau: Welche Zeile nennt sie, und welche Zeile hat
 den Fehler verursacht?
@@ -465,34 +541,121 @@ Eine `Person` ohne Geburtsdatum soll gar nicht erst entstehen. Ersetze den Test
 ```java
 @Test
 void personWithoutBirthDateIsRejected() {
-    NullPointerException exception = assertThrows(NullPointerException.class, () -&gt; new Person(&#34;Max&#34;, null));
-    assertEquals(&#34;birthDate must not be null&#34;, exception.getMessage());
+    try {
+        new Person(&#34;Max&#34;, null);
+        fail(&#34;IllegalArgumentException expected&#34;);
+    } catch (IllegalArgumentException exception) {
+        assertEquals(&#34;birthDate must not be null&#34;, exception.getMessage());
+    }
 }
 ```
 
-Ergänze den Import `import static org.junit.jupiter.api.Assertions.assertThrows;` und
-starte den Test – er muss zuerst **scheitern**:
+Kommt der Test hinter `new Person(…)`, ist keine Exception geflogen – dann lässt `fail` ihn
+scheitern. Ergänze den Import `import static org.junit.jupiter.api.Assertions.fail;` und
+starte den Test in der IDE – er muss zuerst **scheitern**.
 
-```bash
-mvn test -Dtest=ExceptionTimeTest
-```
+Ändere dann den Konstruktor von `Person` so, dass er ein fehlendes Geburtsdatum mit einer
+`IllegalArgumentException` und genau dieser Meldung ablehnt. Starte den Test erneut, bis er
+grün ist.
 
-Ändere dann den Konstruktor von `Person` so, dass er ein fehlendes Geburtsdatum mit
-`Objects.requireNonNull` und genau dieser Meldung ablehnt. Starte den Test erneut,
-bis er grün ist.
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
 
-&gt; **Hinweis:** `Objects.requireNonNull` gibt sein Argument zurück – Prüfen und
-&gt; Zuweisen passen in eine Zeile.
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public Person(String name, LocalDate birthDate) {
+    if (birthDate == null) {
+        throw new IllegalArgumentException(&#34;birthDate must not be null&#34;);
+    }
+    this.name = name;
+    this.birthDate = birthDate;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+### Die Doppelbuchung ablehnen
+
+Der `Room` aus *Den Raum mit JUnit testen* nimmt eine zweite Buchung desselben Tages
+stillschweigend hin. Das soll er ablehnen – mit einer eigenen Exception, die den Raum und den
+Tag mitliefert, damit der Aufrufer darauf reagieren kann.
+
+1. Leg im Package `aufbau.junit` unter `src/main/java` die Klasse
+   `RoomAlreadyBookedException` an. Sie erbt von `Exception`, bekommt im Konstruktor den Raum
+   und den Tag und gibt beide über Getter heraus. Als Meldung eignet sich etwa
+   `Seminar 1 is already booked on 2026-03-02`.
+2. Schreib in `RoomTest` einen Test `secondBookingOfTheSameDayIsRejected`: Nach einer ersten
+   Buchung am Montag wirft eine zweite die `RoomAlreadyBookedException`, und sie nennt diesen
+   Raum und diesen Tag.
+3. Ändere `book` in `Room`, bis der Test grün ist. Was meldet der Compiler danach für die
+   übrigen Tests, die `book` aufrufen? Korrigier sie.
+
+&gt; **Hinweis:** Erwarte die Exception wie bei `Person` mit `try`-`catch` und `fail`. Im
+&gt; `catch`-Block hast Du die Exception in der Hand; dass sie **denselben** Raum nennt, prüft
+&gt; `assertSame`.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: die Exception&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package aufbau.junit;
+
+import java.time.LocalDate;
+
+public class RoomAlreadyBookedException extends Exception {
+
+    private final Room room;
+    private final LocalDate day;
+
+    public RoomAlreadyBookedException(Room room, LocalDate day) {
+        super(room.getName() &#43; &#34; is already booked on &#34; &#43; day);
+        this.room = room;
+        this.day = day;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public LocalDate getDay() {
+        return day;
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: Test und Room&lt;/summary&gt;
+&lt;p&gt;Im Test dazu die statischen Importe &lt;code&gt;Assertions.fail&lt;/code&gt; und &lt;code&gt;Assertions.assertSame&lt;/code&gt;. Jeder Test, der &lt;code&gt;book&lt;/code&gt; aufruft, kündigt die Exception mit &lt;code&gt;throws&lt;/code&gt; an.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// RoomTest
+@Test
+void secondBookingOfTheSameDayIsRejected() throws RoomAlreadyBookedException {
+    room.book(MONDAY);
+    try {
+        room.book(MONDAY);
+        fail(&#34;RoomAlreadyBookedException expected&#34;);
+    } catch (RoomAlreadyBookedException exception) {
+        assertSame(room, exception.getRoom());
+        assertEquals(MONDAY, exception.getDay());
+    }
+}
+
+// Room
+public void book(LocalDate day) throws RoomAlreadyBookedException {
+    if (!bookedDays.add(day)) {
+        throw new RoomAlreadyBookedException(this, day);
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+Baue danach erneut mit Maven.
 
 ### Exceptions als Schleifenende messen
 
-Beide Tests laufen 100 000-mal über eine Liste mit zwei Elementen. Der erste hört auf,
-wenn `next()` eine `NoSuchElementException` wirft, der zweite fragt vorher
-`hasNext()`. **Bevor Du startest:** Schätze, um welchen Faktor die erste Variante
+Beide Tests laufen 100 000-mal über eine Liste mit zwei Elementen und zählen dabei die
+Buchstaben – beide kommen auf denselben Wert. Der erste hört auf, wenn `next()` eine
+`NoSuchElementException` wirft, der zweite fragt vorher `hasNext()`. **Bevor Du startest:** Schätze, um welchen Faktor die erste Variante
 langsamer ist. Speichere den Test als `ExceptionControlFlowTest.java`:
 
 ```java
 package aufbau.exceptions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Iterator;
 import java.util.List;
@@ -504,17 +667,20 @@ import org.junit.jupiter.api.Test;
 @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
 class ExceptionControlFlowTest {
 
+    // Adjust to your machine: smaller if the test runs too long, larger if the times are too short to compare.
     static final int REPETITIONS = 100_000;
     static final List&lt;String&gt; MESSAGES = List.of(&#34;x&#34;, &#34;y&#34;);
+    static final int EXPECTED_LETTERS = REPETITIONS * 2;
 
     @Test
     void stopWithException() {
         long start = System.nanoTime();
+        int letters = 0;
         for (int i = 0; i &lt; REPETITIONS; i&#43;&#43;) {
             Iterator&lt;String&gt; iterator = MESSAGES.iterator();
             try {
                 while (true) {
-                    iterator.next();
+                    letters &#43;= iterator.next().length();
                 }
             } catch (NoSuchElementException e) {
                 // done
@@ -522,28 +688,27 @@ class ExceptionControlFlowTest {
         }
         long millis = (System.nanoTime() - start) / 1_000_000;
         System.out.println(&#34;Exception: &#34; &#43; millis &#43; &#34; ms&#34;);
+        assertEquals(EXPECTED_LETTERS, letters);
     }
 
     @Test
     void stopWithHasNext() {
         long start = System.nanoTime();
+        int letters = 0;
         for (int i = 0; i &lt; REPETITIONS; i&#43;&#43;) {
             Iterator&lt;String&gt; iterator = MESSAGES.iterator();
             while (iterator.hasNext()) {
-                iterator.next();
+                letters &#43;= iterator.next().length();
             }
         }
         long millis = (System.nanoTime() - start) / 1_000_000;
         System.out.println(&#34;hasNext(): &#34; &#43; millis &#43; &#34; ms&#34;);
+        assertEquals(EXPECTED_LETTERS, letters);
     }
 }
 ```
 
-Entferne `@Disabled` und starte den Test:
-
-```bash
-mvn test -Dtest=ExceptionControlFlowTest
-```
+Entferne `@Disabled` und starte den Test in der IDE.
 
 Die Laufzeiten stehen in der Konsole. Vergleiche sie mit Deiner Schätzung.
 
@@ -560,10 +725,9 @@ Wie testest Du das, ohne dass der Test vom heutigen Datum abhängt?
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- In welcher Zeile ist der Fehler entstanden, in welcher ist er aufgefallen – und was bedeutet der Abstand im echten Code?
-- Warum ist `NullPointerException` hier die richtige Exception – und wann wäre es `IllegalArgumentException`?
+- Für das fehlende Geburtsdatum – den Parameter `null` – wirft der Konstruktor von `Person` eine `IllegalArgumentException` und keine `NullPointerException`. Warum?
 - Warum ist die Schleife mit Exception so viel langsamer als die mit `hasNext()`?
-- Wo in Deinem Projekt prüft ein Konstruktor seine Argumente nicht – und wo fällt das dann auf?
+- Warum musste `book` die `RoomAlreadyBookedException` mit `throws` ankündigen, der Konstruktor von `Person` die `IllegalArgumentException` aber nicht?
 
 &lt;/div&gt;
 
@@ -572,14 +736,14 @@ Wie testest Du das, ohne dass der Test vom heutigen Datum abhängt?
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-paket-anlegen" class="skr-toc--h3">Das Paket anlegen</a><a href="#vorhersagen-wann-es-knallt" class="skr-toc--h3">Vorhersagen, wann es knallt</a><a href="#den-fehler-an-den-anfang-verlegen" class="skr-toc--h3">Den Fehler an den Anfang verlegen</a><a href="#exceptions-als-schleifenende-messen" class="skr-toc--h3">Exceptions als Schleifenende messen</a><a href="#für-schnelle-was-ist-erwachsen" class="skr-toc--h3">Für Schnelle: Was ist erwachsen?</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#das-package-anlegen" class="skr-toc--h3">Das Package anlegen</a><a href="#vorhersagen-wann-es-knallt" class="skr-toc--h3">Vorhersagen, wann es knallt</a><a href="#den-fehler-an-den-anfang-verlegen" class="skr-toc--h3">Den Fehler an den Anfang verlegen</a><a href="#die-doppelbuchung-ablehnen" class="skr-toc--h3">Die Doppelbuchung ablehnen</a><a href="#exceptions-als-schleifenende-messen" class="skr-toc--h3">Exceptions als Schleifenende messen</a><a href="#für-schnelle-was-ist-erwachsen" class="skr-toc--h3">Für Schnelle: Was ist erwachsen?</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>

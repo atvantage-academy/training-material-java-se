@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Eigene Annotationen · ATVANTAGE Academy</title>
+<meta name="description" content="Annotationen als Metadaten, die erst ein Leser mit Bedeutung füllt – eine eigene Annotation Schritt für Schritt mit Attributen, Default-Werten und Arrays, die Meta-Annotationen @Retention und @Target und das Auslesen per Reflection.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Eigene Annotationen">
+<meta property="og:description" content="Annotationen als Metadaten, die erst ein Leser mit Bedeutung füllt – eine eigene Annotation Schritt für Schritt mit Attributen, Default-Werten und Arrays, die Meta-Annotationen @Retention und @Target und das Auslesen per Reflection.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Annotationen als Metadaten, die erst ein Leser mit Bedeutung füllt – eine eigene Annotation Schritt für Schritt mit Attributen, Default-Werten und Arrays, die Meta-Annotationen @Retention und @Target und das Auslesen per Reflection.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/annotationen/annotationen.css","src":"annotationen.css","type":"style"},{"path":"shared/annotationen/annotationen.js","src":"annotationen.js","type":"script"}],"pageId":"shared-annotationen","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Eigene Annotationen","topics":null,"untranslated":null,"url":"/shared/annotationen/annotationen.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../skriptorium/stage.css?v=c76b28bc">
+<script src="../../skriptorium/stage.js?v=a8ce5bf6" defer></script>
+
+<link rel="stylesheet" href="../../shared/annotationen/annotationen.css?v=84b8f067">
+<script src="../../shared/annotationen/annotationen.js?v=d23da3da" defer></script>
+
+</head>
+<body class="skr-stage" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization skriptorium.stage" data-skr-lang="de" data-skr-stage-home="../../" data-skr-audience="learner">
+  <a class="skr-skip-link" href="#skr-stage-main">Zum Inhalt springen</a>
+  
+<header class="skr-stage__bar">
+  <img class="skr-stage__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-stage__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-stage__title">Eigene Annotationen</span>
+  <div class="skr-stage__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-stage-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  <button type="button" class="skr-stage__nav skr-stage__close" data-skr-stage-close hidden
+        title="Schließen" aria-label="Schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+
+</header>
+  
+  <main class="skr-stage__main" id="skr-stage-main">
+    <p class="an-lead">Eine Annotation ist ein <strong>Etikett am Code</strong>. Sie tut nichts – sie wird gelesen. Wer sie liest und wann, entscheidet darüber, was sie bewirkt. Eine eigene Annotation zu schreiben ist deshalb schnell erledigt; der eigentliche Teil ist der Code, der sie auswertet.</p>
+<p class="an-marken"><span class="skr-badge">seit Java 5</span> <span class="skr-badge">@Repeatable seit Java 8</span></p>
+<h2 id="was">Was eine Annotation ist</h2>
+<p>Eine Annotation hängt <strong>Metadaten</strong> an eine Klasse, eine Methode, ein Feld oder einen
+Parameter. Am Verhalten des Codes ändert sie nichts: Eine Methode mit <code>@Test</code> läuft
+genauso wie ohne. Bedeutung bekommt sie erst durch einen <strong>Leser</strong> – und davon gibt es
+drei Arten:</p>
+<div class="an-leser">
+<div class="an-karte">
+<p class="an-karte__wann">Beim Übersetzen</p>
+<p class="an-karte__wer">der Compiler</p>
+<p><code>@Override</code> verlangt, dass die Methode wirklich etwas überschreibt. Ein Tippfehler fällt
+sofort auf:</p>
+<pre><code class="language-java">@Override
+public String tostring() {
+    return &quot;Raum&quot;;
+}
+</code></pre>
+<pre><code class="language-text">Raum.java:2: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+</code></pre>
+</div>
+<div class="an-karte">
+<p class="an-karte__wann">Beim Übersetzen</p>
+<p class="an-karte__wer">ein Annotation Processor</p>
+<p>Ein Programm, das sich in <code>javac</code> einklinkt, die Annotationen liest und daraus <strong>neuen
+Quelltext</strong> erzeugt oder Fehler meldet – etwa Lombok (<code>@Getter</code>) oder MapStruct
+(<code>@Mapper</code>). Zur Laufzeit ist von seiner Arbeit nur das Ergebnis da.</p>
+</div>
+<div class="an-karte">
+<p class="an-karte__wann">Zur Laufzeit</p>
+<p class="an-karte__wer">ein Framework per Reflection</p>
+<p>JUnit sucht in der Testklasse nach Methoden mit <code>@Test</code> und ruft sie auf:</p>
+<pre><code class="language-java">@Test
+void suchtRaumNachNummer() { … }
+</code></pre>
+<p>Ohne JUnit ist <code>@Test</code> nur ein Etikett, das niemand liest.</p>
+</div>
+</div>
+<h2 id="schreiben">Eine Annotation schreiben</h2>
+<p>Eine Annotation deklariert man wie ein Interface, mit einem <code>@</code> vor <code>interface</code>. Ihre
+<strong>Attribute</strong> sind Methoden <strong>ohne Parameter</strong>; der Rückgabetyp ist der Typ des Attributs.</p>
+<pre><code class="language-java">public @interface Protokolliert {      // eigene Datei: Protokolliert.java
+    String value();                    // Attribut „value“ vom Typ String
+    boolean mitArgumenten();           // Attribut „mitArgumenten“ vom Typ boolean
+}
+</code></pre>
+<p>Bei der Verwendung sehen die Attribute aus wie Zuweisungen – ausgelesen werden sie
+später wie Methoden: <code>p.value()</code>, <code>p.mitArgumenten()</code>. Implementieren muss man die
+Methoden nie; das erledigt Java.</p>
+<h2 id="attribute">Attribute Schritt für Schritt</h2>
+<p>Geh die Stufen durch. Jede zeigt dieselbe Annotation <code>@Protokolliert</code> am <code>RaumKatalog</code>:
+die Deklaration, eine gültige Verwendung und eine ungültige mit der Meldung des Compilers.</p>
+<div class="an-wahl" data-an-key="stufe">
+<div class="an-knoepfe" role="group" aria-label="Stufe">
+<button type="button" class="an-knopf" data-an-wert="markierung">1 · Nur Markierung</button>
+<button type="button" class="an-knopf" data-an-wert="value">2 · value</button>
+<button type="button" class="an-knopf" data-an-wert="mehrere">3 · Mehrere Attribute</button>
+<button type="button" class="an-knopf" data-an-wert="default">4 · Default-Werte</button>
+<button type="button" class="an-knopf" data-an-wert="array">5 · Arrays</button>
+</div>
+<div class="an-panel" data-an-id="markierung">
+<p class="an-schritt">1 · Nur Markierung</p>
+<p>Ohne Attribut ist die Annotation ein reines Etikett: Sie ist da oder nicht da.</p>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">Deklaration</p>
+<pre><code class="language-java">public @interface Protokolliert {
+}
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Gültig</p>
+<pre><code class="language-java">@Protokolliert
+void raumSuchen() { }
+</code></pre>
+</div>
+</div>
+<p class="an-titel an-titel--falsch">Ungültig – ein Wert, für den es kein Attribut gibt</p>
+<pre><code class="language-java">@Protokolliert(&quot;Raum suchen&quot;)
+void raumSuchen() { }
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:2: error: cannot find symbol
+    @Protokolliert(&quot;Raum suchen&quot;)
+                   ^
+  symbol:   method value()
+  location: @interface Protokolliert
+</code></pre>
+<p>Der Compiler sucht eine Methode <code>value()</code> – ein erster Hinweis auf die nächste Stufe.</p>
+</div>
+<div class="an-panel" data-an-id="value">
+<p class="an-schritt">2 · <code>value</code> – das besondere Attribut</p>
+<p>Heißt das <strong>einzige</strong> angegebene Attribut <code>value</code>, darf man den Namen weglassen:
+<code>@Protokolliert(&quot;Raum suchen&quot;)</code> ist die Kurzschreibweise für
+<code>@Protokolliert(value = &quot;Raum suchen&quot;)</code>. Für jeden anderen Namen gilt das nicht.</p>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">Deklaration</p>
+<pre><code class="language-java">public @interface Protokolliert {
+    String value();
+}
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Gültig</p>
+<pre><code class="language-java">@Protokolliert(&quot;Raum suchen&quot;)
+void raumSuchen() { }
+
+@Protokolliert(value = &quot;Raum buchen&quot;)
+void raumBuchen() { }
+</code></pre>
+</div>
+</div>
+<p class="an-titel an-titel--falsch">Ungültig – das Attribut fehlt</p>
+<pre><code class="language-java">@Protokolliert
+void raumSuchen() { }
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:2: error: annotation @Protokolliert is missing a default value for the element 'value'
+    @Protokolliert
+    ^
+</code></pre>
+<p>Ein Attribut ohne Default-Wert ist Pflicht. Die Meldung verrät schon, wie man das ändert.</p>
+</div>
+<div class="an-panel" data-an-id="mehrere">
+<p class="an-schritt">3 · Mehrere Attribute – dann mit Namen</p>
+<p>Sobald mehr als ein Attribut angegeben wird, braucht <strong>jedes</strong> seinen Namen, auch
+<code>value</code>. Die Reihenfolge ist frei.</p>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">Deklaration</p>
+<pre><code class="language-java">public @interface Protokolliert {
+    String value();
+    boolean mitArgumenten();
+}
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Gültig</p>
+<pre><code class="language-java">@Protokolliert(value = &quot;Raum suchen&quot;, mitArgumenten = true)
+void raumSuchen() { }
+</code></pre>
+</div>
+</div>
+<p class="an-titel an-titel--falsch">Ungültig – Kurzschreibweise neben einem zweiten Attribut</p>
+<pre><code class="language-java">@Protokolliert(&quot;Raum suchen&quot;, mitArgumenten = true)
+void raumSuchen() { }
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:2: error: annotation values must be of the form 'name=value'
+    @Protokolliert(&quot;Raum suchen&quot;, mitArgumenten = true)
+                   ^
+RaumKatalog.java:2: error: annotation @Protokolliert is missing a default value for the element 'value'
+    @Protokolliert(&quot;Raum suchen&quot;, mitArgumenten = true)
+    ^
+</code></pre>
+<p>Und <code>@Protokolliert(&quot;Raum suchen&quot;)</code> allein geht jetzt auch nicht mehr: <code>… is missing a default value for the element 'mitArgumenten'</code>. Beide Attribute sind Pflicht.</p>
+</div>
+<div class="an-panel" data-an-id="default">
+<p class="an-schritt">4 · Default-Werte</p>
+<p>Mit <code>default</code> wird ein Attribut <strong>optional</strong>. Was einen Default-Wert hat, darf man
+weglassen – und bleibt dann nur <code>value</code> übrig, gilt wieder die Kurzschreibweise.</p>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">Deklaration</p>
+<pre><code class="language-java">public @interface Protokolliert {
+    String value();
+    boolean mitArgumenten() default false;
+}
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Gültig</p>
+<pre><code class="language-java">@Protokolliert(&quot;Raum suchen&quot;)
+void raumSuchen() { }
+
+@Protokolliert(value = &quot;Raum buchen&quot;, mitArgumenten = true)
+void raumBuchen() { }
+</code></pre>
+</div>
+</div>
+<p class="an-titel an-titel--falsch">Ungültig – das Pflicht-Attribut fehlt</p>
+<pre><code class="language-java">@Protokolliert(mitArgumenten = true)
+void raumSuchen() { }
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:2: error: annotation @Protokolliert is missing a default value for the element 'value'
+    @Protokolliert(mitArgumenten = true)
+    ^
+</code></pre>
+<p>Faustregel: das wichtigste Attribut <code>value</code> nennen und ohne Default lassen, alles andere
+mit einem Default versehen – dann bleibt die häufigste Verwendung kurz.</p>
+</div>
+<div class="an-panel" data-an-id="array">
+<p class="an-schritt">5 · Arrays</p>
+<p>Ein Attribut darf ein Array sein. Die Werte stehen in geschweiften Klammern; bei <strong>einem</strong>
+Element dürfen die Klammern entfallen. <code>default {}</code> macht das Attribut optional.</p>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">Deklaration</p>
+<pre><code class="language-java">public @interface Protokolliert {
+    String value();
+    boolean mitArgumenten() default false;
+    String[] schlagworte() default {};
+}
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Gültig</p>
+<pre><code class="language-java">@Protokolliert(value = &quot;Raum suchen&quot;, schlagworte = {&quot;Suche&quot;, &quot;Raum&quot;})
+void raumSuchen() { }
+
+@Protokolliert(value = &quot;Raum buchen&quot;, schlagworte = &quot;Buchung&quot;)
+void raumBuchen() { }
+</code></pre>
+</div>
+</div>
+<p class="an-titel an-titel--falsch">Ungültig – eine Liste statt eines Array-Literals</p>
+<pre><code class="language-java">@Protokolliert(value = &quot;Raum suchen&quot;, schlagworte = List.of(&quot;Suche&quot;, &quot;Raum&quot;))
+void raumSuchen() { }
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:4: error: expression not allowed as annotation value
+    @Protokolliert(value = &quot;Raum suchen&quot;, schlagworte = List.of(&quot;Suche&quot;, &quot;Raum&quot;))
+                                                               ^
+</code></pre>
+<p><code>List.of(…)</code> ist ein Methodenaufruf – und der läuft erst zur Laufzeit. Annotationen
+stehen aber schon fest, wenn der Compiler die Klassendatei schreibt.</p>
+</div>
+</div>
+<h2 id="typen">Erlaubte Attributtypen</h2>
+<p>Weil die Werte in der Klassendatei stehen, sind nur Typen erlaubt, deren Werte der
+Compiler dort ablegen kann:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Erlaubt</th>
+					<th>Beispiel</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>primitive Typen</td>
+					<td><code>int stufe();</code>, <code>boolean mitArgumenten();</code></td>
+			</tr>
+			<tr>
+					<td><code>String</code></td>
+					<td><code>String value();</code></td>
+			</tr>
+			<tr>
+					<td><code>Class</code></td>
+					<td><code>Class&lt;?&gt; ziel();</code></td>
+			</tr>
+			<tr>
+					<td>Enums</td>
+					<td><code>ElementType art();</code></td>
+			</tr>
+			<tr>
+					<td>andere Annotationen</td>
+					<td><code>Schlagwort[] value();</code></td>
+			</tr>
+			<tr>
+					<td>eindimensionale Arrays davon</td>
+					<td><code>String[] schlagworte();</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>Alles andere lehnt der Compiler ab – auch <code>Object</code> und <code>List</code>:</p>
+<pre><code class="language-java">public @interface Protokolliert {
+    Object wert();
+}
+</code></pre>
+<pre><code class="language-text">Protokolliert.java:2: error: invalid type for annotation interface element
+    Object wert();
+    ^
+</code></pre>
+<p>Außerdem muss <strong>jeder Wert eine Konstante</strong> sein – ein Literal oder ein <code>static final</code>-Feld
+mit konstantem Wert. <code>null</code> ist keine Konstante, weder als Wert noch als Default:</p>
+<pre><code class="language-java">static final String SUCHEN = &quot;Raum suchen&quot;;
+static String buchen = &quot;Raum buchen&quot;;
+
+@Protokolliert(SUCHEN)
+void raumSuchen() { }      // gültig: Konstante
+
+@Protokolliert(buchen)
+void raumBuchen() { }      // ungültig: Variable
+
+@Protokolliert(null)
+void aufräumen() { }       // ungültig: null
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:8: error: element value must be a constant expression
+    @Protokolliert(buchen)
+                   ^
+RaumKatalog.java:11: error: element value must be a constant expression
+    @Protokolliert(null)
+                   ^
+</code></pre>
+<p><code>String value() default null;</code> scheitert mit derselben Meldung. Wer „kein Wert“
+ausdrücken will, nimmt einen Leerwert: <code>default &quot;&quot;</code> oder <code>default {}</code>.</p>
+<h2 id="meta">Meta-Annotationen: Annotationen an Annotationen</h2>
+<p>Wie lange eine Annotation erhalten bleibt und wo sie stehen darf, legen Annotationen an
+ihrer Deklaration fest.</p>
+<h3 id="retention"><code>@Retention</code>: wie weit sie kommt</h3>
+<table>
+	<thead>
+			<tr>
+					<th><code>RetentionPolicy</code></th>
+					<th>im Quelltext</th>
+					<th>in der <code>.class</code>-Datei</th>
+					<th>zur Laufzeit lesbar</th>
+					<th>typischer Leser</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>SOURCE</code></td>
+					<td>ja</td>
+					<td>nein</td>
+					<td>nein</td>
+					<td>Compiler, Annotation Processor</td>
+			</tr>
+			<tr>
+					<td><code>CLASS</code> – <strong>Standard</strong></td>
+					<td>ja</td>
+					<td>ja</td>
+					<td>nein</td>
+					<td>Werkzeuge, die Bytecode lesen</td>
+			</tr>
+			<tr>
+					<td><code>RUNTIME</code></td>
+					<td>ja</td>
+					<td>ja</td>
+					<td>ja</td>
+					<td>Framework per Reflection</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>Ohne <code>@Retention</code> gilt <code>CLASS</code></strong> – die Annotation steht in der Klassendatei, Reflection
+sieht sie aber nicht. Für alles, was zur Laufzeit gelesen werden soll, ist
+<code>@Retention(RetentionPolicy.RUNTIME)</code> Pflicht. Die Probe mit vier Annotationen an einer
+Methode:</p>
+<pre><code class="language-java">@Retention(RetentionPolicy.SOURCE)  @interface NurQuelle { }
+@Retention(RetentionPolicy.CLASS)   @interface InKlassendatei { }
+@Retention(RetentionPolicy.RUNTIME) @interface ZurLaufzeit { }
+@interface OhneAngabe { }
+
+@NurQuelle @InKlassendatei @ZurLaufzeit @OhneAngabe
+void raumSuchen() { }
+</code></pre>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">In der Klassendatei (<code>javap -v</code>, gekürzt)</p>
+<pre><code class="language-text">RuntimeVisibleAnnotations:
+  0: #44()
+    Aufbewahrung$ZurLaufzeit
+RuntimeInvisibleAnnotations:
+  0: #46()
+    Aufbewahrung$InKlassendatei
+  1: #47()
+    Aufbewahrung$OhneAngabe
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Zur Laufzeit (<code>methode.getAnnotations()</code>)</p>
+<pre><code class="language-text">[@Aufbewahrung.ZurLaufzeit()]
+</code></pre>
+</div>
+</div>
+<p><code>@NurQuelle</code> hat die Klassendatei nie erreicht; <code>@InKlassendatei</code> und <code>@OhneAngabe</code> stehen
+darin, aber als „unsichtbar“ – Reflection liefert nur <code>@ZurLaufzeit</code>.</p>
+<h3 id="target"><code>@Target</code>: wo sie stehen darf</h3>
+<p>Ohne <code>@Target</code> darf die Annotation fast überall stehen. Mit <code>@Target</code> beschränkt man sie
+auf bestimmte Stellen – <code>ElementType.METHOD</code>, <code>FIELD</code>, <code>TYPE</code> (Klasse, Interface, Enum,
+Record), <code>PARAMETER</code>, <code>CONSTRUCTOR</code> und einige mehr; mehrere als Array:
+<code>@Target({ElementType.METHOD, ElementType.TYPE})</code>.</p>
+<pre><code class="language-java">@Target(ElementType.METHOD)
+public @interface Protokolliert {
+    String value();
+}
+
+public class RaumKatalog {
+    @Protokolliert(&quot;Räume&quot;)
+    private String räume;
+}
+</code></pre>
+<pre><code class="language-text">RaumKatalog.java:2: error: annotation interface not applicable to this kind of declaration
+    @Protokolliert(&quot;Räume&quot;)
+    ^
+</code></pre>
+<h3 id="weitere">Drei weitere, kurz</h3>
+<ul>
+<li><strong><code>@Documented</code></strong> – die Annotation erscheint in der Javadoc der annotierten Elemente.</li>
+<li><strong><code>@Inherited</code></strong> – eine Annotation an einer <strong>Klasse</strong> gilt auch für deren
+Unterklassen. Nur bei Klassen und nur von der Oberklasse: Eine Klasse, die ein
+annotiertes Interface umsetzt, erbt nichts. Gemessen mit <code>@Inherited @Dienst</code>:
+<code>Ableitung.class.isAnnotationPresent(Dienst.class)</code> liefert <code>true</code>, bei
+<code>Umsetzung implements Schnittstelle</code> dagegen <code>false</code>.</li>
+<li><strong><code>@Repeatable</code></strong> – die Annotation darf mehrfach an derselben Stelle stehen. Dafür
+braucht sie einen Behälter mit einem Array-Attribut <code>value</code>:</li>
+</ul>
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME) @Repeatable(Schlagworte.class)
+@interface Schlagwort { String value(); }
+
+@Retention(RetentionPolicy.RUNTIME)
+@interface Schlagworte { Schlagwort[] value(); }
+
+@Schlagwort(&quot;Suche&quot;) @Schlagwort(&quot;Raum&quot;)
+void raumSuchen() { }
+</code></pre>
+<p>Gelesen wird sie mit <code>getAnnotationsByType(Schlagwort.class)</code>; <code>getAnnotation</code> findet
+sie nicht, weil der Compiler die beiden in einen <code>@Schlagworte</code>-Behälter verpackt hat:</p>
+<pre><code class="language-text">[@Meta.Schlagwort(&quot;Suche&quot;), @Meta.Schlagwort(&quot;Raum&quot;)]
+null
+</code></pre>
+<h2 id="reflection">Auslesen per Reflection</h2>
+<p>Jetzt bekommt die Annotation ihre Bedeutung: ein Leser, der sie sucht. Die Deklaration mit
+<code>RUNTIME</code> und <code>METHOD</code>:</p>
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Protokolliert {
+    String value();
+    boolean mitArgumenten() default false;
+}
+</code></pre>
+<p>Annotiert sind zwei von drei Methoden:</p>
+<pre><code class="language-java">public class RaumKatalog {
+    @Protokolliert(&quot;Raum suchen&quot;)
+    public void raumSuchen(String nummer) { }
+
+    @Protokolliert(value = &quot;Raum buchen&quot;, mitArgumenten = true)
+    public void raumBuchen(String nummer, int stunden) { }
+
+    public void aufräumen() { }
+}
+</code></pre>
+<p>Der Leser fragt jede Methode nach der Annotation. <code>getAnnotation</code> liefert ein Objekt vom
+Typ <code>Protokolliert</code> – die Attribute sind dessen Methoden:</p>
+<pre><code class="language-java">Method[] methoden = RaumKatalog.class.getDeclaredMethods();
+Arrays.sort(methoden, Comparator.comparing(Method::getName));   // Reihenfolge festlegen
+for (Method methode : methoden) {
+    if (methode.isAnnotationPresent(Protokolliert.class)) {
+        Protokolliert p = methode.getAnnotation(Protokolliert.class);
+        System.out.println(methode.getName() + &quot;: &quot; + p.value()
+                + &quot;, mitArgumenten = &quot; + p.mitArgumenten());
+    } else {
+        System.out.println(methode.getName() + &quot;: nicht protokolliert&quot;);
+    }
+}
+</code></pre>
+<div class="an-vergleich">
+<div>
+<p class="an-titel">Ausgabe mit <code>RetentionPolicy.RUNTIME</code></p>
+<pre><code class="language-text">aufräumen: nicht protokolliert
+raumBuchen: Raum buchen, mitArgumenten = true
+raumSuchen: Raum suchen, mitArgumenten = false
+</code></pre>
+</div>
+<div>
+<p class="an-titel">Ausgabe mit <code>RetentionPolicy.CLASS</code> (oder ohne Angabe)</p>
+<pre><code class="language-text">aufräumen: nicht protokolliert
+raumBuchen: nicht protokolliert
+raumSuchen: nicht protokolliert
+</code></pre>
+</div>
+</div>
+<p>Der Default-Wert kommt mit: <code>raumSuchen</code> nennt <code>mitArgumenten</code> gar nicht und liefert
+trotzdem <code>false</code>. Ohne <code>RUNTIME</code> übersetzt alles fehlerfrei – nur findet der Leser nichts,
+und <code>getAnnotation</code> gibt <code>null</code> zurück. Kein Compiler warnt davor.</p>
+<h3 id="interface">Die Falle: Annotationen am Interface</h3>
+<p>Steht die Annotation an der Methode eines <strong>Interfaces</strong>, sieht man sie an der
+umsetzenden Methode <strong>nicht</strong> – auch mit <code>@Inherited</code> nicht, das nur für Klassen gilt.</p>
+<pre><code class="language-java">public interface Katalog {
+    @Protokolliert(&quot;Raum suchen&quot;)
+    void raumSuchen(String nummer);
+}
+
+public class RaumKatalog implements Katalog {
+    @Override
+    public void raumSuchen(String nummer) { }
+}
+</code></pre>
+<pre><code class="language-java">System.out.println(Katalog.class.getMethod(&quot;raumSuchen&quot;, String.class)
+        .getAnnotation(Protokolliert.class));
+System.out.println(RaumKatalog.class.getMethod(&quot;raumSuchen&quot;, String.class)
+        .getAnnotation(Protokolliert.class));
+</code></pre>
+<pre><code class="language-text">@Protokolliert(&quot;Raum suchen&quot;)
+null
+</code></pre>
+<p>Wer Annotationen auch am Interface finden will, muss dort selbst nachsehen. Frameworks
+wie Spring tun das mit eigenen Hilfsklassen – Reflection allein tut es nicht.</p>
+<blockquote>
+<p><strong>Merksatz:</strong> Eine Annotation ist ein Etikett, das nichts tut, bis jemand es liest.
+Attribute sind Methoden ohne Parameter, ihre Werte Konstanten – und wer sie zur
+Laufzeit lesen will, braucht <code>@Retention(RUNTIME)</code>, denn der Standard ist <code>CLASS</code>.</p>
+</blockquote>
+
+  </main>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

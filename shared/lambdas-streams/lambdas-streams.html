@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Lambdas, Streams und Optional · ATVANTAGE Academy</title>
+<meta name="description" content="Lambdas als Code für später, funktionale Interfaces als ihr Typ, der Weg von der anonymen Klasse zur Methodenreferenz, die fertigen Interfaces aus java.util.function – und Streams als Fließband, Optional als Fließband für höchstens ein Stück.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Lambdas, Streams und Optional">
+<meta property="og:description" content="Lambdas als Code für später, funktionale Interfaces als ihr Typ, der Weg von der anonymen Klasse zur Methodenreferenz, die fertigen Interfaces aus java.util.function – und Streams als Fließband, Optional als Fließband für höchstens ein Stück.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lambdas als Code für später, funktionale Interfaces als ihr Typ, der Weg von der anonymen Klasse zur Methodenreferenz, die fertigen Interfaces aus java.util.function – und Streams als Fließband, Optional als Fließband für höchstens ein Stück.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/lambdas-streams/lambdas-streams.css","src":"lambdas-streams.css","type":"style"},{"path":"shared/lambdas-streams/lambdas-streams.js","src":"lambdas-streams.js","type":"script"}],"pageId":"shared-lambdas-streams","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Lambdas, Streams und Optional","topics":null,"untranslated":null,"url":"/shared/lambdas-streams/lambdas-streams.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../skriptorium/stage.css?v=c76b28bc">
+<script src="../../skriptorium/stage.js?v=a8ce5bf6" defer></script>
+
+<link rel="stylesheet" href="../../shared/lambdas-streams/lambdas-streams.css?v=6952eafa">
+<script src="../../shared/lambdas-streams/lambdas-streams.js?v=a37c1af9" defer></script>
+
+</head>
+<body class="skr-stage" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization skriptorium.stage" data-skr-lang="de" data-skr-stage-home="../../" data-skr-audience="learner">
+  <a class="skr-skip-link" href="#skr-stage-main">Zum Inhalt springen</a>
+  
+<header class="skr-stage__bar">
+  <img class="skr-stage__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-stage__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-stage__title">Lambdas, Streams und Optional</span>
+  <div class="skr-stage__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-stage-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  <button type="button" class="skr-stage__nav skr-stage__close" data-skr-stage-close hidden
+        title="Schließen" aria-label="Schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+
+</header>
+  
+  <main class="skr-stage__main" id="skr-stage-main">
+    <p class="ls-lead">Ein Lambda ist ein Stück Code, das man <strong>weitergibt, statt es gleich auszuführen</strong>. Darauf bauen Streams und <code>Optional</code> auf: Man beschreibt, was mit den Daten geschehen soll – ausgeführt wird es erst, wenn jemand das Ergebnis abholt.</p>
+<p class="ls-marken"><span class="skr-badge">seit Java 8</span> <span class="skr-badge">Stream.toList() seit Java 16</span></p>
+<h2 id="verzoegert">Lambdas: Code für später</h2>
+<p>Ein Lambda <strong>legt Code fest</strong>, führt ihn aber nicht aus. Ausgeführt wird er erst, wenn
+jemand die Methode des Interfaces aufruft – einmal, mehrmals oder gar nicht.</p>
+<pre><code class="language-java">Runnable gruß = () -&gt; System.out.println(&quot;Hallo&quot;);   // nur festgelegt
+System.out.println(&quot;vorher&quot;);
+gruß.run();                                          // jetzt läuft es
+gruß.run();                                          // und noch einmal
+</code></pre>
+<p class="ls-titel">Ausgabe</p>
+<pre><code class="language-text">vorher
+Hallo
+Hallo
+</code></pre>
+<p>Wozu das gut ist, zeigt ein Standardwert, dessen Berechnung teuer ist. <code>orElse</code> bekommt
+einen <strong>Wert</strong> – der muss vor dem Aufruf feststehen. <code>orElseGet</code> bekommt ein <strong>Lambda</strong>
+und ruft es nur, wenn der Wert wirklich fehlt:</p>
+<pre><code class="language-java">Optional&lt;String&gt; name = Optional.of(&quot;Ada&quot;);
+System.out.println(name.orElse(teuer()));             // teuer() läuft – umsonst
+System.out.println(name.orElseGet(() -&gt; teuer()));    // teuer() läuft nicht
+</code></pre>
+<p class="ls-titel">Ausgabe (<code>teuer()</code> meldet sich mit einer eingerückten Zeile)</p>
+<pre><code class="language-text">  teuer() läuft
+Ada
+Ada
+</code></pre>
+<h2 id="funktionale-interfaces">Funktionale Interfaces: der Typ eines Lambdas</h2>
+<p>Java hat keinen eigenen Typ für Funktionen. Ein Lambda braucht deshalb einen
+<strong>Zieltyp</strong>: ein Interface mit <strong>genau einer abstrakten Methode</strong> – ein <em>funktionales
+Interface</em>. Das Lambda ist die Umsetzung dieser einen Methode; <code>default</code>- und
+<code>static</code>-Methoden darf das Interface zusätzlich haben.</p>
+<pre><code class="language-java">@FunctionalInterface                     // optional: der Compiler prüft „genau eine“
+interface Prüfung {
+    boolean prüfe(String text);
+}
+
+Prüfung nichtLeer = text -&gt; !text.isBlank();
+System.out.println(nichtLeer.prüfe(&quot;   &quot;));      // false
+System.out.println(nichtLeer.prüfe(&quot;Lambda&quot;));   // true
+</code></pre>
+<p>Welches Interface gemeint ist, ergibt sich aus der Stelle, an der das Lambda steht:
+Dasselbe <code>text -&gt; !text.isBlank()</code> ist einmal eine <code>Prüfung</code>, einmal ein
+<code>Predicate&lt;String&gt;</code>. Ohne Zieltyp übersetzt es nicht – <code>var p = text -&gt; …</code> geht nicht.</p>
+<h2 id="verkuerzung">Von der anonymen Klasse zum Lambda</h2>
+<p>Ein Lambda ist zunächst eine <strong>Kurzschreibweise</strong>: Alles, was der Compiler aus dem
+Zieltyp ohnehin weiß, darf man weglassen. Geh die Schritte durch – das Verhalten bleibt
+in jedem Schritt dasselbe.</p>
+<div class="ls-wahl" data-ls-key="form">
+<div class="ls-knoepfe" role="group" aria-label="Schreibweise">
+<button type="button" class="ls-knopf" data-ls-wert="anonym">1 · Anonyme Klasse</button>
+<button type="button" class="ls-knopf" data-ls-wert="lambda">2 · Lambda mit Block</button>
+<button type="button" class="ls-knopf" data-ls-wert="einzeilig">3 · Einzeilig</button>
+<button type="button" class="ls-knopf" data-ls-wert="referenz">4 · Methodenreferenz</button>
+</div>
+<div class="ls-panel" data-ls-id="anonym">
+<p class="ls-schritt">1 · Anonyme Klasse</p>
+<pre><code class="language-java">namen.forEach(new Consumer&lt;String&gt;() {
+    @Override
+    public void accept(String name) {
+        System.out.println(name);
+    }
+});
+</code></pre>
+<p>Eine Klasse ohne Namen, die <code>Consumer&lt;String&gt;</code> umsetzt, und sofort ein Objekt davon.
+Von den sechs Zeilen tragen genau zwei Wörter Inhalt: <code>name</code> und <code>System.out.println(name)</code>.</p>
+</div>
+<div class="ls-panel" data-ls-id="lambda">
+<p class="ls-schritt">2 · Lambda mit Block</p>
+<pre><code class="language-java">namen.forEach((String name) -&gt; {
+    System.out.println(name);
+});
+</code></pre>
+<p>Weg sind <code>new Consumer&lt;String&gt;()</code>, <code>@Override</code>, <code>public void accept</code> – das alles kennt der
+Compiler aus dem Parametertyp von <code>forEach</code>. Es bleiben Parameterliste, Pfeil und Rumpf.</p>
+</div>
+<div class="ls-panel" data-ls-id="einzeilig">
+<p class="ls-schritt">3 · Einzeilig</p>
+<pre><code class="language-java">namen.forEach(name -&gt; System.out.println(name));
+</code></pre>
+<p><strong>Sonderfall einzeilig:</strong> Besteht der Rumpf aus einem Ausdruck, entfallen geschweifte
+Klammern, Semikolon und – bei einem Rückgabewert – auch <code>return</code>. Der Parametertyp darf
+weg, und bei <strong>einem</strong> Parameter auch die runden Klammern.</p>
+</div>
+<div class="ls-panel" data-ls-id="referenz">
+<p class="ls-schritt">4 · Methodenreferenz</p>
+<pre><code class="language-java">namen.forEach(System.out::println);
+</code></pre>
+<p><strong>Sonderfall Methodenreferenz:</strong> Reicht das Lambda seinen Parameter nur an eine
+vorhandene Methode weiter, nennt der Operator <code>::</code> diese Methode direkt. Vier Formen:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Form</th>
+					<th>Methodenreferenz</th>
+					<th>entspricht</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>statische Methode</td>
+					<td><code>Integer::parseInt</code></td>
+					<td><code>s -&gt; Integer.parseInt(s)</code></td>
+			</tr>
+			<tr>
+					<td>Methode eines bestimmten Objekts</td>
+					<td><code>System.out::println</code></td>
+					<td><code>x -&gt; System.out.println(x)</code></td>
+			</tr>
+			<tr>
+					<td>Methode des Parameters</td>
+					<td><code>String::length</code></td>
+					<td><code>s -&gt; s.length()</code></td>
+			</tr>
+			<tr>
+					<td>Konstruktor</td>
+					<td><code>ArrayList::new</code></td>
+					<td><code>() -&gt; new ArrayList&lt;&gt;()</code></td>
+			</tr>
+	</tbody>
+</table>
+</div>
+</div>
+<p><strong>Mehr als Kurzschrift: kein <code>new</code>, keine Klasse.</strong> Für die anonyme Klasse erzeugt der
+Compiler eine eigene Klassendatei und an der Stelle im Code ein <code>new</code>. Für das Lambda
+entsteht <strong>keine</strong> Klassendatei; an seiner Stelle steht <code>invokedynamic</code> – das passende
+Objekt baut die JVM beim ersten Durchlauf und darf es danach wiederverwenden.</p>
+<div class="ls-vergleich">
+<div>
+<p class="ls-titel">Quelltext <code>Kurz.java</code></p>
+<pre><code class="language-java">Runnable anonym = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println(&quot;anonym&quot;);
+    }
+};
+Runnable lambda = () -&gt; System.out.println(&quot;lambda&quot;);
+</code></pre>
+</div>
+<div>
+<p class="ls-titel">Nach <code>javac Kurz.java</code></p>
+<pre><code class="language-text">Kurz.class
+Kurz$1.class        ← die anonyme Klasse
+</code></pre>
+<p class="ls-titel">Ausschnitt aus <code>javap -c Kurz.class</code></p>
+<pre><code class="language-text">new           #7   // class Kurz$1
+invokespecial #9   // Method Kurz$1.&quot;&lt;init&gt;&quot;:()V
+invokedynamic #10  // InvokeDynamic #0:run:()Ljava/lang/Runnable;
+</code></pre>
+</div>
+</div>
+<p>Sichtbar wird das, wenn man dasselbe zweimal erzeugt: Die anonyme Klasse liefert zwei
+Objekte, das Lambda (es greift auf keine Variable von außen zu) in OpenJDK beide Male
+<strong>dasselbe</strong>. Verlassen darf man sich darauf nicht – die Sprache erlaubt die
+Wiederverwendung, sie verlangt sie nicht.</p>
+<pre><code class="language-java">for (int i = 0; i &lt; 2; i++) {
+    anonym[i] = new Runnable() { @Override public void run() { } };
+    lambda[i] = () -&gt; { };
+}
+System.out.println(anonym[0] == anonym[1]);   // false
+System.out.println(lambda[0] == lambda[1]);   // true
+</code></pre>
+<h2 id="java-util-function">Die fertigen funktionalen Interfaces</h2>
+<p>Eigene funktionale Interfaces braucht man selten: <code>java.util.function</code> bringt die
+üblichen Formen mit. Vier davon genügen für den Anfang – unterschieden danach, was
+hineingeht und was herauskommt.</p>
+<div class="ls-wahl" data-ls-key="interface">
+<div class="ls-knoepfe" role="group" aria-label="Funktionales Interface">
+<button type="button" class="ls-knopf" data-ls-wert="supplier">Supplier</button>
+<button type="button" class="ls-knopf" data-ls-wert="consumer">Consumer</button>
+<button type="button" class="ls-knopf" data-ls-wert="function">Function</button>
+<button type="button" class="ls-knopf" data-ls-wert="predicate">Predicate</button>
+</div>
+<div class="ls-panel" data-ls-id="supplier">
+<p class="ls-schritt">Supplier&lt;T&gt; – nichts hinein, ein Wert heraus</p>
+<p class="ls-signatur"><code>T get()</code></p>
+<pre><code class="language-java">Supplier&lt;String&gt; gruß = () -&gt; &quot;Hallo&quot;;
+System.out.println(gruß.get());                       // Hallo
+
+DoubleSupplier zufall = Math::random;                 // liefert ein double, kein Double
+System.out.println(zufall.getAsDouble() &lt; 1.0);       // true
+</code></pre>
+<p><strong>Typisch für:</strong> Werte, die erst bei Bedarf entstehen – <code>orElseGet</code>, <code>Objects.requireNonNull(…, Supplier)</code>, Fabriken.</p>
+<p><strong>Ableitungen:</strong> <code>IntSupplier</code>, <code>LongSupplier</code>, <code>DoubleSupplier</code>, <code>BooleanSupplier</code>.</p>
+</div>
+<div class="ls-panel" data-ls-id="consumer">
+<p class="ls-schritt">Consumer&lt;T&gt; – ein Wert hinein, nichts heraus</p>
+<p class="ls-signatur"><code>void accept(T t)</code></p>
+<pre><code class="language-java">Consumer&lt;String&gt; drucker = System.out::println;
+drucker.accept(&quot;Hallo&quot;);                              // Hallo
+</code></pre>
+<p><strong>Typisch für:</strong> Wirkungen am Ende – <code>forEach</code>, <code>ifPresent</code>.</p>
+<p><strong>Ableitungen:</strong> <code>BiConsumer&lt;T, U&gt;</code> (zwei Werte, etwa in <code>Map.forEach</code>), <code>IntConsumer</code>,
+<code>LongConsumer</code>, <code>DoubleConsumer</code>, <code>ObjIntConsumer&lt;T&gt;</code> …</p>
+</div>
+<div class="ls-panel" data-ls-id="function">
+<p class="ls-schritt">Function&lt;T, R&gt; – ein Wert hinein, ein anderer heraus</p>
+<p class="ls-signatur"><code>R apply(T t)</code></p>
+<pre><code class="language-java">Function&lt;String, Integer&gt; länge = String::length;
+System.out.println(länge.apply(&quot;Lambda&quot;));            // 6
+
+ToIntFunction&lt;String&gt; längeOhneBoxing = String::length;
+System.out.println(längeOhneBoxing.applyAsInt(&quot;Lambda&quot;));   // 6, als int
+
+UnaryOperator&lt;String&gt; laut = String::toUpperCase;     // Function&lt;String, String&gt;
+System.out.println(laut.andThen(s -&gt; s + &quot;!&quot;).apply(&quot;hallo&quot;));   // HALLO!
+</code></pre>
+<p><strong>Typisch für:</strong> Umwandeln – <code>map</code>, <code>Comparator.comparing</code>, <code>computeIfAbsent</code>.</p>
+<p><strong>Ableitungen:</strong> <code>BiFunction&lt;T, U, R&gt;</code>, <code>UnaryOperator&lt;T&gt;</code> und <code>BinaryOperator&lt;T&gt;</code>
+(Ein- und Ausgabe vom selben Typ), <code>IntFunction&lt;R&gt;</code>, <code>ToIntFunction&lt;T&gt;</code>,
+<code>IntUnaryOperator</code> … Verknüpfen mit <code>andThen</code> und <code>compose</code>.</p>
+</div>
+<div class="ls-panel" data-ls-id="predicate">
+<p class="ls-schritt">Predicate&lt;T&gt; – ein Wert hinein, ja oder nein heraus</p>
+<p class="ls-signatur"><code>boolean test(T t)</code></p>
+<pre><code class="language-java">Predicate&lt;String&gt; leer = String::isBlank;
+System.out.println(leer.negate().test(&quot;Lambda&quot;));     // true
+
+IntPredicate gerade = n -&gt; n % 2 == 0;
+System.out.println(gerade.test(7));                   // false
+</code></pre>
+<p><strong>Typisch für:</strong> Bedingungen – <code>filter</code>, <code>removeIf</code>, <code>anyMatch</code>.</p>
+<p><strong>Ableitungen:</strong> <code>BiPredicate&lt;T, U&gt;</code>, <code>IntPredicate</code>, <code>LongPredicate</code>,
+<code>DoublePredicate</code>. Verknüpfen mit <code>and</code>, <code>or</code>, <code>negate</code>.</p>
+</div>
+</div>
+<p><strong>Warum es <code>DoubleSupplier</code> &amp; Co. gibt:</strong> Generics gehen nur mit Objekten. Ein
+<code>Supplier&lt;Double&gt;</code> packt jede Zahl in ein <code>Double</code> und wieder aus; die Ableitungen für
+<code>int</code>, <code>long</code> und <code>double</code> sparen dieses Autoboxing – ihre Methode heißt dann
+<code>getAsDouble</code>, <code>applyAsInt</code>, <code>test</code> usw.</p>
+<h2 id="stream">Streams: ein Fließband</h2>
+<p>Ein Stream ist ein <strong>Fließband</strong>: Vorn legt eine Quelle die Stücke auf, unterwegs
+bearbeiten <strong>Maschinen</strong> sie – aussortieren, umformen, ordnen –, und am Ende fängt ein
+<strong>Eimer</strong> sie auf. Der Eimer ist der <strong>Collector</strong>: Er entscheidet, was am Ende
+herauskommt – eine Liste, eine Map, eine Zahl, ein Text.</p>
+<div class="ls-wahl" data-ls-key="station">
+<ol class="ls-band ls-knoepfe" aria-label="Fließband">
+<li><button type="button" class="ls-knopf ls-station" data-ls-wert="quelle"><span class="ls-station__name">Quelle</span><code>namen.stream()</code><span class="ls-stuecke"><span>Ada</span><span>Grace</span><span>Alan</span><span>Linus</span><span>Barbara</span></span></button></li>
+<li><button type="button" class="ls-knopf ls-station" data-ls-wert="filter"><span class="ls-station__name">Maschine: aussortieren</span><code>.filter(n -&gt; n.length() &gt; 3)</code><span class="ls-stuecke"><span>Grace</span><span>Alan</span><span>Linus</span><span>Barbara</span></span></button></li>
+<li><button type="button" class="ls-knopf ls-station" data-ls-wert="map"><span class="ls-station__name">Maschine: umformen</span><code>.map(String::toUpperCase)</code><span class="ls-stuecke"><span>GRACE</span><span>ALAN</span><span>LINUS</span><span>BARBARA</span></span></button></li>
+<li><button type="button" class="ls-knopf ls-station" data-ls-wert="sorted"><span class="ls-station__name">Maschine: ordnen</span><code>.sorted()</code><span class="ls-stuecke"><span>ALAN</span><span>BARBARA</span><span>GRACE</span><span>LINUS</span></span></button></li>
+<li><button type="button" class="ls-knopf ls-station ls-station--eimer" data-ls-wert="sammeln"><span class="ls-station__name">Eimer: sammeln</span><code>.toList()</code><span class="ls-stuecke ls-stuecke--eimer"><span>[ALAN, BARBARA, GRACE, LINUS]</span></span></button></li>
+</ol>
+<div class="ls-panel" data-ls-id="quelle">
+<p class="ls-schritt">Quelle</p>
+<p>Jede Collection hat <code>stream()</code>; dazu kommen <code>Stream.of(…)</code>, <code>Arrays.stream(…)</code>,
+<code>IntStream.range(…)</code> und Dateien (<code>Files.lines</code>). Die Quelle wird <strong>nicht verändert</strong> – das
+Fließband arbeitet mit dem, was sie auflegt.</p>
+</div>
+<div class="ls-panel" data-ls-id="filter">
+<p class="ls-schritt">Maschine: <code>filter</code></p>
+<p>Lässt nur Stücke durch, für die das <code>Predicate</code> <code>true</code> liefert. Weitere Maschinen dieser
+Art: <code>distinct</code>, <code>limit</code>, <code>skip</code>, <code>takeWhile</code>.</p>
+</div>
+<div class="ls-panel" data-ls-id="map">
+<p class="ls-schritt">Maschine: <code>map</code></p>
+<p>Formt jedes Stück mit einer <code>Function</code> um – hier zu Großbuchstaben, ebenso gut zu einem
+anderen Typ (<code>map(String::length)</code>). <code>flatMap</code> macht aus einem Stück mehrere,
+<code>mapToInt</code> ein Fließband für <code>int</code> mit <code>sum</code> und <code>average</code>.</p>
+</div>
+<div class="ls-panel" data-ls-id="sorted">
+<p class="ls-schritt">Maschine: <code>sorted</code></p>
+<p>Ordnet die Stücke – natürlich oder nach einem <code>Comparator</code>
+(<code>sorted(Comparator.comparing(String::length))</code>). Sie muss <strong>alle</strong> Stücke gesehen haben,
+bevor sie eines weitergibt; die übrigen Maschinen arbeiten Stück für Stück.</p>
+</div>
+<div class="ls-panel" data-ls-id="sammeln">
+<p class="ls-schritt">Eimer: der Collector</p>
+<p>Erst die <strong>Endoperation</strong> setzt das Band in Gang. <code>toList()</code> sammelt in eine
+unveränderliche Liste; <code>collect(Collectors.…)</code> kennt weitere Eimer: <code>toSet</code>, <code>toMap</code>,
+<code>groupingBy</code>, <code>partitioningBy</code>, <code>joining</code>, <code>counting</code>. Andere Endoperationen liefern
+gleich einen Wert: <code>count</code>, <code>anyMatch</code>, <code>findFirst</code>, <code>forEach</code>.</p>
+</div>
+</div>
+<p><strong>Ohne Eimer läuft nichts – und dann Stück für Stück.</strong> Die Maschinen sind Lambdas, also
+Code für später: Solange keine Endoperation folgt, wird kein einziges Lambda aufgerufen.
+Läuft das Band, wandert jedes Stück einzeln durch alle Maschinen, bevor das nächste kommt:</p>
+<pre><code class="language-java">List&lt;String&gt; spur = Stream.of(&quot;Ada&quot;, &quot;Grace&quot;, &quot;Alan&quot;)
+        .filter(n -&gt; {
+            System.out.println(&quot;filter &quot; + n);
+            return n.length() &gt; 3;
+        })
+        .map(n -&gt; {
+            System.out.println(&quot;map    &quot; + n);
+            return n.toUpperCase();
+        })
+        .toList();
+System.out.println(spur);
+</code></pre>
+<p class="ls-titel">Ausgabe</p>
+<pre><code class="language-text">filter Ada
+filter Grace
+map    Grace
+filter Alan
+map    Alan
+[GRACE, ALAN]
+</code></pre>
+<h2 id="optional">Optional: ein Fließband für höchstens ein Stück</h2>
+<p><code>Optional</code> ist dasselbe Bild mit einem Unterschied: Auf dem Band liegt <strong>kein oder genau
+ein</strong> Stück, nicht beliebig viele. Die Maschinen heißen gleich – <code>filter</code>, <code>map</code>,
+<code>flatMap</code> –, und am Ende steht statt eines Eimers die Frage, <strong>was gilt, wenn nichts
+ankommt</strong>.</p>
+<div class="ls-wahl" data-ls-key="optional">
+<div class="ls-knoepfe" role="group" aria-label="Ergebnis der Suche">
+<button type="button" class="ls-knopf" data-ls-wert="wert">Raum R102 gefunden</button>
+<button type="button" class="ls-knopf" data-ls-wert="leer">Raum R999 nicht gefunden</button>
+</div>
+<pre><code class="language-java">Optional&lt;String&gt; raum = suche(nummer);       // leer oder ein Name
+String anzeige = raum
+        .filter(n -&gt; !n.isBlank())
+        .map(String::toUpperCase)
+        .orElse(&quot;unbekannt&quot;);
+</code></pre>
+<div class="ls-panel" data-ls-id="wert">
+<ol class="ls-band ls-band--fest" aria-label="Optional mit Wert">
+<li class="ls-station"><span class="ls-station__name">suche("R102")</span><span class="ls-stuecke"><span>Seminar 2</span></span></li>
+<li class="ls-station"><span class="ls-station__name">filter</span><span class="ls-stuecke"><span>Seminar 2</span></span></li>
+<li class="ls-station"><span class="ls-station__name">map</span><span class="ls-stuecke"><span>SEMINAR 2</span></span></li>
+<li class="ls-station ls-station--eimer"><span class="ls-station__name">orElse</span><span class="ls-stuecke ls-stuecke--eimer"><span>SEMINAR 2</span></span></li>
+</ol>
+<p>Ein Stück liegt auf dem Band und durchläuft alle Maschinen; <code>orElse</code> gibt es heraus.</p>
+</div>
+<div class="ls-panel" data-ls-id="leer">
+<ol class="ls-band ls-band--fest" aria-label="Leeres Optional">
+<li class="ls-station"><span class="ls-station__name">suche("R999")</span><span class="ls-stuecke ls-stuecke--leer"><span>leer</span></span></li>
+<li class="ls-station"><span class="ls-station__name">filter</span><span class="ls-stuecke ls-stuecke--leer"><span>leer</span></span></li>
+<li class="ls-station"><span class="ls-station__name">map</span><span class="ls-stuecke ls-stuecke--leer"><span>leer</span></span></li>
+<li class="ls-station ls-station--eimer"><span class="ls-station__name">orElse</span><span class="ls-stuecke ls-stuecke--eimer"><span>unbekannt</span></span></li>
+</ol>
+<p>Das Band ist leer; die Maschinen laufen leer durch, ohne ihre Lambdas aufzurufen. Erst
+<code>orElse</code> liefert den Ersatz – ohne ein einziges <code>if</code> und ohne <code>NullPointerException</code>.</p>
+</div>
+</div>
+<p class="ls-titel">Gemessene Ausgabe für beide Nummern</p>
+<pre><code class="language-text">R102 -&gt; SEMINAR 2
+R999 -&gt; unbekannt
+</code></pre>
+<table>
+	<thead>
+			<tr>
+					<th>Stream (0..*)</th>
+					<th>Optional (0..1)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>filter</code>, <code>map</code>, <code>flatMap</code></td>
+					<td><code>filter</code>, <code>map</code>, <code>flatMap</code></td>
+			</tr>
+			<tr>
+					<td><code>toList()</code>, <code>collect(…)</code></td>
+					<td><code>orElse(…)</code>, <code>orElseGet(…)</code>, <code>orElseThrow()</code></td>
+			</tr>
+			<tr>
+					<td><code>forEach(…)</code></td>
+					<td><code>ifPresent(…)</code>, <code>ifPresentOrElse(…)</code></td>
+			</tr>
+			<tr>
+					<td><code>findFirst()</code> – liefert ein <code>Optional</code></td>
+					<td><code>stream()</code> – macht ein Band mit 0 oder 1 Stück</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong><code>Optional</code> ist ein Rückgabetyp.</strong> Eine Methode, die etwas sucht, sagt mit
+<code>Optional&lt;Room&gt;</code> statt <code>Room</code>, dass es auch nichts geben kann – der Aufrufer kann es nicht
+übersehen. Als Feld oder Parameter macht es Code nur länger. Und <code>get()</code> ohne Prüfung
+ist dieselbe Falle wie <code>null</code> ohne Prüfung.</p>
+<blockquote>
+<p><strong>Merksatz:</strong> Ein Lambda ist Code für später, sein Typ ein Interface mit einer Methode.
+Ein Stream ist ein Fließband aus solchen Lambdas, das erst der Eimer am Ende in Gang setzt –
+und <code>Optional</code> ist dasselbe Band für höchstens ein Stück.</p>
+</blockquote>
+
+  </main>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

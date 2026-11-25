@@ -40,9 +40,9 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -173,9 +173,9 @@ Du baust sie als Record um und hältst fest, was sich ändert. Danach beschreibs
 Raumarten als Enum.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="die-klasse-und-ihre-tests-anlegen">Die Klasse und ihre Tests anlegen</h3>
-<p>Leg in Deinem Projekt <code>aufbau</code> unter <code>src/main/java</code> und unter <code>src/test/java</code> je das
-Paket <code>aufbau.records</code> an. Speichere die Klasse als
-<code>src/main/java/aufbau/records/Room.java</code>:</p>
+<p>Im Ordner <code>src/main/java</code> und im Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege
+je das Package <code>aufbau.records</code> an. Speichere die Klasse als <code>Room.java</code> im Package
+<code>aufbau.records</code> unter <code>src/main/java</code>:</p>
 <pre><code class="language-java">package aufbau.records;
 
 import java.util.Objects;
@@ -249,12 +249,12 @@ public class Room {
     }
 }
 </code></pre>
-<p>Speichere die Tests als <code>src/test/java/aufbau/records/RoomTest.java</code>:</p>
+<p>Speichere die Tests als <code>RoomTest.java</code> im Package <code>aufbau.records</code> unter <code>src/test/java</code>:</p>
 <pre><code class="language-java">package aufbau.records;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -287,7 +287,12 @@ class RoomTest {
 
     @Test
     void capacityMustBePositive() {
-        assertThrows(IllegalArgumentException.class, () -&gt; new Room(&quot;Atlas&quot;, 2, 0));
+        try {
+            new Room(&quot;Atlas&quot;, 2, 0);
+            fail(&quot;IllegalArgumentException expected&quot;);
+        } catch (IllegalArgumentException expected) {
+            // the room was rejected – that is what we want
+        }
     }
 
     @Test
@@ -298,18 +303,14 @@ class RoomTest {
     }
 }
 </code></pre>
-<p>Starte die Tests – sie müssen grün sein, bevor Du etwas umbaust:</p>
-<pre><code class="language-bash">mvn test -Dtest=RoomTest
-</code></pre>
+<p>Starte die Tests in der IDE – sie müssen grün sein, bevor Du etwas umbaust.</p>
 <h3 id="die-klasse-als-record-umbauen">Die Klasse als Record umbauen</h3>
 <p><strong>Bevor Du umbaust:</strong> Notiere, welche der fünf Tests nach dem Umbau Deiner Meinung
 nach noch kompilieren und grün sind.</p>
 <p>Ersetze die Klasse durch einen Record <code>Room</code> mit den Komponenten <code>name</code>, <code>floor</code> und
 <code>capacity</code>. Übernimm die Prüfungen aus dem Konstruktor in einen <strong>kompakten
 Konstruktor</strong>. Alles andere lässt Du weg.</p>
-<p>Starte die Tests:</p>
-<pre><code class="language-bash">mvn test -Dtest=RoomTest
-</code></pre>
+<p>Starte die Tests in der IDE.</p>
 <p>Notier, was weggefallen ist und welche Aufrufe der Compiler jetzt anmahnt.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> Ein kompakter Konstruktor hat keine Parameterliste:
@@ -324,13 +325,11 @@ die einen <strong>neuen</strong> <code>Room</code> mit geänderter Kapazität zu
 <code>changeCapacity</code> die Kapazität des neuen Raums <strong>und</strong>, dass der ursprüngliche Raum
 unverändert ist.</li>
 </ul>
-<p>Starte die Tests, bis alle fünf grün sind:</p>
-<pre><code class="language-bash">mvn test -Dtest=RoomTest
-</code></pre>
+<p>Starte die Tests in der IDE, bis alle fünf grün sind.</p>
 <p>Lass Dir zum Schluss einen <code>Room</code> ausgeben und vergleiche das Format von <code>toString</code>
 mit dem der alten Klasse.</p>
 <h3 id="die-raumarten-als-enum-beschreiben">Die Raumarten als Enum beschreiben</h3>
-<p>Leg in <code>src/main/java/aufbau/records</code> eine Enum <code>RoomType</code> an. Sie kennt vier
+<p>Leg im Package <code>aufbau.records</code> unter <code>src/main/java</code> eine Enum <code>RoomType</code> an. Sie kennt vier
 Raumarten mit ihrer höchsten Personenzahl:</p>
 <table>
 	<thead>
@@ -366,7 +365,7 @@ Personen hineinpassen.</p>
 liefert: Telefonzelle 0, Besprechungsraum 2 000, Schulungsraum 5 000, Saal 20 000
 Cent. Schreib dabei <strong>kein</strong> <code>default</code>.</p>
 <h3 id="die-enum-testen">Die Enum testen</h3>
-<p>Speichere den Test als <code>src/test/java/aufbau/records/RoomTypeTest.java</code>:</p>
+<p>Speichere den Test als <code>RoomTypeTest.java</code> im Package <code>aufbau.records</code> unter <code>src/test/java</code>:</p>
 <pre><code class="language-java">package aufbau.records;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -423,14 +422,10 @@ class RoomTypeTest {
 }
 </code></pre>
 <p><strong>Bevor Du startest:</strong> In welcher Reihenfolge stehen die Schlüssel in
-<code>roomsPerType.keySet()</code>? Starte dann den Test:</p>
-<pre><code class="language-bash">mvn test -Dtest=RoomTypeTest
-</code></pre>
+<code>roomsPerType.keySet()</code>? Starte dann den Test in der IDE.</p>
 <h3 id="eine-raumart-ergänzen">Eine Raumart ergänzen</h3>
 <p>Füge <code>RoomType</code> die Konstante <code>COWORKING_DESK</code> (höchstens 1 Person) hinzu und
-übersetze das Projekt:</p>
-<pre><code class="language-bash">mvn compile
-</code></pre>
+baue erneut mit Maven.</p>
 <p>Lies die Meldung des Compilers, ergänze den fehlenden Fall in <code>RoomPricing</code> und pass
 den Test <code>thereAreFourRoomTypes</code> an.</p>
 <h3 id="für-schnelle-raum-und-raumart-verbinden">Für Schnelle: Raum und Raumart verbinden</h3>
@@ -507,9 +502,9 @@ Raumarten als Enum.
 
 ### Die Klasse und ihre Tests anlegen
 
-Leg in Deinem Projekt `aufbau` unter `src/main/java` und unter `src/test/java` je das
-Paket `aufbau.records` an. Speichere die Klasse als
-`src/main/java/aufbau/records/Room.java`:
+Im Ordner `src/main/java` und im Ordner `src/test/java` Deines Projekts `java-aufbau` lege
+je das Package `aufbau.records` an. Speichere die Klasse als `Room.java` im Package
+`aufbau.records` unter `src/main/java`:
 
 ```java
 package aufbau.records;
@@ -586,14 +581,14 @@ public class Room {
 }
 ```
 
-Speichere die Tests als `src/test/java/aufbau/records/RoomTest.java`:
+Speichere die Tests als `RoomTest.java` im Package `aufbau.records` unter `src/test/java`:
 
 ```java
 package aufbau.records;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -626,7 +621,12 @@ class RoomTest {
 
     @Test
     void capacityMustBePositive() {
-        assertThrows(IllegalArgumentException.class, () -&gt; new Room(&#34;Atlas&#34;, 2, 0));
+        try {
+            new Room(&#34;Atlas&#34;, 2, 0);
+            fail(&#34;IllegalArgumentException expected&#34;);
+        } catch (IllegalArgumentException expected) {
+            // the room was rejected – that is what we want
+        }
     }
 
     @Test
@@ -638,11 +638,7 @@ class RoomTest {
 }
 ```
 
-Starte die Tests – sie müssen grün sein, bevor Du etwas umbaust:
-
-```bash
-mvn test -Dtest=RoomTest
-```
+Starte die Tests in der IDE – sie müssen grün sein, bevor Du etwas umbaust.
 
 ### Die Klasse als Record umbauen
 
@@ -653,11 +649,7 @@ Ersetze die Klasse durch einen Record `Room` mit den Komponenten `name`, `floor`
 `capacity`. Übernimm die Prüfungen aus dem Konstruktor in einen **kompakten
 Konstruktor**. Alles andere lässt Du weg.
 
-Starte die Tests:
-
-```bash
-mvn test -Dtest=RoomTest
-```
+Starte die Tests in der IDE.
 
 Notier, was weggefallen ist und welche Aufrufe der Compiler jetzt anmahnt.
 
@@ -674,18 +666,14 @@ Pass `RoomTest` an, ohne die Absicht eines Tests zu ändern:
   `changeCapacity` die Kapazität des neuen Raums **und**, dass der ursprüngliche Raum
   unverändert ist.
 
-Starte die Tests, bis alle fünf grün sind:
-
-```bash
-mvn test -Dtest=RoomTest
-```
+Starte die Tests in der IDE, bis alle fünf grün sind.
 
 Lass Dir zum Schluss einen `Room` ausgeben und vergleiche das Format von `toString`
 mit dem der alten Klasse.
 
 ### Die Raumarten als Enum beschreiben
 
-Leg in `src/main/java/aufbau/records` eine Enum `RoomType` an. Sie kennt vier
+Leg im Package `aufbau.records` unter `src/main/java` eine Enum `RoomType` an. Sie kennt vier
 Raumarten mit ihrer höchsten Personenzahl:
 
 | Konstante       | höchste Personenzahl |
@@ -706,7 +694,7 @@ Cent. Schreib dabei **kein** `default`.
 
 ### Die Enum testen
 
-Speichere den Test als `src/test/java/aufbau/records/RoomTypeTest.java`:
+Speichere den Test als `RoomTypeTest.java` im Package `aufbau.records` unter `src/test/java`:
 
 ```java
 package aufbau.records;
@@ -766,20 +754,12 @@ class RoomTypeTest {
 ```
 
 **Bevor Du startest:** In welcher Reihenfolge stehen die Schlüssel in
-`roomsPerType.keySet()`? Starte dann den Test:
-
-```bash
-mvn test -Dtest=RoomTypeTest
-```
+`roomsPerType.keySet()`? Starte dann den Test in der IDE.
 
 ### Eine Raumart ergänzen
 
 Füge `RoomType` die Konstante `COWORKING_DESK` (höchstens 1 Person) hinzu und
-übersetze das Projekt:
-
-```bash
-mvn compile
-```
+baue erneut mit Maven.
 
 Lies die Meldung des Compilers, ergänze den fehlenden Fall in `RoomPricing` und pass
 den Test `thereAreFourRoomTypes` an.

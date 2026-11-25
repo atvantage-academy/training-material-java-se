@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Die Oberklasse Object · ATVANTAGE Academy</title>
+<meta name="description" content="Jede Klasse erbt von Object – das Klassendiagramm zeigt, was sie dabei mitbekommt. Ein Klick auf eine Methode erklärt Zweck, Beispiel und Stolpersteine: equals und hashCode mit ihrem Vertrag, toString, getClass, clone, finalize samt besserem Weg über try-with-resources und wait/notify.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Die Oberklasse Object">
+<meta property="og:description" content="Jede Klasse erbt von Object – das Klassendiagramm zeigt, was sie dabei mitbekommt. Ein Klick auf eine Methode erklärt Zweck, Beispiel und Stolpersteine: equals und hashCode mit ihrem Vertrag, toString, getClass, clone, finalize samt besserem Weg über try-with-resources und wait/notify.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Jede Klasse erbt von Object – das Klassendiagramm zeigt, was sie dabei mitbekommt. Ein Klick auf eine Methode erklärt Zweck, Beispiel und Stolpersteine: equals und hashCode mit ihrem Vertrag, toString, getClass, clone, finalize samt besserem Weg über try-with-resources und wait/notify.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/object-klasse/object-klasse.css","src":"object-klasse.css","type":"style"},{"path":"shared/object-klasse/object-klasse.js","src":"object-klasse.js","type":"script"}],"pageId":"shared-object-klasse","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Die Oberklasse Object","topics":null,"untranslated":null,"url":"/shared/object-klasse/object-klasse.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../skriptorium/stage.css?v=c76b28bc">
+<script src="../../skriptorium/stage.js?v=a8ce5bf6" defer></script>
+
+<link rel="stylesheet" href="../../shared/object-klasse/object-klasse.css?v=04ec4557">
+<script src="../../shared/object-klasse/object-klasse.js?v=beca131e" defer></script>
+
+</head>
+<body class="skr-stage" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization skriptorium.stage" data-skr-lang="de" data-skr-stage-home="../../" data-skr-audience="learner">
+  <a class="skr-skip-link" href="#skr-stage-main">Zum Inhalt springen</a>
+  
+<header class="skr-stage__bar">
+  <img class="skr-stage__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-stage__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-stage__title">Die Oberklasse Object</span>
+  <div class="skr-stage__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-stage-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  <button type="button" class="skr-stage__nav skr-stage__close" data-skr-stage-close hidden
+        title="Schließen" aria-label="Schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+
+</header>
+  
+  <main class="skr-stage__main" id="skr-stage-main">
+    <div class="obj-root">
+<p class="obj-lead">Jede Klasse in Java hat eine Oberklasse – und wenn Du keine angibst, ist es <code>Object</code>. Damit erbt <strong>jedes Objekt</strong> ein paar Methoden, die Collections, <code>println</code>, Tests und Threads voraussetzen. <strong>Klicke eine Methode an</strong>: Du bekommst ihren Zweck, ein kurzes Beispiel und wofür sie verwendet wird.</p>
+<div class="obj-diagramm-rahmen">
+<div class="obj-diagramm" id="obj-diagramm">
+<svg class="obj-linien" id="obj-linien" aria-hidden="true" focusable="false"></svg>
+<div class="obj-klasse obj-klasse--object" id="obj-object">
+<div class="obj-klasse__kopf"><span class="obj-klasse__paket">java.lang</span><span class="obj-klasse__name">Object</span></div>
+<div class="obj-klasse__methoden">
+<button type="button" class="obj-methode obj-methode--wichtig" data-methode="equals" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">+</span> boolean equals(Object obj)</button>
+<button type="button" class="obj-methode obj-methode--wichtig" data-methode="hashcode" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">+</span> int hashCode()</button>
+<button type="button" class="obj-methode obj-methode--wichtig" data-methode="tostring" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">+</span> String toString()</button>
+<button type="button" class="obj-methode" data-methode="getclass" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">+</span> final Class&lt;?&gt; getClass()</button>
+<button type="button" class="obj-methode" data-methode="clone" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">#</span> Object clone()</button>
+<button type="button" class="obj-methode obj-methode--veraltet" data-methode="finalize" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">#</span> void finalize() <span class="obj-marke">veraltet</span></button>
+<button type="button" class="obj-methode" data-methode="wait-notify" aria-haspopup="dialog" aria-pressed="false"><span class="obj-sicht">+</span> final void wait() · notify() · notifyAll()</button>
+</div>
+</div>
+<div class="obj-kind obj-kind--eigen" data-eltern="obj-object">
+<span class="obj-kind__name">Room</span>
+<span class="obj-kind__code">class Room { … }</span>
+<span class="obj-kind__notiz">Deine Klasse – ohne <code>extends</code></span>
+</div>
+<div class="obj-kind" data-eltern="obj-object">
+<span class="obj-kind__name">String</span>
+<span class="obj-kind__notiz">überschreibt equals, hashCode, toString</span>
+</div>
+<div class="obj-kind" data-eltern="obj-object">
+<span class="obj-kind__name">Integer</span>
+<span class="obj-kind__notiz">über <code>Number</code>, ebenso</span>
+</div>
+<div class="obj-kind" data-eltern="obj-object">
+<span class="obj-kind__name">int[]</span>
+<span class="obj-kind__notiz">auch Arrays sind Objekte</span>
+</div>
+</div>
+</div>
+<p class="obj-legende">
+<span><svg width="34" height="12" aria-hidden="true"><line x1="0" y1="6" x2="26" y2="6" stroke="currentColor" stroke-width="1.6"/><polygon points="26,1 34,6 26,11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>erbt von</span>
+<span><code>+</code> public · <code>#</code> protected – nur in Unterklassen und im selben Package sichtbar</span>
+<span>Fett: die Methoden, die Du in eigenen Klassen am häufigsten überschreibst</span>
+</p>
+<section class="obj-sec" id="implizit">
+<h2>Jede Klasse erbt von Object</h2>
+<div class="obj-grid">
+<div class="obj-card">
+<h3>Implizit: <code>extends Object</code></h3>
+<p>Gibst Du keine Oberklasse an, setzt der Compiler <code>Object</code> ein. Beide Zeilen bedeuten dasselbe:</p>
+<pre><code class="language-java">public class Room { … }
+public class Room extends Object { … }</code></pre>
+<p>Hat eine Klasse eine andere Oberklasse, erbt sie <code>Object</code> über diese – an der Spitze jeder Hierarchie steht immer <code>Object</code>.</p>
+</div>
+<div class="obj-card">
+<h3>Eine Variable für alles</h3>
+<p>Weil jedes Objekt ein <code>Object</code> ist, passt jedes in eine Variable vom Typ <code>Object</code> – auch ein Array:</p>
+<pre><code class="language-java">Object a = new Room("R268", "Seminar 1");
+Object b = "Text";
+Object c = new int[3];</code></pre>
+<p>Darauf bauen <code>equals(Object)</code>, <code>List.remove(Object)</code> oder <code>Map.get(Object)</code>: Sie nehmen jedes Objekt an. Primitive Werte wie <code>int</code> sind keine Objekte; sie werden dafür in einen Wrapper verpackt (Autoboxing).</p>
+</div>
+<div class="obj-card">
+<h3>Erben heißt: überschreiben dürfen</h3>
+<p>Die geerbten Fassungen von <code>equals</code>, <code>hashCode</code> und <code>toString</code> kennen Deine Felder nicht. Sie vergleichen <strong>Identität</strong> und geben den Klassennamen mit einer Hexzahl aus. Was ein Raum fachlich ist, legst Du fest, indem Du sie <strong>überschreibst</strong> – mit <code>@Override</code>, damit der Compiler einen Tippfehler in der Signatur meldet.</p>
+<p><code>getClass</code>, <code>wait</code> und <code>notify</code> sind <code>final</code>: Die kannst Du nur aufrufen.</p>
+</div>
+<div class="obj-card">
+<h3>Auch <code>new Object()</code> geht</h3>
+<p><code>Object</code> ist keine abstrakte Klasse – Du kannst sie selbst instanziieren:</p>
+<pre><code class="language-java">Object o = new Object();
+System.out.println(o);   // java.lang.Object@6b95977</code></pre>
+<p>Ein solches Objekt hat keine Felder und kann nur, was <code>Object</code> kann: Es hat eine eigene <strong>Identität</strong>, ist nur sich selbst gleich, und Threads können sich mit <code>synchronized</code> darauf abstimmen.</p>
+</div>
+</div>
+</section>
+<dialog class="obj-dialog" id="obj-dialog-equals" aria-labelledby="obj-titel-equals">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">public</span><h2 id="obj-titel-equals">boolean equals(Object obj)</h2><p>Sind zwei Objekte fachlich gleich?</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p><code>==</code> fragt, ob zwei Variablen auf <strong>dasselbe</strong> Objekt zeigen. <code>equals</code> fragt, ob zwei Objekte <strong>gleich</strong> sind – was „gleich“ heißt, legt die Klasse fest. Die geerbte Fassung aus <code>Object</code> kennt keine Felder und prüft deshalb nur <code>this == obj</code>.</p>
+<pre><code class="language-java">@Override
+public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+        return false;
+    }
+    Room other = (Room) o;
+    return number.equals(other.number);   // ein Raum ist seine Nummer
+}</code></pre>
+<pre><code class="language-java">Room a = new Room("R268", "Seminar 1");
+Room b = new Room("R268", "Seminar 1");
+System.out.println(a == b);       // false – zwei Objekte
+System.out.println(a.equals(b));  // true  – fachlich gleich</code></pre>
+<h3>Der Vertrag</h3>
+<p>Jede Fassung von <code>equals</code> muss diese Regeln einhalten (Javadoc von <code>Object.equals</code>):</p>
+<ul>
+<li><strong>reflexiv:</strong> <code>a.equals(a)</code> ist <code>true</code></li>
+<li><strong>symmetrisch:</strong> <code>a.equals(b)</code> genau dann, wenn <code>b.equals(a)</code></li>
+<li><strong>transitiv:</strong> aus <code>a.equals(b)</code> und <code>b.equals(c)</code> folgt <code>a.equals(c)</code></li>
+<li><strong>konsistent:</strong> gleiches Ergebnis, solange sich die verglichenen Felder nicht ändern</li>
+<li><code>a.equals(null)</code> ist <code>false</code></li>
+</ul>
+<div class="obj-abwaegung">
+<div><h4>Wer es verwendet</h4><ul><li><code>List.contains</code>, <code>indexOf</code>, <code>remove(Object)</code></li><li><code>HashSet</code> und <code>HashMap</code> – zusammen mit <code>hashCode</code></li><li><code>assertEquals</code> in JUnit</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Den Parameter als <code>Room</code> statt <code>Object</code> deklariert: Das <strong>überlädt</strong>, statt zu überschreiben – <code>@Override</code> deckt es auf.</li><li><code>instanceof</code> statt <code>getClass()</code>: Vergleicht eine Unterklasse zusätzliche Felder, bricht die Symmetrie.</li><li><code>equals</code> überschrieben, <code>hashCode</code> nicht.</li></ul></div>
+</div>
+</div>
+</dialog>
+<dialog class="obj-dialog" id="obj-dialog-hashcode" aria-labelledby="obj-titel-hashcode">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">public</span><h2 id="obj-titel-hashcode">int hashCode()</h2><p>Eine Zahl, die sagt, in welchem Fach ein Objekt liegt.</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p><code>HashSet</code> und <code>HashMap</code> verteilen ihre Elemente auf Fächer (Buckets). Das Fach berechnen sie aus <code>hashCode()</code>. Beim Suchen schauen sie <strong>nur in diesem einen Fach</strong> nach und vergleichen dort mit <code>equals</code>. Deshalb müssen gleiche Objekte im selben Fach liegen – also denselben Hashwert haben.</p>
+<p>Die geerbte Fassung liefert für jedes Objekt einen eigenen Wert (die „Identität“). Zwei gleiche Räume landen dann in verschiedenen Fächern, und ein <code>HashSet</code> findet den zweiten nicht.</p>
+<pre><code class="language-java">@Override
+public int hashCode() {
+    return Objects.hash(number);   // dieselben Felder wie in equals
+}</code></pre>
+<pre><code class="language-java">Set&lt;Room&gt; rooms = new HashSet&lt;&gt;();
+rooms.add(new Room("R268", "Seminar 1"));
+System.out.println(rooms.contains(new Room("R268", "Seminar 1")));   // true</code></pre>
+<h3>Der Zusammenhang mit equals</h3>
+<div class="obj-regeln obj-regeln--klein">
+<div class="obj-regel obj-regel--pflicht"><span class="obj-regel__wenn">gleich nach <code>equals</code></span><span class="obj-regel__pfeil" aria-hidden="true">⇒</span><span class="obj-regel__dann">gleicher Hashwert</span><span class="obj-regel__art">Pflicht</span></div>
+<div class="obj-regel obj-regel--soll"><span class="obj-regel__wenn">ungleich</span><span class="obj-regel__pfeil" aria-hidden="true">⇒</span><span class="obj-regel__dann">möglichst verschiedener Hashwert</span><span class="obj-regel__art">Laufzeit</span></div>
+<div class="obj-regel obj-regel--erlaubt"><span class="obj-regel__wenn">gleicher Hashwert</span><span class="obj-regel__pfeil" aria-hidden="true">⇏</span><span class="obj-regel__dann">gleiche Objekte</span><span class="obj-regel__art">Kollision</span></div>
+</div>
+<p>Kollisionen gibt es zwangsläufig – ein <code>int</code> hat weniger Werte, als es Strings gibt:</p>
+<pre><code class="language-java">System.out.println("Aa".hashCode());     // 2112
+System.out.println("BB".hashCode());     // 2112
+System.out.println("Aa".equals("BB"));   // false</code></pre>
+<p>Das ist erlaubt: Im selben Fach entscheidet <code>equals</code>. Liefert aber <em>jedes</em> Objekt denselben Wert, liegt alles in einem Fach, und jede Suche vergleicht mit allen – richtig, aber langsam.</p>
+<div class="obj-abwaegung">
+<div><h4>Faustregeln</h4><ul><li>Dieselben Felder wie in <code>equals</code>, nicht mehr.</li><li><code>Objects.hash(…)</code> oder erzeugen lassen.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Ändert sich ein Feld, das im Hashwert steckt, während das Objekt im Set liegt, sucht das Set im falschen Fach – das Objekt ist „verschwunden“.</li></ul></div>
+</div>
+</div>
+</dialog>
+<dialog class="obj-dialog" id="obj-dialog-tostring" aria-labelledby="obj-titel-tostring">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">public</span><h2 id="obj-titel-tostring">String toString()</h2><p>Das Objekt als Text – für Menschen.</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p>Java ruft <code>toString()</code> überall auf, wo ein Objekt zu Text werden muss: in <code>System.out.println</code>, beim Verketten mit <code>+</code>, in Fehlermeldungen von Tests, in Logs und im Debugger. Die geerbte Fassung liefert den Klassennamen, ein <code>@</code> und den Hashwert als Hexzahl:</p>
+<pre><code class="language-java">System.out.println(new Room("R268", "Seminar 1"));
+// ohne toString: de.schulung.Room@7344699f</code></pre>
+<pre><code class="language-java">@Override
+public String toString() {
+    return "Room " + number + " (" + name + ")";
+}
+// mit toString:  Room R268 (Seminar 1)</code></pre>
+<div class="obj-abwaegung">
+<div><h4>Wofür</h4><ul><li>Lesbare Ausgaben beim Testen, Loggen und Debuggen – <code>expected: &lt;Room R268&gt;</code> sagt mehr als eine Hexzahl.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Keine Passwörter oder persönlichen Daten hinein – <code>toString</code> landet in Logs.</li><li>Nicht zum Parsen verwenden: Das Format ist für Menschen, nicht für Programme.</li></ul></div>
+</div>
+</div>
+</dialog>
+<dialog class="obj-dialog" id="obj-dialog-getclass" aria-labelledby="obj-titel-getclass">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">public final</span><h2 id="obj-titel-getclass">Class&lt;?&gt; getClass()</h2><p>Von welcher Klasse ist dieses Objekt wirklich?</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p><code>getClass()</code> liefert die Klasse, mit der das Objekt <strong>erzeugt</strong> wurde – nicht den Typ der Variablen. Die Methode ist <code>final</code>: Kein Objekt kann über seine Klasse lügen.</p>
+<pre><code class="language-java">Object o = "Text";
+System.out.println(o.getClass().getSimpleName());   // String
+System.out.println(o.getClass().getName());         // java.lang.String
+System.out.println(o.getClass() == String.class);   // true</code></pre>
+<div class="obj-abwaegung">
+<div><h4>Wofür</h4><ul><li>In <code>equals</code>: <code>getClass() != o.getClass()</code> lässt nur Objekte derselben Klasse gleich sein.</li><li>In <code>toString</code> einer Oberklasse: <code>getClass().getSimpleName()</code> nennt die Unterklasse.</li><li>Einstieg in Reflection: Felder, Methoden und Annotationen einer Klasse lesen.</li></ul></div>
+<div><h4>Stolpersteine</h4><ul><li>Für Fallunterscheidungen im Fachcode ist <code>instanceof</code> oder Polymorphie meist die bessere Wahl – <code>getClass() ==</code> schließt Unterklassen aus.</li></ul></div>
+</div>
+</div>
+</dialog>
+<dialog class="obj-dialog" id="obj-dialog-clone" aria-labelledby="obj-titel-clone">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">protected</span><h2 id="obj-titel-clone">Object clone()</h2><p>Eine Kopie des Objekts – flach.</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p><code>clone()</code> erzeugt ein neues Objekt mit denselben Feldwerten. Die Methode ist <code>protected</code>, und sie funktioniert nur, wenn die Klasse das Marker-Interface <code>Cloneable</code> implementiert – sonst wirft sie <code>CloneNotSupportedException</code>. Im Alltag begegnet sie Dir vor allem bei <strong>Arrays</strong>, dort ist sie öffentlich:</p>
+<pre><code class="language-java">int[] original = { 1, 2, 3 };
+int[] copy = original.clone();
+copy[0] = 99;
+System.out.println(Arrays.toString(original));   // [1, 2, 3]
+System.out.println(Arrays.toString(copy));       // [99, 2, 3]</code></pre>
+<p>Die Kopie ist <strong>flach</strong>: Felder mit Referenzen zeigen danach auf dieselben Objekte.</p>
+<pre><code class="language-java">List&lt;String&gt;[] lists = new List[] { new ArrayList&lt;&gt;(List.of("a")) };
+List&lt;String&gt;[] shallow = lists.clone();
+shallow[0].add("b");
+System.out.println(lists[0]);   // [a, b] – dieselbe Liste</code></pre>
+<p class="obj-wann"><strong>Besser für eigene Klassen:</strong> ein Kopierkonstruktor oder eine Fabrikmethode (<code>new ArrayList&lt;&gt;(list)</code>, <code>List.copyOf(list)</code>). Die sind lesbar, brauchen kein <code>Cloneable</code> und legen fest, wie tief kopiert wird.</p>
+</div>
+</dialog>
+<dialog class="obj-dialog" id="obj-dialog-finalize" aria-labelledby="obj-titel-finalize">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">protected · veraltet</span><h2 id="obj-titel-finalize">void finalize()</h2><p>Der „Destruktor“, auf den man sich nicht verlassen kann.</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p>Der Garbage Collector ruft <code>finalize()</code> auf, bevor er ein Objekt wegräumt, das niemand mehr erreicht. Gedacht war das wie ein Destruktor in C++: Ressourcen freigeben, Dateien schließen, eine Lampe ausschalten.</p>
+<pre><code class="language-java">@Override
+protected void finalize() {        // Warnung: [removal] finalize() in Object ist veraltet
+    projector.switchOff();         // … und wurde zum Entfernen markiert
+}</code></pre>
+<h3>Warum das nicht trägt</h3>
+<ul>
+<li><strong>Der Garbage Collector läuft asynchron</strong>, wann er will – vielleicht Sekunden später, vielleicht gar nicht, wenn genug Speicher da ist oder das Programm vorher endet. <code>System.gc()</code> ist nur eine Bitte.</li>
+<li><strong>Abschaltbar:</strong> Mit <code>java --finalization=disabled</code> (seit Java 18) ruft die JVM <code>finalize()</code> überhaupt nicht mehr auf.</li>
+<li><strong>Abgekündigt:</strong> seit Java 9 veraltet, seit Java 18 zum Entfernen markiert (JEP 421, <code>@Deprecated(since="9", forRemoval=true)</code>).</li>
+<li>Dazu: Exceptions darin gehen verloren, ein eigener Thread führt es aus, und Objekte mit <code>finalize</code> bremsen den Garbage Collector.</li>
+</ul>
+<p class="obj-wann"><strong>Besser: <code>AutoCloseable</code> und try-with-resources.</strong> Die Klasse implementiert <code>close()</code>, und der <code>try</code>-Block ruft es <strong>sofort und garantiert</strong> auf – auch wenn eine Exception fliegt. Wie das geht, zeigt die Visualisierung Exceptions im Reiter <a class="skr-doclink skr-doclink--visualization" href="../../java-basics/oop-mit-java/ausnahmebehandlung/exceptions.html#/try-with-resources?open=try-with-resources">try-with-resources</a>.</p>
+<pre><code class="language-java">try (Projector projector = new Projector("INV-17", 3000)) {
+    projector.switchOn();
+    // … präsentieren …
+}   // hier ruft Java projector.close() auf – die Lampe ist aus</code></pre>
+</div>
+</dialog>
+<dialog class="obj-dialog" id="obj-dialog-wait-notify" aria-labelledby="obj-titel-wait-notify">
+<div class="obj-dialog__innen">
+<div class="obj-dialog__kopf">
+<div><span class="obj-dialog__stereo">public final</span><h2 id="obj-titel-wait-notify">wait() · notify() · notifyAll()</h2><p>Threads, die aufeinander warten.</p></div>
+<button type="button" class="obj-dialog__zu" aria-label="Schließen">×</button>
+</div>
+<h3>Zweck</h3>
+<p>Jedes Objekt kann als <strong>Monitor</strong> dienen, auf den Threads mit <code>synchronized</code> zugreifen. <code>wait()</code> legt den aktuellen Thread schlafen und gibt den Monitor frei; <code>notify()</code> weckt einen wartenden Thread, <code>notifyAll()</code> alle. Deshalb stehen diese Methoden in <code>Object</code> und nicht in <code>Thread</code>.</p>
+<pre><code class="language-java">class Mailbox {
+    private String message;
+
+    synchronized void put(String m) {
+        message = m;
+        notifyAll();                  // Wartende wecken
+    }
+
+    synchronized String take() throws InterruptedException {
+        while (message == null) {     // in einer Schleife prüfen, nicht mit if
+            wait();
+        }
+        String m = message;
+        message = null;
+        return m;
+    }
+}</code></pre>
+<div class="obj-abwaegung">
+<div><h4>Regeln</h4><ul><li>Nur innerhalb von <code>synchronized</code> auf <strong>demselben</strong> Objekt aufrufen – sonst <code>IllegalMonitorStateException</code>.</li><li><code>wait()</code> immer in einer Schleife: Ein Thread kann ohne <code>notify</code> aufwachen.</li></ul></div>
+<div><h4>Heute</h4><ul><li>Selten selbst geschrieben. <code>java.util.concurrent</code> bringt fertige Bausteine: <code>BlockingQueue</code> statt der Mailbox oben, <code>CountDownLatch</code>, <code>CompletableFuture</code>.</li></ul></div>
+</div>
+</div>
+</dialog>
+</div>
+
+  </main>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Den Buchungsservice testbar machen · ATVANTAGE Academy</title>
+<title>Den Buchungsservice mit Dependency Injection und Mockito testen · ATVANTAGE Academy</title>
 <meta name="description" content="Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Den Buchungsservice testbar machen">
+<meta property="og:title" content="Den Buchungsservice mit Dependency Injection und Mockito testen">
 <meta property="og:description" content="Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -34,15 +34,15 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.","duration":30,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-testen-mockito-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Den Buchungsservice testbar machen","topics":["Dependency Injection","JUnit","Mockito","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/testen-mockito/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.","duration":50,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-testen-mockito-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Den Buchungsservice mit Dependency Injection und Mockito testen","topics":["Dependency Injection","JUnit","Mockito","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/testen-mockito/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,16 +120,16 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Den Buchungsservice testbar machen</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Den Buchungsservice mit Dependency Injection und Mockito testen</span></nav>
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 30 Minuten</span><span class="skr-tag">Dependency Injection</span><span class="skr-tag">JUnit</span><span class="skr-tag">Mockito</span><span class="skr-tag">Raumbuchung</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 50 Minuten</span><span class="skr-tag">Dependency Injection</span><span class="skr-tag">JUnit</span><span class="skr-tag">Mockito</span><span class="skr-tag">Raumbuchung</span>
     </div>
     <div class="skr-guide-hero__actions">
       <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Den Buchungsservice testbar machen</h1>
+  </div><h1 id="skr-page-title">Den Buchungsservice mit Dependency Injection und Mockito testen</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -175,7 +175,7 @@
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die mockito-bom steht neben der junit-bom im selben dependencyManagement; mockito-junit-jupiter steht ohne Version im POM." disabled="disabled"> Die <code>mockito-bom</code> steht neben der <code>junit-bom</code> im selben <code>dependencyManagement</code>; <code>mockito-junit-jupiter</code> steht ohne Version im POM.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die argLine von Surefire beginnt mit @{argLine} und trägt danach den Agenten von Mockito." disabled="disabled"> Die <code>argLine</code> von Surefire beginnt mit <code>@{argLine}</code> und trägt danach den Agenten von Mockito.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn verify ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter." disabled="disabled"> <code>mvn verify</code> ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter." disabled="disabled"> Der Maven-Build ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter.</li>
 </ul>
 <h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
 <ul class="task-list">
@@ -186,11 +186,13 @@
 </div>
 <p>Der <code>BookingService</code> der Raumbuchung prüft, ob ein Raum existiert und groß genug ist, und
 benachrichtigt danach die Haustechnik per E-Mail. Seinen Raumkatalog und seine
-Benachrichtigung erzeugt er selbst. Du machst ihn testbar.</p>
+Benachrichtigung erzeugt er selbst. Du machst ihn testbar.
+Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die Visualisierung
+<a class="skr-doclink skr-doclink--visualization" href="../../../shared/dependency-injection/dependency-injection.html">Dependency Injection und Mocks</a>.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="den-ausgangsstand-anlegen">Den Ausgangsstand anlegen</h3>
-<p>Leg im Projekt <code>aufbau</code> das Paket <code>aufbau.testing</code> an und kopiere die folgenden Klassen
-hinein, jede in ihre eigene Datei unter <code>src/main/java/aufbau/testing/</code>.</p>
+<p>Im Ordner <code>src/main/java</code> des Projekts <code>java-aufbau</code> lege das Package <code>aufbau.testing</code> an
+und kopiere die folgenden Klassen hinein, jede in ihre eigene Datei.</p>
 <p>Ein Raum mit Kennung und Zahl der Plätze:</p>
 <pre><code class="language-java">package aufbau.testing;
 
@@ -279,7 +281,8 @@ und zwei Buchungen versucht: Raum <code>R1</code> für 3 und für 8 Personen. St
 größeren Anwendungen Frameworks wie CDI oder Spring.</p>
 </blockquote>
 <h3 id="mit-eigenen-stellvertretern-testen">Mit eigenen Stellvertretern testen</h3>
-<p>Leg unter <code>src/test/java/aufbau/testing/</code> zwei Stellvertreter an. Der erste ist ein
+<p>Im Ordner <code>src/test/java</code> lege ebenfalls das Package <code>aufbau.testing</code> an und darin zwei
+Stellvertreter. Der erste ist ein
 Katalog, dem der Test seine Räume selbst gibt:</p>
 <pre><code class="language-java">package aufbau.testing;
 
@@ -348,12 +351,13 @@ eine Buchung für 8 Personen – abgelehnt, und die Liste der Nachrichten bleibt
 <p>Mockito bringt wie JUnit eine BOM mit, die die Versionen aller Mockito-Artefakte
 festlegt. Schlag auf Maven Central die aktuelle Version von
 <a href="https://central.sonatype.com/artifact/org.mockito/mockito-bom"><code>org.mockito:mockito-bom</code></a> nach.
-Ergänze in Deiner <code>pom.xml</code> das vorhandene <code>dependencyManagement</code> <strong>nach</strong> der <code>junit-bom</code>
-um diesen Eintrag und ersetze <code>VERSION</code> durch die gefundene Version:</p>
+Leg die Version wie bei JUnit als Property <code>mockito.version</code> in <code>&lt;properties&gt;</code> an. Ergänze
+dann in Deiner <code>pom.xml</code> das vorhandene <code>dependencyManagement</code> <strong>nach</strong> der <code>junit-bom</code>
+um diesen Eintrag:</p>
 <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.mockito&lt;/groupId&gt;
     &lt;artifactId&gt;mockito-bom&lt;/artifactId&gt;
-    &lt;version&gt;VERSION&lt;/version&gt;
+    &lt;version&gt;${mockito.version}&lt;/version&gt;
     &lt;type&gt;pom&lt;/type&gt;
     &lt;scope&gt;import&lt;/scope&gt;
 &lt;/dependency&gt;
@@ -366,6 +370,127 @@ die kommt aus der BOM:</p>
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 </code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+        &lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+        &lt;jacoco-maven-plugin.version&gt;VERSION&lt;/jacoco-maven-plugin.version&gt;
+        &lt;mockito.version&gt;VERSION&lt;/mockito.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+                &lt;artifactId&gt;mockito-bom&lt;/artifactId&gt;
+                &lt;version&gt;${mockito.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+            &lt;artifactId&gt;mockito-junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${jacoco-maven-plugin.version}&lt;/version&gt;
+                    &lt;configuration&gt;
+                        &lt;rules&gt;
+                            &lt;rule&gt;
+                                &lt;element&gt;CLASS&lt;/element&gt;
+                                &lt;includes&gt;
+                                    &lt;include&gt;aufbau.junit.Room&lt;/include&gt;
+                                &lt;/includes&gt;
+                                &lt;limits&gt;
+                                    &lt;limit&gt;
+                                        &lt;counter&gt;BRANCH&lt;/counter&gt;
+                                        &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                                        &lt;minimum&gt;0.8&lt;/minimum&gt;
+                                    &lt;/limit&gt;
+                                    &lt;limit&gt;
+                                        &lt;counter&gt;LINE&lt;/counter&gt;
+                                        &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                                        &lt;minimum&gt;0.8&lt;/minimum&gt;
+                                    &lt;/limit&gt;
+                                &lt;/limits&gt;
+                            &lt;/rule&gt;
+                        &lt;/rules&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;prepare-agent&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;report&lt;/id&gt;
+                        &lt;phase&gt;test&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;report&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;check&lt;/id&gt;
+                        &lt;phase&gt;verify&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;check&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</details>
 <p>Lass Dir den Abhängigkeitsbaum mit allen Details anzeigen:</p>
 <pre><code class="language-bash">mvn dependency:tree -Dverbose
 </code></pre>
@@ -409,9 +534,7 @@ class BookingServiceMockitoTest {
 <code>never()</code> heißt keinmal. Damit jeder Text passt, gibt es <code>anyString()</code> aus
 <code>org.mockito.ArgumentMatchers</code>.</p>
 </blockquote>
-<p>Lass alle Tests laufen:</p>
-<pre><code class="language-bash">mvn test
-</code></pre>
+<p>Baue erneut mit Maven.</p>
 <p>Sieh Dir die Ausgabe an: Was meldet die JVM – und, ab JDK 21, Mockito?</p>
 <h3 id="die-kurzform-mit-der-extension">Die Kurzform mit der Extension</h3>
 <p>Schreib einen der Tests in einer neuen Testklasse noch einmal – diesmal mit
@@ -423,14 +546,21 @@ Mockito auf.</p>
 davor, künftige JDKs verbieten es; unter JDK 17 meldet die JVM nur „Sharing is only
 supported for boot loader classes …“. Die Mockito-Doku empfiehlt, den Agenten beim Start
 der Tests anzugeben – das gilt für JDK 17 wie für jedes neuere.</p>
-<p>Ergänze in <code>build/plugins</code> Deiner <code>pom.xml</code>, neben dem <code>jacoco-maven-plugin</code>, das
-<code>maven-dependency-plugin</code>; sein Ziel <code>properties</code> legt für jede Abhängigkeit eine Property
-mit dem Pfad zu ihrer JAR an. Die Version schlägst Du wieder auf Maven Central nach und
-ersetzt damit <code>VERSION</code>:</p>
+<p>Dafür brauchst Du das <code>maven-dependency-plugin</code>; sein Ziel <code>properties</code> legt für jede
+Abhängigkeit eine Property mit dem Pfad zu ihrer JAR an. Schlag die Version wieder auf
+Maven Central nach, leg sie als Property <code>maven-dependency-plugin.version</code> an und leg das
+Plugin in <code>pluginManagement</code> fest:</p>
 <pre><code class="language-xml">&lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
     &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
-    &lt;version&gt;VERSION&lt;/version&gt;
+    &lt;version&gt;${maven-dependency-plugin.version}&lt;/version&gt;
+&lt;/plugin&gt;
+</code></pre>
+<p>Binde es dann in <code>build/plugins</code>, neben dem <code>jacoco-maven-plugin</code>, an den Lifecycle – ohne
+Version:</p>
+<pre><code class="language-xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
     &lt;executions&gt;
         &lt;execution&gt;
             &lt;goals&gt;
@@ -447,6 +577,147 @@ sie ist):</p>
     &lt;argLine&gt;@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off&lt;/argLine&gt;
 &lt;/configuration&gt;
 </code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+        &lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+        &lt;jacoco-maven-plugin.version&gt;VERSION&lt;/jacoco-maven-plugin.version&gt;
+        &lt;mockito.version&gt;VERSION&lt;/mockito.version&gt;
+        &lt;maven-dependency-plugin.version&gt;VERSION&lt;/maven-dependency-plugin.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+                &lt;artifactId&gt;mockito-bom&lt;/artifactId&gt;
+                &lt;version&gt;${mockito.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mockito&lt;/groupId&gt;
+            &lt;artifactId&gt;mockito-junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+                    &lt;configuration&gt;
+                        &lt;argLine&gt;@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off&lt;/argLine&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${jacoco-maven-plugin.version}&lt;/version&gt;
+                    &lt;configuration&gt;
+                        &lt;rules&gt;
+                            &lt;rule&gt;
+                                &lt;element&gt;CLASS&lt;/element&gt;
+                                &lt;includes&gt;
+                                    &lt;include&gt;aufbau.junit.Room&lt;/include&gt;
+                                &lt;/includes&gt;
+                                &lt;limits&gt;
+                                    &lt;limit&gt;
+                                        &lt;counter&gt;BRANCH&lt;/counter&gt;
+                                        &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                                        &lt;minimum&gt;0.8&lt;/minimum&gt;
+                                    &lt;/limit&gt;
+                                    &lt;limit&gt;
+                                        &lt;counter&gt;LINE&lt;/counter&gt;
+                                        &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                                        &lt;minimum&gt;0.8&lt;/minimum&gt;
+                                    &lt;/limit&gt;
+                                &lt;/limits&gt;
+                            &lt;/rule&gt;
+                        &lt;/rules&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${maven-dependency-plugin.version}&lt;/version&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;prepare-agent&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;report&lt;/id&gt;
+                        &lt;phase&gt;test&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;report&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;check&lt;/id&gt;
+                        &lt;phase&gt;verify&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;check&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;properties&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</details>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>@{argLine}</code> am Anfang ist kein Tippfehler. Das Goal <code>prepare-agent</code> von
 JaCoCo legt seinen eigenen Agenten in der Property <code>argLine</code> ab – und eine <code>argLine</code> in
@@ -454,11 +725,9 @@ der Surefire-Konfiguration ersetzt sie. Mit <code>@{argLine}</code> nimmt Surefi
 JaCoCo mit. Die Schreibweise mit <code>@</code> löst Surefire erst beim Start der Tests auf, nachdem
 JaCoCo die Property gesetzt hat; <code>${argLine}</code> ersetzte Maven schon beim Einlesen des POM.</p>
 </blockquote>
-<p>Bau das Projekt erneut:</p>
-<pre><code class="language-bash">mvn verify
-</code></pre>
+<p>Baue erneut mit Maven.</p>
 <p>Die Tests sind grün, die Warnungen sind weg, und <code>target/site/jacoco/index.html</code> zeigt
-weiterhin die Abdeckung – jetzt auch für das Paket <code>aufbau.testing</code>.</p>
+weiterhin die Abdeckung – jetzt auch für das Package <code>aufbau.testing</code>.</p>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>-Xshare:off</code> schaltet das Class Data Sharing der JVM für den Testlauf ab.
 Ohne die Option meldet die JVM, sobald ein Agent den Klassenpfad erweitert,
@@ -470,8 +739,8 @@ Ohne die Option meldet die JVM, sobald ein Agent den Klassenpfad erweitert,
 <code>Optional</code>, für <code>int</code>, für <code>String</code>? Probier es aus.</li>
 <li>Prüf mit <code>verify(…).send(contains(&quot;R1&quot;))</code>, dass die Nachricht den Raum nennt, ohne den
 ganzen Text festzuschreiben.</li>
-<li>Nimm <code>@{argLine}</code> probehalber aus der <code>argLine</code>, lösch den Ordner <code>target</code> und bau mit
-<code>mvn verify</code>. Was meldet JaCoCo – und warum ist der Bau trotzdem grün? Stell die Zeile
+<li>Nimm <code>@{argLine}</code> probehalber aus der <code>argLine</code>, lösch den Ordner <code>target</code> und baue erneut
+mit Maven. Was meldet JaCoCo – und warum ist der Bau trotzdem grün? Stell die Zeile
 danach wieder her.</li>
 </ul>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
@@ -487,7 +756,7 @@ danach wieder her.</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Den Buchungsservice testbar machen
+<textarea id="skr-md-source" hidden aria-hidden="true"># Den Buchungsservice mit Dependency Injection und Mockito testen
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -541,7 +810,7 @@ Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne ec
 
 - [ ] Die `mockito-bom` steht neben der `junit-bom` im selben `dependencyManagement`; `mockito-junit-jupiter` steht ohne Version im POM.
 - [ ] Die `argLine` von Surefire beginnt mit `@{argLine}` und trägt danach den Agenten von Mockito.
-- [ ] `mvn verify` ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter.
+- [ ] Der Maven-Build ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter.
 
 ### Für die ganze Seite
 
@@ -557,13 +826,15 @@ Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne ec
 Der `BookingService` der Raumbuchung prüft, ob ein Raum existiert und groß genug ist, und
 benachrichtigt danach die Haustechnik per E-Mail. Seinen Raumkatalog und seine
 Benachrichtigung erzeugt er selbst. Du machst ihn testbar.
+Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die Visualisierung
+[Dependency Injection und Mocks](../../../shared/dependency-injection/dependency-injection.md).
 
 ## Arbeitsschritte
 
 ### Den Ausgangsstand anlegen
 
-Leg im Projekt `aufbau` das Paket `aufbau.testing` an und kopiere die folgenden Klassen
-hinein, jede in ihre eigene Datei unter `src/main/java/aufbau/testing/`.
+Im Ordner `src/main/java` des Projekts `java-aufbau` lege das Package `aufbau.testing` an
+und kopiere die folgenden Klassen hinein, jede in ihre eigene Datei.
 
 Ein Raum mit Kennung und Zahl der Plätze:
 
@@ -675,7 +946,8 @@ und zwei Buchungen versucht: Raum `R1` für 3 und für 8 Personen. Starte sie.
 
 ### Mit eigenen Stellvertretern testen
 
-Leg unter `src/test/java/aufbau/testing/` zwei Stellvertreter an. Der erste ist ein
+Im Ordner `src/test/java` lege ebenfalls das Package `aufbau.testing` an und darin zwei
+Stellvertreter. Der erste ist ein
 Katalog, dem der Test seine Räume selbst gibt:
 
 ```java
@@ -755,14 +1027,15 @@ eine Buchung für 8 Personen – abgelehnt, und die Liste der Nachrichten bleibt
 Mockito bringt wie JUnit eine BOM mit, die die Versionen aller Mockito-Artefakte
 festlegt. Schlag auf Maven Central die aktuelle Version von 
 [`org.mockito:mockito-bom`](https://central.sonatype.com/artifact/org.mockito/mockito-bom) nach.
-Ergänze in Deiner `pom.xml` das vorhandene `dependencyManagement` **nach** der `junit-bom`
-um diesen Eintrag und ersetze `VERSION` durch die gefundene Version:
+Leg die Version wie bei JUnit als Property `mockito.version` in `&lt;properties&gt;` an. Ergänze
+dann in Deiner `pom.xml` das vorhandene `dependencyManagement` **nach** der `junit-bom`
+um diesen Eintrag:
 
 ```xml
 &lt;dependency&gt;
     &lt;groupId&gt;org.mockito&lt;/groupId&gt;
     &lt;artifactId&gt;mockito-bom&lt;/artifactId&gt;
-    &lt;version&gt;VERSION&lt;/version&gt;
+    &lt;version&gt;${mockito.version}&lt;/version&gt;
     &lt;type&gt;pom&lt;/type&gt;
     &lt;scope&gt;import&lt;/scope&gt;
 &lt;/dependency&gt;
@@ -778,6 +1051,129 @@ die kommt aus der BOM:
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 ```
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+        &amp;lt;junit.version&amp;gt;VERSION&amp;lt;/junit.version&amp;gt;
+        &amp;lt;maven-surefire-plugin.version&amp;gt;VERSION&amp;lt;/maven-surefire-plugin.version&amp;gt;
+        &amp;lt;jacoco-maven-plugin.version&amp;gt;VERSION&amp;lt;/jacoco-maven-plugin.version&amp;gt;
+        &amp;lt;mockito.version&amp;gt;VERSION&amp;lt;/mockito.version&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.junit&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;junit-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${junit.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;mockito-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${mockito.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.junit.jupiter&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;mockito-junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+
+    &amp;lt;build&amp;gt;
+        &amp;lt;pluginManagement&amp;gt;
+            &amp;lt;plugins&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${maven-surefire-plugin.version}&amp;lt;/version&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${jacoco-maven-plugin.version}&amp;lt;/version&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;rules&amp;gt;
+                            &amp;lt;rule&amp;gt;
+                                &amp;lt;element&amp;gt;CLASS&amp;lt;/element&amp;gt;
+                                &amp;lt;includes&amp;gt;
+                                    &amp;lt;include&amp;gt;aufbau.junit.Room&amp;lt;/include&amp;gt;
+                                &amp;lt;/includes&amp;gt;
+                                &amp;lt;limits&amp;gt;
+                                    &amp;lt;limit&amp;gt;
+                                        &amp;lt;counter&amp;gt;BRANCH&amp;lt;/counter&amp;gt;
+                                        &amp;lt;value&amp;gt;COVEREDRATIO&amp;lt;/value&amp;gt;
+                                        &amp;lt;minimum&amp;gt;0.8&amp;lt;/minimum&amp;gt;
+                                    &amp;lt;/limit&amp;gt;
+                                    &amp;lt;limit&amp;gt;
+                                        &amp;lt;counter&amp;gt;LINE&amp;lt;/counter&amp;gt;
+                                        &amp;lt;value&amp;gt;COVEREDRATIO&amp;lt;/value&amp;gt;
+                                        &amp;lt;minimum&amp;gt;0.8&amp;lt;/minimum&amp;gt;
+                                    &amp;lt;/limit&amp;gt;
+                                &amp;lt;/limits&amp;gt;
+                            &amp;lt;/rule&amp;gt;
+                        &amp;lt;/rules&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+            &amp;lt;/plugins&amp;gt;
+        &amp;lt;/pluginManagement&amp;gt;
+        &amp;lt;plugins&amp;gt;
+            &amp;lt;plugin&amp;gt;
+                &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                &amp;lt;executions&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;prepare-agent&amp;lt;/id&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;prepare-agent&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;report&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;test&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;report&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;check&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;verify&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;check&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                &amp;lt;/executions&amp;gt;
+            &amp;lt;/plugin&amp;gt;
+        &amp;lt;/plugins&amp;gt;
+    &amp;lt;/build&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
 
 Lass Dir den Abhängigkeitsbaum mit allen Details anzeigen:
 
@@ -830,11 +1226,7 @@ Ergänze zwei Tests: einen zu kleinen Raum und einen unbekannten Raum (`findById
 &gt; `never()` heißt keinmal. Damit jeder Text passt, gibt es `anyString()` aus
 &gt; `org.mockito.ArgumentMatchers`.
 
-Lass alle Tests laufen:
-
-```bash
-mvn test
-```
+Baue erneut mit Maven.
 
 Sieh Dir die Ausgabe an: Was meldet die JVM – und, ab JDK 21, Mockito?
 
@@ -852,16 +1244,26 @@ davor, künftige JDKs verbieten es; unter JDK 17 meldet die JVM nur „Sharing i
 supported for boot loader classes …“. Die Mockito-Doku empfiehlt, den Agenten beim Start
 der Tests anzugeben – das gilt für JDK 17 wie für jedes neuere.
 
-Ergänze in `build/plugins` Deiner `pom.xml`, neben dem `jacoco-maven-plugin`, das
-`maven-dependency-plugin`; sein Ziel `properties` legt für jede Abhängigkeit eine Property
-mit dem Pfad zu ihrer JAR an. Die Version schlägst Du wieder auf Maven Central nach und 
-ersetzt damit `VERSION`:
+Dafür brauchst Du das `maven-dependency-plugin`; sein Ziel `properties` legt für jede
+Abhängigkeit eine Property mit dem Pfad zu ihrer JAR an. Schlag die Version wieder auf
+Maven Central nach, leg sie als Property `maven-dependency-plugin.version` an und leg das 
+Plugin in `pluginManagement` fest:
 
 ```xml
 &lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
     &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
-    &lt;version&gt;VERSION&lt;/version&gt;
+    &lt;version&gt;${maven-dependency-plugin.version}&lt;/version&gt;
+&lt;/plugin&gt;
+```
+
+Binde es dann in `build/plugins`, neben dem `jacoco-maven-plugin`, an den Lifecycle – ohne
+Version:
+
+```xml
+&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
     &lt;executions&gt;
         &lt;execution&gt;
             &lt;goals&gt;
@@ -882,20 +1284,159 @@ sie ist):
 &lt;/configuration&gt;
 ```
 
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+        &amp;lt;junit.version&amp;gt;VERSION&amp;lt;/junit.version&amp;gt;
+        &amp;lt;maven-surefire-plugin.version&amp;gt;VERSION&amp;lt;/maven-surefire-plugin.version&amp;gt;
+        &amp;lt;jacoco-maven-plugin.version&amp;gt;VERSION&amp;lt;/jacoco-maven-plugin.version&amp;gt;
+        &amp;lt;mockito.version&amp;gt;VERSION&amp;lt;/mockito.version&amp;gt;
+        &amp;lt;maven-dependency-plugin.version&amp;gt;VERSION&amp;lt;/maven-dependency-plugin.version&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.junit&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;junit-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${junit.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;mockito-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${mockito.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.junit.jupiter&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;mockito-junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+
+    &amp;lt;build&amp;gt;
+        &amp;lt;pluginManagement&amp;gt;
+            &amp;lt;plugins&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${maven-surefire-plugin.version}&amp;lt;/version&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;argLine&amp;gt;@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off&amp;lt;/argLine&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${jacoco-maven-plugin.version}&amp;lt;/version&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;rules&amp;gt;
+                            &amp;lt;rule&amp;gt;
+                                &amp;lt;element&amp;gt;CLASS&amp;lt;/element&amp;gt;
+                                &amp;lt;includes&amp;gt;
+                                    &amp;lt;include&amp;gt;aufbau.junit.Room&amp;lt;/include&amp;gt;
+                                &amp;lt;/includes&amp;gt;
+                                &amp;lt;limits&amp;gt;
+                                    &amp;lt;limit&amp;gt;
+                                        &amp;lt;counter&amp;gt;BRANCH&amp;lt;/counter&amp;gt;
+                                        &amp;lt;value&amp;gt;COVEREDRATIO&amp;lt;/value&amp;gt;
+                                        &amp;lt;minimum&amp;gt;0.8&amp;lt;/minimum&amp;gt;
+                                    &amp;lt;/limit&amp;gt;
+                                    &amp;lt;limit&amp;gt;
+                                        &amp;lt;counter&amp;gt;LINE&amp;lt;/counter&amp;gt;
+                                        &amp;lt;value&amp;gt;COVEREDRATIO&amp;lt;/value&amp;gt;
+                                        &amp;lt;minimum&amp;gt;0.8&amp;lt;/minimum&amp;gt;
+                                    &amp;lt;/limit&amp;gt;
+                                &amp;lt;/limits&amp;gt;
+                            &amp;lt;/rule&amp;gt;
+                        &amp;lt;/rules&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;maven-dependency-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${maven-dependency-plugin.version}&amp;lt;/version&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+            &amp;lt;/plugins&amp;gt;
+        &amp;lt;/pluginManagement&amp;gt;
+        &amp;lt;plugins&amp;gt;
+            &amp;lt;plugin&amp;gt;
+                &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                &amp;lt;executions&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;prepare-agent&amp;lt;/id&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;prepare-agent&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;report&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;test&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;report&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;check&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;verify&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;check&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                &amp;lt;/executions&amp;gt;
+            &amp;lt;/plugin&amp;gt;
+            &amp;lt;plugin&amp;gt;
+                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;maven-dependency-plugin&amp;lt;/artifactId&amp;gt;
+                &amp;lt;executions&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;properties&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                &amp;lt;/executions&amp;gt;
+            &amp;lt;/plugin&amp;gt;
+        &amp;lt;/plugins&amp;gt;
+    &amp;lt;/build&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
 &gt; **Hinweis:** `@{argLine}` am Anfang ist kein Tippfehler. Das Goal `prepare-agent` von
 &gt; JaCoCo legt seinen eigenen Agenten in der Property `argLine` ab – und eine `argLine` in
 &gt; der Surefire-Konfiguration ersetzt sie. Mit `@{argLine}` nimmt Surefire den Agenten von
 &gt; JaCoCo mit. Die Schreibweise mit `@` löst Surefire erst beim Start der Tests auf, nachdem
 &gt; JaCoCo die Property gesetzt hat; `${argLine}` ersetzte Maven schon beim Einlesen des POM.
 
-Bau das Projekt erneut:
-
-```bash
-mvn verify
-```
+Baue erneut mit Maven.
 
 Die Tests sind grün, die Warnungen sind weg, und `target/site/jacoco/index.html` zeigt
-weiterhin die Abdeckung – jetzt auch für das Paket `aufbau.testing`.
+weiterhin die Abdeckung – jetzt auch für das Package `aufbau.testing`.
 
 &gt; **Hinweis:** `-Xshare:off` schaltet das Class Data Sharing der JVM für den Testlauf ab.
 &gt; Ohne die Option meldet die JVM, sobald ein Agent den Klassenpfad erweitert,
@@ -907,8 +1448,8 @@ weiterhin die Abdeckung – jetzt auch für das Paket `aufbau.testing`.
   `Optional`, für `int`, für `String`? Probier es aus.
 - Prüf mit `verify(…).send(contains(&#34;R1&#34;))`, dass die Nachricht den Raum nennt, ohne den
   ganzen Text festzuschreiben.
-- Nimm `@{argLine}` probehalber aus der `argLine`, lösch den Ordner `target` und bau mit
-  `mvn verify`. Was meldet JaCoCo – und warum ist der Bau trotzdem grün? Stell die Zeile
+- Nimm `@{argLine}` probehalber aus der `argLine`, lösch den Ordner `target` und baue erneut
+  mit Maven. Was meldet JaCoCo – und warum ist der Bau trotzdem grün? Stell die Zeile
   danach wieder her.
 
 

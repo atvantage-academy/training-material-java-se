@@ -40,9 +40,9 @@
 <script src="../../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../../" data-index="../../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -254,18 +254,23 @@ sondern der Umzug der Spezifikation.</p>
 <h3 id="den-bruch-beheben">Den Bruch beheben</h3>
 <p>Hol JAXB als Abhängigkeit ins Modul und stell den Code darauf um. Baue das Modul mit
 Release 21, bis der Test grün ist.</p>
-<p>Die API kommt als Abhängigkeit, dazu eine Implementierung zur Laufzeit. Ergänze in
-<code>inkompatibilitaeten/laufzeit/jaxb/pom.xml</code> nach <strong>Zeile 19</strong> (<code>&lt;/properties&gt;</code>):</p>
+<p>Die API kommt als Abhängigkeit, dazu eine Implementierung zur Laufzeit. Die Versionen
+stehen als Properties – ergänze in <code>inkompatibilitaeten/laufzeit/jaxb/pom.xml</code> <strong>vor
+Zeile 19</strong> (<code>&lt;/properties&gt;</code>):</p>
+<pre><code class="language-xml">    &lt;jakarta.xml.bind-api.version&gt;4.0.5&lt;/jakarta.xml.bind-api.version&gt;
+    &lt;jaxb-runtime.version&gt;4.0.9&lt;/jaxb-runtime.version&gt;
+</code></pre>
+<p>und <strong>nach</strong> <code>&lt;/properties&gt;</code> die Abhängigkeiten:</p>
 <pre><code class="language-xml">  &lt;dependencies&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;jakarta.xml.bind&lt;/groupId&gt;
       &lt;artifactId&gt;jakarta.xml.bind-api&lt;/artifactId&gt;
-      &lt;version&gt;4.0.5&lt;/version&gt;
+      &lt;version&gt;${jakarta.xml.bind-api.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
       &lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
-      &lt;version&gt;4.0.9&lt;/version&gt;
+      &lt;version&gt;${jaxb-runtime.version}&lt;/version&gt;
       &lt;scope&gt;runtime&lt;/scope&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;
@@ -490,20 +495,28 @@ sondern der Umzug der Spezifikation.
 Hol JAXB als Abhängigkeit ins Modul und stell den Code darauf um. Baue das Modul mit
 Release 21, bis der Test grün ist.
 
-Die API kommt als Abhängigkeit, dazu eine Implementierung zur Laufzeit. Ergänze in
-`inkompatibilitaeten/laufzeit/jaxb/pom.xml` nach **Zeile 19** (`&lt;/properties&gt;`):
+Die API kommt als Abhängigkeit, dazu eine Implementierung zur Laufzeit. Die Versionen
+stehen als Properties – ergänze in `inkompatibilitaeten/laufzeit/jaxb/pom.xml` **vor
+Zeile 19** (`&lt;/properties&gt;`):
+
+```xml
+    &lt;jakarta.xml.bind-api.version&gt;4.0.5&lt;/jakarta.xml.bind-api.version&gt;
+    &lt;jaxb-runtime.version&gt;4.0.9&lt;/jaxb-runtime.version&gt;
+```
+
+und **nach** `&lt;/properties&gt;` die Abhängigkeiten:
 
 ```xml
   &lt;dependencies&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;jakarta.xml.bind&lt;/groupId&gt;
       &lt;artifactId&gt;jakarta.xml.bind-api&lt;/artifactId&gt;
-      &lt;version&gt;4.0.5&lt;/version&gt;
+      &lt;version&gt;${jakarta.xml.bind-api.version}&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
       &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
       &lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
-      &lt;version&gt;4.0.9&lt;/version&gt;
+      &lt;version&gt;${jaxb-runtime.version}&lt;/version&gt;
       &lt;scope&gt;runtime&lt;/scope&gt;
     &lt;/dependency&gt;
   &lt;/dependencies&gt;

@@ -40,9 +40,9 @@
 <script src="../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
@@ -80,7 +80,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../skriptorium/search/de.json?v=53316764"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -121,7 +121,7 @@
 <section class="skr-guide-hero"
          aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../">Start</a><span>/</span><a href="../../java-basics/">Java-Grundlagen</a><span>/</span><span aria-current="page">Java-Aufbau</span></nav>
   <div class="skr-guide-hero__meta">
-    <div class="skr-guide-hero__tags"><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">3 Tage</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">java</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">java-se</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">lambdas</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">concurrency</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">maven</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">junit</span>
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">3 Tage</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">java</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">java-se</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">lambdas</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">concurrency</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">maven</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">junit</span><span class="skr-tag skr-didaktikon-hero-facts" data-skr-slot="hero.facts">effective-java</span>
     </div>
     <div class="skr-guide-hero__actions">
     </div>
@@ -141,7 +141,7 @@
 manchen Stellen anders, als Du erwartest – und wie schreibst Du Code, der das
 berücksichtigt? Wir starten mit kleinen Rätseln, halten Erwartungen als Tests fest
 und arbeiten uns über Gleichheit, Records, Lambdas und Generics bis zu Reflection,
-Mockito und Nebenläufigkeit vor.</p>
+Mockito und modularen Anwendungen vor. Nebenläufigkeit gibt es auf Wunsch der Gruppe.</p>
 <p>Alle Übungen laufen in <strong>einem eigenen Maven-Projekt</strong>, das Du am ersten Vormittag
 anlegst. Den Code, den eine Übung braucht, kopierst Du aus der Übungsbeschreibung –
 eine kleine Raumbuchung, die sich durch den Kurs zieht.</p>
@@ -149,37 +149,47 @@ eine kleine Raumbuchung, die sich durch den Kurs zieht.</p>
 <h2 id="kursmaterial">Kursmaterial</h2>
 <p>Links stehen die <strong>Übungen</strong>, an denen Du selbst arbeitest, rechts das <strong>Material zum Nachschlagen</strong>.</p>
 <div class="skr-didaktikon-materials__topic">
-<h3 id="fallstricke--werkzeug">Fallstricke &amp; Werkzeug</h3>
+<h3 id="einstieg-mit-maven-und-junit">Einstieg mit Maven und JUnit</h3>
 <p>Wie schnell Missverständnisse entstehen – und das Projekt, in dem wir sie aufklären.</p>
 <div class="skr-didaktikon-materials">
 <div class="skr-didaktikon-materials__col">
 <p class="skr-didaktikon-materials__head">Übungen</p>
 <ul>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/einstieg/issue.html">Drei Programme, drei Vorhersagen</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/maven-junit/issue.html">Das Projekt aufbau anlegen, testen und die Abdeckung messen</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/effective-java-raetsel/issue.html">Fünf Rätsel als Tests</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="skr-didaktikon-materials__topic">
-<h3 id="gleichheit-wrapper-ausnahmen">Gleichheit, Wrapper, Ausnahmen</h3>
-<p>Collections, Wrapper-Klassen und Exceptions, an ihren Fallstricken aufgefrischt.</p>
-<div class="skr-didaktikon-materials">
-<div class="skr-didaktikon-materials__col">
-<p class="skr-didaktikon-materials__head">Übungen</p>
-<ul>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/gleichheit-collections/issue.html">Wann sind zwei Objekte gleich?</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/wrapper-autoboxing/issue.html">Zahlen, die keine sind</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/exceptions/issue.html">Früh scheitern, nicht spät</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/einstieg/issue.html">Drei Vorhersagen zu Literalen, Verkettung und statischen Methoden</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/maven-projekt/issue.html">Das Maven-Projekt anlegen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/junit/issue.html">Den Raum mit JUnit testen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/maven-plugins/issue.html">Maven-Plugins festlegen, binden und die Abdeckung verlangen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/effective-java-raetsel/issue.html">Effective Java: fünf Rätsel als Tests</a></li>
 </ul>
 </div>
 <div class="skr-didaktikon-materials__col">
 <p class="skr-didaktikon-materials__head">Zum Nachschlagen</p>
 <ul>
-<li><a class="skr-doclink skr-doclink--visualization" href="../../java-basics/oop-mit-java/collections/collections-api.html">Collections-API</a></li>
-<li><a class="skr-doclink skr-doclink--simulation" href="../../shared/referenztypen/referenztypen.html">Referenztypen</a></li>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../shared/maven/maven.html">Maven</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="skr-didaktikon-materials__topic">
+<h3 id="basisklassen">Basisklassen</h3>
+<p>Exceptions und Collections an den Visualisierungen auffrischen, dann ihre Fallstricke aus Effective Java; danach die Oberklasse Object mit equals und hashCode vertieft und die Wrapper-Klassen.</p>
+<div class="skr-didaktikon-materials">
+<div class="skr-didaktikon-materials__col">
+<p class="skr-didaktikon-materials__head">Übungen</p>
+<ul>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/exceptions/issue.html">Exceptions: früh scheitern, nicht spät</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/gleichheit-collections/issue.html">Zauberei mit Collections: Wo ist der Raum geblieben?</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/object/issue.html">Die Oberklasse Object: Ist ein Whiteboard ein Beamer?</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/wrapper-autoboxing/issue.html">Wrapper-Klassen und Autoboxing: Zahlen, die keine sind</a></li>
+</ul>
+</div>
+<div class="skr-didaktikon-materials__col">
+<p class="skr-didaktikon-materials__head">Zum Nachschlagen</p>
+<ul>
 <li><a class="skr-doclink skr-doclink--visualization" href="../../java-basics/oop-mit-java/ausnahmebehandlung/exceptions.html">Exceptions in Java</a></li>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../java-basics/oop-mit-java/collections/collections-api.html">Collections-API</a></li>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../shared/object-klasse/object-klasse.html">Die Oberklasse Object</a></li>
+<li><a class="skr-doclink skr-doclink--simulation" href="../../shared/referenztypen/referenztypen.html">Referenztypen</a></li>
 </ul>
 </div>
 </div>
@@ -192,8 +202,9 @@ eine kleine Raumbuchung, die sich durch den Kurs zieht.</p>
 <p class="skr-didaktikon-materials__head">Übungen</p>
 <ul>
 <li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/records-enums/issue.html">Räume als Record, Raumarten als Enum</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/java-update/issue.html">Ein LTS-Sprung, ein Feature</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/lambdas-streams/issue.html">Raumbuchungen auswerten</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/java-update/issue.html">Java-Update: ein LTS-Sprung, ein Feature</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/lambdas-streams/issue.html">Raumbuchungen mit Lambdas und Streams auswerten</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/lambda-fallstricke/issue.html">Fallstricke mit Lambdas und Streams vorhersagen</a></li>
 <li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/generics/issue.html">Ein generischer Raumkatalog</a></li>
 </ul>
 </div>
@@ -202,32 +213,74 @@ eine kleine Raumbuchung, die sich durch den Kurs zieht.</p>
 <ul>
 <li><a class="skr-doclink skr-doclink--visualization" href="../../shared/records/records.html">Records</a></li>
 <li><a class="skr-doclink skr-doclink--visualization" href="../../shared/java-lts-evolution/java-lts-evolution.html">Java-LTS-Evolution</a></li>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../shared/lambdas-streams/lambdas-streams.html">Lambdas, Streams und Optional</a></li>
 </ul>
 </div>
 </div>
 </div>
 <div class="skr-didaktikon-materials__topic">
-<h3 id="reflection--testen">Reflection &amp; Testen</h3>
-<p>Annotationen, Reflection und Dynamic Proxy – und wie Mockito und AssertJ beim Testen helfen.</p>
+<h3 id="reflection">Reflection</h3>
+<p>Klassen zur Laufzeit befragen, eigene Annotationen schreiben und auslesen, Stellvertreter mit Dynamic Proxy.</p>
 <div class="skr-didaktikon-materials">
 <div class="skr-didaktikon-materials__col">
 <p class="skr-didaktikon-materials__head">Übungen</p>
 <ul>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/reflection-annotations/issue.html">Räume zur Laufzeit befragen</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/testen-mockito/issue.html">Den Buchungsservice testbar machen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/annotationen/issue.html">Eigene Annotation: @Logged schreiben und per Reflection auslesen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/dynamic-proxy/issue.html">Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren</a></li>
+</ul>
+</div>
+<div class="skr-didaktikon-materials__col">
+<p class="skr-didaktikon-materials__head">Zum Nachschlagen</p>
+<ul>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../shared/annotationen/annotationen.html">Eigene Annotationen</a></li>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../shared/dynamic-proxy/dynamic-proxy.html">Dynamic Proxy</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="skr-didaktikon-materials__topic">
+<h3 id="modulare-anwendungen-und-code-optimierung">Modulare Anwendungen und Code-Optimierung</h3>
+<p>Abhängigkeiten von außen geben und im Test durch Mocks ersetzen, Implementierungen mit dem Service Provider Interface finden, Anwendungen mit dem Modulsystem schneiden – und Boilerplate mit Lombok vom Compiler erzeugen lassen.</p>
+<div class="skr-didaktikon-materials">
+<div class="skr-didaktikon-materials__col">
+<p class="skr-didaktikon-materials__head">Übungen</p>
+<ul>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/testen-mockito/issue.html">Den Buchungsservice mit Dependency Injection und Mockito testen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/spi/issue.html">SPI: Benachrichtigungskanäle per ServiceLoader</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/modulsystem/issue.html">Modulsystem: die Raumbuchung in Module schneiden</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/lombok/issue.html">Lombok: Boilerplate vom Compiler erzeugen lassen</a></li>
+</ul>
+</div>
+<div class="skr-didaktikon-materials__col">
+<p class="skr-didaktikon-materials__head">Zum Nachschlagen</p>
+<ul>
+<li><a class="skr-doclink skr-doclink--visualization" href="../../shared/dependency-injection/dependency-injection.html">Dependency Injection und Mocks</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="skr-didaktikon-materials__topic">
+<h3 id="junit-vertiefung">JUnit-Vertiefung</h3>
+<p>Optional: lesbare Assertions mit AssertJ, Parameterized Tests und eine eigene JUnit-Extension.</p>
+<div class="skr-didaktikon-materials">
+<div class="skr-didaktikon-materials__col">
+<p class="skr-didaktikon-materials__head">Übungen</p>
+<ul>
 <li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/assertj/issue.html">Tests mit AssertJ neu schreiben</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/parameterized-tests/issue.html">Parameterized Tests: einen Raum mit vielen Fällen prüfen</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/junit-extension/issue.html">Eigene JUnit-Extension: Räume einspritzen und Tests messen</a></li>
 </ul>
 </div>
 </div>
 </div>
 <div class="skr-didaktikon-materials__topic">
-<h3 id="nebenlufigkeit">Nebenläufigkeit</h3>
-<p>Threads, Thread Safety, Concurrency Utilities und Virtual Threads.</p>
+<h3 id="nebenlufigkeit-optional">Nebenläufigkeit (optional)</h3>
+<p>Optional: Threads, Thread Safety, Concurrency Utilities und Virtual Threads, dazu Nebenläufigkeit in Laufzeitumgebungen.</p>
 <div class="skr-didaktikon-materials">
 <div class="skr-didaktikon-materials__col">
 <p class="skr-didaktikon-materials__head">Übungen</p>
 <ul>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/threads-grundlagen/issue.html">Die Doppelbuchung</a></li>
+<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/threads-grundlagen/issue.html">Thread Safety: die Doppelbuchung</a></li>
 <li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/concurrency-utilities/issue.html">Die Doppelbuchung mit Concurrency Utilities</a></li>
 <li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/virtual-threads/issue.html">Virtuelle Threads: umstellen und messen</a></li>
 <li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/laufzeitumgebungen/issue.html">Nebenläufigkeit in Laufzeitumgebungen</a></li>
@@ -237,19 +290,6 @@ eine kleine Raumbuchung, die sich durch den Kurs zieht.</p>
 <p class="skr-didaktikon-materials__head">Zum Nachschlagen</p>
 <ul>
 <li><a class="skr-doclink skr-doclink--simulation" href="../../java-update/schwerpunkte/virtual-threads/simulation.html">Plattform-Threads und virtuelle Threads</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="skr-didaktikon-materials__topic">
-<h3 id="module--services">Module &amp; Services</h3>
-<p>Service Provider Interface und das Java-Modulsystem – zur Wahl.</p>
-<div class="skr-didaktikon-materials">
-<div class="skr-didaktikon-materials__col">
-<p class="skr-didaktikon-materials__head">Übungen</p>
-<ul>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/spi/issue.html">Benachrichtigungskanäle per ServiceLoader</a></li>
-<li><a class="skr-doclink skr-doclink--exercise" href="../../java-basics/java-aufbau/modulsystem/issue.html">Die Raumbuchung in Module schneiden</a></li>
 </ul>
 </div>
 </div>

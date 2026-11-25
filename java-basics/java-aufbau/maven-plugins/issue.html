@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="de" data-skr-effects="page-transitions translucent-header reading-progress">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../../">
+<script src="../../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Maven-Plugins festlegen, binden und die Abdeckung verlangen · ATVANTAGE Academy</title>
+<meta name="description" content="Lies den Lifecycle in der Ausgabe von mvn verify, leg Plugin-Versionen und -Konfiguration in pluginManagement fest, binde JaCoCo an die Phasen und lass den Build scheitern, bis Room vollständig getestet ist.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Maven-Plugins festlegen, binden und die Abdeckung verlangen">
+<meta property="og:description" content="Lies den Lifecycle in der Ausgabe von mvn verify, leg Plugin-Versionen und -Konfiguration in pluginManagement fest, binde JaCoCo an die Phasen und lass den Build scheitern, bis Room vollständig getestet ist.">
+<meta property="og:type" content="article">
+<link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" href="../../../skriptorium/guide.css?v=1237e482">
+<link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lies den Lifecycle in der Ausgabe von mvn verify, leg Plugin-Versionen und -Konfiguration in pluginManagement fest, binde JaCoCo an die Phasen und lass den Build scheitern, bis Room vollständig getestet ist.","duration":20,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-maven-plugins-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Maven-Plugins festlegen, binden und die Abdeckung verlangen","topics":["Maven","Lifecycle","Plugins","JaCoCo","Testabdeckung","TDD","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/maven-plugins/issue.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
+
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <link rel="stylesheet" href="../../../skriptorium/page-transitions.css?v=716872f0">
+<link rel="stylesheet" href="../../../skriptorium/guide-layout.css?v=cc0ce1dd">
+<link rel="stylesheet" href="../../../extensions/didaktikon/exercise.css?v=485b7c1d">
+<script src="../../../skriptorium/guide-layout.js?v=00fd0360" defer></script>
+
+
+</head><body class="skr-guide" data-skr-layout="didaktikon.exercise" data-skr-layouts="didaktikon.exercise skriptorium.guide skriptorium.page" data-skr-lang="de" data-skr-audience="learner">
+<div class="skr-reading-progress" aria-hidden="true"></div>
+  <a class="skr-skip-link" href="#skr-content">Zum Inhalt springen</a>
+  <div class="skr-metanav"><span>ATVANTAGE Academy</span></div>
+  <header class="skr-header" data-skr-header>
+  <a class="skr-header__brand" href="../../../" aria-label="Startseite"><img class="skr-header__logo" src="../../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-header__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span>
+    <img class="skr-header__mark" src="../../../themes/atvantage/assets/icon-180.png" alt="">
+  </a>
+  <button class="skr-tool skr-header__burger" data-skr-nav-toggle="#skr-main-nav"
+          aria-label="Navigation umschalten" aria-expanded="false"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <nav class="skr-header__nav" id="skr-main-nav">
+      <a href="../../../">Start</a>
+      <div class="skr-header__group" data-skr-menu>
+        <button type="button" class="skr-header__grouptoggle"
+                aria-expanded="false" aria-haspopup="true">Schulungsprogramm<span class="skr-header__caret" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path fill="currentColor" stroke="none" d="M5 8h14l-7 9z"/></svg></span></button>
+        <div class="skr-header__submenu" role="menu">
+          <a role="menuitem" href="../../../java-basics/oop-mit-java/">Objektorientierte Programmierung mit Java</a>
+          <a role="menuitem" href="../../../java-basics/oo-umsteiger/">Java für OO-Umsteiger</a>
+          <a role="menuitem" href="../../../java-basics/java-aufbau/">Java-Aufbau</a>
+          <a role="menuitem" href="../../../java-update/">Java-Update</a>
+          <a role="menuitem" href="../../../intellij-umsteiger/">IntelliJ IDEA Ultimate für Umsteiger</a>
+        </div>
+      </div>
+  </nav>
+  <div class="skr-header__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+</div>
+</header>
+<section class="skr-guide-hero"
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Maven-Plugins festlegen, binden und die Abdeckung verlangen</span></nav>
+  <div class="skr-guide-hero__meta">
+    <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 20 Minuten</span><span class="skr-tag">Maven</span><span class="skr-tag">Lifecycle</span><span class="skr-tag">Plugins</span><span class="skr-tag">JaCoCo</span><span class="skr-tag">Testabdeckung</span><span class="skr-tag">TDD</span><span class="skr-tag">Raumbuchung</span>
+    </div>
+    <div class="skr-guide-hero__actions">
+      <button type="button" class="skr-btn skr-btn--ghost skr-copy-md"
+              data-skr-copy-md="#skr-md-source"
+              title="Markdown kopieren" aria-label="Markdown kopieren"></button>
+    </div>
+  </div><h1 id="skr-page-title">Maven-Plugins festlegen, binden und die Abdeckung verlangen</h1>
+</section>
+
+  <div class="skr-guide-layout">
+    <main class="skr-guide-main" id="skr-content">
+<div class="skr-guide-panels" data-skr-arrangement="fold">
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>User Story</summary>
+<div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
+<p>Als Java-Entwickler:in möchte ich verstehen, welche Plugins mein Build ausführt, und die Testabdeckung im Build verlangen, damit wichtiger Code nicht ungetestet ausgeliefert wird.</p>
+</div>
+</details>
+<details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
+<summary>Lernziele</summary>
+<div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
+<ul>
+<li>Du ordnest die Ausgabe von <code>mvn verify</code> den Phasen, Plugins und Goals des Lifecycles zu.</li>
+<li>Du findest mit <code>mvn help:effective-pom</code> heraus, woher eine Plugin-Version kommt.</li>
+<li>Du trennst die Festlegung eines Plugins (Version und Konfiguration in <code>pluginManagement</code>) von seiner Bindung an den Lifecycle (Executions in <code>plugins</code>).</li>
+<li>Du misst die Testabdeckung mit JaCoCo, liest den Bericht und leitest daraus fehlende Tests ab.</li>
+<li>Du lässt den Build mit <code>jacoco:check</code> scheitern, solange eine Klasse nicht ausreichend getestet ist, und erklärst, warum <code>mvn test</code> dabei grün bleibt.</li>
+<li>Du schreibst einen Test vor dem Code (Red – Green – Refactor).</li>
+</ul>
+</div>
+</details>
+<details class="skr-fold">
+<summary>Definition of Done</summary>
+<div class="skr-guide-done">
+<h3 id="plugins-festlegen-und-binden">Plugins festlegen und binden</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Unter pluginManagement stehen Surefire und JaCoCo mit Version, JaCoCo zusätzlich mit seiner Regel; die Versionen stammen von Maven Central und stehen als Properties." disabled="disabled"> Unter <code>pluginManagement</code> stehen Surefire und JaCoCo mit Version, JaCoCo zusätzlich mit seiner Regel; die Versionen stammen von Maven Central und stehen als Properties.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Unter plugins steht JaCoCo ohne Version und ohne Konfiguration, nur mit den Executions prepare-agent, report (Phase test) und check (Phase verify)." disabled="disabled"> Unter <code>plugins</code> steht JaCoCo ohne Version und ohne Konfiguration, nur mit den Executions <code>prepare-agent</code>, <code>report</code> (Phase <code>test</code>) und <code>check</code> (Phase <code>verify</code>).</li>
+</ul>
+<h3 id="die-testabdeckung">Die Testabdeckung</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn test erzeugt den Bericht target/site/jacoco/index.html; Du hast darin die roten und gelben Stellen in Room gefunden." disabled="disabled"> <code>mvn test</code> erzeugt den Bericht <code>target/site/jacoco/index.html</code>; Du hast darin die roten und gelben Stellen in <code>Room</code> gefunden.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn verify ist an der Regel für Room erst gescheitert." disabled="disabled"> <code>mvn verify</code> ist an der Regel für <code>Room</code> erst gescheitert.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomTest prüft zusätzlich die abgelehnte Kapazität 0 und canHost an den Grenzen 0, 1, 12 und 13." disabled="disabled"> <code>RoomTest</code> prüft zusätzlich die abgelehnte Kapazität <code>0</code> und <code>canHost</code> an den Grenzen 0, 1, 12 und 13.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="mvn verify endet mit BUILD SUCCESS, und der Bericht zeigt Room vollständig grün." disabled="disabled"> <code>mvn verify</code> endet mit <code>BUILD SUCCESS</code>, und der Bericht zeigt <code>Room</code> vollständig grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Room kann eine Buchung mit cancel stornieren; den Test cancellingABookingFreesTheDay hast Du vor dem Code geschrieben." disabled="disabled"> <code>Room</code> kann eine Buchung mit <code>cancel</code> stornieren; den Test <code>cancellingABookingFreesTheDay</code> hast Du vor dem Code geschrieben.</li>
+</ul>
+<h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
+</ul>
+</div>
+</details>
+</div>
+<p>Deine Tests für den Raum sind grün. Jetzt siehst Du nach, was Maven beim Bauen eigentlich
+tut, legst die Plugins fest, mit denen es das tut – und lässt den Build scheitern, solange
+<code>Room</code> nicht ausreichend getestet ist.</p>
+<p>Dabei gilt eine Trennung, an die Du Dich im ganzen POM hältst:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Abschnitt</th>
+					<th>Was dort steht</th>
+					<th>Wirkung</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>build/pluginManagement/plugins</code></td>
+					<td>Version und Konfiguration eines Plugins</td>
+					<td><strong>legt fest</strong>, führt nichts aus</td>
+			</tr>
+			<tr>
+					<td><code>build/plugins</code></td>
+					<td>das Plugin mit seinen Executions: welches Goal in welcher Phase</td>
+					<td><strong>bindet</strong> an den Lifecycle</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="arbeitsschritte">Arbeitsschritte</h2>
+<h3 id="den-lifecycle-in-der-ausgabe-lesen">Den Lifecycle in der Ausgabe lesen</h3>
+<p>Bau das Projekt im Terminal:</p>
+<pre><code class="language-bash">mvn verify
+</code></pre>
+<p>Lies die Ausgabe. Jede Zeile der Form <code>--- compiler:3.x.y:compile (default-compile) @ java-aufbau ---</code>
+ist ein <strong>Goal</strong> eines <strong>Plugins</strong>, das an eine <strong>Phase</strong> gebunden ist. Notier, welche
+Plugins in welcher Reihenfolge laufen. Wo steht in Deinem POM, dass sie laufen sollen?
+Welche Phasen und Goals ein Befehl durchläuft, kannst Du in der Visualisierung
+<a class="skr-doclink skr-doclink--visualization" href="../../../shared/maven/maven.html#/?befehl=verify">Maven</a> nachklicken.</p>
+<h3 id="die-surefire-version-festlegen">Die Surefire-Version festlegen</h3>
+<p>Lass Dir das POM so ausgeben, wie Maven es sieht, und schreib es in eine Datei:</p>
+<pre><code class="language-bash">mvn help:effective-pom -Doutput=effective-pom.xml
+</code></pre>
+<p>Such in <code>effective-pom.xml</code> nach <code>maven-surefire-plugin</code>. Welche Version steht dort –
+und woher kommt sie, wenn sie nicht in Deinem POM steht?</p>
+<p>Schlag auf Maven Central (<a href="https://central.sonatype.com">https://central.sonatype.com</a>) die neueste stabile Version von
+<code>org.apache.maven.plugins:maven-surefire-plugin</code> nach – ohne Vorabversionen wie <code>-M1</code>
+oder <code>-RC1</code>. Leg die Version wie bei JUnit als Property an – in <code>&lt;properties&gt;</code>, <code>VERSION</code>
+ersetzt durch die gefundene Version:</p>
+<pre><code class="language-xml">&lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+</code></pre>
+<p>Ergänze Dein POM dann am Ende, vor <code>&lt;/project&gt;</code>, um diesen Block:</p>
+<pre><code class="language-xml">&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+&lt;/build&gt;
+</code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+        &lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</details>
+<p>Erzeuge das effektive POM noch einmal und prüf, dass nun Deine Version gilt. Surefire
+musst Du nicht unter <code>plugins</code> eintragen – warum nicht?</p>
+<h3 id="jacoco-festlegen-und-binden">JaCoCo festlegen und binden</h3>
+<p>Drei grüne Tests für den Raum – aber welchen Code von <code>Room</code> haben sie durchlaufen? Das misst
+<strong>JaCoCo</strong>: Das Goal <code>prepare-agent</code> hängt einen Agenten an die JVM der Tests, der jede
+ausgeführte Zeile und jeden Zweig mitzählt; das Goal <code>report</code> macht daraus einen Bericht.</p>
+<p>Schlag auf Maven Central die neueste stabile Version von <code>org.jacoco:jacoco-maven-plugin</code> nach
+und leg sie als Property <code>jacoco-maven-plugin.version</code> an. <strong>Leg das Plugin fest:</strong> Ergänze in
+<code>pluginManagement</code> nach dem Surefire-Plugin:</p>
+<pre><code class="language-xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${jacoco-maven-plugin.version}&lt;/version&gt;
+&lt;/plugin&gt;
+</code></pre>
+<p><strong>Binde es an den Lifecycle:</strong> Ergänze in <code>&lt;build&gt;</code> nach <code>&lt;/pluginManagement&gt;</code> diesen
+Block – ohne Version, die kommt aus <code>pluginManagement</code>:</p>
+<pre><code class="language-xml">&lt;plugins&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+        &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+        &lt;executions&gt;
+            &lt;execution&gt;
+                &lt;id&gt;prepare-agent&lt;/id&gt;
+                &lt;goals&gt;
+                    &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                &lt;/goals&gt;
+            &lt;/execution&gt;
+            &lt;execution&gt;
+                &lt;id&gt;report&lt;/id&gt;
+                &lt;phase&gt;test&lt;/phase&gt;
+                &lt;goals&gt;
+                    &lt;goal&gt;report&lt;/goal&gt;
+                &lt;/goals&gt;
+            &lt;/execution&gt;
+        &lt;/executions&gt;
+    &lt;/plugin&gt;
+&lt;/plugins&gt;
+</code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+        &lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+        &lt;jacoco-maven-plugin.version&gt;VERSION&lt;/jacoco-maven-plugin.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${jacoco-maven-plugin.version}&lt;/version&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;prepare-agent&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;report&lt;/id&gt;
+                        &lt;phase&gt;test&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;report&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</details>
+<p><code>prepare-agent</code> bringt seine Phase selbst mit (<code>initialize</code>); den Bericht hängst Du an die
+Phase <code>test</code>, so entsteht er bei jedem <code>mvn test</code> gleich nach den Tests.</p>
+<h3 id="die-testabdeckung-messen">Die Testabdeckung messen</h3>
+<p>Starte die Tests:</p>
+<pre><code class="language-bash">mvn test
+</code></pre>
+<p>Öffne <code>target/site/jacoco/index.html</code> im Browser und klick Dich über das Paket
+<code>aufbau.junit</code> zur Klasse <code>Room</code> und in ihren Quelltext. <strong>Rot</strong> markierte Zeilen hat kein
+Test ausgeführt; eine <strong>gelbe</strong> Raute vor einer Zeile heißt, dass nur ein Teil ihrer
+Zweige durchlaufen wurde. Fahr mit der Maus über die Raute: Wie viele Zweige fehlen?
+Notier für jede rote und gelbe Stelle, welcher Test fehlt.</p>
+<h3 id="eine-mindestabdeckung-verlangen">Eine Mindestabdeckung verlangen</h3>
+<p>Messen allein ändert nichts. Lass den Build deshalb scheitern, solange <code>Room</code> nicht
+ausreichend getestet ist. Dafür brauchst Du wieder beide Abschnitte.</p>
+<p><strong>Die Regel ist Konfiguration:</strong> Ergänze das JaCoCo-Plugin in <code>pluginManagement</code> nach
+<code>&lt;version&gt;</code> um:</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;rules&gt;
+        &lt;rule&gt;
+            &lt;element&gt;CLASS&lt;/element&gt;
+            &lt;includes&gt;
+                &lt;include&gt;aufbau.junit.Room&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;limits&gt;
+                &lt;limit&gt;
+                    &lt;counter&gt;BRANCH&lt;/counter&gt;
+                    &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                    &lt;minimum&gt;0.8&lt;/minimum&gt;
+                &lt;/limit&gt;
+                &lt;limit&gt;
+                    &lt;counter&gt;LINE&lt;/counter&gt;
+                    &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                    &lt;minimum&gt;0.8&lt;/minimum&gt;
+                &lt;/limit&gt;
+            &lt;/limits&gt;
+        &lt;/rule&gt;
+    &lt;/rules&gt;
+&lt;/configuration&gt;
+</code></pre>
+<p><strong>Die Prüfung ist eine Bindung:</strong> Ergänze die <code>&lt;executions&gt;</code> des JaCoCo-Plugins unter
+<code>plugins</code> um eine dritte:</p>
+<pre><code class="language-xml">&lt;execution&gt;
+    &lt;id&gt;check&lt;/id&gt;
+    &lt;phase&gt;verify&lt;/phase&gt;
+    &lt;goals&gt;
+        &lt;goal&gt;check&lt;/goal&gt;
+    &lt;/goals&gt;
+&lt;/execution&gt;
+</code></pre>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Gesamtstand der pom.xml</summary>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;VERSION&lt;/junit.version&gt;
+        &lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+        &lt;jacoco-maven-plugin.version&gt;VERSION&lt;/jacoco-maven-plugin.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.junit&lt;/groupId&gt;
+                &lt;artifactId&gt;junit-bom&lt;/artifactId&gt;
+                &lt;version&gt;${junit.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;pluginManagement&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                    &lt;version&gt;${jacoco-maven-plugin.version}&lt;/version&gt;
+                    &lt;configuration&gt;
+                        &lt;rules&gt;
+                            &lt;rule&gt;
+                                &lt;element&gt;CLASS&lt;/element&gt;
+                                &lt;includes&gt;
+                                    &lt;include&gt;aufbau.junit.Room&lt;/include&gt;
+                                &lt;/includes&gt;
+                                &lt;limits&gt;
+                                    &lt;limit&gt;
+                                        &lt;counter&gt;BRANCH&lt;/counter&gt;
+                                        &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                                        &lt;minimum&gt;0.8&lt;/minimum&gt;
+                                    &lt;/limit&gt;
+                                    &lt;limit&gt;
+                                        &lt;counter&gt;LINE&lt;/counter&gt;
+                                        &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                                        &lt;minimum&gt;0.8&lt;/minimum&gt;
+                                    &lt;/limit&gt;
+                                &lt;/limits&gt;
+                            &lt;/rule&gt;
+                        &lt;/rules&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+                &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;prepare-agent&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;report&lt;/id&gt;
+                        &lt;phase&gt;test&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;report&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;check&lt;/id&gt;
+                        &lt;phase&gt;verify&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;check&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</details>
+<p>Die Regel gilt nur für die Klasse <code>Room</code> und verlangt, dass mindestens 80 % der Zweige
+und der Zeilen durchlaufen werden – eine Schwelle, wie Projekte sie in der Praxis ansetzen. Später legst Du Code an, dessen Tests mit <code>@Disabled</code> auf Dich warten –
+eine Regel für das ganze Projekt würde den Build dann brechen, obwohl alles in Ordnung ist.</p>
+<p>Starte zuerst die Tests:</p>
+<pre><code class="language-bash">mvn test
+</code></pre>
+<p>Starte dann den ganzen Build:</p>
+<pre><code class="language-bash">mvn verify
+</code></pre>
+<p><code>mvn test</code> ist grün, <code>mvn verify</code> scheitert. Lies die Meldung: Welche Regel ist
+verletzt, für welche Klasse, und wie hoch ist die gemessene Abdeckung? Warum hat
+<code>mvn test</code> davon nichts gemerkt?</p>
+<h3 id="die-fehlenden-tests-schreiben">Die fehlenden Tests schreiben</h3>
+<p>Schreib in <code>RoomTest</code> die Tests, die der Bericht verlangt, und starte nach jedem Test
+<code>mvn verify</code>, bis der Build grün ist:</p>
+<p><strong>1. Keine leeren Räume.</strong> Ein Raum mit Kapazität <code>0</code> lässt sich nicht anlegen.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Dass ein Aufruf eine Exception wirft, prüfst Du mit <code>try</code>-<code>catch</code>: Ruf ihn im
+<code>try</code>-Block auf. Kommt der Test hinter den Aufruf, ist keine Exception geflogen – dann lässt
+<code>fail(…)</code> ihn scheitern.</p>
+</blockquote>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<p>Dazu der statische Import <code>Assertions.fail</code>. Der <code>catch</code>-Block bleibt leer: Die Exception ist das erwartete Ergebnis.</p>
+<pre><code class="language-java">@Test
+void roomWithoutCapacityIsRejected() {
+    try {
+        new Room("R101", "Seminar 1", 0);
+        fail("IllegalArgumentException expected");
+    } catch (IllegalArgumentException expected) {
+        // the room was rejected – that is what we want
+    }
+}</code></pre>
+</details>
+<p><strong>2. <code>canHost</code> an den Grenzen.</strong> Für 1 und 12 Personen liefert <code>canHost</code> <code>true</code>, für 0 und
+13 <code>false</code>.</p>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<pre><code class="language-java">@Test
+void canHostChecksTheLimits() {
+    assertFalse(room.canHost(0));
+    assertTrue(room.canHost(1));
+    assertTrue(room.canHost(12));
+    assertFalse(room.canHost(13));
+}</code></pre>
+</details>
+<p>Öffne den Bericht noch einmal: <code>Room</code> ist jetzt vollständig grün.</p>
+<h3 id="erst-der-test-dann-der-code">Erst der Test, dann der Code</h3>
+<p>Ein Raum soll eine Buchung auch wieder stornieren können. Diesmal schreibst Du <strong>zuerst den
+Test</strong> – so, wie es Test-Driven Development vorsieht:</p>
+<ol>
+<li><strong>Red:</strong> Schreib in <code>RoomTest</code> einen Test <code>cancellingABookingFreesTheDay</code>: Den Montag
+buchen, mit <code>room.cancel(MONDAY)</code> stornieren, dann ist er wieder frei. Die Methode <code>cancel</code>
+gibt es noch nicht – der Test übersetzt nicht. Auch das ist „rot“.</li>
+<li><strong>Green:</strong> Ergänze in <code>Room</code> gerade so viel Code, dass der Test grün wird.</li>
+<li><strong>Refactor:</strong> Sieh Dir Test und Code noch einmal an – gibt es etwas aufzuräumen? Baue
+danach erneut mit Maven: Die Abdeckungsregel hält, denn der neue Code ist von Anfang an
+getestet.</li>
+</ol>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<pre><code class="language-java">// RoomTest
+@Test
+void cancellingABookingFreesTheDay() {
+    room.book(MONDAY);
+    room.cancel(MONDAY);
+    assertFalse(room.isBooked(MONDAY));
+}
+
+// Room
+public void cancel(LocalDate day) {
+    bookedDays.remove(day);
+}</code></pre>
+</details>
+<div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
+<h2 id="reflexionsfragen">Reflexionsfragen</h2>
+<div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
+<ul>
+<li>Was ist der Unterschied zwischen <code>pluginManagement</code> und <code>plugins</code> – und warum genügt für Surefire das erste, für JaCoCo aber nicht?</li>
+<li>Was kann mit dem Maß der Testabdeckung ausgesagt werden, und was nicht? Wie hoch der Anteil an getestetem Code ist – ob die Tests korrekt und sinnvoll sind – ob und wie viel toten Code es gibt?</li>
+<li>Was ist <strong>Test-Driven Development (TDD)</strong> – und welche Vorteile und Herausforderungen siehst Du, wenn Du es mit Deinem Vorgehen in dieser Übung vergleichst?</li>
+</ul>
+</div>
+</div>
+<textarea id="skr-md-source" hidden aria-hidden="true"># Maven-Plugins festlegen, binden und die Abdeckung verlangen
+
+&lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;User Story&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
+
+Als Java-Entwickler:in möchte ich verstehen, welche Plugins mein Build ausführt, und die Testabdeckung im Build verlangen, damit wichtiger Code nicht ungetestet ausgeliefert wird.
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold skr-didaktikon-guide-about&#34; data-skr-slot=&#34;guide.about&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Lernziele&lt;/summary&gt;
+
+&lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
+
+- Du ordnest die Ausgabe von `mvn verify` den Phasen, Plugins und Goals des Lifecycles zu.
+- Du findest mit `mvn help:effective-pom` heraus, woher eine Plugin-Version kommt.
+- Du trennst die Festlegung eines Plugins (Version und Konfiguration in `pluginManagement`) von seiner Bindung an den Lifecycle (Executions in `plugins`).
+- Du misst die Testabdeckung mit JaCoCo, liest den Bericht und leitest daraus fehlende Tests ab.
+- Du lässt den Build mit `jacoco:check` scheitern, solange eine Klasse nicht ausreichend getestet ist, und erklärst, warum `mvn test` dabei grün bleibt.
+- Du schreibst einen Test vor dem Code (Red – Green – Refactor).
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-fold&#34; markdown=&#34;1&#34;&gt;
+&lt;summary markdown=&#34;span&#34;&gt;Definition of Done&lt;/summary&gt;
+
+&lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
+
+### Plugins festlegen und binden
+
+- [ ] Unter `pluginManagement` stehen Surefire und JaCoCo mit Version, JaCoCo zusätzlich mit seiner Regel; die Versionen stammen von Maven Central und stehen als Properties.
+- [ ] Unter `plugins` steht JaCoCo ohne Version und ohne Konfiguration, nur mit den Executions `prepare-agent`, `report` (Phase `test`) und `check` (Phase `verify`).
+
+### Die Testabdeckung
+
+- [ ] `mvn test` erzeugt den Bericht `target/site/jacoco/index.html`; Du hast darin die roten und gelben Stellen in `Room` gefunden.
+- [ ] `mvn verify` ist an der Regel für `Room` erst gescheitert.
+- [ ] `RoomTest` prüft zusätzlich die abgelehnte Kapazität `0` und `canHost` an den Grenzen 0, 1, 12 und 13.
+- [ ] `mvn verify` endet mit `BUILD SUCCESS`, und der Bericht zeigt `Room` vollständig grün.
+- [ ] `Room` kann eine Buchung mit `cancel` stornieren; den Test `cancellingABookingFreesTheDay` hast Du vor dem Code geschrieben.
+
+### Für die ganze Seite
+
+- [ ] Du hast die Kontrollfragen beantwortet
+
+&lt;/div&gt;
+
+&lt;/details&gt;
+
+&lt;/div&gt;
+
+
+Deine Tests für den Raum sind grün. Jetzt siehst Du nach, was Maven beim Bauen eigentlich
+tut, legst die Plugins fest, mit denen es das tut – und lässt den Build scheitern, solange
+`Room` nicht ausreichend getestet ist.
+
+Dabei gilt eine Trennung, an die Du Dich im ganzen POM hältst:
+
+| Abschnitt | Was dort steht | Wirkung |
+|---|---|---|
+| `build/pluginManagement/plugins` | Version und Konfiguration eines Plugins | **legt fest**, führt nichts aus |
+| `build/plugins` | das Plugin mit seinen Executions: welches Goal in welcher Phase | **bindet** an den Lifecycle |
+
+## Arbeitsschritte
+
+### Den Lifecycle in der Ausgabe lesen
+
+Bau das Projekt im Terminal:
+
+```bash
+mvn verify
+```
+
+Lies die Ausgabe. Jede Zeile der Form `--- compiler:3.x.y:compile (default-compile) @ java-aufbau ---`
+ist ein **Goal** eines **Plugins**, das an eine **Phase** gebunden ist. Notier, welche
+Plugins in welcher Reihenfolge laufen. Wo steht in Deinem POM, dass sie laufen sollen?
+Welche Phasen und Goals ein Befehl durchläuft, kannst Du in der Visualisierung
+[Maven](../../../shared/maven/maven.md#/?befehl=verify) nachklicken.
+
+### Die Surefire-Version festlegen
+
+Lass Dir das POM so ausgeben, wie Maven es sieht, und schreib es in eine Datei:
+
+```bash
+mvn help:effective-pom -Doutput=effective-pom.xml
+```
+
+Such in `effective-pom.xml` nach `maven-surefire-plugin`. Welche Version steht dort –
+und woher kommt sie, wenn sie nicht in Deinem POM steht?
+
+Schlag auf Maven Central (&lt;https://central.sonatype.com&gt;) die neueste stabile Version von 
+`org.apache.maven.plugins:maven-surefire-plugin` nach – ohne Vorabversionen wie `-M1`
+oder `-RC1`. Leg die Version wie bei JUnit als Property an – in `&lt;properties&gt;`, `VERSION`
+ersetzt durch die gefundene Version:
+
+```xml
+&lt;maven-surefire-plugin.version&gt;VERSION&lt;/maven-surefire-plugin.version&gt;
+```
+
+Ergänze Dein POM dann am Ende, vor `&lt;/project&gt;`, um diesen Block:
+
+```xml
+&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${maven-surefire-plugin.version}&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+&lt;/build&gt;
+```
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+        &amp;lt;junit.version&amp;gt;VERSION&amp;lt;/junit.version&amp;gt;
+        &amp;lt;maven-surefire-plugin.version&amp;gt;VERSION&amp;lt;/maven-surefire-plugin.version&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.junit&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;junit-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${junit.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.junit.jupiter&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+
+    &amp;lt;build&amp;gt;
+        &amp;lt;pluginManagement&amp;gt;
+            &amp;lt;plugins&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${maven-surefire-plugin.version}&amp;lt;/version&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+            &amp;lt;/plugins&amp;gt;
+        &amp;lt;/pluginManagement&amp;gt;
+    &amp;lt;/build&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+Erzeuge das effektive POM noch einmal und prüf, dass nun Deine Version gilt. Surefire
+musst Du nicht unter `plugins` eintragen – warum nicht?
+
+### JaCoCo festlegen und binden
+
+Drei grüne Tests für den Raum – aber welchen Code von `Room` haben sie durchlaufen? Das misst
+**JaCoCo**: Das Goal `prepare-agent` hängt einen Agenten an die JVM der Tests, der jede
+ausgeführte Zeile und jeden Zweig mitzählt; das Goal `report` macht daraus einen Bericht.
+
+Schlag auf Maven Central die neueste stabile Version von `org.jacoco:jacoco-maven-plugin` nach 
+und leg sie als Property `jacoco-maven-plugin.version` an. **Leg das Plugin fest:** Ergänze in
+`pluginManagement` nach dem Surefire-Plugin:
+
+```xml
+&lt;plugin&gt;
+    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${jacoco-maven-plugin.version}&lt;/version&gt;
+&lt;/plugin&gt;
+```
+
+**Binde es an den Lifecycle:** Ergänze in `&lt;build&gt;` nach `&lt;/pluginManagement&gt;` diesen
+Block – ohne Version, die kommt aus `pluginManagement`:
+
+```xml
+&lt;plugins&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+        &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+        &lt;executions&gt;
+            &lt;execution&gt;
+                &lt;id&gt;prepare-agent&lt;/id&gt;
+                &lt;goals&gt;
+                    &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                &lt;/goals&gt;
+            &lt;/execution&gt;
+            &lt;execution&gt;
+                &lt;id&gt;report&lt;/id&gt;
+                &lt;phase&gt;test&lt;/phase&gt;
+                &lt;goals&gt;
+                    &lt;goal&gt;report&lt;/goal&gt;
+                &lt;/goals&gt;
+            &lt;/execution&gt;
+        &lt;/executions&gt;
+    &lt;/plugin&gt;
+&lt;/plugins&gt;
+```
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+        &amp;lt;junit.version&amp;gt;VERSION&amp;lt;/junit.version&amp;gt;
+        &amp;lt;maven-surefire-plugin.version&amp;gt;VERSION&amp;lt;/maven-surefire-plugin.version&amp;gt;
+        &amp;lt;jacoco-maven-plugin.version&amp;gt;VERSION&amp;lt;/jacoco-maven-plugin.version&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.junit&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;junit-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${junit.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.junit.jupiter&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+
+    &amp;lt;build&amp;gt;
+        &amp;lt;pluginManagement&amp;gt;
+            &amp;lt;plugins&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${maven-surefire-plugin.version}&amp;lt;/version&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${jacoco-maven-plugin.version}&amp;lt;/version&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+            &amp;lt;/plugins&amp;gt;
+        &amp;lt;/pluginManagement&amp;gt;
+        &amp;lt;plugins&amp;gt;
+            &amp;lt;plugin&amp;gt;
+                &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                &amp;lt;executions&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;prepare-agent&amp;lt;/id&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;prepare-agent&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;report&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;test&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;report&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                &amp;lt;/executions&amp;gt;
+            &amp;lt;/plugin&amp;gt;
+        &amp;lt;/plugins&amp;gt;
+    &amp;lt;/build&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+`prepare-agent` bringt seine Phase selbst mit (`initialize`); den Bericht hängst Du an die
+Phase `test`, so entsteht er bei jedem `mvn test` gleich nach den Tests.
+
+### Die Testabdeckung messen
+
+Starte die Tests:
+
+```bash
+mvn test
+```
+
+Öffne `target/site/jacoco/index.html` im Browser und klick Dich über das Paket
+`aufbau.junit` zur Klasse `Room` und in ihren Quelltext. **Rot** markierte Zeilen hat kein
+Test ausgeführt; eine **gelbe** Raute vor einer Zeile heißt, dass nur ein Teil ihrer
+Zweige durchlaufen wurde. Fahr mit der Maus über die Raute: Wie viele Zweige fehlen?
+Notier für jede rote und gelbe Stelle, welcher Test fehlt.
+
+### Eine Mindestabdeckung verlangen
+
+Messen allein ändert nichts. Lass den Build deshalb scheitern, solange `Room` nicht
+ausreichend getestet ist. Dafür brauchst Du wieder beide Abschnitte.
+
+**Die Regel ist Konfiguration:** Ergänze das JaCoCo-Plugin in `pluginManagement` nach
+`&lt;version&gt;` um:
+
+```xml
+&lt;configuration&gt;
+    &lt;rules&gt;
+        &lt;rule&gt;
+            &lt;element&gt;CLASS&lt;/element&gt;
+            &lt;includes&gt;
+                &lt;include&gt;aufbau.junit.Room&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;limits&gt;
+                &lt;limit&gt;
+                    &lt;counter&gt;BRANCH&lt;/counter&gt;
+                    &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                    &lt;minimum&gt;0.8&lt;/minimum&gt;
+                &lt;/limit&gt;
+                &lt;limit&gt;
+                    &lt;counter&gt;LINE&lt;/counter&gt;
+                    &lt;value&gt;COVEREDRATIO&lt;/value&gt;
+                    &lt;minimum&gt;0.8&lt;/minimum&gt;
+                &lt;/limit&gt;
+            &lt;/limits&gt;
+        &lt;/rule&gt;
+    &lt;/rules&gt;
+&lt;/configuration&gt;
+```
+
+**Die Prüfung ist eine Bindung:** Ergänze die `&lt;executions&gt;` des JaCoCo-Plugins unter
+`plugins` um eine dritte:
+
+```xml
+&lt;execution&gt;
+    &lt;id&gt;check&lt;/id&gt;
+    &lt;phase&gt;verify&lt;/phase&gt;
+    &lt;goals&gt;
+        &lt;goal&gt;check&lt;/goal&gt;
+    &lt;/goals&gt;
+&lt;/execution&gt;
+```
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Gesamtstand der pom.xml&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&amp;gt;
+&amp;lt;project xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34;
+         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+         xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&amp;gt;
+    &amp;lt;modelVersion&amp;gt;4.0.0&amp;lt;/modelVersion&amp;gt;
+
+    &amp;lt;groupId&amp;gt;de.schulung&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;java-aufbau&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0-SNAPSHOT&amp;lt;/version&amp;gt;
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;maven.compiler.release&amp;gt;17&amp;lt;/maven.compiler.release&amp;gt;
+        &amp;lt;project.build.sourceEncoding&amp;gt;UTF-8&amp;lt;/project.build.sourceEncoding&amp;gt;
+        &amp;lt;junit.version&amp;gt;VERSION&amp;lt;/junit.version&amp;gt;
+        &amp;lt;maven-surefire-plugin.version&amp;gt;VERSION&amp;lt;/maven-surefire-plugin.version&amp;gt;
+        &amp;lt;jacoco-maven-plugin.version&amp;gt;VERSION&amp;lt;/jacoco-maven-plugin.version&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    &amp;lt;dependencyManagement&amp;gt;
+        &amp;lt;dependencies&amp;gt;
+            &amp;lt;dependency&amp;gt;
+                &amp;lt;groupId&amp;gt;org.junit&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;junit-bom&amp;lt;/artifactId&amp;gt;
+                &amp;lt;version&amp;gt;${junit.version}&amp;lt;/version&amp;gt;
+                &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+                &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+            &amp;lt;/dependency&amp;gt;
+        &amp;lt;/dependencies&amp;gt;
+    &amp;lt;/dependencyManagement&amp;gt;
+
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.junit.jupiter&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;/dependencies&amp;gt;
+
+    &amp;lt;build&amp;gt;
+        &amp;lt;pluginManagement&amp;gt;
+            &amp;lt;plugins&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;maven-surefire-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${maven-surefire-plugin.version}&amp;lt;/version&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+                &amp;lt;plugin&amp;gt;
+                    &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                    &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                    &amp;lt;version&amp;gt;${jacoco-maven-plugin.version}&amp;lt;/version&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;rules&amp;gt;
+                            &amp;lt;rule&amp;gt;
+                                &amp;lt;element&amp;gt;CLASS&amp;lt;/element&amp;gt;
+                                &amp;lt;includes&amp;gt;
+                                    &amp;lt;include&amp;gt;aufbau.junit.Room&amp;lt;/include&amp;gt;
+                                &amp;lt;/includes&amp;gt;
+                                &amp;lt;limits&amp;gt;
+                                    &amp;lt;limit&amp;gt;
+                                        &amp;lt;counter&amp;gt;BRANCH&amp;lt;/counter&amp;gt;
+                                        &amp;lt;value&amp;gt;COVEREDRATIO&amp;lt;/value&amp;gt;
+                                        &amp;lt;minimum&amp;gt;0.8&amp;lt;/minimum&amp;gt;
+                                    &amp;lt;/limit&amp;gt;
+                                    &amp;lt;limit&amp;gt;
+                                        &amp;lt;counter&amp;gt;LINE&amp;lt;/counter&amp;gt;
+                                        &amp;lt;value&amp;gt;COVEREDRATIO&amp;lt;/value&amp;gt;
+                                        &amp;lt;minimum&amp;gt;0.8&amp;lt;/minimum&amp;gt;
+                                    &amp;lt;/limit&amp;gt;
+                                &amp;lt;/limits&amp;gt;
+                            &amp;lt;/rule&amp;gt;
+                        &amp;lt;/rules&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/plugin&amp;gt;
+            &amp;lt;/plugins&amp;gt;
+        &amp;lt;/pluginManagement&amp;gt;
+        &amp;lt;plugins&amp;gt;
+            &amp;lt;plugin&amp;gt;
+                &amp;lt;groupId&amp;gt;org.jacoco&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;jacoco-maven-plugin&amp;lt;/artifactId&amp;gt;
+                &amp;lt;executions&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;prepare-agent&amp;lt;/id&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;prepare-agent&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;report&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;test&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;report&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                    &amp;lt;execution&amp;gt;
+                        &amp;lt;id&amp;gt;check&amp;lt;/id&amp;gt;
+                        &amp;lt;phase&amp;gt;verify&amp;lt;/phase&amp;gt;
+                        &amp;lt;goals&amp;gt;
+                            &amp;lt;goal&amp;gt;check&amp;lt;/goal&amp;gt;
+                        &amp;lt;/goals&amp;gt;
+                    &amp;lt;/execution&amp;gt;
+                &amp;lt;/executions&amp;gt;
+            &amp;lt;/plugin&amp;gt;
+        &amp;lt;/plugins&amp;gt;
+    &amp;lt;/build&amp;gt;
+&amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+Die Regel gilt nur für die Klasse `Room` und verlangt, dass mindestens 80 % der Zweige
+und der Zeilen durchlaufen werden – eine Schwelle, wie Projekte sie in der Praxis ansetzen. Später legst Du Code an, dessen Tests mit `@Disabled` auf Dich warten –
+eine Regel für das ganze Projekt würde den Build dann brechen, obwohl alles in Ordnung ist.
+
+Starte zuerst die Tests:
+
+```bash
+mvn test
+```
+
+Starte dann den ganzen Build:
+
+```bash
+mvn verify
+```
+
+`mvn test` ist grün, `mvn verify` scheitert. Lies die Meldung: Welche Regel ist
+verletzt, für welche Klasse, und wie hoch ist die gemessene Abdeckung? Warum hat
+`mvn test` davon nichts gemerkt?
+
+### Die fehlenden Tests schreiben
+
+Schreib in `RoomTest` die Tests, die der Bericht verlangt, und starte nach jedem Test
+`mvn verify`, bis der Build grün ist:
+
+**1. Keine leeren Räume.** Ein Raum mit Kapazität `0` lässt sich nicht anlegen.
+
+&gt; **Hinweis:** Dass ein Aufruf eine Exception wirft, prüfst Du mit `try`-`catch`: Ruf ihn im
+&gt; `try`-Block auf. Kommt der Test hinter den Aufruf, ist keine Exception geflogen – dann lässt
+&gt; `fail(…)` ihn scheitern.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
+&lt;p&gt;Dazu der statische Import &lt;code&gt;Assertions.fail&lt;/code&gt;. Der &lt;code&gt;catch&lt;/code&gt;-Block bleibt leer: Die Exception ist das erwartete Ergebnis.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void roomWithoutCapacityIsRejected() {
+    try {
+        new Room(&#34;R101&#34;, &#34;Seminar 1&#34;, 0);
+        fail(&#34;IllegalArgumentException expected&#34;);
+    } catch (IllegalArgumentException expected) {
+        // the room was rejected – that is what we want
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+**2. `canHost` an den Grenzen.** Für 1 und 12 Personen liefert `canHost` `true`, für 0 und
+13 `false`.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void canHostChecksTheLimits() {
+    assertFalse(room.canHost(0));
+    assertTrue(room.canHost(1));
+    assertTrue(room.canHost(12));
+    assertFalse(room.canHost(13));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+Öffne den Bericht noch einmal: `Room` ist jetzt vollständig grün.
+
+### Erst der Test, dann der Code
+
+Ein Raum soll eine Buchung auch wieder stornieren können. Diesmal schreibst Du **zuerst den
+Test** – so, wie es Test-Driven Development vorsieht:
+
+1. **Red:** Schreib in `RoomTest` einen Test `cancellingABookingFreesTheDay`: Den Montag
+   buchen, mit `room.cancel(MONDAY)` stornieren, dann ist er wieder frei. Die Methode `cancel`
+   gibt es noch nicht – der Test übersetzt nicht. Auch das ist „rot“.
+2. **Green:** Ergänze in `Room` gerade so viel Code, dass der Test grün wird.
+3. **Refactor:** Sieh Dir Test und Code noch einmal an – gibt es etwas aufzuräumen? Baue
+   danach erneut mit Maven: Die Abdeckungsregel hält, denn der neue Code ist von Anfang an
+   getestet.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// RoomTest
+@Test
+void cancellingABookingFreesTheDay() {
+    room.book(MONDAY);
+    room.cancel(MONDAY);
+    assertFalse(room.isBooked(MONDAY));
+}
+
+// Room
+public void cancel(LocalDate day) {
+    bookedDays.remove(day);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+
+&lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
+
+## Reflexionsfragen
+
+&lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
+
+- Was ist der Unterschied zwischen `pluginManagement` und `plugins` – und warum genügt für Surefire das erste, für JaCoCo aber nicht?
+- Was kann mit dem Maß der Testabdeckung ausgesagt werden, und was nicht? Wie hoch der Anteil an getestetem Code ist – ob die Tests korrekt und sinnvoll sind – ob und wie viel toten Code es gibt?
+- Was ist **Test-Driven Development (TDD)** – und welche Vorteile und Herausforderungen siehst Du, wenn Du es mit Deinem Vorgehen in dieser Übung vergleichst?
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+## Weiterführende Informationen
+- [Maven: Introduction to the Build Lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
+- [JaCoCo: Maven-Plug-in (Goals und Konfiguration)](https://www.jacoco.org/jacoco/trunk/doc/maven.html)
+- [JaCoCo: Goal check (Regeln, Zähler, Grenzwerte)](https://www.jacoco.org/jacoco/trunk/doc/check-mojo.html)
+</textarea>
+    </main><aside class="skr-guide-sidebar">
+  <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
+           data-skr-toc-limit="12" open>
+    <summary class="skr-guide-side__label">Auf dieser Seite</summary>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-lifecycle-in-der-ausgabe-lesen" class="skr-toc--h3">Den Lifecycle in der Ausgabe lesen</a><a href="#die-surefire-version-festlegen" class="skr-toc--h3">Die Surefire-Version festlegen</a><a href="#jacoco-festlegen-und-binden" class="skr-toc--h3">JaCoCo festlegen und binden</a><a href="#die-testabdeckung-messen" class="skr-toc--h3">Die Testabdeckung messen</a><a href="#eine-mindestabdeckung-verlangen" class="skr-toc--h3">Eine Mindestabdeckung verlangen</a><a href="#die-fehlenden-tests-schreiben" class="skr-toc--h3">Die fehlenden Tests schreiben</a><a href="#erst-der-test-dann-der-code" class="skr-toc--h3">Erst der Test, dann der Code</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+  </details>
+  <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
+           aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
+    <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
+    <div class="skr-guide-side__body">
+      <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 8 erledigt</div>
+    </div>
+  </section>
+  <template data-skr-sidebar-cards></template>
+  <div class="skr-guide-side skr-guide-side--bordered">
+    <div class="skr-guide-side__label">Weiterführende Informationen</div>
+    <div class="skr-guide-side__links">
+      <a href="https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html" target="_blank" rel="noopener"><span>Maven: Introduction to the Build Lifecycle</span></a>
+      <a href="https://www.jacoco.org/jacoco/trunk/doc/maven.html" target="_blank" rel="noopener"><span>JaCoCo: Maven-Plug-in (Goals und Konfiguration)</span></a>
+      <a href="https://www.jacoco.org/jacoco/trunk/doc/check-mojo.html" target="_blank" rel="noopener"><span>JaCoCo: Goal check (Regeln, Zähler, Grenzwerte)</span></a>
+    </div>
+  </div>
+</aside>
+
+  </div>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+<footer class="skr-footer">
+  <div class="skr-footer__grid">
+    <div><strong>ATVANTAGE Academy</strong>
+      <p>Schulungen im Bereich „Java SE“</p>
+    </div><div>
+      <strong>Kontakt</strong>
+      <p><a href="https://atvantage-academy.github.io/academy-online/" target="_blank" rel="noopener">Website</a><br><a href="mailto:academy@atvantage.com">academy@atvantage.com</a><br>
+      </p>
+    </div>
+  </div>
+  <div class="skr-footer__legal">
+    © <span data-skr-year>2026</span> ATVANTAGE
+  </div>
+</footer>
+
+</body>
+</html>

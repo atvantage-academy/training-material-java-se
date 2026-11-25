@@ -40,9 +40,9 @@
 <script src="../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../" data-index="../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
@@ -79,7 +79,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../skriptorium/search/de.json?v=53316764"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -132,7 +132,7 @@
     <main class="skr-guide-main" id="skr-content"><div class="skr-didaktikon-content-before" data-skr-slot="content.before">
 <h2 id="berblick">Überblick</h2>
 <div class="skr-didaktikon-overview" data-skr-field="didaktikon.overview">
-<p>Wer Java schreiben kann, kennt die Stellen noch nicht, an denen Java anders tickt als erwartet: Gleichheit in Collections, Autoboxing, Exceptions zur falschen Zeit, Lambdas, die keine checked Exception werfen dürfen, Threads, die sich gegenseitig Buchungen überschreiben. Der Kurs geht diesen Stellen nach – mit kleinen Rätseln aus „Effective Java“, die Du zuerst vorhersagst und dann als Test ausführst. So entsteht der Weg vom OO-Einstieg zur eigenständigen, fundierten Java-Entwicklung: moderne Sprachmittel, Generics, Reflection, Tests mit JUnit und Mockito, Maven und Nebenläufigkeit. Welche Schwerpunkte vertieft werden, legt die Gruppe zu Kursbeginn und im Verlauf gemeinsam fest.</p>
+<p>Wer Java schreiben kann, kennt die Stellen noch nicht, an denen Java anders tickt als erwartet: Gleichheit in Collections, Autoboxing, Exceptions zur falschen Zeit, Lambdas, die keine checked Exception werfen dürfen, Threads, die sich gegenseitig Buchungen überschreiben. Der Kurs geht diesen Stellen nach – mit kleinen Rätseln aus „Effective Java“, die Du zuerst vorhersagst und dann als Test ausführst. So entsteht der Weg vom OO-Einstieg zur eigenständigen, fundierten Java-Entwicklung: moderne Sprachmittel, Generics, Reflection, Tests mit JUnit und Mockito, Maven und modulare Anwendungen – auf Wunsch auch Nebenläufigkeit. Welche Schwerpunkte vertieft werden, legt die Gruppe zu Kursbeginn und im Verlauf gemeinsam fest.</p>
 </div>
 <h2 id="zielgruppe">Zielgruppe</h2>
 <div class="skr-didaktikon-audience" data-skr-field="didaktikon.audience">
@@ -154,58 +154,71 @@
 <h2 id="voraussetzungen">Voraussetzungen</h2>
 <div class="skr-didaktikon-prerequisites" data-skr-field="didaktikon.prerequisites">
 <ul>
-<li>Kenntnisse aus der Schulung „Java – Grundlagen“ (8320.1021) oder gleichwertige praktische Java-Erfahrung.</li>
-<li>Eine eingerichtete Java-Entwicklungsumgebung am Arbeitsplatz: JDK 17 oder neuer, Maven auf der Kommandozeile und eine IDE; Zugriff auf Maven Central. Für die optionale Übung zu Virtual Threads ein JDK 21 oder neuer.</li>
+<li>Kenntnisse aus der Schulung „Java – Grundlagen“ oder gleichwertige praktische Java-Erfahrung.</li>
+<li>Eine eingerichtete Java-Entwicklungsumgebung am Arbeitsplatz: JDK 17 oder neuer, Maven auf der Kommandozeile und eine IDE.</li>
 <li>Für die Onlinedurchführung: Arbeitsplatz mit Internetzugang.</li>
 </ul>
 </div>
 </div>
 <h2 id="agenda">Agenda</h2>
-<h3 id="fallstricke-und-werkzeug">Fallstricke und Werkzeug</h3>
+<h3 id="einstieg-mit-maven-und-junit">Einstieg mit Maven und JUnit</h3>
 <ul>
 <li>Einstieg: wie schnell Missverständnisse entstehen</li>
 <li>Projekte mit Maven aufsetzen: Lebenszyklus, Plugins, Abhängigkeiten und BOMs</li>
 <li>Tests mit JUnit: Erwartungen festhalten, Code-Coverage messen und als Schranke im Build einsetzen</li>
 </ul>
-<h3 id="gleichheit-wrapper-ausnahmen">Gleichheit, Wrapper, Ausnahmen</h3>
+<h3 id="basisklassen">Basisklassen</h3>
 <ul>
-<li>Collections auffrischen: der Vertrag von <code>equals</code> und <code>hashCode</code>, veränderliche Schlüssel</li>
+<li>Exceptions auffrischen – und was dabei schiefgeht: früh scheitern, checked und unchecked, Kosten</li>
+<li>Collections auffrischen – und was dabei schiefgeht: Gleichheit, veränderliche Schlüssel, schlechte Hashwerte</li>
+<li>Die Oberklasse <code>Object</code>: was jede Klasse erbt, der Vertrag von <code>equals</code> und <code>hashCode</code> vertieft, try-with-resources statt <code>finalize</code></li>
 <li>Wrapper-Klassen und Autoboxing: Cache, Vergleiche, Überladungen</li>
-<li>Exceptions auffrischen: früh scheitern, checked und unchecked, Kosten</li>
 </ul>
 <h3 id="moderne-sprachmittel">Moderne Sprachmittel</h3>
 <ul>
 <li>Records und Enums zweckmäßig einsetzen</li>
 <li>Java-Update: was sich seit Java 8 getan hat</li>
 <li>Lambdas, Streams und <code>Optional</code> – funktionale Datenverarbeitung mit den Collections</li>
+<li>Fallstricke mit Lambdas und Streams: Autoboxing, Auswertungszeitpunkt, wiederverwendete Streams</li>
 <li>Eigene generische Typen und Methoden, Wildcards mit <code>extends</code> und <code>super</code></li>
 </ul>
-<h3 id="reflection-und-testen">Reflection und Testen</h3>
+<h3 id="reflection">Reflection</h3>
 <ul>
-<li>Annotationen und Reflection verstehen, einordnen und eigene Annotationen schreiben</li>
+<li>Reflection verstehen und einordnen</li>
+<li>Eigene Annotationen schreiben und per Reflection auslesen</li>
 <li>Dynamic Proxy: Verhalten um ein Interface legen</li>
-<li>Dependency Injection als Prinzip, Tests mit JUnit und Mockito</li>
 </ul>
-<h3 id="nebenläufigkeit">Nebenläufigkeit</h3>
+<h3 id="modulare-anwendungen-und-code-optimierung">Modulare Anwendungen und Code-Optimierung</h3>
 <ul>
-<li>Threads mit Java-Bordmitteln, Thread Safety vs. Concurrency</li>
-<li>Concurrency Utilities und <code>ExecutorService</code></li>
-<li>Virtual Threads (ab Java 21, optional)</li>
+<li>Dependency Injection als Prinzip</li>
+<li>Abhängigkeiten im Test durch Mocks ersetzen – mit Mockito</li>
+<li>Service Provider Interface mit <code>ServiceLoader</code></li>
+<li>Das Java-Modulsystem: Module, Kapselung und Services</li>
+<li>Lombok: Boilerplate per Annotation Processor erzeugen</li>
 </ul>
 <h3 id="zur-wahl">Zur Wahl</h3>
 <ul>
-<li>Lesbare Assertions mit AssertJ</li>
 <li>Weitere Fallstricke aus „Effective Java“</li>
+</ul>
+<h3 id="junit-vertiefung-optional">JUnit-Vertiefung (optional)</h3>
+<ul>
+<li>Lesbare Assertions mit AssertJ</li>
+<li>Parameterized Tests: Argumente aus Methoden und Dateien</li>
+<li>Eine eigene JUnit-Extension</li>
+</ul>
+<h3 id="nebenläufigkeit-optional">Nebenläufigkeit (optional)</h3>
+<ul>
+<li>Threads mit Java-Bordmitteln, Thread Safety vs. Concurrency</li>
+<li>Concurrency Utilities und <code>ExecutorService</code></li>
+<li>Virtual Threads (ab Java 21)</li>
 <li>Nebenläufigkeit in Laufzeitumgebungen (Jakarta EE, Quarkus, Spring)</li>
-<li>Service Provider Interface mit <code>ServiceLoader</code></li>
-<li>Das Java-Modulsystem: Module, Kapselung und Services</li>
 </ul>
 
     </main><aside class="skr-guide-sidebar">
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#berblick">Überblick</a><a href="#zielgruppe">Zielgruppe</a><a href="#lernziele">Lernziele</a><a href="#voraussetzungen">Voraussetzungen</a><a href="#agenda">Agenda</a><a href="#fallstricke-und-werkzeug" class="skr-toc--h3">Fallstricke und Werkzeug</a><a href="#gleichheit-wrapper-ausnahmen" class="skr-toc--h3">Gleichheit, Wrapper, Ausnahmen</a><a href="#moderne-sprachmittel" class="skr-toc--h3">Moderne Sprachmittel</a><a href="#reflection-und-testen" class="skr-toc--h3">Reflection und Testen</a><a href="#nebenläufigkeit" class="skr-toc--h3">Nebenläufigkeit</a><a href="#zur-wahl" class="skr-toc--h3">Zur Wahl</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#berblick">Überblick</a><a href="#zielgruppe">Zielgruppe</a><a href="#lernziele">Lernziele</a><a href="#voraussetzungen">Voraussetzungen</a><a href="#agenda">Agenda</a><a href="#einstieg-mit-maven-und-junit" class="skr-toc--h3">Einstieg mit Maven und JUnit</a><a href="#basisklassen" class="skr-toc--h3">Basisklassen</a><a href="#moderne-sprachmittel" class="skr-toc--h3">Moderne Sprachmittel</a><a href="#reflection" class="skr-toc--h3">Reflection</a><a href="#modulare-anwendungen-und-code-optimierung" class="skr-toc--h3">Modulare Anwendungen und Code-Optimierung</a><a href="#zur-wahl" class="skr-toc--h3">Zur Wahl</a><a href="#junit-vertiefung-optional" class="skr-toc--h3">JUnit-Vertiefung (optional)</a><a href="#nebenläufigkeit-optional" class="skr-toc--h3">Nebenläufigkeit (optional)</a></nav>
   </details>
   <template data-skr-sidebar-cards></template>
 </aside>

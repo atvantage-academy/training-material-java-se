@@ -1,0 +1,41 @@
+.an-lead{color:var(--skr-color-ink-muted);margin:0 0 .75rem;}
+.an-marken{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 1.5rem;}
+.an-titel{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:.75rem 0 .35rem;font-weight:700;}
+.an-titel--falsch::before{content:"✗ ";}
+.an-schritt{font-weight:700;color:var(--skr-color-headline);margin:0 0 .5rem;}
+
+/* Die drei Leser: Karten nebeneinander, auf schmalen Bildschirmen untereinander. */
+.an-leser{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:1rem;margin:0 0 1.5rem;}
+.an-karte{padding:.9rem 1rem;border:1px solid var(--skr-color-border);border-top:4px solid var(--skr-color-accent);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);min-width:0;}
+.an-karte pre{overflow-x:auto;}
+.an-karte > :last-child{margin-bottom:0;}
+.an-karte__wann{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);margin:0;font-weight:700;}
+.an-karte__wer{font-weight:700;color:var(--skr-color-headline);margin:0 0 .5rem;}
+
+/* Auswahl: Knöpfe erst mit Skript, ohne Skript sind alle Teile sichtbar. */
+.an-knoepfe{display:none;}
+.an-aktiv .an-knoepfe{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;}
+.an-knopf{font:inherit;font-size:.9rem;padding:.4rem .7rem;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius,6px);background:var(--skr-color-bg);color:var(--skr-color-ink);cursor:pointer;text-align:left;}
+.an-knopf:hover{border-color:var(--skr-color-accent);}
+.an-knopf[aria-pressed="true"]{background:var(--skr-color-accent);border-color:var(--skr-color-accent);color:var(--skr-color-accent-contrast);}
+.an-panel{margin:0 0 1.25rem;padding:1rem 1.1rem;border:1px solid var(--skr-color-border);border-left:4px solid var(--skr-color-accent);border-radius:var(--skr-radius,8px);background:var(--skr-color-bg-subtle);}
+.an-panel pre{overflow-x:auto;}
+.an-panel > :last-child{margin-bottom:0;}
+
+.an-vergleich{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:1rem;}
+.an-vergleich > div{min-width:0;}
+.an-vergleich pre{overflow-x:auto;}
+
+@media print{
+  .an-knoepfe{display:none !important;}
+  .an-panel[hidden]{display:block !important;}
+  .an-panel{break-inside:avoid;}
+}
+
+/* Abstand über den Markdown-Überschriften: Das Theme setzt jede Überschrift auf margin-top 0,
+   und das Layout visualization ergänzt – anders als guide – keinen Rhythmus. Ohne diese Regel
+   klebt eine Überschrift am Block darüber. Nur direkte Kinder von main, damit Überschriften in
+   Karten und Panels bleiben, wie sie sind. Workaround, siehe ABWEICHUNGEN.md, Eintrag A-035. */
+body .skr-stage__main > h2{margin-top:var(--skr-rhythm-section,3.75rem);margin-bottom:var(--skr-rhythm-heading,1.5rem);}
+body .skr-stage__main > h3{margin-top:var(--skr-rhythm-subsection,2.5rem);margin-bottom:var(--skr-rhythm-heading,1.5rem);}
+body .skr-stage__main > .an-marken + h2{margin-top:var(--skr-rhythm-subsection,2.5rem);}

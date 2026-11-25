@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Benachrichtigungskanäle per ServiceLoader · ATVANTAGE Academy</title>
+<title>SPI: Benachrichtigungskanäle per ServiceLoader · ATVANTAGE Academy</title>
 <meta name="description" content="Lass den Buchungsservice seine Benachrichtigungskanäle zur Laufzeit finden – ohne new und ohne if-Kaskade, über META-INF/services und den ServiceLoader.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Benachrichtigungskanäle per ServiceLoader">
+<meta property="og:title" content="SPI: Benachrichtigungskanäle per ServiceLoader">
 <meta property="og:description" content="Lass den Buchungsservice seine Benachrichtigungskanäle zur Laufzeit finden – ohne new und ohne if-Kaskade, über META-INF/services und den ServiceLoader.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -34,15 +34,15 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lass den Buchungsservice seine Benachrichtigungskanäle zur Laufzeit finden – ohne new und ohne if-Kaskade, über META-INF/services und den ServiceLoader.","duration":25,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-spi-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Benachrichtigungskanäle per ServiceLoader","topics":["Service Provider Interface","ServiceLoader","Maven","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/spi/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Lass den Buchungsservice seine Benachrichtigungskanäle zur Laufzeit finden – ohne new und ohne if-Kaskade, über META-INF/services und den ServiceLoader.","duration":25,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-spi-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"SPI: Benachrichtigungskanäle per ServiceLoader","topics":["Service Provider Interface","ServiceLoader","Maven","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/spi/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,7 +120,7 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Benachrichtigungskanäle per ServiceLoader</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">SPI: Benachrichtigungskanäle per ServiceLoader</span></nav>
   <div class="skr-guide-hero__meta">
     <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 25 Minuten</span><span class="skr-tag">Service Provider Interface</span><span class="skr-tag">ServiceLoader</span><span class="skr-tag">Maven</span><span class="skr-tag">Raumbuchung</span>
     </div>
@@ -129,7 +129,7 @@
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Benachrichtigungskanäle per ServiceLoader</h1>
+  </div><h1 id="skr-page-title">SPI: Benachrichtigungskanäle per ServiceLoader</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -167,7 +167,7 @@
 </ul>
 <h3 id="kr-optional">Kür (optional)</h3>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ein zweites Maven-Projekt aufbau-sms liefert SmsChannel als JAR; BookingApp findet den Kanal, wenn das JAR auf dem Klassenpfad liegt." disabled="disabled"> Ein zweites Maven-Projekt <code>aufbau-sms</code> liefert <code>SmsChannel</code> als JAR; <code>BookingApp</code> findet den Kanal, wenn das JAR auf dem Klassenpfad liegt.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ein zweites Maven-Projekt java-aufbau-sms liefert SmsChannel als JAR; BookingApp findet den Kanal, wenn das JAR auf dem Klassenpfad liegt." disabled="disabled"> Ein zweites Maven-Projekt <code>java-aufbau-sms</code> liefert <code>SmsChannel</code> als JAR; <code>BookingApp</code> findet den Kanal, wenn das JAR auf dem Klassenpfad liegt.</li>
 </ul>
 <h3 id="fr-die-ganze-seite">Für die ganze Seite</h3>
 <ul class="task-list">
@@ -182,8 +182,8 @@ weder <code>new EmailChannel()</code> noch eine <code>if</code>-Kaskade enthalte
 Kanäle da sind.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="den-service-und-zwei-kanäle-anlegen">Den Service und zwei Kanäle anlegen</h3>
-<p>Leg im Projekt <code>aufbau</code> das Paket <code>aufbau.spi</code> an und kopiere die folgenden Klassen
-hinein, jede in ihre eigene Datei unter <code>src/main/java/aufbau/spi/</code>.</p>
+<p>Im Ordner <code>src/main/java</code> des Projekts <code>java-aufbau</code> lege das Package <code>aufbau.spi</code> an und
+kopiere die folgenden Klassen hinein, jede in ihre eigene Datei.</p>
 <p>Das Interface, das jeder Kanal erfüllt:</p>
 <pre><code class="language-java">package aufbau.spi;
 
@@ -278,9 +278,7 @@ public class BookingApp {
 </code></pre>
 <p><strong>Vorhersage:</strong> Noch weiß niemand, dass es <code>EmailChannel</code> und <code>ChatChannel</code> gibt. Was gibt
 <code>BookingApp</code> aus – oder bricht sie ab? Notier Deine Erwartung.</p>
-<p>Übersetze das Projekt im Ordner <code>aufbau</code>:</p>
-<pre><code class="language-shell">mvn compile
-</code></pre>
+<p>Baue das Projekt <code>java-aufbau</code> erneut mit Maven.</p>
 <p>Starte <code>BookingApp</code>:</p>
 <pre><code class="language-shell">java -cp target/classes aufbau.spi.BookingApp
 </code></pre>
@@ -307,7 +305,8 @@ nach.</p>
 Deiner Erwartung. Entferne die Zeile danach wieder.</p>
 <h3 id="die-gefundenen-kanäle-testen">Die gefundenen Kanäle testen</h3>
 <p>Ein Test bekommt einen eigenen Kanal, der Nachrichten mitschreibt, statt sie zu
-verschicken. Leg ihn unter <code>src/test/java/aufbau/spi/</code> an:</p>
+verschicken. Im Ordner <code>src/test/java</code> lege dafür
+ebenfalls das Package <code>aufbau.spi</code> an und darin den Kanal:</p>
 <pre><code class="language-java">package aufbau.spi;
 
 import java.util.ArrayList;
@@ -354,51 +353,51 @@ class BookingServiceTest {
 }
 </code></pre>
 <p><strong>Vorhersage:</strong> Welche Kanäle findet der Service im Test? Notier Deine Erwartung,
-entferne <code>@Disabled</code> und lass die Tests laufen:</p>
-<pre><code class="language-shell">mvn test
-</code></pre>
+entferne <code>@Disabled</code> und starte die Testklasse in der IDE.</p>
 <p>Erklär das Ergebnis und korrigier die Assertion auf das tatsächliche Verhalten.</p>
 <p>Ergänze dann den Test <code>bookingNotifiesTheRecordingChannel</code>: Leere
 <code>RecordingChannel.MESSAGES</code>, erzeuge einen <code>BookingService</code>, buche Raum <code>R2</code> für 8
 Personen und prüfe, dass die Liste genau die Nachricht
 <code>Room R2 booked for 8 people</code> enthält.</p>
 <h3 id="kür-ein-kanal-aus-einem-zweiten-jar">Kür: Ein Kanal aus einem zweiten JAR</h3>
-<p>Ein neuer Kanal soll als eigenes JAR dazukommen, ohne dass sich im Projekt <code>aufbau</code>
+<p>Ein neuer Kanal soll als eigenes JAR dazukommen, ohne dass sich im Projekt <code>java-aufbau</code>
 etwas ändert.</p>
-<p>Leg das Projekt <code>aufbau</code> in Dein lokales Maven-Repository, damit ein anderes Projekt es
-als Abhängigkeit findet. Im Ordner <code>aufbau</code>:</p>
+<p>Leg das Projekt <code>java-aufbau</code> in Dein lokales Maven-Repository, damit ein anderes Projekt es
+als Abhängigkeit findet. Im Ordner <code>java-aufbau</code>:</p>
 <pre><code class="language-shell">mvn install
 </code></pre>
-<p>Leg <strong>neben</strong> dem Ordner <code>aufbau</code> einen Ordner <code>aufbau-sms</code> an, darin diese <code>pom.xml</code>:</p>
+<p>Leg <strong>neben</strong> dem Ordner <code>java-aufbau</code> einen Ordner <code>java-aufbau-sms</code> an, darin diese <code>pom.xml</code>:</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
          xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
          xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-    &lt;groupId&gt;de.academy&lt;/groupId&gt;
-    &lt;artifactId&gt;aufbau-sms&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau-sms&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
 
     &lt;properties&gt;
         &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
         &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;java-aufbau.version&gt;1.0.0-SNAPSHOT&lt;/java-aufbau.version&gt;
     &lt;/properties&gt;
 
     &lt;dependencies&gt;
         &lt;dependency&gt;
-            &lt;groupId&gt;de.academy&lt;/groupId&gt;
-            &lt;artifactId&gt;aufbau&lt;/artifactId&gt;
-            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+            &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+            &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+            &lt;version&gt;${java-aufbau.version}&lt;/version&gt;
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
 &lt;/project&gt;
 </code></pre>
 <blockquote>
-<p><strong>Hinweis:</strong> Trägt Dein Projekt <code>aufbau</code> eine andere <code>groupId</code> oder <code>version</code>, übernimm
+<p><strong>Hinweis:</strong> Trägt Dein Projekt <code>java-aufbau</code> eine andere <code>groupId</code> oder <code>version</code>, übernimm
 sie hier.</p>
 </blockquote>
-<p>Leg in <code>aufbau-sms</code> die Klasse <code>src/main/java/aufbau/sms/SmsChannel.java</code> an:</p>
+<p>Im Ordner <code>src/main/java</code> von <code>java-aufbau-sms</code> lege das Package <code>aufbau.sms</code> an und darin
+die Klasse <code>SmsChannel</code>:</p>
 <pre><code class="language-java">package aufbau.sms;
 
 import aufbau.spi.NotificationChannel;
@@ -417,27 +416,27 @@ public class SmsChannel implements NotificationChannel {
     }
 }
 </code></pre>
-<p>Melde den Kanal in <code>aufbau-sms</code> an – in einer eigenen Datei
+<p>Melde den Kanal in <code>java-aufbau-sms</code> an – in einer eigenen Datei
 <code>src/main/resources/META-INF/services/aufbau.spi.NotificationChannel</code> mit der Zeile:</p>
 <pre><code class="language-text">aufbau.sms.SmsChannel
 </code></pre>
-<p>Bau das JAR im Ordner <code>aufbau-sms</code>:</p>
+<p>Bau das JAR im Ordner <code>java-aufbau-sms</code>:</p>
 <pre><code class="language-shell">mvn package
 </code></pre>
-<p>Starte <code>BookingApp</code> aus dem Projekt <code>aufbau</code> mit dem neuen JAR auf dem Klassenpfad,
-im Ordner <code>aufbau-sms</code>. Das Trennzeichen zwischen den Einträgen hängt vom
+<p>Starte <code>BookingApp</code> aus dem Projekt <code>java-aufbau</code> mit dem neuen JAR auf dem Klassenpfad,
+im Ordner <code>java-aufbau-sms</code>. Das Trennzeichen zwischen den Einträgen hängt vom
 Betriebssystem ab:</p>
 <div class="skr-tabs">
 <details class="skr-tabs__panel" name="klassenpfad" open>
 <summary>macOS und Linux</summary>
 <p>Starte mit <code>:</code> als Trennzeichen:</p>
-<pre><code class="language-shell">java -cp &quot;../aufbau/target/classes:target/aufbau-sms-1.0-SNAPSHOT.jar&quot; aufbau.spi.BookingApp
+<pre><code class="language-shell">java -cp &quot;../java-aufbau/target/classes:target/java-aufbau-sms-1.0.0-SNAPSHOT.jar&quot; aufbau.spi.BookingApp
 </code></pre>
 </details>
 <details class="skr-tabs__panel" name="klassenpfad">
 <summary>Windows</summary>
 <p>Starte mit <code>;</code> als Trennzeichen (die Anführungszeichen braucht PowerShell):</p>
-<pre><code class="language-shell">java -cp &quot;..\aufbau\target\classes;target\aufbau-sms-1.0-SNAPSHOT.jar&quot; aufbau.spi.BookingApp
+<pre><code class="language-shell">java -cp &quot;..\java-aufbau\target\classes;target\java-aufbau-sms-1.0.0-SNAPSHOT.jar&quot; aufbau.spi.BookingApp
 </code></pre>
 </details>
 </div>
@@ -462,7 +461,7 @@ Was meldet der <code>ServiceLoader</code>?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Benachrichtigungskanäle per ServiceLoader
+<textarea id="skr-md-source" hidden aria-hidden="true"># SPI: Benachrichtigungskanäle per ServiceLoader
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -508,7 +507,7 @@ Als Entwickler:in möchte ich neue Benachrichtigungskanäle hinzufügen, ohne de
 
 ### Kür (optional)
 
-- [ ] Ein zweites Maven-Projekt `aufbau-sms` liefert `SmsChannel` als JAR; `BookingApp` findet den Kanal, wenn das JAR auf dem Klassenpfad liegt.
+- [ ] Ein zweites Maven-Projekt `java-aufbau-sms` liefert `SmsChannel` als JAR; `BookingApp` findet den Kanal, wenn das JAR auf dem Klassenpfad liegt.
 
 ### Für die ganze Seite
 
@@ -530,8 +529,8 @@ Kanäle da sind.
 
 ### Den Service und zwei Kanäle anlegen
 
-Leg im Projekt `aufbau` das Paket `aufbau.spi` an und kopiere die folgenden Klassen
-hinein, jede in ihre eigene Datei unter `src/main/java/aufbau/spi/`.
+Im Ordner `src/main/java` des Projekts `java-aufbau` lege das Package `aufbau.spi` an und
+kopiere die folgenden Klassen hinein, jede in ihre eigene Datei.
 
 Das Interface, das jeder Kanal erfüllt:
 
@@ -643,11 +642,7 @@ public class BookingApp {
 **Vorhersage:** Noch weiß niemand, dass es `EmailChannel` und `ChatChannel` gibt. Was gibt
 `BookingApp` aus – oder bricht sie ab? Notier Deine Erwartung.
 
-Übersetze das Projekt im Ordner `aufbau`:
-
-```shell
-mvn compile
-```
+Baue das Projekt `java-aufbau` erneut mit Maven.
 
 Starte `BookingApp`:
 
@@ -688,7 +683,8 @@ Deiner Erwartung. Entferne die Zeile danach wieder.
 ### Die gefundenen Kanäle testen
 
 Ein Test bekommt einen eigenen Kanal, der Nachrichten mitschreibt, statt sie zu
-verschicken. Leg ihn unter `src/test/java/aufbau/spi/` an:
+verschicken. Im Ordner `src/test/java` lege dafür
+ebenfalls das Package `aufbau.spi` an und darin den Kanal:
 
 ```java
 package aufbau.spi;
@@ -744,11 +740,7 @@ class BookingServiceTest {
 ```
 
 **Vorhersage:** Welche Kanäle findet der Service im Test? Notier Deine Erwartung,
-entferne `@Disabled` und lass die Tests laufen:
-
-```shell
-mvn test
-```
+entferne `@Disabled` und starte die Testklasse in der IDE.
 
 Erklär das Ergebnis und korrigier die Assertion auf das tatsächliche Verhalten.
 
@@ -759,17 +751,17 @@ Personen und prüfe, dass die Liste genau die Nachricht
 
 ### Kür: Ein Kanal aus einem zweiten JAR
 
-Ein neuer Kanal soll als eigenes JAR dazukommen, ohne dass sich im Projekt `aufbau`
+Ein neuer Kanal soll als eigenes JAR dazukommen, ohne dass sich im Projekt `java-aufbau`
 etwas ändert.
 
-Leg das Projekt `aufbau` in Dein lokales Maven-Repository, damit ein anderes Projekt es
-als Abhängigkeit findet. Im Ordner `aufbau`:
+Leg das Projekt `java-aufbau` in Dein lokales Maven-Repository, damit ein anderes Projekt es
+als Abhängigkeit findet. Im Ordner `java-aufbau`:
 
 ```shell
 mvn install
 ```
 
-Leg **neben** dem Ordner `aufbau` einen Ordner `aufbau-sms` an, darin diese `pom.xml`:
+Leg **neben** dem Ordner `java-aufbau` einen Ordner `java-aufbau-sms` an, darin diese `pom.xml`:
 
 ```xml
 &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
@@ -778,29 +770,31 @@ Leg **neben** dem Ordner `aufbau` einen Ordner `aufbau-sms` an, darin diese `pom
          xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&#34;&gt;
     &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
 
-    &lt;groupId&gt;de.academy&lt;/groupId&gt;
-    &lt;artifactId&gt;aufbau-sms&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+    &lt;artifactId&gt;java-aufbau-sms&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
 
     &lt;properties&gt;
         &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;
         &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;java-aufbau.version&gt;1.0.0-SNAPSHOT&lt;/java-aufbau.version&gt;
     &lt;/properties&gt;
 
     &lt;dependencies&gt;
         &lt;dependency&gt;
-            &lt;groupId&gt;de.academy&lt;/groupId&gt;
-            &lt;artifactId&gt;aufbau&lt;/artifactId&gt;
-            &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+            &lt;groupId&gt;de.schulung&lt;/groupId&gt;
+            &lt;artifactId&gt;java-aufbau&lt;/artifactId&gt;
+            &lt;version&gt;${java-aufbau.version}&lt;/version&gt;
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
 &lt;/project&gt;
 ```
 
-&gt; **Hinweis:** Trägt Dein Projekt `aufbau` eine andere `groupId` oder `version`, übernimm
+&gt; **Hinweis:** Trägt Dein Projekt `java-aufbau` eine andere `groupId` oder `version`, übernimm
 &gt; sie hier.
 
-Leg in `aufbau-sms` die Klasse `src/main/java/aufbau/sms/SmsChannel.java` an:
+Im Ordner `src/main/java` von `java-aufbau-sms` lege das Package `aufbau.sms` an und darin
+die Klasse `SmsChannel`:
 
 ```java
 package aufbau.sms;
@@ -822,21 +816,21 @@ public class SmsChannel implements NotificationChannel {
 }
 ```
 
-Melde den Kanal in `aufbau-sms` an – in einer eigenen Datei
+Melde den Kanal in `java-aufbau-sms` an – in einer eigenen Datei
 `src/main/resources/META-INF/services/aufbau.spi.NotificationChannel` mit der Zeile:
 
 ```text
 aufbau.sms.SmsChannel
 ```
 
-Bau das JAR im Ordner `aufbau-sms`:
+Bau das JAR im Ordner `java-aufbau-sms`:
 
 ```shell
 mvn package
 ```
 
-Starte `BookingApp` aus dem Projekt `aufbau` mit dem neuen JAR auf dem Klassenpfad,
-im Ordner `aufbau-sms`. Das Trennzeichen zwischen den Einträgen hängt vom
+Starte `BookingApp` aus dem Projekt `java-aufbau` mit dem neuen JAR auf dem Klassenpfad,
+im Ordner `java-aufbau-sms`. Das Trennzeichen zwischen den Einträgen hängt vom
 Betriebssystem ab:
 
 &lt;div class=&#34;skr-tabs&#34; markdown=&#34;1&#34;&gt;
@@ -847,7 +841,7 @@ Betriebssystem ab:
 Starte mit `:` als Trennzeichen:
 
 ```shell
-java -cp &#34;../aufbau/target/classes:target/aufbau-sms-1.0-SNAPSHOT.jar&#34; aufbau.spi.BookingApp
+java -cp &#34;../java-aufbau/target/classes:target/java-aufbau-sms-1.0.0-SNAPSHOT.jar&#34; aufbau.spi.BookingApp
 ```
 
 &lt;/details&gt;
@@ -858,7 +852,7 @@ java -cp &#34;../aufbau/target/classes:target/aufbau-sms-1.0-SNAPSHOT.jar&#34; a
 Starte mit `;` als Trennzeichen (die Anführungszeichen braucht PowerShell):
 
 ```shell
-java -cp &#34;..\aufbau\target\classes;target\aufbau-sms-1.0-SNAPSHOT.jar&#34; aufbau.spi.BookingApp
+java -cp &#34;..\java-aufbau\target\classes;target\java-aufbau-sms-1.0.0-SNAPSHOT.jar&#34; aufbau.spi.BookingApp
 ```
 
 &lt;/details&gt;

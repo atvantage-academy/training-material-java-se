@@ -40,9 +40,9 @@
 <script src="../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../" data-index="../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../" data-index="../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../themes/atvantage/assets/icon-16.png">
@@ -78,7 +78,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../skriptorium/search/de.json?v=53316764"
+     data-index="../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -145,6 +145,30 @@ Bildschirm erkunden und über „Als PDF drucken“ als Handout ausgeben.</p>
 <div class="skr-card">
 <h3 id="records"><a class="skr-doclink skr-doclink--visualization" href="../shared/records/records.html">Records</a></h3>
 <p>Ab LTS 17. Was der Compiler aus einem <code>record</code> erzeugt – und was er bewusst weglässt: Setter, parameterlosen Konstruktor, weitere Felder, eine eigene Oberklasse. Daraus folgt, wo Records passen (Werte, DTOs, Abfrageergebnisse) und wo eine Klasse bleibt (JPA-Entitäten, CDI-Beans). Alle Ausgaben und Compilermeldungen sind gemessen.</p>
+</div>
+<div class="skr-card">
+<h3 id="die-oberklasse-object"><a class="skr-doclink skr-doclink--visualization" href="../shared/object-klasse/object-klasse.html">Die Oberklasse Object</a></h3>
+<p>Jede Klasse erbt von <code>Object</code> – das Klassendiagramm zeigt, was sie dabei mitbekommt. Ein Klick auf eine Methode erklärt Zweck, Beispiel und Stolpersteine: <code>equals</code> und <code>hashCode</code> mit ihrem Vertrag, <code>toString</code>, <code>getClass</code>, <code>clone</code>, <code>finalize</code> samt besserem Weg über try-with-resources und <code>wait</code>/<code>notify</code>.</p>
+</div>
+<div class="skr-card">
+<h3 id="maven"><a class="skr-doclink skr-doclink--visualization" href="../shared/maven/maven.html">Maven</a></h3>
+<p>Was Maven automatisiert: Abhängigkeiten samt transitiven, Versionskonflikte (nearest wins, first declaration wins), Scopes und ihre Weitergabe, Plugins als Objekte mit Goals als Methoden – und welche Phasen und Goals ein Befehl wie <code>mvn clean package</code> durchläuft, zum Anklicken.</p>
+</div>
+<div class="skr-card">
+<h3 id="lambdas-streams-und-optional"><a class="skr-doclink skr-doclink--visualization" href="../shared/lambdas-streams/lambdas-streams.html">Lambdas, Streams und Optional</a></h3>
+<p>Lambdas als Code für später, funktionale Interfaces als ihr Typ, der Weg von der anonymen Klasse zur Methodenreferenz und die fertigen Interfaces aus <code>java.util.function</code>. Dazu Streams als Fließband mit Maschinen und einem Eimer am Ende – und <code>Optional</code> als Fließband für höchstens ein Stück.</p>
+</div>
+<div class="skr-card">
+<h3 id="eigene-annotationen"><a class="skr-doclink skr-doclink--visualization" href="../shared/annotationen/annotationen.html">Eigene Annotationen</a></h3>
+<p>Eine Annotation tut nichts, bis jemand sie liest: eigene Annotationen Schritt für Schritt – <code>value</code>, mehrere Attribute, Default-Werte, Arrays –, dazu <code>@Retention</code> und <code>@Target</code> und das Auslesen per Reflection, mit gemessenen Compilermeldungen.</p>
+</div>
+<div class="skr-card">
+<h3 id="dynamic-proxy"><a class="skr-doclink skr-doclink--visualization" href="../shared/dynamic-proxy/dynamic-proxy.html">Dynamic Proxy</a></h3>
+<p>Ein Interface, ein <code>InvocationHandler</code>, eine zur Laufzeit erzeugte Klasse: der Weg eines Aufrufs durch den Proxy, ein Protokoll per eigener Annotation, gemessene Fallen (<code>equals</code>, <code>InvocationTargetException</code>) – und warum Spring, CDI und Mockito <code>final</code> nicht mögen.</p>
+</div>
+<div class="skr-card">
+<h3 id="dependency-injection-und-mocks"><a class="skr-doclink skr-doclink--visualization" href="../shared/dependency-injection/dependency-injection.html">Dependency Injection und Mocks</a></h3>
+<p>Warum eine Klasse ihre Abhängigkeiten über den Konstruktor bekommen sollte, wer sie verdrahtet – und wie Tests Stellvertreter einsetzen: von Hand oder mit Mockito, dessen Mocks nach dem Prinzip des Dynamic Proxy mitschreiben und antworten.</p>
 </div>
 <div class="skr-card">
 <h3 id="sealed-classes"><a class="skr-doclink skr-doclink--visualization" href="../shared/sealed-classes/sealed-classes.html">Sealed Classes</a></h3>

@@ -1,0 +1,109 @@
+/* Präfix obj- („Object“). Farben ausschließlich aus den Theme-Tokens – damit stimmt
+   die Seite in Light und Dark ohne zweiten Regelsatz. Keine eigene Breitenbegrenzung. */
+.obj-lead{color:var(--skr-color-ink-muted);margin:0 0 1.5rem;}
+
+/* --- Klassendiagramm --------------------------------------------------------
+   Oben Object über die volle Breite, darunter vier Unterklassen. Die Linien zeichnet
+   das Skript aus den echten Positionen. Unter 760px rollt der RAHMEN, nie die Seite. */
+.obj-diagramm-rahmen{overflow-x:auto;margin:0 0 .75rem;padding:.25rem 0 .5rem;}
+.obj-diagramm{position:relative;min-width:760px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:16px;row-gap:64px;}
+.obj-linien{position:absolute;left:0;top:0;pointer-events:none;color:var(--skr-color-ink-muted);overflow:visible;}
+.obj-linie{fill:none;stroke:currentColor;stroke-width:1.6;}
+/* Hohle Spitze: mit der Seitenfläche gefüllt, sonst liefe die Linie hindurch. */
+.obj-spitze{fill:var(--skr-color-bg);stroke:currentColor;stroke-width:1.6;}
+
+.obj-klasse{position:relative;z-index:1;grid-column:1 / 5;justify-self:center;min-width:26rem;background:var(--skr-color-bg);border:2px solid var(--skr-color-ink-muted);border-top:5px solid var(--skr-color-accent);border-radius:var(--skr-radius);}
+.obj-klasse__kopf{display:block;padding:.45rem .9rem .4rem;text-align:center;border-bottom:1px solid var(--skr-color-border);}
+.obj-klasse__paket{display:block;font-size:.72rem;color:var(--skr-color-ink-muted);}
+.obj-klasse__name{display:block;font-weight:700;font-size:1.15rem;color:var(--skr-color-headline);}
+.obj-klasse__methoden{display:flex;flex-direction:column;padding:.35rem .4rem .45rem;}
+
+/* Jede Methode ist ein Knopf in der Zeile des Klassendiagramms. */
+.obj-methode{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;font-family:var(--skr-font-mono);font-size:.84rem;line-height:1.4;color:var(--skr-color-ink);background:none;border:1px solid transparent;border-radius:var(--skr-radius-sm);padding:.3rem .5rem;cursor:pointer;transition:background var(--skr-transition),border-color var(--skr-transition);}
+.obj-methode:hover{background:var(--skr-color-accent-soft);border-color:var(--skr-color-accent);}
+.obj-methode:focus-visible{outline:3px solid var(--skr-color-accent);outline-offset:1px;}
+.obj-methode[aria-pressed="true"]{background:var(--skr-color-accent-soft);border-color:var(--skr-color-accent);}
+.obj-methode--wichtig{font-weight:700;}
+.obj-methode--veraltet{text-decoration:line-through;text-decoration-color:var(--skr-color-ink-muted);}
+.obj-sicht{flex:none;width:1ch;color:var(--skr-color-ink-muted);font-weight:400;}
+.obj-marke{font-family:var(--skr-font-sans);font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.05rem .4rem;border-radius:999px;background:var(--skr-color-bg-subtle);border:1px solid var(--skr-color-warning);color:var(--skr-color-ink);display:inline-block;text-decoration:none;}
+
+.obj-kind{position:relative;z-index:1;justify-self:center;align-self:start;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.15rem;min-width:9.5rem;padding:.5rem .8rem .55rem;background:var(--skr-color-bg);border:2px solid var(--skr-color-ink-muted);border-radius:var(--skr-radius);}
+.obj-kind__name{font-weight:700;font-size:.98rem;color:var(--skr-color-headline);font-family:var(--skr-font-mono);}
+.obj-kind__code{font-family:var(--skr-font-mono);font-size:.76rem;}
+.obj-kind__notiz{font-size:.74rem;color:var(--skr-color-ink-muted);}
+.obj-kind--eigen{border-color:var(--skr-color-accent);box-shadow:0 0 0 3px var(--skr-color-accent-soft);}
+
+.obj-legende{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;align-items:center;font-size:.85rem;color:var(--skr-color-ink-muted);margin:0 0 2.5rem;}
+.obj-legende svg{vertical-align:middle;margin-right:.35rem;}
+
+/* --- Abschnitte unter dem Diagramm ----------------------------------------- */
+.obj-sec{margin:0 0 2.75rem;}
+.obj-sec > h2{display:flex;align-items:baseline;gap:.7rem;margin:0 0 1rem;font-size:1.45rem;line-height:1.2;border-bottom:1px solid var(--skr-color-border);padding-bottom:.5rem;}
+/* Vier Karten im Raster 2 × 2; schmal untereinander (siehe @media unten). */
+.obj-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;}
+.obj-card{min-width:0;background:var(--skr-color-bg-subtle);border:1px solid var(--skr-color-border);border-radius:var(--skr-radius);padding:1rem 1.15rem;}
+.obj-card h3{margin:0 0 .5rem;font-size:1rem;line-height:1.25;}
+.obj-card p{margin:0 0 .6rem;font-size:.9rem;}
+.obj-card p:last-child{margin-bottom:0;}
+.obj-card pre{margin:0 0 .6rem;overflow-x:auto;}
+.obj-root pre code.hljs{border-radius:var(--skr-radius-lg);line-height:1.5;}
+.obj-note{margin:.9rem 0 0;font-size:.92rem;color:var(--skr-color-ink-muted);}
+
+/* Regeln von equals und hashCode: wenn ⇒ dann, rechts die Art der Regel. */
+.obj-regeln{display:flex;flex-direction:column;gap:.5rem;}
+.obj-regel{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.4fr) 8.5rem;align-items:center;gap:.4rem .9rem;padding:.6rem .9rem;border-radius:var(--skr-radius);background:var(--skr-color-bg-subtle);border-left:5px solid var(--skr-color-border);}
+.obj-regel--pflicht{border-left-color:var(--skr-color-danger);}
+.obj-regel--soll{border-left-color:var(--skr-color-warning);}
+.obj-regel--erlaubt{border-left-color:var(--skr-color-success);}
+.obj-regel__pfeil{font-size:1.3rem;color:var(--skr-color-ink-muted);}
+.obj-regel__art{justify-self:end;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--skr-color-ink-muted);}
+.obj-regeln--klein .obj-regel{padding:.45rem .75rem;font-size:.9rem;}
+
+/* --- Popup (natives <dialog>) ---------------------------------------------- */
+.obj-dialog{width:min(96vw,860px);max-height:90vh;padding:0;border:1px solid var(--skr-color-border);border-radius:var(--skr-radius-lg);background:var(--skr-color-bg);color:var(--skr-color-ink);box-shadow:0 24px 70px rgba(0,0,0,.45);}
+.obj-dialog::backdrop{background:rgba(2,6,23,.65);backdrop-filter:blur(3px);}
+/* Der Innenkasten füllt den Dialog ganz: Ein Klick, der den <dialog> SELBST trifft,
+   kann nur auf den Hintergrund gegangen sein – und schließt. */
+.obj-dialog__innen{padding:1.25rem 1.5rem 1.5rem;}
+.obj-dialog__kopf{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin:0 0 .6rem;}
+.obj-dialog__stereo{display:block;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--skr-color-accent-ink);}
+.obj-dialog__kopf h2{margin:.1rem 0 .3rem;font-family:var(--skr-font-mono);font-size:1.35rem;line-height:1.2;color:var(--skr-color-headline);}
+.obj-dialog__kopf p{margin:0;color:var(--skr-color-ink-muted);}
+.obj-dialog__zu{flex:none;font:inherit;font-size:1.6rem;line-height:1;color:inherit;background:none;border:1px solid transparent;border-radius:var(--skr-radius);padding:.15rem .55rem;cursor:pointer;}
+.obj-dialog__zu:hover,.obj-dialog__zu:focus-visible{border-color:var(--skr-color-border);color:var(--skr-color-danger);}
+html:has(.obj-dialog[open]){overflow:hidden;}
+.obj-dialog h3{font-size:1.05rem;margin:1.1rem 0 .4rem;}
+.obj-dialog p,.obj-dialog li{font-size:.94rem;}
+.obj-dialog pre{overflow-x:auto;margin:.4rem 0 .8rem;}
+
+.obj-abwaegung{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.8rem;margin:.8rem 0 0;}
+.obj-abwaegung > div{background:var(--skr-color-bg-subtle);border-radius:var(--skr-radius);padding:.7rem .95rem;border-left:4px solid var(--skr-color-success);}
+.obj-abwaegung > div + div{border-left-color:var(--skr-color-warning);}
+.obj-abwaegung h4{margin:0 0 .3rem;font-size:.9rem;}
+.obj-abwaegung ul{margin:0;padding-left:1.1rem;}
+.obj-wann{margin:.8rem 0;padding:.6rem .9rem;border-radius:var(--skr-radius);background:var(--skr-color-accent-soft);}
+
+@media (max-width:40rem){
+  .obj-grid{grid-template-columns:minmax(0,1fr);}
+  .obj-regel{grid-template-columns:minmax(0,1fr);}
+  .obj-regel__pfeil{display:none;}
+  .obj-regel__art{justify-self:start;}
+  .obj-dialog__innen{padding:1rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  .obj-methode{transition:none;}
+}
+
+/* Druck: Diagramm verkleinert, JEDES Popup als eigener Abschnitt. */
+@media print{
+  .obj-diagramm-rahmen{overflow:visible;break-inside:avoid;}
+  .obj-diagramm{transform:scale(.8);transform-origin:top left;}
+  .obj-dialog{display:block !important;position:static !important;width:auto !important;max-height:none !important;border:none !important;box-shadow:none !important;margin:0 0 14pt !important;break-before:page;}
+  .obj-dialog__zu{display:none !important;}
+  .obj-dialog__innen{padding:0 !important;}
+  .obj-grid{display:block;}
+  .obj-card{break-inside:avoid;background:transparent !important;border:none !important;padding:0 !important;margin:0 0 9pt;}
+  .obj-root pre,.obj-root pre code,.obj-root pre code *{color:#000 !important;background:transparent !important;}
+  .obj-root pre{white-space:pre-wrap;word-break:break-word;font-size:8pt;border:none !important;padding:2pt 0 !important;}
+}

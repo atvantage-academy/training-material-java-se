@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="skr-root" content="../../">
+<script src="../../skriptorium/skr.js?v=c06299bd"></script>
+<title>Dependency Injection und Mocks · ATVANTAGE Academy</title>
+<meta name="description" content="Warum eine Klasse ihre Abhängigkeiten nicht selbst erzeugen sollte, wie sie sie über den Konstruktor bekommt, wer verdrahtet – und wie ein Test Stellvertreter einsetzt, von Hand oder mit Mockito, dessen Mocks nach dem Prinzip des Dynamic Proxy arbeiten.">
+
+<meta property="og:site_name" content="ATVANTAGE Academy">
+<meta property="og:title" content="Dependency Injection und Mocks">
+<meta property="og:description" content="Warum eine Klasse ihre Abhängigkeiten nicht selbst erzeugen sollte, wie sie sie über den Konstruktor bekommt, wer verdrahtet – und wie ein Test Stellvertreter einsetzt, von Hand oder mit Mockito, dessen Mocks nach dem Prinzip des Dynamic Proxy arbeiten.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/fonts.css?v=0f189d71" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/colors.css?v=8ed47a94" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/typography.css?v=6445d4d3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/spacing.css?v=58e35278" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/components.css?v=3fcd65a3" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/tokens/base.css?v=b47b1e2d" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/atvantage/theme.css?v=e7026433" data-skr-source="theme">
+<link rel="stylesheet" href="../../themes/didaktikon/theme.css?v=4a593b58" data-skr-source="theme">
+<link rel="stylesheet" href="../../skriptorium/tokens.css?v=28abf864">
+<link rel="stylesheet" href="../../extensions/didaktikon/tokens.css?v=5966d76a">
+<link rel="stylesheet" href="../../skriptorium/base.css?v=86e37c43">
+<link rel="stylesheet" href="../../skriptorium/components.css?v=3a968127">
+<link rel="stylesheet" href="../../skriptorium/doclinks.css?v=2ef23515">
+<link rel="stylesheet" href="../../skriptorium/linkmarks.css?v=a6e38666">
+<link rel="stylesheet" href="../../skriptorium/site.css?v=2a7f5baf">
+<link rel="stylesheet" href="../../skriptorium/logo.css?v=43a7fbaf">
+<link rel="stylesheet" media="print" href="../../skriptorium/print.css?v=6c7ec44c">
+<meta name="generator" content="Skriptorium 2.0.0-rc.15">
+<script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Warum eine Klasse ihre Abhängigkeiten nicht selbst erzeugen sollte, wie sie sie über den Konstruktor bekommt, wer verdrahtet – und wie ein Test Stellvertreter einsetzt, von Hand oder mit Mockito, dessen Mocks nach dem Prinzip des Dynamic Proxy arbeiten.","duration":null,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.visualization","pageAssets":[{"path":"shared/dependency-injection/dependency-injection.css","src":"dependency-injection.css","type":"style"},{"path":"shared/dependency-injection/dependency-injection.js","src":"dependency-injection.js","type":"script"}],"pageId":"shared-dependency-injection","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Dependency Injection und Mocks","topics":null,"untranslated":null,"url":"/shared/dependency-injection/dependency-injection.html"}</script>
+<script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
+
+<script src="../../skriptorium/client.js?v=756a5d69" defer></script>
+<script src="../../skriptorium/site.js?v=6472c794" defer></script>
+<script src="../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
+        data-base="../../" data-index="../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+<link rel="stylesheet" href="../../skriptorium/highlight.css?v=f8a3fc05">
+<script type="module" src="../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="../../themes/atvantage/assets/icon-180.png">
+<link rel="icon" sizes="32x32" href="../../themes/atvantage/assets/icon-32.png">
+<link rel="icon" sizes="16x16" href="../../themes/atvantage/assets/icon-16.png">
+
+<link rel="stylesheet" href="../../skriptorium/stage.css?v=c76b28bc">
+<script src="../../skriptorium/stage.js?v=a8ce5bf6" defer></script>
+
+<link rel="stylesheet" href="../../shared/dependency-injection/dependency-injection.css?v=aafb894d">
+<script src="../../shared/dependency-injection/dependency-injection.js?v=f42076ad" defer></script>
+
+</head>
+<body class="skr-stage" data-skr-layout="didaktikon.visualization" data-skr-layouts="didaktikon.visualization skriptorium.stage" data-skr-lang="de" data-skr-stage-home="../../" data-skr-audience="learner">
+  <a class="skr-skip-link" href="#skr-stage-main">Zum Inhalt springen</a>
+  
+<header class="skr-stage__bar">
+  <img class="skr-stage__logo" src="../../themes/didaktikon/assets/logo-schulung.svg" alt="ATVANTAGE Academy"><span class="skr-stage__logo-mask" role="img" aria-label="ATVANTAGE Academy" data-skr-logo-mask></span><span class="skr-stage__title">Dependency Injection und Mocks</span>
+  <div class="skr-stage__tools">
+<div class="skr-search" data-skr-search hidden
+     data-mode="expand" data-shortcut="double_shift"
+     data-index="../../skriptorium/search/de.json?v=fb2c99f1"
+     data-base="../../">
+  <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
+          aria-expanded="false" aria-controls="skr-search-dialog"
+          title="Suchen (zweimal Umschalt)" aria-label="Suchen"><svg viewBox="0 0 24 24" width="1em" height="1em"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"
+          ><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+  <dialog class="skr-search__dialog" id="skr-search-dialog" aria-label="Suchen">
+    <div class="skr-search__bar" role="search"><label class="skr-search__field skr-search__field--scope" hidden>
+        <span class="skr-search__label">Bereich</span>
+        <select class="skr-search__scope">
+          <option value="">Alle</option>
+        </select>
+      </label>
+      <label class="skr-search__field skr-search__field--query">
+        <span class="skr-search__label">Suchbegriff</span>
+        <input type="search" class="skr-search__input"
+               placeholder="Diese Site durchsuchen" autocomplete="off" spellcheck="false"
+               aria-describedby="skr-search-status">
+      </label>
+      <button type="button" class="skr-tool skr-search__close" data-skr-search-close
+              title="Suche schließen" aria-label="Suche schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="skr-search__status" id="skr-search-status" data-skr-search-status role="status"></p>
+    <ul class="skr-search__results" data-skr-search-results aria-label="Suchergebnisse"></ul>
+  </dialog>
+</div>
+<script src="../../skriptorium/search.js?v=2be133a6" defer></script>
+<button type="button" class="skr-qr" data-skr-qr hidden
+        title="Diese Seite auf Deinem Smartphone öffnen"
+        aria-label="Diese Seite auf Deinem Smartphone öffnen"></button>
+<button type="button" class="skr-tool skr-tool--scheme" data-skr-scheme-toggle
+        title="Farbschema umschalten (hell/dunkel)"
+        aria-label="Dunkles Farbschema"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"
+        ><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+<button type="button" class="skr-tool skr-tool--print"
+        data-skr-print=""
+        title="Diese Seite drucken" aria-label="Diese Seite drucken"></button>
+<button type="button" class="skr-tool skr-tool--full"
+        data-skr-stage-full=""
+        title="Vollbild (Taste F)" aria-label="Vollbild"><svg viewBox="0 0 24 24" width="1em" height="1em"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+        ><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+</div>
+  <button type="button" class="skr-stage__nav skr-stage__close" data-skr-stage-close hidden
+        title="Schließen" aria-label="Schließen"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+
+</header>
+  
+  <main class="skr-stage__main" id="skr-stage-main">
+    <p class="di-lead">Eine Klasse, die sich ihre Helfer selbst baut, nimmt sie überallhin mit – auch in den Test. <strong>Dependency Injection</strong> dreht das um: Die Klasse sagt nur, <strong>was</strong> sie braucht, und jemand anderes entscheidet, <strong>welches</strong> Objekt sie bekommt. Erst dadurch kann ein Test einen Stellvertreter hineinreichen.</p>
+<p class="di-marken"><span class="skr-badge">Inversion of Control</span> <span class="skr-badge">Jakarta CDI · Spring</span> <span class="skr-badge">gemessen mit Mockito 5.24</span></p>
+<h2 id="problem">Das Problem: fest verdrahtet</h2>
+<p>Ein <code>Buchungsdienst</code> prüft, ob ein Raum existiert und groß genug ist, und benachrichtigt
+danach die Haustechnik. Seinen Katalog und seine Benachrichtigung <strong>erzeugt er selbst</strong>:</p>
+<pre><code class="language-java">public class Buchungsdienst {
+
+    private final RaumKatalog katalog;
+    private final Benachrichtigung benachrichtigung;
+
+    public Buchungsdienst() {
+        this.katalog = new SpeicherKatalog();                 // holt sich selbst
+        this.benachrichtigung = new EMailBenachrichtigung();  // schickt echte E-Mails
+    }
+
+    public boolean buche(String kennung, int personen) {
+        Optional&lt;Raum&gt; raum = katalog.finde(kennung);
+        if (raum.isEmpty() || raum.get().plätze() &lt; personen) {
+            return false;
+        }
+        benachrichtigung.sende(&quot;Raum &quot; + kennung + &quot; für &quot; + personen + &quot; Personen gebucht&quot;);
+        return true;
+    }
+}
+</code></pre>
+<p>Die Felder haben zwar Interface-Typen – aber welche Umsetzung dahintersteht, steht im
+Konstruktor <strong>fest</strong>. Dasselbe gilt für einen statischen Zugriff wie
+<code>Mailserver.standard().sende(…)</code> oder ein Singleton: Die Klasse greift sich ihre
+Abhängigkeit selbst, niemand kann ihr eine andere geben.</p>
+<p>Für einen Test heißt das:</p>
+<ul>
+<li><strong>Kein Austausch:</strong> Jeder Test bucht gegen den echten Katalog und verschickt echte
+E-Mails – langsam, abhängig von der Umgebung, mit Nebenwirkungen.</li>
+<li><strong>Keine Kontrolle:</strong> Der Test kann nicht festlegen, welche Räume es gibt.</li>
+<li><strong>Kein Einblick:</strong> Ob eine Benachrichtigung hinausging und mit welchem Text, sieht der
+Test nicht – „abgelehnt, <strong>ohne</strong> E-Mail“ lässt sich gar nicht prüfen.</li>
+</ul>
+<h2 id="wende">Die Wende: Die Abhängigkeit kommt von außen</h2>
+<p>Die Lösung ist klein: Der Konstruktor <strong>nimmt</strong> Katalog und Benachrichtigung entgegen,
+statt sie zu erzeugen. Der <code>Buchungsdienst</code> kennt danach nur noch die <strong>Interfaces</strong>;
+welche Umsetzung er bekommt, entscheidet, wer ihn erzeugt. Diese Umkehr der
+Zuständigkeit heißt <strong>Inversion of Control</strong> – die Klasse steuert nicht mehr selbst, woher
+ihre Helfer kommen.</p>
+<div class="di-wahl" data-di-key="richtung">
+<div class="di-knoepfe" role="group" aria-label="Vorher oder nachher">
+<button type="button" class="di-knopf" data-di-wert="vorher">Vorher: holt sich selbst</button>
+<button type="button" class="di-knopf" data-di-wert="nachher">Nachher: bekommt von außen</button>
+</div>
+<div class="di-panel" data-di-id="vorher">
+<p class="di-schritt">Vorher: Der Dienst erzeugt seine Helfer</p>
+<div class="di-fluss" role="group" aria-label="Wer erzeugt wen – vorher">
+<div class="di-gruppe"><div class="di-kasten di-kasten--fokus"><span class="di-kasten__art">Klasse</span><code>Buchungsdienst</code></div></div>
+<div class="di-pfeil di-pfeil--fest">erzeugt selbst mit <code>new</code></div>
+<div class="di-gruppe"><div class="di-kasten di-kasten--fest"><span class="di-kasten__art">konkrete Klasse</span><code>SpeicherKatalog</code></div><div class="di-kasten di-kasten--fest"><span class="di-kasten__art">konkrete Klasse</span><code>EMailBenachrichtigung</code></div></div>
+</div>
+<pre><code class="language-java">public Buchungsdienst() {
+    this.katalog = new SpeicherKatalog();
+    this.benachrichtigung = new EMailBenachrichtigung();
+}
+</code></pre>
+<p>Wer einen <code>Buchungsdienst</code> will, bekommt beide Umsetzungen mit – ein Test ebenso wie die
+Anwendung. Dazwischen passt nichts.</p>
+</div>
+<div class="di-panel" data-di-id="nachher">
+<p class="di-schritt">Nachher: Jemand anderes erzeugt und reicht hinein</p>
+<div class="di-fluss" role="group" aria-label="Wer erzeugt wen – nachher">
+<div class="di-gruppe"><div class="di-kasten di-kasten--test"><span class="di-kasten__art">verdrahtet</span><code>main</code>, ein Container oder ein Test</div></div>
+<div class="di-pfeil">erzeugt</div>
+<div class="di-gruppe"><div class="di-kasten"><span class="di-kasten__art">Umsetzung</span><code>SpeicherKatalog</code></div><div class="di-kasten"><span class="di-kasten__art">Umsetzung</span><code>EMailBenachrichtigung</code></div></div>
+<div class="di-pfeil">über den Konstruktor in</div>
+<div class="di-gruppe"><div class="di-kasten di-kasten--fokus"><span class="di-kasten__art">Klasse</span><code>Buchungsdienst</code></div></div>
+<div class="di-pfeil">kennt nur</div>
+<div class="di-gruppe"><div class="di-kasten di-kasten--interface"><span class="di-kasten__art">Interface</span><code>RaumKatalog</code></div><div class="di-kasten di-kasten--interface"><span class="di-kasten__art">Interface</span><code>Benachrichtigung</code></div></div>
+</div>
+<pre><code class="language-java">public Buchungsdienst(RaumKatalog katalog, Benachrichtigung benachrichtigung) {
+    this.katalog = katalog;
+    this.benachrichtigung = benachrichtigung;
+}
+</code></pre>
+<p>Im <code>Buchungsdienst</code> steht kein <code>new</code> mehr. Die Felder bleiben <code>final</code>, <code>buche</code> bleibt
+Zeichen für Zeichen gleich – geändert hat sich nur, <strong>wer</strong> die Objekte erzeugt.</p>
+</div>
+</div>
+<h2 id="verdrahtung">Wer verdrahtet?</h2>
+<p>Irgendwo müssen die Objekte doch erzeugt und zusammengesteckt werden. Diese Arbeit
+wandert an <strong>eine</strong> Stelle am Rand der Anwendung – von Hand oder durch ein Framework.</p>
+<div class="di-wahl" data-di-key="verdrahtung">
+<div class="di-knoepfe" role="group" aria-label="Wer verdrahtet">
+<button type="button" class="di-knopf" data-di-wert="hand">Von Hand in <code>main</code></button>
+<button type="button" class="di-knopf" data-di-wert="container">Ein Container: CDI oder Spring</button>
+</div>
+<div class="di-panel" data-di-id="hand">
+<p class="di-schritt">Von Hand: <code>main</code> erzeugt und steckt zusammen</p>
+<pre><code class="language-java">public static void main(String[] args) {
+    RaumKatalog katalog = new SpeicherKatalog();
+    Benachrichtigung benachrichtigung = new EMailBenachrichtigung();
+    Buchungsdienst dienst = new Buchungsdienst(katalog, benachrichtigung);
+
+    System.out.println(dienst.buche(&quot;R1&quot;, 3));
+    System.out.println(dienst.buche(&quot;R1&quot;, 8));
+}
+</code></pre>
+<p class="di-titel">Ausgabe (Raum R1 hat 4 Plätze)</p>
+<pre><code class="language-text">E-Mail gesendet: Raum R1 für 3 Personen gebucht
+true
+false
+</code></pre>
+<p>Für eine kleine Anwendung reicht das völlig. Diese Stelle heißt auch <strong>Composition
+Root</strong>: der einzige Ort, der die konkreten Klassen kennt.</p>
+</div>
+<div class="di-panel" data-di-id="container">
+<p class="di-schritt">Ein Container erledigt dieselbe Arbeit</p>
+<p>In größeren Anwendungen übernimmt ein <strong>Container</strong> die Rolle von <code>main</code>: Er findet die
+Klassen, erzeugt die Objekte, erkennt am Konstruktor, was sie brauchen, und reicht die
+passenden Objekte hinein. Der <code>Buchungsdienst</code> bekommt dafür nur eine Annotation.</p>
+<div class="di-vergleich">
+<div>
+<p class="di-titel">Jakarta CDI</p>
+<pre><code class="language-java">@Singleton
+public class Buchungsdienst {
+
+    @Inject
+    public Buchungsdienst(RaumKatalog katalog,
+                          Benachrichtigung benachrichtigung) {
+        …
+    }
+}
+</code></pre>
+</div>
+<div>
+<p class="di-titel">Spring</p>
+<pre><code class="language-java">@Service
+public class Buchungsdienst {
+
+    // nur ein Konstruktor: @Autowired ist nicht nötig
+    public Buchungsdienst(RaumKatalog katalog,
+                          Benachrichtigung benachrichtigung) {
+        …
+    }
+}
+</code></pre>
+</div>
+</div>
+<p>Findet der Container genau <strong>eine</strong> Umsetzung je Interface, nimmt er sie; gibt es mehrere,
+muss man ihm sagen, welche gilt. Der Rest des Dienstes bleibt unverändert – und im Test
+braucht man den Container gar nicht: <code>new Buchungsdienst(…, …)</code> genügt.</p>
+</div>
+</div>
+<h3 id="injektionsarten">Konstruktor, Setter oder Feld?</h3>
+<p>Ein Container kann eine Abhängigkeit auf drei Wegen hineinreichen:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Art</th>
+					<th>So sieht es aus</th>
+					<th>Folge</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>Konstruktor</strong></td>
+					<td><code>public Buchungsdienst(RaumKatalog katalog, …)</code></td>
+					<td>Felder <code>final</code>, Objekt nach <code>new</code> vollständig</td>
+			</tr>
+			<tr>
+					<td><strong>Setter</strong></td>
+					<td><code>@Inject void setzeKatalog(RaumKatalog katalog)</code></td>
+					<td>Feld nicht <code>final</code>, bis zum Aufruf <code>null</code></td>
+			</tr>
+			<tr>
+					<td><strong>Feld</strong></td>
+					<td><code>@Inject private RaumKatalog katalog;</code></td>
+					<td>nur per Reflection zu setzen – ohne Container gar nicht</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>Bevorzuge den Konstruktor.</strong> Ohne seine Abhängigkeiten lässt sich das Objekt dann gar
+nicht erzeugen; es gibt keinen halbfertigen Zustand, die Felder können <code>final</code> sein, und
+die Signatur zeigt auf einen Blick, was die Klasse braucht – werden es zu viele, ist das
+ein Hinweis, dass sie zu viel tut. Vor allem kommt ein Test ohne Container und ohne
+Reflection aus. Setter-Injektion bleibt für Abhängigkeiten, die wirklich optional sind
+oder sich später ändern dürfen.</p>
+<h2 id="test">Im Test: Stellvertreter einsetzen</h2>
+<p>Weil der <code>Buchungsdienst</code> nur Interfaces verlangt, kann ein Test ihm <strong>Stellvertreter</strong>
+geben: Objekte, die sich wie Katalog und Benachrichtigung verhalten, aber nichts
+nachschlagen und nichts verschicken.</p>
+<div class="di-fluss" role="group" aria-label="Wer erzeugt wen – im Test">
+<div class="di-gruppe"><div class="di-kasten di-kasten--test"><span class="di-kasten__art">verdrahtet</span>der Test</div></div>
+<div class="di-pfeil">erzeugt</div>
+<div class="di-gruppe"><div class="di-kasten"><span class="di-kasten__art">Stellvertreter für</span><code>RaumKatalog</code> – liefert vorbereitete Räume</div><div class="di-kasten"><span class="di-kasten__art">Stellvertreter für</span><code>Benachrichtigung</code> – schreibt mit, statt zu senden</div></div>
+<div class="di-pfeil">über den Konstruktor in</div>
+<div class="di-gruppe"><div class="di-kasten di-kasten--fokus"><span class="di-kasten__art">wird getestet</span><code>Buchungsdienst</code>, unverändert</div></div>
+</div>
+<p>Die beiden Stellvertreter haben verschiedene Aufgaben. Der Katalog ist eine <strong>Abfrage</strong>:
+Er liefert Antworten, über ihn prüft der Test nichts. Die Benachrichtigung ist eine
+<strong>Wirkung nach außen</strong>: An ihr prüft der Test, <strong>ob</strong> und <strong>was</strong> gesendet wurde.
+Faustregel: Abfragen vorbereiten, Wirkungen prüfen.</p>
+<div class="di-wahl" data-di-key="stellvertreter">
+<div class="di-knoepfe" role="group" aria-label="Stellvertreter">
+<button type="button" class="di-knopf" data-di-wert="hand">Von Hand geschrieben</button>
+<button type="button" class="di-knopf" data-di-wert="mockito">Von Mockito erzeugt</button>
+</div>
+<div class="di-panel" data-di-id="hand">
+<p class="di-schritt">Von Hand: ein Fake und ein Spy</p>
+<p>Der <strong>Fake</strong> ist eine einfache, aber funktionierende Umsetzung – hier ein Katalog, dem der
+Test seine Räume selbst gibt. Liefert ein Stellvertreter nur fest vorbereitete Antworten,
+heißt er <strong>Stub</strong>.</p>
+<pre><code class="language-java">class FakeKatalog implements RaumKatalog {
+
+    private final Map&lt;String, Raum&gt; räume = new HashMap&lt;&gt;();
+
+    void füge(Raum raum) {
+        räume.put(raum.kennung(), raum);
+    }
+
+    @Override
+    public Optional&lt;Raum&gt; finde(String kennung) {
+        return Optional.ofNullable(räume.get(kennung));
+    }
+}
+</code></pre>
+<p>Der <strong>Spy</strong> schreibt mit, wie er aufgerufen wurde – der Test liest die Mitschrift danach:</p>
+<pre><code class="language-java">class MitschreibendeBenachrichtigung implements Benachrichtigung {
+
+    final List&lt;String&gt; texte = new ArrayList&lt;&gt;();
+
+    @Override
+    public void sende(String text) {
+        texte.add(text);
+    }
+}
+</code></pre>
+<pre><code class="language-java">class BuchungsdienstTest {
+
+    private final FakeKatalog katalog = new FakeKatalog();
+    private final MitschreibendeBenachrichtigung benachrichtigung = new MitschreibendeBenachrichtigung();
+    private final Buchungsdienst dienst = new Buchungsdienst(katalog, benachrichtigung);
+
+    @Test
+    void passenderRaumLöstBenachrichtigungAus() {
+        katalog.füge(new Raum(&quot;R1&quot;, 4));
+
+        assertTrue(dienst.buche(&quot;R1&quot;, 3));
+        assertEquals(List.of(&quot;Raum R1 für 3 Personen gebucht&quot;), benachrichtigung.texte);
+    }
+
+    @Test
+    void zuKleinerRaumBleibtStill() {
+        katalog.füge(new Raum(&quot;R1&quot;, 4));
+
+        assertFalse(dienst.buche(&quot;R1&quot;, 8));
+        assertTrue(benachrichtigung.texte.isEmpty());
+    }
+}
+</code></pre>
+<p>Das funktioniert ohne jede Bibliothek – kostet aber je Interface eine Klasse, und jede
+neue Methode im Interface muss in jedem Stellvertreter nachgezogen werden.</p>
+</div>
+<div class="di-panel" data-di-id="mockito">
+<p class="di-schritt">Mockito: Stellvertreter zur Laufzeit</p>
+<p>Mockito erzeugt die Stellvertreter selbst. Drei Aufrufe tragen alles:</p>
+<ul>
+<li><code>mock(RaumKatalog.class)</code> – ein Stellvertreter, der jede Methode kennt und zunächst nur
+Standardantworten gibt.</li>
+<li><code>when(katalog.finde(&quot;R1&quot;)).thenReturn(…)</code> – bereitet eine Antwort vor (der Stub).</li>
+<li><code>verify(benachrichtigung).sende(…)</code> – prüft in der Mitschrift, ob ein Aufruf stattfand
+(der Mock im engeren Sinn).</li>
+</ul>
+<pre><code class="language-java">class BuchungsdienstMockitoTest {
+
+    private final RaumKatalog katalog = mock(RaumKatalog.class);
+    private final Benachrichtigung benachrichtigung = mock(Benachrichtigung.class);
+    private final Buchungsdienst dienst = new Buchungsdienst(katalog, benachrichtigung);
+
+    @Test
+    void passenderRaumLöstBenachrichtigungAus() {
+        when(katalog.finde(&quot;R1&quot;)).thenReturn(Optional.of(new Raum(&quot;R1&quot;, 4)));
+
+        assertTrue(dienst.buche(&quot;R1&quot;, 3));
+        verify(benachrichtigung).sende(&quot;Raum R1 für 3 Personen gebucht&quot;);
+    }
+
+    @Test
+    void unbekannterRaumBleibtStill() {
+        // kein when: finde(…) liefert die Standardantwort Optional.empty()
+        assertFalse(dienst.buche(&quot;R9&quot;, 3));
+        verify(benachrichtigung, never()).sende(anyString());
+    }
+}
+</code></pre>
+<p>Keine Stellvertreter-Klassen mehr: Was der Fake und der Spy von Hand taten, legt jeder
+Test in zwei Zeilen selbst fest. Vorsicht beim Wort: Mockitos <code>spy(objekt)</code> ist etwas
+anderes als der Spy von Hand – er umhüllt ein <strong>echtes</strong> Objekt und ruft dessen Methoden
+auf, solange nichts anderes vorbereitet ist.</p>
+</div>
+</div>
+<p><strong>Wenn <code>verify</code> scheitert,</strong> sagt Mockito genau, was fehlte. Erwartet ein Test eine
+Nachricht, obwohl der Dienst den zu kleinen Raum abgelehnt hat:</p>
+<pre><code class="language-text">org.mockito.exceptions.verification.WantedButNotInvoked
+
+Wanted but not invoked:
+benachrichtigung.sende(
+    &quot;Raum R1 für 8 Personen gebucht&quot;
+);
+-&gt; at …
+Actually, there were zero interactions with this mock.
+</code></pre>
+<p>Kam der Aufruf, aber mit anderem Text, zeigt Mockito beide nebeneinander:</p>
+<pre><code class="language-text">org.mockito.exceptions.verification.opentest4j.ArgumentsAreDifferent
+
+Argument(s) are different! Wanted:
+benachrichtigung.sende(
+    &quot;Raum R1 für 4 Personen gebucht&quot;
+);
+-&gt; at …
+Actual invocations have different arguments:
+benachrichtigung.sende(
+    &quot;Raum R1 für 3 Personen gebucht&quot;
+);
+-&gt; at …
+</code></pre>
+<h2 id="mock-proxy">Was ein Mock ist: ein Dynamic Proxy</h2>
+<p><code>mock(RaumKatalog.class)</code> gibt ein Objekt zurück, dessen Klasse <strong>niemand geschrieben
+hat</strong>. Sie entsteht zur Laufzeit und folgt dem Prinzip des
+<a class="skr-doclink skr-doclink--visualization" href="../../shared/dynamic-proxy/dynamic-proxy.html">Dynamic Proxy</a>: Jede Methode tut nur eines – sie
+reicht den Aufruf an einen <strong>Handler</strong> weiter. Der Handler ist das Gedächtnis des Mocks.</p>
+<div class="di-fluss" role="group" aria-label="Weg eines Aufrufs durch einen Mock">
+<div class="di-gruppe"><div class="di-kasten di-kasten--fokus"><span class="di-kasten__art">Aufrufer</span><code>Buchungsdienst</code> ruft <code>katalog.finde("R1")</code></div></div>
+<div class="di-pfeil">jeder Aufruf geht an</div>
+<div class="di-gruppe"><div class="di-kasten di-kasten--interface"><span class="di-kasten__art">zur Laufzeit erzeugt</span><code>RaumKatalog$MockitoMock$…</code> – setzt <code>RaumKatalog</code> um</div></div>
+<div class="di-pfeil">gibt weiter an</div>
+<div class="di-gruppe"><div class="di-kasten di-kasten--test"><span class="di-kasten__art">Handler</span><ol><li>schreibt den Aufruf mit – für <code>verify</code></li><li>sucht eine vorbereitete Antwort – aus <code>when(…).thenReturn(…)</code></li><li>sonst: Standardantwort</li></ol></div></div>
+</div>
+<p>Spiel die drei Fälle durch:</p>
+<div class="di-wahl" data-di-key="aufruf">
+<div class="di-knoepfe" role="group" aria-label="Fall">
+<button type="button" class="di-knopf" data-di-wert="vorbereitet">Vorbereitete Antwort</button>
+<button type="button" class="di-knopf" data-di-wert="default">Nichts vorbereitet</button>
+<button type="button" class="di-knopf" data-di-wert="verify">Nachher prüfen</button>
+</div>
+<div class="di-panel" data-di-id="vorbereitet">
+<p class="di-schritt">Vorbereitete Antwort</p>
+<pre><code class="language-java">when(katalog.finde(&quot;R1&quot;)).thenReturn(Optional.of(new Raum(&quot;R1&quot;, 4)));
+System.out.println(katalog.finde(&quot;R1&quot;));
+</code></pre>
+<p class="di-titel">Ausgabe</p>
+<pre><code class="language-text">Optional[Raum[kennung=R1, plätze=4]]
+</code></pre>
+<p>Der Handler schreibt <code>finde(&quot;R1&quot;)</code> mit und findet eine Antwort, deren Argumente passen.
+Auch <code>when(…)</code> selbst ruft <code>finde(&quot;R1&quot;)</code> auf – diesen Aufruf merkt sich der Handler als
+„hier kommt gleich eine Antwort“ und nimmt ihn wieder aus der Mitschrift.</p>
+</div>
+<div class="di-panel" data-di-id="default">
+<p class="di-schritt">Nichts vorbereitet: die Standardantwort</p>
+<pre><code class="language-java">System.out.println(katalog.finde(&quot;R2&quot;));
+</code></pre>
+<p class="di-titel">Ausgabe</p>
+<pre><code class="language-text">Optional.empty
+</code></pre>
+<p>Für <code>R2</code> gibt es keine passende Antwort. Der Handler gibt dann eine <strong>Standardantwort</strong>,
+die zum Rückgabetyp passt – nie eine Exception. An einem Interface mit mehr Methoden
+gemessen:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Rückgabetyp</th>
+					<th>Standardantwort</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>Optional&lt;Raum&gt;</code></td>
+					<td><code>Optional.empty</code></td>
+			</tr>
+			<tr>
+					<td><code>List&lt;Raum&gt;</code></td>
+					<td><code>[]</code> – leere Liste</td>
+			</tr>
+			<tr>
+					<td><code>int</code></td>
+					<td><code>0</code></td>
+			</tr>
+			<tr>
+					<td><code>boolean</code></td>
+					<td><code>false</code></td>
+			</tr>
+			<tr>
+					<td><code>String</code></td>
+					<td><code>null</code></td>
+			</tr>
+			<tr>
+					<td><code>Raum</code> (eigene Klasse)</td>
+					<td><code>null</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>Zahlen und Wahrheitswerte also neutral, Collections, <code>Optional</code> und Streams leer, alles
+andere <code>null</code>. Deshalb lehnt der Dienst einen unbekannten Raum schon ohne jedes <code>when</code> ab.</p>
+</div>
+<div class="di-panel" data-di-id="verify">
+<p class="di-schritt">Nachher prüfen: die Mitschrift</p>
+<pre><code class="language-java">dienst.buche(&quot;R1&quot;, 3);
+verify(benachrichtigung).sende(&quot;Raum R1 für 3 Personen gebucht&quot;);
+</code></pre>
+<p><code>verify(benachrichtigung)</code> schaltet den Mock für <strong>einen</strong> Aufruf in den Prüfmodus: Das
+folgende <code>.sende(…)</code> sendet nichts, sondern fragt den Handler, ob seine Mitschrift diesen
+Aufruf enthält – genau einmal, sofern <code>times(…)</code> oder <code>never()</code> nichts anderes sagen.
+Die Mitschrift selbst zeigt <code>mockingDetails(katalog).getInvocations()</code>:</p>
+<p class="di-titel">Ausgabe nach <code>finde("R1")</code> und <code>finde("R2")</code></p>
+<pre><code class="language-text">[raumKatalog.finde(&quot;R1&quot;);, raumKatalog.finde(&quot;R2&quot;);]
+</code></pre>
+</div>
+</div>
+<h3 id="bytebuddy">Wie Mockito die Klasse erzeugt</h3>
+<p>Das Prinzip ist das des Dynamic Proxy, das Werkzeug ein anderes: Mockito 5 nutzt nicht
+<code>java.lang.reflect.Proxy</code>, sondern die Bibliothek <strong>Byte Buddy</strong>, die Bytecode zur
+Laufzeit schreibt. Standard ist der <strong>Inline Mock Maker</strong>; er arbeitet per
+Instrumentierung über einen Java-Agenten. Gemessen:</p>
+<pre><code class="language-java">RaumKatalog katalog = mock(RaumKatalog.class);
+System.out.println(katalog.getClass().getName());
+System.out.println(Proxy.isProxyClass(katalog.getClass()));
+
+EMailBenachrichtigung email = mock(EMailBenachrichtigung.class);
+System.out.println(email.getClass().getName());
+email.sende(&quot;Test&quot;);
+</code></pre>
+<p class="di-titel">Ausgabe</p>
+<pre><code class="language-text">di.RaumKatalog$MockitoMock$ewbYc8xd
+false
+di.EMailBenachrichtigung
+</code></pre>
+<ul>
+<li><strong>Für ein Interface</strong> erzeugt Byte Buddy eine neue Klasse, die es umsetzt – wie ein
+Dynamic Proxy, nur mit eigenem Namensschema (die Endung ist zufällig und wechselt je
+Lauf). Ein Proxy von <code>java.lang.reflect.Proxy</code> hieße dagegen etwa <code>jdk.proxy2.$Proxy73</code>;
+deshalb liefert <code>Proxy.isProxyClass</code> hier <code>false</code>.</li>
+<li><strong>Für eine Klasse</strong> erzeugt der Inline Mock Maker gar keine neue: Er schreibt den
+Bytecode der <strong>vorhandenen</strong> Klasse um, sodass ihre Methoden für Mocks beim Handler
+nachfragen. Darum heißt der Mock wie das Original – und <code>email.sende(&quot;Test&quot;)</code> gibt
+nichts aus, die echte Methode läuft nicht. Ein <code>java.lang.reflect.Proxy</code> kann nur
+Interfaces; Mockito kann so auch Klassen ersetzen.</li>
+</ul>
+<p>Den Agenten hängt Mockito beim ersten Mock selbst an die laufende JVM. Das funktioniert
+heute noch, aber Mockito und die JVM warnen davor:</p>
+<pre><code class="language-text">Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (…/byte-buddy-agent-1.17.7.jar)
+</code></pre>
+<p>Die Abhilfe – den Agenten beim Start der Tests mit <code>-javaagent</code> angeben – beschreibt die
+Dokumentation von Mockito an der verlinkten Stelle.</p>
+<blockquote>
+<p><strong>Merksatz:</strong> Eine Klasse soll ihre Abhängigkeiten <strong>bekommen</strong>, nicht erzeugen – über
+den Konstruktor und als Interface. Dann entscheidet, wer verdrahtet: <code>main</code>, ein
+Container oder ein Test. Und ein Mock ist nichts anderes als ein Stellvertreter nach dem
+Prinzip des Dynamic Proxy: Jeder Aufruf landet bei einem Handler, der mitschreibt und
+antwortet.</p>
+</blockquote>
+
+  </main>
+  <div class="skr-print-contact" aria-hidden="true">
+  <span>Kontakt: https://atvantage-academy.github.io/academy-online/</span>
+  <span>academy@atvantage.com</span>
+</div>
+
+</body>
+</html>

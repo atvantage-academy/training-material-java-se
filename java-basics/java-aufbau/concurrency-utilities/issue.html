@@ -40,9 +40,9 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=53316764" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
-<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;]"></script>
+<script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
 <link rel="icon" sizes="32x32" href="../../../themes/atvantage/assets/icon-32.png">
 <link rel="icon" sizes="16x16" href="../../../themes/atvantage/assets/icon-16.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=53316764"
+     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -183,8 +183,8 @@ und jede Aufgabe meldet, wie viele Buchungen sie bestätigt hat. Der Saal ist wi
 ungeschützt.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="den-saal-anlegen">Den Saal anlegen</h3>
-<p>Leg im Projekt <code>aufbau</code> das Paket <code>aufbau.concurrency</code> an und kopiere die Klasse <code>Room</code>
-nach <code>src/main/java/aufbau/concurrency/</code>:</p>
+<p>Im Ordner <code>src/main/java</code> des Projekts <code>java-aufbau</code> lege das Package <code>aufbau.concurrency</code>
+an und kopiere die Klasse <code>Room</code> hinein:</p>
 <pre><code class="language-java">package aufbau.concurrency;
 
 public class Room {
@@ -216,7 +216,7 @@ public class Room {
 }
 </code></pre>
 <h3 id="die-last-mit-einem-executorservice-erzeugen">Die Last mit einem ExecutorService erzeugen</h3>
-<p>Kopiere den Test nach <code>src/test/java/aufbau/concurrency/</code>. Jede der vier Aufgaben ist ein
+<p>Kopiere den Test ins Package <code>aufbau.concurrency</code> unter <code>src/test/java</code>. Jede der vier Aufgaben ist ein
 <code>Callable</code>, das seine bestätigten Buchungen zählt; der <code>ExecutorService</code> führt sie auf
 einem Pool mit vier Threads aus:</p>
 <pre><code class="language-java">package aufbau.concurrency;
@@ -408,8 +408,8 @@ ungeschützt.
 
 ### Den Saal anlegen
 
-Leg im Projekt `aufbau` das Paket `aufbau.concurrency` an und kopiere die Klasse `Room`
-nach `src/main/java/aufbau/concurrency/`:
+Im Ordner `src/main/java` des Projekts `java-aufbau` lege das Package `aufbau.concurrency`
+an und kopiere die Klasse `Room` hinein:
 
 ```java
 package aufbau.concurrency;
@@ -445,7 +445,7 @@ public class Room {
 
 ### Die Last mit einem ExecutorService erzeugen
 
-Kopiere den Test nach `src/test/java/aufbau/concurrency/`. Jede der vier Aufgaben ist ein
+Kopiere den Test ins Package `aufbau.concurrency` unter `src/test/java`. Jede der vier Aufgaben ist ein
 `Callable`, das seine bestätigten Buchungen zählt; der `ExecutorService` führt sie auf
 einem Pool mit vier Threads aus:
 
