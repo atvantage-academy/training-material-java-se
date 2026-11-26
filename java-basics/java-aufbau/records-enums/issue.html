@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=fb2c99f1" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=daae83a5" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=fb2c99f1"
+     data-index="../../../skriptorium/search/de.json?v=daae83a5"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -328,6 +328,38 @@ unverändert ist.</li>
 <p>Starte die Tests in der IDE, bis alle fünf grün sind.</p>
 <p>Lass Dir zum Schluss einen <code>Room</code> ausgeben und vergleiche das Format von <code>toString</code>
 mit dem der alten Klasse.</p>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<p>Der kompakte Konstruktor prüft nur; die Zuweisung an die Felder ergänzt der Compiler. <code>withCapacity</code> erzeugt einen neuen Raum, der alte bleibt, wie er ist.</p>
+<pre><code class="language-java">package aufbau.records;
+
+import java.util.Objects;
+
+public record Room(String name, int floor, int capacity) {
+
+    public Room {
+        Objects.requireNonNull(name, "name must not be null");
+        if (capacity &lt;= 0) {
+            throw new IllegalArgumentException("capacity must be positive");
+        }
+    }
+
+    public Room withCapacity(int capacity) {
+        return new Room(name, floor, capacity);
+    }
+}</code></pre>
+<p>Im Test lesen <code>room.name()</code> und <code>room.capacity()</code> statt der Getter. <code>changeCapacity</code> prüft beide Räume:</p>
+<pre><code class="language-java">@Test
+void changeCapacity() {
+    Room room = new Room("Atlas", 2, 12);
+
+    Room larger = room.withCapacity(20);
+
+    assertEquals(20, larger.capacity());
+    assertEquals(12, room.capacity());
+}</code></pre>
+<p>Die Ausgabe hat jetzt das Format des Records: <code>Room[name=Atlas, floor=2, capacity=12]</code>.</p>
+</details>
 <h3 id="die-raumarten-als-enum-beschreiben">Die Raumarten als Enum beschreiben</h3>
 <p>Leg im Package <code>aufbau.records</code> unter <code>src/main/java</code> eine Enum <code>RoomType</code> an. Sie kennt vier
 Raumarten mit ihrer höchsten Personenzahl:</p>
@@ -364,6 +396,47 @@ Personen hineinpassen.</p>
 <code>hourlyRateInCents(RoomType type)</code> an, die den Stundenpreis als <strong><code>switch</code>-Ausdruck</strong>
 liefert: Telefonzelle 0, Besprechungsraum 2 000, Schulungsraum 5 000, Saal 20 000
 Cent. Schreib dabei <strong>kein</strong> <code>default</code>.</p>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung</summary>
+<p>Jede Konstante ruft den Konstruktor der Enum mit ihrer Personenzahl auf; der Konstruktor ist automatisch <code>private</code>.</p>
+<pre><code class="language-java">package aufbau.records;
+
+public enum RoomType {
+
+    PHONE_BOOTH(1),
+    MEETING_ROOM(12),
+    TRAINING_ROOM(20),
+    AUDITORIUM(150);
+
+    private final int maxCapacity;
+
+    RoomType(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int maxCapacity() {
+        return maxCapacity;
+    }
+
+    public boolean fits(int attendees) {
+        return attendees &lt;= maxCapacity;
+    }
+}</code></pre>
+<p>Ohne <code>default</code> prüft der Compiler, dass der <code>switch</code>-Ausdruck jede Konstante abdeckt:</p>
+<pre><code class="language-java">package aufbau.records;
+
+public class RoomPricing {
+
+    public static int hourlyRateInCents(RoomType type) {
+        return switch (type) {
+            case PHONE_BOOTH -&gt; 0;
+            case MEETING_ROOM -&gt; 2_000;
+            case TRAINING_ROOM -&gt; 5_000;
+            case AUDITORIUM -&gt; 20_000;
+        };
+    }
+}</code></pre>
+</details>
 <h3 id="die-enum-testen">Die Enum testen</h3>
 <p>Speichere den Test als <code>RoomTypeTest.java</code> im Package <code>aufbau.records</code> unter <code>src/test/java</code>:</p>
 <pre><code class="language-java">package aufbau.records;
@@ -671,6 +744,41 @@ Starte die Tests in der IDE, bis alle fünf grün sind.
 Lass Dir zum Schluss einen `Room` ausgeben und vergleiche das Format von `toString`
 mit dem der alten Klasse.
 
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
+&lt;p&gt;Der kompakte Konstruktor prüft nur; die Zuweisung an die Felder ergänzt der Compiler. &lt;code&gt;withCapacity&lt;/code&gt; erzeugt einen neuen Raum, der alte bleibt, wie er ist.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package aufbau.records;
+
+import java.util.Objects;
+
+public record Room(String name, int floor, int capacity) {
+
+    public Room {
+        Objects.requireNonNull(name, &#34;name must not be null&#34;);
+        if (capacity &amp;lt;= 0) {
+            throw new IllegalArgumentException(&#34;capacity must be positive&#34;);
+        }
+    }
+
+    public Room withCapacity(int capacity) {
+        return new Room(name, floor, capacity);
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Im Test lesen &lt;code&gt;room.name()&lt;/code&gt; und &lt;code&gt;room.capacity()&lt;/code&gt; statt der Getter. &lt;code&gt;changeCapacity&lt;/code&gt; prüft beide Räume:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void changeCapacity() {
+    Room room = new Room(&#34;Atlas&#34;, 2, 12);
+
+    Room larger = room.withCapacity(20);
+
+    assertEquals(20, larger.capacity());
+    assertEquals(12, room.capacity());
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Die Ausgabe hat jetzt das Format des Records: &lt;code&gt;Room[name=Atlas, floor=2, capacity=12]&lt;/code&gt;.&lt;/p&gt;
+&lt;/details&gt;
+
 ### Die Raumarten als Enum beschreiben
 
 Leg im Package `aufbau.records` unter `src/main/java` eine Enum `RoomType` an. Sie kennt vier
@@ -691,6 +799,50 @@ Leg daneben eine Klasse `RoomPricing` mit einer statischen Methode
 `hourlyRateInCents(RoomType type)` an, die den Stundenpreis als **`switch`-Ausdruck**
 liefert: Telefonzelle 0, Besprechungsraum 2 000, Schulungsraum 5 000, Saal 20 000
 Cent. Schreib dabei **kein** `default`.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung&lt;/summary&gt;
+&lt;p&gt;Jede Konstante ruft den Konstruktor der Enum mit ihrer Personenzahl auf; der Konstruktor ist automatisch &lt;code&gt;private&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package aufbau.records;
+
+public enum RoomType {
+
+    PHONE_BOOTH(1),
+    MEETING_ROOM(12),
+    TRAINING_ROOM(20),
+    AUDITORIUM(150);
+
+    private final int maxCapacity;
+
+    RoomType(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public int maxCapacity() {
+        return maxCapacity;
+    }
+
+    public boolean fits(int attendees) {
+        return attendees &amp;lt;= maxCapacity;
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ohne &lt;code&gt;default&lt;/code&gt; prüft der Compiler, dass der &lt;code&gt;switch&lt;/code&gt;-Ausdruck jede Konstante abdeckt:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package aufbau.records;
+
+public class RoomPricing {
+
+    public static int hourlyRateInCents(RoomType type) {
+        return switch (type) {
+            case PHONE_BOOTH -&amp;gt; 0;
+            case MEETING_ROOM -&amp;gt; 2_000;
+            case TRAINING_ROOM -&amp;gt; 5_000;
+            case AUDITORIUM -&amp;gt; 20_000;
+        };
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
 
 ### Die Enum testen
 
