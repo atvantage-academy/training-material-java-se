@@ -6,11 +6,11 @@
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
 <title>Den Buchungsservice mit Dependency Injection und Mockito testen · ATVANTAGE Academy</title>
-<meta name="description" content="Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.">
+<meta name="description" content="Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn mit Mockito – auch das, was ein Test ohne Mocks nicht prüfen kann.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Den Buchungsservice mit Dependency Injection und Mockito testen">
-<meta property="og:description" content="Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.">
+<meta property="og:description" content="Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn mit Mockito – auch das, was ein Test ohne Mocks nicht prüfen kann.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn – erst mit selbst geschriebenen Stellvertretern, dann mit Mockito.","duration":50,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-testen-mockito-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Den Buchungsservice mit Dependency Injection und Mockito testen","topics":["Dependency Injection","JUnit","Mockito","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/testen-mockito/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Baue den Buchungsservice auf Konstruktor-Injektion um und teste ihn mit Mockito – auch das, was ein Test ohne Mocks nicht prüfen kann.","duration":50,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-testen-mockito-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Den Buchungsservice mit Dependency Injection und Mockito testen","topics":["Dependency Injection","JUnit","Mockito","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/testen-mockito/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=6c13d69d" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=3ea10724" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=6c13d69d"
+     data-index="../../../skriptorium/search/de.json?v=3ea10724"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -138,18 +138,17 @@
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>User Story</summary>
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne echte E-Mails testen, damit meine Tests schnell, wiederholbar und unabhängig von der Umgebung sind.</p>
+<p>Als Entwickler:in möchte ich den Buchungsservice unabhängig von den Räumen testen, die er findet, damit meine Tests bestimmen, wovon das Ergebnis abhängt, und prüfen, was der Service mit dem gefundenen Raum tut.</p>
 </div>
 </details>
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>Lernziele</summary>
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
-<li>Du baust eine Klasse, die ihre Abhängigkeiten selbst erzeugt, auf Konstruktor-Injektion um.</li>
-<li>Du verdrahtest die Objekte in <code>main</code> von Hand.</li>
-<li>Du schreibst einen Stellvertreter für ein Interface selbst und testest damit.</li>
-<li>Du ersetzt die Stellvertreter durch Mocks von Mockito – auch für eine Klasse – und prüfst Aufrufe mit <code>verify</code>.</li>
-<li>Du bindest Mockito über eine zweite BOM ein und deklarierst <code>mockito-junit-jupiter</code> ohne Version.</li>
+<li>Du erkennst an einem vorgegebenen Test, was er prüfen kann und was nicht, solange die Klasse ihre Abhängigkeit selbst erzeugt.</li>
+<li>Du baust die Klasse auf Konstruktor-Injektion um und verdrahtest die Objekte in <code>main</code> von Hand.</li>
+<li>Du bindest Mockito über eine zweite BOM ein und deklarierst <code>mockito-core</code> ohne Version.</li>
+<li>Du ersetzt den <code>RoomManager</code> im Test durch einen Mock, legst seine Antworten mit <code>when</code> fest und prüfst mit <code>verify</code>, dass der gefundene Raum gebucht wurde.</li>
 <li>Du trägst den Agenten von Mockito so in Surefire ein, dass der Agent von JaCoCo erhalten bleibt und der Testlauf ohne Warnungen zum Agenten auskommt.</li>
 </ul>
 </div>
@@ -159,21 +158,17 @@
 <div class="skr-guide-done">
 <h3 id="konstruktor-injektion">Konstruktor-Injektion</h3>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingService bekommt RoomManager und Notification über den Konstruktor; im Service steht kein new mehr." disabled="disabled"> <code>BookingService</code> bekommt <code>RoomManager</code> und <code>Notification</code> über den Konstruktor; im Service steht kein <code>new</code> mehr.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingApp.main erzeugt RoomManager, Benachrichtigung und Service und bucht einen Raum." disabled="disabled"> <code>BookingApp.main</code> erzeugt <code>RoomManager</code>, Benachrichtigung und Service und bucht einen Raum.</li>
-</ul>
-<h3 id="stellvertreter-von-hand">Stellvertreter von Hand</h3>
-<ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingServiceTest prüft mit einem echten RoomManager und RecordingNotification, dass eine Buchung benachrichtigt und eine Buchung ohne passenden Raum ohne Benachrichtigung abgelehnt wird." disabled="disabled"> <code>BookingServiceTest</code> prüft mit einem echten <code>RoomManager</code> und <code>RecordingNotification</code>, dass eine Buchung benachrichtigt und eine Buchung ohne passenden Raum ohne Benachrichtigung abgelehnt wird.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingService bekommt den RoomManager über den Konstruktor; im Service steht kein new RoomManager mehr." disabled="disabled"> <code>BookingService</code> bekommt den <code>RoomManager</code> über den Konstruktor; im Service steht kein <code>new RoomManager</code> mehr.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingApp.main erzeugt RoomManager und Service und bucht einen Raum." disabled="disabled"> <code>BookingApp.main</code> erzeugt <code>RoomManager</code> und Service und bucht einen Raum.</li>
 </ul>
 <h3 id="mockito">Mockito</h3>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="BookingServiceMockitoTest prüft eine Buchung und den Fall ohne freien Raum mit mock, when und verify." disabled="disabled"> <code>BookingServiceMockitoTest</code> prüft eine Buchung und den Fall ohne freien Raum mit <code>mock</code>, <code>when</code> und <code>verify</code>.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eine Testklasse nutzt @ExtendWith(MockitoExtension.class), @Mock und @InjectMocks." disabled="disabled"> Eine Testklasse nutzt <code>@ExtendWith(MockitoExtension.class)</code>, <code>@Mock</code> und <code>@InjectMocks</code>.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In BookingServiceTest ist jedes TODO erledigt: Der RoomManager ist ein Mock, seine Antworten legt when fest." disabled="disabled"> In <code>BookingServiceTest</code> ist jedes <code>TODO</code> erledigt: Der <code>RoomManager</code> ist ein Mock, seine Antworten legt <code>when</code> fest.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Ein Test prüft mit verify, dass der gefundene Raum für den Tag gebucht wurde; ein Test prüft die NoRoomAvailableException, wenn kein Raum frei ist." disabled="disabled"> Ein Test prüft mit <code>verify</code>, dass der gefundene Raum für den Tag gebucht wurde; ein Test prüft die <code>NoRoomAvailableException</code>, wenn kein Raum frei ist.</li>
 </ul>
 <h3 id="build">Build</h3>
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die mockito-bom steht neben der junit-bom im selben dependencyManagement; mockito-junit-jupiter steht ohne Version im POM." disabled="disabled"> Die <code>mockito-bom</code> steht neben der <code>junit-bom</code> im selben <code>dependencyManagement</code>; <code>mockito-junit-jupiter</code> steht ohne Version im POM.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die mockito-bom steht neben der junit-bom im selben dependencyManagement; mockito-core steht ohne Version im POM." disabled="disabled"> Die <code>mockito-bom</code> steht neben der <code>junit-bom</code> im selben <code>dependencyManagement</code>; <code>mockito-core</code> steht ohne Version im POM.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die argLine von Surefire beginnt mit @{argLine} und trägt danach den Agenten von Mockito." disabled="disabled"> Die <code>argLine</code> von Surefire beginnt mit <code>@{argLine}</code> und trägt danach den Agenten von Mockito.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter." disabled="disabled"> Der Maven-Build ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter.</li>
 </ul>
@@ -185,9 +180,9 @@
 </details>
 </div>
 <p>Der <code>BookingService</code> der Raumbuchung sucht über den <code>RoomManager</code> einen freien Raum, der
-groß genug ist, bucht ihn und benachrichtigt danach die Haustechnik per E-Mail. Seinen
-<code>RoomManager</code> und seine Benachrichtigung erzeugt er selbst. Du machst ihn testbar.
-Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die Visualisierung
+groß genug ist, bucht ihn und gibt ihn zurück. Seinen <code>RoomManager</code> erzeugt er selbst. Du
+machst ihn testbar. Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die
+Visualisierung
 <a class="skr-doclink skr-doclink--visualization" href="../../../shared/dependency-injection/dependency-injection.html">Dependency Injection und Mocks</a>.</p>
 <p>Die Übung baut auf <code>RoomManager</code> im Package <code>aufbau.lambdas</code> aus <em>Räume mit Lambdas,
 Streams und Optional suchen</em> auf – in der umgebauten Fassung, in der <code>findFreeRoom</code> ein
@@ -197,23 +192,15 @@ Streams und Optional suchen</em> auf – in der umgebauten Fassung, in der <code
 <h3 id="den-ausgangsstand-anlegen">Den Ausgangsstand anlegen</h3>
 <p>Im Ordner <code>src/main/java</code> des Projekts <code>java-aufbau</code> lege das Package <code>aufbau.testing</code> an
 und kopiere die folgenden Klassen hinein, jede in ihre eigene Datei.</p>
-<p>Die Benachrichtigung nach einer Buchung:</p>
+<p>Die Exception, wenn kein passender Raum frei ist:</p>
 <pre><code class="language-java">package aufbau.testing;
 
-public interface Notification {
+import java.time.LocalDate;
 
-    void send(String message);
-}
-</code></pre>
-<p>Eine Benachrichtigung, die eine E-Mail an die Haustechnik vortäuscht:</p>
-<pre><code class="language-java">package aufbau.testing;
+public class NoRoomAvailableException extends Exception {
 
-public class EmailNotification implements Notification {
-
-    @Override
-    public void send(String message) {
-        // Imagine a real e-mail to the facility management here.
-        System.out.println(&quot;E-mail sent: &quot; + message);
+    public NoRoomAvailableException(LocalDate day, int persons) {
+        super(&quot;No free room on &quot; + day + &quot; for &quot; + persons + &quot; people&quot;);
     }
 }
 </code></pre>
@@ -225,93 +212,72 @@ import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public class BookingService {
 
     private final RoomManager roomManager = new RoomManager(List.of(
             new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6),
             new Room(&quot;R102&quot;, &quot;Hamburg&quot;, 10)));
-    private final Notification notification = new EmailNotification();
 
-    public boolean book(LocalDate day, int persons) throws RoomAlreadyBookedException {
-        Optional&lt;Room&gt; room = roomManager.findFreeRoom(day, persons);
-        if (room.isEmpty()) {
-            return false;
-        }
-        room.get().book(day);
-        notification.send(&quot;Room &quot; + room.get().getNumber() + &quot; booked on &quot; + day + &quot; for &quot; + persons + &quot; people&quot;);
-        return true;
+    public Room book(LocalDate day, int persons) throws NoRoomAvailableException, RoomAlreadyBookedException {
+        Room room = roomManager
+                .findFreeRoom(day, persons)
+                .orElseThrow(() -&gt; new NoRoomAvailableException(day, persons));
+        room.book(day);
+        return room;
     }
 }
 </code></pre>
-<p>Überleg Dir einen Test für den Fall „Für 8 Personen gibt es nur Räume mit 6 Plätzen, die
-Buchung wird abgelehnt, und es geht <strong>keine</strong> E-Mail hinaus“. Was davon kannst Du mit
-diesem <code>BookingService</code> prüfen – und was nicht?</p>
-<h3 id="die-abhängigkeiten-von-außen-geben">Die Abhängigkeiten von außen geben</h3>
-<p>Bau <code>BookingService</code> so um, dass er <code>RoomManager</code> und <code>Notification</code> über seinen
-<strong>Konstruktor</strong> bekommt. Die Felder bleiben <code>final</code>; im Service steht kein <code>new</code> mehr.</p>
-<p>Schreib dann eine Klasse <code>BookingApp</code> mit einer <code>main</code>-Methode, die einen <code>RoomManager</code>
-mit den Räumen <code>R101</code> (Berlin, 6 Plätze) und <code>R102</code> (Hamburg, 10 Plätze), eine
-<code>EmailNotification</code> und daraus den <code>BookingService</code> erzeugt und zwei Buchungen für den
-7. Dezember 2026 versucht: für 3 und für 30 Personen. Starte sie.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> Genau diese Arbeit – Objekte erzeugen und zusammenstecken – übernehmen in
-größeren Anwendungen Frameworks wie CDI oder Spring.</p>
-</blockquote>
-<h3 id="mit-eigenen-stellvertretern-testen">Mit eigenen Stellvertretern testen</h3>
-<p>Der <code>RoomManager</code> braucht im Test keinen Stellvertreter: Er rechnet nur im Speicher, und
-welche Räume es gibt, bestimmt der Test, indem er ihm seine eigenen Räume gibt. Anders die
-Benachrichtigung – sie soll keine E-Mail schicken, sondern mitschreiben, was gesendet
-wurde. Im Ordner <code>src/test/java</code> lege ebenfalls das Package <code>aufbau.testing</code> an und darin
-diesen Stellvertreter:</p>
-<pre><code class="language-java">package aufbau.testing;
-
-import java.util.ArrayList;
-import java.util.List;
-
-class RecordingNotification implements Notification {
-
-    final List&lt;String&gt; messages = new ArrayList&lt;&gt;();
-
-    @Override
-    public void send(String message) {
-        messages.add(message);
-    }
-}
-</code></pre>
-<p>Der erste Test steht schon; leg ihn als <code>BookingServiceTest</code> an:</p>
+<p>Im Ordner <code>src/test/java</code> lege ebenfalls das Package <code>aufbau.testing</code> an und darin diesen
+Test:</p>
 <pre><code class="language-java">package aufbau.testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import aufbau.junit.Room;
 import aufbau.junit.RoomAlreadyBookedException;
-import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class BookingServiceTest {
 
     static final LocalDate MONDAY = LocalDate.of(2026, 12, 7);
 
-    private final RoomManager roomManager = new RoomManager(List.of(new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6)));
-    private final RecordingNotification notification = new RecordingNotification();
-    private final BookingService service = new BookingService(roomManager, notification);
+    // TODO: The service creates its RoomManager itself - the test cannot choose the rooms.
+    private final BookingService service = new BookingService();
 
     @Test
-    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
-        boolean booked = service.book(MONDAY, 3);
+    void bookingReturnsTheBookedRoom() throws NoRoomAvailableException, RoomAlreadyBookedException {
+        // TODO: Which room is found depends on the rooms inside the service.
+        Room room = service.book(MONDAY, 3);
 
-        assertTrue(booked);
-        assertEquals(1, notification.messages.size());
+        assertEquals(&quot;R101&quot;, room.getNumber());
+        // TODO: Was the room found by the RoomManager really booked for MONDAY?
+    }
+
+    @Test
+    void noRoomLargeEnoughThrowsAnException() {
+        // TODO: Only works as long as the service has no room for 30 people.
+        assertThrows(NoRoomAvailableException.class, () -&gt; service.book(MONDAY, 30));
     }
 }
 </code></pre>
-<p>Ergänze den Test <code>noRoomLargeEnoughIsRejectedWithoutNotification</code>: eine Buchung für 8
-Personen – abgelehnt, und die Liste der Nachrichten bleibt leer.</p>
+<p>Starte den Test. Lies die <code>TODO</code>-Kommentare: Was davon ließe sich mit diesem
+<code>BookingService</code> lösen – und was nicht?</p>
+<h3 id="die-abhängigkeit-von-außen-geben">Die Abhängigkeit von außen geben</h3>
+<p>Bau <code>BookingService</code> so um, dass er den <code>RoomManager</code> über seinen <strong>Konstruktor</strong>
+bekommt. Das Feld bleibt <code>final</code>; im Service steht kein <code>new RoomManager</code> mehr.</p>
+<p>Schreib dann eine Klasse <code>BookingApp</code> mit einer <code>main</code>-Methode, die einen <code>RoomManager</code>
+mit den Räumen <code>R101</code> (Berlin, 6 Plätze) und <code>R102</code> (Hamburg, 10 Plätze) und daraus den
+<code>BookingService</code> erzeugt und zwei Buchungen für den 7. Dezember 2026 versucht: für 3 und
+für 30 Personen. Gib den gebuchten Raum bzw. die Meldung der Exception aus. Starte sie.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> Genau diese Arbeit – Objekte erzeugen und zusammenstecken – übernehmen in
+größeren Anwendungen Frameworks wie CDI oder Spring.</p>
+</blockquote>
+<p>Der Test übersetzt jetzt nicht mehr. Lass ihn vorerst so – im nächsten Schritt bekommt er
+seinen <code>RoomManager</code> von Mockito.</p>
 <h3 id="mockito-über-die-bom-einbinden">Mockito über die BOM einbinden</h3>
 <p>Mockito bringt wie JUnit eine BOM mit, die die Versionen aller Mockito-Artefakte
 festlegt. Schlag auf Maven Central die aktuelle Version von
@@ -331,7 +297,7 @@ um diesen Eintrag:</p>
 die kommt aus der BOM:</p>
 <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.mockito&lt;/groupId&gt;
-    &lt;artifactId&gt;mockito-junit-jupiter&lt;/artifactId&gt;
+    &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 </code></pre>
@@ -383,7 +349,7 @@ die kommt aus der BOM:</p>
         &lt;/dependency&gt;
         &lt;dependency&gt;
             &lt;groupId&gt;org.mockito&lt;/groupId&gt;
-            &lt;artifactId&gt;mockito-junit-jupiter&lt;/artifactId&gt;
+            &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
             &lt;scope&gt;test&lt;/scope&gt;
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
@@ -456,19 +422,15 @@ die kommt aus der BOM:</p>
     &lt;/build&gt;
 &lt;/project&gt;</code></pre>
 </details>
-<p>Lass Dir den Abhängigkeitsbaum mit allen Details anzeigen:</p>
-<pre><code class="language-bash">mvn dependency:tree -Dverbose
+<p>Lass Dir den Abhängigkeitsbaum anzeigen:</p>
+<pre><code class="language-bash">mvn dependency:tree
 </code></pre>
-<p>Welche Artefakte bringt <code>mockito-junit-jupiter</code> mit? Such unter ihm die Zeile zu
-<code>junit-jupiter-api</code>: Welche Version hätte Mockito mitgebracht, welche gilt – und woher
-kommt sie? Der Zusatz <code>version managed from</code> verrät es.</p>
+<p>Welche Artefakte bringt <code>mockito-core</code> mit – und wofür könnte Mockito sie brauchen?</p>
 <h3 id="mit-mockito-testen">Mit Mockito testen</h3>
-<p>Leg die Testklasse <code>BookingServiceMockitoTest</code> an. Statt des echten <code>RoomManager</code> und der
-<code>RecordingNotification</code> erzeugt Mockito die Stellvertreter – auch für den <code>RoomManager</code>,
-obwohl er eine Klasse ist und kein Interface:</p>
+<p>Mockito erzeugt Stellvertreter zur Laufzeit – auch für Klassen wie <code>RoomManager</code> und
+<code>Room</code>, nicht nur für Interfaces. So beginnt der umgebaute Test:</p>
 <pre><code class="language-java">package aufbau.testing;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -480,39 +442,32 @@ import java.time.LocalDate;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-class BookingServiceMockitoTest {
+class BookingServiceTest {
 
     static final LocalDate MONDAY = LocalDate.of(2026, 12, 7);
 
     private final RoomManager roomManager = mock(RoomManager.class);
-    private final Notification notification = mock(Notification.class);
-    private final BookingService service = new BookingService(roomManager, notification);
+    private final BookingService service = new BookingService(roomManager);
 
     @Test
-    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
-        when(roomManager.findFreeRoom(MONDAY, 3)).thenReturn(Optional.of(new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6)));
+    void bookingBooksTheFoundRoom() throws NoRoomAvailableException, RoomAlreadyBookedException {
+        Room room = mock(Room.class);
+        when(roomManager.findFreeRoom(MONDAY, 3)).thenReturn(Optional.of(room));
 
-        boolean booked = service.book(MONDAY, 3);
+        service.book(MONDAY, 3);
 
-        assertTrue(booked);
-        verify(notification).send(&quot;Room R101 booked on 2026-12-07 for 3 people&quot;);
+        verify(room).book(MONDAY);
     }
 }
 </code></pre>
-<p>Ergänze den Test <code>noFreeRoomIsRejectedWithoutNotification</code>: <code>findFreeRoom</code> liefert
-<code>Optional.empty()</code>, die Buchung wird abgelehnt, und <code>send</code> wird <strong>nie</strong> aufgerufen.</p>
+<p>Erledige damit jedes <code>TODO</code> Deines Tests: Prüf außerdem, dass <code>book</code> genau den Raum
+zurückgibt, den der <code>RoomManager</code> gefunden hat, und schreib den Test für den Fall, dass
+<code>findFreeRoom</code> <code>Optional.empty()</code> liefert – ganz ohne die Frage, welche Räume es gibt.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> <code>verify</code> nimmt als zweites Argument, wie oft ein Aufruf erwartet wird –
-<code>never()</code> heißt keinmal. Damit jeder Text passt, gibt es <code>anyString()</code> aus
-<code>org.mockito.ArgumentMatchers</code>.</p>
+<p><strong>Hinweis:</strong> Ob zwei Variablen auf <strong>dasselbe</strong> Objekt zeigen, prüft <code>assertSame</code>.</p>
 </blockquote>
-<p>Baue erneut mit Maven.</p>
+<p>Baue mit Maven.</p>
 <p>Sieh Dir die Ausgabe an: Was meldet die JVM – und, ab JDK 21, Mockito?</p>
-<h3 id="die-kurzform-mit-der-extension">Die Kurzform mit der Extension</h3>
-<p>Schreib einen der Tests in einer neuen Testklasse noch einmal – diesmal mit
-<code>@ExtendWith(MockitoExtension.class)</code> an der Klasse, <code>@Mock</code> an den Feldern <code>roomManager</code>
-und <code>notification</code> und <code>@InjectMocks</code> am Feld <code>service</code>. Den Konstruktor ruft dann
-Mockito auf.</p>
 <h3 id="den-agenten-im-build-eintragen">Den Agenten im Build eintragen</h3>
 <p>Mockito lädt seinen Agenten zur Laufzeit nach. Ab JDK 21 warnen Mockito und die JVM
 davor, künftige JDKs verbieten es; unter JDK 17 meldet die JVM nur „Sharing is only
@@ -598,7 +553,7 @@ sie ist):</p>
         &lt;/dependency&gt;
         &lt;dependency&gt;
             &lt;groupId&gt;org.mockito&lt;/groupId&gt;
-            &lt;artifactId&gt;mockito-junit-jupiter&lt;/artifactId&gt;
+            &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
             &lt;scope&gt;test&lt;/scope&gt;
         &lt;/dependency&gt;
     &lt;/dependencies&gt;
@@ -709,8 +664,8 @@ Ohne die Option meldet die JVM, sobald ein Agent den Klassenpfad erweitert,
 <ul>
 <li>Was liefert ein Mock, dessen Methode Du nicht mit <code>when</code> vorbereitet hast – für
 <code>Optional</code>, für <code>int</code>, für <code>String</code>? Probier es aus.</li>
-<li>Prüf mit <code>verify(…).send(contains(&quot;R101&quot;))</code>, dass die Nachricht den Raum nennt, ohne den
-ganzen Text festzuschreiben.</li>
+<li>Prüf im Test ohne freien Raum mit <code>verify(…, never())</code>, dass auch kein Raum gebucht
+wurde. Welchen Raum gibst Du dafür an? <code>any()</code> aus <code>org.mockito.ArgumentMatchers</code> hilft.</li>
 <li>Nimm <code>@{argLine}</code> probehalber aus der <code>argLine</code>, lösch den Ordner <code>target</code> und baue erneut
 mit Maven. Was meldet JaCoCo – und warum ist der Bau trotzdem grün? Stell die Zeile
 danach wieder her.</li>
@@ -719,8 +674,8 @@ danach wieder her.</li>
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
-<li>Welchem Deiner Mocks gibst Du mit <code>when</code> Antworten, welchen prüfst Du mit <code>verify</code> – und warum ist das ein Unterschied?</li>
-<li>Warum brauchst Du für den <code>RoomManager</code> im ersten Test keinen eigenen Stellvertreter, für die Benachrichtigung aber schon?</li>
+<li>Den <code>RoomManager</code> stubbst Du mit <code>when</code>, den Raum prüfst Du mit <code>verify</code> – warum ist das ein Unterschied?</li>
+<li>Den Raum hättest Du auch fragen können, ob er gebucht ist. Wann ist <code>verify</code> trotzdem die bessere Wahl?</li>
 <li>Wer übernimmt in einer Anwendung mit CDI oder Spring die Arbeit Deiner <code>main</code>-Methode?</li>
 <li>Woher kennst Du das Prinzip, mit dem Mockito zur Laufzeit einen Stellvertreter für <code>RoomManager</code> erzeugt – und was macht Mockito anders?</li>
 <li>Was passiert, wenn zwei importierte BOMs dasselbe Artefakt verwalten?</li>
@@ -737,7 +692,7 @@ danach wieder her.</li>
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne echte E-Mails testen, damit meine Tests schnell, wiederholbar und unabhängig von der Umgebung sind.
+Als Entwickler:in möchte ich den Buchungsservice unabhängig von den Räumen testen, die er findet, damit meine Tests bestimmen, wovon das Ergebnis abhängt, und prüfen, was der Service mit dem gefundenen Raum tut.
 
 &lt;/div&gt;
 
@@ -748,11 +703,10 @@ Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne ec
 
 &lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
-- Du baust eine Klasse, die ihre Abhängigkeiten selbst erzeugt, auf Konstruktor-Injektion um.
-- Du verdrahtest die Objekte in `main` von Hand.
-- Du schreibst einen Stellvertreter für ein Interface selbst und testest damit.
-- Du ersetzt die Stellvertreter durch Mocks von Mockito – auch für eine Klasse – und prüfst Aufrufe mit `verify`.
-- Du bindest Mockito über eine zweite BOM ein und deklarierst `mockito-junit-jupiter` ohne Version.
+- Du erkennst an einem vorgegebenen Test, was er prüfen kann und was nicht, solange die Klasse ihre Abhängigkeit selbst erzeugt.
+- Du baust die Klasse auf Konstruktor-Injektion um und verdrahtest die Objekte in `main` von Hand.
+- Du bindest Mockito über eine zweite BOM ein und deklarierst `mockito-core` ohne Version.
+- Du ersetzt den `RoomManager` im Test durch einen Mock, legst seine Antworten mit `when` fest und prüfst mit `verify`, dass der gefundene Raum gebucht wurde.
 - Du trägst den Agenten von Mockito so in Surefire ein, dass der Agent von JaCoCo erhalten bleibt und der Testlauf ohne Warnungen zum Agenten auskommt.
 
 &lt;/div&gt;
@@ -766,21 +720,17 @@ Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne ec
 
 ### Konstruktor-Injektion
 
-- [ ] `BookingService` bekommt `RoomManager` und `Notification` über den Konstruktor; im Service steht kein `new` mehr.
-- [ ] `BookingApp.main` erzeugt `RoomManager`, Benachrichtigung und Service und bucht einen Raum.
-
-### Stellvertreter von Hand
-
-- [ ] `BookingServiceTest` prüft mit einem echten `RoomManager` und `RecordingNotification`, dass eine Buchung benachrichtigt und eine Buchung ohne passenden Raum ohne Benachrichtigung abgelehnt wird.
+- [ ] `BookingService` bekommt den `RoomManager` über den Konstruktor; im Service steht kein `new RoomManager` mehr.
+- [ ] `BookingApp.main` erzeugt `RoomManager` und Service und bucht einen Raum.
 
 ### Mockito
 
-- [ ] `BookingServiceMockitoTest` prüft eine Buchung und den Fall ohne freien Raum mit `mock`, `when` und `verify`.
-- [ ] Eine Testklasse nutzt `@ExtendWith(MockitoExtension.class)`, `@Mock` und `@InjectMocks`.
+- [ ] In `BookingServiceTest` ist jedes `TODO` erledigt: Der `RoomManager` ist ein Mock, seine Antworten legt `when` fest.
+- [ ] Ein Test prüft mit `verify`, dass der gefundene Raum für den Tag gebucht wurde; ein Test prüft die `NoRoomAvailableException`, wenn kein Raum frei ist.
 
 ### Build
 
-- [ ] Die `mockito-bom` steht neben der `junit-bom` im selben `dependencyManagement`; `mockito-junit-jupiter` steht ohne Version im POM.
+- [ ] Die `mockito-bom` steht neben der `junit-bom` im selben `dependencyManagement`; `mockito-core` steht ohne Version im POM.
 - [ ] Die `argLine` von Surefire beginnt mit `@{argLine}` und trägt danach den Agenten von Mockito.
 - [ ] Der Maven-Build ist grün, gibt keine Warnung von Mockito oder der JVM zum Agenten aus und schreibt den JaCoCo-Bericht weiter.
 
@@ -796,9 +746,9 @@ Als Entwickler:in möchte ich den Buchungsservice ohne Raumdatenbank und ohne ec
 
 
 Der `BookingService` der Raumbuchung sucht über den `RoomManager` einen freien Raum, der
-groß genug ist, bucht ihn und benachrichtigt danach die Haustechnik per E-Mail. Seinen
-`RoomManager` und seine Benachrichtigung erzeugt er selbst. Du machst ihn testbar.
-Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die Visualisierung
+groß genug ist, bucht ihn und gibt ihn zurück. Seinen `RoomManager` erzeugt er selbst. Du
+machst ihn testbar. Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die
+Visualisierung
 [Dependency Injection und Mocks](../../../shared/dependency-injection/dependency-injection.md).
 
 Die Übung baut auf `RoomManager` im Package `aufbau.lambdas` aus *Räume mit Lambdas,
@@ -813,28 +763,17 @@ Streams und Optional suchen* auf – in der umgebauten Fassung, in der `findFree
 Im Ordner `src/main/java` des Projekts `java-aufbau` lege das Package `aufbau.testing` an
 und kopiere die folgenden Klassen hinein, jede in ihre eigene Datei.
 
-Die Benachrichtigung nach einer Buchung:
+Die Exception, wenn kein passender Raum frei ist:
 
 ```java
 package aufbau.testing;
 
-public interface Notification {
+import java.time.LocalDate;
 
-    void send(String message);
-}
-```
+public class NoRoomAvailableException extends Exception {
 
-Eine Benachrichtigung, die eine E-Mail an die Haustechnik vortäuscht:
-
-```java
-package aufbau.testing;
-
-public class EmailNotification implements Notification {
-
-    @Override
-    public void send(String message) {
-        // Imagine a real e-mail to the facility management here.
-        System.out.println(&#34;E-mail sent: &#34; &#43; message);
+    public NoRoomAvailableException(LocalDate day, int persons) {
+        super(&#34;No free room on &#34; &#43; day &#43; &#34; for &#34; &#43; persons &#43; &#34; people&#34;);
     }
 }
 ```
@@ -849,104 +788,79 @@ import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public class BookingService {
 
     private final RoomManager roomManager = new RoomManager(List.of(
             new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6),
             new Room(&#34;R102&#34;, &#34;Hamburg&#34;, 10)));
-    private final Notification notification = new EmailNotification();
 
-    public boolean book(LocalDate day, int persons) throws RoomAlreadyBookedException {
-        Optional&lt;Room&gt; room = roomManager.findFreeRoom(day, persons);
-        if (room.isEmpty()) {
-            return false;
-        }
-        room.get().book(day);
-        notification.send(&#34;Room &#34; &#43; room.get().getNumber() &#43; &#34; booked on &#34; &#43; day &#43; &#34; for &#34; &#43; persons &#43; &#34; people&#34;);
-        return true;
+    public Room book(LocalDate day, int persons) throws NoRoomAvailableException, RoomAlreadyBookedException {
+        Room room = roomManager
+                .findFreeRoom(day, persons)
+                .orElseThrow(() -&gt; new NoRoomAvailableException(day, persons));
+        room.book(day);
+        return room;
     }
 }
 ```
 
-Überleg Dir einen Test für den Fall „Für 8 Personen gibt es nur Räume mit 6 Plätzen, die
-Buchung wird abgelehnt, und es geht **keine** E-Mail hinaus“. Was davon kannst Du mit
-diesem `BookingService` prüfen – und was nicht?
-
-### Die Abhängigkeiten von außen geben
-
-Bau `BookingService` so um, dass er `RoomManager` und `Notification` über seinen
-**Konstruktor** bekommt. Die Felder bleiben `final`; im Service steht kein `new` mehr.
-
-Schreib dann eine Klasse `BookingApp` mit einer `main`-Methode, die einen `RoomManager`
-mit den Räumen `R101` (Berlin, 6 Plätze) und `R102` (Hamburg, 10 Plätze), eine
-`EmailNotification` und daraus den `BookingService` erzeugt und zwei Buchungen für den
-7. Dezember 2026 versucht: für 3 und für 30 Personen. Starte sie.
-
-&gt; **Hinweis:** Genau diese Arbeit – Objekte erzeugen und zusammenstecken – übernehmen in
-&gt; größeren Anwendungen Frameworks wie CDI oder Spring.
-
-### Mit eigenen Stellvertretern testen
-
-Der `RoomManager` braucht im Test keinen Stellvertreter: Er rechnet nur im Speicher, und
-welche Räume es gibt, bestimmt der Test, indem er ihm seine eigenen Räume gibt. Anders die
-Benachrichtigung – sie soll keine E-Mail schicken, sondern mitschreiben, was gesendet
-wurde. Im Ordner `src/test/java` lege ebenfalls das Package `aufbau.testing` an und darin
-diesen Stellvertreter:
-
-```java
-package aufbau.testing;
-
-import java.util.ArrayList;
-import java.util.List;
-
-class RecordingNotification implements Notification {
-
-    final List&lt;String&gt; messages = new ArrayList&lt;&gt;();
-
-    @Override
-    public void send(String message) {
-        messages.add(message);
-    }
-}
-```
-
-Der erste Test steht schon; leg ihn als `BookingServiceTest` an:
+Im Ordner `src/test/java` lege ebenfalls das Package `aufbau.testing` an und darin diesen
+Test:
 
 ```java
 package aufbau.testing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import aufbau.junit.Room;
 import aufbau.junit.RoomAlreadyBookedException;
-import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class BookingServiceTest {
 
     static final LocalDate MONDAY = LocalDate.of(2026, 12, 7);
 
-    private final RoomManager roomManager = new RoomManager(List.of(new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6)));
-    private final RecordingNotification notification = new RecordingNotification();
-    private final BookingService service = new BookingService(roomManager, notification);
+    // TODO: The service creates its RoomManager itself - the test cannot choose the rooms.
+    private final BookingService service = new BookingService();
 
     @Test
-    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
-        boolean booked = service.book(MONDAY, 3);
+    void bookingReturnsTheBookedRoom() throws NoRoomAvailableException, RoomAlreadyBookedException {
+        // TODO: Which room is found depends on the rooms inside the service.
+        Room room = service.book(MONDAY, 3);
 
-        assertTrue(booked);
-        assertEquals(1, notification.messages.size());
+        assertEquals(&#34;R101&#34;, room.getNumber());
+        // TODO: Was the room found by the RoomManager really booked for MONDAY?
+    }
+
+    @Test
+    void noRoomLargeEnoughThrowsAnException() {
+        // TODO: Only works as long as the service has no room for 30 people.
+        assertThrows(NoRoomAvailableException.class, () -&gt; service.book(MONDAY, 30));
     }
 }
 ```
 
-Ergänze den Test `noRoomLargeEnoughIsRejectedWithoutNotification`: eine Buchung für 8
-Personen – abgelehnt, und die Liste der Nachrichten bleibt leer.
+Starte den Test. Lies die `TODO`-Kommentare: Was davon ließe sich mit diesem
+`BookingService` lösen – und was nicht?
+
+### Die Abhängigkeit von außen geben
+
+Bau `BookingService` so um, dass er den `RoomManager` über seinen **Konstruktor**
+bekommt. Das Feld bleibt `final`; im Service steht kein `new RoomManager` mehr.
+
+Schreib dann eine Klasse `BookingApp` mit einer `main`-Methode, die einen `RoomManager`
+mit den Räumen `R101` (Berlin, 6 Plätze) und `R102` (Hamburg, 10 Plätze) und daraus den
+`BookingService` erzeugt und zwei Buchungen für den 7. Dezember 2026 versucht: für 3 und
+für 30 Personen. Gib den gebuchten Raum bzw. die Meldung der Exception aus. Starte sie.
+
+&gt; **Hinweis:** Genau diese Arbeit – Objekte erzeugen und zusammenstecken – übernehmen in
+&gt; größeren Anwendungen Frameworks wie CDI oder Spring.
+
+Der Test übersetzt jetzt nicht mehr. Lass ihn vorerst so – im nächsten Schritt bekommt er
+seinen `RoomManager` von Mockito.
 
 ### Mockito über die BOM einbinden
 
@@ -973,7 +887,7 @@ die kommt aus der BOM:
 ```xml
 &lt;dependency&gt;
     &lt;groupId&gt;org.mockito&lt;/groupId&gt;
-    &lt;artifactId&gt;mockito-junit-jupiter&lt;/artifactId&gt;
+    &lt;artifactId&gt;mockito-core&lt;/artifactId&gt;
     &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;
 ```
@@ -1027,7 +941,7 @@ die kommt aus der BOM:
         &amp;lt;/dependency&amp;gt;
         &amp;lt;dependency&amp;gt;
             &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
-            &amp;lt;artifactId&amp;gt;mockito-junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;artifactId&amp;gt;mockito-core&amp;lt;/artifactId&amp;gt;
             &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
         &amp;lt;/dependency&amp;gt;
     &amp;lt;/dependencies&amp;gt;
@@ -1101,26 +1015,22 @@ die kommt aus der BOM:
 &amp;lt;/project&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 
-Lass Dir den Abhängigkeitsbaum mit allen Details anzeigen:
+Lass Dir den Abhängigkeitsbaum anzeigen:
 
 ```bash
-mvn dependency:tree -Dverbose
+mvn dependency:tree
 ```
 
-Welche Artefakte bringt `mockito-junit-jupiter` mit? Such unter ihm die Zeile zu
-`junit-jupiter-api`: Welche Version hätte Mockito mitgebracht, welche gilt – und woher
-kommt sie? Der Zusatz `version managed from` verrät es.
+Welche Artefakte bringt `mockito-core` mit – und wofür könnte Mockito sie brauchen?
 
 ### Mit Mockito testen
 
-Leg die Testklasse `BookingServiceMockitoTest` an. Statt des echten `RoomManager` und der
-`RecordingNotification` erzeugt Mockito die Stellvertreter – auch für den `RoomManager`,
-obwohl er eine Klasse ist und kein Interface:
+Mockito erzeugt Stellvertreter zur Laufzeit – auch für Klassen wie `RoomManager` und
+`Room`, nicht nur für Interfaces. So beginnt der umgebaute Test:
 
 ```java
 package aufbau.testing;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -1132,43 +1042,34 @@ import java.time.LocalDate;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-class BookingServiceMockitoTest {
+class BookingServiceTest {
 
     static final LocalDate MONDAY = LocalDate.of(2026, 12, 7);
 
     private final RoomManager roomManager = mock(RoomManager.class);
-    private final Notification notification = mock(Notification.class);
-    private final BookingService service = new BookingService(roomManager, notification);
+    private final BookingService service = new BookingService(roomManager);
 
     @Test
-    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
-        when(roomManager.findFreeRoom(MONDAY, 3)).thenReturn(Optional.of(new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6)));
+    void bookingBooksTheFoundRoom() throws NoRoomAvailableException, RoomAlreadyBookedException {
+        Room room = mock(Room.class);
+        when(roomManager.findFreeRoom(MONDAY, 3)).thenReturn(Optional.of(room));
 
-        boolean booked = service.book(MONDAY, 3);
+        service.book(MONDAY, 3);
 
-        assertTrue(booked);
-        verify(notification).send(&#34;Room R101 booked on 2026-12-07 for 3 people&#34;);
+        verify(room).book(MONDAY);
     }
 }
 ```
 
-Ergänze den Test `noFreeRoomIsRejectedWithoutNotification`: `findFreeRoom` liefert
-`Optional.empty()`, die Buchung wird abgelehnt, und `send` wird **nie** aufgerufen.
+Erledige damit jedes `TODO` Deines Tests: Prüf außerdem, dass `book` genau den Raum
+zurückgibt, den der `RoomManager` gefunden hat, und schreib den Test für den Fall, dass
+`findFreeRoom` `Optional.empty()` liefert – ganz ohne die Frage, welche Räume es gibt.
 
-&gt; **Hinweis:** `verify` nimmt als zweites Argument, wie oft ein Aufruf erwartet wird –
-&gt; `never()` heißt keinmal. Damit jeder Text passt, gibt es `anyString()` aus
-&gt; `org.mockito.ArgumentMatchers`.
+&gt; **Hinweis:** Ob zwei Variablen auf **dasselbe** Objekt zeigen, prüft `assertSame`.
 
-Baue erneut mit Maven.
+Baue mit Maven.
 
 Sieh Dir die Ausgabe an: Was meldet die JVM – und, ab JDK 21, Mockito?
-
-### Die Kurzform mit der Extension
-
-Schreib einen der Tests in einer neuen Testklasse noch einmal – diesmal mit
-`@ExtendWith(MockitoExtension.class)` an der Klasse, `@Mock` an den Feldern `roomManager`
-und `notification` und `@InjectMocks` am Feld `service`. Den Konstruktor ruft dann
-Mockito auf.
 
 ### Den Agenten im Build eintragen
 
@@ -1267,7 +1168,7 @@ sie ist):
         &amp;lt;/dependency&amp;gt;
         &amp;lt;dependency&amp;gt;
             &amp;lt;groupId&amp;gt;org.mockito&amp;lt;/groupId&amp;gt;
-            &amp;lt;artifactId&amp;gt;mockito-junit-jupiter&amp;lt;/artifactId&amp;gt;
+            &amp;lt;artifactId&amp;gt;mockito-core&amp;lt;/artifactId&amp;gt;
             &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
         &amp;lt;/dependency&amp;gt;
     &amp;lt;/dependencies&amp;gt;
@@ -1379,8 +1280,8 @@ weiterhin die Abdeckung – jetzt auch für das Package `aufbau.testing`.
 
 - Was liefert ein Mock, dessen Methode Du nicht mit `when` vorbereitet hast – für
   `Optional`, für `int`, für `String`? Probier es aus.
-- Prüf mit `verify(…).send(contains(&#34;R101&#34;))`, dass die Nachricht den Raum nennt, ohne den
-  ganzen Text festzuschreiben.
+- Prüf im Test ohne freien Raum mit `verify(…, never())`, dass auch kein Raum gebucht
+  wurde. Welchen Raum gibst Du dafür an? `any()` aus `org.mockito.ArgumentMatchers` hilft.
 - Nimm `@{argLine}` probehalber aus der `argLine`, lösch den Ordner `target` und baue erneut
   mit Maven. Was meldet JaCoCo – und warum ist der Bau trotzdem grün? Stell die Zeile
   danach wieder her.
@@ -1392,8 +1293,8 @@ weiterhin die Abdeckung – jetzt auch für das Package `aufbau.testing`.
 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
-- Welchem Deiner Mocks gibst Du mit `when` Antworten, welchen prüfst Du mit `verify` – und warum ist das ein Unterschied?
-- Warum brauchst Du für den `RoomManager` im ersten Test keinen eigenen Stellvertreter, für die Benachrichtigung aber schon?
+- Den `RoomManager` stubbst Du mit `when`, den Raum prüfst Du mit `verify` – warum ist das ein Unterschied?
+- Den Raum hättest Du auch fragen können, ob er gebucht ist. Wann ist `verify` trotzdem die bessere Wahl?
 - Wer übernimmt in einer Anwendung mit CDI oder Spring die Arbeit Deiner `main`-Methode?
 - Woher kennst Du das Prinzip, mit dem Mockito zur Laufzeit einen Stellvertreter für `RoomManager` erzeugt – und was macht Mockito anders?
 - Was passiert, wenn zwei importierte BOMs dasselbe Artefakt verwalten?
@@ -1411,14 +1312,14 @@ weiterhin die Abdeckung – jetzt auch für das Package `aufbau.testing`.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-ausgangsstand-anlegen" class="skr-toc--h3">Den Ausgangsstand anlegen</a><a href="#die-abhängigkeiten-von-außen-geben" class="skr-toc--h3">Die Abhängigkeiten von außen geben</a><a href="#mit-eigenen-stellvertretern-testen" class="skr-toc--h3">Mit eigenen Stellvertretern testen</a><a href="#mockito-über-die-bom-einbinden" class="skr-toc--h3">Mockito über die BOM einbinden</a><a href="#mit-mockito-testen" class="skr-toc--h3">Mit Mockito testen</a><a href="#die-kurzform-mit-der-extension" class="skr-toc--h3">Die Kurzform mit der Extension</a><a href="#den-agenten-im-build-eintragen" class="skr-toc--h3">Den Agenten im Build eintragen</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#den-ausgangsstand-anlegen" class="skr-toc--h3">Den Ausgangsstand anlegen</a><a href="#die-abhängigkeit-von-außen-geben" class="skr-toc--h3">Die Abhängigkeit von außen geben</a><a href="#mockito-über-die-bom-einbinden" class="skr-toc--h3">Mockito über die BOM einbinden</a><a href="#mit-mockito-testen" class="skr-toc--h3">Mit Mockito testen</a><a href="#den-agenten-im-build-eintragen" class="skr-toc--h3">Den Agenten im Build eintragen</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 9 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 8 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>
