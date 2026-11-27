@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=d4914f52" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0f1bca99" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=d4914f52"
+     data-index="../../../skriptorium/search/de.json?v=0f1bca99"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -167,8 +167,8 @@
 <p>Lambdas und Streams machen Code kürzer – und verstecken dabei manches, was eine Schleife
 offen zeigt: ein Autoboxing, einen Auswertungszeitpunkt, einen Zustand. Neun kurze Tests
 tragen je eine naheliegende Erwartung.</p>
-<p>Du arbeitest im Package <code>aufbau.lambdas</code> mit <code>Room</code>, <code>Booking</code> und <code>SampleData</code> aus
-<em>Raumbuchungen mit Lambdas und Streams auswerten</em>.</p>
+<p>Du arbeitest im Package <code>aufbau.lambdas</code> mit <code>Room</code> aus
+<em>Räume mit Lambdas, Streams und Optional suchen</em>.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="kopiere-die-tests">Kopiere die Tests</h3>
 <p>Kopiere beide Klassen ins Package <code>aufbau.lambdas</code> unter <code>src/test/java</code>.</p>
@@ -209,8 +209,6 @@ class BoxingInLambdasTest {
 <p><code>LambdaPitfallsTest.java</code>:</p>
 <pre><code class="language-java">package aufbau.lambdas;
 
-import static aufbau.lambdas.SampleData.BOOKINGS;
-import static aufbau.lambdas.SampleData.ROOMS;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -226,6 +224,25 @@ import org.junit.jupiter.api.Test;
 
 class LambdaPitfallsTest {
 
+    static final List&lt;Room&gt; ROOMS = List.of(
+            new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6),
+            new Room(&quot;R102&quot;, &quot;Hamburg&quot;, 10),
+            new Room(&quot;R103&quot;, &quot;Munich&quot;, 16),
+            new Room(&quot;R201&quot;, &quot;Cologne&quot;, 12),
+            new Room(&quot;R202&quot;, &quot;Dresden&quot;, 4),
+            new Room(&quot;R203&quot;, &quot;Leipzig&quot;, 2),
+            new Room(&quot;R301&quot;, &quot;Bremen&quot;, 24),
+            new Room(&quot;R302&quot;, &quot;Kiel&quot;, 8));
+
+    record Booking(String bookedBy, int hours) {
+    }
+
+    static final List&lt;Booking&gt; BOOKINGS = List.of(
+            new Booking(&quot;ada&quot;, 2),
+            new Booking(&quot;linus&quot;, 1),
+            new Booking(&quot;grace&quot;, 8),
+            new Booking(&quot;ada&quot;, 3));
+
     // --- core
 
     @Test
@@ -234,7 +251,7 @@ class LambdaPitfallsTest {
         Room room = null;
 
         assertDoesNotThrow(() -&gt; {
-            Supplier&lt;String&gt; name = room::name;
+            Supplier&lt;String&gt; name = room::getName;
         });
     }
 
@@ -276,12 +293,12 @@ class LambdaPitfallsTest {
 
         Optional&lt;Room&gt; firstLargeRoom = ROOMS.stream()
                 .filter(room -&gt; {
-                    checked.add(room.id());
-                    return room.seats() &gt; 10;
+                    checked.add(room.getNumber());
+                    return room.getCapacity() &gt; 10;
                 })
                 .findFirst();
 
-        assertEquals(&quot;Munich&quot;, firstLargeRoom.orElseThrow().name());
+        assertEquals(&quot;Munich&quot;, firstLargeRoom.orElseThrow().getName());
         assertEquals(8, checked.size());
     }
 
@@ -305,16 +322,16 @@ class LambdaPitfallsTest {
     @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
     void useAStreamTwice() {
         Stream&lt;Room&gt; rooms = ROOMS.stream();
-        long large = rooms.filter(room -&gt; room.seats() &gt; 10).count();
+        long large = rooms.filter(room -&gt; room.getCapacity() &gt; 10).count();
 
         assertEquals(3, large);
-        assertDoesNotThrow(() -&gt; rooms.filter(room -&gt; room.seats() &lt;= 10).count());
+        assertDoesNotThrow(() -&gt; rooms.filter(room -&gt; room.getCapacity() &lt;= 10).count());
     }
 
     @Test
     @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
     void addToTheResultOfToList() {
-        List&lt;String&gt; names = ROOMS.stream().map(Room::name).toList();
+        List&lt;String&gt; names = ROOMS.stream().map(Room::getName).toList();
 
         assertDoesNotThrow(() -&gt; names.add(&quot;Bonn&quot;));
     }
@@ -351,7 +368,7 @@ primitive Typen es gibt, zeigt die Visualisierung
 Deine Erwartung, entferne <code>@Disabled</code> und starte den Test in der IDE. Erklär das Ergebnis und
 korrigier die Assertion auf das tatsächliche Verhalten.</p>
 <p>Schreib danach in <code>methodReferenceOnNull</code> zum Vergleich ein Lambda daneben:
-<code>Supplier&lt;String&gt; byLambda = () -&gt; room.name();</code> – was passiert damit?</p>
+<code>Supplier&lt;String&gt; byLambda = () -&gt; room.getName();</code> – was passiert damit?</p>
 <h3 id="sag-die-schnellen-fälle-vorher">Sag die schnellen Fälle vorher</h3>
 <p>Die übrigen sechs Tests unter <code>// --- quick predictions</code> sind schneller entschieden. Geh sie
 nacheinander durch – Erwartung notieren, starten, erklären, korrigieren. Bei
@@ -373,7 +390,7 @@ Elemente landen darin? Was sagt <code>collect</code> dazu?</li>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
 <li>Warum ist <code>Function&lt;Long, Long&gt;</code> hier langsamer als <code>LongUnaryOperator</code>, obwohl beide dasselbe rechnen?</li>
-<li>Warum wirft <code>room::name</code> sofort, <code>() -&gt; room.name()</code> aber erst beim Aufruf?</li>
+<li>Warum wirft <code>room::getName</code> sofort, <code>() -&gt; room.getName()</code> aber erst beim Aufruf?</li>
 <li>Warum prüft der Stream in <code>howManyRoomsAreChecked</code> nur drei Räume und nicht alle acht?</li>
 <li>Wann ist <code>orElseGet</code> besser als <code>orElse</code>?</li>
 </ul>
@@ -429,8 +446,8 @@ Lambdas und Streams machen Code kürzer – und verstecken dabei manches, was ei
 offen zeigt: ein Autoboxing, einen Auswertungszeitpunkt, einen Zustand. Neun kurze Tests
 tragen je eine naheliegende Erwartung.
 
-Du arbeitest im Package `aufbau.lambdas` mit `Room`, `Booking` und `SampleData` aus
-*Raumbuchungen mit Lambdas und Streams auswerten*.
+Du arbeitest im Package `aufbau.lambdas` mit `Room` aus
+*Räume mit Lambdas, Streams und Optional suchen*.
 
 ## Arbeitsschritte
 
@@ -480,8 +497,6 @@ class BoxingInLambdasTest {
 ```java
 package aufbau.lambdas;
 
-import static aufbau.lambdas.SampleData.BOOKINGS;
-import static aufbau.lambdas.SampleData.ROOMS;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -497,6 +512,25 @@ import org.junit.jupiter.api.Test;
 
 class LambdaPitfallsTest {
 
+    static final List&lt;Room&gt; ROOMS = List.of(
+            new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6),
+            new Room(&#34;R102&#34;, &#34;Hamburg&#34;, 10),
+            new Room(&#34;R103&#34;, &#34;Munich&#34;, 16),
+            new Room(&#34;R201&#34;, &#34;Cologne&#34;, 12),
+            new Room(&#34;R202&#34;, &#34;Dresden&#34;, 4),
+            new Room(&#34;R203&#34;, &#34;Leipzig&#34;, 2),
+            new Room(&#34;R301&#34;, &#34;Bremen&#34;, 24),
+            new Room(&#34;R302&#34;, &#34;Kiel&#34;, 8));
+
+    record Booking(String bookedBy, int hours) {
+    }
+
+    static final List&lt;Booking&gt; BOOKINGS = List.of(
+            new Booking(&#34;ada&#34;, 2),
+            new Booking(&#34;linus&#34;, 1),
+            new Booking(&#34;grace&#34;, 8),
+            new Booking(&#34;ada&#34;, 3));
+
     // --- core
 
     @Test
@@ -505,7 +539,7 @@ class LambdaPitfallsTest {
         Room room = null;
 
         assertDoesNotThrow(() -&gt; {
-            Supplier&lt;String&gt; name = room::name;
+            Supplier&lt;String&gt; name = room::getName;
         });
     }
 
@@ -547,12 +581,12 @@ class LambdaPitfallsTest {
 
         Optional&lt;Room&gt; firstLargeRoom = ROOMS.stream()
                 .filter(room -&gt; {
-                    checked.add(room.id());
-                    return room.seats() &gt; 10;
+                    checked.add(room.getNumber());
+                    return room.getCapacity() &gt; 10;
                 })
                 .findFirst();
 
-        assertEquals(&#34;Munich&#34;, firstLargeRoom.orElseThrow().name());
+        assertEquals(&#34;Munich&#34;, firstLargeRoom.orElseThrow().getName());
         assertEquals(8, checked.size());
     }
 
@@ -576,16 +610,16 @@ class LambdaPitfallsTest {
     @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
     void useAStreamTwice() {
         Stream&lt;Room&gt; rooms = ROOMS.stream();
-        long large = rooms.filter(room -&gt; room.seats() &gt; 10).count();
+        long large = rooms.filter(room -&gt; room.getCapacity() &gt; 10).count();
 
         assertEquals(3, large);
-        assertDoesNotThrow(() -&gt; rooms.filter(room -&gt; room.seats() &lt;= 10).count());
+        assertDoesNotThrow(() -&gt; rooms.filter(room -&gt; room.getCapacity() &lt;= 10).count());
     }
 
     @Test
     @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
     void addToTheResultOfToList() {
-        List&lt;String&gt; names = ROOMS.stream().map(Room::name).toList();
+        List&lt;String&gt; names = ROOMS.stream().map(Room::getName).toList();
 
         assertDoesNotThrow(() -&gt; names.add(&#34;Bonn&#34;));
     }
@@ -627,7 +661,7 @@ Deine Erwartung, entferne `@Disabled` und starte den Test in der IDE. Erklär da
 korrigier die Assertion auf das tatsächliche Verhalten.
 
 Schreib danach in `methodReferenceOnNull` zum Vergleich ein Lambda daneben:
-`Supplier&lt;String&gt; byLambda = () -&gt; room.name();` – was passiert damit?
+`Supplier&lt;String&gt; byLambda = () -&gt; room.getName();` – was passiert damit?
 
 ### Sag die schnellen Fälle vorher
 
@@ -655,7 +689,7 @@ Welches dritte Argument von `toMap` macht daraus eine Summe je Person?
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
 - Warum ist `Function&lt;Long, Long&gt;` hier langsamer als `LongUnaryOperator`, obwohl beide dasselbe rechnen?
-- Warum wirft `room::name` sofort, `() -&gt; room.name()` aber erst beim Aufruf?
+- Warum wirft `room::getName` sofort, `() -&gt; room.getName()` aber erst beim Aufruf?
 - Warum prüft der Stream in `howManyRoomsAreChecked` nur drei Räume und nicht alle acht?
 - Wann ist `orElseGet` besser als `orElse`?
 

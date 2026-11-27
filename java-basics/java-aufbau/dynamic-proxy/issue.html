@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren · ATVANTAGE Academy</title>
-<meta name="description" content="Leg mit Proxy und InvocationHandler einen Stellvertreter um den Raumkatalog, der jeden mit @Logged markierten Aufruf protokolliert – ohne die Implementierung anzufassen.">
+<title>Dynamic Proxy: die markierten Aufrufe eines Raums protokollieren · ATVANTAGE Academy</title>
+<meta name="description" content="Leg mit Proxy und InvocationHandler einen Stellvertreter um einen Raum, der jeden mit @Logged markierten Aufruf mit Zeitstempel und Dauer protokolliert – ohne die Klasse des Raums anzufassen.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren">
-<meta property="og:description" content="Leg mit Proxy und InvocationHandler einen Stellvertreter um den Raumkatalog, der jeden mit @Logged markierten Aufruf protokolliert – ohne die Implementierung anzufassen.">
+<meta property="og:title" content="Dynamic Proxy: die markierten Aufrufe eines Raums protokollieren">
+<meta property="og:description" content="Leg mit Proxy und InvocationHandler einen Stellvertreter um einen Raum, der jeden mit @Logged markierten Aufruf mit Zeitstempel und Dauer protokolliert – ohne die Klasse des Raums anzufassen.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Leg mit Proxy und InvocationHandler einen Stellvertreter um den Raumkatalog, der jeden mit @Logged markierten Aufruf protokolliert – ohne die Implementierung anzufassen.","duration":20,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-dynamic-proxy-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren","topics":["Dynamic Proxy","Reflection","Annotationen","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/dynamic-proxy/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Leg mit Proxy und InvocationHandler einen Stellvertreter um einen Raum, der jeden mit @Logged markierten Aufruf mit Zeitstempel und Dauer protokolliert – ohne die Klasse des Raums anzufassen.","duration":20,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-dynamic-proxy-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Dynamic Proxy: die markierten Aufrufe eines Raums protokollieren","topics":["Dynamic Proxy","Reflection","Annotationen","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/dynamic-proxy/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=d4914f52" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0f1bca99" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=d4914f52"
+     data-index="../../../skriptorium/search/de.json?v=0f1bca99"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,7 +120,7 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Dynamic Proxy: die markierten Aufrufe eines Raums protokollieren</span></nav>
   <div class="skr-guide-hero__meta">
     <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 20 Minuten</span><span class="skr-tag">Dynamic Proxy</span><span class="skr-tag">Reflection</span><span class="skr-tag">Annotationen</span><span class="skr-tag">Raumbuchung</span>
     </div>
@@ -129,7 +129,7 @@
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren</h1>
+  </div><h1 id="skr-page-title">Dynamic Proxy: die markierten Aufrufe eines Raums protokollieren</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -138,7 +138,7 @@
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
 <summary>User Story</summary>
 <div class="skr-didaktikon-user-story" data-skr-field="didaktikon.user_story">
-<p>Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um den Raumkatalog legen, ohne seinen Code zu ändern, damit ich verstehe, wie Frameworks Transaktionen, Protokolle und Mocks um meine Objekte legen.</p>
+<p>Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um einen Raum legen, ohne seinen Code zu ändern, damit ich verstehe, wie Frameworks Transaktionen, Protokolle und Mocks um meine Objekte legen.</p>
 </div>
 </details>
 <details class="skr-fold skr-didaktikon-guide-about" data-skr-slot="guide.about">
@@ -146,9 +146,8 @@
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
 <li>Du erzeugst mit <code>Proxy.newProxyInstance</code> und einem <code>InvocationHandler</code> einen Stellvertreter für ein Interface.</li>
-<li>Du wertest im Handler die Annotation der aufgerufenen Methode aus.</li>
-<li>Du gibst den Aufruf an das Ziel weiter und reichst dessen Ausnahmen unverändert durch.</li>
-<li>Du erklärst, warum <code>java.lang.reflect.Proxy</code> nur Interfaces kann.</li>
+<li>Du wertest im Handler bei jedem Aufruf die Annotation der Methode aus.</li>
+<li>Du gibst den Aufruf an das Ziel weiter und misst, wie lange er dauert.</li>
 </ul>
 </div>
 </details>
@@ -156,147 +155,97 @@
 <summary>Definition of Done</summary>
 <div class="skr-guide-done">
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="LoggingProxy.wrap liefert einen Proxy, der die mit @Logged markierten Aufrufe protokolliert und alle Aufrufe an das Ziel weitergibt; InMemoryRoomCatalog ist unverändert." disabled="disabled"> <code>LoggingProxy.wrap</code> liefert einen Proxy, der die mit <code>@Logged</code> markierten Aufrufe protokolliert und alle Aufrufe an das Ziel weitergibt; <code>InMemoryRoomCatalog</code> ist unverändert.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Eine Ausnahme des Ziels kommt beim Aufrufer als dieselbe Ausnahme an." disabled="disabled"> Eine Ausnahme des Ziels kommt beim Aufrufer als dieselbe Ausnahme an.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Die Vorhersage in proxyForAClass hast Du notiert, geprüft und die Assertion korrigiert." disabled="disabled"> Die Vorhersage in <code>proxyForAClass</code> hast Du notiert, geprüft und die Assertion korrigiert.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="LoggingProxy.wrap liefert einen Proxy, der alle Aufrufe an den Raum weitergibt und die mit @Logged markierten mit Zeitstempel, Methodenname und Dauer ausgibt." disabled="disabled"> <code>LoggingProxy.wrap</code> liefert einen Proxy, der alle Aufrufe an den Raum weitergibt und die mit <code>@Logged</code> markierten mit Zeitstempel, Methodenname und Dauer ausgibt.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="MeetingRoom ist bis auf die Annotationen unverändert." disabled="disabled"> <code>MeetingRoom</code> ist bis auf die Annotationen unverändert.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="main ruft alle vier Methoden des Raums über den Proxy auf; nur book und cancel erscheinen im Protokoll." disabled="disabled"> <code>main</code> ruft alle vier Methoden des Raums über den Proxy auf; nur <code>book</code> und <code>cancel</code> erscheinen im Protokoll.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
 </details>
 </div>
-<p>In der letzten Übung hast Du die Methoden des Raumkatalogs mit <code>@Logged</code> markiert und die
-Markierung per Reflection ausgelesen. Jetzt soll sie wirken: Jeder Aufruf einer markierten
-Methode landet im Protokoll – ohne dass Du <code>InMemoryRoomCatalog</code> änderst und ohne dass der
-Aufrufer etwas davon merkt. Dafür legst Du einen <strong>Dynamic Proxy</strong> um den Katalog. Wie ein
-Aufruf durch den Proxy läuft, zeigt die Visualisierung
+<p>In der letzten Übung hast Du Methoden von <code>MeetingRoom</code> mit <code>@Logged</code> markiert und die
+Markierung per Reflection ausgegeben. Jetzt soll sie wirken: Jeder Aufruf einer markierten
+Methode landet mit Zeitstempel und Dauer im Protokoll – ohne dass Du <code>MeetingRoom</code> änderst
+und ohne dass der Aufrufer etwas davon merkt. Dafür legst Du einen <strong>Dynamic Proxy</strong> um den
+Raum. Wie ein Aufruf durch den Proxy läuft, zeigt die Visualisierung
 <a class="skr-doclink skr-doclink--visualization" href="../../../shared/dynamic-proxy/dynamic-proxy.html">Dynamic Proxy</a>.</p>
-<p>Die Übung baut auf dem Package <code>aufbau.annotations</code> aus <em>Eigene Annotation: <code>@Logged</code>
-schreiben und per Reflection auslesen</em> auf.</p>
+<p>Die Übung baut auf dem Package <code>aufbau.annotations</code> aus <em>Eigene Annotation: die
+protokollierten Methoden eines Raums markieren</em> auf.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
-<h3 id="kopiere-das-gerüst-und-den-test">Kopiere das Gerüst und den Test</h3>
+<h3 id="kopiere-das-gerüst">Kopiere das Gerüst</h3>
 <p>Kopiere die Klasse ins Package <code>aufbau.annotations</code> unter <code>src/main/java</code>.</p>
 <p><code>LoggingProxy.java</code>:</p>
 <pre><code class="language-java">package aufbau.annotations;
 
-import java.util.List;
-
 public final class LoggingProxy {
 
-    // returns a stand-in for target that writes an entry to log for every call of a method
-    // marked with @Logged: its description, followed by the arguments if withArguments is set
-    public static &lt;T&gt; T wrap(T target, Class&lt;T&gt; type, List&lt;String&gt; log) {
+    // returns a stand-in for room that passes every call on to room
+    // and logs every call of a method marked with @Logged
+    public static Room wrap(Room room) {
         throw new UnsupportedOperationException(&quot;TODO&quot;);
+    }
+
+    public static void main(String[] args) {
+        Room room = wrap(new MeetingRoom(&quot;Berlin&quot;));
+        room.book(&quot;Anna&quot;);
+        System.out.println(room.name() + &quot; is free: &quot; + room.isFree());
+        room.cancel();
     }
 
     private LoggingProxy() {
     }
 }
 </code></pre>
-<p>Kopiere den Test ins Package <code>aufbau.annotations</code> unter <code>src/test/java</code>.</p>
-<p><code>LoggingProxyTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.annotations;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-class LoggingProxyTest {
-
-    @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented LoggingProxy.wrap&quot;)
-    void logsTheMarkedCallsAndDelegates() {
-        List&lt;String&gt; log = new ArrayList&lt;&gt;();
-        RoomCatalog catalog = LoggingProxy.wrap(new InMemoryRoomCatalog(), RoomCatalog.class, log);
-
-        catalog.add(new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6));
-        String name = catalog.find(&quot;R101&quot;).orElseThrow().name();
-        int size = catalog.size();
-
-        assertEquals(&quot;Berlin&quot;, name);
-        assertEquals(1, size);
-        assertEquals(List.of(&quot;add a room&quot;, &quot;look up a room [R101]&quot;), log);
-    }
-
-    @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented LoggingProxy.wrap&quot;)
-    void exceptionOfTheTargetReachesTheCaller() {
-        RoomCatalog catalog = LoggingProxy.wrap(new InMemoryRoomCatalog(), RoomCatalog.class, new ArrayList&lt;&gt;());
-        catalog.add(new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6));
-
-        assertThrows(IllegalStateException.class, () -&gt; catalog.add(new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6)));
-    }
-
-    @Test
-    @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-    void proxyForAClass() {
-        InvocationHandler doNothing = (proxy, method, args) -&gt; null;
-
-        assertDoesNotThrow(() -&gt; Proxy.newProxyInstance(
-                InMemoryRoomCatalog.class.getClassLoader(),
-                new Class&lt;?&gt;[] { InMemoryRoomCatalog.class },
-                doNothing));
-    }
-}
-</code></pre>
+<h3 id="leg-den-proxy-um-den-raum">Leg den Proxy um den Raum</h3>
+<p>Implementier <code>wrap</code> mit <code>Proxy.newProxyInstance</code> und einem <code>InvocationHandler</code>, der jeden
+Aufruf nur an <code>room</code> weitergibt und dessen Ergebnis zurückliefert. Starte <code>main</code>: Die
+Ausgabe ist dieselbe wie ohne Proxy.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> <code>method.invoke(room, args)</code> ruft die Methode am Raum auf.</p>
+</blockquote>
 <h3 id="protokolliere-die-markierten-aufrufe">Protokolliere die markierten Aufrufe</h3>
-<p>Implementier <code>LoggingProxy.wrap</code> mit <code>Proxy.newProxyInstance</code> und einem
-<code>InvocationHandler</code>. Der Handler</p>
-<ol>
-<li>holt sich die Annotation <code>@Logged</code> der aufgerufenen Methode,</li>
-<li>trägt, falls sie da ist, ihre Beschreibung in <code>log</code> ein – bei <code>withArguments</code> gefolgt
-von den Argumenten, etwa <code>look up a room [R101]</code>,</li>
-<li>gibt den Aufruf an <code>target</code> weiter und liefert dessen Ergebnis zurück.</li>
-</ol>
-<p>Entferne an <code>logsTheMarkedCallsAndDelegates</code> das <code>@Disabled</code> und mach den Test grün.</p>
+<p>Erweitere den Handler: Trägt die aufgerufene Methode <code>@Logged</code>, nimmt er vor dem Aufruf
+einen Zeitstempel, ruft den Raum auf und gibt danach Zeitstempel, Methodennamen und Dauer
+aus, etwa so:</p>
+<pre><code class="language-text">2026-11-27T09:15:30.101267Z book (1902 µs)
+Berlin is free: false
+2026-11-27T09:15:30.116060Z cancel (684 µs)
+</code></pre>
 <blockquote>
-<p><strong>Hinweis:</strong> Der Handler bekommt die aufgerufene <code>Method</code> des <strong>Interfaces</strong> – genau dort
-steht <code>@Logged</code>. Die Argumente liegen als <code>Object[]</code> vor; <code>Arrays.toString(args)</code> macht
-daraus <code>[R101]</code>.</p>
+<p><strong>Hinweis:</strong> Der Handler bekommt die <code>Method</code> des <strong>Interfaces</strong> <code>Room</code> – die Annotation
+steht aber an <code>MeetingRoom</code>. Die passende Methode dort liefert
+<code>room.getClass().getMethod(method.getName(), method.getParameterTypes())</code>. Den Zeitstempel
+liefert <code>Instant.now()</code>, die Dauer misst Du mit <code>System.nanoTime()</code>.</p>
 </blockquote>
-<h3 id="reich-die-ausnahmen-des-ziels-weiter">Reich die Ausnahmen des Ziels weiter</h3>
-<p>Entferne an <code>exceptionOfTheTargetReachesTheCaller</code> das <code>@Disabled</code> und starte den Test.
-Welche Ausnahme kommt beim Aufrufer an, und woher stammt sie? Ändere den Handler so,
-dass die <code>IllegalStateException</code> des Katalogs unverändert ankommt.</p>
-<blockquote>
-<p><strong>Hinweis:</strong> <code>method.invoke(target, args)</code> packt eine Ausnahme des Ziels in eine
-<code>InvocationTargetException</code>. Ihre Ursache liefert <code>getCause()</code>.</p>
-</blockquote>
-<h3 id="sag-den-proxy-für-eine-klasse-vorher">Sag den Proxy für eine Klasse vorher</h3>
-<p>Der Test <code>proxyForAClass</code> versucht, einen Proxy für die <strong>Klasse</strong> <code>InMemoryRoomCatalog</code>
-statt für das Interface zu erzeugen.</p>
-<ol>
-<li>Notier Deine Erwartung: Klappt das?</li>
-<li>Entferne <code>@Disabled</code> und starte den Test.</li>
-<li>Erklär das Ergebnis.</li>
-<li>Korrigier die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.</li>
-</ol>
-<h3 id="für-schnelle">Für Schnelle</h3>
+<h3 id="für-schnelle-die-ganze-klasse-markieren">Für Schnelle: die ganze Klasse markieren</h3>
+<p>Erlaube <code>@Logged</code> auch an Klassen. Steht die Annotation an der Klasse, protokolliert der
+Proxy jede ihrer Methoden.</p>
+<h3 id="für-schnelle-nachricht-und-fehler">Für Schnelle: Nachricht und Fehler</h3>
+<p>Erweitere <code>@Logged</code> um zwei Attribute, beide mit Default-Wert:</p>
 <ul>
-<li>Miss im Handler mit <code>System.nanoTime()</code>, wie lange jeder Aufruf dauert, und gib es auf
-der Konsole aus.</li>
-<li>Ruf <code>catalog.toString()</code> auf. Was landet im Protokoll – und läuft der Aufruf durch Deinen
-Handler?</li>
+<li><code>value</code> – eine Nachricht mit Platzhaltern für die Argumente, etwa
+<code>@Logged(&quot;{0} books the room&quot;)</code>; ohne Nachricht gibt der Proxy wie bisher den
+Methodennamen aus,</li>
+<li><code>logError</code> – ob der Proxy auch eine Ausnahme der Methode protokolliert.</li>
 </ul>
+<p>Setz an <code>book</code> beides und buche den Raum in <code>main</code> zweimal. Die
+<code>IllegalStateException</code> soll beim Aufrufer unverändert ankommen.</p>
+<blockquote>
+<p><strong>Hinweis:</strong> <code>MessageFormat.format(text, args)</code> ersetzt <code>{0}</code>, <code>{1}</code> … durch die
+Argumente. <code>method.invoke</code> packt eine Ausnahme des Raums in eine
+<code>InvocationTargetException</code>; ihre Ursache liefert <code>getCause()</code>.</p>
+</blockquote>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
 <li>In der letzten Übung hast Du die Annotationen mit einer eigenen Methode abgefragt. Was ist mit dem Proxy anders?</li>
-<li>Warum kommt ohne Auspacken eine <code>UndeclaredThrowableException</code> beim Aufrufer an?</li>
 <li>Warum lässt sich ein Proxy nur für ein Interface erzeugen, und was tun Frameworks bei Klassen?</li>
-<li>Was protokolliert Dein Proxy, wenn Du <code>catalog.toString()</code> aufrufst – und was ruft er dabei auf?</li>
+<li>Was gibt Dein Proxy aus, wenn Du <code>room.toString()</code> aufrufst – und läuft der Aufruf durch den Handler?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Dynamic Proxy: die markierten Aufrufe des Raumkatalogs protokollieren
+<textarea id="skr-md-source" hidden aria-hidden="true"># Dynamic Proxy: die markierten Aufrufe eines Raums protokollieren
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -305,7 +254,7 @@ Handler?</li>
 
 &lt;div class=&#34;skr-didaktikon-user-story&#34; data-skr-field=&#34;didaktikon.user_story&#34; markdown=&#34;1&#34;&gt;
 
-Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um den Raumkatalog legen, ohne seinen Code zu ändern, damit ich verstehe, wie Frameworks Transaktionen, Protokolle und Mocks um meine Objekte legen.
+Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um einen Raum legen, ohne seinen Code zu ändern, damit ich verstehe, wie Frameworks Transaktionen, Protokolle und Mocks um meine Objekte legen.
 
 &lt;/div&gt;
 
@@ -317,9 +266,8 @@ Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um den Raumkatalog l
 &lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
 - Du erzeugst mit `Proxy.newProxyInstance` und einem `InvocationHandler` einen Stellvertreter für ein Interface.
-- Du wertest im Handler die Annotation der aufgerufenen Methode aus.
-- Du gibst den Aufruf an das Ziel weiter und reichst dessen Ausnahmen unverändert durch.
-- Du erklärst, warum `java.lang.reflect.Proxy` nur Interfaces kann.
+- Du wertest im Handler bei jedem Aufruf die Annotation der Methode aus.
+- Du gibst den Aufruf an das Ziel weiter und misst, wie lange er dauert.
 
 &lt;/div&gt;
 
@@ -330,10 +278,9 @@ Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um den Raumkatalog l
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
 
-- [ ] `LoggingProxy.wrap` liefert einen Proxy, der die mit `@Logged` markierten Aufrufe protokolliert und alle Aufrufe an das Ziel weitergibt; `InMemoryRoomCatalog` ist unverändert.
-- [ ] Eine Ausnahme des Ziels kommt beim Aufrufer als dieselbe Ausnahme an.
-- [ ] Die Vorhersage in `proxyForAClass` hast Du notiert, geprüft und die Assertion korrigiert.
-- [ ] Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.
+- [ ] `LoggingProxy.wrap` liefert einen Proxy, der alle Aufrufe an den Raum weitergibt und die mit `@Logged` markierten mit Zeitstempel, Methodenname und Dauer ausgibt.
+- [ ] `MeetingRoom` ist bis auf die Annotationen unverändert.
+- [ ] `main` ruft alle vier Methoden des Raums über den Proxy auf; nur `book` und `cancel` erscheinen im Protokoll.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -343,19 +290,19 @@ Als Entwickler:in der Raumbuchung möchte ich ein Protokoll um den Raumkatalog l
 &lt;/div&gt;
 
 
-In der letzten Übung hast Du die Methoden des Raumkatalogs mit `@Logged` markiert und die
-Markierung per Reflection ausgelesen. Jetzt soll sie wirken: Jeder Aufruf einer markierten
-Methode landet im Protokoll – ohne dass Du `InMemoryRoomCatalog` änderst und ohne dass der
-Aufrufer etwas davon merkt. Dafür legst Du einen **Dynamic Proxy** um den Katalog. Wie ein
-Aufruf durch den Proxy läuft, zeigt die Visualisierung
+In der letzten Übung hast Du Methoden von `MeetingRoom` mit `@Logged` markiert und die
+Markierung per Reflection ausgegeben. Jetzt soll sie wirken: Jeder Aufruf einer markierten
+Methode landet mit Zeitstempel und Dauer im Protokoll – ohne dass Du `MeetingRoom` änderst
+und ohne dass der Aufrufer etwas davon merkt. Dafür legst Du einen **Dynamic Proxy** um den
+Raum. Wie ein Aufruf durch den Proxy läuft, zeigt die Visualisierung
 [Dynamic Proxy](../../../shared/dynamic-proxy/dynamic-proxy.md).
 
-Die Übung baut auf dem Package `aufbau.annotations` aus *Eigene Annotation: `@Logged`
-schreiben und per Reflection auslesen* auf.
+Die Übung baut auf dem Package `aufbau.annotations` aus *Eigene Annotation: die
+protokollierten Methoden eines Raums markieren* auf.
 
 ## Arbeitsschritte
 
-### Kopiere das Gerüst und den Test
+### Kopiere das Gerüst
 
 Kopiere die Klasse ins Package `aufbau.annotations` unter `src/main/java`.
 
@@ -364,14 +311,19 @@ Kopiere die Klasse ins Package `aufbau.annotations` unter `src/main/java`.
 ```java
 package aufbau.annotations;
 
-import java.util.List;
-
 public final class LoggingProxy {
 
-    // returns a stand-in for target that writes an entry to log for every call of a method
-    // marked with @Logged: its description, followed by the arguments if withArguments is set
-    public static &lt;T&gt; T wrap(T target, Class&lt;T&gt; type, List&lt;String&gt; log) {
+    // returns a stand-in for room that passes every call on to room
+    // and logs every call of a method marked with @Logged
+    public static Room wrap(Room room) {
         throw new UnsupportedOperationException(&#34;TODO&#34;);
+    }
+
+    public static void main(String[] args) {
+        Room room = wrap(new MeetingRoom(&#34;Berlin&#34;));
+        room.book(&#34;Anna&#34;);
+        System.out.println(room.name() &#43; &#34; is free: &#34; &#43; room.isFree());
+        room.cancel();
     }
 
     private LoggingProxy() {
@@ -379,104 +331,51 @@ public final class LoggingProxy {
 }
 ```
 
-Kopiere den Test ins Package `aufbau.annotations` unter `src/test/java`.
+### Leg den Proxy um den Raum
 
-`LoggingProxyTest.java`:
+Implementier `wrap` mit `Proxy.newProxyInstance` und einem `InvocationHandler`, der jeden
+Aufruf nur an `room` weitergibt und dessen Ergebnis zurückliefert. Starte `main`: Die
+Ausgabe ist dieselbe wie ohne Proxy.
 
-```java
-package aufbau.annotations;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-class LoggingProxyTest {
-
-    @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented LoggingProxy.wrap&#34;)
-    void logsTheMarkedCallsAndDelegates() {
-        List&lt;String&gt; log = new ArrayList&lt;&gt;();
-        RoomCatalog catalog = LoggingProxy.wrap(new InMemoryRoomCatalog(), RoomCatalog.class, log);
-
-        catalog.add(new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6));
-        String name = catalog.find(&#34;R101&#34;).orElseThrow().name();
-        int size = catalog.size();
-
-        assertEquals(&#34;Berlin&#34;, name);
-        assertEquals(1, size);
-        assertEquals(List.of(&#34;add a room&#34;, &#34;look up a room [R101]&#34;), log);
-    }
-
-    @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented LoggingProxy.wrap&#34;)
-    void exceptionOfTheTargetReachesTheCaller() {
-        RoomCatalog catalog = LoggingProxy.wrap(new InMemoryRoomCatalog(), RoomCatalog.class, new ArrayList&lt;&gt;());
-        catalog.add(new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6));
-
-        assertThrows(IllegalStateException.class, () -&gt; catalog.add(new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6)));
-    }
-
-    @Test
-    @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-    void proxyForAClass() {
-        InvocationHandler doNothing = (proxy, method, args) -&gt; null;
-
-        assertDoesNotThrow(() -&gt; Proxy.newProxyInstance(
-                InMemoryRoomCatalog.class.getClassLoader(),
-                new Class&lt;?&gt;[] { InMemoryRoomCatalog.class },
-                doNothing));
-    }
-}
-```
+&gt; **Hinweis:** `method.invoke(room, args)` ruft die Methode am Raum auf.
 
 ### Protokolliere die markierten Aufrufe
 
-Implementier `LoggingProxy.wrap` mit `Proxy.newProxyInstance` und einem
-`InvocationHandler`. Der Handler
+Erweitere den Handler: Trägt die aufgerufene Methode `@Logged`, nimmt er vor dem Aufruf
+einen Zeitstempel, ruft den Raum auf und gibt danach Zeitstempel, Methodennamen und Dauer
+aus, etwa so:
 
-1. holt sich die Annotation `@Logged` der aufgerufenen Methode,
-2. trägt, falls sie da ist, ihre Beschreibung in `log` ein – bei `withArguments` gefolgt
-   von den Argumenten, etwa `look up a room [R101]`,
-3. gibt den Aufruf an `target` weiter und liefert dessen Ergebnis zurück.
+```text
+2026-11-27T09:15:30.101267Z book (1902 µs)
+Berlin is free: false
+2026-11-27T09:15:30.116060Z cancel (684 µs)
+```
 
-Entferne an `logsTheMarkedCallsAndDelegates` das `@Disabled` und mach den Test grün.
+&gt; **Hinweis:** Der Handler bekommt die `Method` des **Interfaces** `Room` – die Annotation
+&gt; steht aber an `MeetingRoom`. Die passende Methode dort liefert
+&gt; `room.getClass().getMethod(method.getName(), method.getParameterTypes())`. Den Zeitstempel
+&gt; liefert `Instant.now()`, die Dauer misst Du mit `System.nanoTime()`.
 
-&gt; **Hinweis:** Der Handler bekommt die aufgerufene `Method` des **Interfaces** – genau dort
-&gt; steht `@Logged`. Die Argumente liegen als `Object[]` vor; `Arrays.toString(args)` macht
-&gt; daraus `[R101]`.
+### Für Schnelle: die ganze Klasse markieren
 
-### Reich die Ausnahmen des Ziels weiter
+Erlaube `@Logged` auch an Klassen. Steht die Annotation an der Klasse, protokolliert der
+Proxy jede ihrer Methoden.
 
-Entferne an `exceptionOfTheTargetReachesTheCaller` das `@Disabled` und starte den Test.
-Welche Ausnahme kommt beim Aufrufer an, und woher stammt sie? Ändere den Handler so,
-dass die `IllegalStateException` des Katalogs unverändert ankommt.
+### Für Schnelle: Nachricht und Fehler
 
-&gt; **Hinweis:** `method.invoke(target, args)` packt eine Ausnahme des Ziels in eine
-&gt; `InvocationTargetException`. Ihre Ursache liefert `getCause()`.
+Erweitere `@Logged` um zwei Attribute, beide mit Default-Wert:
 
-### Sag den Proxy für eine Klasse vorher
+* `value` – eine Nachricht mit Platzhaltern für die Argumente, etwa
+  `@Logged(&#34;{0} books the room&#34;)`; ohne Nachricht gibt der Proxy wie bisher den
+  Methodennamen aus,
+* `logError` – ob der Proxy auch eine Ausnahme der Methode protokolliert.
 
-Der Test `proxyForAClass` versucht, einen Proxy für die **Klasse** `InMemoryRoomCatalog`
-statt für das Interface zu erzeugen.
+Setz an `book` beides und buche den Raum in `main` zweimal. Die
+`IllegalStateException` soll beim Aufrufer unverändert ankommen.
 
-1. Notier Deine Erwartung: Klappt das?
-2. Entferne `@Disabled` und starte den Test.
-3. Erklär das Ergebnis.
-4. Korrigier die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.
-
-### Für Schnelle
-
-* Miss im Handler mit `System.nanoTime()`, wie lange jeder Aufruf dauert, und gib es auf
-  der Konsole aus.
-* Ruf `catalog.toString()` auf. Was landet im Protokoll – und läuft der Aufruf durch Deinen
-  Handler?
+&gt; **Hinweis:** `MessageFormat.format(text, args)` ersetzt `{0}`, `{1}` … durch die
+&gt; Argumente. `method.invoke` packt eine Ausnahme des Raums in eine
+&gt; `InvocationTargetException`; ihre Ursache liefert `getCause()`.
 
 
 &lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
@@ -486,9 +385,8 @@ statt für das Interface zu erzeugen.
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
 - In der letzten Übung hast Du die Annotationen mit einer eigenen Methode abgefragt. Was ist mit dem Proxy anders?
-- Warum kommt ohne Auspacken eine `UndeclaredThrowableException` beim Aufrufer an?
 - Warum lässt sich ein Proxy nur für ein Interface erzeugen, und was tun Frameworks bei Klassen?
-- Was protokolliert Dein Proxy, wenn Du `catalog.toString()` aufrufst – und was ruft er dabei auf?
+- Was gibt Dein Proxy aus, wenn Du `room.toString()` aufrufst – und läuft der Aufruf durch den Handler?
 
 &lt;/div&gt;
 
@@ -497,14 +395,14 @@ statt für das Interface zu erzeugen.
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#kopiere-das-gerüst-und-den-test" class="skr-toc--h3">Kopiere das Gerüst und den Test</a><a href="#protokolliere-die-markierten-aufrufe" class="skr-toc--h3">Protokolliere die markierten Aufrufe</a><a href="#reich-die-ausnahmen-des-ziels-weiter" class="skr-toc--h3">Reich die Ausnahmen des Ziels weiter</a><a href="#sag-den-proxy-für-eine-klasse-vorher" class="skr-toc--h3">Sag den Proxy für eine Klasse vorher</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#kopiere-das-gerüst" class="skr-toc--h3">Kopiere das Gerüst</a><a href="#leg-den-proxy-um-den-raum" class="skr-toc--h3">Leg den Proxy um den Raum</a><a href="#protokolliere-die-markierten-aufrufe" class="skr-toc--h3">Protokolliere die markierten Aufrufe</a><a href="#für-schnelle-die-ganze-klasse-markieren" class="skr-toc--h3">Für Schnelle: die ganze Klasse markieren</a><a href="#für-schnelle-nachricht-und-fehler" class="skr-toc--h3">Für Schnelle: Nachricht und Fehler</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 4 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>

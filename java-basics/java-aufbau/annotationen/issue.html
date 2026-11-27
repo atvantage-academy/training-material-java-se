@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
-<title>Eigene Annotation: @Logged schreiben und per Reflection auslesen · ATVANTAGE Academy</title>
-<meta name="description" content="Schreib eine eigene Annotation mit value, einem zweiten Attribut und einem Default-Wert, setz sie an Methoden des Raumkatalogs und lies sie per Reflection aus.">
+<title>Eigene Annotation: die protokollierten Methoden eines Raums markieren · ATVANTAGE Academy</title>
+<meta name="description" content="Schreib eine eigene Annotation @Logged, markier damit Methoden eines Raums und gib die markierten Methoden per Reflection aus.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
-<meta property="og:title" content="Eigene Annotation: @Logged schreiben und per Reflection auslesen">
-<meta property="og:description" content="Schreib eine eigene Annotation mit value, einem zweiten Attribut und einem Default-Wert, setz sie an Methoden des Raumkatalogs und lies sie per Reflection aus.">
+<meta property="og:title" content="Eigene Annotation: die protokollierten Methoden eines Raums markieren">
+<meta property="og:description" content="Schreib eine eigene Annotation @Logged, markier damit Methoden eines Raums und gib die markierten Methoden per Reflection aus.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Schreib eine eigene Annotation mit value, einem zweiten Attribut und einem Default-Wert, setz sie an Methoden des Raumkatalogs und lies sie per Reflection aus.","duration":15,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-annotationen-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Eigene Annotation: @Logged schreiben und per Reflection auslesen","topics":["Annotationen","Reflection","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/annotationen/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Schreib eine eigene Annotation @Logged, markier damit Methoden eines Raums und gib die markierten Methoden per Reflection aus.","duration":15,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-annotationen-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Eigene Annotation: die protokollierten Methoden eines Raums markieren","topics":["Annotationen","Reflection","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/annotationen/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=d4914f52" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=0f1bca99" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=d4914f52"
+     data-index="../../../skriptorium/search/de.json?v=0f1bca99"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -120,7 +120,7 @@
 </div>
 </header>
 <section class="skr-guide-hero"
-         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Eigene Annotation: @Logged schreiben und per Reflection auslesen</span></nav>
+         aria-labelledby="skr-page-title"><nav class="skr-guide-hero__crumbs" aria-label="Brotkrumen"><a href="../../../java-basics/">Java-Grundlagen</a><span>/</span><a href="../../../java-basics/java-aufbau/">Java-Aufbau</a><span>/</span><span aria-current="page">Eigene Annotation: die protokollierten Methoden eines Raums markieren</span></nav>
   <div class="skr-guide-hero__meta">
     <div class="skr-guide-hero__tags"><span class="skr-tag skr-tag--time">ca. 15 Minuten</span><span class="skr-tag">Annotationen</span><span class="skr-tag">Reflection</span><span class="skr-tag">Raumbuchung</span>
     </div>
@@ -129,7 +129,7 @@
               data-skr-copy-md="#skr-md-source"
               title="Markdown kopieren" aria-label="Markdown kopieren"></button>
     </div>
-  </div><h1 id="skr-page-title">Eigene Annotation: @Logged schreiben und per Reflection auslesen</h1>
+  </div><h1 id="skr-page-title">Eigene Annotation: die protokollierten Methoden eines Raums markieren</h1>
 </section>
 
   <div class="skr-guide-layout">
@@ -145,10 +145,9 @@
 <summary>Lernziele</summary>
 <div class="skr-didaktikon-objectives" data-skr-field="didaktikon.objectives">
 <ul>
-<li>Du schreibst eine Annotation mit <code>value</code>, einem weiteren Attribut und einem Default-Wert.</li>
+<li>Du schreibst eine Annotation ohne Attribute, eine reine Markierung.</li>
 <li>Du legst mit <code>@Retention</code> und <code>@Target</code> fest, wo die Annotation stehen darf und ob sie zur Laufzeit erhalten bleibt.</li>
-<li>Du verwendest die Kurzschreibweise für <code>value</code> und die Schreibweise mit Attributnamen.</li>
-<li>Du liest Annotationen mit <code>getAnnotation</code> aus und rufst ihre Attribute ab.</li>
+<li>Du prüfst per Reflection, welche Methoden eines Objekts die Annotation tragen.</li>
 </ul>
 </div>
 </details>
@@ -156,167 +155,112 @@
 <summary>Definition of Done</summary>
 <div class="skr-guide-done">
 <ul class="task-list">
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="@Logged hat die Attribute value und withArguments (Default false), bleibt zur Laufzeit erhalten und ist nur an Methoden erlaubt." disabled="disabled"> <code>@Logged</code> hat die Attribute <code>value</code> und <code>withArguments</code> (Default <code>false</code>), bleibt zur Laufzeit erhalten und ist nur an Methoden erlaubt.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="add und find in RoomCatalog tragen @Logged, size nicht." disabled="disabled"> <code>add</code> und <code>find</code> in <code>RoomCatalog</code> tragen <code>@Logged</code>, <code>size</code> nicht.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="LoggedMethodsTest trägt kein @Disabled mehr und ist grün; die Vorhersage zur Implementierung hast Du notiert, geprüft und die Assertion korrigiert." disabled="disabled"> <code>LoggedMethodsTest</code> trägt kein <code>@Disabled</code> mehr und ist grün; die Vorhersage zur Implementierung hast Du notiert, geprüft und die Assertion korrigiert.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="@Logged bleibt zur Laufzeit erhalten und ist nur an Methoden erlaubt." disabled="disabled"> <code>@Logged</code> bleibt zur Laufzeit erhalten und ist nur an Methoden erlaubt.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="book und cancel in MeetingRoom tragen @Logged, name und isFree nicht." disabled="disabled"> <code>book</code> und <code>cancel</code> in <code>MeetingRoom</code> tragen <code>@Logged</code>, <code>name</code> und <code>isFree</code> nicht.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="LoggedMethods.print gibt für einen MeetingRoom genau book und cancel aus." disabled="disabled"> <code>LoggedMethods.print</code> gibt für einen <code>MeetingRoom</code> genau <code>book</code> und <code>cancel</code> aus.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
 </details>
 </div>
-<p>Der Raumkatalog soll später protokollieren, wer welche Methode aufruft – aber nicht jede:
-Welche Methoden ins Protokoll gehören und mit welcher Beschreibung, soll an der Methode
-selbst stehen. Dafür schreibst Du eine eigene Annotation und liest sie per Reflection
-aus. Wie eine Annotation aufgebaut ist, zeigt die Visualisierung
+<p><strong>Logging</strong> heißt: Ein Programm schreibt mit, was es tut – wann welche Methode aufgerufen
+wurde, wie lange sie lief, ob sie scheiterte. Ein Raum der Raumbuchung soll das später
+für ausgewählte Methoden tun. Welche das sind, soll an der Methode selbst stehen: als
+eigene Annotation <code>@Logged</code>, „wird protokolliert“. In dieser Übung schreibst Du die
+Annotation und liest sie per Reflection aus; protokolliert wird in der nächsten Übung.
+Wie eine Annotation aufgebaut ist, zeigt die Visualisierung
 <a class="skr-doclink skr-doclink--visualization" href="../../../shared/annotationen/annotationen.html">Eigene Annotationen</a>.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="lege-das-paket-an-und-kopiere-den-code">Lege das Paket an und kopiere den Code</h3>
-<p>Im Ordner <code>src/main/java</code> und im Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege
-je das Package <code>aufbau.annotations</code> an. Kopiere die folgenden Typen ins Package unter
-<code>src/main/java</code>.</p>
+<p>Lege im Ordner <code>src/main/java</code> Deines Projekts <code>java-aufbau</code> das Package
+<code>aufbau.annotations</code> an und kopiere die folgenden Typen hinein.</p>
 <p><code>Room.java</code>:</p>
 <pre><code class="language-java">package aufbau.annotations;
 
-public record Room(String id, String name, int seats) {
+public interface Room {
+
+    String name();
+
+    boolean isFree();
+
+    void book(String person);
+
+    void cancel();
 }
 </code></pre>
-<p><code>RoomCatalog.java</code>:</p>
+<p><code>MeetingRoom.java</code>:</p>
 <pre><code class="language-java">package aufbau.annotations;
 
-import java.util.Optional;
+public class MeetingRoom implements Room {
 
-public interface RoomCatalog {
+    private final String name;
+    private String bookedBy;
 
-    void add(Room room);
-
-    Optional&lt;Room&gt; find(String id);
-
-    int size();
-}
-</code></pre>
-<p><code>InMemoryRoomCatalog.java</code>:</p>
-<pre><code class="language-java">package aufbau.annotations;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-public class InMemoryRoomCatalog implements RoomCatalog {
-
-    private final Map&lt;String, Room&gt; rooms = new HashMap&lt;&gt;();
+    public MeetingRoom(String name) {
+        this.name = name;
+    }
 
     @Override
-    public void add(Room room) {
-        if (rooms.putIfAbsent(room.id(), room) != null) {
-            throw new IllegalStateException(room.id() + &quot; already exists&quot;);
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public boolean isFree() {
+        return bookedBy == null;
+    }
+
+    @Override
+    public void book(String person) {
+        if (bookedBy != null) {
+            throw new IllegalStateException(name + &quot; is already booked by &quot; + bookedBy);
         }
+        bookedBy = person;
     }
 
     @Override
-    public Optional&lt;Room&gt; find(String id) {
-        return Optional.ofNullable(rooms.get(id));
-    }
-
-    @Override
-    public int size() {
-        return rooms.size();
-    }
-}
-</code></pre>
-<p><code>LoggedMethods.java</code>:</p>
-<pre><code class="language-java">package aufbau.annotations;
-
-import java.util.List;
-
-public final class LoggedMethods {
-
-    // &quot;name: description&quot; of every public method marked with @Logged, sorted alphabetically;
-    // &quot; (with arguments)&quot; is appended if the arguments are logged as well
-    public static List&lt;String&gt; describe(Class&lt;?&gt; type) {
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
-    }
-
-    private LoggedMethods() {
-    }
-}
-</code></pre>
-<p>Kopiere den Test ins Package <code>aufbau.annotations</code> unter <code>src/test/java</code>.</p>
-<p><code>LoggedMethodsTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.annotations;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-class LoggedMethodsTest {
-
-    @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented describe&quot;)
-    void describesTheLoggedMethodsOfTheCatalog() {
-        assertEquals(List.of(&quot;add: add a room&quot;, &quot;find: look up a room (with arguments)&quot;),
-                LoggedMethods.describe(RoomCatalog.class));
-    }
-
-    @Test
-    @Disabled(&quot;Predict the result first, then remove @Disabled&quot;)
-    void describesTheLoggedMethodsOfTheImplementation() {
-        assertEquals(List.of(&quot;add: add a room&quot;, &quot;find: look up a room (with arguments)&quot;),
-                LoggedMethods.describe(InMemoryRoomCatalog.class));
+    public void cancel() {
+        bookedBy = null;
     }
 }
 </code></pre>
 <h3 id="schreib-die-annotation-logged">Schreib die Annotation @Logged</h3>
-<p>Schreib im Package <code>aufbau.annotations</code> unter <code>src/main/java</code> die Annotation <code>Logged</code> mit zwei
-Attributen:</p>
-<ul>
-<li><code>value</code> – eine Beschreibung des Aufrufs als <code>String</code>, ohne Default-Wert,</li>
-<li><code>withArguments</code> – ob auch die Argumente ins Protokoll gehören, als <code>boolean</code> mit dem
-Default-Wert <code>false</code>.</li>
-</ul>
-<p>Die Annotation soll nur an Methoden stehen dürfen und zur Laufzeit erhalten bleiben.</p>
-<h3 id="markiere-die-methoden-des-katalogs">Markiere die Methoden des Katalogs</h3>
-<p>Setz <code>@Logged</code> in <code>RoomCatalog</code>:</p>
-<ul>
-<li>an <code>add</code> mit der Beschreibung <code>add a room</code> – in der Kurzschreibweise, ohne Attributnamen,</li>
-<li>an <code>find</code> mit der Beschreibung <code>look up a room</code> und mit Argumenten.</li>
-</ul>
-<p><code>size</code> bleibt ohne Annotation. Probier aus, was der Compiler sagt, wenn Du <code>@Logged</code> ohne
-Beschreibung oder an ein Feld schreibst.</p>
-<h3 id="lies-die-annotation-per-reflection-aus">Lies die Annotation per Reflection aus</h3>
-<p>Implementier <code>LoggedMethods.describe</code>, entferne am ersten Test <code>@Disabled</code> und mach ihn
-grün.</p>
+<p>Schreib im Package <code>aufbau.annotations</code> die Annotation <code>Logged</code> – ohne Attribute, als reine
+Markierung. Sie soll nur an Methoden stehen dürfen und zur Laufzeit erhalten bleiben.</p>
+<h3 id="markiere-die-methoden-des-raums">Markiere die Methoden des Raums</h3>
+<p>Setz <code>@Logged</code> in <code>MeetingRoom</code> an <code>book</code> und <code>cancel</code>. <code>name</code> und <code>isFree</code> bleiben ohne
+Annotation. Probier aus, was der Compiler sagt, wenn Du <code>@Logged</code> an das Feld <code>name</code>
+schreibst.</p>
+<h3 id="gib-die-markierten-methoden-aus">Gib die markierten Methoden aus</h3>
+<p>Schreib eine Klasse <code>LoggedMethods</code> mit einer Hilfsmethode
+<code>public static void print(Object room)</code>, die die Namen aller öffentlichen Methoden von
+<code>room</code> ausgibt, die <code>@Logged</code> tragen. Ruf sie in einer <code>main</code>-Methode mit einem
+<code>MeetingRoom</code> auf.</p>
 <blockquote>
-<p><strong>Hinweis:</strong> Alle öffentlichen Methoden eines Typs liefert <code>getMethods()</code>. An einer
-<code>Method</code> gibt <code>getAnnotation(Logged.class)</code> die Annotation zurück – oder <code>null</code>. Ihre
-Attribute rufst Du wie Methoden auf: <code>logged.value()</code>.</p>
+<p><strong>Hinweis:</strong> Die Klasse eines Objekts liefert <code>getClass()</code>, ihre öffentlichen Methoden
+<code>getMethods()</code>. Ob eine <code>Method</code> die Annotation trägt, sagt
+<code>isAnnotationPresent(Logged.class)</code>.</p>
 </blockquote>
-<h3 id="sag-die-implementierung-vorher">Sag die Implementierung vorher</h3>
-<p>Der zweite Test fragt dasselbe an <code>InMemoryRoomCatalog</code> statt am Interface.</p>
-<ol>
-<li>Notier Deine Erwartung: Findet <code>describe</code> dort dieselben Methoden?</li>
-<li>Entferne <code>@Disabled</code> und starte den Test.</li>
-<li>Erklär das Ergebnis.</li>
-<li>Korrigier die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.</li>
-</ol>
-<p>Nimm danach testweise <code>@Retention</code> aus <code>Logged</code> heraus, starte die Tests und setz die Zeile
-wieder ein.</p>
+<p>Die Ausgabe enthält <code>book</code> und <code>cancel</code>, in beliebiger Reihenfolge:</p>
+<pre><code class="language-text">book
+cancel
+</code></pre>
+<p>Nimm danach testweise <code>@Retention</code> aus <code>Logged</code> heraus, starte <code>main</code> noch einmal und setz
+die Zeile wieder ein.</p>
 <h3 id="für-schnelle">Für Schnelle</h3>
-<p>Schreib einen Mini-Testrunner: eine Annotation <code>@MyTest</code> für Methoden und eine Klasse mit
-<code>main</code>, die alle <code>@MyTest</code>-Methoden einer Klasse aufruft und je Methode <code>passed</code> oder
-<code>failed</code> ausgibt. Was muss der Runner tun, um die Klasse zu instanziieren?</p>
+<p>Verschieb <code>@Logged</code> von <code>book</code> in <code>MeetingRoom</code> an <code>book</code> im Interface <code>Room</code>. Was gibt
+<code>print</code> jetzt aus – und warum? Setz die Annotation danach wieder an <code>MeetingRoom</code>; die
+nächste Übung sucht sie dort.</p>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
 <ul>
 <li>Was passiert, wenn Du an <code>@Logged</code> die Zeile <code>@Retention(RetentionPolicy.RUNTIME)</code> weglässt – und warum?</li>
-<li>Warum findet <code>describe</code> an <code>InMemoryRoomCatalog</code> keine markierte Methode, obwohl die Klasse <code>RoomCatalog</code> umsetzt?</li>
-<li>Warum darfst Du bei <code>@Logged(&quot;add a room&quot;)</code> den Namen <code>value</code> weglassen, bei <code>find</code> aber nicht?</li>
+<li><code>@Logged</code> an einer Methode ändert nichts daran, was die Methode tut. Wer gibt der Annotation ihre Bedeutung?</li>
 </ul>
 </div>
 </div>
-<textarea id="skr-md-source" hidden aria-hidden="true"># Eigene Annotation: `@Logged` schreiben und per Reflection auslesen
+<textarea id="skr-md-source" hidden aria-hidden="true"># Eigene Annotation: die protokollierten Methoden eines Raums markieren
 
 &lt;div class=&#34;skr-guide-panels&#34; data-skr-arrangement=&#34;fold&#34; markdown=&#34;1&#34;&gt;
 
@@ -336,10 +280,9 @@ Als Entwickler:in der Raumbuchung möchte ich Methoden mit einer eigenen Annotat
 
 &lt;div class=&#34;skr-didaktikon-objectives&#34; data-skr-field=&#34;didaktikon.objectives&#34; markdown=&#34;1&#34;&gt;
 
-- Du schreibst eine Annotation mit `value`, einem weiteren Attribut und einem Default-Wert.
+- Du schreibst eine Annotation ohne Attribute, eine reine Markierung.
 - Du legst mit `@Retention` und `@Target` fest, wo die Annotation stehen darf und ob sie zur Laufzeit erhalten bleibt.
-- Du verwendest die Kurzschreibweise für `value` und die Schreibweise mit Attributnamen.
-- Du liest Annotationen mit `getAnnotation` aus und rufst ihre Attribute ab.
+- Du prüfst per Reflection, welche Methoden eines Objekts die Annotation tragen.
 
 &lt;/div&gt;
 
@@ -350,9 +293,9 @@ Als Entwickler:in der Raumbuchung möchte ich Methoden mit einer eigenen Annotat
 
 &lt;div class=&#34;skr-guide-done&#34; markdown=&#34;1&#34;&gt;
 
-- [ ] `@Logged` hat die Attribute `value` und `withArguments` (Default `false`), bleibt zur Laufzeit erhalten und ist nur an Methoden erlaubt.
-- [ ] `add` und `find` in `RoomCatalog` tragen `@Logged`, `size` nicht.
-- [ ] `LoggedMethodsTest` trägt kein `@Disabled` mehr und ist grün; die Vorhersage zur Implementierung hast Du notiert, geprüft und die Assertion korrigiert.
+- [ ] `@Logged` bleibt zur Laufzeit erhalten und ist nur an Methoden erlaubt.
+- [ ] `book` und `cancel` in `MeetingRoom` tragen `@Logged`, `name` und `isFree` nicht.
+- [ ] `LoggedMethods.print` gibt für einen `MeetingRoom` genau `book` und `cancel` aus.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -362,176 +305,114 @@ Als Entwickler:in der Raumbuchung möchte ich Methoden mit einer eigenen Annotat
 &lt;/div&gt;
 
 
-Der Raumkatalog soll später protokollieren, wer welche Methode aufruft – aber nicht jede:
-Welche Methoden ins Protokoll gehören und mit welcher Beschreibung, soll an der Methode
-selbst stehen. Dafür schreibst Du eine eigene Annotation und liest sie per Reflection
-aus. Wie eine Annotation aufgebaut ist, zeigt die Visualisierung
+**Logging** heißt: Ein Programm schreibt mit, was es tut – wann welche Methode aufgerufen
+wurde, wie lange sie lief, ob sie scheiterte. Ein Raum der Raumbuchung soll das später
+für ausgewählte Methoden tun. Welche das sind, soll an der Methode selbst stehen: als
+eigene Annotation `@Logged`, „wird protokolliert“. In dieser Übung schreibst Du die
+Annotation und liest sie per Reflection aus; protokolliert wird in der nächsten Übung.
+Wie eine Annotation aufgebaut ist, zeigt die Visualisierung
 [Eigene Annotationen](../../../shared/annotationen/annotationen.md).
 
 ## Arbeitsschritte
 
 ### Lege das Paket an und kopiere den Code
 
-Im Ordner `src/main/java` und im Ordner `src/test/java` Deines Projekts `java-aufbau` lege
-je das Package `aufbau.annotations` an. Kopiere die folgenden Typen ins Package unter
-`src/main/java`.
+Lege im Ordner `src/main/java` Deines Projekts `java-aufbau` das Package
+`aufbau.annotations` an und kopiere die folgenden Typen hinein.
 
 `Room.java`:
 
 ```java
 package aufbau.annotations;
 
-public record Room(String id, String name, int seats) {
+public interface Room {
+
+    String name();
+
+    boolean isFree();
+
+    void book(String person);
+
+    void cancel();
 }
 ```
 
-`RoomCatalog.java`:
+`MeetingRoom.java`:
 
 ```java
 package aufbau.annotations;
 
-import java.util.Optional;
+public class MeetingRoom implements Room {
 
-public interface RoomCatalog {
+    private final String name;
+    private String bookedBy;
 
-    void add(Room room);
-
-    Optional&lt;Room&gt; find(String id);
-
-    int size();
-}
-```
-
-`InMemoryRoomCatalog.java`:
-
-```java
-package aufbau.annotations;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-public class InMemoryRoomCatalog implements RoomCatalog {
-
-    private final Map&lt;String, Room&gt; rooms = new HashMap&lt;&gt;();
+    public MeetingRoom(String name) {
+        this.name = name;
+    }
 
     @Override
-    public void add(Room room) {
-        if (rooms.putIfAbsent(room.id(), room) != null) {
-            throw new IllegalStateException(room.id() &#43; &#34; already exists&#34;);
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public boolean isFree() {
+        return bookedBy == null;
+    }
+
+    @Override
+    public void book(String person) {
+        if (bookedBy != null) {
+            throw new IllegalStateException(name &#43; &#34; is already booked by &#34; &#43; bookedBy);
         }
+        bookedBy = person;
     }
 
     @Override
-    public Optional&lt;Room&gt; find(String id) {
-        return Optional.ofNullable(rooms.get(id));
-    }
-
-    @Override
-    public int size() {
-        return rooms.size();
-    }
-}
-```
-
-`LoggedMethods.java`:
-
-```java
-package aufbau.annotations;
-
-import java.util.List;
-
-public final class LoggedMethods {
-
-    // &#34;name: description&#34; of every public method marked with @Logged, sorted alphabetically;
-    // &#34; (with arguments)&#34; is appended if the arguments are logged as well
-    public static List&lt;String&gt; describe(Class&lt;?&gt; type) {
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
-    }
-
-    private LoggedMethods() {
-    }
-}
-```
-
-Kopiere den Test ins Package `aufbau.annotations` unter `src/test/java`.
-
-`LoggedMethodsTest.java`:
-
-```java
-package aufbau.annotations;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
-class LoggedMethodsTest {
-
-    @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented describe&#34;)
-    void describesTheLoggedMethodsOfTheCatalog() {
-        assertEquals(List.of(&#34;add: add a room&#34;, &#34;find: look up a room (with arguments)&#34;),
-                LoggedMethods.describe(RoomCatalog.class));
-    }
-
-    @Test
-    @Disabled(&#34;Predict the result first, then remove @Disabled&#34;)
-    void describesTheLoggedMethodsOfTheImplementation() {
-        assertEquals(List.of(&#34;add: add a room&#34;, &#34;find: look up a room (with arguments)&#34;),
-                LoggedMethods.describe(InMemoryRoomCatalog.class));
+    public void cancel() {
+        bookedBy = null;
     }
 }
 ```
 
 ### Schreib die Annotation @Logged
 
-Schreib im Package `aufbau.annotations` unter `src/main/java` die Annotation `Logged` mit zwei
-Attributen:
+Schreib im Package `aufbau.annotations` die Annotation `Logged` – ohne Attribute, als reine
+Markierung. Sie soll nur an Methoden stehen dürfen und zur Laufzeit erhalten bleiben.
 
-* `value` – eine Beschreibung des Aufrufs als `String`, ohne Default-Wert,
-* `withArguments` – ob auch die Argumente ins Protokoll gehören, als `boolean` mit dem
-  Default-Wert `false`.
+### Markiere die Methoden des Raums
 
-Die Annotation soll nur an Methoden stehen dürfen und zur Laufzeit erhalten bleiben.
+Setz `@Logged` in `MeetingRoom` an `book` und `cancel`. `name` und `isFree` bleiben ohne
+Annotation. Probier aus, was der Compiler sagt, wenn Du `@Logged` an das Feld `name`
+schreibst.
 
-### Markiere die Methoden des Katalogs
+### Gib die markierten Methoden aus
 
-Setz `@Logged` in `RoomCatalog`:
+Schreib eine Klasse `LoggedMethods` mit einer Hilfsmethode
+`public static void print(Object room)`, die die Namen aller öffentlichen Methoden von
+`room` ausgibt, die `@Logged` tragen. Ruf sie in einer `main`-Methode mit einem
+`MeetingRoom` auf.
 
-* an `add` mit der Beschreibung `add a room` – in der Kurzschreibweise, ohne Attributnamen,
-* an `find` mit der Beschreibung `look up a room` und mit Argumenten.
+&gt; **Hinweis:** Die Klasse eines Objekts liefert `getClass()`, ihre öffentlichen Methoden
+&gt; `getMethods()`. Ob eine `Method` die Annotation trägt, sagt
+&gt; `isAnnotationPresent(Logged.class)`.
 
-`size` bleibt ohne Annotation. Probier aus, was der Compiler sagt, wenn Du `@Logged` ohne
-Beschreibung oder an ein Feld schreibst.
+Die Ausgabe enthält `book` und `cancel`, in beliebiger Reihenfolge:
 
-### Lies die Annotation per Reflection aus
+```text
+book
+cancel
+```
 
-Implementier `LoggedMethods.describe`, entferne am ersten Test `@Disabled` und mach ihn
-grün.
-
-&gt; **Hinweis:** Alle öffentlichen Methoden eines Typs liefert `getMethods()`. An einer
-&gt; `Method` gibt `getAnnotation(Logged.class)` die Annotation zurück – oder `null`. Ihre
-&gt; Attribute rufst Du wie Methoden auf: `logged.value()`.
-
-### Sag die Implementierung vorher
-
-Der zweite Test fragt dasselbe an `InMemoryRoomCatalog` statt am Interface.
-
-1. Notier Deine Erwartung: Findet `describe` dort dieselben Methoden?
-2. Entferne `@Disabled` und starte den Test.
-3. Erklär das Ergebnis.
-4. Korrigier die Assertion auf das tatsächliche Verhalten, bis der Test grün ist.
-
-Nimm danach testweise `@Retention` aus `Logged` heraus, starte die Tests und setz die Zeile
-wieder ein.
+Nimm danach testweise `@Retention` aus `Logged` heraus, starte `main` noch einmal und setz
+die Zeile wieder ein.
 
 ### Für Schnelle
 
-Schreib einen Mini-Testrunner: eine Annotation `@MyTest` für Methoden und eine Klasse mit
-`main`, die alle `@MyTest`-Methoden einer Klasse aufruft und je Methode `passed` oder
-`failed` ausgibt. Was muss der Runner tun, um die Klasse zu instanziieren?
+Verschieb `@Logged` von `book` in `MeetingRoom` an `book` im Interface `Room`. Was gibt
+`print` jetzt aus – und warum? Setz die Annotation danach wieder an `MeetingRoom`; die
+nächste Übung sucht sie dort.
 
 
 &lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
@@ -541,8 +422,7 @@ Schreib einen Mini-Testrunner: eine Annotation `@MyTest` für Methoden und eine 
 &lt;div class=&#34;skr-didaktikon-reflective-questions&#34; data-skr-field=&#34;didaktikon.reflective_questions&#34; markdown=&#34;1&#34;&gt;
 
 - Was passiert, wenn Du an `@Logged` die Zeile `@Retention(RetentionPolicy.RUNTIME)` weglässt – und warum?
-- Warum findet `describe` an `InMemoryRoomCatalog` keine markierte Methode, obwohl die Klasse `RoomCatalog` umsetzt?
-- Warum darfst Du bei `@Logged(&#34;add a room&#34;)` den Namen `value` weglassen, bei `find` aber nicht?
+- `@Logged` an einer Methode ändert nichts daran, was die Methode tut. Wer gibt der Annotation ihre Bedeutung?
 
 &lt;/div&gt;
 
@@ -551,7 +431,7 @@ Schreib einen Mini-Testrunner: eine Annotation `@MyTest` für Methoden und eine 
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#schreib-die-annotation-logged" class="skr-toc--h3">Schreib die Annotation @Logged</a><a href="#markiere-die-methoden-des-katalogs" class="skr-toc--h3">Markiere die Methoden des Katalogs</a><a href="#lies-die-annotation-per-reflection-aus" class="skr-toc--h3">Lies die Annotation per Reflection aus</a><a href="#sag-die-implementierung-vorher" class="skr-toc--h3">Sag die Implementierung vorher</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#schreib-die-annotation-logged" class="skr-toc--h3">Schreib die Annotation @Logged</a><a href="#markiere-die-methoden-des-raums" class="skr-toc--h3">Markiere die Methoden des Raums</a><a href="#gib-die-markierten-methoden-aus" class="skr-toc--h3">Gib die markierten Methoden aus</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
