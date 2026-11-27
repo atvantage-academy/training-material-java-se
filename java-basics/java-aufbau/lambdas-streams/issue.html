@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=cf728dda" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=14594ce3" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=cf728dda"
+     data-index="../../../skriptorium/search/de.json?v=14594ce3"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -310,6 +310,27 @@ ihre Namen abgebildet.</p>
 Lambda, das nur eine Methode aufruft, als Methodenreferenz, <code>Room::getName</code>. Die Liste
 liefert <code>toList()</code> am Ende der Pipeline.</p>
 </blockquote>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: <code>findBookedRooms</code></summary>
+<p>Der Import <code>java.util.ArrayList</code> entfällt.</p>
+<pre><code class="language-java">public List&lt;Room&gt; findBookedRooms(LocalDate day) {
+    return rooms.stream()
+            .filter(room -&gt; room.isBooked(day))
+            .toList();
+}</code></pre>
+</details>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: Test</summary>
+<p>Auch im Test entfällt der Import <code>java.util.ArrayList</code>.</p>
+<pre><code class="language-java">@Test
+void findsTheBookedRoomsOfADay() {
+    List&lt;String&gt; names = manager.findBookedRooms(MONDAY).stream()
+            .map(Room::getName)
+            .toList();
+
+    assertEquals(List.of("Hamburg", "Munich", "Dresden"), names);
+}</code></pre>
+</details>
 <h3 id="ersetz-null-durch-optional">Ersetz null durch Optional</h3>
 <p><code>findFreeRoom</code> und <code>findByNumber</code> liefern <code>null</code>, wenn es keinen passenden Raum gibt.</p>
 <ol>
@@ -323,6 +344,45 @@ statt <code>getName()</code> und <code>assertNull</code> jetzt <code>map</code>,
 <code>Optional</code>. <code>Optional</code> ist ein Rückgabetyp: Als Feld oder Parameter macht es den Code
 nicht sicherer, nur länger.</p>
 </blockquote>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: <code>findFreeRoom</code> und <code>findByNumber</code></summary>
+<p>Dazu der Import <code>java.util.Optional</code>.</p>
+<pre><code class="language-java">public Optional&lt;Room&gt; findFreeRoom(LocalDate day, int persons) {
+    return rooms.stream()
+            .filter(room -&gt; room.canHost(persons))
+            .filter(room -&gt; !room.isBooked(day))
+            .findFirst();
+}
+
+public Optional&lt;Room&gt; findByNumber(String number) {
+    return rooms.stream()
+            .filter(room -&gt; room.getNumber().equals(number))
+            .findFirst();
+}</code></pre>
+</details>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: Tests</summary>
+<p>Statt <code>Assertions.assertNull</code> jetzt statisch <code>Assertions.assertTrue</code> importieren.</p>
+<pre><code class="language-java">@Test
+void findsTheFirstFreeRoomThatIsLargeEnough() {
+    assertEquals("Cologne", manager.findFreeRoom(MONDAY, 10).map(Room::getName).orElse("none"));
+}
+
+@Test
+void findsNoFreeRoomForTooManyPersons() {
+    assertTrue(manager.findFreeRoom(MONDAY, 30).isEmpty());
+}
+
+@Test
+void findsTheRoomByItsNumber() {
+    assertEquals("Cologne", manager.findByNumber("R201").map(Room::getName).orElse("none"));
+}
+
+@Test
+void findsNoRoomForAnUnknownNumber() {
+    assertTrue(manager.findByNumber("R999").isEmpty());
+}</code></pre>
+</details>
 <h3 id="teste-mit-lambdas-assertall-und-assertthrows">Teste mit Lambdas: assertAll und assertThrows</h3>
 <p>JUnit nimmt an zwei Stellen Lambdas entgegen: <code>Assertions.assertAll</code> und
 <code>Assertions.assertThrows</code>. Sieh Dir beide Methoden in der Javadoc oder im JUnit User Guide an
@@ -338,6 +398,67 @@ erwartet die <code>RoomAlreadyBookedException</code> der zweiten Buchung ohne <c
 <p><strong>Hinweis:</strong> <code>assertThrows</code> liefert die gefangene Exception zurück; an ihr prüfst Du Raum
 und Tag wie bisher im <code>catch</code>-Block.</p>
 </blockquote>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: <code>ObjectPoolTest</code></summary>
+<p>Dazu der statische Import <code>Assertions.assertAll</code>. Die Erwartungen sind die korrigierten aus der Übung zu den Wrapper-Klassen.</p>
+<pre><code class="language-java">@Test
+void stringLiterals() {
+    String s1 = "text";
+    String s2 = "text";
+
+    assertAll(
+            () -&gt; assertEquals(true, s1 == s2),
+            () -&gt; assertEquals(false, new String(s1) == s2),
+            () -&gt; assertEquals(true, new String(s1).intern() == s2));
+}
+
+@Test
+void concatenatedStrings() {
+    String s1 = "text";
+    String te = "te";
+    final String xt = "xt";
+
+    String s3 = "te" + "xt";
+    String s4 = te + "xt";
+    String s5 = "te" + xt;
+
+    assertAll(
+            () -&gt; assertEquals(true, s1 == s3),
+            () -&gt; assertEquals(false, s1 == s4),
+            () -&gt; assertEquals(true, s1 == s4.intern()),
+            () -&gt; assertEquals(true, s1 == s5));
+}
+
+@Test
+void boxedIntegers() {
+    Integer i1 = 4;
+    Integer i2 = 4;
+    Integer i3 = 128;
+    Integer i4 = 128;
+    Integer i5 = -129;
+    Integer i6 = -129;
+
+    assertAll(
+            () -&gt; assertEquals(true, i1 == i2),
+            () -&gt; assertEquals(false, i3 == i4),
+            () -&gt; assertEquals(false, i5 == i6),
+            () -&gt; assertEquals(true, i5.equals(i6)));
+}</code></pre>
+</details>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: <code>secondBookingOfTheSameDayIsRejected</code></summary>
+<p>Statt <code>Assertions.fail</code> jetzt statisch <code>Assertions.assertThrows</code> importieren. Die erste Buchung steht weiter außerhalb des Lambdas – deshalb bleibt das <code>throws</code> am Test.</p>
+<pre><code class="language-java">@Test
+void secondBookingOfTheSameDayIsRejected() throws RoomAlreadyBookedException {
+    room.book(MONDAY);
+
+    RoomAlreadyBookedException exception =
+            assertThrows(RoomAlreadyBookedException.class, () -&gt; room.book(MONDAY));
+
+    assertSame(room, exception.getRoom());
+    assertEquals(MONDAY, exception.getDay());
+}</code></pre>
+</details>
 <p>Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
 einem <code>assertAll</code> – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.</p>
 <h3 id="ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf">Ruf eine Methode mit Checked Exception aus einem Lambda auf</h3>
@@ -426,6 +547,35 @@ Personen an einem Tag liefert, und einen Test dazu. Welche Endoperation ersetzt
 <li>Schreib eine Methode, die die Namen aller an einem Tag gebuchten Räume als
 <code>&quot;Hamburg, Munich, Dresden&quot;</code> liefert – mit welchem Collector?</li>
 </ul>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: der kleinste freie Raum</summary>
+<p><code>min</code> mit einem <code>Comparator</code> ersetzt <code>findFirst</code>; im <code>RoomManager</code> dazu der Import <code>java.util.Comparator</code>. Für 2 Personen findet <code>findFirst</code> Berlin, <code>min</code> Leipzig.</p>
+<pre><code class="language-java">public Optional&lt;Room&gt; findSmallestFreeRoom(LocalDate day, int persons) {
+    return rooms.stream()
+            .filter(room -&gt; room.canHost(persons))
+            .filter(room -&gt; !room.isBooked(day))
+            .min(Comparator.comparingInt(Room::getCapacity));
+}
+
+@Test
+void findsTheSmallestFreeRoomThatIsLargeEnough() {
+    assertEquals("Leipzig", manager.findSmallestFreeRoom(MONDAY, 2).map(Room::getName).orElse("none"));
+}</code></pre>
+</details>
+<details class="skr-reveal skr-reveal--screen-only">
+<summary>Lösung: die Namen der gebuchten Räume</summary>
+<p><code>Collectors.joining</code> mit Trennzeichen; dazu der Import <code>java.util.stream.Collectors</code>.</p>
+<pre><code class="language-java">public String findBookedRoomNames(LocalDate day) {
+    return findBookedRooms(day).stream()
+            .map(Room::getName)
+            .collect(Collectors.joining(", "));
+}
+
+@Test
+void joinsTheNamesOfTheBookedRooms() {
+    assertEquals("Hamburg, Munich, Dresden", manager.findBookedRoomNames(MONDAY));
+}</code></pre>
+</details>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
 <h2 id="reflexionsfragen">Reflexionsfragen</h2>
 <div class="skr-didaktikon-reflective-questions" data-skr-field="didaktikon.reflective_questions">
@@ -644,6 +794,31 @@ ihre Namen abgebildet.
 &gt; Lambda, das nur eine Methode aufruft, als Methodenreferenz, `Room::getName`. Die Liste
 &gt; liefert `toList()` am Ende der Pipeline.
 
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: &lt;code&gt;findBookedRooms&lt;/code&gt;&lt;/summary&gt;
+&lt;p&gt;Der Import &lt;code&gt;java.util.ArrayList&lt;/code&gt; entfällt.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public List&amp;lt;Room&amp;gt; findBookedRooms(LocalDate day) {
+    return rooms.stream()
+            .filter(room -&amp;gt; room.isBooked(day))
+            .toList();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: Test&lt;/summary&gt;
+&lt;p&gt;Auch im Test entfällt der Import &lt;code&gt;java.util.ArrayList&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void findsTheBookedRoomsOfADay() {
+    List&amp;lt;String&amp;gt; names = manager.findBookedRooms(MONDAY).stream()
+            .map(Room::getName)
+            .toList();
+
+    assertEquals(List.of(&#34;Hamburg&#34;, &#34;Munich&#34;, &#34;Dresden&#34;), names);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
 ### Ersetz null durch Optional
 
 `findFreeRoom` und `findByNumber` liefern `null`, wenn es keinen passenden Raum gibt.
@@ -656,6 +831,49 @@ ihre Namen abgebildet.
 &gt; **Hinweis:** Den ersten Treffer einer Pipeline liefert `findFirst()` – schon als
 &gt; `Optional`. `Optional` ist ein Rückgabetyp: Als Feld oder Parameter macht es den Code
 &gt; nicht sicherer, nur länger.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: &lt;code&gt;findFreeRoom&lt;/code&gt; und &lt;code&gt;findByNumber&lt;/code&gt;&lt;/summary&gt;
+&lt;p&gt;Dazu der Import &lt;code&gt;java.util.Optional&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public Optional&amp;lt;Room&amp;gt; findFreeRoom(LocalDate day, int persons) {
+    return rooms.stream()
+            .filter(room -&amp;gt; room.canHost(persons))
+            .filter(room -&amp;gt; !room.isBooked(day))
+            .findFirst();
+}
+
+public Optional&amp;lt;Room&amp;gt; findByNumber(String number) {
+    return rooms.stream()
+            .filter(room -&amp;gt; room.getNumber().equals(number))
+            .findFirst();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: Tests&lt;/summary&gt;
+&lt;p&gt;Statt &lt;code&gt;Assertions.assertNull&lt;/code&gt; jetzt statisch &lt;code&gt;Assertions.assertTrue&lt;/code&gt; importieren.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void findsTheFirstFreeRoomThatIsLargeEnough() {
+    assertEquals(&#34;Cologne&#34;, manager.findFreeRoom(MONDAY, 10).map(Room::getName).orElse(&#34;none&#34;));
+}
+
+@Test
+void findsNoFreeRoomForTooManyPersons() {
+    assertTrue(manager.findFreeRoom(MONDAY, 30).isEmpty());
+}
+
+@Test
+void findsTheRoomByItsNumber() {
+    assertEquals(&#34;Cologne&#34;, manager.findByNumber(&#34;R201&#34;).map(Room::getName).orElse(&#34;none&#34;));
+}
+
+@Test
+void findsNoRoomForAnUnknownNumber() {
+    assertTrue(manager.findByNumber(&#34;R999&#34;).isEmpty());
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
 
 ### Teste mit Lambdas: assertAll und assertThrows
 
@@ -671,6 +889,71 @@ und bau damit Tests aus den früheren Übungen um:
 
 &gt; **Hinweis:** `assertThrows` liefert die gefangene Exception zurück; an ihr prüfst Du Raum
 &gt; und Tag wie bisher im `catch`-Block.
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: &lt;code&gt;ObjectPoolTest&lt;/code&gt;&lt;/summary&gt;
+&lt;p&gt;Dazu der statische Import &lt;code&gt;Assertions.assertAll&lt;/code&gt;. Die Erwartungen sind die korrigierten aus der Übung zu den Wrapper-Klassen.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void stringLiterals() {
+    String s1 = &#34;text&#34;;
+    String s2 = &#34;text&#34;;
+
+    assertAll(
+            () -&amp;gt; assertEquals(true, s1 == s2),
+            () -&amp;gt; assertEquals(false, new String(s1) == s2),
+            () -&amp;gt; assertEquals(true, new String(s1).intern() == s2));
+}
+
+@Test
+void concatenatedStrings() {
+    String s1 = &#34;text&#34;;
+    String te = &#34;te&#34;;
+    final String xt = &#34;xt&#34;;
+
+    String s3 = &#34;te&#34; &#43; &#34;xt&#34;;
+    String s4 = te &#43; &#34;xt&#34;;
+    String s5 = &#34;te&#34; &#43; xt;
+
+    assertAll(
+            () -&amp;gt; assertEquals(true, s1 == s3),
+            () -&amp;gt; assertEquals(false, s1 == s4),
+            () -&amp;gt; assertEquals(true, s1 == s4.intern()),
+            () -&amp;gt; assertEquals(true, s1 == s5));
+}
+
+@Test
+void boxedIntegers() {
+    Integer i1 = 4;
+    Integer i2 = 4;
+    Integer i3 = 128;
+    Integer i4 = 128;
+    Integer i5 = -129;
+    Integer i6 = -129;
+
+    assertAll(
+            () -&amp;gt; assertEquals(true, i1 == i2),
+            () -&amp;gt; assertEquals(false, i3 == i4),
+            () -&amp;gt; assertEquals(false, i5 == i6),
+            () -&amp;gt; assertEquals(true, i5.equals(i6)));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: &lt;code&gt;secondBookingOfTheSameDayIsRejected&lt;/code&gt;&lt;/summary&gt;
+&lt;p&gt;Statt &lt;code&gt;Assertions.fail&lt;/code&gt; jetzt statisch &lt;code&gt;Assertions.assertThrows&lt;/code&gt; importieren. Die erste Buchung steht weiter außerhalb des Lambdas – deshalb bleibt das &lt;code&gt;throws&lt;/code&gt; am Test.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+void secondBookingOfTheSameDayIsRejected() throws RoomAlreadyBookedException {
+    room.book(MONDAY);
+
+    RoomAlreadyBookedException exception =
+            assertThrows(RoomAlreadyBookedException.class, () -&amp;gt; room.book(MONDAY));
+
+    assertSame(room, exception.getRoom());
+    assertEquals(MONDAY, exception.getDay());
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
 
 Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
 einem `assertAll` – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.
@@ -764,6 +1047,39 @@ class ExceptionsInLambdasTest {
   `findFirst`?
 * Schreib eine Methode, die die Namen aller an einem Tag gebuchten Räume als
   `&#34;Hamburg, Munich, Dresden&#34;` liefert – mit welchem Collector?
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: der kleinste freie Raum&lt;/summary&gt;
+&lt;p&gt;&lt;code&gt;min&lt;/code&gt; mit einem &lt;code&gt;Comparator&lt;/code&gt; ersetzt &lt;code&gt;findFirst&lt;/code&gt;; im &lt;code&gt;RoomManager&lt;/code&gt; dazu der Import &lt;code&gt;java.util.Comparator&lt;/code&gt;. Für 2 Personen findet &lt;code&gt;findFirst&lt;/code&gt; Berlin, &lt;code&gt;min&lt;/code&gt; Leipzig.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public Optional&amp;lt;Room&amp;gt; findSmallestFreeRoom(LocalDate day, int persons) {
+    return rooms.stream()
+            .filter(room -&amp;gt; room.canHost(persons))
+            .filter(room -&amp;gt; !room.isBooked(day))
+            .min(Comparator.comparingInt(Room::getCapacity));
+}
+
+@Test
+void findsTheSmallestFreeRoomThatIsLargeEnough() {
+    assertEquals(&#34;Leipzig&#34;, manager.findSmallestFreeRoom(MONDAY, 2).map(Room::getName).orElse(&#34;none&#34;));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
+
+&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
+&lt;summary&gt;Lösung: die Namen der gebuchten Räume&lt;/summary&gt;
+&lt;p&gt;&lt;code&gt;Collectors.joining&lt;/code&gt; mit Trennzeichen; dazu der Import &lt;code&gt;java.util.stream.Collectors&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public String findBookedRoomNames(LocalDate day) {
+    return findBookedRooms(day).stream()
+            .map(Room::getName)
+            .collect(Collectors.joining(&#34;, &#34;));
+}
+
+@Test
+void joinsTheNamesOfTheBookedRooms() {
+    assertEquals(&#34;Hamburg, Munich, Dresden&#34;, manager.findBookedRoomNames(MONDAY));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/details&gt;
 
 
 &lt;div class=&#34;skr-didaktikon-guide-review&#34; data-skr-slot=&#34;guide.review&#34; markdown=&#34;1&#34;&gt;
