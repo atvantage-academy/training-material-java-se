@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=a4b2350e" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=cf728dda" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=a4b2350e"
+     data-index="../../../skriptorium/search/de.json?v=cf728dda"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -159,7 +159,7 @@
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomManager enthält keine Schleife und kein null mehr; findFreeRoom und findByNumber liefern ein Optional&lt;Room&gt;." disabled="disabled"> <code>RoomManager</code> enthält keine Schleife und kein <code>null</code> mehr; <code>findFreeRoom</code> und <code>findByNumber</code> liefern ein <code>Optional&lt;Room&gt;</code>.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomManagerTest enthält keine Schleife, kein assertNull und kein get(); alle Tests sind grün." disabled="disabled"> <code>RoomManagerTest</code> enthält keine Schleife, kein <code>assertNull</code> und kein <code>get()</code>; alle Tests sind grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="ObjectPoolTest prüft mit assertAll; personWithoutBirthDateIsRejected und secondBookingOfTheSameDayIsRejected erwarten ihre Exception mit assertThrows, ohne try-catch und fail – und sind grün." disabled="disabled"> <code>ObjectPoolTest</code> prüft mit <code>assertAll</code>; <code>personWithoutBirthDateIsRejected</code> und <code>secondBookingOfTheSameDayIsRejected</code> erwarten ihre Exception mit <code>assertThrows</code>, ohne <code>try</code>-<code>catch</code> und <code>fail</code> – und sind grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="ObjectPoolTest prüft mit assertAll; secondBookingOfTheSameDayIsRejected erwartet die Exception mit assertThrows, ohne try-catch und fail, und prüft weiter Raum und Tag – beide sind grün." disabled="disabled"> <code>ObjectPoolTest</code> prüft mit <code>assertAll</code>; <code>secondBookingOfTheSameDayIsRejected</code> erwartet die Exception mit <code>assertThrows</code>, ohne <code>try</code>-<code>catch</code> und <code>fail</code>, und prüft weiter Raum und Tag – beide sind grün.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In ExceptionsInLambdasTest trägt kein Test mehr @Disabled, alle sind grün, und executeAction liest die Datei über ein Lambda." disabled="disabled"> In <code>ExceptionsInLambdasTest</code> trägt kein Test mehr <code>@Disabled</code>, alle sind grün, und <code>executeAction</code> liest die Datei über ein Lambda.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
@@ -175,59 +175,14 @@ Tests sind von Anfang an grün und müssen es nach jedem Schritt bleiben.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="lege-das-paket-an-und-kopiere-den-code">Lege das Paket an und kopiere den Code</h3>
 <p>Im Ordner <code>src/main/java</code> und im Ordner <code>src/test/java</code> Deines Projekts <code>java-aufbau</code> lege
-je das Package <code>aufbau.lambdas</code> an. Kopiere die folgenden Klassen ins Package unter
-<code>src/main/java</code>.</p>
-<p><code>Room.java</code> – der Raum aus der Übung zu JUnit:</p>
-<pre><code class="language-java">package aufbau.lambdas;
-
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-public class Room {
-
-    private final String number;
-    private final String name;
-    private final int capacity;
-    private final Set&lt;LocalDate&gt; bookedDays = new HashSet&lt;&gt;();
-
-    public Room(String number, String name, int capacity) {
-        if (capacity &lt; 1) {
-            throw new IllegalArgumentException(&quot;capacity must be at least 1, but was &quot; + capacity);
-        }
-        this.number = number;
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public boolean canHost(int persons) {
-        return persons &gt; 0 &amp;&amp; persons &lt;= capacity;
-    }
-
-    public void book(LocalDate day) {
-        bookedDays.add(day);
-    }
-
-    public boolean isBooked(LocalDate day) {
-        return bookedDays.contains(day);
-    }
-}
-</code></pre>
+je das Package <code>aufbau.lambdas</code> an. Die Räume sind der <code>Room</code> aus <em>Den Raum mit JUnit
+testen</em> im Package <code>aufbau.junit</code> – mit der <code>RoomAlreadyBookedException</code> aus <em>Exceptions:
+früh scheitern, nicht spät</em>. Du kopierst ihn nicht, sondern importierst ihn. Kopiere die
+folgende Klasse ins Package <code>aufbau.lambdas</code> unter <code>src/main/java</code>.</p>
 <p><code>RoomManager.java</code> – die Suchen, die Du umbaust:</p>
 <pre><code class="language-java">package aufbau.lambdas;
 
+import aufbau.junit.Room;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -279,6 +234,8 @@ public class RoomManager {
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -294,7 +251,7 @@ class RoomManagerTest {
     RoomManager manager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws RoomAlreadyBookedException {
         Room berlin = new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6);
         Room hamburg = new Room(&quot;R102&quot;, &quot;Hamburg&quot;, 10);
         Room munich = new Room(&quot;R103&quot;, &quot;Munich&quot;, 16);
@@ -373,10 +330,14 @@ und bau damit Tests aus den früheren Übungen um:</p>
 <ul>
 <li><code>ObjectPoolTest</code> im Package <code>aufbau.wrapper</code>: Jeder Test führt alle seine Assertions aus und
 meldet alle, die scheitern – nicht nur die erste.</li>
-<li><code>personWithoutBirthDateIsRejected</code> in <code>aufbau.exceptions</code> und
-<code>secondBookingOfTheSameDayIsRejected</code> in <code>aufbau.junit</code>: Sie erwarten ihre Exception ohne
-<code>try</code>-<code>catch</code> und <code>fail</code>.</li>
+<li><code>secondBookingOfTheSameDayIsRejected</code> in <code>RoomTest</code> (Package <code>aufbau.junit</code>): Der Test
+erwartet die <code>RoomAlreadyBookedException</code> der zweiten Buchung ohne <code>try</code>-<code>catch</code> und
+<code>fail</code> – und prüft weiter, dass sie diesen Raum und diesen Tag nennt.</li>
 </ul>
+<blockquote>
+<p><strong>Hinweis:</strong> <code>assertThrows</code> liefert die gefangene Exception zurück; an ihr prüfst Du Raum
+und Tag wie bisher im <code>catch</code>-Block.</p>
+</blockquote>
 <p>Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
 einem <code>assertAll</code> – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.</p>
 <h3 id="ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf">Ruf eine Methode mit Checked Exception aus einem Lambda auf</h3>
@@ -514,7 +475,7 @@ Als Entwickler:in der Raumbuchung möchte ich bestehende Suchen als Pipelines fo
 
 - [ ] `RoomManager` enthält keine Schleife und kein `null` mehr; `findFreeRoom` und `findByNumber` liefern ein `Optional&lt;Room&gt;`.
 - [ ] `RoomManagerTest` enthält keine Schleife, kein `assertNull` und kein `get()`; alle Tests sind grün.
-- [ ] `ObjectPoolTest` prüft mit `assertAll`; `personWithoutBirthDateIsRejected` und `secondBookingOfTheSameDayIsRejected` erwarten ihre Exception mit `assertThrows`, ohne `try`-`catch` und `fail` – und sind grün.
+- [ ] `ObjectPoolTest` prüft mit `assertAll`; `secondBookingOfTheSameDayIsRejected` erwartet die Exception mit `assertThrows`, ohne `try`-`catch` und `fail`, und prüft weiter Raum und Tag – beide sind grün.
 - [ ] In `ExceptionsInLambdasTest` trägt kein Test mehr `@Disabled`, alle sind grün, und `executeAction` liest die Datei über ein Lambda.
 - [ ] Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.
 - [ ] Du hast die Kontrollfragen beantwortet
@@ -537,65 +498,17 @@ Tests sind von Anfang an grün und müssen es nach jedem Schritt bleiben.
 ### Lege das Paket an und kopiere den Code
 
 Im Ordner `src/main/java` und im Ordner `src/test/java` Deines Projekts `java-aufbau` lege
-je das Package `aufbau.lambdas` an. Kopiere die folgenden Klassen ins Package unter
-`src/main/java`.
-
-`Room.java` – der Raum aus der Übung zu JUnit:
-
-```java
-package aufbau.lambdas;
-
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-public class Room {
-
-    private final String number;
-    private final String name;
-    private final int capacity;
-    private final Set&lt;LocalDate&gt; bookedDays = new HashSet&lt;&gt;();
-
-    public Room(String number, String name, int capacity) {
-        if (capacity &lt; 1) {
-            throw new IllegalArgumentException(&#34;capacity must be at least 1, but was &#34; &#43; capacity);
-        }
-        this.number = number;
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public boolean canHost(int persons) {
-        return persons &gt; 0 &amp;&amp; persons &lt;= capacity;
-    }
-
-    public void book(LocalDate day) {
-        bookedDays.add(day);
-    }
-
-    public boolean isBooked(LocalDate day) {
-        return bookedDays.contains(day);
-    }
-}
-```
+je das Package `aufbau.lambdas` an. Die Räume sind der `Room` aus *Den Raum mit JUnit
+testen* im Package `aufbau.junit` – mit der `RoomAlreadyBookedException` aus *Exceptions:
+früh scheitern, nicht spät*. Du kopierst ihn nicht, sondern importierst ihn. Kopiere die
+folgende Klasse ins Package `aufbau.lambdas` unter `src/main/java`.
 
 `RoomManager.java` – die Suchen, die Du umbaust:
 
 ```java
 package aufbau.lambdas;
 
+import aufbau.junit.Room;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -651,6 +564,8 @@ package aufbau.lambdas;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -666,7 +581,7 @@ class RoomManagerTest {
     RoomManager manager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws RoomAlreadyBookedException {
         Room berlin = new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6);
         Room hamburg = new Room(&#34;R102&#34;, &#34;Hamburg&#34;, 10);
         Room munich = new Room(&#34;R103&#34;, &#34;Munich&#34;, 16);
@@ -750,9 +665,12 @@ und bau damit Tests aus den früheren Übungen um:
 
 - `ObjectPoolTest` im Package `aufbau.wrapper`: Jeder Test führt alle seine Assertions aus und
   meldet alle, die scheitern – nicht nur die erste.
-- `personWithoutBirthDateIsRejected` in `aufbau.exceptions` und
-  `secondBookingOfTheSameDayIsRejected` in `aufbau.junit`: Sie erwarten ihre Exception ohne
-  `try`-`catch` und `fail`.
+- `secondBookingOfTheSameDayIsRejected` in `RoomTest` (Package `aufbau.junit`): Der Test
+  erwartet die `RoomAlreadyBookedException` der zweiten Buchung ohne `try`-`catch` und
+  `fail` – und prüft weiter, dass sie diesen Raum und diesen Tag nennt.
+
+&gt; **Hinweis:** `assertThrows` liefert die gefangene Exception zurück; an ihr prüfst Du Raum
+&gt; und Tag wie bisher im `catch`-Block.
 
 Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
 einem `assertAll` – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.

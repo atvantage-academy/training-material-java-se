@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=a4b2350e" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=cf728dda" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=a4b2350e"
+     data-index="../../../skriptorium/search/de.json?v=cf728dda"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -167,8 +167,8 @@
 <p>Lambdas und Streams machen Code kürzer – und verstecken dabei manches, was eine Schleife
 offen zeigt: ein Autoboxing, einen Auswertungszeitpunkt, einen Zustand. Neun kurze Tests
 tragen je eine naheliegende Erwartung.</p>
-<p>Du arbeitest im Package <code>aufbau.lambdas</code> mit <code>Room</code> aus
-<em>Räume mit Lambdas, Streams und Optional suchen</em>.</p>
+<p>Du arbeitest im Package <code>aufbau.lambdas</code> aus <em>Räume mit Lambdas, Streams und Optional
+suchen</em> und mit <code>Room</code> aus <em>Den Raum mit JUnit testen</em> (Package <code>aufbau.junit</code>).</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="kopiere-die-tests">Kopiere die Tests</h3>
 <p>Kopiere beide Klassen ins Package <code>aufbau.lambdas</code> unter <code>src/test/java</code>.</p>
@@ -212,6 +212,7 @@ class BoxingInLambdasTest {
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import aufbau.junit.Room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -446,8 +447,8 @@ Lambdas und Streams machen Code kürzer – und verstecken dabei manches, was ei
 offen zeigt: ein Autoboxing, einen Auswertungszeitpunkt, einen Zustand. Neun kurze Tests
 tragen je eine naheliegende Erwartung.
 
-Du arbeitest im Package `aufbau.lambdas` mit `Room` aus
-*Räume mit Lambdas, Streams und Optional suchen*.
+Du arbeitest im Package `aufbau.lambdas` aus *Räume mit Lambdas, Streams und Optional
+suchen* und mit `Room` aus *Den Raum mit JUnit testen* (Package `aufbau.junit`).
 
 ## Arbeitsschritte
 
@@ -500,6 +501,7 @@ package aufbau.lambdas;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import aufbau.junit.Room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

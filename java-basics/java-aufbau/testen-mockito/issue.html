@@ -40,7 +40,7 @@
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=a4b2350e" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=cf728dda" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=a4b2350e"
+     data-index="../../../skriptorium/search/de.json?v=cf728dda"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -189,9 +189,10 @@ groß genug ist, bucht ihn und benachrichtigt danach die Haustechnik per E-Mail.
 <code>RoomManager</code> und seine Benachrichtigung erzeugt er selbst. Du machst ihn testbar.
 Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die Visualisierung
 <a class="skr-doclink skr-doclink--visualization" href="../../../shared/dependency-injection/dependency-injection.html">Dependency Injection und Mocks</a>.</p>
-<p>Die Übung baut auf <code>Room</code> und <code>RoomManager</code> im Package <code>aufbau.lambdas</code> aus <em>Räume mit
-Lambdas, Streams und Optional suchen</em> auf – in der umgebauten Fassung, in der
-<code>findFreeRoom</code> ein <code>Optional&lt;Room&gt;</code> liefert.</p>
+<p>Die Übung baut auf <code>RoomManager</code> im Package <code>aufbau.lambdas</code> aus <em>Räume mit Lambdas,
+Streams und Optional suchen</em> auf – in der umgebauten Fassung, in der <code>findFreeRoom</code> ein
+<code>Optional&lt;Room&gt;</code> liefert – und auf <code>Room</code> samt <code>RoomAlreadyBookedException</code> im Package
+<code>aufbau.junit</code>.</p>
 <h2 id="arbeitsschritte">Arbeitsschritte</h2>
 <h3 id="den-ausgangsstand-anlegen">Den Ausgangsstand anlegen</h3>
 <p>Im Ordner <code>src/main/java</code> des Projekts <code>java-aufbau</code> lege das Package <code>aufbau.testing</code> an
@@ -219,7 +220,8 @@ public class EmailNotification implements Notification {
 <p>Und der Service, um den es geht:</p>
 <pre><code class="language-java">package aufbau.testing;
 
-import aufbau.lambdas.Room;
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.List;
@@ -232,7 +234,7 @@ public class BookingService {
             new Room(&quot;R102&quot;, &quot;Hamburg&quot;, 10)));
     private final Notification notification = new EmailNotification();
 
-    public boolean book(LocalDate day, int persons) {
+    public boolean book(LocalDate day, int persons) throws RoomAlreadyBookedException {
         Optional&lt;Room&gt; room = roomManager.findFreeRoom(day, persons);
         if (room.isEmpty()) {
             return false;
@@ -284,7 +286,8 @@ class RecordingNotification implements Notification {
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import aufbau.lambdas.Room;
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.List;
@@ -299,7 +302,7 @@ class BookingServiceTest {
     private final BookingService service = new BookingService(roomManager, notification);
 
     @Test
-    void bookingAFreeRoomSendsANotification() {
+    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
         boolean booked = service.book(MONDAY, 3);
 
         assertTrue(booked);
@@ -470,7 +473,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import aufbau.lambdas.Room;
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -485,7 +489,7 @@ class BookingServiceMockitoTest {
     private final BookingService service = new BookingService(roomManager, notification);
 
     @Test
-    void bookingAFreeRoomSendsANotification() {
+    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
         when(roomManager.findFreeRoom(MONDAY, 3)).thenReturn(Optional.of(new Room(&quot;R101&quot;, &quot;Berlin&quot;, 6)));
 
         boolean booked = service.book(MONDAY, 3);
@@ -797,9 +801,10 @@ groß genug ist, bucht ihn und benachrichtigt danach die Haustechnik per E-Mail.
 Wer erzeugt wen, und was ein Mock eigentlich ist, zeigt die Visualisierung
 [Dependency Injection und Mocks](../../../shared/dependency-injection/dependency-injection.md).
 
-Die Übung baut auf `Room` und `RoomManager` im Package `aufbau.lambdas` aus *Räume mit
-Lambdas, Streams und Optional suchen* auf – in der umgebauten Fassung, in der
-`findFreeRoom` ein `Optional&lt;Room&gt;` liefert.
+Die Übung baut auf `RoomManager` im Package `aufbau.lambdas` aus *Räume mit Lambdas,
+Streams und Optional suchen* auf – in der umgebauten Fassung, in der `findFreeRoom` ein
+`Optional&lt;Room&gt;` liefert – und auf `Room` samt `RoomAlreadyBookedException` im Package
+`aufbau.junit`.
 
 ## Arbeitsschritte
 
@@ -839,7 +844,8 @@ Und der Service, um den es geht:
 ```java
 package aufbau.testing;
 
-import aufbau.lambdas.Room;
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.List;
@@ -852,7 +858,7 @@ public class BookingService {
             new Room(&#34;R102&#34;, &#34;Hamburg&#34;, 10)));
     private final Notification notification = new EmailNotification();
 
-    public boolean book(LocalDate day, int persons) {
+    public boolean book(LocalDate day, int persons) throws RoomAlreadyBookedException {
         Optional&lt;Room&gt; room = roomManager.findFreeRoom(day, persons);
         if (room.isEmpty()) {
             return false;
@@ -914,7 +920,8 @@ package aufbau.testing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import aufbau.lambdas.Room;
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.List;
@@ -929,7 +936,7 @@ class BookingServiceTest {
     private final BookingService service = new BookingService(roomManager, notification);
 
     @Test
-    void bookingAFreeRoomSendsANotification() {
+    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
         boolean booked = service.book(MONDAY, 3);
 
         assertTrue(booked);
@@ -1118,7 +1125,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import aufbau.lambdas.Room;
+import aufbau.junit.Room;
+import aufbau.junit.RoomAlreadyBookedException;
 import aufbau.lambdas.RoomManager;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -1133,7 +1141,7 @@ class BookingServiceMockitoTest {
     private final BookingService service = new BookingService(roomManager, notification);
 
     @Test
-    void bookingAFreeRoomSendsANotification() {
+    void bookingAFreeRoomSendsANotification() throws RoomAlreadyBookedException {
         when(roomManager.findFreeRoom(MONDAY, 3)).thenReturn(Optional.of(new Room(&#34;R101&#34;, &#34;Berlin&#34;, 6)));
 
         boolean booked = service.book(MONDAY, 3);
