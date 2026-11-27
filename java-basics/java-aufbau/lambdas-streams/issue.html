@@ -6,11 +6,11 @@
 <meta name="skr-root" content="../../../">
 <script src="../../../skriptorium/skr.js?v=c06299bd"></script>
 <title>Räume mit Lambdas, Streams und Optional suchen · ATVANTAGE Academy</title>
-<meta name="description" content="Bau die Suchmethoden eines RoomManager von Schleifen auf Streams um und ersetz null durch Optional – grüne Tests sichern jeden Schritt ab. Dazu Lambdas in JUnit und Checked Exceptions im Lambda.">
+<meta name="description" content="Bau die Suchmethoden eines RoomManager von Schleifen auf Streams um und ersetz null durch Optional – grüne Tests sichern jeden Schritt ab. Dazu Lambdas in JUnit.">
 
 <meta property="og:site_name" content="ATVANTAGE Academy">
 <meta property="og:title" content="Räume mit Lambdas, Streams und Optional suchen">
-<meta property="og:description" content="Bau die Suchmethoden eines RoomManager von Schleifen auf Streams um und ersetz null durch Optional – grüne Tests sichern jeden Schritt ab. Dazu Lambdas in JUnit und Checked Exceptions im Lambda.">
+<meta property="og:description" content="Bau die Suchmethoden eines RoomManager von Schleifen auf Streams um und ersetz null durch Optional – grüne Tests sichern jeden Schritt ab. Dazu Lambdas in JUnit.">
 <meta property="og:type" content="article">
 <link rel="preload" href="../../../themes/atvantage/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../../themes/default/theme.css?v=b795c99c" data-skr-source="theme">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" media="print" href="../../../skriptorium/print.css?v=6c7ec44c">
 <meta name="generator" content="Skriptorium 2.0.0-rc.15">
 <script type="application/json" id="skr-build-info">{"audience":"learner","extensions":[{"name":"didaktikon","version":"2.0.0-rc.11"}],"internal":false,"languages":["de"],"skriptorium":"2.0.0-rc.15","theme":"didaktikon","themeOptions":["didaktikon"],"themes":[{"name":"didaktikon","version":"2.0.0-rc.11"},{"name":"atvantage","version":"2.2.0"},{"name":"default","version":"2.0.0-rc.15"}]}</script>
-<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Bau die Suchmethoden eines RoomManager von Schleifen auf Streams um und ersetz null durch Optional – grüne Tests sichern jeden Schritt ab. Dazu Lambdas in JUnit und Checked Exceptions im Lambda.","duration":45,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-lambdas-streams-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Räume mit Lambdas, Streams und Optional suchen","topics":["Lambdas","Funktionale Interfaces","Streams","Optional","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/lambdas-streams/issue.html"}</script>
+<script type="application/json" id="skr-page-info">{"clientApi":"full","defaultLanguage":"de","description":"Bau die Suchmethoden eines RoomManager von Schleifen auf Streams um und ersetz null durch Optional – grüne Tests sichern jeden Schritt ab. Dazu Lambdas in JUnit.","duration":45,"fields":null,"language":"de","languages":["de"],"layout":"didaktikon.exercise","pageId":"java-aufbau-lambdas-streams-uebung","runtimeFragments":null,"siteIndex":"/skriptorium/site.json","title":"Räume mit Lambdas, Streams und Optional suchen","topics":["Lambdas","Funktionale Interfaces","Streams","Optional","Raumbuchung"],"untranslated":null,"url":"/java-basics/java-aufbau/lambdas-streams/issue.html"}</script>
 <script type="application/json" id="skr-texts">{"didaktikon.capture":"Capture-Modus","didaktikon.captureExit":"beenden","didaktikon.captureText":"Text einblenden","didaktikon.crosswordAcross":"Waagerecht","didaktikon.crosswordCellAcross":"{number} waagerecht, Buchstabe {position}","didaktikon.crosswordCellDown":"{number} senkrecht, Buchstabe {position}","didaktikon.crosswordDown":"Senkrecht","didaktikon.crosswordHintLetter":"Tipp: Buchstabe","didaktikon.crosswordHintWord":"Tipp: Wort","didaktikon.crosswordRestart":"Neu beginnen","didaktikon.crosswordRestartText":"Deine Eingaben in diesem Rätsel werden gelöscht.","didaktikon.crosswordRestartTitle":"Kreuzworträtsel neu beginnen?","didaktikon.crosswordReveal":"Auflösen","didaktikon.crosswordRevealText":"Alle Felder werden ausgefüllt.","didaktikon.crosswordRevealTitle":"Kreuzworträtsel auflösen?","didaktikon.crosswordSolution":"Lösungswort","didaktikon.crosswordSolutionCell":"Lösungswort, Buchstabe {position}","didaktikon.crosswordSolved":"Gelöst – alle Begriffe stimmen.","didaktikon.doclinkCrossword":"Kreuzworträtsel","didaktikon.doclinkExercise":"Übung","didaktikon.doclinkQuiz":"Wissens-Check","didaktikon.doclinkSimulation":"Simulation","didaktikon.doclinkVisualization":"Visualisierung","didaktikon.exerciseObjectives":"Lernziele","didaktikon.exerciseQuestionsDone":"Du hast die Kontrollfragen beantwortet","didaktikon.exerciseReflectiveQuestions":"Reflexionsfragen","didaktikon.exerciseUserStory":"User Story","didaktikon.moduleBlock":"Grobthema: {block}","didaktikon.moduleDuration":"{minutes} Minuten","didaktikon.moduleMaterial":"Material","didaktikon.moduleMaterialOver":"Das Material dauert zusammen {material}′ – länger als das Modul mit {module}′.","didaktikon.quizAgain":"Noch einmal","didaktikon.quizCorrect":"Richtig.","didaktikon.quizCorrectCount":"{count} richtig","didaktikon.quizCorrectWouldBe":"Richtig wäre gewesen:","didaktikon.quizDone":"Fertig","didaktikon.quizEvaluate":"Auswertung","didaktikon.quizJump":"Zu Frage springen","didaktikon.quizNext":"Weiter","didaktikon.quizOverview":"Alle Fragen","didaktikon.quizOverviewClose":"Zurück zum Check","didaktikon.quizOverviewCorrect":"(richtig)","didaktikon.quizOverviewGoTo":"Zu dieser Frage","didaktikon.quizProgress":"Fortschritt","didaktikon.quizQuestionOf":"Frage {current} von {total}","didaktikon.quizRestart":"Neu beginnen","didaktikon.quizRestartText":"Deine Antworten in diesem Wissens-Check werden gelöscht.","didaktikon.quizRestartTitle":"Wissens-Check neu beginnen?","didaktikon.quizResult":"{correct} von {total} richtig","didaktikon.quizResultLong":"{correct} von {total} Fragen richtig","didaktikon.quizTrainerOnly":"Nur für Trainer:innen","didaktikon.quizWrong":"Nicht ganz.","didaktikon.scenarios":"Szenarien","didaktikon.simAllScenarios":"Alle Szenarien (Taste 0)","didaktikon.simControls":"Simulation steuern","didaktikon.simNext":"Schritt vor (→)","didaktikon.simNextAria":"Schritt vor","didaktikon.simOverview":"Übersicht","didaktikon.simPause":"Pause (Leertaste)","didaktikon.simPauseAria":"Pause","didaktikon.simPlay":"Abspielen (Leertaste)","didaktikon.simPlayAria":"Abspielen","didaktikon.simPrev":"Schritt zurück (←)","didaktikon.simPrevAria":"Schritt zurück","didaktikon.simPrintHint":"Diese Simulation lebt von der Bewegung. Auf Papier steht nur der gerade sichtbare Schritt – der QR-Code oben führt zurück zur laufenden Fassung.","didaktikon.simReset":"Zurück auf Anfang (Taste R)","didaktikon.simResetAria":"Zurück auf Anfang","didaktikon.simResize":"Breite der Erklärspalte (Pfeiltasten)","didaktikon.simScenarioCount":"{count} Szenarien","didaktikon.simScenarioKey":"{title} (Taste {number})","didaktikon.simScenarioTitle":"Szenario {number}","didaktikon.simSpeed":"Tempo wählen (Taste T)","didaktikon.simSpeedAria":"Tempo wählen","didaktikon.simSpeedMenu":"Tempo","didaktikon.simStepCount":"{count} Schritte","didaktikon.simStepCountOne":"{count} Schritt","didaktikon.simStepCounter":"Schritt {current} / {total}","didaktikon.speedFast":"zügig","didaktikon.speedNormal":"normal","didaktikon.speedSlow":"langsam","didaktikon.speedTurbo":"im Zeitraffer","didaktikon.speedValue":"{speed}×","didaktikon.stepNote":"Erklärung zum aktuellen Schritt","didaktikon.trainerNoteClose":"Schließen","didaktikon.trainerNoteOpen":"Hinweis für Trainer:innen anzeigen","didaktikon.trainerNoteTitle":"Hinweis für Trainer:innen","didaktikon.trainingCatalogEmpty":"Hier gibt es noch keine Schulung.","didaktikon.trainingCatalogTrainings":"Schulungen","didaktikon.trainingDays":"{days} Tage","didaktikon.trainingDaysOne":"{days} Tag","didaktikon.trainingHomeInfo":"Kursbeschreibung","didaktikon.trainingHomeManifest":"Didaktisches Manifest","didaktikon.trainingHomeSales":"Sales-Asset","didaktikon.trainingInfoAudience":"Zielgruppe","didaktikon.trainingInfoObjectives":"Lernziele","didaktikon.trainingInfoObjectivesLead":"Die Lernenden …","didaktikon.trainingInfoOverview":"Überblick","didaktikon.trainingInfoPrerequisites":"Voraussetzungen","didaktikon.trainingMaterials":"Kursmaterial","didaktikon.trainingMaterialsExercises":"Übungen","didaktikon.trainingMaterialsLead":"Links stehen die **Übungen**, an denen Du selbst arbeitest, rechts das **Material zum Nachschlagen**.","didaktikon.trainingMaterialsMore":"Weitere Themen","didaktikon.trainingMaterialsOther":"Sonstige Unterlagen","didaktikon.trainingMaterialsReference":"Zum Nachschlagen","didaktikon.trainingModules":"Module","didaktikon.trainingModulesBlock":"Grobthema","didaktikon.trainingModulesDuration":"Dauer","didaktikon.trainingModulesMaterial":"Material","didaktikon.trainingModulesModule":"Modul","didaktikon.trainingModulesOver":"länger als das Modul","didaktikon.trainingSalesBuyers":"Käufer","didaktikon.trainingSalesPitch":"Pitch","didaktikon.trainingSalesPricing":"Preisrahmen","didaktikon.trainingSalesUsp":"Unterscheidungsmerkmale","didaktikon.trainingSalesValueProposition":"Nutzenversprechen"}</script>
 
 <script src="../../../skriptorium/client.js?v=756a5d69" defer></script>
 <script src="../../../skriptorium/site.js?v=6472c794" defer></script>
 <script src="../../../skriptorium/search-trail.js?v=31279378" data-skr-search-trail
-        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=14594ce3" defer></script>
+        data-base="../../../" data-index="../../../skriptorium/search/de.json?v=6c13d69d" defer></script>
 <link rel="stylesheet" href="../../../skriptorium/highlight.css?v=f8a3fc05">
 <script type="module" src="../../../skriptorium/highlight.js?v=0b2d40aa" data-skr-highlight="[&#34;java&#34;,&#34;xml&#34;,&#34;bash&#34;]"></script>
 <link rel="apple-touch-icon" sizes="180x180" href="../../../themes/atvantage/assets/icon-180.png">
@@ -81,7 +81,7 @@
   <div class="skr-header__tools">
 <div class="skr-search" data-skr-search hidden
      data-mode="expand" data-shortcut="double_shift"
-     data-index="../../../skriptorium/search/de.json?v=14594ce3"
+     data-index="../../../skriptorium/search/de.json?v=6c13d69d"
      data-base="../../../">
   <button type="button" class="skr-tool skr-tool--search" data-skr-search-toggle
           aria-expanded="false" aria-controls="skr-search-dialog"
@@ -148,7 +148,6 @@
 <li>Du baust Schleifen zu Stream-Pipelines um, ohne dass sich ihr Ergebnis ändert – die Tests bleiben grün.</li>
 <li>Du schreibst Bedingungen als Lambdas und Abbildungen als Methodenreferenzen.</li>
 <li>Du ersetzt eine Rückgabe, die <code>null</code> sein kann, durch <code>Optional</code> und rechnest im Test damit weiter.</li>
-<li>Du rufst eine Methode mit Checked Exception aus einem Lambda auf.</li>
 <li>Du verwendest <code>assertAll</code> und <code>assertThrows</code> aus JUnit und begründest, warum sie Lambdas brauchen.</li>
 </ul>
 </div>
@@ -159,9 +158,8 @@
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomManager enthält keine Schleife und kein null mehr; findFreeRoom und findByNumber liefern ein Optional&lt;Room&gt;." disabled="disabled"> <code>RoomManager</code> enthält keine Schleife und kein <code>null</code> mehr; <code>findFreeRoom</code> und <code>findByNumber</code> liefern ein <code>Optional&lt;Room&gt;</code>.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="RoomManagerTest enthält keine Schleife, kein assertNull und kein get(); alle Tests sind grün." disabled="disabled"> <code>RoomManagerTest</code> enthält keine Schleife, kein <code>assertNull</code> und kein <code>get()</code>; alle Tests sind grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="ObjectPoolTest prüft mit assertAll; secondBookingOfTheSameDayIsRejected erwartet die Exception mit assertThrows, ohne try-catch und fail, und prüft weiter Raum und Tag – beide sind grün." disabled="disabled"> <code>ObjectPoolTest</code> prüft mit <code>assertAll</code>; <code>secondBookingOfTheSameDayIsRejected</code> erwartet die Exception mit <code>assertThrows</code>, ohne <code>try</code>-<code>catch</code> und <code>fail</code>, und prüft weiter Raum und Tag – beide sind grün.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="In ExceptionsInLambdasTest trägt kein Test mehr @Disabled, alle sind grün, und executeAction liest die Datei über ein Lambda." disabled="disabled"> In <code>ExceptionsInLambdasTest</code> trägt kein Test mehr <code>@Disabled</code>, alle sind grün, und <code>executeAction</code> liest die Datei über ein Lambda.</li>
-<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch." disabled="disabled"> Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="secondBookingOfTheSameDayIsRejected erwartet die Exception mit assertThrows, ohne try-catch und fail, und prüft Raum und Tag mit assertAll – der Test ist grün." disabled="disabled"> <code>secondBookingOfTheSameDayIsRejected</code> erwartet die Exception mit <code>assertThrows</code>, ohne <code>try</code>-<code>catch</code> und <code>fail</code>, und prüft Raum und Tag mit <code>assertAll</code> – der Test ist grün.</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Der Maven-Build läuft ohne Fehler durch." disabled="disabled"> Der Maven-Build läuft ohne Fehler durch.</li>
 <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" aria-label="Du hast die Kontrollfragen beantwortet" disabled="disabled"> Du hast die Kontrollfragen beantwortet</li>
 </ul>
 </div>
@@ -264,7 +262,9 @@ class RoomManagerTest {
         munich.book(MONDAY);
         dresden.book(MONDAY);
         berlin.book(TUESDAY);
-        manager = new RoomManager(List.of(berlin, hamburg, munich, cologne, dresden, leipzig, bremen, kiel));
+        manager = new RoomManager(
+                List.of(berlin, hamburg, munich, cologne, dresden, leipzig, bremen, kiel)
+        );
     }
 
     @Test
@@ -300,7 +300,8 @@ class RoomManagerTest {
 </code></pre>
 <p>Starte die Tests in der IDE: Alle fünf sind grün.</p>
 <h3 id="bau-die-schleifen-zu-pipelines-um">Bau die Schleifen zu Pipelines um</h3>
-<p>Bau <code>findBookedRooms</code> zu einer Stream-Pipeline um: Räume filtern, als Liste sammeln. Das Bild
+<p>Bau <code>findBookedRooms</code> zu einer Stream-Pipeline um: Räume filtern und den Stream zurückgeben –
+der Rückgabetyp wird <code>Stream&lt;Room&gt;</code>. Das Bild
 dazu – ein Fließband mit Maschinen und einem Eimer am Ende – zeigt die Visualisierung
 <a class="skr-doclink skr-doclink--visualization" href="../../../shared/lambdas-streams/lambdas-streams.html#stream">Lambdas, Streams und Optional</a>.</p>
 <p>Bau danach im Test <code>findsTheBookedRoomsOfADay</code> die Schleife ebenso um: Die Räume werden auf
@@ -312,11 +313,11 @@ liefert <code>toList()</code> am Ende der Pipeline.</p>
 </blockquote>
 <details class="skr-reveal skr-reveal--screen-only">
 <summary>Lösung: <code>findBookedRooms</code></summary>
-<p>Der Import <code>java.util.ArrayList</code> entfällt.</p>
-<pre><code class="language-java">public List&lt;Room&gt; findBookedRooms(LocalDate day) {
-    return rooms.stream()
-            .filter(room -&gt; room.isBooked(day))
-            .toList();
+<p>Der Import <code>java.util.ArrayList</code> entfällt, dazu kommt <code>java.util.stream.Stream</code>.</p>
+<pre><code class="language-java">public Stream&lt;Room&gt; findBookedRooms(LocalDate day) {
+    return rooms
+            .stream()
+            .filter(room -&gt; room.isBooked(day));
 }</code></pre>
 </details>
 <details class="skr-reveal skr-reveal--screen-only">
@@ -324,7 +325,8 @@ liefert <code>toList()</code> am Ende der Pipeline.</p>
 <p>Auch im Test entfällt der Import <code>java.util.ArrayList</code>.</p>
 <pre><code class="language-java">@Test
 void findsTheBookedRoomsOfADay() {
-    List&lt;String&gt; names = manager.findBookedRooms(MONDAY).stream()
+    List&lt;String&gt; names = manager
+            .findBookedRooms(MONDAY)
             .map(Room::getName)
             .toList();
 
@@ -348,14 +350,16 @@ nicht sicherer, nur länger.</p>
 <summary>Lösung: <code>findFreeRoom</code> und <code>findByNumber</code></summary>
 <p>Dazu der Import <code>java.util.Optional</code>.</p>
 <pre><code class="language-java">public Optional&lt;Room&gt; findFreeRoom(LocalDate day, int persons) {
-    return rooms.stream()
+    return rooms
+            .stream()
             .filter(room -&gt; room.canHost(persons))
             .filter(room -&gt; !room.isBooked(day))
             .findFirst();
 }
 
 public Optional&lt;Room&gt; findByNumber(String number) {
-    return rooms.stream()
+    return rooms
+            .stream()
             .filter(room -&gt; room.getNumber().equals(number))
             .findFirst();
 }</code></pre>
@@ -365,180 +369,79 @@ public Optional&lt;Room&gt; findByNumber(String number) {
 <p>Statt <code>Assertions.assertNull</code> jetzt statisch <code>Assertions.assertTrue</code> importieren.</p>
 <pre><code class="language-java">@Test
 void findsTheFirstFreeRoomThatIsLargeEnough() {
-    assertEquals("Cologne", manager.findFreeRoom(MONDAY, 10).map(Room::getName).orElse("none"));
+    assertEquals(
+            "Cologne",
+            manager
+                    .findFreeRoom(MONDAY, 10)
+                    .map(Room::getName)
+                    .orElse("none")
+    );
 }
 
 @Test
 void findsNoFreeRoomForTooManyPersons() {
-    assertTrue(manager.findFreeRoom(MONDAY, 30).isEmpty());
+    assertTrue(
+            manager
+                    .findFreeRoom(MONDAY, 30)
+                    .isEmpty()
+    );
 }
 
 @Test
 void findsTheRoomByItsNumber() {
-    assertEquals("Cologne", manager.findByNumber("R201").map(Room::getName).orElse("none"));
+    assertEquals(
+            "Cologne",
+            manager
+                    .findByNumber("R201")
+                    .map(Room::getName)
+                    .orElse("none")
+    );
 }
 
 @Test
 void findsNoRoomForAnUnknownNumber() {
-    assertTrue(manager.findByNumber("R999").isEmpty());
+    assertTrue(
+            manager
+                    .findByNumber("R999")
+                    .isEmpty()
+    );
 }</code></pre>
 </details>
 <h3 id="teste-mit-lambdas-assertall-und-assertthrows">Teste mit Lambdas: assertAll und assertThrows</h3>
 <p>JUnit nimmt an zwei Stellen Lambdas entgegen: <code>Assertions.assertAll</code> und
 <code>Assertions.assertThrows</code>. Sieh Dir beide Methoden in der Javadoc oder im JUnit User Guide an
-und bau damit Tests aus den früheren Übungen um:</p>
+und bau damit den Test <code>secondBookingOfTheSameDayIsRejected</code> in <code>RoomTest</code> (Package
+<code>aufbau.junit</code>) um:</p>
 <ul>
-<li><code>ObjectPoolTest</code> im Package <code>aufbau.wrapper</code>: Jeder Test führt alle seine Assertions aus und
-meldet alle, die scheitern – nicht nur die erste.</li>
-<li><code>secondBookingOfTheSameDayIsRejected</code> in <code>RoomTest</code> (Package <code>aufbau.junit</code>): Der Test
-erwartet die <code>RoomAlreadyBookedException</code> der zweiten Buchung ohne <code>try</code>-<code>catch</code> und
-<code>fail</code> – und prüft weiter, dass sie diesen Raum und diesen Tag nennt.</li>
+<li>Er erwartet die <code>RoomAlreadyBookedException</code> der zweiten Buchung mit <code>assertThrows</code> – ohne
+<code>try</code>-<code>catch</code> und <code>fail</code>.</li>
+<li>Er prüft weiter, dass sie diesen Raum und diesen Tag nennt – mit <code>assertAll</code>, sodass beide
+Prüfungen laufen, auch wenn die erste scheitert.</li>
 </ul>
 <blockquote>
 <p><strong>Hinweis:</strong> <code>assertThrows</code> liefert die gefangene Exception zurück; an ihr prüfst Du Raum
 und Tag wie bisher im <code>catch</code>-Block.</p>
 </blockquote>
 <details class="skr-reveal skr-reveal--screen-only">
-<summary>Lösung: <code>ObjectPoolTest</code></summary>
-<p>Dazu der statische Import <code>Assertions.assertAll</code>. Die Erwartungen sind die korrigierten aus der Übung zu den Wrapper-Klassen.</p>
-<pre><code class="language-java">@Test
-void stringLiterals() {
-    String s1 = "text";
-    String s2 = "text";
-
-    assertAll(
-            () -&gt; assertEquals(true, s1 == s2),
-            () -&gt; assertEquals(false, new String(s1) == s2),
-            () -&gt; assertEquals(true, new String(s1).intern() == s2));
-}
-
-@Test
-void concatenatedStrings() {
-    String s1 = "text";
-    String te = "te";
-    final String xt = "xt";
-
-    String s3 = "te" + "xt";
-    String s4 = te + "xt";
-    String s5 = "te" + xt;
-
-    assertAll(
-            () -&gt; assertEquals(true, s1 == s3),
-            () -&gt; assertEquals(false, s1 == s4),
-            () -&gt; assertEquals(true, s1 == s4.intern()),
-            () -&gt; assertEquals(true, s1 == s5));
-}
-
-@Test
-void boxedIntegers() {
-    Integer i1 = 4;
-    Integer i2 = 4;
-    Integer i3 = 128;
-    Integer i4 = 128;
-    Integer i5 = -129;
-    Integer i6 = -129;
-
-    assertAll(
-            () -&gt; assertEquals(true, i1 == i2),
-            () -&gt; assertEquals(false, i3 == i4),
-            () -&gt; assertEquals(false, i5 == i6),
-            () -&gt; assertEquals(true, i5.equals(i6)));
-}</code></pre>
-</details>
-<details class="skr-reveal skr-reveal--screen-only">
 <summary>Lösung: <code>secondBookingOfTheSameDayIsRejected</code></summary>
-<p>Statt <code>Assertions.fail</code> jetzt statisch <code>Assertions.assertThrows</code> importieren. Die erste Buchung steht weiter außerhalb des Lambdas – deshalb bleibt das <code>throws</code> am Test.</p>
+<p>Statt <code>Assertions.fail</code> jetzt statisch <code>Assertions.assertThrows</code> und <code>Assertions.assertAll</code> importieren. Die erste Buchung steht weiter außerhalb des Lambdas – deshalb bleibt das <code>throws</code> am Test.</p>
 <pre><code class="language-java">@Test
 void secondBookingOfTheSameDayIsRejected() throws RoomAlreadyBookedException {
     room.book(MONDAY);
 
-    RoomAlreadyBookedException exception =
-            assertThrows(RoomAlreadyBookedException.class, () -&gt; room.book(MONDAY));
+    RoomAlreadyBookedException exception = assertThrows(
+            RoomAlreadyBookedException.class,
+            () -&gt; room.book(MONDAY)
+    );
 
-    assertSame(room, exception.getRoom());
-    assertEquals(MONDAY, exception.getDay());
+    assertAll(
+            () -&gt; assertSame(room, exception.getRoom()),
+            () -&gt; assertEquals(MONDAY, exception.getDay())
+    );
 }</code></pre>
 </details>
-<p>Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
-einem <code>assertAll</code> – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.</p>
-<h3 id="ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf">Ruf eine Methode mit Checked Exception aus einem Lambda auf</h3>
-<p><code>readFile</code> wirft eine <code>IOException</code>. Kopiere die Klasse ins Package <code>aufbau.lambdas</code> unter <code>src/test/java</code>.</p>
-<p><code>ExceptionsInLambdasTest.java</code>:</p>
-<pre><code class="language-java">package aufbau.lambdas;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-class ExceptionsInLambdasTest {
-
-    @TempDir
-    Path folder;
-
-    @Test
-    void exceptionReachesTheCaller() {
-        Path missingFile = folder.resolve(&quot;missing.txt&quot;);
-
-        assertThrows(IOException.class, () -&gt; executeAction(missingFile));
-    }
-
-    @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented readAll&quot;)
-    void readAllReadsEveryFile() throws IOException {
-        Path first = Files.writeString(folder.resolve(&quot;first.txt&quot;), &quot;R101&quot;);
-        Path second = Files.writeString(folder.resolve(&quot;second.txt&quot;), &quot;R102&quot;);
-
-        assertEquals(List.of(&quot;R101&quot;, &quot;R102&quot;), readAll(List.of(first, second)));
-    }
-
-    @Test
-    @Disabled(&quot;Remove @Disabled once you have implemented readAll&quot;)
-    void readAllFailsForAMissingFile() {
-        Path missingFile = folder.resolve(&quot;missing.txt&quot;);
-
-        assertThrows(UncheckedIOException.class, () -&gt; readAll(List.of(missingFile)));
-    }
-
-    // Only change the two methods below. executeAction has to read the file via the Supplier.
-    private static String executeAction(Path file) throws IOException {
-        // Supplier&lt;String&gt; reader = () -&gt; readFile(file);
-        // return reader.get();
-        return readFile(file);
-    }
-
-    private static List&lt;String&gt; readAll(List&lt;Path&gt; files) {
-        // return files.stream().map(file -&gt; readFile(file)).toList();
-        throw new UnsupportedOperationException(&quot;TODO&quot;);
-    }
-
-    private static String readFile(Path file) throws IOException {
-        return Files.readString(file);
-    }
-}
-</code></pre>
-<p>Ändere nur <code>executeAction</code> und <code>readAll</code>:</p>
-<ul>
-<li><code>executeAction</code> soll die Datei über ein Lambda lesen, wie im Kommentar. Entferne die
-Kommentarzeichen und lies die Meldung des Compilers. Finde einen Weg, bei dem die
-<code>IOException</code> trotzdem beim Aufrufer ankommt – der Test <code>exceptionReachesTheCaller</code>
-bleibt grün.</li>
-<li><code>readAll</code> soll alle Dateien mit einem Stream lesen, wie im Kommentar. Hier soll eine
-fehlende Datei als <code>UncheckedIOException</code> ankommen. Entferne an den beiden Tests zu
-<code>readAll</code> das <code>@Disabled</code>.</li>
-</ul>
-<blockquote>
-<p><strong>Hinweis:</strong> Zwei Wege sind üblich: ein eigenes funktionales Interface, dessen
-Methode <code>throws IOException</code> deklariert, oder die <code>IOException</code> im Lambda fangen
-und in eine <code>UncheckedIOException</code> einpacken. Probier beide aus.</p>
-</blockquote>
+<p>Starte den Test danach in der IDE; er muss grün bleiben. Ändere zur Probe beide Erwartungen im
+<code>assertAll</code> – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.</p>
 <h3 id="für-schnelle">Für Schnelle</h3>
 <ul>
 <li>Ergänze im <code>RoomManager</code> eine Methode, die den <strong>kleinsten</strong> freien Raum für eine Anzahl
@@ -551,7 +454,8 @@ Personen an einem Tag liefert, und einen Test dazu. Welche Endoperation ersetzt
 <summary>Lösung: der kleinste freie Raum</summary>
 <p><code>min</code> mit einem <code>Comparator</code> ersetzt <code>findFirst</code>; im <code>RoomManager</code> dazu der Import <code>java.util.Comparator</code>. Für 2 Personen findet <code>findFirst</code> Berlin, <code>min</code> Leipzig.</p>
 <pre><code class="language-java">public Optional&lt;Room&gt; findSmallestFreeRoom(LocalDate day, int persons) {
-    return rooms.stream()
+    return rooms
+            .stream()
             .filter(room -&gt; room.canHost(persons))
             .filter(room -&gt; !room.isBooked(day))
             .min(Comparator.comparingInt(Room::getCapacity));
@@ -559,21 +463,30 @@ Personen an einem Tag liefert, und einen Test dazu. Welche Endoperation ersetzt
 
 @Test
 void findsTheSmallestFreeRoomThatIsLargeEnough() {
-    assertEquals("Leipzig", manager.findSmallestFreeRoom(MONDAY, 2).map(Room::getName).orElse("none"));
+    assertEquals(
+            "Leipzig",
+            manager
+                    .findSmallestFreeRoom(MONDAY, 2)
+                    .map(Room::getName)
+                    .orElse("none")
+    );
 }</code></pre>
 </details>
 <details class="skr-reveal skr-reveal--screen-only">
 <summary>Lösung: die Namen der gebuchten Räume</summary>
 <p><code>Collectors.joining</code> mit Trennzeichen; dazu der Import <code>java.util.stream.Collectors</code>.</p>
 <pre><code class="language-java">public String findBookedRoomNames(LocalDate day) {
-    return findBookedRooms(day).stream()
+    return findBookedRooms(day)
             .map(Room::getName)
             .collect(Collectors.joining(", "));
 }
 
 @Test
 void joinsTheNamesOfTheBookedRooms() {
-    assertEquals("Hamburg, Munich, Dresden", manager.findBookedRoomNames(MONDAY));
+    assertEquals(
+            "Hamburg, Munich, Dresden",
+            manager.findBookedRoomNames(MONDAY)
+    );
 }</code></pre>
 </details>
 <div class="skr-didaktikon-guide-review" data-skr-slot="guide.review">
@@ -584,7 +497,6 @@ void joinsTheNamesOfTheBookedRooms() {
 <li>Woran merkt der Aufrufer von <code>findByNumber</code>, dass es keinen Raum geben kann – vorher und nachher?</li>
 <li><code>stream()</code> ist eine Default-Methode von <code>Collection</code>. Was ist das – und wofür brauchen wir sie?</li>
 <li>Warum nehmen <code>assertAll</code> und <code>assertThrows</code> Lambdas entgegen und nicht einfach die Ergebnisse der Prüfungen oder Aufrufe?</li>
-<li>Welche Deiner beiden Lösungen für die Checked Exception würdest Du im Projekt verwenden – und warum?</li>
 </ul>
 </div>
 </div>
@@ -611,7 +523,6 @@ Als Entwickler:in der Raumbuchung möchte ich bestehende Suchen als Pipelines fo
 - Du baust Schleifen zu Stream-Pipelines um, ohne dass sich ihr Ergebnis ändert – die Tests bleiben grün.
 - Du schreibst Bedingungen als Lambdas und Abbildungen als Methodenreferenzen.
 - Du ersetzt eine Rückgabe, die `null` sein kann, durch `Optional` und rechnest im Test damit weiter.
-- Du rufst eine Methode mit Checked Exception aus einem Lambda auf.
 - Du verwendest `assertAll` und `assertThrows` aus JUnit und begründest, warum sie Lambdas brauchen.
 
 &lt;/div&gt;
@@ -625,9 +536,8 @@ Als Entwickler:in der Raumbuchung möchte ich bestehende Suchen als Pipelines fo
 
 - [ ] `RoomManager` enthält keine Schleife und kein `null` mehr; `findFreeRoom` und `findByNumber` liefern ein `Optional&lt;Room&gt;`.
 - [ ] `RoomManagerTest` enthält keine Schleife, kein `assertNull` und kein `get()`; alle Tests sind grün.
-- [ ] `ObjectPoolTest` prüft mit `assertAll`; `secondBookingOfTheSameDayIsRejected` erwartet die Exception mit `assertThrows`, ohne `try`-`catch` und `fail`, und prüft weiter Raum und Tag – beide sind grün.
-- [ ] In `ExceptionsInLambdasTest` trägt kein Test mehr `@Disabled`, alle sind grün, und `executeAction` liest die Datei über ein Lambda.
-- [ ] Der Maven-Build läuft ohne Fehler und ohne übersprungene Tests durch.
+- [ ] `secondBookingOfTheSameDayIsRejected` erwartet die Exception mit `assertThrows`, ohne `try`-`catch` und `fail`, und prüft Raum und Tag mit `assertAll` – der Test ist grün.
+- [ ] Der Maven-Build läuft ohne Fehler durch.
 - [ ] Du hast die Kontrollfragen beantwortet
 
 &lt;/div&gt;
@@ -744,7 +654,9 @@ class RoomManagerTest {
         munich.book(MONDAY);
         dresden.book(MONDAY);
         berlin.book(TUESDAY);
-        manager = new RoomManager(List.of(berlin, hamburg, munich, cologne, dresden, leipzig, bremen, kiel));
+        manager = new RoomManager(
+                List.of(berlin, hamburg, munich, cologne, dresden, leipzig, bremen, kiel)
+        );
     }
 
     @Test
@@ -783,7 +695,8 @@ Starte die Tests in der IDE: Alle fünf sind grün.
 
 ### Bau die Schleifen zu Pipelines um
 
-Bau `findBookedRooms` zu einer Stream-Pipeline um: Räume filtern, als Liste sammeln. Das Bild
+Bau `findBookedRooms` zu einer Stream-Pipeline um: Räume filtern und den Stream zurückgeben –
+der Rückgabetyp wird `Stream&lt;Room&gt;`. Das Bild
 dazu – ein Fließband mit Maschinen und einem Eimer am Ende – zeigt die Visualisierung
 [Lambdas, Streams und Optional](../../../shared/lambdas-streams/lambdas-streams.md#stream).
 
@@ -796,12 +709,12 @@ ihre Namen abgebildet.
 
 &lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
 &lt;summary&gt;Lösung: &lt;code&gt;findBookedRooms&lt;/code&gt;&lt;/summary&gt;
-&lt;p&gt;Der Import &lt;code&gt;java.util.ArrayList&lt;/code&gt; entfällt.&lt;/p&gt;
+&lt;p&gt;Der Import &lt;code&gt;java.util.ArrayList&lt;/code&gt; entfällt, dazu kommt &lt;code&gt;java.util.stream.Stream&lt;/code&gt;.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public List&amp;lt;Room&amp;gt; findBookedRooms(LocalDate day) {
-    return rooms.stream()
-            .filter(room -&amp;gt; room.isBooked(day))
-            .toList();
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public Stream&amp;lt;Room&amp;gt; findBookedRooms(LocalDate day) {
+    return rooms
+            .stream()
+            .filter(room -&amp;gt; room.isBooked(day));
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 
@@ -811,7 +724,8 @@ ihre Namen abgebildet.
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
 void findsTheBookedRoomsOfADay() {
-    List&amp;lt;String&amp;gt; names = manager.findBookedRooms(MONDAY).stream()
+    List&amp;lt;String&amp;gt; names = manager
+            .findBookedRooms(MONDAY)
             .map(Room::getName)
             .toList();
 
@@ -837,14 +751,16 @@ void findsTheBookedRoomsOfADay() {
 &lt;p&gt;Dazu der Import &lt;code&gt;java.util.Optional&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public Optional&amp;lt;Room&amp;gt; findFreeRoom(LocalDate day, int persons) {
-    return rooms.stream()
+    return rooms
+            .stream()
             .filter(room -&amp;gt; room.canHost(persons))
             .filter(room -&amp;gt; !room.isBooked(day))
             .findFirst();
 }
 
 public Optional&amp;lt;Room&amp;gt; findByNumber(String number) {
-    return rooms.stream()
+    return rooms
+            .stream()
             .filter(room -&amp;gt; room.getNumber().equals(number))
             .findFirst();
 }&lt;/code&gt;&lt;/pre&gt;
@@ -856,22 +772,42 @@ public Optional&amp;lt;Room&amp;gt; findByNumber(String number) {
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
 void findsTheFirstFreeRoomThatIsLargeEnough() {
-    assertEquals(&#34;Cologne&#34;, manager.findFreeRoom(MONDAY, 10).map(Room::getName).orElse(&#34;none&#34;));
+    assertEquals(
+            &#34;Cologne&#34;,
+            manager
+                    .findFreeRoom(MONDAY, 10)
+                    .map(Room::getName)
+                    .orElse(&#34;none&#34;)
+    );
 }
 
 @Test
 void findsNoFreeRoomForTooManyPersons() {
-    assertTrue(manager.findFreeRoom(MONDAY, 30).isEmpty());
+    assertTrue(
+            manager
+                    .findFreeRoom(MONDAY, 30)
+                    .isEmpty()
+    );
 }
 
 @Test
 void findsTheRoomByItsNumber() {
-    assertEquals(&#34;Cologne&#34;, manager.findByNumber(&#34;R201&#34;).map(Room::getName).orElse(&#34;none&#34;));
+    assertEquals(
+            &#34;Cologne&#34;,
+            manager
+                    .findByNumber(&#34;R201&#34;)
+                    .map(Room::getName)
+                    .orElse(&#34;none&#34;)
+    );
 }
 
 @Test
 void findsNoRoomForAnUnknownNumber() {
-    assertTrue(manager.findByNumber(&#34;R999&#34;).isEmpty());
+    assertTrue(
+            manager
+                    .findByNumber(&#34;R999&#34;)
+                    .isEmpty()
+    );
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 
@@ -879,166 +815,39 @@ void findsNoRoomForAnUnknownNumber() {
 
 JUnit nimmt an zwei Stellen Lambdas entgegen: `Assertions.assertAll` und
 `Assertions.assertThrows`. Sieh Dir beide Methoden in der Javadoc oder im JUnit User Guide an
-und bau damit Tests aus den früheren Übungen um:
+und bau damit den Test `secondBookingOfTheSameDayIsRejected` in `RoomTest` (Package
+`aufbau.junit`) um:
 
-- `ObjectPoolTest` im Package `aufbau.wrapper`: Jeder Test führt alle seine Assertions aus und
-  meldet alle, die scheitern – nicht nur die erste.
-- `secondBookingOfTheSameDayIsRejected` in `RoomTest` (Package `aufbau.junit`): Der Test
-  erwartet die `RoomAlreadyBookedException` der zweiten Buchung ohne `try`-`catch` und
-  `fail` – und prüft weiter, dass sie diesen Raum und diesen Tag nennt.
+- Er erwartet die `RoomAlreadyBookedException` der zweiten Buchung mit `assertThrows` – ohne
+  `try`-`catch` und `fail`.
+- Er prüft weiter, dass sie diesen Raum und diesen Tag nennt – mit `assertAll`, sodass beide
+  Prüfungen laufen, auch wenn die erste scheitert.
 
 &gt; **Hinweis:** `assertThrows` liefert die gefangene Exception zurück; an ihr prüfst Du Raum
 &gt; und Tag wie bisher im `catch`-Block.
 
 &lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
-&lt;summary&gt;Lösung: &lt;code&gt;ObjectPoolTest&lt;/code&gt;&lt;/summary&gt;
-&lt;p&gt;Dazu der statische Import &lt;code&gt;Assertions.assertAll&lt;/code&gt;. Die Erwartungen sind die korrigierten aus der Übung zu den Wrapper-Klassen.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
-void stringLiterals() {
-    String s1 = &#34;text&#34;;
-    String s2 = &#34;text&#34;;
-
-    assertAll(
-            () -&amp;gt; assertEquals(true, s1 == s2),
-            () -&amp;gt; assertEquals(false, new String(s1) == s2),
-            () -&amp;gt; assertEquals(true, new String(s1).intern() == s2));
-}
-
-@Test
-void concatenatedStrings() {
-    String s1 = &#34;text&#34;;
-    String te = &#34;te&#34;;
-    final String xt = &#34;xt&#34;;
-
-    String s3 = &#34;te&#34; &#43; &#34;xt&#34;;
-    String s4 = te &#43; &#34;xt&#34;;
-    String s5 = &#34;te&#34; &#43; xt;
-
-    assertAll(
-            () -&amp;gt; assertEquals(true, s1 == s3),
-            () -&amp;gt; assertEquals(false, s1 == s4),
-            () -&amp;gt; assertEquals(true, s1 == s4.intern()),
-            () -&amp;gt; assertEquals(true, s1 == s5));
-}
-
-@Test
-void boxedIntegers() {
-    Integer i1 = 4;
-    Integer i2 = 4;
-    Integer i3 = 128;
-    Integer i4 = 128;
-    Integer i5 = -129;
-    Integer i6 = -129;
-
-    assertAll(
-            () -&amp;gt; assertEquals(true, i1 == i2),
-            () -&amp;gt; assertEquals(false, i3 == i4),
-            () -&amp;gt; assertEquals(false, i5 == i6),
-            () -&amp;gt; assertEquals(true, i5.equals(i6)));
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-
-&lt;details class=&#34;skr-reveal skr-reveal--screen-only&#34; markdown=&#34;0&#34;&gt;
 &lt;summary&gt;Lösung: &lt;code&gt;secondBookingOfTheSameDayIsRejected&lt;/code&gt;&lt;/summary&gt;
-&lt;p&gt;Statt &lt;code&gt;Assertions.fail&lt;/code&gt; jetzt statisch &lt;code&gt;Assertions.assertThrows&lt;/code&gt; importieren. Die erste Buchung steht weiter außerhalb des Lambdas – deshalb bleibt das &lt;code&gt;throws&lt;/code&gt; am Test.&lt;/p&gt;
+&lt;p&gt;Statt &lt;code&gt;Assertions.fail&lt;/code&gt; jetzt statisch &lt;code&gt;Assertions.assertThrows&lt;/code&gt; und &lt;code&gt;Assertions.assertAll&lt;/code&gt; importieren. Die erste Buchung steht weiter außerhalb des Lambdas – deshalb bleibt das &lt;code&gt;throws&lt;/code&gt; am Test.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
 void secondBookingOfTheSameDayIsRejected() throws RoomAlreadyBookedException {
     room.book(MONDAY);
 
-    RoomAlreadyBookedException exception =
-            assertThrows(RoomAlreadyBookedException.class, () -&amp;gt; room.book(MONDAY));
+    RoomAlreadyBookedException exception = assertThrows(
+            RoomAlreadyBookedException.class,
+            () -&amp;gt; room.book(MONDAY)
+    );
 
-    assertSame(room, exception.getRoom());
-    assertEquals(MONDAY, exception.getDay());
+    assertAll(
+            () -&amp;gt; assertSame(room, exception.getRoom()),
+            () -&amp;gt; assertEquals(MONDAY, exception.getDay())
+    );
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 
-Starte die Tests danach in der IDE; sie müssen grün bleiben. Ändere zur Probe zwei Erwartungen in
-einem `assertAll` – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.
-
-### Ruf eine Methode mit Checked Exception aus einem Lambda auf
-
-`readFile` wirft eine `IOException`. Kopiere die Klasse ins Package `aufbau.lambdas` unter `src/test/java`.
-
-`ExceptionsInLambdasTest.java`:
-
-```java
-package aufbau.lambdas;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-class ExceptionsInLambdasTest {
-
-    @TempDir
-    Path folder;
-
-    @Test
-    void exceptionReachesTheCaller() {
-        Path missingFile = folder.resolve(&#34;missing.txt&#34;);
-
-        assertThrows(IOException.class, () -&gt; executeAction(missingFile));
-    }
-
-    @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented readAll&#34;)
-    void readAllReadsEveryFile() throws IOException {
-        Path first = Files.writeString(folder.resolve(&#34;first.txt&#34;), &#34;R101&#34;);
-        Path second = Files.writeString(folder.resolve(&#34;second.txt&#34;), &#34;R102&#34;);
-
-        assertEquals(List.of(&#34;R101&#34;, &#34;R102&#34;), readAll(List.of(first, second)));
-    }
-
-    @Test
-    @Disabled(&#34;Remove @Disabled once you have implemented readAll&#34;)
-    void readAllFailsForAMissingFile() {
-        Path missingFile = folder.resolve(&#34;missing.txt&#34;);
-
-        assertThrows(UncheckedIOException.class, () -&gt; readAll(List.of(missingFile)));
-    }
-
-    // Only change the two methods below. executeAction has to read the file via the Supplier.
-    private static String executeAction(Path file) throws IOException {
-        // Supplier&lt;String&gt; reader = () -&gt; readFile(file);
-        // return reader.get();
-        return readFile(file);
-    }
-
-    private static List&lt;String&gt; readAll(List&lt;Path&gt; files) {
-        // return files.stream().map(file -&gt; readFile(file)).toList();
-        throw new UnsupportedOperationException(&#34;TODO&#34;);
-    }
-
-    private static String readFile(Path file) throws IOException {
-        return Files.readString(file);
-    }
-}
-```
-
-Ändere nur `executeAction` und `readAll`:
-
-* `executeAction` soll die Datei über ein Lambda lesen, wie im Kommentar. Entferne die
-  Kommentarzeichen und lies die Meldung des Compilers. Finde einen Weg, bei dem die
-  `IOException` trotzdem beim Aufrufer ankommt – der Test `exceptionReachesTheCaller`
-  bleibt grün.
-* `readAll` soll alle Dateien mit einem Stream lesen, wie im Kommentar. Hier soll eine
-  fehlende Datei als `UncheckedIOException` ankommen. Entferne an den beiden Tests zu
-  `readAll` das `@Disabled`.
-
-&gt; **Hinweis:** Zwei Wege sind üblich: ein eigenes funktionales Interface, dessen
-&gt; Methode `throws IOException` deklariert, oder die `IOException` im Lambda fangen
-&gt; und in eine `UncheckedIOException` einpacken. Probier beide aus.
+Starte den Test danach in der IDE; er muss grün bleiben. Ändere zur Probe beide Erwartungen im
+`assertAll` – wie viele Fehlschläge meldet JUnit? Nimm die Änderung danach zurück.
 
 ### Für Schnelle
 
@@ -1053,7 +862,8 @@ class ExceptionsInLambdasTest {
 &lt;p&gt;&lt;code&gt;min&lt;/code&gt; mit einem &lt;code&gt;Comparator&lt;/code&gt; ersetzt &lt;code&gt;findFirst&lt;/code&gt;; im &lt;code&gt;RoomManager&lt;/code&gt; dazu der Import &lt;code&gt;java.util.Comparator&lt;/code&gt;. Für 2 Personen findet &lt;code&gt;findFirst&lt;/code&gt; Berlin, &lt;code&gt;min&lt;/code&gt; Leipzig.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public Optional&amp;lt;Room&amp;gt; findSmallestFreeRoom(LocalDate day, int persons) {
-    return rooms.stream()
+    return rooms
+            .stream()
             .filter(room -&amp;gt; room.canHost(persons))
             .filter(room -&amp;gt; !room.isBooked(day))
             .min(Comparator.comparingInt(Room::getCapacity));
@@ -1061,7 +871,13 @@ class ExceptionsInLambdasTest {
 
 @Test
 void findsTheSmallestFreeRoomThatIsLargeEnough() {
-    assertEquals(&#34;Leipzig&#34;, manager.findSmallestFreeRoom(MONDAY, 2).map(Room::getName).orElse(&#34;none&#34;));
+    assertEquals(
+            &#34;Leipzig&#34;,
+            manager
+                    .findSmallestFreeRoom(MONDAY, 2)
+                    .map(Room::getName)
+                    .orElse(&#34;none&#34;)
+    );
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 
@@ -1070,14 +886,17 @@ void findsTheSmallestFreeRoomThatIsLargeEnough() {
 &lt;p&gt;&lt;code&gt;Collectors.joining&lt;/code&gt; mit Trennzeichen; dazu der Import &lt;code&gt;java.util.stream.Collectors&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public String findBookedRoomNames(LocalDate day) {
-    return findBookedRooms(day).stream()
+    return findBookedRooms(day)
             .map(Room::getName)
             .collect(Collectors.joining(&#34;, &#34;));
 }
 
 @Test
 void joinsTheNamesOfTheBookedRooms() {
-    assertEquals(&#34;Hamburg, Munich, Dresden&#34;, manager.findBookedRoomNames(MONDAY));
+    assertEquals(
+            &#34;Hamburg, Munich, Dresden&#34;,
+            manager.findBookedRoomNames(MONDAY)
+    );
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 
@@ -1092,7 +911,6 @@ void joinsTheNamesOfTheBookedRooms() {
 - Woran merkt der Aufrufer von `findByNumber`, dass es keinen Raum geben kann – vorher und nachher?
 - `stream()` ist eine Default-Methode von `Collection`. Was ist das – und wofür brauchen wir sie?
 - Warum nehmen `assertAll` und `assertThrows` Lambdas entgegen und nicht einfach die Ergebnisse der Prüfungen oder Aufrufe?
-- Welche Deiner beiden Lösungen für die Checked Exception würdest Du im Projekt verwenden – und warum?
 
 &lt;/div&gt;
 
@@ -1101,14 +919,14 @@ void joinsTheNamesOfTheBookedRooms() {
   <details class="skr-guide-side skr-guide-side--toc skr-fold" data-skr-toc-box
            data-skr-toc-limit="12" open>
     <summary class="skr-guide-side__label">Auf dieser Seite</summary>
-    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#bau-die-schleifen-zu-pipelines-um" class="skr-toc--h3">Bau die Schleifen zu Pipelines um</a><a href="#ersetz-null-durch-optional" class="skr-toc--h3">Ersetz null durch Optional</a><a href="#teste-mit-lambdas-assertall-und-assertthrows" class="skr-toc--h3">Teste mit Lambdas: assertAll und assertThrows</a><a href="#ruf-eine-methode-mit-checked-exception-aus-einem-lambda-auf" class="skr-toc--h3">Ruf eine Methode mit Checked Exception aus einem Lambda auf</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
+    <nav class="skr-toc skr-fold__body" data-skr-toc aria-label="Inhaltsverzeichnis"><a href="#arbeitsschritte">Arbeitsschritte</a><a href="#lege-das-paket-an-und-kopiere-den-code" class="skr-toc--h3">Lege das Paket an und kopiere den Code</a><a href="#bau-die-schleifen-zu-pipelines-um" class="skr-toc--h3">Bau die Schleifen zu Pipelines um</a><a href="#ersetz-null-durch-optional" class="skr-toc--h3">Ersetz null durch Optional</a><a href="#teste-mit-lambdas-assertall-und-assertthrows" class="skr-toc--h3">Teste mit Lambdas: assertAll und assertThrows</a><a href="#für-schnelle" class="skr-toc--h3">Für Schnelle</a><a href="#reflexionsfragen">Reflexionsfragen</a></nav>
   </details>
   <section class="skr-guide-side skr-guide-side--bordered skr-guide-progress" data-skr-card="skriptorium.progress"
            aria-labelledby="skr-card-skriptorium-progress" data-skr-progress-text="{done} / {total} erledigt">
     <div class="skr-guide-side__label" id="skr-card-skriptorium-progress">Fortschritt</div>
     <div class="skr-guide-side__body">
       <div class="skr-guide-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="skr-card-skriptorium-progress"><div class="skr-guide-progress__fill"></div></div>
-      <div class="skr-guide-progress__text" aria-live="polite">0 / 6 erledigt</div>
+      <div class="skr-guide-progress__text" aria-live="polite">0 / 5 erledigt</div>
     </div>
   </section>
   <template data-skr-sidebar-cards></template>
